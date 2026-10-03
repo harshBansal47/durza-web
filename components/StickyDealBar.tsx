@@ -1,4 +1,4 @@
-import { api } from "@/lib/api";
+import OutboundLink from "./OutboundLink";
 import type { CouponPublic } from "@/lib/types";
 
 /**
@@ -12,13 +12,20 @@ export default function StickyDealBar({ coupon, storeName }: { coupon: CouponPub
     <div className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-ledger-line bg-white/95 px-4 pt-3 backdrop-blur-md md:hidden no-print">
       <div className="flex items-center gap-3 pb-3">
         <p className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{coupon.title}</p>
-        <a
-          href={hasCode ? "#code-panel" : api.goUrl(coupon.id, "sticky-bar")}
-          rel={hasCode ? undefined : "sponsored nofollow noopener"}
-          className="btn btn-cta shrink-0 px-5"
-        >
-          {hasCode ? "Reveal code" : storeName ? `Go to ${storeName}` : "Get deal"}
-        </a>
+        {hasCode ? (
+          <a href="#code-panel" className="btn btn-cta shrink-0 px-5">
+            Reveal code
+          </a>
+        ) : (
+          <OutboundLink
+            coupon={coupon}
+            storeName={storeName ?? ""}
+            src="sticky-bar"
+            className="btn btn-cta shrink-0 px-5"
+          >
+            {storeName ? `Go to ${storeName}` : "Get deal"}
+          </OutboundLink>
+        )}
       </div>
     </div>
   );

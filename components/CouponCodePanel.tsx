@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { api } from "@/lib/api";
+import OutboundLink from "./OutboundLink";
 import type { CouponPublic } from "@/lib/types";
 
 const CONFETTI_COLORS = ["#ff6a1a", "#ffc933", "#4f46e5", "#ff4d8d", "#0f9d58", "#7c3aed"];
@@ -101,13 +101,14 @@ export default function CouponCodePanel({ coupon }: { coupon: CouponPublic }) {
       </div>
 
       <div className="px-5 pb-5">
-        <a
-          href={api.goUrl(coupon.id, "coupon-page")}
-          rel="sponsored nofollow noopener"
+        <OutboundLink
+          coupon={coupon}
+          storeName={""}
+          src="coupon-page"
           className="btn btn-cta w-full py-3 text-base"
         >
           Get this deal at the store
-        </a>
+        </OutboundLink>
         <p className="mt-2 text-center text-xs text-ink-soft">Opens the store. Come back and tell us if the code worked.</p>
       </div>
     </div>
