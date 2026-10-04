@@ -5,10 +5,10 @@ import Link from "next/link";
  * about how the site works; there are no fake countdowns here.
  */
 const MESSAGES = [
-  "Every code shows a real success rate from real shoppers",
-  "Our commission is printed on every store page",
-  "Expired codes are removed, not left to pile up",
-  "Track a price and get an email when it drops",
+  "Real shopper feedback on coupon success rates",
+  "Verified deals from your favorite stores",
+  "Expired coupons removed regularly",
+  "Get notified when prices drop",
 ];
 
 export default function PromoStrip() {
