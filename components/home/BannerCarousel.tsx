@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { api } from "@/lib/api";
+import type { Ad } from "@/lib/types";
 
 interface Banner {
   title: string;
@@ -39,7 +42,9 @@ const BANNERS: Banner[] = [
   },
 ];
 
-export default function BannerCarousel() {
+export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null }) {
+  // The sponsored slide is always last, so the editorial slides come first.
+  const total = BANNERS.length + (sponsored ? 1 : 0);
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -47,9 +52,9 @@ export default function BannerCarousel() {
   const goTo = useCallback((i: number) => {
     const el = trackRef.current;
     if (!el) return;
-    const next = (i + BANNERS.length) % BANNERS.length;
+    const next = (i + total) % total;
     el.scrollTo({ left: next * el.clientWidth, behavior: "smooth" });
-  }, []);
+  }, [total]);
 
   // Track the visible slide from scroll position (works for swipe + buttons).
   useEffect(() => {
@@ -87,7 +92,7 @@ export default function BannerCarousel() {
             key={b.title}
             role="group"
             aria-roledescription="slide"
-            aria-label={`${i + 1} of ${BANNERS.length}`}
+            aria-label={`${i + 1} of ${total}`}
             className={`${b.tone} relative min-w-full snap-center overflow-hidden px-6 py-9 text-white sm:px-12 sm:py-12`}
           >
             <div className="bg-dots pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
@@ -107,15 +112,47 @@ export default function BannerCarousel() {
             </div>
           </div>
         ))}
+
+        {sponsored && (
+          <div
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${total} of ${total}, ${sponsored.label}`}
+            className="relative min-h-[220px] min-w-full snap-center overflow-hidden bg-ledger-line sm:min-h-[280px]"
+          >
+            <a
+              href={api.adGoUrl(sponsored.id, "ad-header")}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              className="absolute inset-0 block"
+            >
+              <Image
+                src={sponsored.image_url}
+                alt={sponsored.alt_text ?? sponsored.advertiser ?? ""}
+                fill
+                unoptimized
+                sizes="(min-width: 1152px) 1152px, 100vw"
+                className="object-cover"
+              />
+              <span className="absolute left-3 top-3 rounded-full bg-black/75 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur">
+                {sponsored.label}
+                {sponsored.advertiser ? (
+                  <span className="font-normal opacity-80"> · {sponsored.advertiser}</span>
+                ) : null}
+              </span>
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        )}
       </div>
 
       <div className="mt-3 flex items-center justify-center gap-2">
         <button type="button" onClick={() => goTo(active - 1)} aria-label="Previous slide" className="btn-ghost flex h-8 w-8 items-center justify-center rounded-full">
           ‹
         </button>
-        {BANNERS.map((b, i) => (
+        {Array.from({ length: total }, (_, i) => (
           <button
-            key={b.title}
+            key={i}
             type="button"
             onClick={() => goTo(i)}
             aria-label={`Go to slide ${i + 1}`}

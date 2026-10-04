@@ -227,3 +227,24 @@ export interface AutocompleteResult {
   categories: string[];
   products: string[];
 }
+
+export type AdPosition = "header" | "sidebar" | "footer";
+
+/**
+ * A paid placement. There is deliberately no destination URL here: the
+ * advertiser is only reachable through api.adGoUrl, so every click is recorded.
+ */
+export interface Ad {
+  id: string;
+  position: AdPosition;
+  image_url: string;
+  /** "Sponsored" | "Partner" | "Ad": always shown, never blank. */
+  label: string;
+  advertiser: string | null;
+  alt_text: string | null;
+  starts_at: string | null;
+  ends_at: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+

@@ -4,6 +4,7 @@ import { Bricolage_Grotesque, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PromoStrip from "@/components/PromoStrip";
+import { getSponsored } from "@/lib/ads";
 import ToastProvider from "@/components/ui/Toast";
 import "./globals.css";
 
@@ -64,7 +65,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // Server-rendered so the header shows the signed-in name without waiting on
   // the client. Failures here must not take the whole page down, so a bad
   // session cookie just means an anonymous header.
-  const user = await getSessionUser().catch(() => null);
+  const [user, footerAd] = await Promise.all([
+    getSessionUser().catch(() => null),
+    getSponsored("footer"),
+  ]);
 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${code.variable}`}>
@@ -81,7 +85,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main id="main" className="flex-1">
             {children}
           </main>
-          <Footer />
+          <Footer ad={footerAd} />
         </ToastProvider>
       </body>
     </html>

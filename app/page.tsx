@@ -8,6 +8,7 @@ import CategoryRow from "@/components/home/CategoryRow";
 import StoreMarquee from "@/components/home/StoreMarquee";
 import HowItWorks from "@/components/home/HowItWorks";
 import DealsCarousel from "@/components/home/DealsCarousel";
+import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
 import { absoluteUrl } from "@/lib/seo";
 import type { Paginated } from "@/lib/types";
@@ -49,7 +50,7 @@ const PILLARS = [
 export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
 
-  const [coupons, stores, categories, popularSearches] = await Promise.all([
+  const [coupons, stores, categories, popularSearches, headerAd] = await Promise.all([
     safe(api.listCoupons({ active_only: true, limit: 12 }), emptyPage as Paginated<never>),
     safe(api.listStores({ limit: 8 }), emptyPage as Paginated<never>),
     safe(api.listCategories({ limit: 24 }), emptyPage as Paginated<never>),
@@ -57,6 +58,7 @@ export default async function HomePage() {
       api.listCoupons({ active_only: true, limit: 60 }),
       emptyPage as Paginated<never>,
     ),
+    getSponsored("header"),
   ]);
 
   const cardStores = stores.items.map((s) => ({
@@ -130,7 +132,7 @@ export default async function HomePage() {
           )}
 
           <section className="mt-8">
-            <BannerCarousel />
+            <BannerCarousel sponsored={headerAd} />
           </section>
 
           {stores.items.length > 0 && (

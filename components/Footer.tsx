@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SponsoredCard from "@/components/SponsoredCard";
+import type { Ad } from "@/lib/types";
 
 const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
@@ -38,9 +40,14 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   },
 ];
 
-export default function Footer() {
+export default function Footer({ ad }: { ad?: Ad | null }) {
   return (
     <footer className="mt-16 no-print">
+      {ad && (
+        <div className="mx-auto mb-8 max-w-6xl px-4 sm:px-6">
+          <SponsoredCard ad={ad} src="ad-footer" aspect="aspect-[4/1] sm:aspect-[6/1]" />
+        </div>
+      )}
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="bg-brand relative overflow-hidden rounded-[28px] px-6 py-10 text-white shadow-[var(--shadow-overlay)] sm:px-12">
           <div className="bg-dots pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />

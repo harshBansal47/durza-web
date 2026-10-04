@@ -20,6 +20,10 @@ export default function PrivacyPage() {
           stays (without you in it) so we can tell which deals actually help shoppers.
         </p>
         <p>
+          Clicks on labelled sponsored banners are logged the same way. The advertiser receives
+          only a Couponbase campaign tag in the link, never your IP address.
+        </p>
+        <p>
           When you click through to a store, we add a random reference to the link so the store&apos;s
           affiliate network can tell us a purchase came from Couponbase. That reference identifies the
           click, not you, and your IP address is never shared with merchants or affiliate networks.

@@ -6,6 +6,8 @@ import type {
   CmsPage,
   NotificationPreference,
   Paginated,
+  Ad,
+  AdPosition,
   PricePoint,
   Product,
   PushPublicKey,
@@ -132,6 +134,13 @@ export const api = {
    * the backend only accepts short lowercase tags and files anything else as "unknown".
    */
   goUrl: (couponId: string, src?: string) => `${API_URL}/coupons/${couponId}/go${goQuery(src)}`,
+
+  /** Live sponsored placements (the backend already enforces the booked window). */
+  listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
+    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 60 }),
+
+  /** Tracked redirect to an advertiser. The advertiser URL is never in API JSON. */
+  adGoUrl: (adId: string, src?: string) => `${API_URL}/ads/${adId}/go${goQuery(src)}`,
 
   /** Tracked redirect to a product's store page. The raw URL is never in API JSON. */
   productGoUrl: (productId: string, src?: string) =>
@@ -394,6 +403,8 @@ export const resilient = {
   getCouponBySlug: (slug: string) => orNull(api.getCouponBySlug(slug)),
   getCouponById: (couponId: string) => orNull(api.getCouponById(couponId)),
   listStores: (params: StoreListParams = {}) => orEmpty(api.listStores(params)),
+  listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
+    orEmpty(api.listAds(params)),
   getStoreBySlug: (slug: string) => orNull(api.getStoreBySlug(slug)),
   getStoreById: (storeId: string) => orNull(api.getStoreById(storeId)),
   listMarkets: () => orEmptyArray(api.listMarkets()),

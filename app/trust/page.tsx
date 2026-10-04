@@ -21,6 +21,11 @@ const PLEDGES = [
     id: "commissions",
   },
   {
+    title: "Paid banners are labelled, and they never buy a ranking",
+    body: "Some banners are paid for by advertisers. They are always marked Sponsored, Partner or Ad, they sit apart from the coupon listings, and paying never changes a coupon's success rate or where it appears in results.",
+    id: "sponsored",
+  },
+  {
     title: "We never touch another creator's referral link",
     body: "Some browser extensions have been caught replacing other people's affiliate links with their own at checkout. We don't run a browser extension, and we never will do that.",
   },
@@ -42,7 +47,7 @@ export default async function TrustPage() {
     <div className="mx-auto max-w-2xl px-6 py-12">
       <h1 className="font-serif text-3xl text-ink">How this works</h1>
       <p className="mt-3 text-ink-soft">
-        Three things we commit to, whether or not anyone&apos;s checking.
+        What we commit to, whether or not anyone&apos;s checking.
       </p>
 
       <div className="mt-10 space-y-8">

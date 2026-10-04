@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ApiError, resilient } from "@/lib/api";
 import CouponCodePanel from "@/components/CouponCodePanel";
+import SponsoredCard from "@/components/SponsoredCard";
+import { getSponsored } from "@/lib/ads";
 import VerifyWidget from "@/components/VerifyWidget";
 import DisclosureNote from "@/components/DisclosureNote";
 import { formatDiscount, formatRelativeTime } from "@/lib/format";
@@ -73,10 +75,11 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
   const coupon = await loadCoupon(slug);
   if (!coupon) notFound();
 
-  const [store, relatedCoupons, verificationHistory] = await Promise.all([
+  const [store, relatedCoupons, verificationHistory, sidebarAd] = await Promise.all([
     loadStore(coupon.store_id),
     loadRelatedCoupons(coupon.id, coupon.store_id),
     loadVerificationHistory(coupon.id),
+    getSponsored("sidebar"),
   ]);
 
   // schema.org structured data
@@ -165,6 +168,12 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
       <section id="code-panel" className="mb-8 scroll-mt-24">
         <CouponCodePanel coupon={coupon} storeName={store?.name} />
       </section>
+
+      {sidebarAd && (
+        <section className="mb-8" aria-label="Sponsored">
+          <SponsoredCard ad={sidebarAd} src="ad-sidebar" aspect="aspect-[4/1] sm:aspect-[5/1]" />
+        </section>
+      )}
 
       {/* Verification status */}
       <section className="mb-8">
