@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -16,108 +17,238 @@ export default function Header({
   user,
 }: {
   links: NavLink[];
-  /** Display name when signed in; undefined means anonymous. */
   user?: { name: string } | null;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
-  // Expose header height as CSS variable for mobile menu positioning
   useLayoutEffect(() => {
-    const header = headerRef.current;
-    if (header) {
-      const height = header.getBoundingClientRect().height;
-      document.documentElement.style.setProperty("--header-height", `${height}px`);
-    }
-    const onResize = () => {
-      const h = headerRef.current?.getBoundingClientRect().height ?? 0;
-      document.documentElement.style.setProperty("--header-height", `${h}px`);
+    const updateHeaderHeight = () => {
+      const height =
+        headerRef.current?.getBoundingClientRect().height ?? 0;
+
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${height}px`
+      );
     };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+
+    updateHeaderHeight();
+
+    const observer = new ResizeObserver(updateHeaderHeight);
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    window.addEventListener("resize", updateHeaderHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateHeaderHeight);
+    };
   }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
+
     onScroll();
+
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <>
       <header
         ref={headerRef}
-        className={`sticky top-0 z-40 border-b border-ledger-line/70 bg-white/85 backdrop-blur-md transition-shadow duration-200 ${
-          scrolled ? "shadow-[var(--shadow-raised)]" : ""
-        }`}
+        className={[
+          "sticky top-0 z-40",
+          "border-b border-ledger-line/70",
+          "bg-white/95 backdrop-blur-xl",
+          "transition-shadow duration-200",
+          scrolled ? "shadow-[var(--shadow-raised)]" : "",
+        ].join(" ")}
       >
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="mx-auto flex min-h-[68px] max-w-7xl items-center gap-5 px-4 sm:min-h-[76px] sm:px-6 lg:gap-8 lg:px-8">
+          {/* Brand */}
           <Link
             href="/"
-            className="flex shrink-0 items-center font-serif text-xl font-extrabold tracking-tight text-ink sm:text-2xl"
+            aria-label="Couponbase home"
+            className="group flex shrink-0 items-center gap-2.5"
           >
             <span
               aria-hidden="true"
-              className="bg-brand mr-2 inline-flex h-8 w-8 -rotate-6 items-center justify-center rounded-xl font-serif text-base font-extrabold text-white shadow-[var(--shadow-glow)]"
+              className="
+                flex h-9 w-9 items-center justify-center
+                rounded-xl bg-brand
+                font-serif text-xl font-extrabold text-white
+                shadow-[var(--shadow-glow)]
+                transition-transform duration-200
+                group-hover:scale-[1.04]
+              "
             >
               C
             </span>
-            Couponbase
+
+            <span className="font-serif text-[21px] font-extrabold tracking-tight text-ink sm:text-[23px]">
+              Couponbase
+            </span>
           </Link>
 
-          <nav className="hidden flex-1 items-center justify-center gap-0.5 lg:flex" aria-label="Main">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={pathname === link.href ? "page" : undefined}
-                className="rounded-full px-3.5 py-1.5 text-sm font-semibold text-ink-soft transition-colors hover:bg-inkblue/10 hover:text-inkblue aria-[current=page]:bg-inkblue/10 aria-[current=page]:text-inkblue"
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Desktop navigation */}
+          <nav
+            className="hidden h-full flex-1 items-center justify-center gap-1 lg:flex"
+            aria-label="Main navigation"
+          >
+            {links.map((link) => {
+              const active = isActive(link.href);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={[
+                    "relative flex h-10 items-center rounded-lg px-3.5",
+                    "text-[13px] font-semibold tracking-wide",
+                    "transition-colors duration-150",
+                    active
+                      ? "bg-inkblue/[0.07] text-inkblue"
+                      : "text-ink-soft hover:bg-inkblue/[0.05] hover:text-inkblue",
+                    "after:absolute after:bottom-0 after:left-3.5 after:right-3.5",
+                    "after:h-0.5 after:rounded-full after:bg-inkblue",
+                    "after:transition-transform after:duration-150",
+                    active
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0 hover:after:scale-x-100",
+                  ].join(" ")}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          <div className="ml-auto hidden min-w-0 flex-1 justify-end md:flex lg:ml-0 lg:max-w-xs">
+          {/* Search */}
+          <div className="ml-auto hidden w-full max-w-[260px] shrink-0 md:block lg:ml-0 lg:max-w-[280px]">
             <HeaderSearch />
           </div>
 
-          <div className="hidden shrink-0 items-center gap-2 md:flex">
+          {/* Account */}
+          <div className="hidden shrink-0 md:block">
             <Link
               href={user ? "/account" : "/account/login"}
-              className="flex items-center gap-2 rounded-full border border-inkblue/30 bg-white px-4 py-1.5 text-sm font-semibold text-inkblue transition-all hover:bg-inkblue hover:text-white hover:shadow-[var(--shadow-glow)]"
+              className="
+                group flex min-h-10 items-center gap-2.5
+                rounded-xl border border-ledger-line
+                bg-white px-3
+                text-sm font-semibold text-ink
+                transition-all duration-150
+                hover:border-inkblue/30 hover:bg-inkblue/[0.03]
+              "
             >
               {user ? (
                 <>
                   <span
                     aria-hidden="true"
-                    className="bg-brand flex h-6 w-6 items-center justify-center rounded-full font-mono text-[11px] text-white"
+                    className="
+                      flex h-7 w-7 shrink-0 items-center justify-center
+                      rounded-lg bg-brand
+                      text-xs font-bold text-white
+                    "
                   >
-                    {user.name.charAt(0).toUpperCase()}
+                    {user.name.trim().charAt(0).toUpperCase() || "U"}
                   </span>
-                  <span className="max-w-[10ch] truncate">{user.name}</span>
+
+                  <span className="max-w-[100px] truncate">
+                    {user.name}
+                  </span>
+
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    className="h-4 w-4 text-ink-soft"
+                  >
+                    <path
+                      d="m6 8 4 4 4-4"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </>
               ) : (
-                "Sign in"
+                <>
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-[17px] w-[17px] text-inkblue"
+                  >
+                    <path
+                      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="7"
+                      r="4"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                    />
+                  </svg>
+
+                  <span>Sign in</span>
+                </>
               )}
             </Link>
           </div>
 
-          <div className="ml-auto flex shrink-0 items-center gap-0.5 md:hidden">
+          {/* Mobile actions */}
+          <div className="ml-auto flex shrink-0 items-center gap-1 md:hidden">
             <button
               type="button"
               onClick={() => setMobileSearchOpen(true)}
-              className="btn-ghost flex h-11 w-11 items-center justify-center"
-              aria-label="Search"
+              className="
+                flex h-10 w-10 items-center justify-center
+                rounded-xl text-ink-soft
+                transition-colors
+                hover:bg-inkblue/[0.06] hover:text-inkblue
+                focus-visible:outline-none focus-visible:ring-2
+                focus-visible:ring-inkblue/50
+              "
+              aria-label="Open search"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8" />
-                <path d="M21 21l-4.35-4.35" />
+              <svg
+                width="21"
+                height="21"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="7.5" />
+                <path d="m16.5 16.5 4 4" />
               </svg>
             </button>
+
             <MobileNav
               links={links}
               accountLink={
@@ -131,7 +262,10 @@ export default function Header({
         </div>
       </header>
 
-      <MobileSearch isOpen={mobileSearchOpen} onClose={() => setMobileSearchOpen(false)} />
+      <MobileSearch
+        isOpen={mobileSearchOpen}
+        onClose={() => setMobileSearchOpen(false)}
+      />
     </>
   );
 }

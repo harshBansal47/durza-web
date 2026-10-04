@@ -13,96 +13,276 @@ interface HeroProps {
   endingSoon?: number;
 }
 
-/**
- * Product hero, not a brochure: search-as-product left, one real
- * opportunity right. No floating emoji, no gradient blobs.
- */
-export default function Hero({ stats, popularStores, spotlight = [], verifiedToday = 0, endingSoon = 0 }: HeroProps) {
-  const top = spotlight.slice(0, 1)[0];
-  const rest = spotlight.slice(1, 3);
+export default function Hero({
+  stats,
+  popularStores,
+  spotlight = [],
+  verifiedToday = 0,
+  endingSoon = 0,
+}: HeroProps) {
+  const topCoupon = spotlight[0];
+  const additionalCoupons = spotlight.slice(1, 3);
+
+  const visibleStats = stats
+    .filter((stat) => stat.value > 0)
+    .slice(0, 3);
+
+  const hasActivity = verifiedToday > 0 || endingSoon > 0;
 
   return (
-    <section className="overflow-hidden rounded-[28px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]">
-      <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/20 px-3.5 py-1 text-xs font-semibold text-white/90">
-            <span className="h-2 w-2 rounded-full bg-[#ffc933]" aria-hidden="true" />
-            {verifiedToday > 0 ? `${verifiedToday} codes confirmed recently` : "Codes confirmed by real shoppers"}
-            {endingSoon > 0 && <span className="text-white/60">· {endingSoon} ending soon</span>}
-          </p>
-          <h1 className="mt-5 text-balance font-serif text-4xl font-extrabold leading-[1.05] sm:text-5xl">
-            Before you pay, <span className="marker text-[#1b1836]">check Couponbase</span>.
+    <section className="relative overflow-hidden rounded-[28px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]">
+      {/* Subtle background structure */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="absolute -right-32 -top-32 h-80 w-80 rounded-full border border-white/[0.05]" />
+        <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full border border-white/[0.05]" />
+        <div className="absolute bottom-0 right-0 h-full w-px bg-white/[0.05] lg:block" />
+      </div>
+
+      <div className="relative grid lg:grid-cols-[1.15fr_0.85fr]">
+        {/* Left */}
+        <div className="px-5 py-8 sm:px-8 sm:py-10 lg:px-11 lg:py-12">
+          {/* Dynamic activity information */}
+          {hasActivity && (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              {verifiedToday > 0 && (
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-white/85">
+                  <span
+                    aria-hidden="true"
+                    className="h-1.5 w-1.5 rounded-full bg-[#ffc933]"
+                  />
+                  {verifiedToday.toLocaleString("en-IN")} verified today
+                </span>
+              )}
+
+              {endingSoon > 0 && (
+                <span className="text-xs text-white/50">
+                  {endingSoon.toLocaleString("en-IN")} ending soon
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Main heading */}
+          <h1
+            className={[
+              "max-w-2xl font-serif font-extrabold tracking-tight",
+              "text-4xl leading-[1.05] sm:text-5xl lg:text-[3.5rem]",
+              hasActivity ? "mt-6" : "mt-0",
+            ].join(" ")}
+          >
+            Find better deals
+            <br />
+            <span className="text-[#ffc933]">before you pay.</span>
           </h1>
-          <p className="mt-4 max-w-xl text-pretty text-base text-white/75 sm:text-lg">
-            Real codes with real success rates. No countdown theater, no paid placement.
+
+          <p className="mt-5 max-w-xl text-base leading-7 text-white/70">
+            Search for coupon codes, offers and deals from the stores you shop
+            at.
           </p>
 
-          <div className="mt-6 max-w-xl [&_input]:!bg-white" role="search" aria-label="Site search">
-            <HeaderSearch popular={popularStores.map((s) => s.name)} />
-            <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-white/50">
-              Try a store, a brand, or a category
+          {/* Search */}
+          <div
+            className="mt-7 max-w-xl"
+            role="search"
+            aria-label="Search coupons"
+          >
+            <HeaderSearch
+              popular={popularStores.map((store) => store.name)}
+            />
+
+            <p className="mt-2 text-xs text-white/45">
+              Search by store, brand or category
             </p>
           </div>
 
+          {/* Popular stores */}
           {popularStores.length > 0 && (
-            <p className="mt-4 flex flex-wrap items-center gap-2 text-sm text-white/75">
-              <span className="font-medium text-white/60">Popular:</span>
-              {popularStores.slice(0, 5).map((store) => (
-                <Link
-                  key={store.id}
-                  href={`/stores/${store.slug}`}
-                  className="rounded-full border border-white/20 px-3 py-1 text-xs font-semibold transition-colors hover:bg-white hover:text-black"
-                >
-                  {store.name}
-                </Link>
-              ))}
-            </p>
+            <div className="mt-7">
+              <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                Popular stores
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {popularStores.slice(0, 5).map((store) => (
+                  <Link
+                    key={store.id}
+                    href={`/stores/${store.slug}`}
+                    className="
+                      rounded-lg
+                      border border-white/15
+                      bg-white/[0.04]
+                      px-3 py-1.5
+                      text-xs font-medium text-white/75
+                      transition-all duration-150
+                      hover:border-white/30
+                      hover:bg-white/[0.09]
+                      hover:text-white
+                    "
+                  >
+                    {store.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
           )}
 
-          {stats.some((s) => s.value > 0) && (
-            <dl className="mt-8 grid max-w-lg grid-cols-3 gap-3">
-              {stats
-                .filter((s) => s.value > 0)
-                .map((s) => (
-                  <div key={s.label} className="rounded-2xl border border-white/15 px-3 py-3">
-                    <dt className="text-[11px] font-medium text-white/60">{s.label}</dt>
-                    <dd className="font-mono text-2xl font-semibold">{s.value.toLocaleString("en-IN")}</dd>
-                  </div>
-                ))}
+          {/* Dynamic statistics */}
+          {visibleStats.length > 0 && (
+            <dl className="mt-9 flex max-w-xl border-t border-white/10 pt-5">
+              {visibleStats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={[
+                    "min-w-0 flex-1",
+                    index > 0
+                      ? "border-l border-white/10 pl-4 sm:pl-6"
+                      : "",
+                    index < visibleStats.length - 1
+                      ? "pr-4 sm:pr-6"
+                      : "",
+                  ].join(" ")}
+                >
+                  <dd className="font-mono text-xl font-semibold tracking-tight sm:text-2xl">
+                    {stat.value.toLocaleString("en-IN")}
+                  </dd>
+
+                  <dt className="mt-1 truncate text-[11px] text-white/45 sm:text-xs">
+                    {stat.label}
+                  </dt>
+                </div>
+              ))}
             </dl>
           )}
         </div>
 
-        <div aria-label="Worth a look right now">
-          {top ? (
-            <div className="rounded-[20px] bg-white p-5 text-ink">
-              <p className="font-mono text-[11px] uppercase tracking-widest text-ink-soft">Worth a look right now</p>
-              <p className="savings-figure mt-2 text-4xl">
-                <span className="marker">{formatDiscount(top)}</span>
-              </p>
-              <p className="mt-2 truncate text-sm font-semibold">{top.title}</p>
-              <Link href={`/coupons/${top.slug}`} className="btn btn-cta mt-4 w-full justify-center">
-                Get this deal
-              </Link>
-              {rest.length > 0 && (
-                <ul className="mt-4 space-y-2 border-t border-dashed border-ledger-line pt-4">
-                  {rest.map((c) => (
-                    <li key={c.id}>
-                      <Link href={`/coupons/${c.slug}`} className="flex items-center justify-between gap-3 text-sm hover:underline">
-                        <span className="min-w-0 truncate text-ink-soft">{c.title}</span>
-                        <span className="shrink-0 font-mono text-xs font-semibold text-ink">{formatDiscount(c)}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
+        {/* Right / Spotlight */}
+        <div className="border-t border-white/10 bg-white/[0.025] p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-9">
+          {topCoupon ? (
+            <div className="flex h-full flex-col justify-center">
+              {/* Coupon card */}
+              <div className="overflow-hidden rounded-[22px] bg-white text-ink shadow-2xl shadow-black/20">
+                <div className="p-5 sm:p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-soft">
+                        {topCoupon.title}
+                      </p>
+                    </div>
+
+                    <span className="shrink-0 rounded-full bg-brand/[0.08] px-2.5 py-1 text-[10px] font-semibold text-brand">
+                      {formatDiscount(topCoupon)}
+                    </span>
+                  </div>
+
+                  <div className="mt-6">
+                    <span className="marker font-serif text-4xl font-extrabold tracking-tight sm:text-5xl">
+                      {formatDiscount(topCoupon)}
+                    </span>
+                  </div>
+
+                  <Link
+                    href={`/coupons/${topCoupon.slug}`}
+                    className="
+                      mt-6 flex min-h-11 w-full
+                      items-center justify-center
+                      gap-2 rounded-xl
+                      bg-brand px-4 py-3
+                      text-sm font-semibold text-white
+                      transition-all duration-150
+                      hover:brightness-110
+                      hover:shadow-[var(--shadow-glow)]
+                    "
+                  >
+                    View coupon
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+
+                {/* Additional spotlight coupons */}
+                {additionalCoupons.length > 0 && (
+                  <div className="border-t border-ledger-line bg-[#faf9fc] px-5 py-4 sm:px-6">
+                    <ul className="divide-y divide-ledger-line">
+                      {additionalCoupons.map((coupon) => (
+                        <li key={coupon.id}>
+                          <Link
+                            href={`/coupons/${coupon.slug}`}
+                            className="
+                              group flex items-center
+                              justify-between gap-4
+                              py-3
+                            "
+                          >
+                            <span className="min-w-0 truncate text-sm font-medium text-ink-soft transition-colors group-hover:text-ink">
+                              {coupon.title}
+                            </span>
+
+                            <span className="shrink-0 font-mono text-xs font-semibold text-ink">
+                              {formatDiscount(coupon)}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
-            <div className="rounded-[20px] border border-dashed border-white/25 p-6 text-sm text-white/70">
-              No spotlight deal right now — we would rather show nothing than pad this slot.
-              <Link href="/coupons" className="mt-3 block font-semibold text-white underline-offset-4 hover:underline">
-                Browse all coupons →
-              </Link>
+            /* Empty state */
+            <div className="flex h-full min-h-[260px] items-center justify-center">
+              <div className="w-full rounded-[22px] border border-dashed border-white/15 bg-white/[0.025] p-6">
+                <div
+                  aria-hidden="true"
+                  className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    className="text-white/50"
+                  >
+                    <path
+                      d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M4 7h16v5H4z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M8 7V5a4 4 0 0 1 8 0v2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <p className="text-sm font-semibold text-white">
+                  No spotlight coupons
+                </p>
+
+                <p className="mt-1.5 text-sm leading-6 text-white/45">
+                  Browse the available coupons and deals.
+                </p>
+
+                <Link
+                  href="/coupons"
+                  className="
+                    mt-5 inline-flex items-center gap-2
+                    text-sm font-semibold text-[#ffc933]
+                    transition-colors hover:text-white
+                  "
+                >
+                  Browse coupons
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             </div>
           )}
         </div>
