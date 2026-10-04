@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { CouponCard } from "@/components/CouponCard";
 import { ClientTabs } from "@/components/ui/Tabs";
+import { StoreFollowButton } from "@/components/StoreFollowButton";
+import { RecordView } from "@/components/Analytics";
+import { formatDiscount } from "@/lib/format";
 import type { CouponPublic, Store } from "@/lib/types";
 
 interface StorePageClientProps {
@@ -94,7 +97,8 @@ export default function StorePageClient({
 
   return (
     <div className="space-y-10 sm:space-y-14">
-      <header className="bg-brand relative overflow-hidden rounded-[26px] text-white shadow-[var(--shadow-overlay)]">
+      <RecordView storeSlug={store.slug} />
+      <header className="relative overflow-hidden rounded-[26px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]">
         {/* Dynamic per-store poster from /banners/[slug]; the gradient above shows if it fails to load. */}
         <Image
           src={`/banners/${store.slug}`}
@@ -133,11 +137,12 @@ export default function StorePageClient({
           <button
             type="button"
             onClick={share}
-            className="btn shrink-0 self-start bg-white text-inkblue hover:bg-white/90"
+            className="btn shrink-0 self-start bg-white text-ink hover:bg-white/90"
             aria-live="polite"
           >
             {copied ? "Link copied" : "Share"}
           </button>
+          <StoreFollowButton slug={store.slug} name={store.name} />
         </div>
       </header>
 
@@ -151,7 +156,25 @@ export default function StorePageClient({
       )}
 
       {visibleTabs.length > 0 ? (
-        <ClientTabs tabs={visibleTabs} />
+        <>
+          {tabs.best && tabs.best.items.length > 0 && (
+            <Link
+              href={`/coupons/${tabs.best.items[0].slug}`}
+              className="lift mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-sun bg-sun-soft px-5 py-4"
+              aria-label={`Best current offer: ${tabs.best.items[0].title}`}
+            >
+              <span className="font-mono text-[11px] uppercase tracking-widest text-ink-soft">
+                Best right now
+              </span>
+              <span className="savings-figure text-2xl">{formatDiscount(tabs.best.items[0], code)}</span>
+              <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">
+                {tabs.best.items[0].title}
+              </span>
+              <span className="btn btn-cta shrink-0">Get it →</span>
+            </Link>
+          )}
+          <ClientTabs tabs={visibleTabs} />
+        </>
       ) : (
         <p className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-4 py-10 text-center text-ink-soft">
           No active codes for {store.name} right now. We only list codes a person has confirmed, so

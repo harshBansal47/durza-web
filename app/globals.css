@@ -11,16 +11,16 @@
   the previous theme so every existing page re-skins without markup changes.
 */
 @theme {
-  --color-paper: #f4f5fb;
+  --color-paper: #faf7f0;
   --color-paper-raised: #ffffff;
-  --color-ink: #131a36;
-  --color-ink-soft: #5a6285;
+  --color-ink: #1c1917;
+  --color-ink-soft: #63615c;
   --color-verified: #0f9d58;
   --color-verified-soft: #e3f6ec;
-  --color-rust: #ff6a1a;
+  --color-rust: #e8490f;
   --color-rust-soft: #fff1e7;
-  --color-ledger-line: #e3e6f3;
-  --color-inkblue: #4f46e5;
+  --color-ledger-line: #e8e2d5;
+  --color-inkblue: #2b2bd9;
 
   --color-violet: #7c3aed;
   --color-sun: #ffc933;
@@ -60,8 +60,8 @@
 body {
   background-color: var(--color-paper);
   background-image:
-    radial-gradient(900px 420px at 10% -5%, rgba(124, 58, 237, 0.07), transparent 60%),
-    radial-gradient(800px 380px at 95% 0%, rgba(255, 106, 26, 0.06), transparent 60%);
+    radial-gradient(900px 420px at 10% -5%, rgba(43, 43, 217, 0.05), transparent 60%),
+    radial-gradient(800px 380px at 95% 0%, rgba(232, 73, 15, 0.05), transparent 60%);
   background-repeat: no-repeat;
   color: var(--color-ink);
 }
@@ -99,11 +99,11 @@ h1, h2, h3 {
 .btn:active:not(:disabled) { transform: scale(0.97); }
 
 .btn-primary {
-  background-image: linear-gradient(135deg, var(--color-inkblue), var(--color-violet));
+  background: var(--color-ink);
   color: #fff;
-  box-shadow: var(--shadow-glow);
+  box-shadow: none;
 }
-.btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(79, 70, 229, 0.45); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); background: #000; box-shadow: var(--shadow-raised); }
 
 .btn-outline { background: #fff; color: var(--color-inkblue); border-color: color-mix(in srgb, var(--color-inkblue) 40%, transparent); }
 .btn-outline:hover:not(:disabled) { background: var(--color-inkblue); color: #fff; }
@@ -119,9 +119,9 @@ h1, h2, h3 {
 
 /* The big orange "get it" action, with a light sweep on hover. */
 .btn-cta {
-  background-image: linear-gradient(135deg, #ff8a3d, var(--color-rust));
+  background: var(--color-rust);
   color: #fff;
-  box-shadow: var(--shadow-glow-orange);
+  box-shadow: 0 8px 20px rgba(232, 73, 15, 0.28);
 }
 .btn-cta::after {
   content: "";
@@ -152,25 +152,72 @@ h1, h2, h3 {
 .input::placeholder { color: var(--color-ink-soft); }
 .input[aria-invalid="true"] { border-color: var(--color-rust); }
 
-/* Brand surfaces */
+/* Brand surfaces — solid ink, not purple gradients. One recognizable voice. */
 .bg-brand {
-  background-image: linear-gradient(135deg, #4338ca 0%, #6d3be8 55%, #9b4dff 100%);
+  background: #1b1836;
 }
 .bg-brand-warm {
-  background-image: linear-gradient(135deg, #ff7a1a 0%, #ff4d8d 100%);
+  background: var(--color-rust);
 }
 .bg-brand-night {
-  background-image: linear-gradient(160deg, #0e1330 0%, #1b1f55 100%);
+  background: #1b1836;
 }
 .bg-dots {
   background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1.2px, transparent 1.2px);
   background-size: 18px 18px;
 }
 .text-gradient {
-  background-image: linear-gradient(90deg, var(--color-inkblue), var(--color-pink));
+  background-image: linear-gradient(90deg, var(--color-ink), var(--color-rust));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ---- Motion language: one restrained entrance + purposeful micro-motion ----
+   reveal: sections fade-and-rise once on scroll-in (see <Reveal/>).
+   pop: code reveal. confetti: removed — success is a check, not a party.
+   marquee: store strip only, pauses on hover, scrolls by hand under
+   prefers-reduced-motion. Buttons press to 0.97, cards lift 4px. Nothing
+   else moves. Alive, not busy. */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+}
+
+/* ---- Couponbase signature elements (recognizable without the logo) ---- */
+/* Sun-marker swipe behind a savings figure. */
+.marker {
+  background-image: linear-gradient(100deg, transparent 2%, var(--color-sun) 4%, var(--color-sun) 96%, transparent 98%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.55em;
+  background-position: 0 88%;
+  padding: 0 0.1em;
+}
+/* Ledger stamp: dashed verified badge, mono, honest numbers. */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1.5px dashed currentColor;
+  border-radius: 8px;
+  padding: 0.15rem 0.5rem;
+  font-family: var(--font-code), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+/* Savings figure: always Bricolage extrabold + tight tracking. */
+.savings-figure {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 /* Lift-on-hover card */
@@ -256,6 +303,10 @@ h1, h2, h3 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

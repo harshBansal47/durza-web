@@ -66,7 +66,7 @@ describe("CouponCard", () => {
 
   it("says a discount is already applied when there is no code", () => {
     render(<CouponCard coupon={makeCoupon({ code: null })} store={store} />);
-    expect(screen.getByText(/already applied/)).toBeInTheDocument();
+    expect(screen.getByText(/applies at checkout/)).toBeInTheDocument();
     expect(screen.queryByText("SAVE20")).not.toBeInTheDocument();
   });
 
@@ -154,7 +154,7 @@ describe("CouponCard", () => {
 
     it("treats a code expiring today as still valid", () => {
       render(<CouponCard coupon={makeCoupon({ expires_at: daysFromNow(0) })} store={store} />);
-      expect(screen.getByText("See the deal")).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "Get code" })).toBeInTheDocument();
       expect(screen.queryByText("No longer valid")).not.toBeInTheDocument();
     });
 
@@ -247,9 +247,8 @@ describe("CouponCard", () => {
       render(
         <CouponCard coupon={makeCoupon({ code: null })} store={store} variant="free-shipping" />,
       );
-      // Two elements legitimately read "Free shipping": the variant badge and
-      // the body line. The body is the one that would have carried a threshold.
-      expect(screen.getAllByText("Free shipping")).toHaveLength(2);
+      // Single honest body line carries the threshold, if any.
+      expect(screen.getAllByText("Free shipping")).toHaveLength(1);
       expect(screen.queryByText(/^Free shipping over/)).not.toBeInTheDocument();
     });
   });

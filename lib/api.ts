@@ -153,6 +153,29 @@ export const api = {
       cache: "no-store",
     }),
 
+  recordImpression: (body: {
+    coupon_id: string;
+    merchant_id: string;
+    page_type: string;
+    page_id?: string;
+    position: number;
+    ranking_version?: string;
+    ranking_score?: number | null;
+    source?: string;
+    referrer?: string;
+    device_type?: string;
+    country?: string;
+    sponsored?: boolean;
+  }) =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/analytics/impression`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      cache: "no-store",
+    }).then((r) => {
+      if (!r.ok) throw new Error("impression failed");
+    }),
+
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     apiFetch<VerificationHistoryItem[]>(`/coupons/${couponId}/verification-history${qs({ limit })}`, {
       revalidate: 60,

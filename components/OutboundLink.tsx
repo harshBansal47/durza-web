@@ -3,6 +3,8 @@
 import { useCallback } from "react";
 import { api } from "@/lib/api";
 import { rememberGo } from "@/lib/lastGo";
+import { track } from "@/lib/analytics";
+import { recordCouponClick } from "@/lib/personalization";
 import type { CouponPublic } from "@/lib/types";
 
 interface OutboundLinkProps {
@@ -40,7 +42,9 @@ export default function OutboundLink({
       storeName,
       hadCode: Boolean(coupon.code),
     });
-  }, [coupon, storeName]);
+    track("coupon_click", { coupon_id: coupon.id, src });
+    recordCouponClick(coupon.id);
+  }, [coupon, storeName, src]);
 
   const href = api.goUrl(coupon.id, src);
 

@@ -7,12 +7,14 @@ import SponsoredCard from "@/components/SponsoredCard";
 import { getSponsored } from "@/lib/ads";
 import VerifyWidget from "@/components/VerifyWidget";
 import DisclosureNote from "@/components/DisclosureNote";
-import { formatDiscount, formatRelativeTime } from "@/lib/format";
+import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
 import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import type { CouponPublic, Store } from "@/lib/types";
 import Image from "next/image";
 import VerifiedGauge from "@/components/VerifiedGauge";
 import StickyDealBar from "@/components/StickyDealBar";
+import { ImpressionTracker } from "@/components/ImpressionTracker";
+import { RecordView } from "@/components/Analytics";
 
 async function loadCoupon(slug: string): Promise<CouponPublic | null> {
   try {
@@ -49,6 +51,16 @@ async function loadVerificationHistory(couponId: string) {
   }
 }
 
+async function loadCategory(categoryId: string | null) {
+  if (!categoryId) return null;
+  try {
+    const page = await resilient.listCategories({ limit: 200 });
+    return page.items.find((c) => c.id === categoryId) ?? null;
+  } catch {
+    return null;
+  }
+}
+
 type Params = Promise<{ slug: string }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -75,11 +87,12 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
   const coupon = await loadCoupon(slug);
   if (!coupon) notFound();
 
-  const [store, relatedCoupons, verificationHistory, sidebarAd] = await Promise.all([
+  const [store, relatedCoupons, verificationHistory, sidebarAd, category] = await Promise.all([
     loadStore(coupon.store_id),
     loadRelatedCoupons(coupon.id, coupon.store_id),
     loadVerificationHistory(coupon.id),
     getSponsored("sidebar"),
+    loadCategory(coupon.category_id),
   ]);
 
   // schema.org structured data
@@ -107,11 +120,21 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
 
   const totalReports = coupon.success_count + coupon.fail_count;
   const successRate = coupon.success_rate !== null ? Math.round(coupon.success_rate * 100) : null;
+  const daysLeft = daysUntil(coupon.expires_at);
+  const expired = (daysLeft !== null && daysLeft < 0) || !coupon.is_active;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 pb-28 sm:px-6 sm:py-10 md:pb-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <RecordView storeSlug={store?.slug} couponId={coupon.id} />
+      <ImpressionTracker
+        couponId={coupon.id}
+        merchantId={coupon.store_id}
+        pageType="coupon_detail"
+        position={1}
+        pageId={coupon.slug}
+      />
 
       <header className="bg-brand relative mb-8 overflow-hidden rounded-[26px] text-white shadow-[var(--shadow-overlay)]">
         {store && (
@@ -166,7 +189,23 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
 
       {/* Main action panel */}
       <section id="code-panel" className="mb-8 scroll-mt-24">
-        <CouponCodePanel coupon={coupon} storeName={store?.name} />
+        {expired ? (
+          <div className="rounded-[22px] border border-rust/30 bg-rust-soft/60 p-5 text-center sm:p-6">
+            <p className="font-serif text-xl font-extrabold text-ink">This code has expired</p>
+            <p className="mx-auto mt-1 max-w-md text-sm text-ink-soft">
+              {store
+                ? `${store.name} still has ${relatedCoupons.length > 0 ? "live deals" : "a deals page"} — start there instead of a dead code.`
+                : "This offer is no longer live — here is what still works."}
+            </p>
+            {store && (
+              <Link href={`/stores/${store.slug}`} className="btn btn-cta mt-4">
+                See current {store.name} deals →
+              </Link>
+            )}
+          </div>
+        ) : (
+          <CouponCodePanel coupon={coupon} storeName={store?.name} />
+        )}
       </section>
 
       {sidebarAd && (
@@ -293,7 +332,9 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
       {/* Related Coupons */}
       {relatedCoupons.length > 0 && (
         <section className="mb-8">
-          <h2 className="font-serif text-2xl font-extrabold text-ink mb-4">Related Coupons</h2>
+          <h2 className="font-serif text-2xl font-extrabold text-ink mb-4">
+            More {store ? `${store.name} savings` : "ways to save"}
+          </h2>
           <div className="space-y-3">
             {relatedCoupons.map((c) => (
               <Link key={c.id} href={`/coupons/${c.slug}`} className="block">
@@ -325,6 +366,23 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
           <p className="leading-relaxed text-ink-soft">{coupon.description}</p>
         </section>
       )}
+
+      {/* One more thing: keep discovery honest and adjacent */}
+      <nav className="mb-8 flex flex-wrap gap-2" aria-label="Keep exploring">
+        {store && (
+          <Link href={`/stores/${store.slug}`} className="btn btn-outline">
+            All {store.name} deals
+          </Link>
+        )}
+        {category && (
+          <Link href={`/categories/${category.slug}`} className="btn btn-outline">
+            More {category.name} deals
+          </Link>
+        )}
+        <Link href="/coupons" className="btn btn-ghost">
+          Browse everything →
+        </Link>
+      </nav>
 
       <StickyDealBar coupon={coupon} storeName={store?.name} />
     </div>

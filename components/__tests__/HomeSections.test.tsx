@@ -1,9 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import BannerCarousel from "@/components/home/BannerCarousel";
 import CategoryRow from "@/components/home/CategoryRow";
 import StoreMarquee from "@/components/home/StoreMarquee";
 import Hero from "@/components/home/Hero";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() }),
+  useSearchParams: () => new URLSearchParams(),
+}));
 
 describe("BannerCarousel", () => {
   it("renders every slide as a labelled group with working links", () => {
@@ -58,10 +63,15 @@ describe("Hero", () => {
     expect(screen.queryByText("Stores")).not.toBeInTheDocument();
   });
 
-  it("has a labelled search form that submits to /search", () => {
+  it("has a labelled product search with instant suggestions", () => {
     render(<Hero stats={[]} popularStores={[{ id: "1", name: "Nike", slug: "nike" }]} />);
-    expect(screen.getByRole("search")).toHaveAttribute("action", "/search");
-    expect(screen.getByLabelText("Search Couponbase")).toHaveAttribute("name", "q");
+    expect(screen.getByRole("search")).toBeInTheDocument();
+    expect(screen.getByLabelText("Search stores, brands, categories")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Nike" })).toHaveAttribute("href", "/stores/nike");
+  });
+
+  it("shows an honest empty spotlight instead of a fabricated deal", () => {
+    render(<Hero stats={[]} popularStores={[]} spotlight={[]} />);
+    expect(screen.getByText(/No spotlight deal right now/)).toBeInTheDocument();
   });
 });

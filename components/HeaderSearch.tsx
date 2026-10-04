@@ -11,6 +11,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { api } from "@/lib/api";
+import { track } from "@/lib/analytics";
 import type { AutocompleteResult } from "@/lib/types";
 
 const RECENT_KEY = "couponza.recent";
@@ -256,6 +257,7 @@ export function HeaderSearch({ popular = [] }: { popular?: string[] }) {
     const q = query.trim();
     if (!q) return;
     remember(q);
+    track("search", { query: q });
     setOpen(false);
     setActiveIndex(-1);
     setValue("");
@@ -445,6 +447,7 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
     const q = query.trim();
     if (!q) return;
     remember(q);
+    track("search", { query: q });
     onClose();
     router.push(`/search?q=${encodeURIComponent(q)}`);
   }

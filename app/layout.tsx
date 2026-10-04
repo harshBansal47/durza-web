@@ -4,6 +4,8 @@ import { Bricolage_Grotesque, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PromoStrip from "@/components/PromoStrip";
+import { MobileTabBar } from "@/components/MobileTabBar";
+import { AnalyticsPageView } from "@/components/Analytics";
 import { getSponsored } from "@/lib/ads";
 import ToastProvider from "@/components/ui/Toast";
 import "./globals.css";
@@ -58,6 +60,7 @@ const NAV_LINKS = [
   { href: "/deals", label: "Deals" },
   { href: "/stores", label: "Stores" },
   { href: "/categories", label: "Categories" },
+  { href: "/saved", label: "Saved" },
   { href: "/trust", label: "How this works" },
 ];
 
@@ -86,6 +89,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
           </main>
           <Footer ad={footerAd} />
+          <MobileTabBar />
+          <AnalyticsPageView />
         </ToastProvider>
       </body>
     </html>

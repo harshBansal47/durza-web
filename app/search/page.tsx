@@ -5,6 +5,7 @@ import { resilient } from "@/lib/api";
 import { CouponCard } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
 import EmptyState from "@/components/EmptyState";
+import { TrackEvent } from "@/components/Analytics";
 import SearchFilters from "./SearchFilters";
 import { formatMoney } from "@/lib/format";
 import type { CouponPublic, Product, Store } from "@/lib/types";
@@ -79,6 +80,7 @@ export default async function SearchPage({ searchParams }: Props) {
   if (query) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <TrackEvent event="search" payload={{ query }} />
         <SearchBox query={query} />
         <Results
           query={query}
@@ -98,9 +100,9 @@ export default async function SearchPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <h1 className="font-serif text-3xl text-ink">Find a deal worth trusting</h1>
+      <h1 className="font-serif text-3xl text-ink">What are you shopping for?</h1>
       <p className="mt-2 max-w-prose text-ink-soft">
-        Search by store, brand, product or category. Everything listed here has a verification
+        Search a store, a brand, a product or a category. Everything listed here has a verification
         trail — use the filters on the results page to see only codes somebody has actually tried.
       </p>
       <div className="mt-6">
@@ -137,26 +139,42 @@ function SuggestedSearches({
   stores: Store[];
   categories: { slug: string; name: string }[];
 }) {
-  const suggestions = [
-    ...stores.slice(0, 5).map((s) => ({ label: s.name, href: `/stores/${s.slug}` })),
-    ...categories.slice(0, 6).map((c) => ({ label: c.name, href: `/categories/${c.slug}` })),
-  ];
+  const storeSuggestions = stores.slice(0, 5).map((s) => ({ label: s.name, href: `/stores/${s.slug}` }));
+  const categorySuggestions = categories.slice(0, 6).map((c) => ({ label: c.name, href: `/categories/${c.slug}` }));
 
-  if (suggestions.length === 0) return null;
+  if (storeSuggestions.length === 0 && categorySuggestions.length === 0) return null;
 
   return (
-    <section className="mt-10">
-      <h2 className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">Try one of these</h2>
-      <ul className="mt-3 flex flex-wrap gap-2">
-        {suggestions.map((s) => (
-          <li key={s.href}>
-            <Link href={s.href} className="btn-outline text-sm">
-              {s.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <div className="mt-10 grid gap-8 sm:grid-cols-2">
+      {storeSuggestions.length > 0 && (
+        <section aria-label="Popular stores">
+          <h2 className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">Popular stores</h2>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {storeSuggestions.map((s) => (
+              <li key={s.href}>
+                <Link href={s.href} className="btn-outline text-sm">
+                  {s.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {categorySuggestions.length > 0 && (
+        <section aria-label="Popular categories">
+          <h2 className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">Popular categories</h2>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {categorySuggestions.map((s) => (
+              <li key={s.href}>
+                <Link href={s.href} className="btn-outline text-sm">
+                  {s.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
   );
 }
 
@@ -213,14 +231,38 @@ async function Results({
   const total = sorted.length + storeHits.length + productHits.length + matchedCategories.length;
 
   if (total === 0) {
+    const storeMatch = storeHits[0];
     return (
-      <EmptyState
-        title={`Nothing matches “${query}”.`}
-        body="We only list codes someone has confirmed, so a thin result is normal for new stores. Try a broader term, or browse a category."
-        cta={{ href: "/categories", label: "Browse categories" }}
-      />
+      <div>
+        <EmptyState
+          title={`Nothing matches “${query}”.`}
+          body="We only list codes someone has confirmed, so a thin result is normal for new stores. Try a broader term, or start from one of these."
+          cta={{ href: "/categories", label: "Browse categories" }}
+        />
+        <ul className="mx-auto mt-6 flex max-w-md flex-wrap justify-center gap-2">
+          {storeMatch && (
+            <li>
+              <Link href={`/stores/${storeMatch.slug}`} className="btn btn-outline">
+                {storeMatch.name} deals
+              </Link>
+            </li>
+          )}
+          <li>
+            <Link href="/coupons" className="btn btn-ghost">
+              Trending offers →
+            </Link>
+          </li>
+        </ul>
+      </div>
     );
   }
+
+  const refinements = [
+    { label: `${query} coupons`, href: `/search?q=${encodeURIComponent(query)}&type=coupon` },
+    { label: `${query} deals`, href: `/search?q=${encodeURIComponent(query)}` },
+    { label: `${query} free shipping`, href: `/search?q=${encodeURIComponent(`${query} shipping`)}` },
+    { label: `${query} verified only`, href: `/search?q=${encodeURIComponent(query)}&verified=true` },
+  ];
 
   return (
     <div className="lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
@@ -240,6 +282,18 @@ async function Results({
           <h1 className="font-serif text-2xl text-ink">
             {total} result{total === 1 ? "" : "s"} for “{query}”
           </h1>
+          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Refine this search">
+            {refinements.map((r) => (
+              <li key={r.label}>
+                <Link
+                  href={r.href}
+                  className="rounded-full border border-ledger-line bg-white px-3 py-1 text-xs font-semibold text-ink-soft transition-colors hover:border-rust hover:text-rust"
+                >
+                  {r.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <details className="mt-3 lg:hidden">
             <summary className="btn-outline cursor-pointer list-none">Filters</summary>
             <div className="mt-4 border border-ledger-line bg-paper-raised p-4">
