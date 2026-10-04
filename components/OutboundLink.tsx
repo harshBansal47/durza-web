@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { api } from "@/lib/api";
 import { rememberGo } from "@/lib/lastGo";
 import type { CouponPublic } from "@/lib/types";
 
@@ -11,29 +12,19 @@ interface OutboundLinkProps {
   storeName: string;
   /** Which surface sent the click. */
   src: string;
-  /** ClassName for the inner <a>. */
+  /** className for the <a>. */
   className?: string;
   /** Children (link text). */
   children: React.ReactNode;
 }
 
 /**
- * Wrapper around `<Link>` that remembers the "last go" entry for the
- * "Did it work?" prompt.
+ * Tracked outbound link: an `<a>` to the backend's /go redirect that also
+ * remembers the click for the "Did it work?" prompt.
  *
- * Renders a `<Link>` (internal) or `<a>` (external) that calls
- * `rememberGo()` on click and then lets the navigation proceed normally.
- * Does NOT call `preventDefault()` — the navigation must proceed.
- *
- * Usage:
- *   <OutboundLink
- *     coupon={coupon}
- *     storeName={store.name}
- *     src="coupon-page"
- *     className="btn btn-cta"
- *   >
- *     Get deal
- *   </OutboundLink>
+ * The href MUST come from `api.goUrl`: /go lives on the API origin, not on this
+ * site, so a relative `/coupons/:id/go` here would 404. It never calls
+ * `preventDefault()`, so navigation always proceeds.
  */
 export default function OutboundLink({
   coupon,
@@ -51,7 +42,7 @@ export default function OutboundLink({
     });
   }, [coupon, storeName]);
 
-  const href = `/coupons/${coupon.id}/go${coupon.code ? `?src=${encodeURIComponent(src)}` : `?src=${encodeURIComponent(src)}`}`;
+  const href = api.goUrl(coupon.id, src);
 
   return (
     <a

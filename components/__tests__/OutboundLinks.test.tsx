@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import CouponCodePanel from "@/components/CouponCodePanel";
 import StickyDealBar from "@/components/StickyDealBar";
+import { api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
 
 const base: CouponPublic = {
@@ -29,7 +30,7 @@ describe("outbound coupon links are tracked and marked as affiliate links", () =
   it("the code panel CTA goes through /go with a source tag and sponsored rel", () => {
     render(<CouponCodePanel coupon={base} />);
     const link = screen.getByRole("link", { name: /get this deal/i });
-    expect(link.getAttribute("href")).toMatch(/\/coupons\/c1\/go\?src=coupon-page$/);
+    expect(link.getAttribute("href")).toBe(api.goUrl("c1", "coupon-page"));
     expect(link.getAttribute("rel")).toContain("sponsored");
     expect(link.getAttribute("rel")).toContain("nofollow");
   });
@@ -43,7 +44,7 @@ describe("outbound coupon links are tracked and marked as affiliate links", () =
   it("the sticky bar goes straight through /go for a code-less deal, tagged sticky-bar", () => {
     render(<StickyDealBar coupon={{ ...base, code: null }} storeName="Amazon" />);
     const link = screen.getByRole("link", { name: /go to amazon/i });
-    expect(link.getAttribute("href")).toMatch(/\/coupons\/c1\/go\?src=sticky-bar$/);
+    expect(link.getAttribute("href")).toBe(api.goUrl("c1", "sticky-bar"));
     expect(link.getAttribute("rel")).toContain("sponsored");
   });
 });

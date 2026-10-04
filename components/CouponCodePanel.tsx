@@ -19,7 +19,14 @@ const PIECES = Array.from({ length: 18 }, (_, i) => {
   };
 });
 
-export default function CouponCodePanel({ coupon }: { coupon: CouponPublic }) {
+export default function CouponCodePanel({
+  coupon,
+  storeName = "",
+}: {
+  coupon: CouponPublic;
+  /** Used by the "Did it work?" prompt after the visitor returns from the store. */
+  storeName?: string;
+}) {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [burst, setBurst] = useState(0);
@@ -103,7 +110,7 @@ export default function CouponCodePanel({ coupon }: { coupon: CouponPublic }) {
       <div className="px-5 pb-5">
         <OutboundLink
           coupon={coupon}
-          storeName={""}
+          storeName={storeName}
           src="coupon-page"
           className="btn btn-cta w-full py-3 text-base"
         >

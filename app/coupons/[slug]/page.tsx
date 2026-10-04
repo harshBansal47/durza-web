@@ -163,7 +163,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
 
       {/* Main action panel */}
       <section id="code-panel" className="mb-8 scroll-mt-24">
-        <CouponCodePanel coupon={coupon} />
+        <CouponCodePanel coupon={coupon} storeName={store?.name} />
       </section>
 
       {/* Verification status */}

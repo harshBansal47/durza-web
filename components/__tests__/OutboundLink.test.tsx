@@ -1,9 +1,10 @@
+import { api } from "@/lib/api";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 import { describe, expect, it, vi } from "vitest";
 import OutboundLink from "@/components/OutboundLink";
 import type { CouponPublic } from "@/lib/types";
-import { rememberGo, clearLastGo } from "@/lib/lastGo";
+import { rememberGo } from "@/lib/lastGo";
 
 const mockCoupon: CouponPublic = {
   id: "c1",
@@ -26,14 +27,6 @@ const mockCoupon: CouponPublic = {
   created_at: "2024-01-01T00:00:00Z",
 };
 
-const mockCouponNoCode: CouponPublic = {
-  ...mockCoupon,
-  id: "c2",
-  code: null,
-};
-
-const mockStoreName = "Test Store";
-
 beforeEach(() => {
   localStorage.clear();
   vi.restoreAllMocks();
@@ -48,7 +41,9 @@ describe("OutboundLink", () => {
     );
 
     const link = screen.getByRole("link", { name: "Get deal" });
-    expect(link).toHaveAttribute("href", "/coupons/c1/go?src=coupon-page");
+    expect(link).toHaveAttribute("href", api.goUrl("c1", "coupon-page"));
+    // /go is served by the API, so the link must be absolute, never a path on this site.
+    expect(link.getAttribute("href")).toMatch(/^https?:\/\//);
     expect(link).toHaveAttribute("rel", "sponsored nofollow noopener");
     expect(link).toHaveTextContent("Get deal");
   });
@@ -103,11 +98,9 @@ describe("OutboundLink", () => {
       </OutboundLink>,
     );
 
-    fireEvent.click(screen.getByRole("link", { name: "Get deal" }));
-
-    const stored = JSON.parse(localStorage.getItem("couponbase:last-go")!);
-    // The click event fires, but we just verify the navigation would happen
-    // (we can't easily test the href in jsdom, but the click handler runs)
+    const link = screen.getByRole("link", { name: "Get deal" });
+    expect(link.getAttribute("href")).toBe(api.goUrl("c1", "sticky-bar"));
+    expect(link.getAttribute("href")).toContain("src=sticky-bar");
   });
 
   it("renders custom className and children", () => {
