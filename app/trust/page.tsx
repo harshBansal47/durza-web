@@ -59,7 +59,7 @@ export default async function TrustPage() {
         ))}
       </div>
 
-      {extendedPolicy && (
+      {extendedPolicy && typeof extendedPolicy.content === "string" && (
         <div className="mt-10 border-t border-ledger-line pt-6">
           <h2 className="font-serif text-xl text-ink">{extendedPolicy.title}</h2>
           <div

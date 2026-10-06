@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import OutboundLink from "./OutboundLink";
+import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
+import { rememberGo } from "@/lib/lastGo";
 import type { CouponPublic } from "@/lib/types";
 
 export default function CouponCodePanel({
   coupon,
   storeName = "",
+  storeSlug,
 }: {
   coupon: CouponPublic;
   storeName?: string;
+  /** Enables the "More deals from this store" link shown after a copy. */
+  storeSlug?: string;
 }) {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -18,6 +24,18 @@ export default function CouponCodePanel({
   function reveal() {
     setRevealed(true);
     track("coupon_reveal", { coupon_id: coupon.id });
+    // Revealing the code also opens the store, in a NEW tab, through the tracked /go
+    // link. The code stays on this page for copying. This is what makes a visit
+    // attributable even if the shopper then pastes the code in by hand instead of
+    // using the button below. It only ever happens as the direct result of the
+    // shopper's own click, and the button says so before they press it.
+    rememberGo({
+      couponId: coupon.id,
+      title: coupon.title,
+      storeName,
+      hadCode: true,
+    });
+    window.open(api.goUrl(coupon.id, "reveal"), "_blank", "noopener");
   }
 
   async function handleCopy() {
@@ -95,6 +113,13 @@ export default function CouponCodePanel({
           ✓ Copied — paste it at {storeName || "the store"} checkout.
         </p>
       )}
+      {copied && storeSlug && (
+        <p className="px-5 pt-1 text-center text-sm">
+          <Link href={`/stores/${storeSlug}`} className="font-semibold text-inkblue hover:underline">
+            More {storeName || "store"} deals →
+          </Link>
+        </p>
+      )}
 
       <div className="px-5 pb-5 pt-1">
         <OutboundLink
@@ -107,7 +132,9 @@ export default function CouponCodePanel({
         </OutboundLink>
         <p className="mt-2 text-center text-xs text-ink-soft">
           {coupon.code
-            ? "Copy the code first — it auto-fills on most stores. Come back and tell us if it worked."
+            ? revealed
+              ? `${storeName || "The store"} opened in a new tab. Copy your code here, paste it at checkout, then tell us if it worked.`
+              : `Revealing the code opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy.`
             : "Opens the store with the discount applied. Come back and tell us if it worked."}
         </p>
       </div>

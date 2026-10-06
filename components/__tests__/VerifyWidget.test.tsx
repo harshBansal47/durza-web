@@ -23,6 +23,7 @@ const baseCoupon: CouponPublic = {
   fail_count: 1,
   last_verified_at: "2026-01-01T00:00:00Z",
   success_rate: 0.667,
+  verification_status: "unverified",
   created_at: "2026-01-01T00:00:00Z",
 };
 

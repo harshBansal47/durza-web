@@ -83,7 +83,7 @@ export function SavedPageClient() {
             Saved deals ({coupons.length})
           </h2>
           <div className="mt-4">
-            <CouponCardGrid coupons={coupons} stores={cardStores} pageType="saved" />
+            <CouponCardGrid coupons={coupons} stores={cardStores} />
           </div>
         </section>
       )}

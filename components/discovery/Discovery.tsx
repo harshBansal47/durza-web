@@ -5,9 +5,11 @@ import type { CouponPublic } from "@/lib/types";
 import { daysUntil } from "@/lib/format";
 
 /**
- * Reusable data-driven discovery modules (§35). Each takes real catalogue
- * rows and renders nothing when the data cannot back the claim — no
- * "Trending" label on unranked stock, ever.
+ * Reusable data-driven discovery modules (§35). Each renders the rows it is
+ * given IN THE ORDER GIVEN: ordering is the backend's job (`sort=` on the
+ * coupon list), so these never re-rank. They only refuse to render a claim the
+ * rows cannot back (no "Freshly checked" without a verification time, no
+ * "Ending soon" on a coupon that does not expire) — never an empty "Trending".
  */
 
 function storesFor(coupons: CouponPublic[], stores: CouponCardStore[]): CouponCardStore[] {
@@ -22,10 +24,7 @@ export function RecentlyVerifiedRow({
   coupons: CouponPublic[];
   stores: CouponCardStore[];
 }) {
-  const rows = [...coupons]
-    .filter((c) => c.last_verified_at !== null)
-    .sort((a, b) => Date.parse(b.last_verified_at!) - Date.parse(a.last_verified_at!))
-    .slice(0, 8);
+  const rows = coupons.filter((c) => c.last_verified_at !== null).slice(0, 8);
   if (rows.length === 0) return null;
   return (
     <section aria-labelledby="freshly-checked">
@@ -44,9 +43,7 @@ export function NewDealsRow({
   coupons: CouponPublic[];
   stores: CouponCardStore[];
 }) {
-  const rows = [...coupons]
-    .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))
-    .slice(0, 8);
+  const rows = coupons.slice(0, 8);
   if (rows.length === 0) return null;
   return (
     <section aria-labelledby="new-deals">
@@ -70,7 +67,6 @@ export function ExpiringRow({
       const d = daysUntil(c.expires_at);
       return d !== null && d >= 0 && d <= 7;
     })
-    .sort((a, b) => (daysUntil(a.expires_at) ?? 99) - (daysUntil(b.expires_at) ?? 99))
     .slice(0, 8);
   if (rows.length === 0) return null;
   return (

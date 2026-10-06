@@ -6,7 +6,7 @@ import Link from "next/link";
  */
 const MESSAGES = [
   "Real shopper feedback on coupon success rates",
-  "Verified deals from your favorite stores",
+  "Deals from the stores you already shop at",
   "Expired coupons removed regularly",
   "Get notified when prices drop",
 ];

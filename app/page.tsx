@@ -11,7 +11,6 @@ import DealsCarousel from "@/components/home/DealsCarousel";
 import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
 import { absoluteUrl } from "@/lib/seo";
-import { daysUntil } from "@/lib/format";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
 import { Reveal } from "@/components/Reveal";
@@ -25,12 +24,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 async function safe<T>(promise: Promise<T>, fallback: T): Promise<T> {
   return promise.catch(() => fallback);
-}
-
-function discountScore(c: CouponPublic): number {
-  if (c.discount_type === "percentage" && c.discount_value != null) return c.discount_value;
-  if (c.discount_type === "fixed" && c.discount_value != null) return Math.min(c.discount_value, 95);
-  return 0;
 }
 
 const PILLARS = [
@@ -54,14 +47,47 @@ const PILLARS = [
 export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
 
-  const [coupons, stores, categories, wide, headerAd] = await Promise.all([
-    safe(api.listCoupons({ active_only: true, limit: 12 }), emptyPage as Paginated<never>),
-    safe(api.listStores({ limit: 8 }), emptyPage as Paginated<never>),
+  // Every ordering and count below is the backend's answer to a real query. This page
+  // never ranks, filters a sample, or estimates: a number on screen is a `total`.
+  const [
+    coupons,
+    stores,
+    categories,
+    topRated,
+    endingSoon,
+    recentlyVerified,
+    verifiedToday,
+    newest,
+    biggest,
+    headerAd,
+  ] = await Promise.all([
+    safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>),
+    safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>),
     safe(api.listCategories({ limit: 24 }), emptyPage as Paginated<never>),
-    safe(api.listCoupons({ active_only: true, limit: 60 }), emptyPage as Paginated<never>),
+    safe(api.listCoupons({ active_only: true, sort: "top_rated", limit: 8 }), emptyPage as Paginated<CouponPublic>),
+    safe(
+      api.listCoupons({ active_only: true, sort: "ending_soon", expires_within_days: 7, limit: 8 }),
+      emptyPage as Paginated<CouponPublic>,
+    ),
+    safe(
+      api.listCoupons({ active_only: true, sort: "recently_verified", limit: 8 }),
+      emptyPage as Paginated<CouponPublic>,
+    ),
+    // Only the exact count is used from this one.
+    safe(
+      api.listCoupons({ active_only: true, sort: "recently_verified", verified_within_hours: 24, limit: 1 }),
+      emptyPage as Paginated<CouponPublic>,
+    ),
+    safe(api.listCoupons({ active_only: true, sort: "newest", limit: 8 }), emptyPage as Paginated<CouponPublic>),
+    safe(
+      api.listCoupons({ active_only: true, sort: "biggest_discount", limit: 4 }),
+      emptyPage as Paginated<CouponPublic>,
+    ),
     getSponsored("header"),
   ]);
 
+  // The store list is a lookup table for card badges (every card needs its store); the
+  // marquee only shows the first dozen.
   const cardStores = stores.items.map((s) => ({
     id: s.id,
     name: s.name,
@@ -70,43 +96,12 @@ export default async function HomePage() {
     currency: s.currency,
   }));
 
-  const all = (wide.items.length > 0 ? wide.items : coupons.items) as CouponPublic[];
+  const confirmed = topRated.items;
 
-  const confirmed = all
-    .filter((c) => c.last_verified_at !== null && c.success_count + c.fail_count >= 2)
-    .sort((a, b) => (b.success_rate ?? 0) - (a.success_rate ?? 0))
-    .slice(0, 8);
+  // A presentation filter over the backend's recommended order (not a re-ranking).
+  const evergreen = coupons.items.filter((c) => c.expires_at === null && c.code !== null).slice(0, 4);
 
-  // Ending soon: backed ONLY by real expires_at within 7 days.
-  const endingSoon = all
-    .filter((c) => {
-      const d = daysUntil(c.expires_at);
-      return d !== null && d >= 0 && d <= 7;
-    })
-    .sort((a, b) => (daysUntil(a.expires_at) ?? 99) - (daysUntil(b.expires_at) ?? 99))
-    .slice(0, 8);
-
-  // Biggest savings: ranked by real discount value, confirmed first.
-  const biggest = [...all]
-    .sort((a, b) => {
-      const s = discountScore(b) - discountScore(a);
-      if (s !== 0) return s;
-      return (b.success_rate ?? 0) - (a.success_rate ?? 0);
-    })
-    .slice(0, 4);
-
-  const evergreen = all
-    .filter((c) => c.expires_at === null && c.code !== null)
-    .sort((a, b) => (b.success_rate ?? 0) - (a.success_rate ?? 0))
-    .slice(0, 4);
-
-  const verifiedToday = all.filter((c) => {
-    if (!c.last_verified_at) return false;
-    // eslint-disable-next-line react-hooks/purity -- server render timestamp
-    return Date.now() - new Date(c.last_verified_at).getTime() < 7 * 86_400_000;
-  }).length;
-
-  const spotlight = confirmed.slice(0, 3);
+  const spotlight = coupons.items.slice(0, 3);
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
@@ -139,8 +134,8 @@ export default async function HomePage() {
         ]}
         popularStores={stores.items.map((st) => ({ id: st.id, name: st.name, slug: st.slug }))}
         spotlight={spotlight}
-        verifiedToday={verifiedToday}
-        endingSoon={endingSoon.length}
+        verifiedToday={verifiedToday.total}
+        endingSoon={endingSoon.total}
       />
 
       {isEmpty ? (
@@ -159,12 +154,12 @@ export default async function HomePage() {
             </section>
           )}
 
-          {endingSoon.length > 0 && (
+          {endingSoon.items.length > 0 && (
             <section className="mt-12 rounded-[24px] border border-rust/25 bg-rust-soft/60 p-5 sm:p-6" aria-labelledby="ending-heading">
               <SectionTitle hint="real expiry dates only">
                 <span id="ending-heading">Ending soon</span>
               </SectionTitle>
-              <DealsCarousel coupons={endingSoon} stores={cardStores} label="Deals ending soon" />
+              <DealsCarousel coupons={endingSoon.items} stores={cardStores} label="Deals ending soon" pageType="homepage" />
               <p className="mt-2 text-right text-sm">
                 <Link href="/coupons" className="font-semibold text-rust hover:underline">
                   All coupons →
@@ -178,7 +173,7 @@ export default async function HomePage() {
               <SectionTitle hint={`${confirmed.length} confirmed`}>
                 <span id="confirmed-heading">Confirmed by shoppers</span>
               </SectionTitle>
-              <DealsCarousel coupons={confirmed} stores={cardStores} label="Deals confirmed by shoppers" />
+              <DealsCarousel coupons={confirmed} stores={cardStores} label="Deals confirmed by shoppers" pageType="homepage" />
             </section>
           )}
 
@@ -187,20 +182,20 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-12">
-            <RecentlyVerifiedRow coupons={all} stores={cardStores} />
+            <RecentlyVerifiedRow coupons={recentlyVerified.items} stores={cardStores} />
           </div>
 
           <section className="mt-8">
             <BannerCarousel sponsored={headerAd} />
           </section>
 
-          {biggest.length > 0 && (
+          {biggest.items.length > 0 && (
             <section className="mt-12" aria-labelledby="biggest-heading">
-              <SectionTitle hint="ranked by real discount">
-                <span id="biggest-heading">Biggest savings right now</span>
+              <SectionTitle hint="percentage offers only">
+                <span id="biggest-heading">Biggest % off</span>
               </SectionTitle>
               <CouponCardGrid
-                coupons={biggest}
+                coupons={biggest.items}
                 stores={cardStores}
                 variant="featured"
                 className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
@@ -213,7 +208,7 @@ export default async function HomePage() {
               <SectionTitle hint={`${stores.total} tracked`}>
                 <span id="stores-heading">Stores we track</span>
               </SectionTitle>
-              <StoreMarquee stores={stores.items} />
+              <StoreMarquee stores={stores.items.slice(0, 12)} />
               <p className="mt-4 text-right text-sm">
                 <Link href="/stores" className="font-semibold text-inkblue hover:underline">
                   All stores →
@@ -235,7 +230,7 @@ export default async function HomePage() {
           )}
 
           <div className="mt-12">
-            <NewDealsRow coupons={all} stores={cardStores} />
+            <NewDealsRow coupons={newest.items} stores={cardStores} />
           </div>
 
           <section className="mt-16">

@@ -35,6 +35,20 @@ export interface Store {
 
 export type DiscountType = "percentage" | "fixed" | "deal";
 
+/** How much evidence backs a coupon. Presentation only: the backend decides it. */
+export type VerificationStatus = "unverified" | "pending" | "verified" | "disputed" | "failed";
+
+/** Orderings the backend offers. The frontend asks for one; it never ranks by itself. */
+export type CouponSort =
+  | "newest"
+  | "recommended"
+  | "ending_soon"
+  | "recently_verified"
+  | "trending"
+  | "most_used"
+  | "top_rated"
+  | "biggest_discount";
+
 /**
  * A product joined with its current price context. The account dashboard needs
  * a tracked product's current price to show "now vs target", which the bare
@@ -65,6 +79,7 @@ export interface CouponPublic {
   fail_count: number;
   last_verified_at: string | null;
   success_rate: number | null;
+  verification_status: VerificationStatus;
   created_at: string;
 }
 

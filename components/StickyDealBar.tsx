@@ -14,7 +14,7 @@ export default function StickyDealBar({ coupon, storeName }: { coupon: CouponPub
         <p className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{coupon.title}</p>
         {hasCode ? (
           <a href="#code-panel" className="btn btn-cta shrink-0 px-5">
-            Reveal code
+            Get code
           </a>
         ) : (
           <OutboundLink

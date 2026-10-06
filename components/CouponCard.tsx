@@ -1,3 +1,4 @@
+import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
 import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports, formatRelativeTime } from "@/lib/format";
@@ -27,8 +28,10 @@ interface CouponCardProps {
   ctaLabel?: string;
   hideExpiry?: boolean;
   className?: string;
+  /** 1-based position in its list (the backend rejects 0). */
   position?: number;
-  pageType?: string;
+  /** Where this card is shown; only values the analytics backend accepts. */
+  pageType?: ImpressionPageType;
   footnote?: { label: string; href: string };
 }
 
@@ -70,8 +73,8 @@ export function CouponCard({
   ctaLabel,
   hideExpiry = false,
   className = "",
-  position = 0,
-  pageType = "listing",
+  position = 1,
+  pageType = "coupon_card",
   footnote,
 }: CouponCardProps) {
   const currency = store?.currency ?? price?.currency ?? "USD";
@@ -226,7 +229,7 @@ export function CouponCardGrid({
   variant = "coupon",
   className = DEFAULT_GRID,
   price,
-  pageType = "listing",
+  pageType = "coupon_card",
   ...cardProps
 }: {
   coupons: CouponPublic[];
@@ -234,7 +237,7 @@ export function CouponCardGrid({
   variant?: CouponCardVariant;
   className?: string;
   price?: CouponCardProps["price"];
-  pageType?: string;
+  pageType?: ImpressionPageType;
 } & Omit<CouponCardProps, "coupon" | "store" | "variant" | "price" | "position" | "pageType">) {
   const storeById = new Map(stores.map((s) => [s.id, s]));
   if (coupons.length === 0) return null;
@@ -247,7 +250,7 @@ export function CouponCardGrid({
           store={storeById.get(coupon.store_id)}
           variant={variant}
           price={price}
-          position={i}
+          position={i + 1}
           pageType={pageType}
           {...cardProps}
         />

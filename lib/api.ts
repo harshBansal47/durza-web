@@ -1,4 +1,5 @@
 import type {
+  CouponSort,
   AlertEvent,
   AutocompleteResult,
   Category,
@@ -98,6 +99,11 @@ export interface CouponListParams {
   category_id?: string;
   search?: string;
   active_only?: boolean;
+  sort?: CouponSort;
+  /** Only coupons that really expire within this many days. */
+  expires_within_days?: number;
+  /** Only coupons confirmed within this many hours. `total` is then an exact count. */
+  verified_within_hours?: number;
   skip?: number;
   limit?: number;
   [key: string]: string | number | boolean | undefined;

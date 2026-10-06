@@ -158,8 +158,9 @@ export default function Hero({
           )}
         </div>
 
-        {/* Right / Spotlight */}
-        <div className="border-t border-white/10 bg-white/[0.025] p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-9">
+        {/* Right / Spotlight. Hidden on phones: it repeats the first deal of the rows below, and on a
+            small screen the shopper should reach real deals without scrolling past it. */}
+        <div className="hidden border-t border-white/10 md:block bg-white/[0.025] p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-9">
           {topCoupon ? (
             <div className="flex h-full flex-col justify-center">
               {/* Coupon card */}

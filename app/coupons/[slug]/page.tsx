@@ -183,7 +183,10 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
               {!coupon.is_active && <span className="rounded-full bg-white/30 px-3 py-1">Inactive</span>}
             </div>
           </div>
-          <VerifiedGauge rate={coupon.success_rate} reports={totalReports} size={116} tone="light" />
+          {/* The same figure is in the chip above; on a phone the ring only pushes the code panel down. */}
+          <div className="hidden sm:block">
+            <VerifiedGauge rate={coupon.success_rate} reports={totalReports} size={116} tone="light" />
+          </div>
         </div>
       </header>
 
@@ -204,7 +207,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
             )}
           </div>
         ) : (
-          <CouponCodePanel coupon={coupon} storeName={store?.name} />
+          <CouponCodePanel coupon={coupon} storeName={store?.name} storeSlug={store?.slug} />
         )}
       </section>
 

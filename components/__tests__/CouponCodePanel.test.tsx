@@ -2,6 +2,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CouponCodePanel from "@/components/CouponCodePanel";
+import { api } from "@/lib/api";
+import { clearLastGo, readLastGo } from "@/lib/lastGo";
 import type { CouponPublic } from "@/lib/types";
 
 const codedCoupon: CouponPublic = {
@@ -22,12 +24,15 @@ const codedCoupon: CouponPublic = {
   fail_count: 0,
   last_verified_at: null,
   success_rate: null,
+  verification_status: "unverified",
   created_at: "2026-01-01T00:00:00Z",
 };
 
 describe("CouponCodePanel", () => {
   beforeEach(() => {
     Object.assign(navigator, { clipboard: { writeText: vi.fn().mockResolvedValue(undefined) } });
+    vi.spyOn(window, "open").mockReturnValue(null);
+    clearLastGo();
   });
   afterEach(() => {
     vi.restoreAllMocks();
@@ -76,5 +81,58 @@ describe("CouponCodePanel", () => {
     render(<CouponCodePanel coupon={codedCoupon} />);
     const link = screen.getByRole("link", { name: /get this deal/i });
     expect(link).toHaveAttribute("href", expect.stringContaining("/coupons/c1/go"));
+  });
+
+  describe("click-to-reveal attribution", () => {
+    it("opens the store in a new tab through the tracked /go link when the code is revealed", async () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
+      await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+      expect(window.open).toHaveBeenCalledTimes(1);
+      expect(window.open).toHaveBeenCalledWith(api.goUrl(codedCoupon.id, "reveal"), "_blank", "noopener");
+    });
+
+    it("does not open the store again when the code is copied", async () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
+      await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+      await userEvent.click(screen.getByRole("button", { name: "Copy code" }));
+      expect(window.open).toHaveBeenCalledTimes(1);
+    });
+
+    it("remembers the click so the 'did it work?' prompt can ask later", async () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
+      await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+      expect(readLastGo(60_000)).toMatchObject({ couponId: codedCoupon.id, storeName: "Amazon", hadCode: true });
+    });
+
+    it("tells the shopper, before they press it, that the store will open and a commission may be earned", () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
+      expect(screen.getByText(/opens Amazon in a new tab/)).toBeInTheDocument();
+      expect(screen.getByText(/may earn a commission/)).toBeInTheDocument();
+    });
+
+    it("after the reveal, says the store is open and what to do next", async () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
+      await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+      expect(screen.getByText(/Amazon opened in a new tab/)).toBeInTheDocument();
+    });
+
+    it("never opens anything for a code-less deal (there is nothing to reveal)", () => {
+      render(<CouponCodePanel coupon={{ ...codedCoupon, code: null }} storeName="Amazon" />);
+      expect(screen.queryByRole("button", { name: "Reveal code" })).not.toBeInTheDocument();
+      expect(window.open).not.toHaveBeenCalled();
+    });
+
+    it("makes no auto-fill promise it cannot keep", () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
+      expect(screen.queryByText(/auto-?fill/i)).not.toBeInTheDocument();
+    });
+
+    it("offers more deals from the same store after a copy", async () => {
+      render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" storeSlug="amazon" />);
+      await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+      await userEvent.click(screen.getByRole("button", { name: "Copy code" }));
+      const link = await screen.findByRole("link", { name: /More Amazon deals/ });
+      expect(link).toHaveAttribute("href", "/stores/amazon");
+    });
   });
 });

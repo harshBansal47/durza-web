@@ -24,6 +24,7 @@ const mockCoupon: CouponPublic = {
   fail_count: 0,
   last_verified_at: null,
   success_rate: null,
+  verification_status: "unverified",
   created_at: "2024-01-01T00:00:00Z",
 };
 

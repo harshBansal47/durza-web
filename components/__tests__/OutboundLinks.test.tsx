@@ -23,6 +23,7 @@ const base: CouponPublic = {
   fail_count: 0,
   last_verified_at: null,
   success_rate: null,
+  verification_status: "unverified",
   created_at: "2026-01-01T00:00:00Z",
 };
 
@@ -37,7 +38,7 @@ describe("outbound coupon links are tracked and marked as affiliate links", () =
 
   it("the sticky bar jumps to the code panel when there is a code (so the code is seen first)", () => {
     render(<StickyDealBar coupon={base} storeName="Amazon" />);
-    const link = screen.getByRole("link", { name: /reveal code/i });
+    const link = screen.getByRole("link", { name: /get code/i });
     expect(link).toHaveAttribute("href", "#code-panel");
   });
 
