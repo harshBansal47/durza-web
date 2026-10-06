@@ -32,8 +32,8 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Trust",
     links: [
-      { href: "/trust", label: "Our verification" },
-      { href: "/trust#commissions", label: "Commission disclosure" },
+      { href: "/trust", label: "How Couponza Works" },
+      { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
       { href: "/privacy", label: "Privacy" },
       { href: "/terms", label: "Terms" },
     ],

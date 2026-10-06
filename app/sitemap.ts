@@ -38,6 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/contact`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${SITE_URL}/terms`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${SITE_URL}/affiliate-disclosure`, changeFrequency: "yearly", priority: 0.2 },
     ...coupons.items.map((coupon) => ({
       url: `${SITE_URL}/coupons/${coupon.slug}`,
       lastModified: coupon.last_verified_at ?? coupon.created_at,

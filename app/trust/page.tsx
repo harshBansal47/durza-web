@@ -264,8 +264,8 @@ export default function TrustPage() {
       <div className="relative">
 
         {/* ══════════════════════════════════════════════════════
-            HERO
-           ══════════════════════════════════════════════════════ */}
+             HERO
+            ══════════════════════════════════════════════════════ */}
 
         <section className="px-6 pb-16 pt-20 sm:pb-20 sm:pt-28">
           <div className="mx-auto max-w-3xl text-center">
@@ -308,8 +308,8 @@ export default function TrustPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
-            HOW IT WORKS
-           ══════════════════════════════════════════════════════ */}
+             HOW IT WORKS
+            ══════════════════════════════════════════════════════ */}
 
         <section
           id="how-it-works"
@@ -328,7 +328,7 @@ export default function TrustPage() {
 
               <p className="mt-3 text-slate-600">
                 Find an offer, check the details, and shop with the store.
-                That's it.
+                That&apos;s it.
               </p>
             </div>
 
@@ -367,8 +367,8 @@ export default function TrustPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
-            WHAT YOU CAN EXPECT
-           ══════════════════════════════════════════════════════ */}
+             WHAT YOU CAN EXPECT
+            ══════════════════════════════════════════════════════ */}
 
         <section className="px-6 py-16 sm:py-20">
           <div className="mx-auto max-w-5xl">
@@ -419,8 +419,8 @@ export default function TrustPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
-            HOW COUPONZA MAKES MONEY
-           ══════════════════════════════════════════════════════ */}
+             HOW COUPONZA MAKES MONEY
+            ══════════════════════════════════════════════════════ */}
 
         <section className="px-6 py-16 sm:py-20">
           <div className="mx-auto max-w-3xl">
@@ -470,8 +470,8 @@ export default function TrustPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
-            SIMPLE TRUST MESSAGE
-           ══════════════════════════════════════════════════════ */}
+             SIMPLE TRUST MESSAGE
+            ══════════════════════════════════════════════════════ */}
 
         <section className="px-6 py-16 sm:py-20">
           <div className="mx-auto max-w-4xl">
@@ -516,48 +516,8 @@ export default function TrustPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
-            OPTIONAL FULL POLICY
-           ══════════════════════════════════════════════════════ */}
-
-        {extendedPolicy &&
-          typeof extendedPolicy.content === "string" && (
-            <section className="px-6 pb-16">
-              <div className="mx-auto max-w-3xl">
-
-                <details className="group rounded-2xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6 sm:p-7">
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                        Additional information
-                      </div>
-
-                      <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                        {extendedPolicy.title}
-                      </h2>
-                    </div>
-
-                    <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-transform group-open:rotate-90">
-                      <IconArrow className="h-4 w-4" />
-                    </span>
-                  </summary>
-
-                  <div
-                    className="border-t border-slate-100 px-6 pb-7 pt-5 text-sm text-slate-600 prose prose-slate prose-sm max-w-none prose-headings:text-slate-900 prose-headings:font-semibold prose-a:text-emerald-700 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 sm:px-7"
-                    dangerouslySetInnerHTML={{
-                      __html: extendedPolicy.content,
-                    }}
-                  />
-
-                </details>
-
-              </div>
-            </section>
-          )}
-
-        {/* ══════════════════════════════════════════════════════
-            FINAL CTA
-           ══════════════════════════════════════════════════════ */}
+             FINAL CTA
+            ══════════════════════════════════════════════════════ */}
 
         <section className="px-6 pb-24 pt-4">
           <div className="mx-auto max-w-2xl text-center">
@@ -567,7 +527,7 @@ export default function TrustPage() {
             </h2>
 
             <p className="mx-auto mt-3 max-w-md text-slate-600">
-              Search for your favorite store and see what's available.
+              Search for your favorite store and see what&apos;s available.
             </p>
 
             <div className="mt-6">
