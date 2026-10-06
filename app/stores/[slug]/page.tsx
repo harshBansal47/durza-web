@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { resilient } from "@/lib/api";
+import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import StorePageClient from "@/components/store/StorePageClient";
 
 export const revalidate = 300;
@@ -22,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${store.name} coupons, codes and price drops`,
     description,
     alternates: { canonical: `/stores/${store.slug}` },
-    openGraph: { title: `${store.name} deals on Savevero`, description, type: "website" },
+    openGraph: { title: `${store.name} deals on BachatBase`, description, type: "website" },
   };
 }
 
@@ -57,12 +59,34 @@ export default async function StorePage({ params }: Props) {
     .filter((s) => s.id !== store.id && s.is_active)
     .slice(0, 8);
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Stores", path: "/stores" },
+    { name: store.name, path: `/stores/${store.slug}` },
+  ]);
+  const faqs = [
+    {
+      question: `Are the ${store.name} codes on BachatBase verified?`,
+      answer: `Yes. ${verifiedCount} of the current ${items.length} listed offers have been verified within the last 30 days by the community, with an average success rate of ${Math.round(avgRate * 100)}%.`,
+    },
+    {
+      question: "How does BachatBase make money?",
+      answer:
+        "When you use a link on this page, we may earn a commission from the store. That commission never changes the order of the listings or the codes we show.",
+    },
+    {
+      question: "What if a code does not work?",
+      answer:
+        "Codes are retired after repeated reports of failure. You can also vote “didn’t work” on any offer, and the community rating updates immediately.",
+    },
+  ];
+  const faqJsonLd = faqPageJsonLd(faqs);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: store.name,
-    url: `${siteUrl}/stores/${store.slug}`,
+    url: `${SITE_URL}/stores/${store.slug}`,
     ...(store.website_url ? { sameAs: store.website_url } : {}),
     ...(store.logo_url ? { logo: store.logo_url } : {}),
   };
@@ -70,6 +94,8 @@ export default async function StorePage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <StorePageClient
           store={store}
@@ -82,6 +108,19 @@ export default async function StorePage({ params }: Props) {
           relatedStores={related}
           currency={store.currency}
         />
+        <section className="mt-12 border-t border-ledger-line pt-8">
+          <h2 className="mb-4 font-serif text-xl text-ink">
+            {store.name} code FAQ
+          </h2>
+          <div className="space-y-4">
+            {faqs.map((faq) => (
+              <details key={faq.question} className="border-b border-ledger-line pb-3">
+                <summary className="cursor-pointer font-semibold text-ink">{faq.question}</summary>
+                <p className="mt-2 text-sm text-ink-soft">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

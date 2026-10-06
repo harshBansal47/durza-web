@@ -24,7 +24,7 @@ import type { Product, Store } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search every store, code, price drop and category Savevero tracks.",
+  description: "Search every store, code, price drop and category BachatBase tracks.",
 };
 
 export const dynamic = "force-dynamic";
@@ -58,7 +58,7 @@ export default async function SearchPage({ searchParams }: Props) {
           <KeywordForm
             size="lg"
             autoFocus
-            label="Search Savevero"
+            label="Search BachatBase"
             placeholder="Search stores, brands, products…"
           />
         </div>
@@ -73,7 +73,7 @@ export default async function SearchPage({ searchParams }: Props) {
       <div className="mb-8">
         <KeywordForm
           size="lg"
-          label="Search Savevero"
+          label="Search BachatBase"
           placeholder="Search stores, brands, products…"
         />
       </div>

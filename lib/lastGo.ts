@@ -1,7 +1,7 @@
 /**
  * Tiny wrapper around `localStorage` for the "did it work?" prompt.
  *
- * Key: `savevero:last-go`
+ * Key: `BachatBase:last-go`
  * Value shape:
  *   {
  *     couponId: string;
@@ -16,7 +16,7 @@
  * browsing, etc.) the functions are no-ops.
  */
 
-const STORAGE_KEY = "savevero:last-go";
+const STORAGE_KEY = "BachatBase:last-go";
 
 export interface LastGoEntry {
   couponId: string;

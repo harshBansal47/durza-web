@@ -44,20 +44,31 @@ describe("CouponCodePanel", () => {
     expect(screen.getByRole("button", { name: "Reveal code" })).toBeInTheDocument();
   });
 
-  it("reveals the real code on click, and swaps the button to Copy", async () => {
+  it("reveals the real code on click, auto-copies it, and the button reverts to Copy", async () => {
     render(<CouponCodePanel coupon={codedCoupon} />);
     await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
 
     expect(screen.getByText("SAVE20")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Copy code" })).toBeInTheDocument();
+    // The reveal IS the copy: the code is on the clipboard without a second click.
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith("SAVE20");
+    await waitFor(() => expect(screen.getByRole("button", { name: "Copied" })).toBeInTheDocument());
+    await waitFor(
+      () => expect(screen.getByRole("button", { name: "Copy code" })).toBeInTheDocument(),
+      { timeout: 4000 },
+    );
   });
 
-  it("copies the code to the clipboard and shows 'Copied' confirmation", async () => {
+  it("copies the code again with 'Copied' confirmation on manual copy", async () => {
     render(<CouponCodePanel coupon={codedCoupon} />);
     await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Copied" })).toBeInTheDocument());
+    await waitFor(
+      () => expect(screen.getByRole("button", { name: "Copy code" })).toBeInTheDocument(),
+      { timeout: 4000 },
+    );
     await userEvent.click(screen.getByRole("button", { name: "Copy code" }));
 
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith("SAVE20");
+    expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(2);
     await waitFor(() => expect(screen.getByRole("button", { name: "Copied" })).toBeInTheDocument());
   });
 
@@ -65,6 +76,7 @@ describe("CouponCodePanel", () => {
     vi.mocked(navigator.clipboard.writeText).mockRejectedValue(new Error("denied"));
     render(<CouponCodePanel coupon={codedCoupon} />);
     await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+    // Reveal's auto-copy failed silently; the manual copy must also survive.
     await userEvent.click(screen.getByRole("button", { name: "Copy code" }));
 
     // Code stays visible and legible even though the copy silently failed.
@@ -94,7 +106,10 @@ describe("CouponCodePanel", () => {
     it("does not open the store again when the code is copied", async () => {
       render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
       await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
-      await userEvent.click(screen.getByRole("button", { name: "Copy code" }));
+      // Auto-copy leaves the button in "Copied" state; clicking it re-copies
+      // and must never re-open the store.
+      const button = await screen.findByRole("button", { name: "Copied" });
+      await userEvent.click(button);
       expect(window.open).toHaveBeenCalledTimes(1);
     });
 
@@ -130,7 +145,7 @@ describe("CouponCodePanel", () => {
     it("offers more deals from the same store after a copy", async () => {
       render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" storeSlug="amazon" />);
       await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
-      await userEvent.click(screen.getByRole("button", { name: "Copy code" }));
+      await userEvent.click(await screen.findByRole("button", { name: "Copied" }));
       const link = await screen.findByRole("link", { name: /More Amazon deals/ });
       expect(link).toHaveAttribute("href", "/stores/amazon");
     });

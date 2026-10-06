@@ -8,6 +8,8 @@ import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
 import { getSponsored } from "@/lib/ads";
 import ToastProvider from "@/components/ui/Toast";
+import ConsentBanner from "@/components/ConsentBanner";
+import { SITE_URL } from "@/lib/site";
 import InstallPrompt from "@/components/InstallPrompt";
 import "./globals.css";
 
@@ -29,30 +31,29 @@ const code = IBM_Plex_Mono({
   variable: "--font-code",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const SITE_TITLE = "Savevero — deals verified by people, not paid placement";
+const SITE_TITLE = "BachatBase — deals verified by people, not paid placement";
 const SITE_DESCRIPTION =
-  "Every code on Savevero is community-confirmed, and every commission we earn is disclosed on the page. No hidden placement, no scraped listings.";
+  "Every code on BachatBase is community-confirmed, and every commission we earn is disclosed on the page. No hidden placement, no scraped listings.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — Savevero",
+    template: "%s — BachatBase",
   },
   description: SITE_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Savevero",
+    title: "BachatBase",
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
     type: "website",
-    siteName: "Savevero",
+    siteName: "BachatBase",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
@@ -110,6 +111,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer ad={footerAd} />
           <MobileTabBar />
           <InstallPrompt />
+          <ConsentBanner />
           <AnalyticsPageView />
         </ToastProvider>
       </body>

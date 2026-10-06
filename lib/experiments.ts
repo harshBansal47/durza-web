@@ -10,7 +10,7 @@ import { track } from "./analytics";
  * alongside the experiment id (see docs or PR description).
  */
 
-const PREFIX = "savevero.exp.";
+const PREFIX = "BachatBase.exp.";
 
 export function getVariant(experiment: string, variants: string[]): string {
   const fallback = variants[0] ?? "control";

@@ -11,7 +11,7 @@ import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { carriedParams, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
-import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 const PAGE_SIZE = 20;
 
@@ -85,12 +85,19 @@ export default async function CategoryPage({
     { name: "Home", path: "/" },
     { name: category.name, path: `/categories/${category.slug}` },
   ]);
+  const itemList = itemListJsonLd(
+    coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
+  );
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
 
       <h1 className="mb-6 font-serif text-3xl text-ink">{category.name} coupons</h1>

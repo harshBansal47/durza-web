@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.savevero.app",
-  appName: "Savevero",
+  appId: "com.BachatBase.app",
+  appName: "BachatBase",
   webDir: "out",
   server: {
     url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",

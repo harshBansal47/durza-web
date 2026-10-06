@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { track } from "@/lib/analytics";
 
-const KEY = "savevero.saved_coupons";
+const KEY = "BachatBase.saved_coupons";
 
 function read(): string[] {
   try {

@@ -1,7 +1,7 @@
 {
-  "name": "Savevero — Deals Verified by People",
-  "short_name": "Savevero",
-  "description": "Every code on Savevero is community-confirmed, and every commission we earn is disclosed on the page.",
+  "name": "BachatBase — Deals Verified by People",
+  "short_name": "BachatBase",
+  "description": "Every code on BachatBase is community-confirmed, and every commission we earn is disclosed on the page.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

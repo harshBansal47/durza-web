@@ -1,7 +1,7 @@
 /**
  * Generate PWA icons as PNG files.
  *
- * This script creates simple PNG icons with the Savevero brand colors.
+ * This script creates simple PNG icons with the BachatBase brand colors.
  * Run with: node scripts/generate-icons.mjs
  *
  * Note: This generates basic PNG icons. For production, replace with

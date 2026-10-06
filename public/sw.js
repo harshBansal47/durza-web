@@ -1,5 +1,5 @@
 /**
- * Savevero's service worker.
+ * BachatBase's service worker.
  *
  * Three responsibilities:
  *
@@ -14,7 +14,7 @@
  * CSS, JS, fonts) is cached.
  */
 
-const CACHE_NAME = "savevero-v1";
+const CACHE_NAME = "BachatBase-v1";
 const OFFLINE_URL = "/offline.html";
 
 // Assets to precache on install — the app shell only.
@@ -133,13 +133,13 @@ self.addEventListener("push", (event) => {
   try {
     payload = event.data ? event.data.json() : {};
   } catch {
-    payload = { title: "Savevero", body: "A new deal just landed.", url: "/account/alerts" };
+    payload = { title: "BachatBase", body: "A new deal just landed.", url: "/account/alerts" };
   }
 
-  const title = payload.title || "Savevero";
+  const title = payload.title || "BachatBase";
   const options = {
     body: payload.body || "",
-    tag: payload.tag || "savevero-alert",
+    tag: payload.tag || "BachatBase-alert",
     renotify: true,
     icon: "/icon-192.png",
     badge: "/icon-192.png",

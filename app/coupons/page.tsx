@@ -9,7 +9,7 @@ import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 const PAGE_SIZE = 20;
 
@@ -59,6 +59,27 @@ export default async function CouponsPage({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Coupons", path: "/coupons" },
+            ]),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            itemListJsonLd(
+              coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
+            ),
+          ),
+        }}
+      />
       <h1 className="mb-4 font-serif text-3xl text-ink">{heading}</h1>
       <div className="mb-8">
         <KeywordForm placeholder="Search coupons, brands or stores…" label="Search coupons" />

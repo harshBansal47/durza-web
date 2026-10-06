@@ -23,22 +23,22 @@ describe("lastGo", () => {
 
   it("returns null when entry is older than maxAgeMs", () => {
     const oldEntry = { couponId: "c1", title: "Test", storeName: "Store", hadCode: true, at: Date.now() - 10000 };
-    localStorage.setItem("savevero:last-go", JSON.stringify(oldEntry));
+    localStorage.setItem("BachatBase:last-go", JSON.stringify(oldEntry));
     expect(readLastGo(1000)).toBeNull();
   });
 
   it("returns null for malformed JSON", () => {
-    localStorage.setItem("savevero:last-go", "not json");
+    localStorage.setItem("BachatBase:last-go", "not json");
     expect(readLastGo(1000)).toBeNull();
   });
 
   it("returns null for missing required fields", () => {
-    localStorage.setItem("savevero:last-go", JSON.stringify({ couponId: "c1" }));
+    localStorage.setItem("BachatBase:last-go", JSON.stringify({ couponId: "c1" }));
     expect(readLastGo(1000)).toBeNull();
   });
 
   it("returns null for wrong field types", () => {
-    localStorage.setItem("savevero:last-go", JSON.stringify({ couponId: 123, title: "t", storeName: "s", hadCode: true, at: Date.now() }));
+    localStorage.setItem("BachatBase:last-go", JSON.stringify({ couponId: 123, title: "t", storeName: "s", hadCode: true, at: Date.now() }));
     expect(readLastGo(1000)).toBeNull();
   });
 

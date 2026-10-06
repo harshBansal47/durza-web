@@ -8,7 +8,7 @@ import type { AlertEvent, AlertKind } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Alert history",
-  description: "Every price-drop and coupon alert Savevero has sent you.",
+  description: "Every price-drop and coupon alert BachatBase has sent you.",
   alternates: { canonical: absoluteUrl("/account/alerts") },
   robots: { index: false, follow: false },
 };

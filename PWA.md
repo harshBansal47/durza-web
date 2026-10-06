@@ -1,6 +1,6 @@
-# Savevero — PWA & Capacitor Setup
+# BachatBase — PWA & Capacitor Setup
 
-This guide covers the PWA (Progressive Web App) and Capacitor setup for Savevero.
+This guide covers the PWA (Progressive Web App) and Capacitor setup for BachatBase.
 
 ## What's Been Set Up
 
@@ -118,8 +118,8 @@ Edit `capacitor.config.ts`:
 
 ```typescript
 const config: CapacitorConfig = {
-  appId: "com.savevero.app",  // Change to your app ID
-  appName: "Savevero",         // Change to your app name
+  appId: "com.BachatBase.app",  // Change to your app ID
+  appName: "BachatBase",         // Change to your app name
   // ...
 };
 ```

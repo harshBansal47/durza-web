@@ -81,7 +81,7 @@ export default function StorePageClient({
 
   async function share() {
     const url = window.location.href;
-    const payload = { title: `${store.name} deals on Savevero`, url };
+    const payload = { title: `${store.name} deals on BachatBase`, url };
     try {
       if (navigator.share) {
         await navigator.share(payload);
@@ -210,7 +210,7 @@ export default function StorePageClient({
           </div>
         </dl>
         <p className="mt-3 text-sm text-ink-soft">
-          One person saying a code worked is not evidence. Every vote on Savevero is timestamped and
+          One person saying a code worked is not evidence. Every vote on BachatBase is timestamped and
           counted —{" "}
           <Link href="/trust" className="text-inkblue underline-offset-2 hover:underline">
             here is how the counting works

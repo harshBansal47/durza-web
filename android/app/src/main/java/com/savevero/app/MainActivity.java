@@ -1,4 +1,4 @@
-package com.savevero.app;
+package com.BachatBase.app;
 
 import com.getcapacitor.BridgeActivity;
 

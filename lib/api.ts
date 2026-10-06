@@ -203,7 +203,7 @@ export const api = {
   getStoreBySlug: (slug: string) =>
     apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
-  /** ISO 3166-1 alpha-2 codes Savevero currently serves. */
+  /** ISO 3166-1 alpha-2 codes BachatBase currently serves. */
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
 
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number } = {}) =>

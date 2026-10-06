@@ -14,15 +14,8 @@ interface BeforeInstallPromptEvent extends Event {
 export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // Check if already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true);
-      return;
-    }
-
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -43,7 +36,6 @@ export default function InstallPrompt() {
     const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === "accepted") {
-      setIsInstalled(true);
       setIsVisible(false);
     }
 
@@ -54,7 +46,14 @@ export default function InstallPrompt() {
     setIsVisible(false);
   };
 
-  if (!isVisible || isInstalled) return null;
+  // Installed PWAs run standalone. Rendering null for them is identical on
+  // server and client (the prompt is never visible before hydration anyway),
+  // so no state is needed — unlike isInstalled, which used to force a
+  // setState inside the effect below.
+  const isStandalone =
+    typeof window !== "undefined" && window.matchMedia("(display-mode: standalone)").matches;
+
+  if (!isVisible || isStandalone) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:right-4 sm:max-w-sm">
@@ -64,7 +63,7 @@ export default function InstallPrompt() {
             S
           </div>
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-ink">Install Savevero</h3>
+            <h3 className="text-sm font-semibold text-ink">Install BachatBase</h3>
             <p className="mt-0.5 text-xs text-ink-soft">
               Add to your home screen for quick access to deals and coupons.
             </p>

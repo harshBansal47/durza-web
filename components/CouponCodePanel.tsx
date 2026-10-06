@@ -21,14 +21,14 @@ export default function CouponCodePanel({
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  function reveal() {
+  async function reveal() {
     setRevealed(true);
     track("coupon_reveal", { coupon_id: coupon.id });
-    // Revealing the code also opens the store, in a NEW tab, through the tracked /go
-    // link. The code stays on this page for copying. This is what makes a visit
-    // attributable even if the shopper then pastes the code in by hand instead of
-    // using the button below. It only ever happens as the direct result of the
-    // shopper's own click, and the button says so before they press it.
+    // Reveal means "take me to the deal": open the store in a NEW tab through
+    // the tracked /go link so the click is attributable, AND copy the code so
+    // the shopper can paste it at checkout. The code stays visible for a
+    // re-copy, and it only ever happens as the direct result of the shopper's
+    // own click.
     rememberGo({
       couponId: coupon.id,
       title: coupon.title,
@@ -36,6 +36,16 @@ export default function CouponCodePanel({
       hadCode: true,
     });
     window.open(api.goUrl(coupon.id, "reveal"), "_blank", "noopener");
+    if (coupon.code) {
+      try {
+        await navigator.clipboard.writeText(coupon.code);
+        track("copy_code", { coupon_id: coupon.id, via: "reveal" });
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      } catch {
+        /* clipboard unavailable — the code is visible on the page */
+      }
+    }
   }
 
   async function handleCopy() {

@@ -1,6 +1,6 @@
-# Savevero Web
+# BachatBase Web
 
-The public frontend — a separate Next.js app that talks to the [Savevero FastAPI
+The public frontend — a separate Next.js app that talks to the [BachatBase FastAPI
 backend](../couponza) over HTTP. Nothing here touches the database directly.
 
 ## Why this exists as a separate app

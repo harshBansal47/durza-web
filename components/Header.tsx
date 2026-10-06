@@ -84,7 +84,7 @@ export default function Header({
           {/* Brand */}
           <Link
             href="/"
-            aria-label="Savevero home"
+            aria-label="BachatBase home"
             className="group flex shrink-0 items-center gap-2.5"
           >
             <span
@@ -102,7 +102,7 @@ export default function Header({
             </span>
 
             <span className="font-serif text-[21px] font-extrabold tracking-tight text-ink sm:text-[23px]">
-              Savevero
+              BachatBase
             </span>
           </Link>
 

@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { resilient } from "@/lib/api";
 import EmptyState from "@/components/EmptyState";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Stores",
-  description: "Browse every store on Savevero.",
+  description: "Browse every store on BachatBase.",
   alternates: { canonical: absoluteUrl("/stores") },
 };
 
@@ -26,8 +26,24 @@ export default async function StoresIndexPage({
   }
   const letters = [...groups.keys()].sort();
 
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Stores", path: "/stores" },
+  ]);
+  const itemList = itemListJsonLd(
+    items.map((store) => ({ name: store.name, path: `/stores/${store.slug}` })),
+  );
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
       <h1 className="mb-8 font-serif text-3xl text-ink">Stores</h1>
       <form action="/stores" className="mb-10 max-w-md">
         <label htmlFor="store-filter" className="sr-only">Filter stores</label>
