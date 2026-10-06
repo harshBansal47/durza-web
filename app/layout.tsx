@@ -8,6 +8,7 @@ import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
 import { getSponsored } from "@/lib/ads";
 import ToastProvider from "@/components/ui/Toast";
+import InstallPrompt from "@/components/InstallPrompt";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -40,6 +41,15 @@ export const metadata: Metadata = {
     template: "%s — Savevero",
   },
   description: SITE_DESCRIPTION,
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Savevero",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     siteName: "Savevero",
@@ -53,6 +63,15 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   robots: { index: true, follow: true },
+};
+
+export const viewport = {
+  themeColor: "#1b1836",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 const NAV_LINKS = [
@@ -90,6 +109,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </main>
           <Footer ad={footerAd} />
           <MobileTabBar />
+          <InstallPrompt />
           <AnalyticsPageView />
         </ToastProvider>
       </body>

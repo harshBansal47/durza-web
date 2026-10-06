@@ -1,0 +1,55 @@
+{
+  "name": "Savevero — Deals Verified by People",
+  "short_name": "Savevero",
+  "description": "Every code on Savevero is community-confirmed, and every commission we earn is disclosed on the page.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#faf7f0",
+  "theme_color": "#1b1836",
+  "categories": ["shopping", "deals", "coupons"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Coupons",
+      "short_name": "Coupons",
+      "description": "Browse available coupons",
+      "url": "/coupons",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Deals",
+      "short_name": "Deals",
+      "description": "Browse current deals",
+      "url": "/deals",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Saved",
+      "short_name": "Saved",
+      "description": "View saved coupons and deals",
+      "url": "/saved",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

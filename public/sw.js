@@ -1,34 +1,113 @@
 /**
  * Savevero's service worker.
  *
- * Deliberately minimal. It exists for two reasons and not for a third:
+ * Three responsibilities:
  *
- *  1. The Push API requires a service worker — there is no way to receive a
- *     push notification without one.
- *  2. Showing the notification when a push arrives.
+ *  1. Push notifications — the Push API requires a service worker.
+ *  2. App shell caching — cache the HTML shell and static assets so the app
+ *     loads instantly and works offline.
+ *  3. Offline fallback — show a friendly offline page when the network is
+ *     unavailable.
  *
- * It is *not* a cache layer. This site's pages are server-rendered from live
- * price data; a cached coupon page that shows yesterday's price is worse than a
- * slow page, and "stale price" is the one failure this product cannot have.
- *
- * `userVisibleOnly: true` on the subscribe side is a hard requirement of the
- * push API, and it is why `showNotification` below must never be conditional.
+ * Pages with live price data are NOT cached — a stale coupon page showing
+ * yesterday's price is worse than a slow page. Only the app shell (HTML,
+ * CSS, JS, fonts) is cached.
  */
 
-self.addEventListener("install", () => {
-  // No precaching to do, so take over as soon as possible.
+const CACHE_NAME = "savevero-v1";
+const OFFLINE_URL = "/offline.html";
+
+// Assets to precache on install — the app shell only.
+const PRECACHE_ASSETS = [
+  "/",
+  "/offline.html",
+  "/icon-192.png",
+  "/icon-512.png",
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(PRECACHE_ASSETS);
+    })
+  );
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
+      );
+    })
+  );
+  self.clients.claim();
 });
 
 /**
- * Clicking a notification should land on the product the alert was about, not
- * on the homepage. The server puts an absolute path in `data.url`; anything
- * unrecognised falls back to the account page rather than the site root, since
- * every alert is about something the reader asked us to watch.
+ * Fetch strategy:
+ * - Static assets (CSS, JS, images, fonts): cache-first, then network
+ * - HTML pages: network-first, then cache, then offline fallback
+ * - API requests: network-only (never cache live data)
+ */
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  // Only handle GET requests
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+
+  // API requests — network only, never cache
+  if (url.pathname.startsWith("/api/")) {
+    return;
+  }
+
+  // HTML pages — network-first with offline fallback
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          // Cache the successful response for offline use
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, clone);
+          });
+          return response;
+        })
+        .catch(() => {
+          return caches.match(request).then((cached) => {
+            return cached || caches.match(OFFLINE_URL);
+          });
+        })
+    );
+    return;
+  }
+
+  // Static assets — cache-first, then network
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+
+      return fetch(request).then((response) => {
+        // Cache successful responses for static assets
+        if (response.ok && url.origin === self.location.origin) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, clone);
+          });
+        }
+        return response;
+      });
+    })
+  );
+});
+
+/**
+ * Clicking a notification should land on the product the alert was about.
  */
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
@@ -36,8 +115,6 @@ self.addEventListener("notificationclick", (event) => {
 
   event.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
-      // Prefer reusing an open tab: a notification that spawns a second copy of
-      // the site is the most common complaint about web push.
       for (const client of clientList) {
         if ("focus" in client) {
           if (target && "navigate" in client) {
@@ -47,7 +124,7 @@ self.addEventListener("notificationclick", (event) => {
         }
       }
       return self.clients.openWindow(target || "/account/alerts");
-    }),
+    })
   );
 });
 
@@ -56,16 +133,12 @@ self.addEventListener("push", (event) => {
   try {
     payload = event.data ? event.data.json() : {};
   } catch {
-    // A push we cannot parse still has to show *something*: silently dropping it
-    // is indistinguishable from the alert never having been sent.
     payload = { title: "Savevero", body: "A new deal just landed.", url: "/account/alerts" };
   }
 
   const title = payload.title || "Savevero";
   const options = {
     body: payload.body || "",
-    // Same tag collapses repeated alerts for the same product instead of
-    // stacking five notifications when one product drops repeatedly.
     tag: payload.tag || "savevero-alert",
     renotify: true,
     icon: "/icon-192.png",
