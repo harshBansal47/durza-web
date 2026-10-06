@@ -14,8 +14,8 @@ import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
 import type { AutocompleteResult } from "@/lib/types";
 
-const RECENT_KEY = "couponza.recent";
-const POPULAR_KEY = "couponza.popular";
+const RECENT_KEY = "savevero.recent";
+const POPULAR_KEY = "savevero.popular";
 const MAX_RECENT = 6;
 const DEBOUNCE_MS = 150;
 const MIN_QUERY_LENGTH = 2;

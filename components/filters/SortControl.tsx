@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dropdown } from "@/components/ui/Dropdown";
 import { DEFAULT_SORT, SORT_OPTIONS, hintOf, parseFilters } from "@/lib/filters";
@@ -19,17 +18,15 @@ export default function SortControl({ className = "" }: { className?: string }) 
   const params = useSearchParams();
   const { sort } = parseFilters(params);
 
-  const apply = useCallback(
-    (value: string) => {
-      const next = new URLSearchParams(params.toString());
-      if (!value || value === DEFAULT_SORT) next.delete("sort");
-      else next.set("sort", value);
-      next.delete("skip");
-      const qs = next.toString();
-      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    },
-    [params, pathname, router],
-  );
+  // A plain function: the React Compiler memoizes it, a manual useCallback is a lint error.
+  function apply(value: string) {
+    const next = new URLSearchParams(params.toString());
+    if (!value || value === DEFAULT_SORT) next.delete("sort");
+    else next.set("sort", value);
+    next.delete("skip");
+    const qs = next.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
 
   const hint = hintOf(SORT_OPTIONS, sort);
   const selected = SORT_OPTIONS.find((o) => o.value === sort) ?? SORT_OPTIONS[0];

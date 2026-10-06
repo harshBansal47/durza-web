@@ -78,7 +78,7 @@ function ToastRow({ toast, onDismiss }: { toast: Toast; onDismiss: (id: number) 
   return (
     <div
       data-toast-id={toast.id}
-      className={`pointer-events-auto flex max-w-md items-center gap-3 rounded-sm border px-4 py-3 text-sm shadow-[var(--shadow-overlay)] ${typeStyles[toast.type]}`}
+      className={`pointer-events-auto flex max-w-md items-center gap-3 rounded-[var(--radius-md)] border px-4 py-3 text-sm shadow-[var(--shadow-overlay)] ${typeStyles[toast.type]}`}
       role={toast.type === "error" ? "alert" : "status"}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

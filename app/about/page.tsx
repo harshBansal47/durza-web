@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "What Couponbase is and why it exists.",
+  description: "What Savevero is and why it exists.",
 };
 
 export default function AboutPage() {
   return (
     <article className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="font-serif text-3xl text-ink">About Couponbase</h1>
-      <div className="prose-couponbase mt-6 space-y-4 text-ink-soft">
+      <h1 className="font-serif text-3xl text-ink">About Savevero</h1>
+      <div className="prose-savevero mt-6 space-y-4 text-ink-soft">
         <p>
-          Couponbase is a deals platform built on one idea: a discount should be <em>evidence</em>, not
+          Savevero is a deals platform built on one idea: a discount should be <em>evidence</em>, not
           marketing. Every code on the site carries a real success rate from people who actually tried it,
           and every commission we earn is disclosed right on the page.
         </p>

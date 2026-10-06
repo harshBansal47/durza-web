@@ -1,134 +1,84 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { resilient } from "@/lib/api";
 import { CouponCard } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
 import EmptyState from "@/components/EmptyState";
 import { TrackEvent } from "@/components/Analytics";
-import SearchFilters from "./SearchFilters";
+import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
+import FilterChips from "@/components/filters/FilterChips";
+import FilterLayout from "@/components/filters/FilterLayout";
+import KeywordForm from "@/components/filters/KeywordForm";
+import SortControl from "@/components/filters/SortControl";
+import Pagination from "@/components/Pagination";
 import { formatMoney } from "@/lib/format";
-import type { CouponPublic, Product, Store } from "@/lib/types";
+import {
+  carriedParams,
+  filterCount,
+  parseFilters,
+  resolveIds,
+  toCouponQuery,
+  type CouponFilters,
+} from "@/lib/filters";
+import type { Product, Store } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search every store, code, price drop and category Couponbase tracks.",
+  description: "Search every store, code, price drop and category Savevero tracks.",
 };
 
 export const dynamic = "force-dynamic";
+
+const PAGE_SIZE = 20;
 
 interface Props {
   searchParams: Promise<Record<string, string | undefined>>;
 }
 
-type SortKey = "relevance" | "verified" | "discount" | "newest" | "expiring";
-
-/**
- * Server-side ordering. Doing it here rather than in the browser means the
- * result list in the HTML is already the list the visitor sees.
- */
-function sortCoupons(items: CouponPublic[], sort: SortKey): CouponPublic[] {
-  const copy = [...items];
-  switch (sort) {
-    case "newest":
-      return copy.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
-    case "discount":
-      // Only percentage discounts are comparable; fixed amounts across
-      // currencies are not, so they never outrank a percentage deal.
-      return copy.sort(
-        (a, b) => percent(b) - percent(a) || (b.success_rate ?? -1) - (a.success_rate ?? -1),
-      );
-    case "expiring":
-      return copy.sort((a, b) => expiryRank(a) - expiryRank(b));
-    case "verified":
-      return copy.sort(
-        (a, b) =>
-          (b.success_rate ?? -1) - (a.success_rate ?? -1) ||
-          b.success_count + b.fail_count - (a.success_count + a.fail_count),
-      );
-    case "relevance":
-    default:
-      return copy;
-  }
-}
-
-const percent = (c: CouponPublic) => (c.discount_type === "percentage" ? c.discount_value ?? 0 : 0);
-const expiryRank = (c: CouponPublic) => (c.expires_at ? Date.parse(c.expires_at) : Number.POSITIVE_INFINITY);
-
 export default async function SearchPage({ searchParams }: Props) {
-  const params = await searchParams;
-  const query = (params.q ?? "").trim();
-  const storeSlug = params.store;
-  const categorySlug = params.category;
-  const type = params.type as CouponPublic["discount_type"] | undefined;
-  const sort = (params.sort as SortKey) ?? "relevance";
-  const verifiedOnly = params.verified === "true";
+  const sp = await searchParams;
+  const filters = parseFilters(sp);
 
   const [storesPage, categoriesPage] = await Promise.all([
     resilient.listStores({ limit: 100 }),
     resilient.listCategories({ limit: 100 }),
   ]);
-
   const stores = storesPage.items;
   const categories = categoriesPage.items;
 
-  // The API filters by UUID; the URL carries readable slugs so results can be
-  // shared and read out loud.
-  const storeId = storeSlug ? stores.find((s) => s.slug === storeSlug)?.id : undefined;
-  const categoryId = categorySlug ? categories.find((c) => c.slug === categorySlug)?.id : undefined;
-
-  if (query) {
+  if (!filters.q) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <TrackEvent event="search" payload={{ query }} />
-        <SearchBox query={query} />
-        <Results
-          query={query}
-          storeId={storeId}
-          categoryId={categoryId}
-          type={type}
-          sort={sort}
-          verifiedOnly={verifiedOnly}
-          stores={stores}
-          categories={categories}
-          storeSlug={storeSlug ?? null}
-          categorySlug={categorySlug ?? null}
-        />
+        <h1 className="font-serif text-3xl text-ink">What are you shopping for?</h1>
+        <p className="mt-2 max-w-prose text-ink-soft">
+          Search a store, a brand, a product or a category. Everything listed here has a verification
+          trail — use the filters on the results page to see only codes somebody has actually tried.
+        </p>
+        <div className="mt-6">
+          <KeywordForm
+            size="lg"
+            autoFocus
+            label="Search Savevero"
+            placeholder="Search stores, brands, products…"
+          />
+        </div>
+        <SuggestedSearches categories={categories} stores={stores} />
       </div>
     );
   }
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <h1 className="font-serif text-3xl text-ink">What are you shopping for?</h1>
-      <p className="mt-2 max-w-prose text-ink-soft">
-        Search a store, a brand, a product or a category. Everything listed here has a verification
-        trail — use the filters on the results page to see only codes somebody has actually tried.
-      </p>
-      <div className="mt-6">
-        <SearchBox query="" />
+      <TrackEvent event="search" payload={{ query: filters.q }} />
+      <div className="mb-8">
+        <KeywordForm
+          size="lg"
+          label="Search Savevero"
+          placeholder="Search stores, brands, products…"
+        />
       </div>
-      <SuggestedSearches categories={categories} stores={stores} />
+      <Results sp={sp} filters={filters} stores={stores} categories={categories} />
     </div>
-  );
-}
-
-function SearchBox({ query }: { query: string }) {
-  return (
-    <form action="/search" role="search" className="mb-8">
-      <label htmlFor="site-search" className="sr-only">
-        Search Couponbase
-      </label>
-      <input
-        id="site-search"
-        name="q"
-        type="search"
-        defaultValue={query}
-        placeholder="Search stores, brands, products…"
-        autoFocus={query.length === 0}
-        className="w-full border border-ledger-line bg-paper-raised px-5 py-4 font-mono text-sm text-ink placeholder:text-ink-soft focus:border-inkblue focus:outline-none"
-      />
-    </form>
   );
 }
 
@@ -179,210 +129,237 @@ function SuggestedSearches({
 }
 
 interface ResultsProps {
-  query: string;
-  storeId?: string;
-  categoryId?: string;
-  type?: CouponPublic["discount_type"];
-  sort: SortKey;
-  verifiedOnly: boolean;
+  sp: Record<string, string | undefined>;
+  filters: CouponFilters;
   stores: Store[];
   categories: { id: string; name: string; slug: string; icon: string | null }[];
-  storeSlug: string | null;
-  categorySlug: string | null;
 }
 
-async function Results({
-  query,
-  storeId,
-  categoryId,
-  type,
-  sort,
-  verifiedOnly,
-  stores,
-  categories,
-}: ResultsProps) {
+/**
+ * Stores, products and categories only appear while the search is exploratory.
+ * The moment a visitor narrows by store, category or offer shape, the coupon
+ * list is the answer and an unfiltered entity list beside it would contradict it.
+ */
+function isExploratory(filters: CouponFilters): boolean {
+  return (
+    !filters.store &&
+    !filters.category &&
+    !filters.type &&
+    !filters.code &&
+    !filters.confirmed &&
+    !filters.rate &&
+    !filters.expires
+  );
+}
+
+async function Results({ sp, filters, stores, categories }: ResultsProps) {
+  const query = filters.q;
+  const skip = Math.max(Number(sp.skip) || 0, 0);
+  const resolved = resolveIds(filters, stores, categories);
+  const exploratory = isExploratory(filters) && !resolved.unresolved;
+
   const [coupons, products, matchingStores, allCategories] = await Promise.all([
-    resilient.listCoupons({
-      search: query,
-      store_id: storeId,
-      category_id: categoryId,
-      active_only: true,
-      limit: 60,
-    }),
-    resilient.listProducts({ search: query, store_id: storeId, category_id: categoryId, limit: 20 }),
-    resilient.listStores({ search: query, limit: 10 }),
-    resilient.listCategories({ limit: 200 }),
+    resolved.unresolved
+      ? Promise.resolve({ items: [], total: 0, skip, limit: PAGE_SIZE })
+      : resilient.listCoupons(toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE })),
+    exploratory
+      ? resilient.listProducts({ search: query, limit: 20 })
+      : Promise.resolve({ items: [], total: 0, skip: 0, limit: 20 }),
+    exploratory ? resilient.listStores({ search: query, limit: 10 }) : Promise.resolve({ items: [], total: 0, skip: 0, limit: 10 }),
+    exploratory
+      ? resilient.listCategories({ limit: 200 })
+      : Promise.resolve({ items: [], total: 0, skip: 0, limit: 200 }),
   ]);
 
   const storeById = new Map(stores.map((s) => [s.id, s]));
-
-  const filtered = coupons.items.filter(
-    (c) => (!type || c.discount_type === type) && (!verifiedOnly || c.last_verified_at !== null),
-  );
-  const sorted = sortCoupons(filtered, sort);
-
-  const needle = query.toLowerCase();
-  const matchedCategories = allCategories.items
-    .filter((c) => c.name.toLowerCase().includes(needle))
-    .slice(0, 8);
-
   const storeHits = matchingStores.items;
   const productHits = products.items;
-  const total = sorted.length + storeHits.length + productHits.length + matchedCategories.length;
+  const needle = query.toLowerCase();
+  const matchedCategories = exploratory
+    ? allCategories.items.filter((c) => c.name.toLowerCase().includes(needle)).slice(0, 8)
+    : [];
+
+  const couponTotal = coupons.total;
+  const total =
+    couponTotal + storeHits.length + productHits.length + matchedCategories.length;
 
   if (total === 0) {
-    const storeMatch = storeHits[0];
     return (
       <div>
         <EmptyState
-          title={`Nothing matches “${query}”.`}
-          body="We only list codes someone has confirmed, so a thin result is normal for new stores. Try a broader term, or start from one of these."
+          title={
+            resolved.unresolved === "store"
+              ? `We don't know the store "${filters.store}".`
+              : resolved.unresolved === "category"
+                ? `We don't know the category "${filters.category}".`
+                : `Nothing matches “${query}”.`
+          }
+          body={
+            resolved.unresolved
+              ? "It may have been renamed or removed. Clear the filter to see everything again."
+              : "We only list codes someone has confirmed, so a thin result is normal for new stores. Try a broader term, or start from one of these."
+          }
           cta={{ href: "/categories", label: "Browse categories" }}
         />
-        <ul className="mx-auto mt-6 flex max-w-md flex-wrap justify-center gap-2">
-          {storeMatch && (
-            <li>
-              <Link href={`/stores/${storeMatch.slug}`} className="btn btn-outline">
-                {storeMatch.name} deals
-              </Link>
-            </li>
-          )}
-          <li>
-            <Link href="/coupons" className="btn btn-ghost">
-              Trending offers →
-            </Link>
-          </li>
-        </ul>
+        <div className="mt-6 text-center">
+          <Link href="/search" className="btn btn-ghost">
+            Clear the search
+          </Link>
+        </div>
       </div>
     );
   }
 
   const refinements = [
-    { label: `${query} coupons`, href: `/search?q=${encodeURIComponent(query)}&type=coupon` },
-    { label: `${query} deals`, href: `/search?q=${encodeURIComponent(query)}` },
-    { label: `${query} free shipping`, href: `/search?q=${encodeURIComponent(`${query} shipping`)}` },
-    { label: `${query} verified only`, href: `/search?q=${encodeURIComponent(query)}&verified=true` },
+    { label: `${query} promo codes`, href: refine(sp, { code: "codes" }) },
+    { label: `${query} deals`, href: refine(sp, { code: "deals" }) },
+    { label: `${query} confirmed`, href: refine(sp, { confirmed: "once" }) },
+    { label: `${query} free shipping`, href: refine(sp, { q: `${query} shipping` }) },
   ];
 
-  return (
-    <div className="lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
-      <aside className="hidden lg:block">
-        <div className="sticky top-24">
-          <Suspense fallback={<div className="h-64" />}>
-            <SearchFilters
-              stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
-              categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
-            />
-          </Suspense>
-        </div>
-      </aside>
+  const storeName = stores.find((s) => s.slug === filters.store)?.name;
+  const categoryName = categories.find((c) => c.slug === filters.category)?.name;
+  const page = Math.floor(skip / PAGE_SIZE) + 1;
+  const pages = Math.max(Math.ceil(couponTotal / PAGE_SIZE), 1);
 
-      <div className="min-w-0">
-        <div className="border-b border-ledger-line pb-5">
+  return (
+    <FilterLayout
+      panel={
+        <CouponFilterPanel
+          stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
+          categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+        />
+      }
+      summaryLabel={`Filters${filterCount(filters) > 0 ? ` (${filterCount(filters)})` : ""}`}
+    >
+      <div className="border-b border-ledger-line pb-5">
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <h1 className="font-serif text-2xl text-ink">
             {total} result{total === 1 ? "" : "s"} for “{query}”
           </h1>
-          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Refine this search">
-            {refinements.map((r) => (
-              <li key={r.label}>
-                <Link
-                  href={r.href}
-                  className="rounded-full border border-ledger-line bg-white px-3 py-1 text-xs font-semibold text-ink-soft transition-colors hover:border-rust hover:text-rust"
-                >
-                  {r.label}
-                </Link>
+          <SortControl />
+        </div>
+        <ul className="mt-3 flex flex-wrap gap-2" aria-label="Refine this search">
+          {refinements.map((r) => (
+            <li key={r.label}>
+              <Link
+                href={r.href}
+                className="rounded-full border border-ledger-line bg-white px-3 py-1 text-xs font-semibold text-ink-soft transition-colors hover:border-rust hover:text-rust"
+              >
+                {r.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-4">
+        <FilterChips storeLabel={storeName} categoryLabel={categoryName} />
+      </div>
+
+      {storeHits.length > 0 && (
+        <section className="mt-8">
+          <SectionTitle hint={String(matchingStores.total)}>Stores</SectionTitle>
+          <ul className="divide-y divide-ledger-line border border-ledger-line">
+            {storeHits.map((s) => (
+              <li key={s.id}>
+                <StoreRow store={s} />
               </li>
             ))}
           </ul>
-          <details className="mt-3 lg:hidden">
-            <summary className="btn-outline cursor-pointer list-none">Filters</summary>
-            <div className="mt-4 border border-ledger-line bg-paper-raised p-4">
-              <Suspense fallback={null}>
-                <SearchFilters
-                  stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
-                  categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
-                />
-              </Suspense>
-            </div>
-          </details>
-        </div>
+        </section>
+      )}
 
-        {storeHits.length > 0 && (
-          <section className="mt-8">
-            <SectionTitle hint={String(matchingStores?.total ?? storeHits.length)}>Stores</SectionTitle>
-            <ul className="divide-y divide-ledger-line border border-ledger-line">
-              {storeHits.map((s) => (
-                <li key={s.id}>
-                  <StoreRow store={s} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {sorted.length > 0 && (
-          <section className="mt-8">
-            <SectionTitle hint={String(sorted.length)}>Coupons</SectionTitle>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {sorted.map((coupon) => (
+      {coupons.items.length > 0 && (
+        <section className="mt-8">
+          <SectionTitle hint={`${couponTotal} total`}>Coupons</SectionTitle>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {coupons.items.map((coupon) => {
+              const store = storeById.get(coupon.store_id);
+              return (
                 <CouponCard
                   key={coupon.id}
                   coupon={coupon}
                   store={
-                    storeById.get(coupon.store_id)
+                    store
                       ? {
-                          id: coupon.store_id,
-                          name: storeById.get(coupon.store_id)!.name,
-                          slug: storeById.get(coupon.store_id)!.slug,
-                          logo_url: storeById.get(coupon.store_id)!.logo_url,
-                          currency: storeById.get(coupon.store_id)!.currency,
+                          id: store.id,
+                          name: store.name,
+                          slug: store.slug,
+                          logo_url: store.logo_url,
+                          currency: store.currency,
                         }
                       : undefined
                   }
                 />
-              ))}
-            </div>
-          </section>
-        )}
+              );
+            })}
+          </div>
+          <Pagination
+            basePath="/search"
+            searchParams={carriedParams(sp)}
+            skip={skip}
+            limit={PAGE_SIZE}
+            total={couponTotal}
+          />
+        </section>
+      )}
 
-        {productHits.length > 0 && (
-          <section className="mt-8">
-            <SectionTitle hint={String(products?.total ?? productHits.length)}>Products</SectionTitle>
-            <ul className="divide-y divide-ledger-line border border-ledger-line">
-              {productHits.map((product) => (
-                <li key={product.id}>
-                  <ProductRow product={product} store={storeById.get(product.store_id)} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+      {productHits.length > 0 && (
+        <section className="mt-8">
+          <SectionTitle hint={String(products.total)}>Products</SectionTitle>
+          <ul className="divide-y divide-ledger-line border border-ledger-line">
+            {productHits.map((product) => (
+              <li key={product.id}>
+                <ProductRow product={product} store={storeById.get(product.store_id)} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-        {matchedCategories.length > 0 && (
-          <section className="mt-8">
-            <SectionTitle>Categories</SectionTitle>
-            <ul className="divide-y divide-ledger-line border border-ledger-line">
-              {matchedCategories.map((c) => (
-                <li key={c.id}>
-                  <Link
-                    href={`/categories/${c.slug}`}
-                    className="flex items-center gap-3 px-4 py-3 text-ink transition-colors hover:bg-paper-raised"
-                  >
-                    {c.icon && (
-                      <span className="text-lg" aria-hidden="true">
-                        {c.icon}
-                      </span>
-                    )}
-                    {c.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </div>
-    </div>
+      {matchedCategories.length > 0 && (
+        <section className="mt-8">
+          <SectionTitle>Categories</SectionTitle>
+          <ul className="divide-y divide-ledger-line border border-ledger-line">
+            {matchedCategories.map((c) => (
+              <li key={c.id}>
+                <Link
+                  href={`/categories/${c.slug}`}
+                  className="flex items-center gap-3 px-4 py-3 text-ink transition-colors hover:bg-paper-raised"
+                >
+                  {c.icon && (
+                    <span className="text-lg" aria-hidden="true">
+                      {c.icon}
+                    </span>
+                  )}
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <p className="mt-6 text-xs text-ink-soft">
+        Showing page {page} of {pages} for coupons. Stores, products and categories are the closest
+        matches we hold.
+      </p>
+    </FilterLayout>
   );
+}
+
+/** A refinement chip: same search, one param swapped, paging reset. */
+function refine(
+  sp: Record<string, string | undefined>,
+  patch: Record<string, string | undefined>,
+): string {
+  const merged: Record<string, string | undefined> = { ...sp, ...patch, skip: undefined };
+  const qs = new URLSearchParams();
+  for (const [key, value] of Object.entries(merged)) {
+    if (value) qs.set(key, value);
+  }
+  const s = qs.toString();
+  return s ? `/search?${s}` : "/search";
 }
 
 function StoreRow({ store }: { store: Store }) {

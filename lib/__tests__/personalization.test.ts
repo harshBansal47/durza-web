@@ -42,7 +42,7 @@ describe("personalization signals", () => {
   });
 
   it("survives corrupt storage rather than crashing the page", () => {
-    localStorage.setItem("couponza.recent_stores", "not-json{{{");
+    localStorage.setItem("savevero.recent_stores", "not-json{{{");
     expect(getSignals().stores).toEqual([]);
   });
 });

@@ -4,6 +4,7 @@ import type {
   AutocompleteResult,
   Category,
   CouponPublic,
+  DiscountType,
   CmsPage,
   NotificationPreference,
   Paginated,
@@ -100,6 +101,13 @@ export interface CouponListParams {
   search?: string;
   active_only?: boolean;
   sort?: CouponSort;
+  discount_type?: DiscountType;
+  /** true = a code the shopper types, false = an auto-applied deal. */
+  has_code?: boolean;
+  /** true = somebody has confirmed it at least once. */
+  verified?: boolean;
+  /** 0..1; offers with no reports at all are excluded, whatever the value. */
+  min_success_rate?: number;
   /** Only coupons that really expire within this many days. */
   expires_within_days?: number;
   /** Only coupons confirmed within this many hours. `total` is then an exact count. */
@@ -195,7 +203,7 @@ export const api = {
   getStoreBySlug: (slug: string) =>
     apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
-  /** ISO 3166-1 alpha-2 codes Couponbase currently serves. */
+  /** ISO 3166-1 alpha-2 codes Savevero currently serves. */
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
 
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number } = {}) =>

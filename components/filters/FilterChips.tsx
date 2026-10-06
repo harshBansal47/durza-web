@@ -15,15 +15,21 @@ import { FILTER_KEYS, activeChips, parseFilters } from "@/lib/filters";
 export default function FilterChips({
   storeLabel,
   categoryLabel,
+  hideCategory = false,
 }: {
   storeLabel?: string;
   categoryLabel?: string;
+  /** A category-scoped page says so in its heading; a chip would repeat it. */
+  hideCategory?: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const filters = parseFilters(params);
-  const chips = activeChips(filters, { store: storeLabel, category: categoryLabel });
+  const chips = activeChips(
+    hideCategory ? { ...filters, category: "" } : filters,
+    { store: storeLabel, category: categoryLabel },
+  );
 
   const push = useCallback(
     (mutate: (next: URLSearchParams) => void) => {

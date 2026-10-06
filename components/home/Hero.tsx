@@ -30,7 +30,7 @@ export default function Hero({
   const hasActivity = verifiedToday > 0 || endingSoon > 0;
 
   return (
-    <section className="relative overflow-hidden rounded-[28px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]">
+    <section className="relative overflow-hidden rounded-[28px] bg-brand text-white shadow-[var(--shadow-overlay)]">
       {/* Subtle background structure */}
       <div
         aria-hidden="true"

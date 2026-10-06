@@ -219,6 +219,29 @@ describe("Dropdown", () => {
     fireEvent.click(screen.getByText("Open"));
     expect(screen.getByText("Close")).toBeInTheDocument();
   });
+
+  it("opens when the trigger also wires toggle onto its own node", () => {
+    // The trigger's onClick and the wrapper's onClick both see the same click.
+    // If both toggle, the menu opens and closes in one event and the control
+    // looks dead to a mouse user — which is what every filter dropdown did.
+    render(
+      <Dropdown
+        trigger={({ open, toggle }) => (
+          <button type="button" onClick={toggle} aria-expanded={open}>
+            Pick
+          </button>
+        )}
+        options={options}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Pick" }));
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Pick" })).toHaveAttribute("aria-expanded", "true");
+
+    fireEvent.click(screen.getByRole("button", { name: "Pick" }));
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
 });
 
 describe("Modal", () => {

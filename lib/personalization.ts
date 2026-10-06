@@ -12,12 +12,12 @@
  * there is no signal rather than inventing recommendations.
  */
 
-const STORES_KEY = "couponza.recent_stores";
-const COUPONS_KEY = "couponza.recent_coupons";
-const CLICKS_KEY = "couponza.clicked_coupons";
-const SAVED_KEY = "couponza.saved_coupons";
-const FOLLOWED_KEY = "couponza.followed_stores";
-const SEARCHES_KEY = "couponza.recent";
+const STORES_KEY = "savevero.recent_stores";
+const COUPONS_KEY = "savevero.recent_coupons";
+const CLICKS_KEY = "savevero.clicked_coupons";
+const SAVED_KEY = "savevero.saved_coupons";
+const FOLLOWED_KEY = "savevero.followed_stores";
+const SEARCHES_KEY = "savevero.recent";
 const MAX = 12;
 
 export interface TasteSignals {

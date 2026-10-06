@@ -52,7 +52,7 @@ export default function CouponCodePanel({
 
   return (
     <div className="relative overflow-hidden rounded-[22px] border border-ledger-line bg-white shadow-[var(--shadow-raised)]">
-      <div className="relative bg-[#1b1836] px-5 py-2 text-xs font-semibold text-white">
+      <div className="relative bg-brand px-5 py-2 text-xs font-semibold text-white">
         <span className="relative">{coupon.code ? "Your code" : "Auto-applied deal"}</span>
       </div>
 

@@ -1,5 +1,5 @@
 /**
- * Couponza's service worker.
+ * Savevero's service worker.
  *
  * Deliberately minimal. It exists for two reasons and not for a third:
  *
@@ -58,15 +58,15 @@ self.addEventListener("push", (event) => {
   } catch {
     // A push we cannot parse still has to show *something*: silently dropping it
     // is indistinguishable from the alert never having been sent.
-    payload = { title: "Couponza", body: "A new deal just landed.", url: "/account/alerts" };
+    payload = { title: "Savevero", body: "A new deal just landed.", url: "/account/alerts" };
   }
 
-  const title = payload.title || "Couponza";
+  const title = payload.title || "Savevero";
   const options = {
     body: payload.body || "",
     // Same tag collapses repeated alerts for the same product instead of
     // stacking five notifications when one product drops repeatedly.
-    tag: payload.tag || "couponza-alert",
+    tag: payload.tag || "savevero-alert",
     renotify: true,
     icon: "/icon-192.png",
     badge: "/icon-192.png",

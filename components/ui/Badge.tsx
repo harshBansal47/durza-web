@@ -12,7 +12,7 @@ export function Badge({
     info: "border-inkblue text-inkblue",
   };
   return (
-    <span className={`inline-block border px-2 py-0.5 font-mono text-xs uppercase tracking-wider ${tones[tone]}`}>
+    <span className={`inline-block rounded-[var(--radius-sm)] border px-2 py-0.5 font-mono text-xs uppercase tracking-wider ${tones[tone]}`}>
       {children}
     </span>
   );

@@ -4,14 +4,14 @@ import { absoluteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Learn how Couponza collects, uses, and protects your information.",
+    "Learn how Savevero collects, uses, and protects your information.",
   alternates: {
     canonical: absoluteUrl("/privacy"),
   },
   openGraph: {
     title: "Privacy Policy",
     description:
-      "Learn how Couponza collects, uses, and protects your information.",
+      "Learn how Savevero collects, uses, and protects your information.",
     url: absoluteUrl("/privacy"),
   },
 };
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
         <p>
           When you click through to a store, we add a random reference to the
           link so the store&apos;s affiliate network can tell us a purchase
-          came from Couponza. That reference identifies the click, not you,
+          came from Savevero. That reference identifies the click, not you,
           and your IP address is never shared with merchants or affiliate
           networks.
         </p>
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
         </p>
         <p>
           We do not store raw IP addresses, credit card numbers, or payment
-          credentials. Couponza does not process payments directly.
+          credentials. Savevero does not process payments directly.
         </p>
 
         <h2 className="pt-4 font-serif text-xl text-ink">

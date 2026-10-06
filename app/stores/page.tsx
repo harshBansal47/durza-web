@@ -6,7 +6,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Stores",
-  description: "Browse every store on Couponbase.",
+  description: "Browse every store on Savevero.",
   alternates: { canonical: absoluteUrl("/stores") },
 };
 

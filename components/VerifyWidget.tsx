@@ -31,7 +31,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
   const total = stats.success_count + stats.fail_count;
 
   return (
-    <div className="rounded-md border border-ledger-line px-4 py-4">
+    <div className="rounded-[var(--radius-md)] border border-ledger-line px-4 py-4">
       <dl className="mb-4 grid grid-cols-2 gap-3 text-sm">
         <div>
           <dt className="text-ink-soft">Success rate</dt>
@@ -62,7 +62,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
             type="button"
             onClick={() => report(true)}
             disabled={status === "sending"}
-            className="rounded-sm border border-verified px-3 py-1.5 text-sm text-verified transition-colors hover:bg-verified-soft disabled:opacity-50"
+            className="rounded-[var(--radius-sm)] border border-verified px-3 py-1.5 text-sm text-verified transition-colors hover:bg-verified-soft disabled:opacity-50"
           >
             Worked
           </button>
@@ -70,7 +70,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
             type="button"
             onClick={() => report(false)}
             disabled={status === "sending"}
-            className="rounded-sm border border-rust px-3 py-1.5 text-sm text-rust transition-colors hover:bg-rust-soft disabled:opacity-50"
+            className="rounded-[var(--radius-sm)] border border-rust px-3 py-1.5 text-sm text-rust transition-colors hover:bg-rust-soft disabled:opacity-50"
           >
             Didn&apos;t work
           </button>

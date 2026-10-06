@@ -1,7 +1,7 @@
-# Couponbase Web
+# Savevero Web
 
-The public frontend — a separate Next.js app that talks to the [Couponbase FastAPI
-backend](../couponbase) over HTTP. Nothing here touches the database directly.
+The public frontend — a separate Next.js app that talks to the [Savevero FastAPI
+backend](../couponza) over HTTP. Nothing here touches the database directly.
 
 ## Why this exists as a separate app
 
@@ -62,7 +62,7 @@ correctly, just not tilted as designed.
 ## Prerequisites
 
 - Node.js 22+
-- The backend running locally (see `../couponbase/README.md`) — `docker compose up`
+- The backend running locally (see `../couponza/README.md`) — `docker compose up`
   there, with at least one store/category/coupon created via `/admin` or the API.
 
 ## First run
@@ -95,6 +95,8 @@ self-hosted font files.
 |---|---|
 | `lib/types.ts` | TypeScript types mirroring the backend's Pydantic schemas — kept in sync by hand |
 | `lib/api.ts` | Typed fetch client for every public endpoint the backend exposes |
+| `lib/filters.ts` | The listing filter vocabulary: URL params in, API query out, chips and counts derived from both |
+| `components/filters/*` | Shared listing chrome — `CouponFilterPanel`, `SortControl`, `FilterChips`, `KeywordForm`, `FilterLayout` |
 | `app/page.tsx` | Homepage: live example, search, category filter, listing |
 | `app/coupons/[slug]/page.tsx` | Coupon detail: code reveal, verification, disclosure, JSON-LD |
 | `app/stores/[slug]/page.tsx`, `app/categories/[slug]/page.tsx` | Filtered listings |
@@ -109,6 +111,18 @@ self-hosted font files.
 | `app/icon.tsx`, `app/apple-icon.tsx` | Dynamic favicon/app icon |
 
 ## Design notes
+
+- **Filters are applied by the API, never in the browser.** `/coupons`,
+  `/search`, `/categories/[slug]` and `/deals` all read the same params
+  (`q`, `store`, `category`, `type`, `code`, `confirmed`, `rate`, `expires`,
+  `sort`, `skip`) through `lib/filters.ts`, resolve slugs to ids, and ask
+  `GET /coupons` for one filtered page. The backend narrows the row set before
+  paginating, so the result count is exact and page 2 really is the next 20
+  matches — filtering a single fetched page instead would make every count a
+  guess after page one. The backend also carries the exclusive sorts
+  (`ending_soon`, `biggest_discount`, `trending`, `top_rated`) which drop rows
+  they cannot rank rather than padding the list, so the count moves with the
+  sort; the UI says so under the control.
 
 - **Destination URLs are never in the JSON this app fetches.** The backend's
   public read endpoints deliberately omit `destination_url` (see the backend's
@@ -130,7 +144,7 @@ self-hosted font files.
 
 ## Next step
 
-The backend now has an MCP server (`../couponbase/mcp_server`) completing priority
+The backend now has an MCP server (`../couponza/mcp_server`) completing priority
 #3. Still genuinely open on the frontend: no user accounts/login UI (the
 backend's auth is fully built but nothing here calls it yet), no browser
 extension, and the homepage's store-name/logo lookup still fetches up to 100

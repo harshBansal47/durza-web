@@ -107,7 +107,7 @@ export default function Modal({
     >
       <div
         ref={dialogRef}
-        className={`w-full ${sizeStyles[size]} border border-ledger-line bg-paper p-6 shadow-[var(--shadow-overlay)] max-h-[90vh] overflow-y-auto`}
+        className={`w-full ${sizeStyles[size]} rounded-[var(--radius-lg)] border border-ledger-line bg-paper p-6 shadow-[var(--shadow-overlay)] max-h-[90vh] overflow-y-auto`}
       >
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>

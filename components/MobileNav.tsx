@@ -111,7 +111,7 @@ export default function MobileNav({
                   >
                     C
                   </span>
-                  Couponbase
+                  Savevero
                 </span>
                 <button
                   type="button"

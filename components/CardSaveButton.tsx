@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { track } from "@/lib/analytics";
 
-const KEY = "couponza.saved_coupons";
+const KEY = "savevero.saved_coupons";
 
 function read(): string[] {
   try {

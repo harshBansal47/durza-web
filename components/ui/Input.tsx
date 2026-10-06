@@ -60,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           aria-describedby={describedBy}
           className={[
             sizeStyles[size],
-            "w-full rounded-sm border border-ledger-line bg-paper-raised text-ink placeholder:text-ink-soft",
+            "w-full rounded-[var(--radius-sm)] border border-ledger-line bg-paper-raised text-ink placeholder:text-ink-soft",
             "transition-colors focus:border-inkblue focus:outline-none",
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inkblue",
             "disabled:cursor-not-allowed disabled:bg-paper",
@@ -119,7 +119,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
         aria-describedby={describedBy}
         className={[
           sizeStyles[size],
-          "min-h-[100px] w-full resize-y rounded-sm border border-ledger-line bg-paper-raised text-ink",
+          "min-h-[100px] w-full resize-y rounded-[var(--radius-sm)] border border-ledger-line bg-paper-raised text-ink",
           "placeholder:text-ink-soft transition-colors focus:border-inkblue focus:outline-none",
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inkblue",
           "disabled:cursor-not-allowed disabled:bg-paper",

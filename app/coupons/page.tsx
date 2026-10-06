@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { resilient } from "@/lib/api";
-import CategoryChips from "@/components/CategoryChips";
 import CouponRow from "@/components/CouponRow";
 import Pagination from "@/components/Pagination";
-import SearchBar from "@/components/SearchBar";
 import EmptyState from "@/components/EmptyState";
+import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
+import FilterChips from "@/components/filters/FilterChips";
+import FilterLayout from "@/components/filters/FilterLayout";
+import KeywordForm from "@/components/filters/KeywordForm";
+import SortControl from "@/components/filters/SortControl";
+import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { absoluteUrl } from "@/lib/seo";
 
 const PAGE_SIZE = 20;
@@ -20,36 +24,92 @@ export default async function CouponsPage({
 }: {
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
-  const { search, q, skip: skipParam, category_id } = await searchParams as Record<string, string | undefined>;
-  const query = q ?? search;
-  const skip = Math.max(Number(skipParam) || 0, 0);
+  const sp = await searchParams;
+  const filters = parseFilters(sp);
+  const skip = Math.max(Number(sp.skip) || 0, 0);
 
-  const [couponsPage, categoriesPage, storesPage] = await Promise.all([
-    resilient.listCoupons({ search: query, skip, limit: PAGE_SIZE, category_id }),
-    resilient.listCategories({ limit: 100 }),
+  const [storesPage, categoriesPage] = await Promise.all([
     resilient.listStores({ limit: 100 }),
+    resilient.listCategories({ limit: 100 }),
   ]);
-  const storeById = new Map(storesPage.items.map((s) => [s.id, s]));
+  const stores = storesPage.items;
+  const categories = categoriesPage.items;
+  const resolved = resolveIds(filters, stores, categories);
+
+  // A slug the catalogue doesn't know is not "no filter" — it is an empty page,
+  // otherwise a typo silently shows every coupon under a chip that claims a store.
+  const coupons = resolved.unresolved
+    ? { items: [], total: 0, skip, limit: PAGE_SIZE }
+    : await resilient.listCoupons(
+        toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE }),
+      );
+
+  const storeById = new Map(stores.map((s) => [s.id, s]));
+  const storeName = stores.find((s) => s.slug === filters.store)?.name;
+  const categoryName = categories.find((c) => c.slug === filters.category)?.name;
+
+  const total = coupons.total;
+  const page = Math.floor(skip / PAGE_SIZE) + 1;
+  const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
+  const heading = filters.q
+    ? `Results for "${filters.q}"`
+    : categoryName
+      ? `${categoryName} coupons`
+      : "All coupons";
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="mb-8 font-serif text-3xl text-ink">
-        {query ? `Results for "${query}"` : "All coupons"}
-      </h1>
-      <section className="mb-8 space-y-4">
-        <SearchBar />
-        <CategoryChips categories={categoriesPage.items} />
-      </section>
-      <section>
-        {couponsPage.items.length === 0 ? (
+      <h1 className="mb-4 font-serif text-3xl text-ink">{heading}</h1>
+      <div className="mb-8">
+        <KeywordForm placeholder="Search coupons, brands or stores…" label="Search coupons" />
+      </div>
+
+      <FilterLayout
+        panel={
+          <CouponFilterPanel
+            stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
+            categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+          />
+        }
+      >
+        <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+              {total} coupon{total === 1 ? "" : "s"}
+              {total > 0 ? ` · page ${page} of ${pages}` : ""}
+            </p>
+            <p className="mt-1 max-w-prose text-xs text-ink-soft">
+              Sorted and filtered by the API, so the counts below are exact.
+            </p>
+          </div>
+          <SortControl />
+        </div>
+
+        <div className="mb-5">
+          <FilterChips storeLabel={storeName} categoryLabel={categoryName} />
+        </div>
+
+        {coupons.items.length === 0 ? (
           <EmptyState
-            title="Nothing matches yet."
-            body="Try a different search, or check back soon."
-            cta={{ href: "/coupons", label: "Browse all" }}
+            title={
+              resolved.unresolved === "store"
+                ? `We don't know the store "${filters.store}".`
+                : resolved.unresolved === "category"
+                  ? `We don't know the category "${filters.category}".`
+                  : filters.q || filterCount(filters) > 0
+                    ? "Nothing matches those filters."
+                    : "Nothing matches yet."
+            }
+            body={
+              resolved.unresolved
+                ? "It may have been renamed or removed since you last visited."
+                : "Loosen a filter above, or check back soon — new codes land daily."
+            }
+            cta={{ href: "/coupons", label: "Browse all coupons" }}
           />
         ) : (
           <div>
-            {couponsPage.items.map((coupon) => {
+            {coupons.items.map((coupon) => {
               const store = storeById.get(coupon.store_id);
               return (
                 <CouponRow
@@ -61,8 +121,15 @@ export default async function CouponsPage({
             })}
           </div>
         )}
-        <Pagination basePath="/coupons" searchParams={{ q: query, category_id }} skip={skip} limit={PAGE_SIZE} total={couponsPage.total} />
-      </section>
+
+        <Pagination
+          basePath="/coupons"
+          searchParams={carriedParams(sp)}
+          skip={skip}
+          limit={PAGE_SIZE}
+          total={total}
+        />
+      </FilterLayout>
     </div>
   );
 }

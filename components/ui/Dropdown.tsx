@@ -37,6 +37,23 @@ function isSelectable(opt: DropdownOption): opt is { value: string; label: strin
   return !("divider" in opt) && !("sectionTitle" in opt);
 }
 
+/**
+ * Whether a trigger node has already toggled for the click currently in flight.
+ *
+ * The render-function form of `trigger` hands the caller a `toggle` to put on
+ * its own element, so one physical click fires that handler *and* the wrapper's
+ * below — two toggles, a menu that opens and immediately shuts again, and a
+ * filter control that looks broken to a mouse user. The first toggle claims the
+ * click and the wrapper stands down.
+ *
+ * Deliberately module scope rather than a ref: this is not component state, it
+ * is a flag that has to survive from a child handler to its parent handler
+ * within a single native event, and it is cleared in a microtask — after the
+ * event has finished propagating, before the next one starts. A ref here also
+ * fails `react-hooks/refs`, since `toggle` would be handed out during render.
+ */
+let claimedByTrigger = false;
+
 export function Dropdown({
   trigger,
   options,
@@ -89,6 +106,10 @@ export function Dropdown({
     setActiveIndex(-1);
   }, []);
   const toggle = useCallback(() => {
+    claimedByTrigger = true;
+    queueMicrotask(() => {
+      claimedByTrigger = false;
+    });
     setOpen((o) => !o);
     setActiveIndex(-1);
   }, []);
@@ -178,7 +199,11 @@ export function Dropdown({
     <div ref={wrapperRef} className={`relative ${className}`}>
       <div
         ref={triggerRef}
-        onClick={() => !disabled && toggle()}
+        onClick={() => {
+          // The trigger node may already have toggled for this click.
+          if (disabled || claimedByTrigger) return;
+          toggle();
+        }}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (!disabled && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) {
             e.preventDefault();
@@ -199,7 +224,7 @@ export function Dropdown({
             ref={menuRef}
             role="listbox"
             aria-label="Options"
-            className="fixed z-[60] min-w-[12rem] overflow-auto rounded-sm border border-ledger-line bg-paper-raised shadow-[var(--shadow-overlay)]"
+            className="fixed z-[60] min-w-[12rem] overflow-auto rounded-[var(--radius-md)] border border-ledger-line bg-paper-raised shadow-[var(--shadow-overlay)]"
             style={{
               maxHeight,
               width,

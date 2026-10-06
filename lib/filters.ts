@@ -111,10 +111,16 @@ export const FILTER_KEYS = [
   "sort",
 ] as const;
 
-type SearchParamsLike = Record<string, string | string[] | undefined>;
+type SearchParamsLike = URLSearchParams | Record<string, string | string[] | undefined>;
 
 function first(value: string | string[] | undefined): string {
   return (Array.isArray(value) ? value[0] : value) ?? "";
+}
+
+/** Reads one param from either a Next `ReadonlyURLSearchParams` or a plain record. */
+function read(sp: SearchParamsLike, key: string): string {
+  const fromGet = (sp as URLSearchParams).get;
+  return typeof fromGet === "function" ? (fromGet.call(sp, key) ?? "") : first((sp as Record<string, string | string[] | undefined>)[key]);
 }
 
 function pick<T extends string>(options: { value: T }[], raw: string, fallback: T): T {
@@ -122,16 +128,17 @@ function pick<T extends string>(options: { value: T }[], raw: string, fallback: 
 }
 
 export function parseFilters(sp: SearchParamsLike): CouponFilters {
+  const keyword = read(sp, "q") || read(sp, "search");
   return {
-    q: first(sp.q ?? sp.search).trim(),
-    store: first(sp.store).trim(),
-    category: first(sp.category).trim(),
-    type: pick(TYPE_OPTIONS, first(sp.type), ""),
-    code: pick(CODE_OPTIONS, first(sp.code), ""),
-    confirmed: pick(CONFIRMED_OPTIONS, first(sp.confirmed), ""),
-    rate: pick(RATE_OPTIONS, first(sp.rate), ""),
-    expires: pick(EXPIRES_OPTIONS, first(sp.expires), ""),
-    sort: pick(SORT_OPTIONS, first(sp.sort), DEFAULT_SORT),
+    q: keyword.trim(),
+    store: read(sp, "store").trim(),
+    category: read(sp, "category").trim(),
+    type: pick(TYPE_OPTIONS, read(sp, "type"), ""),
+    code: pick(CODE_OPTIONS, read(sp, "code"), ""),
+    confirmed: pick(CONFIRMED_OPTIONS, read(sp, "confirmed"), ""),
+    rate: pick(RATE_OPTIONS, read(sp, "rate"), ""),
+    expires: pick(EXPIRES_OPTIONS, read(sp, "expires"), ""),
+    sort: pick(SORT_OPTIONS, read(sp, "sort"), DEFAULT_SORT),
   };
 }
 
@@ -221,4 +228,14 @@ export function hintOf<T extends string>(options: FilterOption<T>[], value: T): 
 
 export function filterCount(filters: CouponFilters): number {
   return activeChips(filters, {}).length + (filters.sort === DEFAULT_SORT ? 0 : 1);
+}
+
+/** The filter params to re-attach to every pagination link. */
+export function carriedParams(sp: SearchParamsLike): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const key of [...FILTER_KEYS, "search"]) {
+    const value = read(sp, key);
+    if (value) out[key] = value;
+  }
+  return out;
 }

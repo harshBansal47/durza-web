@@ -189,7 +189,7 @@ h1, h2, h3 {
   transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
 }
 
-/* ---- Couponbase signature elements (recognizable without the logo) ---- */
+/* ---- Savevero signature elements (recognizable without the logo) ---- */
 /* Sun-marker swipe behind a savings figure. */
 .marker {
   background-image: linear-gradient(100deg, transparent 2%, var(--color-sun) 4%, var(--color-sun) 96%, transparent 98%);

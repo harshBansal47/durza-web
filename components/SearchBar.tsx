@@ -27,7 +27,7 @@ export default function SearchBar() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search deals or stores"
-        className="flex-1 rounded-sm border border-ledger-line bg-paper-raised px-3 py-2 text-sm text-ink placeholder:text-ink-soft focus:border-inkblue outline-none"
+        className="flex-1 rounded-[var(--radius-sm)] border border-ledger-line bg-paper-raised px-3 py-2 text-sm text-ink placeholder:text-ink-soft focus:border-inkblue outline-none"
       />
       <button
         type="submit"

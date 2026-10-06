@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dropdown } from "@/components/ui/Dropdown";
 import {
@@ -44,19 +44,18 @@ export default function CouponFilterPanel({
   const params = useSearchParams();
   const filters = parseFilters(params);
 
-  const apply = useCallback(
-    (key: string, value: string | null) => {
-      const next = new URLSearchParams(params.toString());
-      if (value === null || value === "") next.delete(key);
-      else next.set(key, value);
-      next.delete("skip");
-      const qs = next.toString();
-      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    },
-    [params, pathname, router],
-  );
+  // Plain functions on purpose: the React Compiler memoizes these for us, and
+  // a manual useCallback here is a lint error rather than an optimisation.
+  function apply(key: string, value: string | null) {
+    const next = new URLSearchParams(params.toString());
+    if (value === null || value === "") next.delete(key);
+    else next.set(key, value);
+    next.delete("skip");
+    const qs = next.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
 
-  const clearAll = useCallback(() => {
+  function clearAll() {
     const next = new URLSearchParams(params.toString());
     for (const key of FILTER_KEYS) {
       if (key !== "q") next.delete(key);
@@ -64,15 +63,9 @@ export default function CouponFilterPanel({
     next.delete("skip");
     const qs = next.toString();
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [params, pathname, router]);
+  }
 
   const count = filterCount(filters);
-
-  function submitSearch(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const value = new FormData(e.currentTarget).get("q");
-    apply("q", typeof value === "string" && value.trim() ? value.trim() : null);
-  }
 
   return (
     <div className="space-y-5">
@@ -92,26 +85,6 @@ export default function CouponFilterPanel({
       </div>
 
       {note && <p className="text-xs leading-relaxed text-ink-soft">{note}</p>}
-
-      {!hideSearch && (
-        <form onSubmit={submitSearch} className="flex gap-2">
-          <label htmlFor="coupon-filter-q" className="sr-only">
-            Filter by keyword
-          </label>
-          <input
-            id="coupon-filter-q"
-            name="q"
-            type="search"
-            key={filters.q}
-            defaultValue={filters.q}
-            placeholder="Keyword…"
-            className="input min-w-0 flex-1"
-          />
-          <button type="submit" className="btn btn-outline shrink-0 px-3 text-sm">
-            Go
-          </button>
-        </form>
-      )}
 
       <Select
         label="Store"

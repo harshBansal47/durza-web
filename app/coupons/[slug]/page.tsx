@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   const title = coupon.title;
   const description =
-    coupon.description ?? `${formatDiscount(coupon)}, verified by the Couponbase community.`;
+    coupon.description ?? `${formatDiscount(coupon)}, verified by the Savevero community.`;
   const canonical = absoluteUrl(`/coupons/${coupon.slug}`);
 
   return {

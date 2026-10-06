@@ -29,20 +29,20 @@ const code = IBM_Plex_Mono({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const SITE_TITLE = "Couponbase — deals verified by people, not paid placement";
+const SITE_TITLE = "Savevero — deals verified by people, not paid placement";
 const SITE_DESCRIPTION =
-  "Every code on Couponbase is community-confirmed, and every commission we earn is disclosed on the page. No hidden placement, no scraped listings.";
+  "Every code on Savevero is community-confirmed, and every commission we earn is disclosed on the page. No hidden placement, no scraped listings.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — Couponbase",
+    template: "%s — Savevero",
   },
   description: SITE_DESCRIPTION,
   openGraph: {
     type: "website",
-    siteName: "Couponbase",
+    siteName: "Savevero",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,

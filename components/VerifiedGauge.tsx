@@ -69,7 +69,7 @@ export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark"
     target === null
       ? "Not verified yet: nobody has reported on this code"
       : `${target}% of ${reports} report${reports === 1 ? "" : "s"} say it worked`;
-  const color = target === null ? "#a3a8c3" : target >= 80 ? "#0f9d58" : target >= 50 ? "#ff9d1a" : "#ff6a1a";
+  const color = target === null ? "var(--color-ink-soft)" : target >= 80 ? "var(--color-verified)" : target >= 50 ? "var(--color-sun)" : "var(--color-rust)";
   const dash = target === null ? C : C - (C * shown) / 100;
 
   return (

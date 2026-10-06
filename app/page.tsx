@@ -106,7 +106,7 @@ export default async function HomePage() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Couponbase",
+    name: "Savevero",
     url: absoluteUrl("/"),
     description:
       "Community-confirmed coupon codes and price drops, with affiliate commission disclosed on every page.",

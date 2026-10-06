@@ -45,7 +45,7 @@ export function ServerTabs({
             scroll={false}
             aria-current={isActive ? "page" : undefined}
             className={[
-              "shrink-0 border-b-2 px-4 py-2.5 text-sm whitespace-nowrap transition-colors",
+              "shrink-0 rounded-t-[var(--radius-sm)] border-b-2 px-4 py-2.5 text-sm whitespace-nowrap transition-colors",
               isActive
                 ? "border-ink text-ink"
                 : "border-transparent text-ink-soft hover:border-ledger-line hover:text-ink",
@@ -162,7 +162,7 @@ export function ClientTabs({
               onClick={() => !tab.disabled && select(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               className={[
-                "shrink-0 border-b-2 px-4 py-2.5 text-sm whitespace-nowrap transition-colors",
+                "shrink-0 rounded-t-[var(--radius-sm)] border-b-2 px-4 py-2.5 text-sm whitespace-nowrap transition-colors",
                 selected
                   ? "border-ink text-ink"
                   : "border-transparent text-ink-soft hover:border-ledger-line hover:text-ink",

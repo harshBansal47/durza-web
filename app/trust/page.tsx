@@ -3,16 +3,16 @@ import Link from "next/link";
 import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "How Couponza Works",
+  title: "How Savevero Works",
   description:
-    "Learn how Couponza helps you find coupons, deals, and offers from online stores.",
+    "Learn how Savevero helps you find coupons, deals, and offers from online stores.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },
   openGraph: {
-    title: "How Couponza Works",
+    title: "How Savevero Works",
     description:
-      "Find coupons and deals with Couponza. Here's how it works.",
+      "Find coupons and deals with Savevero. Here's how it works.",
     url: absoluteUrl("/trust"),
   },
 };
@@ -181,7 +181,7 @@ const STEPS = [
     icon: IconSearch,
     title: "Find a store",
     description:
-      "Search for a store you shop with or browse the deals available on Couponza.",
+      "Search for a store you shop with or browse the deals available on Savevero.",
   },
   {
     number: "02",
@@ -215,7 +215,7 @@ const FEATURES = [
   {
     title: "Clear details",
     description:
-      "Important offer information is presented before you leave Couponza for the store.",
+      "Important offer information is presented before you leave Savevero for the store.",
   },
   {
     title: "Fresh listings",
@@ -225,7 +225,7 @@ const FEATURES = [
   {
     title: "No extra cost",
     description:
-      "When a store pays Couponza a commission on a qualifying purchase, that does not add to the price you pay.",
+      "When a store pays Savevero a commission on a qualifying purchase, that does not add to the price you pay.",
   },
 ];
 
@@ -272,7 +272,7 @@ export default function TrustPage() {
 
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3.5 py-1.5 text-xs font-medium text-slate-600 shadow-sm backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              How Couponza works
+              How Savevero works
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
@@ -283,7 +283,7 @@ export default function TrustPage() {
             </h1>
 
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-              Couponza helps you discover coupons, deals, and offers from
+              Savevero helps you discover coupons, deals, and offers from
               online stores so you can find potential savings before you shop.
             </p>
 
@@ -419,7 +419,7 @@ export default function TrustPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
-             HOW COUPONZA MAKES MONEY
+             HOW SAVEVERO MAKES MONEY
             ══════════════════════════════════════════════════════ */}
 
         <section className="px-6 py-16 sm:py-20">
@@ -439,7 +439,7 @@ export default function TrustPage() {
                   </div>
 
                   <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
-                    How Couponza makes money
+                    How Savevero makes money
                   </h2>
                 </div>
 
@@ -447,7 +447,7 @@ export default function TrustPage() {
 
               <div className="mt-6 space-y-4 text-sm leading-relaxed text-slate-600">
                 <p>
-                  Couponza may earn a commission when you use certain links
+                  Savevero may earn a commission when you use certain links
                   and complete a qualifying purchase with a store.
                 </p>
 
@@ -495,7 +495,7 @@ export default function TrustPage() {
 
                 <p className="mx-auto mt-3 max-w-xl text-slate-600">
                   Search for a store, find an offer, check the details, and
-                  shop. Couponza is here to make the search for savings easier.
+                  shop. Savevero is here to make the search for savings easier.
                 </p>
 
                 <div className="mt-7">

@@ -14,7 +14,7 @@ export default function CouponRow({ coupon, store }: { coupon: CouponPublic; sto
   return (
     <Link
       href={`/coupons/${coupon.slug}`}
-      className="-mx-2 flex items-center gap-4 rounded-sm border-b border-ledger-line px-2 py-4 transition-colors last:border-b-0 hover:bg-paper-raised"
+      className="-mx-2 flex items-center gap-4 rounded-[var(--radius-sm)] border-b border-ledger-line px-2 py-4 transition-colors last:border-b-0 hover:bg-paper-raised"
     >
       {store && <StoreMark name={store.name} logoUrl={store.logoUrl} />}
 
