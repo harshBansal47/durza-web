@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/seo";
+import ConsentPreferences from "@/components/ConsentPreferences";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -48,14 +49,15 @@ export default function PrivacyPage() {
         </h2>
         <p>
           We use first-party cookies to maintain your browsing session and
-          remember your preferences. These cookies contain random identifiers,
-          not personal information.
+          remember your preferences. A pseudonymous visitor ID supports
+          attribution and can connect activity from the same browser, but does
+          not contain your name or email address.
         </p>
         <p>
-          We collect anonymized analytics data — such as page views, searches,
-          and coupon interactions — to understand how the site is used and
-          improve the experience. This data is associated with a random
-          visitor ID, not your identity.
+          Optional analytics events — such as page views, searches, and coupon
+          impressions — are sent only if you accept analytics. Declining blocks
+          those events; necessary session and deal functionality may still use
+          first-party data.
         </p>
         <p>
           Coupon votes and outbound clicks are logged with a{" "}
@@ -86,8 +88,9 @@ export default function PrivacyPage() {
         </h2>
         <p>
           We do not sell personal data, and we do not profile you for
-          advertising. Deal rankings are driven by verification evidence, not
-          by your browsing trail.
+          advertising or use your browsing history to rank deals. Affiliate
+          commissions may be one of several signals used to order offers;
+          verification evidence, shopper success, and relevance also matter.
         </p>
         <p>
           We do not store raw IP addresses, credit card numbers, or payment
@@ -110,6 +113,7 @@ export default function PrivacyPage() {
           your data, please reach out through our contact page.
         </p>
       </div>
+      <ConsentPreferences />
     </article>
   );
 }

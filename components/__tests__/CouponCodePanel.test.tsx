@@ -103,6 +103,15 @@ describe("CouponCodePanel", () => {
       expect(window.open).toHaveBeenCalledWith(api.goUrl(codedCoupon.id, "reveal"), "_blank", "noopener");
     });
 
+    it("starts copying the code before opening the store tab", async () => {
+      render(<CouponCodePanel coupon={codedCoupon} />);
+      await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));
+
+      const clipboardCall = vi.mocked(navigator.clipboard.writeText).mock.invocationCallOrder[0];
+      const openCall = vi.mocked(window.open).mock.invocationCallOrder[0];
+      expect(clipboardCall).toBeLessThan(openCall);
+    });
+
     it("does not open the store again when the code is copied", async () => {
       render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
       await userEvent.click(screen.getByRole("button", { name: "Reveal code" }));

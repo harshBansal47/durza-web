@@ -74,10 +74,10 @@ export default function Header({
         ref={headerRef}
         className={[
           "sticky top-0 z-40",
-          "border-b border-ledger-line/70",
-          "bg-white/95 backdrop-blur-xl",
-          "transition-shadow duration-200",
-          scrolled ? "shadow-[var(--shadow-raised)]" : "",
+          "border-b border-ledger-line/80",
+          "bg-[rgba(255,255,255,0.78)] backdrop-blur-2xl",
+          "transition-all duration-200",
+          scrolled ? "shadow-[0_12px_28px_rgba(33,38,92,0.08)]" : "shadow-[0_1px_0_rgba(28,25,23,0.06)]",
         ].join(" ")}
       >
         <div className="mx-auto flex min-h-[68px] max-w-7xl items-center gap-5 px-4 sm:min-h-[76px] sm:px-6 lg:gap-8 lg:px-8">

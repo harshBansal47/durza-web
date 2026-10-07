@@ -28,9 +28,9 @@ export default function ConsentBanner() {
       className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-3xl flex-col gap-3 rounded-2xl border border-dashed border-ink-soft/40 bg-paper px-5 py-4 shadow-[var(--shadow-raised)] sm:flex-row sm:items-center"
     >
       <p className="flex-1 text-sm text-ink-soft">
-        BachatBase uses a visitor cookie and privacy-safe analytics (hashed IP, no personal
-        identifiers) to measure which codes work and which pages need improvement. If you
-        decline, no analytics data is collected. You can change this anytime in the{" "}
+        BachatBase uses a pseudonymous visitor ID for attribution. Optional analytics events use
+        that ID and a hashed IP, and are sent only if you accept. Declining disables those events.
+        You can change this choice anytime in the{" "}
         <Link href="/privacy" className="underline underline-offset-2">
           privacy policy
         </Link>

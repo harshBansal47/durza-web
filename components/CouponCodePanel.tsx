@@ -35,10 +35,18 @@ export default function CouponCodePanel({
       storeName,
       hadCode: true,
     });
+    let copyPromise: Promise<void> | null = null;
+    try {
+      if (coupon.code && navigator.clipboard?.writeText) {
+        copyPromise = navigator.clipboard.writeText(coupon.code);
+      }
+    } catch {
+      /* clipboard unavailable — the code remains visible on the page */
+    }
     window.open(api.goUrl(coupon.id, "reveal"), "_blank", "noopener");
-    if (coupon.code) {
+    if (copyPromise) {
       try {
-        await navigator.clipboard.writeText(coupon.code);
+        await copyPromise;
         track("copy_code", { coupon_id: coupon.id, via: "reveal" });
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);

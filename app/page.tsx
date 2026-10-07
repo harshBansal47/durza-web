@@ -35,7 +35,7 @@ const PILLARS = [
   {
     title: "Commission disclosed",
     body: "We publish what we earn on every store and coupon page. No hidden affiliate incentives.",
-    points: ["Per-store commission note", "No pay-to-play placement", "Verification and success rates drive ranking"],
+    points: ["Per-store commission note", "Sponsored placements are labelled", "Commission can influence offer order"],
   },
   {
     title: "Evidence over urgency",
@@ -120,7 +120,7 @@ export default async function HomePage() {
   const isEmpty = coupons.total === 0 && stores.total === 0 && categories.total === 0;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+    <div className="page-shell">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
@@ -139,7 +139,7 @@ export default async function HomePage() {
       />
 
       {isEmpty ? (
-        <section className="mt-12 rounded-[24px] border-2 border-dashed border-ledger-line bg-white px-6 py-14 text-center">
+       <section className="section-panel mt-12 px-6 py-14 text-center">
           <h2 className="font-serif text-2xl font-extrabold text-ink">No deals listed yet</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
             The catalogue is empty. That is the honest state — we would rather show nothing than
@@ -155,7 +155,7 @@ export default async function HomePage() {
           )}
 
           {endingSoon.items.length > 0 && (
-            <section className="mt-12 rounded-[24px] border border-rust/25 bg-rust-soft/60 p-5 sm:p-6" aria-labelledby="ending-heading">
+            <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="ending-heading">
               <SectionTitle hint="real expiry dates only">
                 <span id="ending-heading">Ending soon</span>
               </SectionTitle>
@@ -204,7 +204,7 @@ export default async function HomePage() {
           )}
 
           {stores.items.length > 0 && (
-            <section className="mt-12" aria-labelledby="stores-heading">
+            <section className="section-panel mt-12 p-5 sm:p-6" aria-labelledby="stores-heading">
               <SectionTitle hint={`${stores.total} tracked`}>
                 <span id="stores-heading">Stores we track</span>
               </SectionTitle>
@@ -247,7 +247,7 @@ export default async function HomePage() {
               {PILLARS.map((pillar, i) => (
                 <li
                   key={pillar.title}
-                  className="lift rounded-[22px] border border-ledger-line bg-white p-6 shadow-[var(--shadow-hairline)]"
+                  className="info-card lift p-6"
                 >
                   <span
                     aria-hidden="true"

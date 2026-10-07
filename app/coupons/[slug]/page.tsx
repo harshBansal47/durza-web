@@ -137,17 +137,6 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
       />
 
       <header className="bg-brand relative mb-8 overflow-hidden rounded-[26px] text-white shadow-[var(--shadow-overlay)]">
-        {store && (
-          <Image
-            src={`/banners/${store.slug}`}
-            alt=""
-            fill
-            unoptimized
-            priority
-            sizes="(min-width: 896px) 896px, 100vw"
-            className="object-cover"
-          />
-        )}
         <div className="relative flex flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-10">
           <div className="min-w-0 flex-1">
             {store && (
