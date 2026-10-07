@@ -12,12 +12,14 @@
 */
 @theme {
   --color-paper: #faf7f0;
+  --color-warm-paper: #faf7f0;
   --color-paper-raised: #ffffff;
   --color-ink: #1c1917;
   --color-ink-soft: #63615c;
   --color-verified: #0f9d58;
   --color-verified-soft: #e3f6ec;
   --color-rust: #e8490f;
+  --color-vermilion: #e8490f;
   --color-rust-soft: #fff1e7;
   --color-ledger-line: #e8e2d5;
   --color-inkblue: #2b2bd9;
@@ -491,3 +493,4 @@ h1, h2, h3 {
   filter: drop-shadow(0 16px 24px rgba(40, 40, 120, 0.2));
 }
 .ticket { --notch-y: 6rem; }
+.deal-ticket { --notch-y: 4rem; }

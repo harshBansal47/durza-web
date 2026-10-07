@@ -16,6 +16,7 @@ export const IMPRESSION_PAGE_TYPES = [
   "category_page",
   "search_results",
   "homepage",
+  "deals",
   "featured_section",
   "sponsored_section",
 ] as const;
