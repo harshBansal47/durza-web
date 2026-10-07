@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { track, type ImpressionPageType } from "@/lib/analytics";
+import { isAnalyticsAllowed } from "@/lib/consent";
 
 /**
  * Reports a coupon impression when the card is actually on screen, not when it is
@@ -30,7 +31,9 @@ export function ImpressionTracker({
   useEffect(() => {
     const card = marker.current?.parentElement;
     if (!card) return;
-    const report = () =>
+    const report = () => {
+      // Consent gate: don't fire impressions until the visitor accepts
+      if (!isAnalyticsAllowed()) return;
       track("coupon_impression", {
         coupon_id: couponId,
         merchant_id: merchantId,
@@ -39,6 +42,7 @@ export function ImpressionTracker({
         page_id: pageId,
         sponsored: sponsored ?? false,
       });
+    };
     // Without IntersectionObserver (very old browsers) fall back to reporting on mount.
     if (typeof IntersectionObserver === "undefined") {
       report();

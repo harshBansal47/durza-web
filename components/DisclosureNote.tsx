@@ -1,5 +1,5 @@
 const DEFAULT_DISCLOSURE =
-  "We may earn a commission when you use a code from this page. It never changes the price you pay, and we never swap out another creator's referral link for our own.";
+  "We may earn a commission when you use a code from this page. It never changes the price you pay. Commissions may be one factor among several signals used when ordering offers, and we never swap out another creator's referral link for our own.";
 
 export default function DisclosureNote({
   commissionDisclosure,

@@ -43,6 +43,11 @@ export default function AffiliateDisclosurePage() {
           while maintaining and improving the platform.
         </p>
         <p>
+          Affiliate commissions may be one factor among several signals used
+          when ordering offers. Verification, reliability, user success rates
+          and relevance remain important ranking factors.
+        </p>
+        <p>
           We work to keep our listings useful and up to date. If you have
           questions about how BachatBase makes money, feel free to reach out
           through our contact page.

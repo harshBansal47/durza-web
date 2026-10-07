@@ -1,4 +1,4 @@
-import { resilient } from "./api";
+import { api } from "./api";
 
 /**
  * Google's per-sitemap ceiling is 50,000 URLs; we chunk much smaller so one
@@ -6,6 +6,14 @@ import { resilient } from "./api";
  * through the catalogue is incremental rather than one giant fetch.
  */
 export const SITEMAP_CHUNK_SIZE = 1000;
+
+/**
+ * The backend enforces a maximum page size of 100 for coupon, store, and
+ * category list endpoints. Sitemap shards page internally in batches of this
+ * size so a single shard can cover SITEMAP_CHUNK_SIZE URLs without ever
+ * requesting more than the backend allows.
+ */
+export const BACKEND_MAX_LIMIT = 100;
 
 export type SitemapKind = "static" | "coupons" | "stores" | "categories";
 
@@ -23,9 +31,9 @@ export interface SitemapId {
  */
 export async function sitemapIds(): Promise<SitemapId[]> {
   const [coupons, stores, categories] = await Promise.all([
-    resilient.listCoupons({ limit: 1 }),
-    resilient.listStores({ limit: 1 }),
-    resilient.listCategories({ limit: 1 }),
+    api.listCoupons({ limit: 1 }),
+    api.listStores({ limit: 1 }),
+    api.listCategories({ limit: 1 }),
   ]);
 
   const ids: SitemapId[] = [{ id: "static", kind: "static", chunk: 0 }];

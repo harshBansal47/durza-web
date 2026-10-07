@@ -94,7 +94,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
           </div>
           <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} BachatBase. Every code community-verified, every commission disclosed.</p>
-            <p className="rounded-full bg-white/10 px-3 py-1">We may earn a commission when you shop through our links. It never changes the order of results.</p>
+            <p>We may earn a commission when you shop through our links. Affiliate commissions may be one factor among several signals used when ordering offers. Verification, reliability, user success rates and relevance remain important ranking factors.</p>
           </div>
         </div>
       </div>

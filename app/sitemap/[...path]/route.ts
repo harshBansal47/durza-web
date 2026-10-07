@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { resilient } from "@/lib/api";
+import { api } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
-import { sitemapIds, SITEMAP_CHUNK_SIZE, type SitemapId } from "@/lib/sitemap-groups";
+import { sitemapIds, SITEMAP_CHUNK_SIZE, BACKEND_MAX_LIMIT, type SitemapId } from "@/lib/sitemap-groups";
 import type { CouponPublic } from "@/lib/types";
 
 export const revalidate = 3600;
@@ -36,12 +36,48 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/affiliate-disclosure`, changeFrequency: "yearly", priority: 0.2 },
 ];
 
+/**
+ * Page through the backend in batches of BACKEND_MAX_LIMIT, accumulating up to
+ * SITEMAP_CHUNK_SIZE entries. The backend rejects requests above its maximum
+ * page size (limit le=100), so a single large request would 422. Batching
+ * keeps each individual request within the backend's contract while still
+ * allowing shards to cover the full catalogue.
+ *
+ * This uses the raw `api` client, not `resilient`: a sitemap that silently
+ * swallows an API failure would publish an empty shard, and a crawler would
+ * read "no coupons exist". Surfacing the error (HTTP 500) makes crawlers
+ * retry later and makes the failure visible in monitoring.
+ */
+async function fetchBatch<T>(
+  fetcher: (skip: number, limit: number) => Promise<{ items: T[]; total: number }>,
+  skip: number,
+  maxItems: number,
+): Promise<T[]> {
+  const items: T[] = [];
+  let cursor = skip;
+  while (items.length < maxItems) {
+    const remaining = maxItems - items.length;
+    const limit = Math.min(BACKEND_MAX_LIMIT, remaining);
+    const page = await fetcher(cursor, limit);
+    items.push(...page.items);
+    // Stop when the backend returns fewer items than requested (end of data)
+    // or when we have accumulated enough for this shard.
+    if (page.items.length < limit || items.length >= maxItems) break;
+    cursor += page.items.length;
+  }
+  return items;
+}
+
 async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.Sitemap> {
   const skip = chunk * SITEMAP_CHUNK_SIZE;
   if (kind === "static") return STATIC_PAGES;
   if (kind === "coupons") {
-    const page = await resilient.listCoupons({ skip, limit: SITEMAP_CHUNK_SIZE });
-    return page.items.map((coupon) => ({
+    const coupons = await fetchBatch(
+      (s, l) => api.listCoupons({ skip: s, limit: l }),
+      skip,
+      SITEMAP_CHUNK_SIZE,
+    );
+    return coupons.map((coupon) => ({
       url: `${SITE_URL}/coupons/${coupon.slug}`,
       lastModified: coupon.last_verified_at ?? coupon.created_at,
       changeFrequency: "daily" as const,
@@ -49,15 +85,23 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
     }));
   }
   if (kind === "stores") {
-    const page = await resilient.listStores({ skip, limit: SITEMAP_CHUNK_SIZE });
-    return page.items.map((store) => ({
+    const stores = await fetchBatch(
+      (s, l) => api.listStores({ skip: s, limit: l }),
+      skip,
+      SITEMAP_CHUNK_SIZE,
+    );
+    return stores.map((store) => ({
       url: `${SITE_URL}/stores/${store.slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.6,
     }));
   }
-  const page = await resilient.listCategories({ skip, limit: SITEMAP_CHUNK_SIZE });
-  return page.items.map((category) => ({
+  const categories = await fetchBatch(
+    (s, l) => api.listCategories({ skip: s, limit: l }),
+    skip,
+    SITEMAP_CHUNK_SIZE,
+  );
+  return categories.map((category) => ({
     url: `${SITE_URL}/categories/${category.slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.6,

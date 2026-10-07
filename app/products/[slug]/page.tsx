@@ -204,8 +204,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           {store && (
             <p className="mt-6 border border-ledger-line bg-paper-raised p-4 text-sm text-ink-soft">
-              We may earn a commission if you buy through this link. It does not change the price,
-              and it does not affect which products or deals we show.{" "}
+              We may earn a commission if you buy through this link. It does not change the
+              price, and commissions may be one factor among several signals used when
+              ordering offers.{" "}
               <Link href={`/stores/${store.slug}`} className="text-inkblue hover:underline">
                 Everything about {store.name}
               </Link>

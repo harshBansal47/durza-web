@@ -1,6 +1,7 @@
 "use client";
 
 import { api } from "./api";
+import { isAnalyticsAllowed } from "./consent";
 
 /**
  * Where an impression happened. These are the ONLY values the backend accepts
@@ -55,6 +56,9 @@ export type AnalyticsEvent =
  * else is fire-and-forget via sendBeacon so tracking never blocks interaction.
  */
 export function track(event: AnalyticsEvent, payload: Record<string, unknown> = {}) {
+  // Consent gate: no tracking until the visitor explicitly accepts.
+  // Declined or no-choice both block all analytics.
+  if (!isAnalyticsAllowed()) return;
   try {
     if (event === "coupon_impression") {
       const { coupon_id, merchant_id, page_type, position, page_id, sponsored } = payload as {

@@ -2,50 +2,23 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
+import { getConsent, setConsent, onConsentChange, type ConsentState } from "@/lib/consent";
 
-/**
- * DPDP-compliant consent notice. India requires a clear, standalone,
- * plain-language notice that says what is collected and why, with a way to
- * withdraw. We keep the choice in localStorage and render it to whoever asks
- * (the banner only appears until a choice is made).
- *
- * State lives here in React — no props, no context — because the banner is a
- * leaf widget with one job.
- */
-const STORAGE_KEY = "bachatbase_consent_v1";
-const CHANGE_EVENT = "bachatbase:consent-changed";
-
-type ConsentChoice = "accepted" | "declined";
-
-const SERVER_SNAPSHOT = "unset";
+const SERVER_SNAPSHOT: ConsentState = null;
 
 export default function ConsentBanner() {
   // useSyncExternalStore keeps this external store (localStorage) hydration-
-  // safe: server and hydration pass see the same "unset" snapshot, so the
+  // safe: server and hydration pass see the same null snapshot, so the
   // server-rendered HTML never flashes the banner at returning visitors.
   const stored = useSyncExternalStore(
-    (onChange) => {
-      window.addEventListener(CHANGE_EVENT, onChange);
-      return () => window.removeEventListener(CHANGE_EVENT, onChange);
-    },
-    () => window.localStorage.getItem(STORAGE_KEY) ?? "none",
+    (onChange) => onConsentChange(onChange),
+    () => getConsent(),
     () => SERVER_SNAPSHOT,
   );
-  const choice: ConsentChoice | null =
-    stored === "accepted" || stored === "declined" ? stored : null;
 
-  function save(next: ConsentChoice) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      /* private mode: choice applies to this visit only */
-    }
-    window.dispatchEvent(new Event(CHANGE_EVENT));
-  }
-
-  // Nothing to say until the client store has been read ("unset"), and
-  // nothing to say once a choice exists.
-  if (stored === SERVER_SNAPSHOT || choice !== null) return null;
+  // Nothing to say until the client store has been read, and nothing to say
+  // once a choice exists.
+  if (stored === SERVER_SNAPSHOT || stored !== null) return null;
 
   return (
     <div
@@ -56,24 +29,24 @@ export default function ConsentBanner() {
     >
       <p className="flex-1 text-sm text-ink-soft">
         BachatBase uses a visitor cookie and privacy-safe analytics (hashed IP, no personal
-        identifiers) to measure which codes work and which pages need improvement. We never
-        sell personal data. You can accept, decline, or{" "}
+        identifiers) to measure which codes work and which pages need improvement. If you
+        decline, no analytics data is collected. You can change this anytime in the{" "}
         <Link href="/privacy" className="underline underline-offset-2">
-          change this later in the privacy policy
+          privacy policy
         </Link>
         .
       </p>
       <div className="flex shrink-0 gap-2">
         <button
           type="button"
-          onClick={() => save("declined")}
+          onClick={() => setConsent("declined")}
           className="rounded-full border border-ink-soft/30 px-4 py-2 text-sm font-semibold text-ink hover:bg-ink/5"
         >
           Decline
         </button>
         <button
           type="button"
-          onClick={() => save("accepted")}
+          onClick={() => setConsent("accepted")}
           className="btn-primary rounded-full px-4 py-2 text-sm"
         >
           Accept

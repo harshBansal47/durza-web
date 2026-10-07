@@ -2,6 +2,7 @@ import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ImpressionTracker } from "@/components/ImpressionTracker";
 import { resetImpressionDedupe } from "@/lib/analytics";
+import { setConsent } from "@/lib/consent";
 import { api } from "@/lib/api";
 
 /** An IntersectionObserver the test drives by hand, instead of the global always-visible mock. */
@@ -27,6 +28,8 @@ const original = globalThis.IntersectionObserver;
 describe("ImpressionTracker", () => {
   let spy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
+    // Consent must be granted for tracking to fire
+    setConsent("accepted");
     resetImpressionDedupe();
     ManualObserver.instances = [];
     globalThis.IntersectionObserver = ManualObserver as unknown as typeof IntersectionObserver;
@@ -35,6 +38,7 @@ describe("ImpressionTracker", () => {
   afterEach(() => {
     globalThis.IntersectionObserver = original;
     vi.restoreAllMocks();
+    window.localStorage.clear();
   });
 
   const mount = () =>

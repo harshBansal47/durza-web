@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { api } from "@/lib/api";
 import { IMPRESSION_PAGE_TYPES, isImpressionPageType, resetImpressionDedupe, track } from "@/lib/analytics";
+import { setConsent } from "@/lib/consent";
 
 /**
  * The backend (`ImpressionRequest` / `ImpressionType`) rejects unknown page types and
@@ -12,10 +13,15 @@ const base = { coupon_id: "c1", merchant_id: "m1", page_type: "homepage", positi
 describe("coupon impression contract with the backend", () => {
   let spy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
+    // Consent must be granted for track() to fire
+    setConsent("accepted");
     resetImpressionDedupe();
     spy = vi.spyOn(api, "recordImpression").mockResolvedValue(undefined as never);
   });
-  afterEach(() => vi.restoreAllMocks());
+  afterEach(() => {
+    vi.restoreAllMocks();
+    window.localStorage.clear();
+  });
 
   it("accepts exactly the page types the backend defines", () => {
     expect([...IMPRESSION_PAGE_TYPES].sort()).toEqual(

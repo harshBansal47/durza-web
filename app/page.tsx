@@ -35,7 +35,7 @@ const PILLARS = [
   {
     title: "Commission disclosed",
     body: "We publish what we earn on every store and coupon page. No hidden affiliate incentives.",
-    points: ["Per-store commission note", "No pay-to-play placement", "Independent editorial order"],
+    points: ["Per-store commission note", "No pay-to-play placement", "Verification and success rates drive ranking"],
   },
   {
     title: "Evidence over urgency",

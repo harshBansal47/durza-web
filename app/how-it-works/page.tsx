@@ -10,7 +10,7 @@ const STEPS: [string, string][] = [
   ["Where coupons come from", "Offers arrive from our sources — feeds, imports and staff curation — and flow through one pipeline: normalize, dedupe, validate."],
   ["How we verify them", "Each offer is structurally validated, optionally probed live, and then checked by real shoppers. Worked/didn't-work votes set the success rate you see."],
   ["How users report results", "One vote per visitor per coupon per day, keyed by a salted IP hash — real signal, no raw tracking."],
-  ["How commissions work", "Some links earn us a commission. Every page says so, and commission size never changes rankings."],
+  ["How commissions work", "Some links earn us a commission. Every page says so, and commissions may be one factor among several signals used when ordering offers."],
   ["What BachatBase does NOT do", "We don't sell your data, don't rank by merchant spend, and don't hijack another creator's referral link."],
 ];
 

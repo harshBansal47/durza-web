@@ -3,12 +3,15 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { track, type AnalyticsEvent } from "@/lib/analytics";
+import { isAnalyticsAllowed } from "@/lib/consent";
 import { recordCouponView, recordStoreView } from "@/lib/personalization";
 
 /** Fire-and-forget page_view on every route change. Never blocks render. */
 export function AnalyticsPageView() {
   const pathname = usePathname();
   useEffect(() => {
+    // Only track pageviews when consent is granted
+    if (!isAnalyticsAllowed()) return;
     track("page_view", { path: pathname });
   }, [pathname]);
   return null;

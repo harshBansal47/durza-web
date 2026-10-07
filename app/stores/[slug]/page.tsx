@@ -72,7 +72,7 @@ export default async function StorePage({ params }: Props) {
     {
       question: "How does BachatBase make money?",
       answer:
-        "When you use a link on this page, we may earn a commission from the store. That commission never changes the order of the listings or the codes we show.",
+        "When you use a link on this page, we may earn a commission from the store. Commissions may be one factor among several signals used when ordering offers. Verification, reliability, user success rates and relevance remain important ranking factors.",
     },
     {
       question: "What if a code does not work?",
