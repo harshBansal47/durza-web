@@ -29,6 +29,7 @@ describe("coupon impression contract with the backend", () => {
         "category_page",
         "coupon_card",
         "coupon_detail",
+        "deals",
         "featured_section",
         "homepage",
         "merchant_page",
@@ -47,6 +48,15 @@ describe("coupon impression contract with the backend", () => {
       page_type: "homepage",
       position: 1,
       sponsored: false,
+    });
+
+    it("accepts deals-page impressions with a 1-based position", () => {
+      track("coupon_impression", { ...base, page_type: "deals", position: 1 });
+      expect(spy).toHaveBeenCalledWith(expect.objectContaining({
+        page_type: "deals",
+        position: 1,
+      }));
+      expect(isImpressionPageType("deals")).toBe(true);
     });
   });
 

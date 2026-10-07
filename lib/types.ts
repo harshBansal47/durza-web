@@ -47,7 +47,8 @@ export type CouponSort =
   | "trending"
   | "most_used"
   | "top_rated"
-  | "biggest_discount";
+  | "biggest_discount"
+  | "biggest_percent";
 
 /**
  * A product joined with its current price context. The account dashboard needs
@@ -262,4 +263,3 @@ export interface Ad {
   is_active: boolean;
   created_at: string;
 }
-

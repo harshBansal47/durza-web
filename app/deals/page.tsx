@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { resilient } from "@/lib/api";
-import CouponRow from "@/components/CouponRow";
+import DealCard from "@/components/DealCard";
 import EmptyState from "@/components/EmptyState";
 import Pagination from "@/components/Pagination";
 import SectionTitle from "@/components/SectionTitle";
-import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
-import FilterChips from "@/components/filters/FilterChips";
+import DealsFilterPanel from "@/components/filters/DealsFilterPanel";
+import DealsSortControl from "@/components/filters/DealsSortControl";
 import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
-import SortControl from "@/components/filters/SortControl";
-import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
+import { parseDealFilters, resolveDealFacets, toDealQuery } from "@/lib/deal-discovery";
 import { absoluteUrl } from "@/lib/seo";
 
 const PAGE_SIZE = 20;
@@ -24,11 +23,14 @@ export const metadata: Metadata = {
 export default async function DealsPage({
   searchParams,
 }: {
-  searchParams: Promise<Record<string, string | undefined>>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const sp = await searchParams;
-  const filters = parseFilters(sp);
-  const skip = Math.max(Number(sp.skip) || 0, 0);
+  const filters = parseDealFilters(sp);
+  const keywordValue = sp.q ?? sp.search;
+  const keyword = (Array.isArray(keywordValue) ? keywordValue[0] : keywordValue)?.trim() ?? "";
+  const skipValue = sp.skip;
+  const skip = Math.max(Number(Array.isArray(skipValue) ? skipValue[0] : skipValue) || 0, 0);
 
   const [storesPage, categoriesPage] = await Promise.all([
     resilient.listStores({ limit: 100 }),
@@ -36,22 +38,22 @@ export default async function DealsPage({
   ]);
   const stores = storesPage.items;
   const categories = categoriesPage.items;
-  const resolved = resolveIds(filters, stores, categories);
+  const resolved = resolveDealFacets(filters, stores, categories);
+  const query = toDealQuery(filters, resolved, { skip, limit: PAGE_SIZE });
+  if (keyword) query.search = keyword;
 
   const [coupons, priceDrops] = await Promise.all([
     resolved.unresolved
       ? Promise.resolve({ items: [], total: 0, skip, limit: PAGE_SIZE })
-      : resilient.listCoupons(toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE })),
+      : resilient.listCoupons(query),
     // Price drops are a different list with their own (much smaller) shape, so
     // they carry the keyword only — the coupon filters cannot apply to them.
-    filters.q
+    keyword
       ? Promise.resolve({ items: [], total: 0, skip: 0, limit: 50 })
       : resilient.listProducts({ limit: 50 }),
   ]);
 
   const storeById = new Map(stores.map((s) => [s.id, s]));
-  const storeName = stores.find((s) => s.slug === filters.store)?.name;
-  const categoryName = categories.find((c) => c.slug === filters.category)?.name;
   const total = coupons.total;
   const page = Math.floor(skip / PAGE_SIZE) + 1;
   const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
@@ -60,9 +62,49 @@ export default async function DealsPage({
     .filter((p) => p.last_price_drop_pct != null)
     .sort((a, b) => (b.last_price_drop_pct ?? 0) - (a.last_price_drop_pct ?? 0))
     .slice(0, 6);
+  const activeFilterCount =
+    filters.stores.length +
+    filters.categories.length +
+    Number(filters.verifiedWithinHours !== undefined) +
+    Number(filters.expiresWithinDays !== undefined);
+  const paginationParams: Record<string, string | undefined> = {
+    q: keyword || undefined,
+    stores: filters.stores.length ? filters.stores.join(",") : undefined,
+    categories: filters.categories.length ? filters.categories.join(",") : undefined,
+    verified_within_hours: filters.verifiedWithinHours?.toString(),
+    expires_within_days: filters.expiresWithinDays?.toString(),
+    sort: filters.sort === "recommended" ? undefined : filters.sort,
+  };
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Today's deals",
+    itemListElement: coupons.items.slice(0, 10).map((coupon, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: coupon.title,
+      url: absoluteUrl(`/coupons/${coupon.slug}`),
+    })),
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Deals", item: absoluteUrl("/deals") },
+    ],
+  };
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema).replace(/</g, "\\u003c") }}
+      />
       <h1 className="mb-2 font-serif text-3xl text-ink">Today&apos;s deals</h1>
       <p className="mb-8 text-sm text-ink-soft">
         What shoppers most recently confirmed working, and where prices moved.
@@ -75,10 +117,12 @@ export default async function DealsPage({
       </div>
 
       <FilterLayout
+        mobileDrawer
         panel={
-          <CouponFilterPanel
+          <DealsFilterPanel
             stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
             categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+            filters={filters}
           />
         }
       >
@@ -89,46 +133,46 @@ export default async function DealsPage({
               {total > 0 ? ` · page ${page} of ${pages}` : ""}
             </p>
             <p className="mt-1 text-xs text-ink-soft">
-              {filterCount(filters) > 0 ? "Filtered — only matching deals are shown." : "Every active deal, best match first."}
+              {activeFilterCount > 0 ? "Filtered — only matching deals are shown." : "Every active deal, best match first."}
             </p>
           </div>
-          <SortControl />
+          <DealsSortControl sort={filters.sort} />
         </div>
 
-        <div className="mb-5">
-          <FilterChips storeLabel={storeName} categoryLabel={categoryName} />
-        </div>
+        {(filters.stores.length > 0 || filters.categories.length > 0) && (
+          <p className="mb-5 text-xs text-ink-soft">
+            Selected: {[...filters.stores, ...filters.categories].join(" · ")}
+          </p>
+        )}
 
         {coupons.items.length === 0 ? (
           <EmptyState
-            title={filters.q || filterCount(filters) > 0 ? "No deals match those filters." : "No deals right now."}
+            title={keyword || activeFilterCount > 0 ? "No deals match those filters." : "No deals right now."}
             body="New codes land through the day — loosen a filter, or check back soon."
             cta={{ href: "/deals", label: "All deals" }}
           />
         ) : (
-          <div>
-            {coupons.items.map((coupon) => {
-              const store = storeById.get(coupon.store_id);
-              return (
-                <CouponRow
-                  key={coupon.id}
-                  coupon={coupon}
-                  store={store ? { name: store.name, logoUrl: store.logo_url } : undefined}
-                />
-              );
-            })}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {coupons.items.map((coupon, index) => (
+              <DealCard
+                key={coupon.id}
+                coupon={coupon}
+                store={storeById.get(coupon.store_id)}
+                position={skip + index + 1}
+              />
+            ))}
           </div>
         )}
 
         <Pagination
           basePath="/deals"
-          searchParams={carriedParams(sp)}
+          searchParams={paginationParams}
           skip={skip}
           limit={PAGE_SIZE}
           total={total}
         />
 
-        {!filters.q && (
+        {!keyword && (
           <section className="mt-16">
             <SectionTitle hint="from recorded price history">Price drops</SectionTitle>
             {drops.length === 0 ? (
