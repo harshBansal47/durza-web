@@ -8,16 +8,16 @@ const STEPS = [
 export default function HowItWorks() {
   return (
     <ol className="relative grid gap-5 md:grid-cols-3">
-      <div aria-hidden="true" className="absolute left-[16%] right-[16%] top-9 hidden border-t-2 border-dashed border-inkblue/30 md:block" />
+      <div aria-hidden="true" className="absolute left-[16%] right-[16%] top-9 hidden border-t border-ledger-line md:block" />
       {STEPS.map((s, i) => (
-        <li key={s.title} className="lift relative rounded-[22px] border border-ledger-line bg-white p-6 text-center shadow-[var(--shadow-hairline)]">
-          <span className="bg-brand relative mx-auto flex h-[72px] w-[72px] items-center justify-center rounded-[22px] text-3xl shadow-[var(--shadow-glow)]">
+        <li key={s.title} className="lift relative rounded-[20px] border border-ledger-line bg-white p-6 text-center shadow-[var(--shadow-hairline)]">
+          <span className="bg-paper-alt relative mx-auto flex h-[72px] w-[72px] items-center justify-center rounded-[20px] text-3xl">
             <span aria-hidden="true">{s.glyph}</span>
-            <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-sun font-serif text-sm font-extrabold text-ink">
+            <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-ink font-sans text-sm font-medium text-white">
               {i + 1}
             </span>
           </span>
-          <h3 className="mt-4 font-serif text-lg font-bold text-ink">{s.title}</h3>
+          <h3 className="mt-4 font-sans text-lg font-medium text-ink">{s.title}</h3>
           <p className="mt-1.5 text-sm text-ink-soft">{s.body}</p>
         </li>
       ))}

@@ -55,7 +55,7 @@ export default function Header({
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 40);
 
     onScroll();
 
@@ -76,13 +76,13 @@ export default function Header({
         ref={headerRef}
         className={[
           "sticky top-0 z-40",
-          "border-b border-ledger-line/80",
-          "bg-[rgba(255,255,255,0.78)] backdrop-blur-2xl",
-          "transition-all duration-200",
-          scrolled ? "shadow-[0_12px_28px_rgba(33,38,92,0.08)]" : "shadow-[0_1px_0_rgba(28,25,23,0.06)]",
+          "border-b border-ledger-line",
+          "bg-[rgba(250,250,248,0.85)] backdrop-blur-xl",
+          "transition-all duration-300",
+          scrolled ? "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]" : "",
         ].join(" ")}
       >
-        <div className="mx-auto flex min-h-[68px] max-w-7xl items-center gap-5 px-4 sm:min-h-[76px] sm:px-6 lg:gap-8 lg:px-8">
+        <div className="mx-auto flex min-h-[68px] max-w-[1280px] items-center gap-5 px-6 sm:min-h-[76px] lg:gap-8 lg:px-12">
           {/* Brand */}
           <Link
             href="/"
@@ -93,9 +93,8 @@ export default function Header({
               aria-hidden="true"
               className="
                 flex h-9 w-9 items-center justify-center
-                rounded-xl bg-brand
-                font-serif text-xl font-extrabold text-white
-                shadow-[var(--shadow-glow)]
+                rounded-xl bg-ink
+                font-sans text-lg font-medium text-white
                 transition-transform duration-200
                 group-hover:scale-[1.04]
               "
@@ -103,7 +102,7 @@ export default function Header({
               C
             </span>
 
-            <span className="font-serif text-[21px] font-extrabold tracking-tight text-ink sm:text-[23px]">
+            <span className="font-sans text-[21px] font-medium tracking-tight text-ink sm:text-[23px]">
               BachatBase
             </span>
           </Link>
@@ -122,18 +121,12 @@ export default function Header({
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "relative flex h-10 items-center rounded-lg px-3.5",
-                    "text-[13px] font-semibold tracking-wide",
+                    "relative flex h-10 items-center rounded-full px-4",
+                    "text-[13px] font-medium tracking-wide",
                     "transition-colors duration-150",
                     active
-                      ? "bg-inkblue/[0.07] text-inkblue"
-                      : "text-ink-soft hover:bg-inkblue/[0.05] hover:text-inkblue",
-                    "after:absolute after:bottom-0 after:left-3.5 after:right-3.5",
-                    "after:h-0.5 after:rounded-full after:bg-inkblue",
-                    "after:transition-transform after:duration-150",
-                    active
-                      ? "after:scale-x-100"
-                      : "after:scale-x-0 hover:after:scale-x-100",
+                      ? "bg-ink/[0.06] text-ink"
+                      : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink",
                   ].join(" ")}
                 >
                   {link.label}
@@ -142,7 +135,7 @@ export default function Header({
             })}
             {moreLinks.length > 0 && (
               <details className="group relative flex h-full items-center">
-                <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg px-3.5 text-[13px] font-semibold tracking-wide text-ink-soft hover:bg-inkblue/[0.05] hover:text-inkblue focus-visible:outline-2 focus-visible:outline-inkblue">
+                <summary className="flex h-10 cursor-pointer list-none items-center rounded-full px-4 text-[13px] font-medium tracking-wide text-ink-soft hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">
                   Explore
                   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="ml-1 h-4 w-4">
                     <path d="m6 8 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -150,7 +143,7 @@ export default function Header({
                 </summary>
                 <div className="invisible absolute right-0 top-full z-50 mt-2 min-w-48 translate-y-1 rounded-2xl border border-ledger-line bg-white p-2 opacity-0 shadow-[var(--shadow-overlay)] transition group-open:visible group-open:translate-y-0 group-open:opacity-100">
                   {moreLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-inkblue/[0.05] hover:text-inkblue">
+                    <Link key={link.href} href={link.href} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink">
                       {link.label}
                     </Link>
                   ))}
@@ -170,11 +163,11 @@ export default function Header({
               href={user ? "/account" : "/account/login"}
               className="
                 group flex min-h-10 items-center gap-2.5
-                rounded-xl border border-ledger-line
-                bg-white px-3
-                text-sm font-semibold text-ink
+                rounded-full border border-ledger-line
+                bg-white px-4
+                text-sm font-medium text-ink
                 transition-all duration-150
-                hover:border-inkblue/30 hover:bg-inkblue/[0.03]
+                hover:border-accent-soft hover:bg-accent-faint
               "
             >
               {user ? (
@@ -183,8 +176,8 @@ export default function Header({
                     aria-hidden="true"
                     className="
                       flex h-7 w-7 shrink-0 items-center justify-center
-                      rounded-lg bg-brand
-                      text-xs font-bold text-white
+                      rounded-full bg-ink
+                      text-xs font-medium text-white
                     "
                   >
                     {user.name.trim().charAt(0).toUpperCase() || "U"}
@@ -215,7 +208,7 @@ export default function Header({
                     aria-hidden="true"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className="h-[17px] w-[17px] text-inkblue"
+                    className="h-[17px] w-[17px] text-accent"
                   >
                     <path
                       d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
@@ -245,11 +238,11 @@ export default function Header({
               onClick={() => setMobileSearchOpen(true)}
               className="
                 flex h-10 w-10 items-center justify-center
-                rounded-xl text-ink-soft
+                rounded-full text-ink-soft
                 transition-colors
-                hover:bg-inkblue/[0.06] hover:text-inkblue
+                hover:bg-ink/[0.04] hover:text-ink
                 focus-visible:outline-none focus-visible:ring-2
-                focus-visible:ring-inkblue/50
+                focus-visible:ring-accent/50
               "
               aria-label="Open search"
             >

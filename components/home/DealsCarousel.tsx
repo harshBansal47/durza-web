@@ -51,7 +51,7 @@ export default function DealsCarousel({
         type="button"
         onClick={() => scrollBy(-1)}
         aria-label="Scroll deals left"
-        className="absolute -left-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-xl text-inkblue shadow-[var(--shadow-overlay)] transition-transform hover:scale-110 lg:flex"
+        className="absolute -left-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ledger-line bg-white text-xl text-accent shadow-[var(--shadow-raised)] transition-transform hover:scale-110 lg:flex"
       >
         ‹
       </button>
@@ -59,7 +59,7 @@ export default function DealsCarousel({
         type="button"
         onClick={() => scrollBy(1)}
         aria-label="Scroll deals right"
-        className="absolute -right-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-xl text-inkblue shadow-[var(--shadow-overlay)] transition-transform hover:scale-110 lg:flex"
+        className="absolute -right-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ledger-line bg-white text-xl text-accent shadow-[var(--shadow-raised)] transition-transform hover:scale-110 lg:flex"
       >
         ›
       </button>

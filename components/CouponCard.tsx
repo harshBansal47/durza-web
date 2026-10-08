@@ -43,12 +43,12 @@ function StoreLine({ store }: { store: CouponCardStore }) {
   return (
     <Link
       href={`/stores/${store.slug}`}
-      className="relative z-10 flex min-w-0 items-center gap-2 text-[13px] font-semibold text-ink-soft transition-colors hover:text-ink"
+      className="relative z-10 flex min-w-0 items-center gap-2 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink"
     >
       {store.logo_url ? (
         <Image src={store.logo_url} alt="" width={22} height={22} className="h-[22px] w-[22px] rounded-full border border-ledger-line bg-white object-contain" />
       ) : (
-        <span aria-hidden="true" className="flex h-[22px] w-[22px] items-center justify-center rounded-full border border-ledger-line bg-paper font-mono text-[9px] font-semibold text-ink-soft">
+        <span aria-hidden="true" className="flex h-[22px] w-[22px] items-center justify-center rounded-full border border-ledger-line bg-paper font-mono text-[9px] font-medium text-ink-soft">
           {initials(store.name)}
         </span>
       )}
@@ -95,7 +95,7 @@ export function CouponCard({
       <article
         className={`ticket flex h-full flex-col overflow-hidden rounded-[20px] border bg-paper-raised ${
           resolved === "expiring-soon" && !expired ? "border-rust/40" : "border-ledger-line"
-        } ${featured ? "ring-2 ring-sun/70" : ""}`}
+        } ${featured ? "ring-1 ring-accent-soft" : ""}`}
       >
         {/* Discount is the visual hero */}
         <div className="flex items-start justify-between gap-3 px-4 pt-4">
@@ -120,8 +120,8 @@ export function CouponCard({
 
         <div className="flex flex-1 flex-col gap-3 p-4 pt-3">
           <div className="min-w-0">
-            <h3 className="font-serif text-[17px] font-bold leading-snug text-ink">
-              <Link href={href} className="after:absolute after:inset-0 hover:underline hover:decoration-sun hover:decoration-2 hover:underline-offset-4">
+            <h3 className="font-sans text-[17px] font-medium leading-snug text-ink">
+              <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
                 {coupon.title}
               </Link>
             </h3>
@@ -131,7 +131,7 @@ export function CouponCard({
           {/* Trust signals: only what the data supports */}
           <div className="flex flex-wrap items-center gap-1.5" aria-label="Deal status">
             {badge && (
-              <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-white">
+              <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-white">
                 {badge}
               </span>
             )}
@@ -158,9 +158,9 @@ export function CouponCard({
               {price.productName && <p className="text-sm font-medium text-ink">{price.productName}</p>}
               <p className="mt-1 flex flex-wrap items-baseline gap-2">
                 <span className="font-mono text-sm text-ink-soft line-through">{formatMoney(price.previous, currency)}</span>
-                <span className="font-mono text-lg font-semibold text-rust">{formatMoney(price.current, currency)}</span>
+                <span className="font-mono text-lg font-medium text-rust">{formatMoney(price.current, currency)}</span>
                 {price.previous > 0 && (
-                  <span className="rounded-full bg-rust px-2 py-0.5 font-mono text-xs font-semibold text-white">
+                  <span className="rounded-full bg-rust px-2 py-0.5 font-mono text-xs font-medium text-white">
                     −{Math.round(((price.previous - price.current) / price.previous) * 100)}%
                   </span>
                 )}
@@ -169,8 +169,8 @@ export function CouponCard({
           )}
 
           {resolved === "free-shipping" && (
-            <div className="rounded-xl border border-inkblue/20 bg-inkblue/5 p-3 text-sm text-ink-soft">
-              <p className="font-semibold text-inkblue">
+            <div className="rounded-xl border border-accent/20 bg-accent-faint p-3 text-sm text-ink-soft">
+              <p className="font-medium text-accent">
                 {minOrderValue ? `Free shipping over ${formatMoney(minOrderValue, currency)}` : "Free shipping"}
               </p>
               {regions && regions.length > 0 && <p className="mt-0.5">{regions.join(" · ")}</p>}
@@ -182,7 +182,7 @@ export function CouponCard({
               {coupon.code ? (
                 <>
                   Code{" "}
-                  <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-2 py-0.5 font-mono text-sm font-semibold text-ink">
+                  <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-2 py-0.5 font-mono text-sm font-medium text-ink">
                     {coupon.code}
                   </code>{" "}
                   at checkout
@@ -196,13 +196,13 @@ export function CouponCard({
           <div className="mt-auto flex flex-wrap items-center justify-between gap-2 text-xs text-ink-soft">
             <div>
               {!hideExpiry && expiryLabel(coupon.expires_at) && (
-                <span className={expiringSoon ? "font-semibold text-rust" : undefined}>
+                <span className={expiringSoon ? "font-medium text-rust" : undefined}>
                   {expiryLabel(coupon.expires_at)}
                 </span>
               )}
             </div>
             {footnote && (
-              <Link href={footnote.href} className="relative z-10 text-xs font-medium text-inkblue underline-offset-2 hover:underline">
+              <Link href={footnote.href} className="relative z-10 text-xs font-medium text-accent underline-offset-2 hover:underline">
                 {footnote.label}
               </Link>
             )}

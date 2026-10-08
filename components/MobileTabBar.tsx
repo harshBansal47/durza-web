@@ -50,8 +50,8 @@ export function MobileTabBar() {
                 <Link
                   href={tab.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-semibold ${
-                    active ? "text-rust" : "text-ink-soft"
+                  className={`relative flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium ${
+                    active ? "text-accent" : "text-ink-soft"
                   }`}
                 >
                   <span aria-hidden="true" className="text-lg leading-none">
@@ -61,7 +61,7 @@ export function MobileTabBar() {
                   {tab.badge && savedCount > 0 && (
                     <span
                       aria-label={`${savedCount} saved deals`}
-                      className="absolute right-1/2 top-1 flex h-4 min-w-4 translate-x-5 items-center justify-center rounded-full bg-rust px-1 font-mono text-[9px] font-bold text-white"
+                      className="absolute right-1/2 top-1 flex h-4 min-w-4 translate-x-5 items-center justify-center rounded-full bg-accent px-1 font-mono text-[9px] font-medium text-white"
                     >
                       {savedCount > 99 ? "99+" : savedCount}
                     </span>

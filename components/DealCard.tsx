@@ -35,11 +35,11 @@ export default function DealCard({
         pageType="deals"
         position={position}
       />
-      <article className="ticket deal-ticket flex h-full flex-col overflow-hidden rounded-[20px] border border-dashed border-ledger-line bg-warm-paper">
-        <div className="flex items-center justify-between gap-3 border-b border-dashed border-ledger-line px-4 py-4">
+      <article className="ticket deal-ticket flex h-full flex-col overflow-hidden rounded-[20px] border border-ledger-line bg-paper-raised">
+        <div className="flex items-center justify-between gap-3 border-b border-ledger-line px-4 py-4">
           <Link
             href={store ? `/stores/${store.slug}` : `/coupons/${coupon.slug}`}
-            className="flex min-w-0 items-center gap-2 text-sm font-semibold text-ink hover:underline"
+            className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink hover:text-accent"
           >
             {store?.logo_url ? (
               <Image
@@ -61,19 +61,19 @@ export default function DealCard({
 
         <div className="flex flex-1 flex-col gap-3 p-4">
           <div className="flex items-start justify-between gap-3">
-            <h2 className="line-clamp-2 min-h-[3rem] font-serif text-lg font-bold leading-snug text-ink">
-              <Link href={`/coupons/${coupon.slug}`} className="hover:underline">
+            <h2 className="line-clamp-2 min-h-[3rem] font-sans text-lg font-medium leading-snug text-ink">
+              <Link href={`/coupons/${coupon.slug}`} className="hover:text-accent">
                 {coupon.title}
               </Link>
             </h2>
-            <span className="shrink-0 rounded-sm bg-vermilion px-2 py-1 font-mono text-xs font-bold text-white">
+            <span className="shrink-0 rounded-full bg-accent-faint px-2.5 py-1 font-mono text-xs font-medium text-accent">
               {formatDiscount(coupon, store?.currency ?? "USD")}
             </span>
           </div>
 
           {price && (
             <p className="flex flex-wrap items-baseline gap-2">
-              <span className="font-mono text-xl font-bold text-ink">
+              <span className="font-mono text-xl font-medium text-ink">
                 {formatMoney(price.current, price.currency)}
               </span>
               {price.original != null && price.original > price.current && (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { GeistSans, GeistMono } from "geist/font";
 import { displayName, getSessionUser } from "@/lib/session";
-import { Bricolage_Grotesque, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PromoStrip from "@/components/PromoStrip";
@@ -12,24 +12,6 @@ import ConsentBanner from "@/components/ConsentBanner";
 import { SITE_URL } from "@/lib/site";
 import InstallPrompt from "@/components/InstallPrompt";
 import "./globals.css";
-
-const display = Bricolage_Grotesque({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-display",
-});
-
-const body = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
-});
-
-const code = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-code",
-});
 
 const SITE_TITLE = "BachatBase — save money before you buy";
 const SITE_DESCRIPTION =
@@ -67,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#1b1836",
+  themeColor: "#fafaf8",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -92,16 +74,13 @@ const MORE_NAV_LINKS = [
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Server-rendered so the header shows the signed-in name without waiting on
-  // the client. Failures here must not take the whole page down, so a bad
-  // session cookie just means an anonymous header.
   const [user, footerAd] = await Promise.all([
     getSessionUser().catch(() => null),
     getSponsored("footer"),
   ]);
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${code.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <ToastProvider>
           <a

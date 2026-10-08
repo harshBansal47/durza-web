@@ -7,15 +7,6 @@ interface Cat {
   icon?: string | null;
 }
 
-const GRADIENTS = [
-  "from-inkblue to-violet",
-  "from-rust to-pink",
-  "from-verified to-inkblue",
-  "from-sun to-rust",
-  "from-pink to-inkblue",
-  "from-violet to-rust",
-];
-
 // Fallback glyphs when a category has no icon of its own.
 const GLYPHS: [RegExp, string][] = [
   [/fashion|cloth|apparel|wear|shoe/i, "👕"],
@@ -39,16 +30,16 @@ export default function CategoryRow({ categories }: { categories: Cat[] }) {
   return (
     <nav aria-label="Browse by category">
       <ul className="scrollbar-hide -mx-4 flex gap-5 overflow-x-auto px-4 pb-2 sm:mx-0 sm:justify-center sm:px-0">
-        {categories.slice(0, 12).map((c, i) => (
+        {categories.slice(0, 12).map((c) => (
           <li key={c.id} className="shrink-0">
             <Link href={`/categories/${c.slug}`} className="group flex w-[76px] flex-col items-center gap-2 text-center">
               <span
                 aria-hidden="true"
-                className={`flex h-16 w-16 items-center justify-center rounded-[22px] bg-gradient-to-br ${GRADIENTS[i % GRADIENTS.length]} text-3xl shadow-[var(--shadow-raised)] transition-transform duration-300 group-hover:-translate-y-1.5 group-hover:rotate-3`}
+                className="flex h-16 w-16 items-center justify-center rounded-[20px] border border-ledger-line bg-white text-3xl shadow-[var(--shadow-hairline)] transition-all duration-200 group-hover:-translate-y-1 group-hover:border-accent-soft group-hover:shadow-[var(--shadow-raised)]"
               >
                 {glyphFor(c)}
               </span>
-              <span className="line-clamp-2 text-xs font-semibold text-ink group-hover:text-inkblue">{c.name}</span>
+              <span className="line-clamp-2 text-xs font-medium text-ink group-hover:text-accent">{c.name}</span>
             </Link>
           </li>
         ))}
