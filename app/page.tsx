@@ -14,7 +14,8 @@ import { absoluteUrl } from "@/lib/seo";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
 import { Reveal } from "@/components/Reveal";
-import type { Paginated, CouponPublic } from "@/lib/types";
+import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
+import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
 export const revalidate = 300;
 
@@ -46,6 +47,8 @@ const PILLARS = [
 
 export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
+  const emptyEditorialPage: Paginated<EditorialContent> = { items: [], total: 0, skip: 0, limit: 0 };
+  const emptyEditorial: EditorialHomepage = { guides: [], comparisons: [], reviews: [], collections: [] };
 
   // Every ordering and count below is the backend's answer to a real query. This page
   // never ranks, filters a sample, or estimates: a number on screen is a `total`.
@@ -59,6 +62,11 @@ export default async function HomePage() {
     verifiedToday,
     newest,
     biggest,
+    editorial,
+    latestComparisons,
+    recentReviews,
+    latestDeals,
+    bestCoupons,
     headerAd,
   ] = await Promise.all([
     safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>),
@@ -81,6 +89,17 @@ export default async function HomePage() {
     safe(api.listCoupons({ active_only: true, sort: "newest", limit: 8 }), emptyPage as Paginated<CouponPublic>),
     safe(
       api.listCoupons({ active_only: true, sort: "biggest_discount", limit: 4 }),
+      emptyPage as Paginated<CouponPublic>,
+    ),
+    safe(api.getEditorialHomepage(), emptyEditorial),
+    safe(api.listEditorial({ content_type: "comparison", limit: 3 }), emptyEditorialPage),
+    safe(api.listEditorial({ content_type: "review", limit: 3 }), emptyEditorialPage),
+    safe(
+      api.listCoupons({ active_only: true, discount_type: "deal", has_code: false, sort: "newest", limit: 8 }),
+      emptyPage as Paginated<CouponPublic>,
+    ),
+    safe(
+      api.listCoupons({ active_only: true, has_code: true, sort: "recommended", limit: 8 }),
       emptyPage as Paginated<CouponPublic>,
     ),
     getSponsored("header"),
@@ -109,7 +128,7 @@ export default async function HomePage() {
     name: "BachatBase",
     url: absoluteUrl("/"),
     description:
-      "Community-confirmed coupon codes and price drops, with affiliate commission disclosed on every page.",
+      "Find trusted deals, compare products, and use practical buying guides and reviews to save before you buy.",
     potentialAction: {
       "@type": "SearchAction",
       target: `${absoluteUrl("/search")}?q={search_term_string}`,
@@ -117,7 +136,10 @@ export default async function HomePage() {
     },
   };
 
-  const isEmpty = coupons.total === 0 && stores.total === 0 && categories.total === 0;
+  const hasEditorial = Object.values(editorial).some((items) => items.length > 0)
+    || latestComparisons.items.length > 0
+    || recentReviews.items.length > 0;
+  const isEmpty = coupons.total === 0 && stores.total === 0 && categories.total === 0 && !hasEditorial;
 
   return (
     <div className="page-shell">
@@ -151,6 +173,32 @@ export default async function HomePage() {
           {categories.items.length > 0 && (
             <section className="mt-10" id="categories" aria-label="Shop by category">
               <CategoryRow categories={categories.items} />
+            </section>
+          )}
+
+          <EditorialSection
+            title="Featured buying guides"
+            items={editorial.guides}
+            href="/guides"
+            label="All guides"
+          />
+
+          <EditorialSection
+            title="Latest comparisons"
+            items={latestComparisons.items}
+            href="/compare"
+            label="All comparisons"
+          />
+
+          {latestDeals.items.length > 0 && (
+            <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="latest-deals-heading">
+              <SectionTitle hint="tracked offers">
+                <span id="latest-deals-heading">Latest deals</span>
+              </SectionTitle>
+              <DealsCarousel coupons={latestDeals.items} stores={cardStores} label="Latest deals" pageType="homepage" />
+              <p className="mt-2 text-right text-sm">
+                <Link href="/deals" className="font-semibold text-rust hover:underline">Browse all deals →</Link>
+              </p>
             </section>
           )}
 
@@ -214,6 +262,45 @@ export default async function HomePage() {
                   All stores →
                 </Link>
               </p>
+            </section>
+          )}
+
+          {bestCoupons.items.length > 0 && (
+            <section className="mt-12" aria-labelledby="best-coupons-heading">
+              <SectionTitle hint="codes only">
+                <span id="best-coupons-heading">Best coupons</span>
+              </SectionTitle>
+              <CouponCardGrid
+                coupons={bestCoupons.items}
+                stores={cardStores}
+                variant="featured"
+                className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+              />
+              <p className="mt-3 text-right text-sm">
+                <Link href="/coupons" className="font-semibold text-inkblue hover:underline">Browse all coupons →</Link>
+              </p>
+            </section>
+          )}
+
+          <EditorialSection
+            title="Recent reviews"
+            items={recentReviews.items}
+            href="/reviews"
+            label="All reviews"
+          />
+
+          {editorial.collections.length > 0 && (
+            <section className="mt-12" aria-label="Curated savings collections">
+              <div className="mb-5 flex items-end justify-between gap-3">
+                <div>
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Built around your goals</p>
+                  <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">Curated collections</h2>
+                </div>
+                <Link href="/collections" className="min-h-11 inline-flex items-center text-sm font-bold text-inkblue hover:underline">All collections →</Link>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {editorial.collections.slice(0, 3).map((item) => <EditorialCard key={item.id} content={item} />)}
+              </div>
             </section>
           )}
 

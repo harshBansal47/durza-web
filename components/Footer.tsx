@@ -10,6 +10,10 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: "/deals", label: "Today's deals" },
       { href: "/stores", label: "Stores" },
       { href: "/categories", label: "Categories" },
+      { href: "/guides", label: "Buying guides" },
+      { href: "/reviews", label: "Reviews" },
+      { href: "/compare", label: "Comparisons" },
+      { href: "/collections", label: "Collections" },
     ],
   },
   {
@@ -75,7 +79,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
                 <span aria-hidden="true" className="bg-brand mr-2 inline-flex h-8 w-8 -rotate-6 items-center justify-center rounded-xl text-base">C</span>
                 BachatBase
               </p>
-              <p className="mt-3 text-sm text-white/65">Find deals worth trusting.</p>
+              <p className="mt-3 text-sm text-white/65">Save money before you buy.</p>
             </div>
             {COLUMNS.map((col) => (
               <div key={col.title}>
@@ -93,7 +97,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
             ))}
           </div>
           <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
-            <p>© {new Date().getFullYear()} BachatBase. Every code community-verified, every commission disclosed.</p>
+            <p>© {new Date().getFullYear()} BachatBase. Offers built on shopper evidence, every commission disclosed.</p>
             <p>We may earn a commission when you shop through our links. Affiliate commissions may be one factor among several signals used when ordering offers. Verification, reliability, user success rates and relevance remain important ranking factors.</p>
           </div>
         </div>

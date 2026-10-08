@@ -111,7 +111,7 @@ export default function StorePageClient({
             <h1 className="font-serif text-3xl font-extrabold leading-tight sm:text-5xl">{store.name}</h1>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               {store.country_code && <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">{store.country_code}</span>}
-              <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">{stats.total} listed deals</span>
+              <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">{stats.total} listed offers</span>
               {store.website_url && (
                 <a
                   href={store.website_url}
@@ -215,7 +215,7 @@ export default function StorePageClient({
       {relatedStores.length > 0 && (
         <section aria-labelledby="related">
           <h2 id="related" className="font-serif text-2xl font-extrabold text-ink">
-            Other stores we track
+            Alternatives and related stores
           </h2>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {relatedStores.map((related) => (

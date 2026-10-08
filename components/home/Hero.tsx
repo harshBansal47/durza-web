@@ -73,28 +73,27 @@ export default function Hero({
               hasActivity ? "mt-6" : "mt-0",
             ].join(" ")}
           >
-            Find better deals
+            Save money
             <br />
-            <span className="text-[#ffc933]">before you pay.</span>
+            <span className="text-[#ffc933]">before you buy.</span>
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-7 text-white/70">
-            Search for coupon codes, offers and deals from the stores you shop
-            at.
+            Find trusted deals, compare your options, and choose what's worth it.
           </p>
 
           {/* Search */}
           <div
             className="mt-7 max-w-xl"
             role="search"
-            aria-label="Search coupons"
+            aria-label="Search deals, stores, products and guides"
           >
             <HeaderSearch
               popular={popularStores.map((store) => store.name)}
             />
 
             <p className="mt-2 text-xs text-white/45">
-              Search by store, brand or category
+              Search deals, stores, products and guides
             </p>
           </div>
 

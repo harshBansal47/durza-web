@@ -1,8 +1,16 @@
 import type { MetadataRoute } from "next";
 import { api } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
-import { sitemapIds, SITEMAP_CHUNK_SIZE, BACKEND_MAX_LIMIT, type SitemapId } from "@/lib/sitemap-groups";
-import type { CouponPublic } from "@/lib/types";
+import {
+  EDITORIAL_SITEMAP_TYPES,
+  isEditorialEndpointUnavailable,
+  sitemapIds,
+  SITEMAP_CHUNK_SIZE,
+  BACKEND_MAX_LIMIT,
+  type SitemapId,
+} from "@/lib/sitemap-groups";
+import type { CouponPublic, EditorialContent } from "@/lib/types";
+import { editorialPath } from "@/lib/editorial-path";
 
 export const revalidate = 3600;
 
@@ -26,7 +34,10 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/deals`, changeFrequency: "hourly", priority: 0.9 },
   { url: `${SITE_URL}/stores`, changeFrequency: "daily", priority: 0.8 },
   { url: `${SITE_URL}/categories`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/search`, changeFrequency: "monthly", priority: 0.4 },
+  { url: `${SITE_URL}/guides`, changeFrequency: "weekly", priority: 0.8 },
+  { url: `${SITE_URL}/reviews`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/compare`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/trust`, changeFrequency: "monthly", priority: 0.5 },
   { url: `${SITE_URL}/how-it-works`, changeFrequency: "monthly", priority: 0.5 },
   { url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.4 },
@@ -94,6 +105,26 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       url: `${SITE_URL}/stores/${store.slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.6,
+    }));
+  }
+  const contentType = EDITORIAL_SITEMAP_TYPES[kind];
+  if (contentType) {
+    let items: EditorialContent[];
+    try {
+      items = await fetchBatch(
+        (s, l) => api.listEditorial({ content_type: contentType, skip: s, limit: l }),
+        skip,
+        SITEMAP_CHUNK_SIZE,
+      );
+    } catch (error) {
+      if (isEditorialEndpointUnavailable(error)) return [];
+      throw error;
+    }
+    return items.filter((content) => content.is_indexable).map((content) => ({
+      url: content.canonical_url ?? `${SITE_URL}${editorialPath(content)}`,
+      lastModified: content.updated_at,
+      changeFrequency: "monthly" as const,
+      priority: content.is_featured ? 0.75 : 0.65,
     }));
   }
   const categories = await fetchBatch(

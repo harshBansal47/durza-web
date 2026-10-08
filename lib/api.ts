@@ -5,6 +5,9 @@ import type {
   Category,
   CouponPublic,
   DiscountType,
+  EditorialContent,
+  EditorialHomepage,
+  EditorialType,
   CmsPage,
   NotificationPreference,
   Paginated,
@@ -17,6 +20,7 @@ import type {
   PushSubscriptionPayload,
   SavedItem,
   Store,
+  StoreDestination,
   TokenPair,
   TrackedProduct,
   User,
@@ -210,6 +214,24 @@ export const api = {
 
   getStoreBySlug: (slug: string) =>
     apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+
+  getStoreDestination: (slug: string) =>
+    apiFetch<StoreDestination>(`/stores/by-slug/${encodeURIComponent(slug)}/destination`, {
+      revalidate: 120,
+    }),
+
+  listEditorial: (
+    params: { content_type?: EditorialType; skip?: number; limit?: number } = {},
+  ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: 300 }),
+
+  getEditorial: (contentType: EditorialType, slug: string) =>
+    apiFetch<EditorialContent>(
+      `/editorial/${contentType}/${encodeURIComponent(slug)}`,
+      { revalidate: 300 },
+    ),
+
+  getEditorialHomepage: () =>
+    apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: 300 }),
 
   /** ISO 3166-1 alpha-2 codes BachatBase currently serves. */
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
@@ -451,6 +473,7 @@ export const resilient = {
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
     orEmpty(api.listAds(params)),
   getStoreBySlug: (slug: string) => orNull(api.getStoreBySlug(slug)),
+  getStoreDestination: (slug: string) => orNull(api.getStoreDestination(slug)),
   getStoreById: (storeId: string) => orNull(api.getStoreById(storeId)),
   listMarkets: () => orEmptyArray(api.listMarkets()),
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number } = {}) =>
@@ -465,4 +488,10 @@ export const resilient = {
   getPageBySlug: (slug: string) => orNull(api.getPageBySlug(slug)),
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     orEmptyArray(api.getCouponVerificationHistory(couponId, limit)),
+  listEditorial: (params: { content_type?: EditorialType; skip?: number; limit?: number } = {}) =>
+    orEmpty(api.listEditorial(params)),
+  getEditorial: (contentType: EditorialType, slug: string) =>
+    orNull(api.getEditorial(contentType, slug)),
+  getEditorialHomepage: () =>
+    orNull(api.getEditorialHomepage()),
 };

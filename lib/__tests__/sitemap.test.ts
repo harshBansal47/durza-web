@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { GET } from "@/app/sitemap/[...path]/route";
 import { SITEMAP_CHUNK_SIZE, BACKEND_MAX_LIMIT, sitemapIds } from "@/lib/sitemap-groups";
-import { api } from "@/lib/api";
+import { ApiError, api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
 
 /**
@@ -14,16 +14,23 @@ import type { CouponPublic } from "@/lib/types";
 // The sitemap path uses the raw `api` client (not `resilient`) so a
 // backend failure surfaces as an HTTP 500 instead of an empty shard.
 vi.mock("@/lib/api", () => ({
+  ApiError: class ApiError extends Error {
+    constructor(message: string, public status: number) {
+      super(message);
+    }
+  },
   api: {
     listCoupons: vi.fn(),
     listStores: vi.fn(),
     listCategories: vi.fn(),
+    listEditorial: vi.fn(() => Promise.resolve({ items: [], total: 0, skip: 0, limit: 0 })),
   },
 }));
 
 const listCoupons = vi.mocked(api.listCoupons);
 const listStores = vi.mocked(api.listStores);
 const listCategories = vi.mocked(api.listCategories);
+const listEditorial = vi.mocked(api.listEditorial);
 
 function makeCoupons(count: number, start = 0): CouponPublic[] {
   return Array.from({ length: count }, (_, i) => ({
@@ -71,6 +78,10 @@ function shardRequest(id: string) {
 describe("sitemap shards (D1)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    listCoupons.mockResolvedValue(emptyPage);
+    listStores.mockResolvedValue(emptyPage);
+    listCategories.mockResolvedValue(emptyPage);
+    listEditorial.mockResolvedValue(emptyPage);
   });
   afterEach(() => {
     vi.restoreAllMocks();
@@ -152,6 +163,60 @@ describe("sitemap shards (D1)", () => {
     const categoryResponse = await shardRequest("categories-0");
     expect(categoryResponse.status).toBe(200);
     expect(await categoryResponse.text()).toContain("http://localhost:3000/categories/fashion");
+  });
+
+  it("publishes indexable editorial URLs in their content-type sitemap", async () => {
+    listEditorial.mockResolvedValue({
+      items: [{
+        id: "guide-1",
+        content_type: "guide",
+        status: "published",
+        title: "Best Hosting Under ₹200",
+        slug: "best-hosting-under-200",
+        summary: "Compare affordable hosting options.",
+        content_blocks: [],
+        structured_data: {},
+        hero_image_url: null,
+        author_name: null,
+        market: "IN",
+        seo_title: null,
+        meta_description: null,
+        canonical_url: null,
+        is_indexable: true,
+        is_featured: false,
+        published_at: "2026-01-01T00:00:00Z",
+        created_at: "2026-01-01T00:00:00Z",
+        updated_at: "2026-01-02T00:00:00Z",
+        relations: [],
+        entity_links: [],
+        faqs: [],
+        adsense_eligible: true,
+      }],
+      total: 1,
+      skip: 0,
+      limit: 1,
+    });
+
+    const response = await shardRequest("guides-0");
+
+    expect(response.status).toBe(200);
+    expect(await response.text()).toContain(
+      "http://localhost:3000/guides/best-hosting-under-200",
+    );
+    expect(listEditorial).toHaveBeenCalledWith({
+      content_type: "guide",
+      skip: 0,
+      limit: BACKEND_MAX_LIMIT,
+    });
+  });
+
+  it("keeps legacy sitemap shards available before the editorial API is deployed", async () => {
+    listEditorial.mockRejectedValue(new ApiError("Not found", 404));
+
+    const response = await shardRequest("guides-0");
+
+    expect(response.status).toBe(200);
+    expect(await response.text()).not.toContain("<loc>");
   });
 
   it("surfaces API failures instead of publishing an empty shard", async () => {

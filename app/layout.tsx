@@ -31,9 +31,9 @@ const code = IBM_Plex_Mono({
   variable: "--font-code",
 });
 
-const SITE_TITLE = "BachatBase — deals verified by people, not paid placement";
+const SITE_TITLE = "BachatBase — save money before you buy";
 const SITE_DESCRIPTION =
-  "Every code on BachatBase is community-confirmed, and every commission we earn is disclosed on the page. No hidden placement, no scraped listings.";
+  "Save money before you buy. Explore trusted deals, buying guides, comparisons and reviews, with affiliate commissions clearly disclosed.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -76,10 +76,17 @@ export const viewport = {
 };
 
 const NAV_LINKS = [
-  { href: "/coupons", label: "Coupons" },
   { href: "/deals", label: "Deals" },
+  { href: "/coupons", label: "Coupons" },
   { href: "/stores", label: "Stores" },
+  { href: "/guides", label: "Guides" },
+  { href: "/compare", label: "Compare" },
+];
+
+const MORE_NAV_LINKS = [
   { href: "/categories", label: "Categories" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/collections", label: "Collections" },
   { href: "/saved", label: "Saved" },
   { href: "/trust", label: "How this works" },
 ];
@@ -104,7 +111,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             Skip to content
           </a>
           <PromoStrip />
-          <Header links={NAV_LINKS} user={user ? { name: displayName(user) } : null} />
+          <Header links={NAV_LINKS} moreLinks={MORE_NAV_LINKS} user={user ? { name: displayName(user) } : null} />
           <main id="main" className="flex-1">
             {children}
           </main>

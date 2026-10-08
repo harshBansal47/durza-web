@@ -24,6 +24,8 @@ export interface Store {
   logo_url: string | null;
   website_url: string | null;
   description: string | null;
+  pricing_summary: Record<string, unknown> | null;
+  pricing_checked_at: string | null;
   is_active: boolean;
   commission_disclosure: string | null;
   /** ISO 3166-1 alpha-2 market this store belongs to; null for global retailers. */
@@ -31,6 +33,73 @@ export interface Store {
   /** ISO 4217 code used to render this store's prices. */
   currency: string | null;
   created_at: string;
+}
+
+export type EditorialType = "guide" | "review" | "comparison" | "collection";
+export type EditorialStatus = "draft" | "in_review" | "published" | "archived";
+
+export interface EditorialRelation {
+  related_content_id: string;
+  relation_type: "related" | "supports" | "alternative" | "collection_member";
+  sort_order: number;
+}
+
+export interface EditorialEntityLink {
+  store_id: string | null;
+  product_id: string | null;
+  coupon_id: string | null;
+  category_id: string | null;
+  link_type: "primary" | "related" | "mentioned" | "featured";
+  anchor_text: string | null;
+  sort_order: number;
+}
+
+export interface EditorialFAQ {
+  question: string;
+  answer: string;
+  sort_order: number;
+}
+
+export interface EditorialContent {
+  id: string;
+  content_type: EditorialType;
+  status: EditorialStatus;
+  title: string;
+  slug: string;
+  summary: string;
+  content_blocks: Record<string, unknown>[];
+  structured_data: Record<string, unknown>;
+  hero_image_url: string | null;
+  author_name: string | null;
+  market: string | null;
+  seo_title: string | null;
+  meta_description: string | null;
+  canonical_url: string | null;
+  is_indexable: boolean;
+  is_featured: boolean;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+  relations: EditorialRelation[];
+  entity_links: EditorialEntityLink[];
+  faqs: EditorialFAQ[];
+  adsense_eligible: boolean;
+}
+
+export interface EditorialHomepage {
+  guides: EditorialContent[];
+  comparisons: EditorialContent[];
+  reviews: EditorialContent[];
+  collections: EditorialContent[];
+}
+
+export interface StoreDestination {
+  store: Store;
+  deals: CouponPublic[];
+  coupons: CouponPublic[];
+  faqs: (EditorialFAQ & { id: string })[];
+  alternatives: Store[];
+  related_content: EditorialContent[];
 }
 
 export type DiscountType = "percentage" | "fixed" | "deal";

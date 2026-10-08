@@ -4,6 +4,7 @@ import { resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import StorePageClient from "@/components/store/StorePageClient";
+import { EditorialCard } from "@/components/editorial/EditorialComponents";
 
 export const revalidate = 300;
 
@@ -21,10 +22,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     `Every community-confirmed code and price drop for ${store.name}, with the commission we earn disclosed on the page.`;
 
   return {
-    title: `${store.name} coupons, codes and price drops`,
+    title: `${store.name} deals, coupons and savings`,
     description,
     alternates: { canonical: `/stores/${store.slug}` },
-    openGraph: { title: `${store.name} deals on BachatBase`, description, type: "website" },
+    openGraph: { title: `${store.name} deals and savings on BachatBase`, description, type: "website" },
   };
 }
 
@@ -34,12 +35,14 @@ export default async function StorePage({ params }: Props) {
   const store = await resilient.getStoreBySlug(slug).catch(() => null);
   if (!store || !store.is_active) notFound();
 
-  const [coupons, allStores] = await Promise.all([
+  const [coupons, allStores, destination] = await Promise.all([
     resilient.listCoupons({ store_id: store.id, active_only: true, limit: 60 }).catch(() => null),
     resilient.listStores({ limit: 100 }).catch(() => null),
+    resilient.getStoreDestination(slug),
   ]);
 
-  const items = coupons?.items ?? [];
+  const destinationItems = destination ? [...destination.deals, ...destination.coupons] : null;
+  const items = destinationItems ?? coupons?.items ?? [];
 
   // Sort orders are chosen to put evidence first, not popularity.
   const byBest = [...items].sort(
@@ -52,12 +55,16 @@ export default async function StorePage({ params }: Props) {
     .filter((c) => c.expires_at)
     .sort((a, b) => new Date(a.expires_at!).getTime() - new Date(b.expires_at!).getTime());
 
-  const verifiedCount = items.filter((c) => c.last_verified_at !== null).length;
+  const verifiedCount = items.filter((c) => {
+    if (!c.last_verified_at) return false;
+    const age = Date.now() - new Date(c.last_verified_at).getTime();
+    return age >= 0 && age <= 30 * 24 * 60 * 60 * 1000;
+  }).length;
   const avgRate = items.reduce((sum, c) => sum + (c.success_rate ?? 0), 0) / (items.length || 1);
 
-  const related = (allStores?.items ?? [])
-    .filter((s) => s.id !== store.id && s.is_active)
-    .slice(0, 8);
+  const related = destination?.alternatives.length
+    ? destination.alternatives
+    : (allStores?.items ?? []).filter((s) => s.id !== store.id && s.is_active).slice(0, 8);
 
   const breadcrumb = breadcrumbJsonLd([
     { name: "Home", path: "/" },
@@ -65,6 +72,7 @@ export default async function StorePage({ params }: Props) {
     { name: store.name, path: `/stores/${store.slug}` },
   ]);
   const faqs = [
+    ...(destination?.faqs ?? []),
     {
       question: `Are the ${store.name} codes on BachatBase verified?`,
       answer: `Yes. ${verifiedCount} of the current ${items.length} listed offers have been verified within the last 30 days by the community, with an average success rate of ${Math.round(avgRate * 100)}%.`,
@@ -108,6 +116,35 @@ export default async function StorePage({ params }: Props) {
           relatedStores={related}
           currency={store.currency}
         />
+        {store.pricing_summary && Object.keys(store.pricing_summary).length > 0 && (
+          <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-6" aria-labelledby="pricing-heading">
+            <h2 id="pricing-heading" className="font-serif text-2xl font-extrabold text-ink">{store.name} pricing</h2>
+            {store.pricing_checked_at && (
+              <p className="mt-1 text-xs text-ink-soft">Pricing checked {new Date(store.pricing_checked_at).toLocaleDateString("en-IN")}</p>
+            )}
+            <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {Object.entries(store.pricing_summary).map(([label, value]) => (
+                <div key={label} className="rounded-xl bg-paper p-4">
+                  <dt className="text-xs font-semibold capitalize text-ink-soft">{label.replaceAll("_", " ")}</dt>
+                  <dd className="mt-1 break-words text-sm font-bold text-ink">
+                    {typeof value === "string" || typeof value === "number" ? String(value) : JSON.stringify(value)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+        {destination?.related_content.length ? (
+          <section className="mt-12" aria-label={`Buying content related to ${store.name}`}>
+            <div className="mb-5">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Make a confident choice</p>
+              <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Guides, reviews and comparisons for {store.name}</h2>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {destination.related_content.slice(0, 6).map((content) => <EditorialCard key={content.id} content={content} />)}
+            </div>
+          </section>
+        ) : null}
         <section className="mt-12 border-t border-ledger-line pt-8">
           <h2 className="mb-4 font-serif text-xl text-ink">
             {store.name} code FAQ

@@ -14,9 +14,11 @@ export interface NavLink {
 
 export default function Header({
   links,
+  moreLinks = [],
   user,
 }: {
   links: NavLink[];
+  moreLinks?: NavLink[];
   user?: { name: string } | null;
 }) {
   const [scrolled, setScrolled] = useState(false);
@@ -108,7 +110,7 @@ export default function Header({
 
           {/* Desktop navigation */}
           <nav
-            className="hidden h-full flex-1 items-center justify-center gap-1 lg:flex"
+            className="hidden h-full flex-1 items-center justify-center gap-1 xl:flex"
             aria-label="Main navigation"
           >
             {links.map((link) => {
@@ -138,6 +140,23 @@ export default function Header({
                 </Link>
               );
             })}
+            {moreLinks.length > 0 && (
+              <details className="group relative flex h-full items-center">
+                <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg px-3.5 text-[13px] font-semibold tracking-wide text-ink-soft hover:bg-inkblue/[0.05] hover:text-inkblue focus-visible:outline-2 focus-visible:outline-inkblue">
+                  Explore
+                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="ml-1 h-4 w-4">
+                    <path d="m6 8 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </summary>
+                <div className="invisible absolute right-0 top-full z-50 mt-2 min-w-48 translate-y-1 rounded-2xl border border-ledger-line bg-white p-2 opacity-0 shadow-[var(--shadow-overlay)] transition group-open:visible group-open:translate-y-0 group-open:opacity-100">
+                  {moreLinks.map((link) => (
+                    <Link key={link.href} href={link.href} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-inkblue/[0.05] hover:text-inkblue">
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+            )}
           </nav>
 
           {/* Search */}
@@ -250,7 +269,7 @@ export default function Header({
             </button>
 
             <MobileNav
-              links={links}
+              links={[...links, ...moreLinks]}
               accountLink={
                 user
                   ? { href: "/account", label: "Your account" }
