@@ -1,4 +1,4 @@
-package com.BachatBase.app;
+package in.durza.app;
 
 import com.getcapacitor.BridgeActivity;
 

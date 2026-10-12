@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "How to reach the BachatBase team.",
+  description: "How to reach the Durza team.",
 };
 
 export default function ContactPage() {
@@ -11,8 +11,8 @@ export default function ContactPage() {
       <h1 className="font-serif text-3xl text-ink">Contact</h1>
       <p className="mt-4 text-ink-soft">
         Questions, corrections, or a store you&apos;d like listed? Reach us at{" "}
-        <a href="mailto:hello@BachatBase.example" className="text-inkblue underline underline-offset-2">
-          hello@BachatBase.example
+        <a href="mailto:hello@durza.in" className="text-inkblue underline underline-offset-2">
+          hello@durza.in
         </a>
         . If a coupon on our site didn&apos;t work, the fastest fix is the{" "}
         <em>&quot;didn&apos;t work&quot;</em> button on its page — it updates the success rate

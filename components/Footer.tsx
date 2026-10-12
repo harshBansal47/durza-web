@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SponsoredCard from "@/components/SponsoredCard";
 import type { Ad } from "@/lib/types";
+import Logo from "@/components/Logo";
 
 const PALETTE = {
   dark: "#16130F",
@@ -42,7 +43,7 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Trust",
     links: [
-      { href: "/trust", label: "How BachatBase Works" },
+      { href: "/trust", label: "How Durza Works" },
       { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
       { href: "/privacy", label: "Privacy" },
       { href: "/terms", label: "Terms" },
@@ -96,15 +97,9 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-10 sm:grid-cols-5">
             <div className="sm:col-span-1">
-              <p className="flex items-center font-sans text-xl font-medium tracking-tight text-ink">
-                <span
-                  aria-hidden="true"
-                  className="bg-ink mr-2 inline-flex h-8 w-8 items-center justify-center rounded-lg text-sm text-white"
-                >
-                  C
-                </span>
-                BachatBase
-              </p>
+              <Link href="/" aria-label="Durza: Coupon & Deals — home" className="inline-flex">
+                <Logo size={34} tagline />
+              </Link>
               <p className="mt-3 text-sm text-ink-soft">
                 Save money before you buy.
               </p>
@@ -138,7 +133,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
             <p className="shrink-0">
               © {new Date().getFullYear()}{" "}
               <span className="font-semibold" style={{ color: PALETTE.dark }}>
-                BachatBase
+                Durza
               </span>
               . Offers built on shopper evidence, every commission disclosed.
             </p>

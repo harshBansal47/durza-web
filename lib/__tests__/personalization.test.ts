@@ -42,7 +42,7 @@ describe("personalization signals", () => {
   });
 
   it("survives corrupt storage rather than crashing the page", () => {
-    localStorage.setItem("BachatBase.recent_stores", "not-json{{{");
+    localStorage.setItem("durza.recent_stores", "not-json{{{");
     expect(getSignals().stores).toEqual([]);
   });
 });

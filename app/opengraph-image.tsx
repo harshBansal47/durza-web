@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { loadOgFonts } from "@/lib/og-fonts";
+import { LOGO_ASPECT, LOGO_SVG, svgDataUri } from "@/lib/brand";
 
-export const alt = "BachatBase — deals verified by people, not paid placement";
+export const alt = "Durza: Coupon & Deals — deals verified by people, not paid placement";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,9 +29,13 @@ export default async function Image() {
           fontFamily: sans,
         }}
       >
-        <div style={{ display: "flex", fontFamily: serif, fontSize: 36, color: INK, marginBottom: 24 }}>
-          BachatBase
-        </div>
+        <img
+          src={svgDataUri(LOGO_SVG)}
+          width={Math.round(96 * LOGO_ASPECT * 1.15)}
+          height={Math.round(96 * 1.15)}
+          alt="Durza: Coupon & Deals"
+          style={{ marginBottom: 40 }}
+        />
         <div
           style={{
             display: "flex",

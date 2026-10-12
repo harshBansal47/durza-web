@@ -1,5 +1,5 @@
 /**
- * BachatBase's service worker.
+ * Durza's service worker.
  *
  * Three responsibilities:
  *
@@ -14,7 +14,7 @@
  * CSS, JS, fonts) is cached.
  */
 
-const CACHE_NAME = "BachatBase-v1";
+const CACHE_NAME = "durza-v1";
 const OFFLINE_URL = "/offline.html";
 
 // Assets to precache on install — the app shell only.
@@ -133,13 +133,13 @@ self.addEventListener("push", (event) => {
   try {
     payload = event.data ? event.data.json() : {};
   } catch {
-    payload = { title: "BachatBase", body: "A new deal just landed.", url: "/account/alerts" };
+    payload = { title: "Durza", body: "A new deal just landed.", url: "/account/alerts" };
   }
 
-  const title = payload.title || "BachatBase";
+  const title = payload.title || "Durza";
   const options = {
     body: payload.body || "",
-    tag: payload.tag || "BachatBase-alert",
+    tag: payload.tag || "durza-alert",
     renotify: true,
     icon: "/icon-192.png",
     badge: "/icon-192.png",

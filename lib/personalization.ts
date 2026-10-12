@@ -12,12 +12,12 @@
  * there is no signal rather than inventing recommendations.
  */
 
-const STORES_KEY = "BachatBase.recent_stores";
-const COUPONS_KEY = "BachatBase.recent_coupons";
-const CLICKS_KEY = "BachatBase.clicked_coupons";
-const SAVED_KEY = "BachatBase.saved_coupons";
-const FOLLOWED_KEY = "BachatBase.followed_stores";
-const SEARCHES_KEY = "BachatBase.recent";
+const STORES_KEY = "durza.recent_stores";
+const COUPONS_KEY = "durza.recent_coupons";
+const CLICKS_KEY = "durza.clicked_coupons";
+const SAVED_KEY = "durza.saved_coupons";
+const FOLLOWED_KEY = "durza.followed_stores";
+const SEARCHES_KEY = "durza.recent";
 const MAX = 12;
 
 export interface TasteSignals {

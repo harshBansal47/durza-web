@@ -13,7 +13,7 @@ import { SITE_URL } from "@/lib/site";
 import InstallPrompt from "@/components/InstallPrompt";
 import "./globals.css";
 
-const SITE_TITLE = "BachatBase — save money before you buy";
+const SITE_TITLE = "Durza: Coupon & Deals";
 const SITE_DESCRIPTION =
   "Save money before you buy. Explore trusted deals, buying guides, comparisons and reviews, with affiliate commissions clearly disclosed.";
 
@@ -21,21 +21,21 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — BachatBase",
+    template: "%s — Durza",
   },
   description: SITE_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "BachatBase",
+    title: "Durza",
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
     type: "website",
-    siteName: "BachatBase",
+    siteName: "Durza",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,

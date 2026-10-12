@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavLink } from "./Header";
+import Logo from "@/components/Logo";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
@@ -104,15 +105,7 @@ export default function MobileNav({
             >
               {/* Top bar: brand + close, mirrors the site header */}
               <div className="flex h-16 shrink-0 items-center justify-between border-b border-ledger-line bg-paper-raised px-4">
-                <span className="flex items-center font-serif text-lg font-medium tracking-tight text-ink">
-                  <span
-                    aria-hidden="true"
-                    className="mr-1.5 inline-block -rotate-3 border border-verified px-1.5 py-0.5 font-mono text-xs text-verified"
-                  >
-                    C
-                  </span>
-                  BachatBase
-                </span>
+                <Logo size={32} />
                 <button
                   type="button"
                   onClick={close}

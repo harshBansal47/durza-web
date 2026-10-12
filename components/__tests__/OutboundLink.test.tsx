@@ -65,7 +65,7 @@ describe("OutboundLink", () => {
       hadCode: Boolean(mockCoupon.code),
     });
 
-    const stored = JSON.parse(localStorage.getItem("BachatBase:last-go")!);
+    const stored = JSON.parse(localStorage.getItem("durza:last-go")!);
     expect(stored.couponId).toBe("c1");
     expect(stored.title).toBe("Test Coupon");
     expect(stored.storeName).toBe("Test Store");
@@ -88,7 +88,7 @@ describe("OutboundLink", () => {
 
     fireEvent.click(screen.getByRole("link", { name: "Get deal" }));
 
-    const stored = JSON.parse(localStorage.getItem("BachatBase:last-go")!);
+    const stored = JSON.parse(localStorage.getItem("durza:last-go")!);
     expect(stored.hadCode).toBe(false);
   });
 

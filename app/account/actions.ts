@@ -55,7 +55,7 @@ async function requireToken(): Promise<string> {
   if (token) return token;
 
   const store = await cookies();
-  const refresh = store.get("BachatBase_refresh")?.value;
+  const refresh = store.get("durza_refresh")?.value;
   if (!refresh) throw new ApiError("Not signed in", 401);
 
   const tokens = await api.refresh(refresh);

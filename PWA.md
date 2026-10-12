@@ -1,6 +1,6 @@
-# BachatBase — PWA & Capacitor Setup
+# Durza: Coupon & Deals — PWA & Capacitor Setup
 
-This guide covers the PWA (Progressive Web App) and Capacitor setup for BachatBase.
+This guide covers the PWA (Progressive Web App) and Capacitor setup for Durza.
 
 ## What's Been Set Up
 
@@ -118,8 +118,8 @@ Edit `capacitor.config.ts`:
 
 ```typescript
 const config: CapacitorConfig = {
-  appId: "com.BachatBase.app",  // Change to your app ID
-  appName: "BachatBase",         // Change to your app name
+  appId: "in.durza.app",  // Change to your app ID
+  appName: "Durza",         // Change to your app name
   // ...
 };
 ```
@@ -142,7 +142,7 @@ For production, set `NEXT_PUBLIC_SITE_URL` to your deployed URL and remove `clea
 ## Project Structure
 
 ```
-couponza-web/
+durza-web/
 ├── app/                    # Next.js App Router
 │   ├── layout.tsx          # Root layout with PWA meta tags
 │   ├── icon.tsx            # 32x32 favicon
@@ -153,7 +153,10 @@ couponza-web/
 │   ├── manifest.json       # PWA web app manifest
 │   ├── sw.js               # Service worker
 │   ├── offline.html        # Offline fallback page
-│   ├── icon.svg            # SVG icon
+│   ├── icon.svg            # SVG icon (the Durza "D" mark)
+│   ├── logo.svg / logo.png            # Full lockup, for light backgrounds
+│   ├── logo-reversed.svg / .png       # Full lockup, for orange/dark backgrounds
+│   ├── favicon.ico, apple-touch-icon.png
 │   ├── icon-192.png        # PWA icon (192x192)
 │   ├── icon-512.png        # PWA icon (512x512)
 │   └── icon-maskable-512.png  # Maskable PWA icon
@@ -162,25 +165,24 @@ couponza-web/
 ├── capacitor.config.ts     # Capacitor configuration
 ├── next.config.ts          # Next.js config (with Capacitor support)
 └── scripts/
-    └── generate-icons.mjs  # Icon generation script
+    └── brand/              # Logo + icon generator (see README.md there)
 ```
 
 ---
 
 ## Regenerating Icons
 
-To regenerate the PWA icons:
+The icons and logo are generated from a single geometry definition. See
+`scripts/brand/README.md`:
 
 ```bash
-node scripts/generate-icons.mjs
+pip install cairosvg pillow fonttools
+python3 scripts/brand/build.py && python3 scripts/brand/splash.py
 ```
 
-**Note:** The generated icons are basic solid-color placeholders. For production, replace them with properly designed icons:
-
-1. Design your icons in a design tool (Figma, Sketch, etc.)
-2. Export as PNG: 192x192, 512x512, and 512x512 maskable
-3. Replace the files in `public/`
-4. Update `public/manifest.json` if needed
+Then copy the output into `public/`, `android/` and `ios/` as the table in that
+README describes. Brand orange is `#EE5A0B` (white on it is 3.4:1); use
+`#C2410C` for small orange text on light backgrounds.
 
 ---
 

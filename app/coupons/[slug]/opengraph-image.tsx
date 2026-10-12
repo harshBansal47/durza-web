@@ -2,8 +2,9 @@ import { ImageResponse } from "next/og";
 import { ApiError, resilient } from "@/lib/api";
 import { formatDiscount, successRateLabel } from "@/lib/format";
 import { loadOgFonts } from "@/lib/og-fonts";
+import { LOGO_ASPECT, LOGO_SVG, svgDataUri } from "@/lib/brand";
 
-export const alt = "A BachatBase deal";
+export const alt = "A Durza deal";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,7 +18,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const fonts = await loadOgFonts();
 
-  let title = "A BachatBase deal";
+  let title = "A Durza deal";
   let storeName = "";
   let discount = "";
   let rate: string | null = null;
@@ -53,9 +54,12 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div style={{ display: "flex", fontFamily: serif, fontSize: 32, color: INK }}>
-            BachatBase
-          </div>
+          <img
+            src={svgDataUri(LOGO_SVG)}
+            width={Math.round(72 * LOGO_ASPECT)}
+            height={72}
+            alt="Durza: Coupon & Deals"
+          />
           {rate && (
             <div
               style={{

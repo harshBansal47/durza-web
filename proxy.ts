@@ -12,8 +12,8 @@ import { NextResponse, type NextRequest } from "next/server";
  * refresh round-trip is worth making before rendering a page.
  */
 
-const ACCESS_COOKIE = "BachatBase_access";
-const REFRESH_COOKIE = "BachatBase_refresh";
+const ACCESS_COOKIE = "durza_access";
+const REFRESH_COOKIE = "durza_refresh";
 /** Refresh this long before expiry so a slow render can't race the deadline. */
 const REFRESH_MARGIN_SECONDS = 120;
 const ACCESS_MAX_AGE = 30 * 60;

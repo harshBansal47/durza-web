@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">BachatBase</string>
-    <string name="title_activity_main">BachatBase</string>
-    <string name="package_name">com.BachatBase.app</string>
-    <string name="custom_url_scheme">com.BachatBase.app</string>
+    <string name="app_name">Durza</string>
+    <string name="title_activity_main">Durza</string>
+    <string name="package_name">in.durza.app</string>
+    <string name="custom_url_scheme">in.durza.app</string>
 </resources>

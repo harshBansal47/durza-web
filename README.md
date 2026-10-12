@@ -1,7 +1,7 @@
-# BachatBase Web
+# Durza Web
 
-The public frontend — a separate Next.js app that talks to the [BachatBase FastAPI
-backend](../couponza) over HTTP. Nothing here touches the database directly.
+The public frontend — a separate Next.js app that talks to the [Durza FastAPI
+backend](../durza) over HTTP. Nothing here touches the database directly.
 
 ## Why this exists as a separate app
 
@@ -62,7 +62,7 @@ correctly, just not tilted as designed.
 ## Prerequisites
 
 - Node.js 22+
-- The backend running locally (see `../couponza/README.md`) — `docker compose up`
+- The backend running locally (see `../durza/README.md`) — `docker compose up`
   there, with at least one store/category/coupon created via `/admin` or the API.
 
 ## First run
@@ -144,7 +144,7 @@ self-hosted font files.
 
 ## Next step
 
-The backend now has an MCP server (`../couponza/mcp_server`) completing priority
+The backend now has an MCP server (`../durza/mcp_server`) completing priority
 #3. Still genuinely open on the frontend: no user accounts/login UI (the
 backend's auth is fully built but nothing here calls it yet), no browser
 extension, and the homepage's store-name/logo lookup still fetches up to 100

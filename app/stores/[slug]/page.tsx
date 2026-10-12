@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${store.name} deals, coupons and savings`,
     description,
     alternates: { canonical: `/stores/${store.slug}` },
-    openGraph: { title: `${store.name} deals and savings on BachatBase`, description, type: "website" },
+    openGraph: { title: `${store.name} deals and savings on Durza`, description, type: "website" },
   };
 }
 
@@ -74,11 +74,11 @@ export default async function StorePage({ params }: Props) {
   const faqs = [
     ...(destination?.faqs ?? []),
     {
-      question: `Are the ${store.name} codes on BachatBase verified?`,
+      question: `Are the ${store.name} codes on Durza verified?`,
       answer: `Yes. ${verifiedCount} of the current ${items.length} listed offers have been verified within the last 30 days by the community, with an average success rate of ${Math.round(avgRate * 100)}%.`,
     },
     {
-      question: "How does BachatBase make money?",
+      question: "How does Durza make money?",
       answer:
         "When you use a link on this page, we may earn a commission from the store. Commissions may be one factor among several signals used when ordering offers. Verification, reliability, user success rates and relevance remain important ranking factors.",
     },

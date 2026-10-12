@@ -1,4 +1,4 @@
-// Mirrors the backend's Pydantic schemas exactly (see couponza/app/schemas/*.py).
+// Mirrors the backend's Pydantic schemas exactly (see durza/app/schemas/*.py).
 // Keep these two in sync by hand — there's no shared codegen yet.
 
 export interface Paginated<T> {
@@ -129,7 +129,7 @@ export interface TrackedProductView extends TrackedProduct {
 }
 
 // The public-safe view — deliberately has no destination_url. See
-// couponza/app/schemas/coupon_public.py: the real URL is only ever
+// durza/app/schemas/coupon_public.py: the real URL is only ever
 // resolved server-side by GET /coupons/{id}/go.
 export interface CouponPublic {
   id: string;
@@ -212,7 +212,7 @@ export interface CmsPage {
   created_at: string;
 }
 
-// ---- Account: mirrors couponza/app/schemas/{user,tracking}.py ----
+// ---- Account: mirrors durza/app/schemas/{user,tracking}.py ----
 
 export type Role = "user" | "editor" | "admin";
 

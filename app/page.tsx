@@ -125,7 +125,8 @@ export default async function HomePage() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "BachatBase",
+    name: "Durza",
+    alternateName: "Durza: Coupon & Deals",
     url: absoluteUrl("/"),
     description:
       "Find trusted deals, compare products, and use practical buying guides and reviews to save before you buy.",

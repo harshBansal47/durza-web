@@ -14,8 +14,8 @@ import type { User } from "@/lib/types";
  * a present access token as valid and let the API be the only authority.
  */
 
-export const ACCESS_COOKIE = "BachatBase_access";
-export const REFRESH_COOKIE = "BachatBase_refresh";
+export const ACCESS_COOKIE = "durza_access";
+export const REFRESH_COOKIE = "durza_refresh";
 
 /** Matches the API's 30-minute access token so the two are set independently. */
 const ACCESS_MAX_AGE = 30 * 60;

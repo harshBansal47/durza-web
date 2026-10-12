@@ -9,8 +9,8 @@ if (isProduction && serverUrl && !serverUrl.startsWith("https://")) {
 }
 
 const config: CapacitorConfig = {
-  appId: "com.bachatbase.app",
-  appName: "BachatBase",
+  appId: "in.durza.app",
+  appName: "Durza",
   webDir: "out",
   server: {
     ...(serverUrl ? { url: serverUrl } : {}),

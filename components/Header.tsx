@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import { HeaderSearch, MobileSearch } from "./HeaderSearch";
+import Logo from "@/components/Logo";
 
 export interface NavLink {
   href: string;
@@ -86,25 +87,14 @@ export default function Header({
           {/* Brand */}
           <Link
             href="/"
-            aria-label="BachatBase home"
-            className="group flex shrink-0 items-center gap-2.5"
+            aria-label="Durza: Coupon & Deals — home"
+            className="group flex shrink-0 items-center"
           >
-            <span
-              aria-hidden="true"
-              className="
-                flex h-9 w-9 items-center justify-center
-                rounded-xl bg-ink
-                font-sans text-lg font-medium text-white
-                transition-transform duration-200
-                group-hover:scale-[1.04]
-              "
-            >
-              C
-            </span>
-
-            <span className="font-sans text-[21px] font-medium tracking-tight text-ink sm:text-[23px]">
-              BachatBase
-            </span>
+            <Logo
+              size={38}
+              tagline
+              markClassName="transition-transform duration-200 group-hover:scale-[1.04]"
+            />
           </Link>
 
           {/* Desktop navigation */}

@@ -16,8 +16,8 @@
 
 export type ConsentState = "accepted" | "declined" | null;
 
-const STORAGE_KEY = "bachatbase_consent_v1";
-const CHANGE_EVENT = "bachatbase:consent-changed";
+const STORAGE_KEY = "durza_consent_v1";
+const CHANGE_EVENT = "durza:consent-changed";
 
 /** Read the current consent state from localStorage. */
 export function getConsent(): ConsentState {

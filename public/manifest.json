@@ -1,13 +1,13 @@
 {
-  "name": "BachatBase — Deals Verified by People",
-  "short_name": "BachatBase",
-  "description": "Every code on BachatBase is community-confirmed, and every commission we earn is disclosed on the page.",
+  "name": "Durza: Coupon & Deals",
+  "short_name": "Durza",
+  "description": "Every code on Durza is community-confirmed, and every commission we earn is disclosed on the page.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#faf7f0",
-  "theme_color": "#1b1836",
+  "theme_color": "#EE5A0B",
   "categories": ["shopping", "deals", "coupons"],
   "icons": [
     {

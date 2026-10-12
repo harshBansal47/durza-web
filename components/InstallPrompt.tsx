@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { LogoMark } from "@/components/Logo";
 
 /**
  * BeforeInstallPromptEvent is not yet in the TypeScript DOM lib.
@@ -59,11 +60,9 @@ export default function InstallPrompt() {
     <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:right-4 sm:max-w-sm">
       <div className="rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-overlay)]">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand text-lg font-bold text-white">
-            S
-          </div>
+          <LogoMark size={40} />
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-ink">Install BachatBase</h3>
+            <h3 className="text-sm font-semibold text-ink">Install Durza</h3>
             <p className="mt-0.5 text-xs text-ink-soft">
               Add to your home screen for quick access to deals and coupons.
             </p>

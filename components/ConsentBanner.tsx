@@ -23,7 +23,7 @@ export default function ConsentBanner() {
       className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-3xl flex-col gap-3 rounded-[20px] border border-ledger-line bg-paper-raised px-5 py-4 shadow-[var(--shadow-raised)] sm:flex-row sm:items-center"
     >
       <p className="flex-1 text-sm text-ink-soft">
-        BachatBase uses a pseudonymous visitor ID for attribution. Optional analytics events use
+        Durza uses a pseudonymous visitor ID for attribution. Optional analytics events use
         that ID and a hashed IP, and are sent only if you accept. Declining disables those events.
         You can change this choice anytime in the{" "}
         <Link href="/privacy" className="text-accent underline underline-offset-2">

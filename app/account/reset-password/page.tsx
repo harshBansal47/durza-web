@@ -3,10 +3,11 @@ import Link from "next/link";
 import { ResetPasswordForm } from "@/components/account/AuthForms";
 import { resetPasswordAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
+import Logo from "@/components/Logo";
 
 export const metadata: Metadata = {
   title: "Reset password",
-  description: "Set a new password for your BachatBase account.",
+  description: "Set a new password for your Durza account.",
   alternates: { canonical: absoluteUrl("/account/reset-password") },
   robots: { index: false, follow: false },
 };
@@ -55,7 +56,7 @@ export default async function ResetPasswordPage({
               <path d="M2 17l10 5 10-5" strokeWidth={2} />
               <path d="M2 12l10 5 10-5" strokeWidth={2} />
             </svg>
-            <span className="font-serif text-2xl">BachatBase</span>
+            <Logo size={34} />
           </Link>
           <h1 className="font-serif text-3xl text-ink">Reset password</h1>
           <p className="mt-2 text-ink-soft">

@@ -6,7 +6,7 @@ import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Stores",
-  description: "Browse every store on BachatBase.",
+  description: "Browse every store on Durza.",
   alternates: { canonical: absoluteUrl("/stores") },
 };
 

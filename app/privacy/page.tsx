@@ -5,14 +5,14 @@ import ConsentPreferences from "@/components/ConsentPreferences";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Learn how BachatBase collects, uses, and protects your information.",
+    "Learn how Durza collects, uses, and protects your information.",
   alternates: {
     canonical: absoluteUrl("/privacy"),
   },
   openGraph: {
     title: "Privacy Policy",
     description:
-      "Learn how BachatBase collects, uses, and protects your information.",
+      "Learn how Durza collects, uses, and protects your information.",
     url: absoluteUrl("/privacy"),
   },
 };
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
         <p>
           When you click through to a store, we add a random reference to the
           link so the store&apos;s affiliate network can tell us a purchase
-          came from BachatBase. That reference identifies the click, not you,
+          came from Durza. That reference identifies the click, not you,
           and your IP address is never shared with merchants or affiliate
           networks.
         </p>
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
         </p>
         <p>
           We do not store raw IP addresses, credit card numbers, or payment
-          credentials. BachatBase does not process payments directly.
+          credentials. Durza does not process payments directly.
         </p>
 
         <h2 className="pt-4 font-serif text-xl text-ink">
