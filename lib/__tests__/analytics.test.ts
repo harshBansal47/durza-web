@@ -49,15 +49,15 @@ describe("coupon impression contract with the backend", () => {
       position: 1,
       sponsored: false,
     });
+  });
 
-    it("accepts deals-page impressions with a 1-based position", () => {
-      track("coupon_impression", { ...base, page_type: "deals", position: 1 });
-      expect(spy).toHaveBeenCalledWith(expect.objectContaining({
-        page_type: "deals",
-        position: 1,
-      }));
-      expect(isImpressionPageType("deals")).toBe(true);
-    });
+  it("accepts deals-page impressions with a 1-based position", () => {
+    track("coupon_impression", { ...base, page_type: "deals", position: 1 });
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining({
+      page_type: "deals",
+      position: 1,
+    }));
+    expect(isImpressionPageType("deals")).toBe(true);
   });
 
   it.each(["listing", "saved", "unknown", "", "Homepage"])(

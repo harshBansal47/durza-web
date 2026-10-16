@@ -57,6 +57,9 @@ export default async function StorePage({ params }: Props) {
 
   const verifiedCount = items.filter((c) => {
     if (!c.last_verified_at) return false;
+    // Server Component: the clock is read once per request, not per client
+    // re-render — the purity rule targets the latter.
+    // eslint-disable-next-line react-hooks/purity
     const age = Date.now() - new Date(c.last_verified_at).getTime();
     return age >= 0 && age <= 30 * 24 * 60 * 60 * 1000;
   }).length;

@@ -20,7 +20,7 @@ interface DeleteAccountFormProps {
   user: { email: string };
 }
 
-export default function DeleteAccountForm({ action, user }: DeleteAccountFormProps) {
+export default function DeleteAccountForm({ action }: DeleteAccountFormProps) {
   const [state, formAction] = useActionState(action, {} as ActionResult);
 
   return (

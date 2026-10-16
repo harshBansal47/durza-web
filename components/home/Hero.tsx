@@ -84,7 +84,7 @@ export default function Hero({
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-7 text-ink-soft">
-            Find trusted deals, compare your options, and choose what's worth
+            Find trusted deals, compare your options, and choose what&apos;s worth
             it.
           </p>
 

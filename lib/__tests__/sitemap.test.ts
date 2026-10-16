@@ -129,6 +129,8 @@ describe("sitemap shards (D1)", () => {
           logo_url: null,
           website_url: null,
           description: null,
+          pricing_summary: null,
+          pricing_checked_at: null,
           is_active: true,
           commission_disclosure: null,
           country_code: null,
