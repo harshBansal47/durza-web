@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useId, type ChangeEvent, type ReactNode, type SelectHTMLAttributes } from "react";
+import { CircleAlert } from "lucide-react";
 
 export interface SelectOption {
   value: string;
@@ -115,11 +116,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
         </span>
       </div>
       {error && (
-        <p id={errorId} role="alert" className="mt-1.5 text-sm text-rust">
+        <p id={errorId} role="alert" className="mt-1.5 flex items-start gap-1.5 text-small text-rust">
+          <CircleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
           {error}
         </p>
       )}
-      {hint && !error && <p id={hintId} className="mt-1.5 text-sm text-ink-soft">{hint}</p>}
+      {hint && !error && <p id={hintId} className="mt-1.5 text-small text-ink-soft">{hint}</p>}
     </div>
   );
 });
@@ -189,11 +191,12 @@ export const MultiSelect = forwardRef<HTMLSelectElement, MultiSelectProps>(funct
         ))}
       </select>
       {error && (
-        <p id={errorId} role="alert" className="mt-1.5 text-sm text-rust">
+        <p id={errorId} role="alert" className="mt-1.5 flex items-start gap-1.5 text-small text-rust">
+          <CircleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
           {error}
         </p>
       )}
-      {hint && !error && <p id={hintId} className="mt-1.5 text-sm text-ink-soft">{hint}</p>}
+      {hint && !error && <p id={hintId} className="mt-1.5 text-small text-ink-soft">{hint}</p>}
     </div>
   );
 });
