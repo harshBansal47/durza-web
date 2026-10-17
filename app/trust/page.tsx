@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { absoluteUrl } from "@/lib/seo";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "How Durza Works",
@@ -235,7 +236,7 @@ const FEATURES = [
 
 export default function TrustPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAFAF7] text-slate-900 antialiased">
+    <main className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
       {/* Background */}
       <div
         aria-hidden
@@ -245,7 +246,7 @@ export default function TrustPage() {
           className="absolute inset-0 opacity-[0.45]"
           style={{
             backgroundImage:
-              "linear-gradient(to right, #0f172a0a 1px, transparent 1px), linear-gradient(to bottom, #0f172a0a 1px, transparent 1px)",
+              "linear-gradient(to right, #0a0a0a0a 1px, transparent 1px), linear-gradient(to bottom, #0a0a0a0a 1px, transparent 1px)",
             backgroundSize: "56px 56px",
             maskImage:
               "radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 100%)",
@@ -254,11 +255,11 @@ export default function TrustPage() {
           }}
         />
 
-        <div className="absolute -top-40 left-1/2 h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(16,185,129,0.10),transparent)] blur-3xl" />
+        <div className="absolute -top-40 left-1/2 h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(45,122,79,0.10),transparent)] blur-3xl" />
 
-        <div className="absolute top-96 -left-40 h-[360px] w-[360px] rounded-full bg-[radial-gradient(closest-side,rgba(59,130,246,0.06),transparent)] blur-3xl" />
+        <div className="absolute top-96 -left-40 h-[360px] w-[360px] rounded-full bg-[radial-gradient(closest-side,rgba(122,102,51,0.06),transparent)] blur-3xl" />
 
-        <div className="absolute top-[700px] -right-40 h-[420px] w-[420px] rounded-full bg-[radial-gradient(closest-side,rgba(245,158,11,0.06),transparent)] blur-3xl" />
+        <div className="absolute top-[700px] -right-40 h-[420px] w-[420px] rounded-full bg-[radial-gradient(closest-side,rgba(238,90,11,0.06),transparent)] blur-3xl" />
       </div>
 
       <div className="relative">
@@ -270,19 +271,19 @@ export default function TrustPage() {
         <section className="px-6 pb-16 pt-20 sm:pb-20 sm:pt-28">
           <div className="mx-auto max-w-3xl text-center">
 
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3.5 py-1.5 text-xs font-medium text-slate-600 shadow-sm backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-ledger-line bg-white/80 px-3.5 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-verified-soft0" />
               How Durza works
             </div>
 
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
+            <PageTitle>
               Find better deals,
-              <span className="block text-emerald-600">
+              <span className="block text-verified">
                 without the hassle.
               </span>
-            </h1>
+            </PageTitle>
 
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-soft sm:text-lg">
               Durza helps you discover coupons, deals, and offers from
               online stores so you can find potential savings before you shop.
             </p>
@@ -290,7 +291,7 @@ export default function TrustPage() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/deals"
-                className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent hover:shadow-md"
               >
                 Browse deals
                 <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -298,7 +299,7 @@ export default function TrustPage() {
 
               <Link
                 href="#how-it-works"
-                className="inline-flex items-center rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
+                className="inline-flex items-center rounded-full border border-ledger-line bg-white px-5 py-2.5 text-sm font-medium text-ink shadow-sm transition-colors hover:bg-paper-alt"
               >
                 See how it works
               </Link>
@@ -318,15 +319,15 @@ export default function TrustPage() {
           <div className="mx-auto max-w-5xl">
 
             <div className="mb-10 max-w-2xl">
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-emerald-700">
+              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-verified">
                 Simple by design
               </div>
 
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              <h2 className="text-3xl font-medium tracking-tight text-ink sm:text-4xl">
                 Four simple steps
               </h2>
 
-              <p className="mt-3 text-slate-600">
+              <p className="mt-3 text-ink-soft">
                 Find an offer, check the details, and shop with the store.
                 That&apos;s it.
               </p>
@@ -339,23 +340,23 @@ export default function TrustPage() {
                 return (
                   <article
                     key={step.number}
-                    className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+                    className="rounded-md border border-ledger-line bg-white p-6 shadow-[var(--shadow-hairline)]"
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-900 text-white">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-white">
                         <Icon className="h-5 w-5" />
                       </div>
 
-                      <span className="text-xs font-semibold tracking-wider text-slate-300">
+                      <span className="text-xs font-medium tracking-wider text-ink-soft">
                         {step.number}
                       </span>
                     </div>
 
-                    <h3 className="mt-5 text-lg font-semibold text-slate-900">
+                    <h3 className="mt-5 text-lg font-medium text-ink">
                       {step.title}
                     </h3>
 
-                    <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                       {step.description}
                     </p>
                   </article>
@@ -374,15 +375,15 @@ export default function TrustPage() {
           <div className="mx-auto max-w-5xl">
 
             <div className="mb-10 text-center">
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-emerald-700">
+              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-verified">
                 What you can expect
               </div>
 
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              <h2 className="text-3xl font-medium tracking-tight text-ink sm:text-4xl">
                 Built around the shopper
               </h2>
 
-              <p className="mx-auto mt-3 max-w-xl text-slate-600">
+              <p className="mx-auto mt-3 max-w-xl text-ink-soft">
                 We want finding a useful offer to be quick, clear, and
                 straightforward.
               </p>
@@ -392,20 +393,20 @@ export default function TrustPage() {
               {FEATURES.map((feature) => (
                 <article
                   key={feature.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all hover:border-slate-300 hover:shadow-[0_8px_24px_-12px_rgba(15,23,42,0.15)]"
+                  className="rounded-md border border-ledger-line bg-white p-6 shadow-[var(--shadow-hairline)] transition-all hover:border-slate-300 hover:shadow-[0_8px_24px_-12px_rgba(15,23,42,0.15)]"
                 >
                   <div className="flex items-start gap-4">
 
-                    <div className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                    <div className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-verified-soft text-verified">
                       <IconShield className="h-4 w-4" />
                     </div>
 
                     <div>
-                      <h3 className="font-semibold text-slate-900">
+                      <h3 className="font-medium text-ink">
                         {feature.title}
                       </h3>
 
-                      <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
+                      <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
                         {feature.description}
                       </p>
                     </div>
@@ -425,34 +426,34 @@ export default function TrustPage() {
         <section className="px-6 py-16 sm:py-20">
           <div className="mx-auto max-w-3xl">
 
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10">
+            <div className="rounded-lg border border-ledger-line bg-white p-7 shadow-[var(--shadow-hairline)] sm:p-10">
 
               <div className="flex items-start gap-4">
 
-                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-verified-soft text-verified">
                   <IconWallet className="h-5 w-5" />
                 </div>
 
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                  <div className="text-xs font-medium uppercase tracking-wider text-verified">
                     A quick note
                   </div>
 
-                  <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+                  <h2 className="mt-1 text-2xl font-medium tracking-tight text-ink">
                     How Durza makes money
                   </h2>
                 </div>
 
               </div>
 
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-slate-600">
+              <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink-soft">
                 <p>
                   Durza may earn a commission when you use certain links
                   and complete a qualifying purchase with a store.
                 </p>
 
                 <p>
-                  <strong className="font-semibold text-slate-900">
+                  <strong className="font-medium text-ink">
                     This does not add to the price you pay.
                   </strong>{" "}
                   The store determines the price and terms of your purchase.
@@ -484,29 +485,29 @@ export default function TrustPage() {
         <section className="px-6 py-16 sm:py-20">
           <div className="mx-auto max-w-3xl">
 
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10">
+            <div className="rounded-lg border border-ledger-line bg-white p-7 shadow-[var(--shadow-hairline)] sm:p-10">
 
               <div className="flex items-start gap-4">
 
-                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-verified-soft text-verified">
                   <IconShield className="h-5 w-5" />
                 </div>
 
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                  <div className="text-xs font-medium uppercase tracking-wider text-verified">
                     Straight answers
                   </div>
 
-                  <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+                  <h2 className="mt-1 text-2xl font-medium tracking-tight text-ink">
                     How votes are counted
                   </h2>
                 </div>
 
               </div>
 
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-slate-600">
+              <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink-soft">
                 <p>
-                  Each offer has a <strong className="font-semibold text-slate-900">worked / didn&apos;t work</strong>{" "}
+                  Each offer has a <strong className="font-medium text-ink">worked / didn&apos;t work</strong>{" "}
                   vote. One vote per visitor per offer per day, keyed by a salted
                   IP hash — enough to stop ballot-stuffing without keeping a raw
                   identity.
@@ -539,24 +540,24 @@ export default function TrustPage() {
         <section className="px-6 py-16 sm:py-20">
           <div className="mx-auto max-w-4xl">
 
-            <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-8 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-12">
+            <div className="relative overflow-hidden rounded-lg border border-ledger-line bg-gradient-to-b from-paper-raised to-paper-alt p-8 text-center shadow-[var(--shadow-hairline)] sm:p-12">
 
               <div
                 aria-hidden
-                className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(16,185,129,0.12),transparent)] blur-3xl"
+                className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(45,122,79,0.12),transparent)] blur-3xl"
               />
 
               <div className="relative">
 
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-md bg-verified-soft text-verified">
                   <IconShield className="h-6 w-6" />
                 </div>
 
-                <h2 className="mt-5 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                <h2 className="mt-5 text-2xl font-medium tracking-tight text-ink sm:text-3xl">
                   Keep it simple.
                 </h2>
 
-                <p className="mx-auto mt-3 max-w-xl text-slate-600">
+                <p className="mx-auto mt-3 max-w-xl text-ink-soft">
                   Search for a store, find an offer, check the details, and
                   shop. Durza is here to make the search for savings easier.
                 </p>
@@ -564,7 +565,7 @@ export default function TrustPage() {
                 <div className="mt-7">
                   <Link
                     href="/deals"
-                    className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md"
+                    className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent hover:shadow-md"
                   >
                     Browse deals
                     <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -585,18 +586,18 @@ export default function TrustPage() {
         <section className="px-6 pb-24 pt-4">
           <div className="mx-auto max-w-2xl text-center">
 
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+            <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">
               Ready to find a deal?
             </h2>
 
-            <p className="mx-auto mt-3 max-w-md text-slate-600">
+            <p className="mx-auto mt-3 max-w-md text-ink-soft">
               Search for your favorite store and see what&apos;s available.
             </p>
 
             <div className="mt-6">
               <Link
                 href="/deals"
-                className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent hover:shadow-md"
               >
                 Browse coupons & deals
                 <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

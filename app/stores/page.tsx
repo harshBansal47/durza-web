@@ -4,6 +4,7 @@ import Link from "next/link";
 import { resilient } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
 import PageTitle from "@/components/ui/PageTitle";
+import { ArrowRight } from "lucide-react";
 import EmptyState from "@/components/EmptyState";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
@@ -76,12 +77,10 @@ function StoreCard({ store }: { store: Store }) {
           {host ?? "Offers and coupon codes"}
         </span>
       </span>
-      <span
+      <ArrowRight
         aria-hidden="true"
         className="shrink-0 text-ink-soft transition-transform group-hover:translate-x-0.5 group-hover:text-inkblue"
-      >
-        →
-      </span>
+      />
     </Link>
   );
 }

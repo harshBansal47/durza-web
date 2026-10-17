@@ -6,6 +6,7 @@ import { requireAccount } from "@/app/account/actions";
 import { resilient } from "@/lib/api";
 import { formatMoney, formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
+import { ArrowRight } from "lucide-react";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 export const metadata: Metadata = {
@@ -122,8 +123,9 @@ export default async function AccountOverviewPage() {
             ))}
           </ul>
           <p className="mt-3 text-sm">
-            <Link href="/account/products" className="text-inkblue hover:underline">
-              Manage tracked products →
+            <Link href="/account/products" className="inline-flex items-center gap-1 text-inkblue hover:underline">
+              Manage tracked products
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
             </Link>
           </p>
         </section>
