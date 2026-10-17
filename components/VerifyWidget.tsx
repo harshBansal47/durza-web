@@ -46,8 +46,10 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
           </dd>
         </div>
         <div>
-          <dt className="text-ink-soft">Last confirmed</dt>
-          <dd className="font-mono text-base text-ink">{formatRelativeTime(stats.last_verified_at)}</dd>
+          <dt className="text-ink-soft">Last vote</dt>
+          <dd className="font-mono text-base text-ink">
+            {stats.last_verified_at ? formatRelativeTime(stats.last_verified_at) : "No votes yet"}
+          </dd>
         </div>
       </dl>
 

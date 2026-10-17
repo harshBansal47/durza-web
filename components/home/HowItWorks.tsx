@@ -1,7 +1,15 @@
 const STEPS = [
-  { glyph: "🔎", title: "Find a deal", body: "Search a store or product. Codes are listed with their real success rate, best first." },
-  { glyph: "🎟️", title: "Reveal and copy", body: "One tap reveals the code. Copy it, then head to the store through our link." },
-  { glyph: "✅", title: "Tell us if it worked", body: "Your report updates the success rate for the next shopper. Dead codes drop away." },
+  {
+    glyph: "🔎",
+    title: "Find a deal",
+    body: "Search a store or product. Every offer shows where it came from and when it was last checked.",
+  },
+  { glyph: "🎟️", title: "Reveal and copy", body: "One tap reveals the code and opens the store through our link. We may earn a commission." },
+  {
+    glyph: "✅",
+    title: "Tell us if it worked",
+    body: "Your report updates that offer's success rate for the next shopper. Dead codes drop away.",
+  },
 ];
 
 /** A real sequence, so the numbered steps are meaningful here. */

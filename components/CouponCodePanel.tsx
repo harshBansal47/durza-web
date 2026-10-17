@@ -6,6 +6,7 @@ import OutboundLink from "./OutboundLink";
 import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
 import { rememberGo } from "@/lib/lastGo";
+import { cardRequirementLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
 
 export default function CouponCodePanel({
@@ -20,6 +21,7 @@ export default function CouponCodePanel({
 }) {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const requirement = cardRequirementLine(coupon);
 
   async function reveal() {
     setRevealed(true);
@@ -71,7 +73,7 @@ export default function CouponCodePanel({
   return (
     <div className="relative overflow-hidden rounded-[22px] border border-ledger-line bg-white shadow-[var(--shadow-raised)]">
       <div className="relative bg-brand px-5 py-2 text-xs font-semibold text-white">
-        <span className="relative">{coupon.code ? "Your code" : "Auto-applied deal"}</span>
+        <span className="relative">{coupon.code ? "Your code" : "No code needed"}</span>
       </div>
 
       <div className="relative flex flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
@@ -97,7 +99,7 @@ export default function CouponCodePanel({
             )
           ) : (
             <span className="text-sm font-medium tracking-normal text-ink-soft">
-              No code needed — discount applies at checkout
+              {requirement ?? "The offer applies at checkout"}
             </span>
           )}
         </div>
@@ -153,8 +155,11 @@ export default function CouponCodePanel({
             ? revealed
               ? `${storeName || "The store"} opened in a new tab. Copy your code here, paste it at checkout, then tell us if it worked.`
               : `Revealing the code opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy.`
-            : "Opens the store with the discount applied. Come back and tell us if it worked."}
+            : `Opens ${storeName || "the store"} in a new tab. Come back and tell us if it worked.`}
         </p>
+        {requirement && coupon.code && (
+          <p className="mt-1 text-center text-xs text-ink-soft">{requirement}</p>
+        )}
       </div>
     </div>
   );

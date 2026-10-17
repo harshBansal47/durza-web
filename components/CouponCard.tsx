@@ -1,7 +1,8 @@
 import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
-import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports, formatRelativeTime } from "@/lib/format";
+import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports } from "@/lib/format";
+import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
 import { CardImpressions } from "./CardImpressions";
@@ -88,6 +89,8 @@ export function CouponCard({
   const reports = totalReports(coupon);
   const trusted = rate !== null && reports >= 2;
   const featured = resolved === "featured";
+  const source = sourceLine(coupon);
+  const requirement = cardRequirementLine(coupon);
 
   return (
     <div className={`ticket-wrap h-full ${expired ? "opacity-70" : ""} ${className}`}>
@@ -140,15 +143,16 @@ export function CouponCard({
                 ✓ {rate} · {reports} reports
               </span>
             )}
-            {resolved === "expiring-soon" && !expired && (
-              <span className="stamp text-rust">
-                Ends {daysLeft === 0 ? "today" : daysLeft === 1 ? "tomorrow" : `in ${daysLeft}d`}
-              </span>
-            )}
             {expired && <span className="stamp text-ink-soft">Expired</span>}
-            {coupon.last_verified_at && (
-              <span className="font-mono text-[11px] text-ink-soft" title={coupon.last_verified_at}>
-                Checked {formatRelativeTime(coupon.last_verified_at)}
+            {/* Source provenance, not a shopper vote: when the store's page was
+                last read. Expiry urgency already has its own single label at the
+                bottom of the card. */}
+            {!expired && source?.checkedDate && (
+              <span
+                className="font-mono text-[11px] text-ink-soft"
+                title={source.url ? `${source.text} — ${source.url}` : source.text}
+              >
+                Checked {source.checkedDate}
               </span>
             )}
           </div>
@@ -187,8 +191,10 @@ export function CouponCard({
                   </code>{" "}
                   at checkout
                 </>
+              ) : requirement ? (
+                requirement
               ) : (
-                "No code needed — the discount applies at checkout"
+                "No code needed — the offer applies at checkout"
               )}
             </p>
           )}

@@ -8,6 +8,7 @@ import { getSponsored } from "@/lib/ads";
 import VerifyWidget from "@/components/VerifyWidget";
 import DisclosureNote from "@/components/DisclosureNote";
 import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
+import { getRequirements, requirementLabels, sourceLine } from "@/lib/requirements";
 import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import type { CouponPublic, Store } from "@/lib/types";
 import Image from "next/image";
@@ -70,7 +71,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   const title = coupon.title;
   const description =
-    coupon.description ?? `${formatDiscount(coupon)}, verified by the Durza community.`;
+    coupon.description ?? `${formatDiscount(coupon)} — sourced from the store's own offer page.`;
   const canonical = absoluteUrl(`/coupons/${coupon.slug}`);
 
   return {
@@ -122,6 +123,9 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
   const successRate = coupon.success_rate !== null ? Math.round(coupon.success_rate * 100) : null;
   const daysLeft = daysUntil(coupon.expires_at);
   const expired = (daysLeft !== null && daysLeft < 0) || !coupon.is_active;
+  const requirements = requirementLabels(coupon);
+  const source = sourceLine(coupon);
+  const fullTerms = getRequirements(coupon).terms;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 pb-28 sm:px-6 sm:py-10 md:pb-10">
@@ -236,6 +240,54 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
         </section>
       )}
 
+      {/* How to get it / Requirements — the store's own stated conditions,
+          never a blanket "applies at checkout". */}
+      <section className="mb-8">
+        <h2 className="mb-3 font-serif text-2xl font-extrabold text-ink">How to get it</h2>
+        {requirements.length > 0 && (
+          <ul className="mb-3 flex flex-wrap gap-2" aria-label="Requirements">
+            {requirements.map((label) => (
+              <li
+                key={label}
+                className="rounded-full border border-ledger-line bg-paper-raised px-3 py-1 text-xs font-medium text-ink"
+              >
+                {label}
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="text-sm leading-relaxed text-ink-soft">
+          {coupon.code
+            ? `Reveal and copy the code above, then paste it at ${store?.name ?? "the store"}'s checkout.`
+            : `No code needed — ${store?.name ?? "the store"} applies the offer when the store's conditions below are met.`}
+        </p>
+        {source && (
+          <p className="mt-3 text-xs text-ink-soft">
+            Source:{" "}
+            {source.url ? (
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="underline underline-offset-2 hover:text-ink"
+              >
+                {source.text}
+              </a>
+            ) : (
+              source.text
+            )}
+          </p>
+        )}
+        {fullTerms && (
+          <details className="mt-3">
+            <summary className="cursor-pointer text-sm font-medium text-inkblue">
+              Conditions stated by {store?.name ?? "the store"}
+            </summary>
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft">{fullTerms}</p>
+          </details>
+        )}
+      </section>
+
       {/* Description / Restrictions */}
       {coupon.description && (
         <section className="mb-8">
@@ -304,17 +356,21 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                 {store.description && <p className="mt-2 text-sm text-ink-soft line-clamp-3">{store.description}</p>}
               </div>
             </div>
-            {store.commission_disclosure && (
+            {store.commission_disclosure ? (
               <div className="mt-4 pt-4 border-t border-ledger-line">
                 <p className="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Commission Disclosure</p>
                 <p className="text-sm text-ink">{store.commission_disclosure}</p>
+              </div>
+            ) : (
+              <div className="mt-4 pt-4 border-t border-ledger-line">
+                <DisclosureNote commissionDisclosure={null} />
               </div>
             )}
           </div>
         </section>
       )}
 
-      {/* Commission Disclosure (fallback if no store) */}
+      {/* Commission Disclosure (when the store is unknown) */}
       {!store && (
         <section className="mb-8">
           <DisclosureNote commissionDisclosure={null} />

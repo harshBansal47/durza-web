@@ -3,15 +3,15 @@ import { describe, expect, it } from "vitest";
 import VerifiedGauge from "@/components/VerifiedGauge";
 
 describe("VerifiedGauge", () => {
-  it("shows an honest 'not verified' state when nobody has reported", () => {
+  it("shows an honest 'no votes' state when nobody has reported", () => {
     render(<VerifiedGauge rate={null} reports={0} />);
-    expect(screen.getByRole("img", { name: /not verified yet/i })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /no votes yet/i })).toBeInTheDocument();
     expect(screen.queryByText(/%/)).not.toBeInTheDocument();
   });
 
   it("does not invent a rate when reports are zero even if a rate is passed", () => {
     render(<VerifiedGauge rate={0.9} reports={0} />);
-    expect(screen.getByRole("img", { name: /not verified yet/i })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /no votes yet/i })).toBeInTheDocument();
   });
 
   it("describes the real numbers for assistive tech", () => {

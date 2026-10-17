@@ -78,7 +78,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               }}
             >
               {rate}
-              {"\nverified"}
+              {"\nreported"}
             </div>
           )}
         </div>
@@ -109,7 +109,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
         <div style={{ display: "flex", borderTop: `2px solid ${LEDGER_LINE}`, paddingTop: 24 }}>
           <div style={{ display: "flex", fontSize: 22, color: INK_SOFT }}>
-            Verified by people, not by whoever paid the most.
+            Sourced from the store&apos;s own pages, with a last-checked date.
           </div>
         </div>
       </div>

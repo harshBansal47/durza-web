@@ -15,7 +15,7 @@ const PAGE_SIZE = 20;
 
 export const metadata: Metadata = {
   title: "Coupons",
-  description: "Every coupon here carries a real community success rate.",
+  description: "Offers sourced from official store pages, with the source and last-checked date shown.",
   alternates: { canonical: absoluteUrl("/coupons") },
 };
 

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
+import { formatDate } from "@/lib/format";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const description =
     store.description ??
-    `Every community-confirmed code and price drop for ${store.name}, with the commission we earn disclosed on the page.`;
+    `Codes and deals for ${store.name}, each with its source page and last-checked date, and every commission disclosed.`;
 
   return {
     title: `${store.name} deals, coupons and savings`,
@@ -63,7 +64,12 @@ export default async function StorePage({ params }: Props) {
     const age = Date.now() - new Date(c.last_verified_at).getTime();
     return age >= 0 && age <= 30 * 24 * 60 * 60 * 1000;
   }).length;
+  const totalReports = items.reduce((sum, c) => sum + c.success_count + c.fail_count, 0);
   const avgRate = items.reduce((sum, c) => sum + (c.success_rate ?? 0), 0) / (items.length || 1);
+  const latestCheck = items.reduce<string | null>(
+    (latest, c) => (!c.last_checked_at ? latest : !latest || c.last_checked_at > latest ? c.last_checked_at : latest),
+    null,
+  );
 
   const related = destination?.alternatives.length
     ? destination.alternatives
@@ -78,17 +84,20 @@ export default async function StorePage({ params }: Props) {
     ...(destination?.faqs ?? []),
     {
       question: `Are the ${store.name} codes on Durza verified?`,
-      answer: `Yes. ${verifiedCount} of the current ${items.length} listed offers have been verified within the last 30 days by the community, with an average success rate of ${Math.round(avgRate * 100)}%.`,
+      answer:
+        totalReports > 0
+          ? `${verifiedCount} of the current ${items.length} listed offers have shopper reports from the last 30 days, with an average reported success rate of ${Math.round(avgRate * 100)}%.`
+          : `Not yet — no shopper has reported trying these codes yet. All ${items.length} offers were read from ${store.name}'s own pages${latestCheck ? ` and last checked on ${formatDate(latestCheck)}` : ""}. Shopper reports will update this answer as they arrive.`,
     },
     {
       question: "How does Durza make money?",
       answer:
-        "When you use a link on this page, we may earn a commission from the store. Commissions may be one factor among several signals used when ordering offers. Verification, reliability, user success rates and relevance remain important ranking factors.",
+        "When you use a link on this page, we may earn a commission from the store. Expected commission earnings are one weighted input in how offers are ordered, alongside verification status and shopper success rates. Paid placements are always labelled as sponsored.",
     },
     {
       question: "What if a code does not work?",
       answer:
-        "Codes are retired after repeated reports of failure. You can also vote “didn’t work” on any offer, and the community rating updates immediately.",
+        "Codes are retired after repeated failed checks, and you can vote “didn’t work” on any offer — that lowers its success rate for everyone who visits after you. If you spot something wrong, the offer page has a report link.",
     },
   ];
   const faqJsonLd = faqPageJsonLd(faqs);
@@ -111,11 +120,11 @@ export default async function StorePage({ params }: Props) {
         <StorePageClient
           store={store}
           tabs={{
-            best: { label: "Best confirmed", items: byBest },
+            best: { label: totalReports > 0 ? "Best confirmed" : "Top offers", items: byBest },
             latest: { label: "Recently added", items: byLatest },
             expiring: { label: "Ending soon", items: byExpiring },
           }}
-          stats={{ total: coupons?.total ?? items.length, verified: verifiedCount, avgRate }}
+          stats={{ total: coupons?.total ?? items.length, verified: verifiedCount, avgRate, totalReports, latestCheck }}
           relatedStores={related}
           currency={store.currency}
         />

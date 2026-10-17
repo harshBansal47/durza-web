@@ -5,10 +5,11 @@ import {
   formatDate,
   formatDiscount,
   formatMoney,
-  formatRelativeTime,
   successRateLabel,
   totalReports,
 } from "@/lib/format";
+import { sourceLine } from "@/lib/requirements";
+import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import type { CouponPublic, Store } from "@/lib/types";
 import { CardImpressions } from "./CardImpressions";
 import { CardSaveButton } from "./CardSaveButton";
@@ -26,6 +27,7 @@ export default function DealCard({
 }) {
   const rate = successRateLabel(coupon);
   const reports = totalReports(coupon);
+  const source = sourceLine(coupon);
 
   return (
     <div className="ticket-wrap h-full">
@@ -84,10 +86,10 @@ export default function DealCard({
             </p>
           )}
 
-          <div className="flex min-h-7 flex-wrap items-center gap-2" role="group" aria-label="Deal verification">
-            {coupon.last_verified_at && (
-              <span className="stamp text-ink-soft">
-                Checked {formatRelativeTime(coupon.last_verified_at)}
+          <div className="flex min-h-7 flex-wrap items-center gap-2" role="group" aria-label="Deal status">
+            {source?.checkedDate && (
+              <span className="stamp text-ink-soft" title={source.url ? `${source.text} — ${source.url}` : source.text}>
+                Checked {source.checkedDate}
               </span>
             )}
             {rate && reports > 0 && (
@@ -95,7 +97,7 @@ export default function DealCard({
                 className="stamp text-verified"
                 title={`Worked for ${coupon.success_count} of ${reports} people who tried it`}
               >
-                {rate} Success
+                {rate} worked
               </span>
             )}
           </div>
@@ -114,7 +116,7 @@ export default function DealCard({
               Get Deal
             </Link>
             <p className="mt-2 text-center text-[11px] leading-snug text-ink-soft">
-              {store?.commission_disclosure || "We may earn a commission if you shop through this link."}
+              {store?.commission_disclosure || DEFAULT_DISCLOSURE}
             </p>
           </div>
         </div>

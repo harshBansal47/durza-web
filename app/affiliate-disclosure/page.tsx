@@ -76,10 +76,10 @@ export default function AffiliateDisclosurePage() {
           How We Rank Offers
         </h2>
         <p>
-          Verification evidence, shopper success rates, freshness, and
-          relevance are the signals that order our listings. Affiliate
-          commissions may be one factor among several — they never override
-          verification, and a commission cannot keep a coupon visible once
+          Offer order is a weighted blend of verification status, shopper success
+          rates, freshness, relevance and expected commission earnings. Each
+          offer&rsquo;s verification state is always shown on the page, whatever
+          its rank, and a commission cannot keep a coupon visible once checks or
           shopper reports show it doesn&rsquo;t work.
         </p>
 

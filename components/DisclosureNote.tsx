@@ -1,5 +1,4 @@
-const DEFAULT_DISCLOSURE =
-  "We may earn a commission when you use a code from this page. It never changes the price you pay. Commissions may be one factor among several signals used when ordering offers, and we never swap out another creator's referral link for our own.";
+import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 
 export default function DisclosureNote({
   commissionDisclosure,

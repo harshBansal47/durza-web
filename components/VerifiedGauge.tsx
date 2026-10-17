@@ -17,7 +17,7 @@ const C = 2 * Math.PI * R;
 
 /**
  * Success-rate ring. Draws in and counts up once when scrolled into view.
- * With no reports it shows an honest "Not verified yet" state instead of a
+ * With no votes it shows an honest "No votes yet" state instead of a
  * made-up number, and under reduced motion it renders the final state at once.
  */
 export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark" }: VerifiedGaugeProps) {
@@ -67,7 +67,7 @@ export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark"
   const track = tone === "light" ? "rgba(255,255,255,0.28)" : "#e3e6f3";
   const label =
     target === null
-      ? "Not verified yet: nobody has reported on this code"
+      ? "No votes yet: nobody has reported on this offer"
       : `${target}% of ${reports} report${reports === 1 ? "" : "s"} say it worked`;
   const color = target === null ? "var(--color-ink-soft)" : target >= 80 ? "var(--color-verified)" : target >= 50 ? "var(--color-sun)" : "var(--color-rust)";
   const dash = target === null ? C : C - (C * shown) / 100;
@@ -94,7 +94,7 @@ export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark"
         className={`absolute inset-0 flex flex-col items-center justify-center text-center ${tone === "light" ? "text-white" : "text-ink"}`}
       >
         {target === null ? (
-          <span className="px-3 text-[11px] font-semibold leading-tight opacity-80">Not verified yet</span>
+          <span className="px-3 text-[11px] font-semibold leading-tight opacity-80">No votes yet</span>
         ) : (
           <>
             <span className="font-serif text-3xl font-extrabold leading-none">{shown}%</span>

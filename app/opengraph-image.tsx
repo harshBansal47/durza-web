@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { loadOgFonts } from "@/lib/og-fonts";
 import { LOGO_ASPECT, LOGO_SVG, svgDataUri } from "@/lib/brand";
 
-export const alt = "Durza: Coupon & Deals — deals verified by people, not paid placement";
+export const alt = "Durza: Coupon & Deals — offers sourced from official store pages";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -46,10 +46,10 @@ export default async function Image() {
             maxWidth: 980,
           }}
         >
-          The deals we show you, verified by people — not by whoever paid us most.
+          Deals you can trace — sourced, dated and disclosed.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: VERIFIED, marginTop: 32 }}>
-          Every code has a real success rate. Every commission is disclosed.
+          Every offer shows its source page and last-checked date. Commissions are disclosed.
         </div>
       </div>
     ),

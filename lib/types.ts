@@ -150,6 +150,10 @@ export interface CouponPublic {
   last_verified_at: string | null;
   success_rate: number | null;
   verification_status: VerificationStatus;
+  /** When the offer's source was last read/checked — not a shopper vote. */
+  last_checked_at: string | null;
+  /** Store-stated conditions: minimum order, terms, source page, check date. */
+  restrictions: Record<string, unknown> | null;
   created_at: string;
 }
 

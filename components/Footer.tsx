@@ -79,8 +79,8 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
                 Stop checking back. Let the price come to you.
               </h2>
               <p className="mt-2 text-sm text-ink-soft">
-                Follow a product and we email you when its price drops or a
-                confirmed code appears. Free, no spam.
+                Follow a product and we email you when its price drops or its
+                store gets a new tracked offer. Free, no spam.
               </p>
             </div>
             <Link
@@ -135,14 +135,15 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
               <span className="font-semibold" style={{ color: PALETTE.dark }}>
                 Durza
               </span>
-              . Offers built on shopper evidence, every commission disclosed.
+              . Offers researched from official store pages; commissions
+              disclosed on offer pages.
             </p>
 
             <p className="sm:max-w-xl">
               We may earn a commission when you shop through our links.
-              Affiliate commissions may be one factor among several signals used
-              when ordering offers. Verification, reliability, user success
-              rates and relevance remain important ranking factors.
+              Expected commission earnings are one weighted input in how
+              offers are ordered, alongside verification status and shopper
+              success rates. Paid placements are always labelled as sponsored.
             </p>
           </div>
         </div>

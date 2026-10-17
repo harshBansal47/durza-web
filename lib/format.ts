@@ -1,12 +1,43 @@
 import type { CouponPublic } from "./types";
 
-/** Discount headline, e.g. "20% off" / "$15 off" / "Deal". */
+/**
+ * Pull the overall maximum discount out of the store's stated terms, when the
+ * terms give one ("maximum discount 3,000 rupees", "discount capped at 750").
+ * Returns the digits only, or null when no cap was stated — we never invent one.
+ */
+export function maxDiscount(coupon: CouponPublic): string | null {
+  const restrictions = coupon.restrictions as Record<string, unknown> | null | undefined;
+  const terms = typeof restrictions?.terms === "string" ? restrictions.terms : "";
+  if (!terms) return null;
+  const patterns = [
+    /maximum discount\s*(?:of\s*)?(?:₹|rs\.?\s*)?([\d,]+)/i,
+    /discount capped at\s*(?:₹|rs\.?\s*)?([\d,]+)/i,
+    /(?:^|[;.(]\s*)capped at\s*(?:₹|rs\.?\s*)?([\d,]+)\s*rupees?/i,
+  ];
+  for (const pattern of patterns) {
+    const match = terms.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
+
+/** Discount headline, e.g. "20% off" / "₹15 off" / "Deal". */
 export function formatDiscount(coupon: CouponPublic, currency = "USD"): string {
+  // "Up to" is only used when the store's own title says the offer is variable
+  // ("up to 6,000 rupees off") or its terms state a cap — never added on a guess.
+  const variable = /\bup to\b/i.test(coupon.title);
   if (coupon.discount_type === "percentage" && coupon.discount_value != null) {
-    return `${coupon.discount_value}% off`;
+    const cap = maxDiscount(coupon);
+    const core = `${coupon.discount_value}% off`;
+    if (variable || cap) {
+      const capLabel = cap ? ` (max ${formatMoney(Number(cap.replace(/,/g, "")), "INR")})` : "";
+      return `Up to ${core}${capLabel}`;
+    }
+    return core;
   }
   if (coupon.discount_type === "fixed" && coupon.discount_value != null) {
-    return `${formatMoney(coupon.discount_value, currency)} off`;
+    const core = `${formatMoney(coupon.discount_value, currency)} off`;
+    return variable ? `Up to ${core}` : core;
   }
   return "Deal";
 }

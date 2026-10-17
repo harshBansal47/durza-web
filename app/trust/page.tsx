@@ -459,8 +459,71 @@ export default function TrustPage() {
                 </p>
 
                 <p>
+                  Expected commission earnings are one weighted input in how
+                  offers are ordered — alongside verification status and
+                  shopper success rates — and that weighting is fixed in our
+                  ranking configuration rather than negotiated per merchant
+                  or per deal.
+                </p>
+
+                <p>
                   Some placements may also be sponsored or promotional. When
                   that applies, we identify them clearly.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════
+             HOW VOTES ARE COUNTED
+            ══════════════════════════════════════════════════════ */}
+
+        <section className="px-6 py-16 sm:py-20">
+          <div className="mx-auto max-w-3xl">
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10">
+
+              <div className="flex items-start gap-4">
+
+                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                  <IconShield className="h-5 w-5" />
+                </div>
+
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                    Straight answers
+                  </div>
+
+                  <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+                    How votes are counted
+                  </h2>
+                </div>
+
+              </div>
+
+              <div className="mt-6 space-y-4 text-sm leading-relaxed text-slate-600">
+                <p>
+                  Each offer has a <strong className="font-semibold text-slate-900">worked / didn&apos;t work</strong>{" "}
+                  vote. One vote per visitor per offer per day, keyed by a salted
+                  IP hash — enough to stop ballot-stuffing without keeping a raw
+                  identity.
+                </p>
+
+                <p>
+                  The success rate is simply worked votes divided by total votes.
+                  Until at least one person has voted, no rate is shown at all —
+                  you will see &ldquo;No votes yet&rdquo; instead of a fabricated
+                  number.
+                </p>
+
+                <p>
+                  Offers are also read from the store&rsquo;s own pages and carry
+                  a source link and last-checked date. Expired offers are removed
+                  from listings; a retired code can only come back if the store
+                  publishes it again.
                 </p>
               </div>
 

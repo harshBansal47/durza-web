@@ -15,7 +15,7 @@ import "./globals.css";
 
 const SITE_TITLE = "Durza: Coupon & Deals";
 const SITE_DESCRIPTION =
-  "Save money before you buy. Explore trusted deals, buying guides, comparisons and reviews, with affiliate commissions clearly disclosed.";
+  "Deals sourced from official store pages, with the source and check date shown, and affiliate commissions clearly disclosed.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

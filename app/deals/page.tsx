@@ -16,7 +16,7 @@ const PAGE_SIZE = 20;
 
 export const metadata: Metadata = {
   title: "Today's deals",
-  description: "Verified coupons and recorded price drops across stores.",
+  description: "Coupons and deals from official store pages, each with its source and check date.",
   alternates: { canonical: absoluteUrl("/deals") },
 };
 

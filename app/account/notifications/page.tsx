@@ -13,7 +13,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Notification settings",
-  description: "Choose how Durza reaches you about price drops and confirmed codes.",
+  description: "Choose how Durza reaches you about price drops and new codes.",
   alternates: { canonical: absoluteUrl("/account/notifications") },
   robots: { index: false, follow: false },
 };

@@ -24,6 +24,8 @@ const baseCoupon: CouponPublic = {
   last_verified_at: "2026-01-01T00:00:00Z",
   success_rate: 0.667,
   verification_status: "unverified",
+  last_checked_at: null,
+  restrictions: null,
   created_at: "2026-01-01T00:00:00Z",
 };
 
