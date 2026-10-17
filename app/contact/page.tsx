@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "How to reach the Durza team.",
+  description:
+    "Reach the Durza team to report a coupon that did not work, suggest a store we should track, or ask about listings and partnerships.",
 };
 
 export default function ContactPage() {

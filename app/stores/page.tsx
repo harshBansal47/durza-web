@@ -10,11 +10,24 @@ import type { Store } from "@/lib/types";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Stores",
-  description: "Browse every store on Durza.",
-  alternates: { canonical: absoluteUrl("/stores") },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const stores = await resilient.listStores({ limit: 3 });
+  const total = stores.total;
+  const examples = stores.items.map((store) => store.name).join(", ");
+  const description =
+    total > 0
+      ? `Browse ${total} stores on Durza${examples ? `, including ${examples}` : ""} — every coupon and deal shows the store page it came from and when it was last checked.`
+      : "Browse stores on Durza with coupon codes, deals and offers, each sourced from the store's own page.";
+  const title = "Stores with Coupons & Deals";
+  const canonical = absoluteUrl("/stores");
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 /** A store card: its own logo, a stripe of the accent sampled from that logo,
  * and a quiet hostname line — the store's identity, not a plain text link. */

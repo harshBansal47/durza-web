@@ -11,7 +11,7 @@
   import DisclosureNote from "@/components/DisclosureNote";
   import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
   import { getRequirements, requirementLabels, sourceLine } from "@/lib/requirements";
-  import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+  import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd, metaDescription } from "@/lib/seo";
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
   import VerifiedGauge from "@/components/VerifiedGauge";
@@ -73,9 +73,21 @@
     const coupon = await loadCoupon(slug);
     if (!coupon) return {};
 
-    const title = coupon.title;
+    const store = await loadStore(coupon.store_id);
+
+    // The offer's own researched description is the best copy when present;
+    // copy from the API can run past the length a result shows, so it is
+    // normalised to one line and cut on a word boundary. Without one, the
+    // discount, store and code/deal nature are the only facts available.
+    const discount = formatDiscount(coupon, store?.currency ?? "INR");
+    const headline =
+      discount === "Deal"
+        ? `${store ? `${store.name} deal` : "Deal"}`
+        : `${discount}${store ? ` at ${store.name}` : ""}`;
     const description =
-      coupon.description ?? `${formatDiscount(coupon)} — sourced from the store's own offer page.`;
+      metaDescription(coupon.description) ??
+      `${headline} — ${coupon.code ? "a promo code" : "an auto-applied offer"} read from the store's own page, with the last-checked date shown on Durza.`;
+    const title = coupon.title;
     const canonical = absoluteUrl(`/coupons/${coupon.slug}`);
 
     return {
@@ -83,7 +95,7 @@
       description,
       alternates: { canonical },
       openGraph: { title, description, url: canonical, type: "website" },
-      twitter: { title, description },
+      twitter: { card: "summary_large_image", title, description },
     };
   }
 
@@ -146,9 +158,9 @@
           pageId={coupon.slug}
         />
 
-        <header className="bg-brand relative mb-8 overflow-hidden rounded-[26px] text-white shadow-[var(--shadow-overlay)]">
+        <header className="bg-brand relative mb-8 overflow-hidden rounded-[26px]  shadow-[var(--shadow-overlay)]">
           <div className="relative flex flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-10">
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 text-white">
               {store && (
                 <Link
                   href={`/stores/${store.slug}`}
@@ -164,7 +176,9 @@
                   {store.name}
                 </Link>
               )}
-              <h1 className="font-serif text-4xl font-extrabold leading-tight text-white sm:text-5xl">{coupon.title}</h1>
+  <h1 className="font-serif text-4xl font-extrabold leading-tight !text-white sm:text-5xl">
+  {coupon.title}
+</h1>
               <p className="mt-2 inline-block rounded-xl bg-white px-3 py-1 font-serif text-xl font-extrabold text-inkblue shadow-sm">
                 {formatDiscount(coupon, store?.currency ?? "INR")}
               </p>

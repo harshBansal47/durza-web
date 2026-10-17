@@ -3,6 +3,7 @@ import {
   absoluteUrl,
   aggregateRatingJsonLd,
   breadcrumbJsonLd,
+  metaDescription,
   organizationJsonLd,
   websiteJsonLd,
 } from "@/lib/seo";
@@ -14,6 +15,37 @@ describe("absoluteUrl", () => {
 
   it("adds a leading slash if missing", () => {
     expect(absoluteUrl("coupons/foo")).toBe("http://localhost:3000/coupons/foo");
+  });
+});
+
+describe("metaDescription", () => {
+  it("returns undefined for empty copy so callers can fall back", () => {
+    expect(metaDescription(null)).toBeUndefined();
+    expect(metaDescription(undefined)).toBeUndefined();
+    expect(metaDescription("   \n\t ")).toBeUndefined();
+  });
+
+  it("collapses whitespace so a multi-line blurb is one line", () => {
+    expect(metaDescription("Two\nlines\twith  gaps")).toBe("Two lines with gaps");
+  });
+
+  it("passes short copy through untouched", () => {
+    expect(metaDescription("Short and useful.")).toBe("Short and useful.");
+  });
+
+  it("cuts long copy on a word boundary within the limit", () => {
+    const text = "word ".repeat(60).trim();
+    const result = metaDescription(text, 40);
+    expect(result).toBeDefined();
+    expect(result!.length).toBeLessThanOrEqual(40);
+    expect(result!.endsWith("…")).toBe(true);
+    expect(text.startsWith(result!.slice(0, -1))).toBe(true);
+    expect(result!.slice(0, -1).endsWith(" ")).toBe(false);
+  });
+
+  it("does not leave trailing punctuation before the ellipsis", () => {
+    const text = "alpha beta gamma, delta epsilon zeta eta theta iota kappa lambda";
+    expect(metaDescription(text, 20)).toBe("alpha beta gamma…");
   });
 });
 

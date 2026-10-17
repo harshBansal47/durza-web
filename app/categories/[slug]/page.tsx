@@ -32,12 +32,23 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const category = await loadCategory(slug);
   if (!category) return {};
 
-  const title = `${categoryLabel(category)} deals`;
+  const label = categoryLabel(category);
+  // The backend's exact total for the same live list the page shows.
+  const offers = await resilient.listCoupons({ category_id: category.id, active_only: true, limit: 1 });
+  const total = offers.total;
+
+  const title = `${label} Coupons & Deals${total > 0 ? `: ${total} Live Offers` : ""}`;
+  const description =
+    total > 0
+      ? `Browse ${total} live ${label.toLowerCase()} coupons, promo codes and deals — each offer shows the store page it came from and when it was last checked.`
+      : `Browse ${label.toLowerCase()} coupons, promo codes and deals on Durza — each offer shows the store page it came from and when it was last checked.`;
   const canonical = absoluteUrl(`/categories/${category.slug}`);
   return {
     title,
+    description,
     alternates: { canonical },
-    openGraph: { title, url: canonical },
+    openGraph: { title, description, url: canonical, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

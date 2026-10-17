@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "What Durza is and why it exists.",
+  description:
+    "Durza is a deals platform where every coupon and offer shows the store page it was read from, the date it was last checked, and the commission we earn.",
 };
 
 export default function AboutPage() {

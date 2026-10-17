@@ -16,11 +16,30 @@ export const revalidate = 300;
 
 const PAGE_SIZE = 20;
 
-export const metadata: Metadata = {
-  title: "Today's deals",
-  description: "Coupons and deals from official store pages, each with its source and check date.",
-  alternates: { canonical: absoluteUrl("/deals") },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  // Same live list the page renders: the coupon total is exact and the price
+  // drops are counted exactly the way the page selects them.
+  const [offers, products] = await Promise.all([
+    resilient.listCoupons({ active_only: true, limit: 1 }),
+    resilient.listProducts({ limit: 50 }),
+  ]);
+  const total = offers.total;
+  const drops = products.items.filter((product) => product.last_price_drop_pct != null).length;
+
+  const title = total > 0 ? `Today's Deals: ${total} Live Offers` : "Today's Deals & Offers";
+  const description =
+    total > 0
+      ? `Browse ${total} live deals and offers${drops > 0 ? ", plus price drops Durza tracks" : ""} — each deal shows the store page it came from and when it was last checked.`
+      : "Live deals and offers, each sourced from the store's own page with the date it was last checked.";
+  const canonical = absoluteUrl("/deals");
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 export default async function DealsPage({
   searchParams,

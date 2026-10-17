@@ -17,3 +17,12 @@ export const SITE_URL: string = (() => {
   }
   return "http://localhost:3000";
 })();
+
+/**
+ * The site-wide title and description. The homepage uses them verbatim; every
+ * other page's title runs through the layout's "%s — Durza" template, so both
+ * sites import these rather than keeping two copies that can drift.
+ */
+export const SITE_TITLE = "Durza – Coupons, Promo Codes & Best Online Deals in India";
+export const SITE_DESCRIPTION =
+  "Discover online deals, coupon codes, shopping offers and product comparisons on Durza. Find useful ways to save before you buy.";

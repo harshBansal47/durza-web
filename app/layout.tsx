@@ -10,14 +10,10 @@ import { AnalyticsPageView } from "@/components/Analytics";
 import { getSponsored } from "@/lib/ads";
 import ToastProvider from "@/components/ui/Toast";
 import ConsentBanner from "@/components/ConsentBanner";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
 import "./globals.css";
-
-const SITE_TITLE = "Durza: Coupon & Deals";
-const SITE_DESCRIPTION =
-  "Deals sourced from official store pages, with the source and check date shown, and affiliate commissions clearly disclosed.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

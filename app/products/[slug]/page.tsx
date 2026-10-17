@@ -21,14 +21,26 @@ export async function generateMetadata({
   const product = await resilient.getProductBySlug(slug);
   if (!product) return { title: "Product not found" };
 
+  const store = await resilient.getStoreById(product.store_id);
+  const price =
+    product.current_price !== null ? formatMoney(product.current_price, product.currency) : null;
+  // The price is real data from the API, and it is only mentioned when it
+  // exists — never estimated from the list price.
+  const description = `Current price${price ? ` (${price})` : ""} and price history for ${product.name}${store ? ` at ${store.name}` : ""} — see how it moved and get alerted when it drops.`;
+  const ogTitle = `${product.name} — ${price ?? "price unknown"}`;
+  const canonical = absoluteUrl(`/products/${product.slug}`);
+
   return {
     title: `${product.name} price history`,
-    description: `Current price and price history for ${product.name}, with the option to be alerted when it drops.`,
-    alternates: { canonical: absoluteUrl(`/products/${product.slug}`) },
+    description,
+    alternates: { canonical },
     openGraph: {
-      title: `${product.name} — ${product.current_price !== null ? formatMoney(product.current_price, product.currency) : "price unknown"}`,
+      title: ogTitle,
+      description,
+      url: canonical,
       images: product.image_url ? [product.image_url] : undefined,
     },
+    twitter: { card: "summary_large_image", title: ogTitle, description },
   };
 }
 

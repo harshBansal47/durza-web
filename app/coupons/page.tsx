@@ -15,11 +15,25 @@ export const revalidate = 300;
 
 const PAGE_SIZE = 20;
 
-export const metadata: Metadata = {
-  title: "Coupons",
-  description: "Offers sourced from official store pages, with the source and last-checked date shown.",
-  alternates: { canonical: absoluteUrl("/coupons") },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  // The count is the backend's exact total for the same live list the page
+  // shows, so the snippet can state it without qualifying it.
+  const offers = await resilient.listCoupons({ active_only: true, limit: 1 });
+  const total = offers.total;
+  const title = total > 0 ? `Coupons & Promo Codes: ${total} Live Offers` : "Coupons & Promo Codes";
+  const description =
+    total > 0
+      ? `Browse ${total} live coupon codes and deals on Durza — each offer shows the store page it came from and when it was last checked.`
+      : "Coupon codes and deals, each sourced from the store's own page with the date it was last checked.";
+  const canonical = absoluteUrl("/coupons");
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 export default async function CouponsPage({
   searchParams,

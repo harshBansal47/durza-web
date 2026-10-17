@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
@@ -19,20 +19,43 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const store = await resilient.getStoreBySlug(slug).catch(() => null);
   if (!store) return { title: "Store not found" };
 
-  // Google truncates descriptions around 155 characters and the seeded store
-  // blurbs are whole paragraphs. A long or multi-line blurb gets a page-specific
-  // summary instead of a half-sentence cut-off; short blurbs pass through.
-  const trimmed = store.description?.trim() ?? "";
-  const description =
-    trimmed && trimmed.length <= 155 && !trimmed.includes("\n")
-      ? trimmed
-      : `${store.name} coupon codes, deals and offers — each with its source page and last-checked date, and every commission disclosed.`;
+  // The numbers below come from the same live list the page renders, so the
+  // snippet never claims an offer the page cannot show. The code/deal split is
+  // only stated when one request covered the whole list; otherwise the exact
+  // total stands alone rather than a guessed breakdown.
+  const offers = await resilient.listCoupons({ store_id: store.id, active_only: true, limit: 100 });
+  const total = offers.total;
+  const codeOffers = offers.items.filter((coupon) => coupon.code !== null).length;
+  const countedAll = offers.items.length >= total;
 
+  const title = `${store.name} Coupons & Promo Codes${total > 0 ? `: ${total} Live Offers` : ""}`;
+
+  let description: string;
+  if (total === 0) {
+    // No live list to count. A short store-written blurb is still the best copy
+    // available; the long ones would only be cut off by the search result, so
+    // they get a page-specific summary instead. The summary states the sourcing
+    // policy rather than counting offers, because there are none to count.
+    description =
+      metaDescription(store.description) ??
+      `${store.name} coupon codes and deals are read from ${store.name}'s own pages — every offer shows its source page and last-checked date, with commissions disclosed.`;
+  } else if (countedAll && codeOffers > 0 && codeOffers < total) {
+    description = `${total} live ${store.name} offers — ${codeOffers} promo codes and ${total - codeOffers} auto-applied deals — each read from ${store.name}'s own pages with its last-checked date.`;
+  } else if (countedAll && codeOffers === total) {
+    description = `${total} live ${store.name} promo codes, each read from ${store.name}'s own pages with its last-checked date.`;
+  } else if (countedAll && codeOffers === 0) {
+    description = `${total} live ${store.name} deals, each read from ${store.name}'s own pages with its last-checked date.`;
+  } else {
+    description = `${total} live ${store.name} coupons and deals, each read from ${store.name}'s own pages with its last-checked date.`;
+  }
+
+  const canonical = `/stores/${store.slug}`;
   return {
-    title: `${store.name} deals, coupons and savings`,
+    title,
     description,
-    alternates: { canonical: `/stores/${store.slug}` },
-    openGraph: { title: `${store.name} deals and savings on Durza`, description, type: "website" },
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

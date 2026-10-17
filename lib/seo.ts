@@ -4,6 +4,28 @@ export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
+/**
+ * A meta description is one plain-text line and search engines cut it near
+ * 155-160 characters. Copy from the API arrives as paragraphs and can contain
+ * newlines, which is what renders a snippet as a half sentence. Collapse the
+ * whitespace and, when the text is too long, stop at the last word boundary
+ * before the limit and trim trailing punctuation so the ellipsis does not
+ * follow a comma. Returns undefined for empty input so callers can fall back
+ * to their own copy.
+ */
+export function metaDescription(text: string | null | undefined, max = 158): string | undefined {
+  const normalized = text?.replace(/\s+/g, " ").trim();
+  if (!normalized) return undefined;
+  if (normalized.length <= max) return normalized;
+  const clipped = normalized.slice(0, max - 1);
+  const lastSpace = clipped.lastIndexOf(" ");
+  const base = (lastSpace > 0 ? clipped.slice(0, lastSpace) : clipped).replace(
+    /[\s,;:.!?\-–—]+$/,
+    "",
+  );
+  return `${base}…`;
+}
+
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",

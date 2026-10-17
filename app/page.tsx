@@ -11,6 +11,7 @@ import DealsCarousel from "@/components/home/DealsCarousel";
 import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
 import { absoluteUrl } from "@/lib/seo";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
 import { Reveal } from "@/components/Reveal";
@@ -20,7 +21,21 @@ import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } fro
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { alternates: { canonical: absoluteUrl("/") } };
+  const canonical = absoluteUrl("/");
+  // The homepage title is the one place the `%s — Durza` template would
+  // double the brand, so it is declared absolute.
+  return {
+    title: { absolute: SITE_TITLE },
+    description: SITE_DESCRIPTION,
+    alternates: { canonical },
+    openGraph: {
+      title: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      url: canonical,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
+  };
 }
 
 async function safe<T>(promise: Promise<T>, fallback: T): Promise<T> {
