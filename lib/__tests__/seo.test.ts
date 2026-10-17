@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import {
+  absoluteUrl,
+  aggregateRatingJsonLd,
+  breadcrumbJsonLd,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 describe("absoluteUrl", () => {
   it("joins a leading-slash path to the site URL", () => {
@@ -52,5 +58,26 @@ describe("aggregateRatingJsonLd", () => {
   it("counts both successes and failures in reviewCount", () => {
     const rating = aggregateRatingJsonLd(3, 7);
     expect(rating?.reviewCount).toBe(10);
+  });
+});
+
+describe("organizationJsonLd", () => {
+  it("describes the site's own entity with the logo it actually ships", () => {
+    const org = organizationJsonLd();
+    expect(org["@type"]).toBe("Organization");
+    expect(org.name).toBe("Durza");
+    expect(org.url).toBe("http://localhost:3000");
+    expect(org.logo).toBe("http://localhost:3000/logo.png");
+  });
+});
+
+describe("websiteJsonLd", () => {
+  it("wires the sitelinks search box to the real /search?q= endpoint", () => {
+    const site = websiteJsonLd();
+    expect(site["@type"]).toBe("WebSite");
+    expect(site.potentialAction["@type"]).toBe("SearchAction");
+    expect(site.potentialAction.target.urlTemplate).toBe(
+      "http://localhost:3000/search?q={search_term_string}",
+    );
   });
 });
