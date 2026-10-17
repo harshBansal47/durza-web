@@ -60,7 +60,7 @@ export function StoreFollowButton({
           ? `rounded-full px-3 py-1.5 text-xs font-semibold transition-all active:scale-90 ${
               on ? "bg-ink text-white" : "border border-ledger-line bg-white text-ink hover:border-ink"
             }`
-          : `btn shrink-0 ${on ? "btn-primary" : "btn-outline"}`
+          : `btn shrink-0 ${on ? "bg-accent text-white hover:bg-accent/90" : "bg-white text-ink hover:bg-white/90"}`
       }
       title={isSignedIn === false ? "Sign in to follow" : undefined}
     >
