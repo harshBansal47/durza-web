@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Check, Percent, TrendingUp } from "lucide-react";
 import { CouponCardGrid } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
 import Hero from "@/components/home/Hero";
@@ -206,7 +207,7 @@ export default async function HomePage() {
 
       {isEmpty ? (
        <section className="section-panel mt-12 px-6 py-14 text-center">
-          <h2 className="font-serif text-2xl font-extrabold text-ink">No deals listed yet</h2>
+          <h2 className="font-serif text-title font-medium text-ink">No deals listed yet</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
             The catalogue is empty. That is the honest state — we would rather show nothing than
             pad the page with offers we cannot source.
@@ -241,7 +242,10 @@ export default async function HomePage() {
               </SectionTitle>
               <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Latest deals" pageType="homepage" />
               <p className="mt-2 text-right text-sm">
-                <Link href="/deals" className="font-semibold text-rust hover:underline">Browse all deals →</Link>
+                <Link href="/deals" className="font-semibold text-rust hover:underline">
+                  Browse all deals
+                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
+                </Link>
               </p>
             </section>
           )}
@@ -254,7 +258,8 @@ export default async function HomePage() {
               <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Deals ending soon" pageType="homepage" />
               <p className="mt-2 text-right text-sm">
                 <Link href="/coupons" className="font-semibold text-rust hover:underline">
-                  All coupons →
+                  All coupons
+                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
                 </Link>
               </p>
             </section>
@@ -303,7 +308,8 @@ export default async function HomePage() {
               <StoreMarquee stores={stores.items.slice(0, 12)} />
               <p className="mt-4 text-right text-sm">
                 <Link href="/stores" className="font-semibold text-inkblue hover:underline">
-                  All stores →
+                  All stores
+                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
                 </Link>
               </p>
             </section>
@@ -321,7 +327,10 @@ export default async function HomePage() {
                 className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
               />
               <p className="mt-3 text-right text-sm">
-                <Link href="/coupons" className="font-semibold text-inkblue hover:underline">Browse all coupons →</Link>
+                <Link href="/coupons" className="font-semibold text-inkblue hover:underline">
+                  Browse all coupons
+                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
+                </Link>
               </p>
             </section>
           )}
@@ -337,10 +346,13 @@ export default async function HomePage() {
             <section className="mt-12" aria-label="Curated savings collections">
               <div className="mb-5 flex items-end justify-between gap-3">
                 <div>
-                  <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Built around your goals</p>
-                  <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">Curated collections</h2>
+                  <p className="font-mono text-caption font-semibold uppercase tracking-widest text-inkblue">Built around your goals</p>
+                  <h2 className="mt-1 font-serif text-title font-medium text-ink">Curated collections</h2>
                 </div>
-                <Link href="/collections" className="min-h-11 inline-flex items-center text-sm font-bold text-inkblue hover:underline">All collections →</Link>
+                <Link href="/collections" className="min-h-11 inline-flex items-center text-sm font-medium text-inkblue hover:underline">
+                  All collections
+                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
+                </Link>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {editorial.collections.slice(0, 3).map((item) => <EditorialCard key={item.id} content={item} />)}
@@ -371,43 +383,45 @@ export default async function HomePage() {
 
           <Reveal>
           <section className="mt-16">
-            <h2 className="text-center font-serif text-2xl font-extrabold text-ink sm:text-3xl">
+            <h2 className="text-center font-serif text-title font-medium text-ink">
               Why this is not a red-badge countdown site
             </h2>
             <ul className="mt-8 grid gap-5 md:grid-cols-3">
-              {PILLARS.map((pillar, i) => (
+              {PILLARS.map((pillar, i) => {
+                const Glyph = [Check, Percent, TrendingUp][i];
+                return (
                 <li
                   key={pillar.title}
                   className="info-card lift p-6"
                 >
                   <span
                     aria-hidden="true"
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl text-xl text-white ${
-                      i === 0 ? "bg-verified" : i === 1 ? "bg-rust" : "bg-[#1b1836]"
+                    className={`flex h-11 w-11 items-center justify-center rounded-2xl text-white ${
+                      i === 0 ? "bg-verified" : i === 1 ? "bg-rust" : "bg-navy"
                     }`}
                   >
-                    {i === 0 ? "✓" : i === 1 ? "%" : "↗"}
+                    <Glyph className="h-5 w-5" strokeWidth={1.75} />
                   </span>
-                  <h3 className="mt-4 font-serif text-xl font-bold text-ink">{pillar.title}</h3>
+                  <h3 className="mt-4 font-serif text-heading font-medium text-ink">{pillar.title}</h3>
                   <p className="mt-2 text-sm text-ink-soft">{pillar.body}</p>
                   <ul className="mt-4 space-y-2 text-sm text-ink-soft">
                     {pillar.points.map((point) => (
                       <li key={point} className="flex items-start gap-2">
                         <span
-                          className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-verified-soft text-[10px] font-bold text-verified"
+                          className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-verified-soft text-verified"
                           aria-hidden="true"
                         >
-                          ✓
+                          <Check className="h-3 w-3" strokeWidth={2.5} />
                         </span>
                         {point}
                       </li>
                     ))}
                   </ul>
                 </li>
-              ))}
+                );
+              })}
             </ul>
-          </section>
-          </Reveal>
+          </section>          </Reveal>
         </>
       )}
     </div>

@@ -38,6 +38,25 @@
   --color-pink: #ff4d8d;
   --color-night: #0a0a0a;
 
+  /* Warm near-black used by the hero spotlight and footer legal line. */
+  --color-ink-warm: #16130f;
+
+  /* Store header gradient: deep plum to navy. */
+  --color-navy: #1b1836;
+  --color-navy-deep: #253d70;
+
+  /* Hero spotlight gold, an accent-tinted series for the homepage only. */
+  --color-gold: #f5b335;
+  --color-gold-light: #ffd27a;
+  --color-gold-tint: #fff1d0;
+  --color-gold-text: #6b4a00;
+
+  /* Hover state for the ink primary button. */
+  --color-ink-hover: #2a2a2a;
+
+  /* Verified gauge track on light surfaces. */
+  --color-gauge-track: #e3e6f3;
+
   /* Dark-surface tokens: used by .dark-surface so headings, body copy and
      borders stay readable on navy/ink panels without per-element overrides. */
   --color-ink-on-dark: #ffffff;

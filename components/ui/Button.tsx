@@ -38,7 +38,7 @@ const baseStyles =
   "inline-flex items-center justify-center gap-1.5 font-medium transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-inkblue focus-visible:outline-offset-2 rounded-[var(--radius-sm)]";
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-ink text-paper border border-ink hover:bg-[#2a2a2a] hover:text-paper",
+  primary: "bg-ink text-paper border border-ink hover:bg-ink-hover hover:text-paper",
   outline: "bg-transparent text-ink border border-ink hover:bg-ink hover:text-paper",
   ghost: "bg-transparent text-ink-soft hover:text-ink hover:bg-ledger-line/40",
   verified: "bg-verified text-paper border border-verified hover:opacity-90",

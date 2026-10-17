@@ -14,6 +14,7 @@
   import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd, metaDescription } from "@/lib/seo";
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
+  import { ArrowRight, Check, X } from "lucide-react";
   import VerifiedGauge from "@/components/VerifiedGauge";
 import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
@@ -213,8 +214,9 @@ import PageTitle from "@/components/ui/PageTitle";
                   : "This offer is no longer live — here is what still works."}
               </p>
               {store && (
-                <Link href={`/stores/${store.slug}`} className="btn btn-cta mt-4">
-                  See current {store.name} deals →
+                <Link href={`/stores/${store.slug}`} className="btn btn-cta mt-4 inline-flex items-center gap-1.5">
+                  See current {store.name} deals
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
                 </Link>
               )}
             </div>
@@ -249,7 +251,7 @@ import PageTitle from "@/components/ui/PageTitle";
                     <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-medium ${
                       v.worked ? "bg-verified/10 text-verified" : "bg-rust/10 text-rust"
                     }`}>
-                      {v.worked ? "✓" : "✕"}
+                      {v.worked ? <Check aria-hidden="true" className="h-4 w-4" strokeWidth={2} /> : <X aria-hidden="true" className="h-4 w-4" strokeWidth={2} />}
                     </span>
                     <div>
                       <p className="text-sm text-ink">{v.worked ? "Worked" : "Didn't work"}</p>

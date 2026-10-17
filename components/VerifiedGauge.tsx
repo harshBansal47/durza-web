@@ -64,7 +64,7 @@ export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark"
     };
   }, [target]);
 
-  const track = tone === "light" ? "rgba(255,255,255,0.28)" : "#e3e6f3";
+  const track = tone === "light" ? "rgba(255,255,255,0.28)" : "var(--color-gauge-track)";
   const label =
     target === null
       ? "No votes yet: nobody has reported on this offer"
@@ -94,11 +94,11 @@ export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark"
         className={`absolute inset-0 flex flex-col items-center justify-center text-center ${tone === "light" ? "text-white" : "text-ink"}`}
       >
         {target === null ? (
-          <span className="px-3 text-[11px] font-semibold leading-tight opacity-80">No votes yet</span>
+          <span className="px-3 text-caption font-semibold leading-tight opacity-80">No votes yet</span>
         ) : (
           <>
-            <span className="font-serif text-3xl font-extrabold leading-none">{shown}%</span>
-            <span className="mt-1 text-[10px] font-semibold opacity-75">worked</span>
+            <span className="font-serif text-title font-medium leading-none">{shown}%</span>
+            <span className="mt-1 text-caption font-semibold opacity-75">worked</span>
           </>
         )}
       </div>

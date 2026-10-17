@@ -10,6 +10,7 @@ import { StoreFollowButton } from "@/components/StoreFollowButton";
 import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
+import { ArrowRight } from "lucide-react";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { groupSimilar } from "@/lib/grouping";
@@ -127,8 +128,8 @@ export default function StorePageClient({
     <div className="space-y-10 sm:space-y-14">
       <RecordView storeSlug={store.slug} />
       <header
-        className="dark-surface relative overflow-hidden rounded-[26px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]"
-        style={{ backgroundImage: "linear-gradient(120deg, #1b1836, #253d70)" }}
+        className="dark-surface relative overflow-hidden rounded-[26px] bg-[var(--color-navy)] text-white shadow-[var(--shadow-overlay)]"
+        style={{ backgroundImage: "linear-gradient(120deg, var(--color-navy), var(--color-navy-deep))" }}
       >
         {/* The store's own accent colour, sampled from its icon — decorative only. */}
         {accent && (
@@ -209,7 +210,10 @@ export default function StorePageClient({
               <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">
                 {tabs.best.items[0].title}
               </span>
-              <span className="btn btn-cta shrink-0">Get it →</span>
+              <span className="btn btn-cta shrink-0">
+              Get it
+              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
+            </span>
             </Link>
           )}
           <ClientTabs tabs={visibleTabs} />

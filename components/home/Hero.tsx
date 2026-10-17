@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { formatDiscount } from "@/lib/format";
 import type { CouponPublic } from "@/lib/types";
@@ -14,14 +15,14 @@ interface HeroProps {
 }
 
 const PALETTE = {
-  dark: "#16130F",
-  gold: "#F5B335",
-  goldLight: "#FFD27A",
-  goldTint: "#FFF1D0", // solid badge background
-  goldText: "#6B4A00", // dark gold, readable on goldTint
-  white: "#FFFFFF",
-  muted: "#5C564A", // solid gray-brown, readable on white
-  border: "#E4DFD3",
+  dark: "var(--color-ink-warm)",
+  gold: "var(--color-gold)",
+  goldLight: "var(--color-gold-light)",
+  goldTint: "var(--color-gold-tint)",
+  goldText: "var(--color-gold-text)",
+  white: "var(--color-paper-raised)",
+  muted: "var(--color-ink-soft)",
+  border: "var(--color-ledger-line)",
 };
 
 export default function Hero({
@@ -226,7 +227,7 @@ export default function Hero({
                     }}
                   >
                     View coupon
-                    <span aria-hidden="true">→</span>
+                    <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
                   </Link>
                 </div>
               </div>
@@ -306,7 +307,7 @@ export default function Hero({
                   "
                 >
                   Browse coupons
-                  <span aria-hidden="true">→</span>
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
                 </Link>
               </div>
             </div>

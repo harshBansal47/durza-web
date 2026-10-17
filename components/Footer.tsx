@@ -4,9 +4,9 @@ import type { Ad } from "@/lib/types";
 import Logo from "@/components/Logo";
 
 const PALETTE = {
-  dark: "#16130F",
-  muted: "#5C564A", // solid gray-brown, readable on white / light backgrounds
-  border: "#E4DFD3",
+  dark: "var(--color-ink-warm)",
+  muted: "var(--color-ink-soft)",
+  border: "var(--color-ledger-line)",
 };
 
 const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
