@@ -9,6 +9,7 @@ import { formatMoney, formatRelativeTime } from "@/lib/format";
 import { getAccessToken, getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
 import PageTitle from "@/components/ui/PageTitle";
+import { LogoMark } from "@/components/Logo";
 import PriceHistory from "@/components/product/PriceHistory";
 
 export const revalidate = 300;
@@ -119,8 +120,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               className="w-full border border-ledger-line bg-paper object-contain"
             />
           ) : (
-            <div className="flex aspect-square items-center justify-center border border-dashed border-ledger-line text-sm text-ink-soft">
-              No product image
+            <div className="flex aspect-square flex-col items-center justify-center gap-3 border border-dashed border-ledger-line bg-paper-alt text-ink-soft">
+              <LogoMark size={64} tone="light" className="opacity-30" />
+              <p className="text-sm">No product image available</p>
             </div>
           )}
         </div>
