@@ -66,7 +66,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
 
       <div className="mt-14 border-t border-ledger-line pt-12 text-ink-soft">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-10 sm:grid-cols-5">
+          <div className="grid gap-10 sm:grid-cols-5 pb-4">
             <div className="sm:col-span-1">
               <Link href="/" aria-label="Durza: Coupon & Deals — home" className="inline-flex">
                 <Logo size={34} tagline />
@@ -95,7 +95,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
           </div>
 
           <div
-            className="mt-10 flex flex-col gap-3 pt-5 text-[11px] leading-relaxed sm:flex-row sm:items-start sm:justify-between sm:gap-10"
+            className=" flex flex-col gap-3 pt-5 text-[11px] leading-relaxed sm:flex-row sm:items-start sm:justify-between sm:gap-10 pb-5"
             style={{
               borderTop: `1px solid ${PALETTE.border}`,
               color: PALETTE.muted,
@@ -111,10 +111,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
             </p>
 
             <p className="sm:max-w-xl">
-              We may earn a commission when you shop through our links.
-              Expected commission earnings are one weighted input in how
-              offers are ordered, alongside verification status and shopper
-              success rates. Paid placements are always labelled as sponsored.
+              {/* We may earn a commission when you shop through our links. */}
             </p>
           </div>
         </div>
