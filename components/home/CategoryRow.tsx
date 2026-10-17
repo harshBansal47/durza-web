@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { categoryLabel } from "@/lib/catalog";
 
 interface Cat {
   id: string;
@@ -22,7 +23,8 @@ const GLYPHS: [RegExp, string][] = [
 
 function glyphFor(c: Cat) {
   if (c.icon) return c.icon;
-  return GLYPHS.find(([re]) => re.test(c.name) || re.test(c.slug))?.[1] ?? "🏷️";
+  const probe = c.name ?? c.slug;
+  return GLYPHS.find(([re]) => re.test(probe) || re.test(c.slug))?.[1] ?? "🏷️";
 }
 
 export default function CategoryRow({ categories }: { categories: Cat[] }) {
@@ -39,7 +41,7 @@ export default function CategoryRow({ categories }: { categories: Cat[] }) {
               >
                 {glyphFor(c)}
               </span>
-              <span className="line-clamp-2 text-xs font-medium text-ink group-hover:text-accent">{c.name}</span>
+              <span className="line-clamp-2 text-xs font-medium text-ink group-hover:text-accent">{categoryLabel(c)}</span>
             </Link>
           </li>
         ))}

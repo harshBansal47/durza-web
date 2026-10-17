@@ -69,7 +69,7 @@ export default function DealCard({
               </Link>
             </h2>
             <span className="shrink-0 rounded-full bg-accent-faint px-2.5 py-1 font-mono text-xs font-medium text-accent">
-              {formatDiscount(coupon, store?.currency ?? "USD")}
+              {formatDiscount(coupon, store?.currency ?? "INR")}
             </span>
           </div>
 

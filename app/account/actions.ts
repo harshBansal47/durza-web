@@ -352,7 +352,7 @@ export async function trackProductAction(
   "use server";
   const productId = String(formData.get("product_id") ?? "");
   const rawTarget = String(formData.get("target_price") ?? "").trim();
-  const currency = String(formData.get("currency") ?? "USD").toUpperCase();
+  const currency = String(formData.get("currency") ?? "INR").toUpperCase();
 
   if (!productId) return fail("Missing product.");
 

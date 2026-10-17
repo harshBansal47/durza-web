@@ -78,7 +78,7 @@ export function CouponCard({
   pageType = "coupon_card",
   footnote,
 }: CouponCardProps) {
-  const currency = store?.currency ?? price?.currency ?? "USD";
+  const currency = store?.currency ?? price?.currency ?? "INR";
   const daysLeft = daysUntil(coupon.expires_at);
   const expiringSoon = daysLeft !== null && daysLeft >= 0 && daysLeft <= 7;
   const expired = daysLeft !== null && daysLeft < 0;

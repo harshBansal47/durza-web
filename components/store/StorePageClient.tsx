@@ -4,11 +4,13 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CouponCard } from "@/components/CouponCard";
+import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
 import { StoreFollowButton } from "@/components/StoreFollowButton";
 import { RecordView } from "@/components/Analytics";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
+import { groupSimilar } from "@/lib/grouping";
 import type { CouponPublic, Store } from "@/lib/types";
 
 interface StorePageClientProps {
@@ -59,7 +61,7 @@ export default function StorePageClient({
   relatedStores,
   currency,
 }: StorePageClientProps) {
-  const code = currency ?? "USD";
+  const code = currency ?? "INR";
   const hasVotes = stats.totalReports > 0;
 
   // A tab with nothing in it is noise — only offer tabs that have coupons.
@@ -73,14 +75,25 @@ export default function StorePageClient({
           count: tab.items.length,
           content: (
             <div className="grid gap-4 sm:grid-cols-2">
-              {tab.items.slice(0, 12).map((coupon) => (
-                <CouponCard
-                  key={coupon.id}
-                  coupon={coupon}
-                  store={{ id: store.id, name: store.name, slug: store.slug, logo_url: store.logo_url, currency: code }}
-                  variant={id === "expiring" ? "expiring-soon" : "coupon"}
-                />
-              ))}
+              {groupSimilar(tab.items)
+                .slice(0, 12)
+                .map((entry) =>
+                  entry.kind === "group" ? (
+                    <CouponGroupCard
+                      key={`group-${entry.key}`}
+                      label={entry.label}
+                      coupons={entry.coupons}
+                      currency={code}
+                    />
+                  ) : (
+                    <CouponCard
+                      key={entry.coupon.id}
+                      coupon={entry.coupon}
+                      store={{ id: store.id, name: store.name, slug: store.slug, logo_url: store.logo_url, currency: code }}
+                      variant={id === "expiring" ? "expiring-soon" : "coupon"}
+                    />
+                  ),
+                )}
             </div>
           ),
         })),
@@ -120,8 +133,9 @@ export default function StorePageClient({
           <div className="min-w-0 flex-1">
             <h1 className="font-serif text-3xl font-extrabold leading-tight sm:text-5xl">{store.name}</h1>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
-              {store.country_code && <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">{store.country_code}</span>}
-              <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">{stats.total} listed offers</span>
+              <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
+                {stats.total} listed offers
+              </span>
               {store.website_url && (
                 <a
                   href={store.website_url}
@@ -159,6 +173,8 @@ export default function StorePageClient({
 
       {visibleTabs.length > 0 ? (
         <>
+          {/* Keeps the h1 → h2 → h3 order intact for every code card below. */}
+          <h2 className="sr-only">Offers from {store.name}</h2>
           {tabs.best && tabs.best.items.length > 0 && (
             <Link
               href={`/coupons/${tabs.best.items[0].slug}`}
@@ -188,7 +204,7 @@ export default function StorePageClient({
         <h2 id="proof" className="font-serif text-2xl font-extrabold text-ink">
           What backs these offers
         </h2>
-        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+        <dl className={`mt-4 grid gap-4 ${hasVotes ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}>
           {hasVotes ? (
             <>
               <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
@@ -239,11 +255,6 @@ export default function StorePageClient({
               </div>
             </>
           )}
-          <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
-            <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">Prices in</dt>
-            <dd className="mt-1 font-serif text-3xl font-extrabold text-ink">{code}</dd>
-            <p className="mt-1 text-xs text-ink-soft">{store.country_code ?? "all markets"}</p>
-          </div>
         </dl>
         <p className="mt-3 text-sm text-ink-soft">
           {hasVotes
@@ -271,11 +282,6 @@ export default function StorePageClient({
                   <StoreMark store={related} size={36} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm text-ink">{related.name}</span>
-                    {related.country_code && (
-                      <span className="block font-mono text-[10px] text-ink-soft">
-                        {related.country_code}
-                      </span>
-                    )}
                   </span>
                 </Link>
               </li>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { resilient } from "@/lib/api";
+import { categoryLabel } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default async function CategoriesIndexPage() {
             href={`/categories/${c.slug}`}
             className="border border-ledger-line bg-paper-raised px-4 py-6 text-ink transition-colors hover:border-inkblue hover:text-inkblue"
           >
-            {c.name}
+            {categoryLabel(c)}
           </Link>
         ))}
       </div>

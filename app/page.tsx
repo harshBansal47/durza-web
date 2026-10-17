@@ -121,10 +121,34 @@ export default async function HomePage() {
 
   const confirmed = topRated.items;
 
-  // A presentation filter over the backend's recommended order (not a re-ranking).
-  const evergreen = coupons.items.filter((c) => c.expires_at === null && c.code !== null).slice(0, 4);
+  // One offer should appear once on this page. Sections fill in the order they
+  // are shown, and an offer already placed in an earlier row is skipped — a
+  // presentation filter over the backend's orders, not a re-ranking.
+  const shown = new Set<string>();
+  const take = <T extends { id: string }>(items: T[], limit: number): T[] => {
+    const picked: T[] = [];
+    for (const item of items) {
+      if (shown.has(item.id)) continue;
+      shown.add(item.id);
+      picked.push(item);
+      if (picked.length >= limit) break;
+    }
+    return picked;
+  };
 
-  const spotlight = coupons.items.slice(0, 3);
+  const spotlight = take(coupons.items, 3);
+  const latestDealsItems = take(latestDeals.items, 8);
+  const endingSoonItems = take(endingSoon.items, 8);
+  const confirmedItems = take(confirmed, 8);
+  const recentlyVerifiedItems = take(recentlyVerified.items, 8);
+  const biggestItems = take(biggest.items, 4);
+  const bestCouponsItems = take(bestCoupons.items, 8);
+  // A presentation filter over the backend's recommended order (not a re-ranking).
+  const evergreen = take(
+    coupons.items.filter((c) => c.expires_at === null && c.code !== null),
+    4,
+  );
+  const newestItems = take(newest.items, 8);
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
@@ -195,24 +219,24 @@ export default async function HomePage() {
             label="All comparisons"
           />
 
-          {latestDeals.items.length > 0 && (
+          {latestDealsItems.length > 0 && (
             <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="latest-deals-heading">
               <SectionTitle hint="tracked offers">
                 <span id="latest-deals-heading">Latest deals</span>
               </SectionTitle>
-              <DealsCarousel coupons={latestDeals.items} stores={cardStores} label="Latest deals" pageType="homepage" />
+              <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Latest deals" pageType="homepage" />
               <p className="mt-2 text-right text-sm">
                 <Link href="/deals" className="font-semibold text-rust hover:underline">Browse all deals →</Link>
               </p>
             </section>
           )}
 
-          {endingSoon.items.length > 0 && (
+          {endingSoonItems.length > 0 && (
             <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="ending-heading">
               <SectionTitle hint="real expiry dates only">
                 <span id="ending-heading">Ending soon</span>
               </SectionTitle>
-              <DealsCarousel coupons={endingSoon.items} stores={cardStores} label="Deals ending soon" pageType="homepage" />
+              <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Deals ending soon" pageType="homepage" />
               <p className="mt-2 text-right text-sm">
                 <Link href="/coupons" className="font-semibold text-rust hover:underline">
                   All coupons →
@@ -221,12 +245,12 @@ export default async function HomePage() {
             </section>
           )}
 
-          {confirmed.length > 0 && (
+          {confirmedItems.length > 0 && (
             <section className="mt-12" aria-labelledby="confirmed-heading">
-              <SectionTitle hint={`${confirmed.length} with shopper votes`}>
+              <SectionTitle hint={`${confirmedItems.length} with shopper votes`}>
                 <span id="confirmed-heading">Top rated by shoppers</span>
               </SectionTitle>
-              <DealsCarousel coupons={confirmed} stores={cardStores} label="Deals rated by shoppers" pageType="homepage" />
+              <DealsCarousel coupons={confirmedItems} stores={cardStores} label="Deals rated by shoppers" pageType="homepage" />
             </section>
           )}
 
@@ -235,20 +259,20 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-12">
-            <RecentlyVerifiedRow coupons={recentlyVerified.items} stores={cardStores} />
+            <RecentlyVerifiedRow coupons={recentlyVerifiedItems} stores={cardStores} />
           </div>
 
           <section className="mt-8">
             <BannerCarousel sponsored={headerAd} />
           </section>
 
-          {biggest.items.length > 0 && (
+          {biggestItems.length > 0 && (
             <section className="mt-12" aria-labelledby="biggest-heading">
               <SectionTitle hint="percentage offers only">
                 <span id="biggest-heading">Biggest % off</span>
               </SectionTitle>
               <CouponCardGrid
-                coupons={biggest.items}
+                coupons={biggestItems}
                 stores={cardStores}
                 variant="featured"
                 className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
@@ -270,13 +294,13 @@ export default async function HomePage() {
             </section>
           )}
 
-          {bestCoupons.items.length > 0 && (
+          {bestCouponsItems.length > 0 && (
             <section className="mt-12" aria-labelledby="best-coupons-heading">
               <SectionTitle hint="codes only">
                 <span id="best-coupons-heading">Best coupons</span>
               </SectionTitle>
               <CouponCardGrid
-                coupons={bestCoupons.items}
+                coupons={bestCouponsItems}
                 stores={cardStores}
                 variant="featured"
                 className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
@@ -322,7 +346,7 @@ export default async function HomePage() {
           )}
 
           <div className="mt-12">
-            <NewDealsRow coupons={newest.items} stores={cardStores} />
+            <NewDealsRow coupons={newestItems} stores={cardStores} />
           </div>
 
           <section className="mt-16">

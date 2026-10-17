@@ -160,7 +160,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
             )}
             <h1 className="font-serif text-4xl font-extrabold leading-tight sm:text-5xl">{coupon.title}</h1>
             <p className="mt-2 inline-block rounded-xl bg-white px-3 py-1 font-serif text-xl font-extrabold text-inkblue shadow-sm">
-              {formatDiscount(coupon)}
+              {formatDiscount(coupon, store?.currency ?? "INR")}
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
               {coupon.expires_at && (
@@ -394,7 +394,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                   )}
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-ink truncate">{c.title}</p>
-                    <p className="text-sm text-ink-soft font-mono">{formatDiscount(c)}</p>
+                    <p className="text-sm text-ink-soft font-mono">{formatDiscount(c, store?.currency ?? "INR")}</p>
                   </div>
                   {c.code && (
                     <span className="shrink-0 rounded-lg border border-dashed border-inkblue/40 bg-inkblue/5 px-2 py-1 font-mono text-xs font-semibold text-inkblue">

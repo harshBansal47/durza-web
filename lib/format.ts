@@ -22,7 +22,7 @@ export function maxDiscount(coupon: CouponPublic): string | null {
 }
 
 /** Discount headline, e.g. "20% off" / "₹15 off" / "Deal". */
-export function formatDiscount(coupon: CouponPublic, currency = "USD"): string {
+export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
   // "Up to" is only used when the store's own title says the offer is variable
   // ("up to 6,000 rupees off") or its terms state a cap — never added on a guess.
   const variable = /\bup to\b/i.test(coupon.title);
@@ -44,14 +44,15 @@ export function formatDiscount(coupon: CouponPublic, currency = "USD"): string {
 
 /**
  * Money formatting that respects the store/product's own currency.
- * Durza is multi-market, so nothing may assume USD or en-IN.
+ * Durza lists Indian stores, so the default is INR formatted for India
+ * (₹6,000 — not $6,000); an explicit store currency always wins.
  */
-export function formatMoney(amount: number, currency = "USD", locale?: string): string {
+export function formatMoney(amount: number, currency = "INR", locale?: string): string {
   try {
-    return new Intl.NumberFormat(locale, {
+    return new Intl.NumberFormat(locale ?? (currency === "INR" ? "en-IN" : undefined), {
       style: "currency",
       currency,
-      maximumFractionDigits: Math.abs(amount % 1) > 0 ? 2 : 0,
+      maximumFractionDigits: 0,
     }).format(amount);
   } catch {
     // Unknown/invalid currency code — fall back rather than crash the page.

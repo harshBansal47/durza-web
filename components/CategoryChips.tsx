@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { categoryLabel } from "@/lib/catalog";
 import type { Category } from "@/lib/types";
 
 export default function CategoryChips({
@@ -22,7 +23,7 @@ export default function CategoryChips({
               : "border-ledger-line text-ink-soft hover:border-ink hover:text-ink"
           }`}
         >
-          {category.name}
+          {categoryLabel(category)}
         </Link>
       ))}
     </div>

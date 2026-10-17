@@ -71,9 +71,32 @@ export default async function StorePage({ params }: Props) {
     null,
   );
 
-  const related = destination?.alternatives.length
+  // Alternatives: stores that share this store's main category first, then the
+  // rest of the tracked catalogue. Never the store itself, capped at six.
+  const categoryCounts = new Map<string, number>();
+  for (const c of items) {
+    categoryCounts.set(c.category_id, (categoryCounts.get(c.category_id) ?? 0) + 1);
+  }
+  const mainCategoryId = categoryCounts.size
+    ? [...categoryCounts.entries()].sort((a, b) => b[1] - a[1])[0][0]
+    : null;
+  const sameCategory = mainCategoryId
+    ? await resilient
+        .listCoupons({ category_id: mainCategoryId, active_only: true, limit: 100 })
+        .catch(() => null)
+    : null;
+  const sameCategoryStoreIds = new Set(sameCategory?.items.map((c) => c.store_id) ?? []);
+  const relatedPool = destination?.alternatives.length
     ? destination.alternatives
-    : (allStores?.items ?? []).filter((s) => s.id !== store.id && s.is_active).slice(0, 8);
+    : (allStores?.items ?? []);
+  const related = relatedPool
+    .filter((s) => s.id !== store.id && s.is_active !== false)
+    .sort((a, b) => {
+      const aShare = sameCategoryStoreIds.has(a.id) ? 0 : 1;
+      const bShare = sameCategoryStoreIds.has(b.id) ? 0 : 1;
+      return aShare - bShare || a.name.localeCompare(b.name);
+    })
+    .slice(0, 6);
 
   const breadcrumb = breadcrumbJsonLd([
     { name: "Home", path: "/" },

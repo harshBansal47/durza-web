@@ -70,9 +70,12 @@ export default function CouponFilterPanel({
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-2">
-        <h2 className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+        {/* A label, not a document heading: this panel is rendered three times
+            (desktop, drawer, sticky), and its h2 was landing before the page h1
+            and duplicating in the heading outline. */}
+        <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
           Filters{count > 0 ? ` (${count})` : ""}
-        </h2>
+        </p>
         {count > 0 && (
           <button
             type="button"

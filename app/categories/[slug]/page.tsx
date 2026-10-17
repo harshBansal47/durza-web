@@ -11,6 +11,7 @@ import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { carriedParams, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
+import { categoryLabel } from "@/lib/catalog";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 const PAGE_SIZE = 20;
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const category = await loadCategory(slug);
   if (!category) return {};
 
-  const title = `${category.name} deals`;
+  const title = `${categoryLabel(category)} deals`;
   const canonical = absoluteUrl(`/categories/${category.slug}`);
   return {
     title,
@@ -52,6 +53,7 @@ export default async function CategoryPage({
 
   const category = await loadCategory(slug);
   if (!category) notFound();
+  const categoryName = categoryLabel(category);
 
   const [storesPage, categoriesPage] = await Promise.all([
     resilient.listStores({ limit: 100 }),
@@ -83,7 +85,7 @@ export default async function CategoryPage({
 
   const breadcrumb = breadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: category.name, path: `/categories/${category.slug}` },
+    { name: categoryName, path: `/categories/${category.slug}` },
   ]);
   const itemList = itemListJsonLd(
     coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
@@ -100,14 +102,14 @@ export default async function CategoryPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
 
-      <h1 className="mb-6 font-serif text-4xl font-extrabold text-ink sm:text-5xl">{category.name} coupons</h1>
+      <h1 className="mb-6 font-serif text-4xl font-extrabold text-ink sm:text-5xl">{categoryName} coupons</h1>
       <div className="mb-6">
         <CategoryChips categories={categories} activeSlug={category.slug} />
       </div>
       <div className="mb-8">
         <KeywordForm
-          placeholder={`Search ${category.name.toLowerCase()} coupons…`}
-          label={`Search ${category.name} coupons`}
+          placeholder={`Search ${categoryName.toLowerCase()} coupons…`}
+          label={`Search ${categoryName} coupons`}
         />
       </div>
 
@@ -117,7 +119,7 @@ export default async function CategoryPage({
             hideCategory
             stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
             categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
-            note={`Scoped to ${category.name}.`}
+            note={`Scoped to ${categoryName}.`}
           />
         }
       >
@@ -135,9 +137,9 @@ export default async function CategoryPage({
 
         {coupons.items.length === 0 ? (
           <EmptyState
-            title={`No matching coupons in ${category.name}.`}
+            title={`No matching coupons in ${categoryName}.`}
             body="Try removing a filter above, or check back soon."
-            cta={{ href: `/categories/${category.slug}`, label: `All ${category.name} coupons` }}
+            cta={{ href: `/categories/${category.slug}`, label: `All ${categoryName} coupons` }}
           />
         ) : (
           <div>

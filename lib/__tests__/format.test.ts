@@ -36,10 +36,20 @@ describe("formatDiscount", () => {
     );
   });
 
-  it("formats a fixed discount", () => {
+  it("formats a fixed discount in INR by default — Indian stores, Indian money", () => {
     expect(formatDiscount(makeCoupon({ discount_type: "fixed", discount_value: 15 }))).toBe(
-      "$15 off",
+      "₹15 off",
     );
+  });
+
+  it("names the store's cap when its terms state one", () => {
+    const coupon = makeCoupon({
+      discount_type: "percentage",
+      discount_value: 7.5,
+      title: "Test coupon",
+      restrictions: { terms: "10% instant discount, maximum discount 3,000 rupees per card." },
+    });
+    expect(formatDiscount(coupon)).toBe("Up to 7.5% off (max ₹3,000)");
   });
 
   it("falls back to 'Deal' for a deal with no discount_value", () => {
