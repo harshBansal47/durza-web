@@ -113,7 +113,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
 
         <div>
-          <h1 className="font-serif text-3xl leading-tight text-ink">{product.name}</h1>
+          <h1 className="font-serif text-4xl font-extrabold leading-tight text-ink sm:text-5xl">{product.name}</h1>
 
           <div className="mt-4 flex flex-wrap items-baseline gap-3">
             <span className="font-mono text-3xl text-ink">

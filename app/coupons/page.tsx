@@ -80,7 +80,7 @@ export default async function CouponsPage({
           ),
         }}
       />
-      <h1 className="mb-4 font-serif text-3xl text-ink">{heading}</h1>
+      <h1 className="mb-4 font-serif text-4xl font-extrabold text-ink sm:text-5xl">{heading}</h1>
       <div className="mb-8">
         <KeywordForm placeholder="Search coupons, brands or stores…" label="Search coupons" />
       </div>

@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
             </svg>
             <Logo size={34} />
           </Link>
-          <h1 className="font-serif text-3xl text-ink">Forgot password</h1>
+          <h1 className="font-serif text-4xl font-extrabold text-ink">Forgot password</h1>
           <p className="mt-2 text-ink-soft">
             Enter your email and we&apos;ll send you a link to reset your password.
           </p>

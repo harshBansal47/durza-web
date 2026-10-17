@@ -9,7 +9,7 @@ export default function NotFound() {
       >
         404
       </p>
-      <h1 className="mt-2 font-serif text-3xl font-extrabold text-ink">That page doesn&apos;t exist</h1>
+      <h1 className="mt-2 font-serif text-4xl font-extrabold text-ink sm:text-5xl">That page doesn&apos;t exist</h1>
       <p className="mt-3 text-ink-soft">
         The deal, store, or category you&apos;re looking for isn&apos;t here — it may have expired
         or moved.

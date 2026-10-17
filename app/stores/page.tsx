@@ -44,7 +44,7 @@ export default async function StoresIndexPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
-      <h1 className="mb-8 font-serif text-3xl text-ink">Stores</h1>
+      <h1 className="mb-8 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Stores</h1>
       <form action="/stores" className="mb-10 max-w-md">
         <label htmlFor="store-filter" className="sr-only">Filter stores</label>
         <input

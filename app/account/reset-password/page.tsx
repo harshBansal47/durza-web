@@ -58,7 +58,7 @@ export default async function ResetPasswordPage({
             </svg>
             <Logo size={34} />
           </Link>
-          <h1 className="font-serif text-3xl text-ink">Reset password</h1>
+          <h1 className="font-serif text-4xl font-extrabold text-ink">Reset password</h1>
           <p className="mt-2 text-ink-soft">
             Enter your new password below. It must be at least 8 characters.
           </p>

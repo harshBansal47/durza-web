@@ -37,7 +37,7 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto w-full max-w-sm px-4 py-16">
-      <h1 className="font-serif text-3xl text-ink">Sign in</h1>
+      <h1 className="font-serif text-4xl font-extrabold text-ink">Sign in</h1>
       <p className="mt-2 text-sm text-ink-soft">
         {next
           ? "Sign in to continue where you left off."

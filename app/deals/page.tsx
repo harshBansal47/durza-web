@@ -105,7 +105,7 @@ export default async function DealsPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema).replace(/</g, "\\u003c") }}
       />
-      <h1 className="mb-2 font-serif text-3xl text-ink">Today&apos;s deals</h1>
+      <h1 className="mb-2 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Today&apos;s deals</h1>
       <p className="mb-8 text-sm text-ink-soft">
         What shoppers most recently confirmed working, and where prices moved.
       </p>

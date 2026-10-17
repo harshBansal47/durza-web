@@ -34,7 +34,7 @@ export default async function RegisterPage({
 
   return (
     <main className="mx-auto w-full max-w-sm px-4 py-16">
-      <h1 className="font-serif text-3xl text-ink">Create your account</h1>
+      <h1 className="font-serif text-4xl font-extrabold text-ink">Create your account</h1>
       <p className="mt-2 text-sm text-ink-soft">
         Save the stores you use, follow a product, and we will email you when its price drops or a
         code is confirmed working.

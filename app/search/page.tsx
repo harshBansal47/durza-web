@@ -49,7 +49,7 @@ export default async function SearchPage({ searchParams }: Props) {
   if (!filters.q) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h1 className="font-serif text-3xl text-ink">What are you shopping for?</h1>
+        <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">What are you shopping for?</h1>
         <p className="mt-2 max-w-prose text-ink-soft">
           Search a store, a brand, a product or a category. Everything listed here has a verification
           trail — use the filters on the results page to see only codes somebody has actually tried.

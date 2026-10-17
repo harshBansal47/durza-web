@@ -13,7 +13,7 @@ export default async function CategoriesIndexPage() {
   const { items } = await resilient.listCategories({ limit: 100 });
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="mb-8 font-serif text-3xl text-ink">Categories</h1>
+      <h1 className="mb-8 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Categories</h1>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {items.map((c) => (
           <Link

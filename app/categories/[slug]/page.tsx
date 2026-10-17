@@ -100,7 +100,7 @@ export default async function CategoryPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
 
-      <h1 className="mb-6 font-serif text-3xl text-ink">{category.name} coupons</h1>
+      <h1 className="mb-6 font-serif text-4xl font-extrabold text-ink sm:text-5xl">{category.name} coupons</h1>
       <div className="mb-6">
         <CategoryChips categories={categories} activeSlug={category.slug} />
       </div>

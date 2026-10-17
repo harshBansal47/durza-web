@@ -28,7 +28,7 @@ export default async function UnsubscribePage() {
 
   return (
     <main className="mx-auto w-full max-w-xl px-4 py-16">
-      <h1 className="font-serif text-3xl text-ink">Turn off email alerts</h1>
+      <h1 className="font-serif text-4xl font-extrabold text-ink">Turn off email alerts</h1>
       <p className="mt-2 text-ink-soft">
         {email
           ? "This will stop email alerts for your account. Everything else on Durza keeps working."

@@ -154,7 +154,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                 {store.name}
               </Link>
             )}
-            <h1 className="font-serif text-3xl font-extrabold leading-tight sm:text-4xl">{coupon.title}</h1>
+            <h1 className="font-serif text-4xl font-extrabold leading-tight sm:text-5xl">{coupon.title}</h1>
             <p className="mt-2 inline-block rounded-xl bg-white px-3 py-1 font-serif text-xl font-extrabold text-inkblue shadow-sm">
               {formatDiscount(coupon)}
             </p>
