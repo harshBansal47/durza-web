@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -17,7 +18,7 @@ const STEPS: [string, string][] = [
 export default function HowItWorksPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">How it works</h1>
+      <PageTitle>How it works</PageTitle>
       <ol className="mt-10 space-y-8 border-l border-ledger-line pl-8">
         {STEPS.map(([title, body], i) => (
           <li key={title}>

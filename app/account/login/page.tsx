@@ -4,6 +4,7 @@ import { LoginForm } from "@/components/account/AuthForms";
 import { loginAction } from "@/app/account/actions";
 import { getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Sign in",
@@ -37,7 +38,7 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto w-full max-w-sm px-4 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink">Sign in</h1>
+      <PageTitle>Sign in</PageTitle>
       <p className="mt-2 text-sm text-ink-soft">
         {next
           ? "Sign in to continue where you left off."

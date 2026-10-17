@@ -9,6 +9,7 @@ import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
+import PageTitle from "@/components/ui/PageTitle";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -96,7 +97,7 @@ export default async function CouponsPage({
           ),
         }}
       />
-      <h1 className="mb-4 font-serif text-4xl font-extrabold text-ink sm:text-5xl">{heading}</h1>
+      <PageTitle className="mb-4">{heading}</PageTitle>
       <div className="mb-8">
         <KeywordForm placeholder="Search coupons, brands or stores…" label="Search coupons" />
       </div>

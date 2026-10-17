@@ -4,6 +4,7 @@ import UnsubscribeForm from "@/components/account/UnsubscribeForm";
 import { unsubscribeAction } from "@/app/account/actions";
 import { getAccessToken } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Turn off email alerts",
@@ -28,7 +29,7 @@ export default async function UnsubscribePage() {
 
   return (
     <main className="mx-auto w-full max-w-xl px-4 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink">Turn off email alerts</h1>
+      <PageTitle>Turn off email alerts</PageTitle>
       <p className="mt-2 text-ink-soft">
         {email
           ? "This will stop email alerts for your account. Everything else on Durza keeps working."

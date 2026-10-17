@@ -8,6 +8,7 @@ import type {
   EditorialType,
 } from "@/lib/types";
 import { api } from "@/lib/api";
+import PageTitle from "@/components/ui/PageTitle";
 import { editorialPath } from "@/lib/editorial-path";
 import AdSenseSlot from "./AdSenseSlot";
 
@@ -271,7 +272,7 @@ export default async function EditorialArticle({ content }: { content: Editorial
         <Link href={editorialPath({ content_type: content.content_type, slug: "" }).replace(/\/$/, "")} className="hover:text-inkblue">{TYPE_LABELS[content.content_type]}s</Link>
       </nav>
       <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">{TYPE_LABELS[content.content_type]}</p>
-      <h1 className="mt-3 font-serif text-4xl font-extrabold leading-tight text-ink sm:text-5xl">{content.title}</h1>
+      <PageTitle className="mt-3 leading-tight">{content.title}</PageTitle>
       {content.summary && <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-soft">{content.summary}</p>}
       <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs text-ink-soft">
         {content.author_name && <span>By {content.author_name}</span>}

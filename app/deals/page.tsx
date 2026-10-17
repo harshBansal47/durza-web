@@ -6,6 +6,7 @@ import EmptyState from "@/components/EmptyState";
 import Pagination from "@/components/Pagination";
 import SectionTitle from "@/components/SectionTitle";
 import DealsFilterPanel from "@/components/filters/DealsFilterPanel";
+import PageTitle from "@/components/ui/PageTitle";
 import DealsSortControl from "@/components/filters/DealsSortControl";
 import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
@@ -126,7 +127,7 @@ export default async function DealsPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema).replace(/</g, "\\u003c") }}
       />
-      <h1 className="mb-2 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Today&apos;s deals</h1>
+      <PageTitle className="mb-2">Today&apos;s deals</PageTitle>
       <p className="mb-8 text-sm text-ink-soft">
         What shoppers most recently confirmed working, and where prices moved.
       </p>

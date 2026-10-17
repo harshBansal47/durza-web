@@ -4,6 +4,7 @@ import { ResetPasswordForm } from "@/components/account/AuthForms";
 import { resetPasswordAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
 import Logo from "@/components/Logo";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Reset password",
@@ -24,7 +25,7 @@ export default async function ResetPasswordPage({
     return (
       <main className="min-h-screen flex items-center justify-center px-4 py-12 bg-ledger-bg">
         <div className="w-full max-w-md text-center">
-          <h1 className="font-serif text-2xl text-ink">Invalid reset link</h1>
+          <PageTitle>Invalid reset link</PageTitle>
           <p className="mt-3 text-ink-soft">
             This password reset link is missing or invalid. Please request a new one.
           </p>
@@ -58,7 +59,7 @@ export default async function ResetPasswordPage({
             </svg>
             <Logo size={34} />
           </Link>
-          <h1 className="font-serif text-4xl font-extrabold text-ink">Reset password</h1>
+          <PageTitle>Reset password</PageTitle>
           <p className="mt-2 text-ink-soft">
             Enter your new password below. It must be at least 8 characters.
           </p>

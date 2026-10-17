@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { resilient } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
+import PageTitle from "@/components/ui/PageTitle";
 import EmptyState from "@/components/EmptyState";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
@@ -119,7 +120,7 @@ export default async function StoresIndexPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
-      <h1 className="mb-4 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Stores</h1>
+      <PageTitle className="mb-4">Stores</PageTitle>
       <p className="mb-8 max-w-xl text-sm leading-relaxed text-ink-soft">
         Every store we track, with the offers we found on its own pages — not a directory of
         everything that exists.

@@ -8,6 +8,7 @@ import { api, resilient } from "@/lib/api";
 import { formatMoney, formatRelativeTime } from "@/lib/format";
 import { getAccessToken, getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
+import PageTitle from "@/components/ui/PageTitle";
 import PriceHistory from "@/components/product/PriceHistory";
 
 export const revalidate = 300;
@@ -125,7 +126,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
 
         <div>
-          <h1 className="font-serif text-4xl font-extrabold leading-tight text-ink sm:text-5xl">{product.name}</h1>
+          <PageTitle className="leading-tight">{product.name}</PageTitle>
 
           <div className="mt-4 flex flex-wrap items-baseline gap-3">
             <span className="font-mono text-3xl text-ink">

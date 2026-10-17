@@ -15,6 +15,7 @@
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
   import VerifiedGauge from "@/components/VerifiedGauge";
+import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
@@ -176,9 +177,7 @@
                   {store.name}
                 </Link>
               )}
-  <h1 className="font-serif text-4xl font-extrabold leading-tight !text-white sm:text-5xl">
-  {coupon.title}
-</h1>
+  <PageTitle className="leading-tight">{coupon.title}</PageTitle>
               <p className="mt-2 inline-block rounded-xl bg-white px-3 py-1 font-serif text-xl font-extrabold text-inkblue shadow-sm">
                 {formatDiscount(coupon, store?.currency ?? "INR")}
               </p>

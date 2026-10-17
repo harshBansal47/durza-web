@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/seo";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Affiliate Disclosure",
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
 export default function AffiliateDisclosurePage() {
   return (
     <article className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">
+      <PageTitle>
         Affiliate Disclosure
-      </h1>
+      </PageTitle>
       <p className="mt-3 text-sm text-ink-soft">
         Last updated: {LEGAL_LAST_UPDATED}
       </p>

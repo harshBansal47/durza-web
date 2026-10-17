@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { displayName } from "@/lib/session";
 import { logoutAction } from "@/app/account/actions";
+import PageTitle from "@/components/ui/PageTitle";
 
 const TABS = [
   { href: "/account", label: "Overview" },
@@ -31,7 +32,7 @@ export default function AccountShell({
     <div className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-6">
       <header className="flex flex-wrap items-end justify-between gap-4 border-b border-ledger-line pb-6">
         <div className="min-w-0">
-          <h1 className="font-serif text-3xl text-ink">{displayName(user)}</h1>
+          <PageTitle>{displayName(user)}</PageTitle>
           <p className="truncate text-sm text-ink-soft">{user.email}</p>
         </div>
         <form action={logoutAction}>

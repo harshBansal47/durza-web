@@ -4,6 +4,7 @@ import { RegisterForm } from "@/components/account/AuthForms";
 import { registerAction } from "@/app/account/actions";
 import { getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Create an account",
@@ -34,7 +35,7 @@ export default async function RegisterPage({
 
   return (
     <main className="mx-auto w-full max-w-sm px-4 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink">Create your account</h1>
+      <PageTitle>Create your account</PageTitle>
       <p className="mt-2 text-sm text-ink-soft">
         Save the stores you use, follow a product, and we will email you when its price drops or a
         code is confirmed working.

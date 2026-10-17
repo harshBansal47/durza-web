@@ -3,6 +3,7 @@ import Link from "next/link";
 import { resilient } from "@/lib/api";
 import { CouponCard } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
+import PageTitle from "@/components/ui/PageTitle";
 import EmptyState from "@/components/EmptyState";
 import { TrackEvent } from "@/components/Analytics";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
@@ -49,7 +50,7 @@ export default async function SearchPage({ searchParams }: Props) {
   if (!filters.q) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">What are you shopping for?</h1>
+        <PageTitle>What are you shopping for?</PageTitle>
         <p className="mt-2 max-w-prose text-ink-soft">
           Search a store, a brand, a product or a category. Everything listed here has a verification
           trail — use the filters on the results page to see only codes somebody has actually tried.

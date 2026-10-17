@@ -8,6 +8,7 @@ import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
 import { StoreFollowButton } from "@/components/StoreFollowButton";
 import { RecordView } from "@/components/Analytics";
+import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
@@ -151,7 +152,7 @@ export default function StorePageClient({
           </div>
 
           <div className="min-w-0 flex-1">
-            <h1 className="font-serif text-3xl font-extrabold leading-tight text-white sm:text-5xl">{store.name}</h1>
+            <PageTitle>{store.name}</PageTitle>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                 {stats.total} listed offers

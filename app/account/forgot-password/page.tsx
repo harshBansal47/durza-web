@@ -4,6 +4,7 @@ import { ForgotPasswordForm } from "@/components/account/AuthForms";
 import { forgotPasswordAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
 import Logo from "@/components/Logo";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Forgot password",
@@ -32,7 +33,7 @@ export default function ForgotPasswordPage() {
             </svg>
             <Logo size={34} />
           </Link>
-          <h1 className="font-serif text-4xl font-extrabold text-ink">Forgot password</h1>
+          <PageTitle>Forgot password</PageTitle>
           <p className="mt-2 text-ink-soft">
             Enter your email and we&apos;ll send you a link to reset your password.
           </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "About",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <article className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">About Durza</h1>
+      <PageTitle>About Durza</PageTitle>
       <div className="prose-durza mt-6 space-y-4 text-ink-soft">
         <p>
           Durza is a deals platform built on one idea: a discount should be <em>evidence</em>, not
