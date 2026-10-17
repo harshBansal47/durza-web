@@ -73,8 +73,8 @@ export function toDealQuery(
   page: { skip: number; limit: number },
 ): CouponListParams {
   return {
-    store_ids: facets.store_ids.length ? facets.store_ids : undefined,
-    category_ids: facets.category_ids.length ? facets.category_ids : undefined,
+    store_id: facets.store_ids[0],
+    category_id: facets.category_ids[0],
     verified_within_hours: filters.verifiedWithinHours,
     expires_within_days: filters.expiresWithinDays,
     sort: filters.sort,

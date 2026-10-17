@@ -32,10 +32,13 @@ export default function DealsFilterPanel({
   }
 
   function toggleFacet(key: "stores" | "categories", slug: string, checked: boolean) {
-    const selected = new Set((params.get(key) ?? "").split(",").filter(Boolean));
-    if (checked) selected.add(slug);
-    else selected.delete(slug);
-    apply(key, [...selected].join(","));
+    // The catalogue API filters by a single store/category, so the checkboxes
+    // behave as single-select: picking one clears the others.
+    if (!checked) {
+      apply(key, "");
+      return;
+    }
+    apply(key, slug);
   }
 
   return (

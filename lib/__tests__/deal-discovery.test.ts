@@ -40,8 +40,8 @@ describe("deal discovery query", () => {
       unresolved: false,
     });
     expect(toDealQuery(filters, facets, { skip: 20, limit: 20 })).toEqual({
-      store_ids: ["s1", "s2"],
-      category_ids: ["c1"],
+      store_id: "s1",
+      category_id: "c1",
       verified_within_hours: 24,
       expires_within_days: 7,
       sort: "trending",
