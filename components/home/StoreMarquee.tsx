@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { storeInitials } from "@/lib/catalog";
 
 interface MarqueeStore {
   id: string;
@@ -18,7 +19,7 @@ function Chip({ store }: { store: MarqueeStore }) {
         <Image src={store.logo_url} alt="" width={36} height={36} className="h-9 w-9 rounded-full bg-paper object-contain" />
       ) : (
         <span aria-hidden="true" className="bg-ink flex h-9 w-9 items-center justify-center rounded-full font-sans text-sm font-medium text-white">
-          {store.name.charAt(0).toUpperCase()}
+          {storeInitials(store.name)}
         </span>
       )}
       <span className="whitespace-nowrap text-sm font-medium text-ink">{store.name}</span>

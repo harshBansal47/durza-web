@@ -5,6 +5,7 @@ import { ApiError, resilient } from "@/lib/api";
 import CouponCodePanel from "@/components/CouponCodePanel";
 import SponsoredCard from "@/components/SponsoredCard";
 import { getSponsored } from "@/lib/ads";
+import { storeInitials } from "@/lib/catalog";
 import VerifyWidget from "@/components/VerifyWidget";
 import DisclosureNote from "@/components/DisclosureNote";
 import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
@@ -152,7 +153,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                   <Image src={store.logo_url} alt="" width={24} height={24} className="h-6 w-6 rounded-full bg-white object-contain" />
                 ) : (
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white font-serif text-xs font-bold text-inkblue">
-                    {store.name.charAt(0).toUpperCase()}
+                    {storeInitials(store.name)}
                   </span>
                 )}
                 {store.name}
@@ -342,7 +343,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                   <Image src={store.logo_url} alt={store.name} width={60} height={60} className="rounded-full border border-ledger-line object-contain bg-paper-raised" />
                 ) : (
                   <div className="flex h-16 w-16 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-2xl text-ink-soft">
-                    {store.name.charAt(0).toUpperCase()}
+                    {storeInitials(store.name)}
                   </div>
                 )}
               </div>
@@ -389,7 +390,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                 <div className="lift flex items-center gap-4 rounded-2xl border border-ledger-line bg-white p-3">
                   {store && (
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-sm text-ink-soft">
-                      {store.name.charAt(0).toUpperCase()}
+                      {storeInitials(store.name)}
                     </div>
                   )}
                   <div className="flex-1 min-w-0">

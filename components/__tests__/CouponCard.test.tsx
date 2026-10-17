@@ -61,10 +61,11 @@ describe("CouponCard", () => {
     expect(screen.getByRole("link", { name: /Amazon/ })).toHaveAttribute("href", "/stores/amazon");
   });
 
-  it("shows the code and says it is entered at checkout", () => {
+  it("masks the code and points to the reveal on the offer page", () => {
     render(<CouponCard coupon={makeCoupon()} store={store} />);
-    expect(screen.getAllByText("SAVE20").length).toBeGreaterThan(0);
-    expect(screen.getByText(/at checkout/)).toBeInTheDocument();
+    expect(screen.getByText("SAV•••")).toBeInTheDocument();
+    expect(screen.queryByText("SAVE20")).not.toBeInTheDocument();
+    expect(screen.getByText(/to reveal it/)).toBeInTheDocument();
   });
 
   it("says a discount is already applied when there is no code", () => {

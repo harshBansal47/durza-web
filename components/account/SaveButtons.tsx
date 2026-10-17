@@ -4,6 +4,8 @@ import { useOptimistic, useState, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { storeInitials } from "@/lib/catalog";
+import { maskCode } from "@/lib/codes";
 
 /**
  * Save/follow toggles.
@@ -126,7 +128,7 @@ export function StoreFollowRow({
           aria-hidden="true"
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-mono text-[10px] text-ink-soft"
         >
-          {store.name.charAt(0).toUpperCase()}
+          {storeInitials(store.name)}
         </span>
       )}
       <Link
@@ -175,7 +177,7 @@ export function SavedCouponRow({
       {storeName && <span className="text-xs text-ink-soft">{storeName}</span>}
       {coupon.code && (
         <code className="break-anywhere border border-ledger-line bg-paper px-1.5 py-0.5 font-mono text-xs">
-          {coupon.code}
+          {maskCode(coupon.code) ?? coupon.code}
         </code>
       )}
       {expiry && <span className="text-xs text-ink-soft">{expiry}</span>}

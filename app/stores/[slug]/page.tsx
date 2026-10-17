@@ -18,9 +18,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const store = await resilient.getStoreBySlug(slug).catch(() => null);
   if (!store) return { title: "Store not found" };
 
+  // Google truncates descriptions around 155 characters and the seeded store
+  // blurbs are whole paragraphs. A long or multi-line blurb gets a page-specific
+  // summary instead of a half-sentence cut-off; short blurbs pass through.
+  const trimmed = store.description?.trim() ?? "";
   const description =
-    store.description ??
-    `Codes and deals for ${store.name}, each with its source page and last-checked date, and every commission disclosed.`;
+    trimmed && trimmed.length <= 155 && !trimmed.includes("\n")
+      ? trimmed
+      : `${store.name} coupon codes, deals and offers — each with its source page and last-checked date, and every commission disclosed.`;
 
   return {
     title: `${store.name} deals, coupons and savings`,

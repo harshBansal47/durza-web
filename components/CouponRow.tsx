@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { storeInitials } from "@/lib/catalog";
 import { formatDiscount, successRateLabel } from "@/lib/format";
 import type { CouponPublic } from "@/lib/types";
 
@@ -50,7 +51,7 @@ export function StoreMark({ name, logoUrl }: { name: string; logoUrl?: string | 
       aria-hidden
       className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-base text-ink-soft"
     >
-      {name.charAt(0).toUpperCase()}
+      {storeInitials(name)}
     </div>
   );
 }

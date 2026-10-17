@@ -12,6 +12,7 @@ import {
 } from "react";
 import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
+import { storeInitials } from "@/lib/catalog";
 import type { AutocompleteResult } from "@/lib/types";
 
 const RECENT_KEY = "durza.recent";
@@ -144,7 +145,7 @@ function StoreGlyph({ name }: { name: string }) {
       aria-hidden="true"
       className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-xs text-ink-soft"
     >
-      {name.charAt(0).toUpperCase()}
+      {storeInitials(name)}
     </span>
   );
 }

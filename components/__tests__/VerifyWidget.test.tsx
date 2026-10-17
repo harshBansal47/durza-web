@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import VerifyWidget from "@/components/VerifyWidget";
 import { ApiError } from "@/lib/api";
+import { markRevealed } from "@/lib/deviceState";
 import type { CouponPublic, VerifyResponse } from "@/lib/types";
 
 const baseCoupon: CouponPublic = {
@@ -39,6 +40,9 @@ import { api } from "@/lib/api";
 describe("VerifyWidget", () => {
   beforeEach(() => {
     vi.mocked(api.verifyCoupon).mockReset();
+    window.localStorage.clear();
+    // Voting is reveal-gated: the reported flow starts after "reveal".
+    markRevealed("c1");
   });
   afterEach(() => {
     vi.restoreAllMocks();
@@ -48,6 +52,35 @@ describe("VerifyWidget", () => {
     render(<VerifyWidget coupon={baseCoupon} />);
     expect(screen.getByText("67%")).toBeInTheDocument();
     expect(screen.getByText("(3 reports)")).toBeInTheDocument();
+  });
+
+  it("does not invite votes before the code was revealed on this device", () => {
+    window.localStorage.clear();
+    render(<VerifyWidget coupon={baseCoupon} />);
+    expect(screen.queryByRole("button", { name: "Worked" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /reveal the code/i })).toHaveAttribute(
+      "href",
+      "#code-panel",
+    );
+    // The stats stay visible — "no votes yet" is still honest information.
+    expect(screen.getByText("67%")).toBeInTheDocument();
+  });
+
+  it("remembers this device's vote instead of offering a second one", async () => {
+    vi.mocked(api.verifyCoupon).mockResolvedValue({
+      success_count: 3,
+      fail_count: 1,
+      last_verified_at: "2026-01-02T00:00:00Z",
+      success_rate: 0.75,
+    });
+    const { unmount } = render(<VerifyWidget coupon={baseCoupon} />);
+    await userEvent.click(screen.getByRole("button", { name: "Worked" }));
+    await waitFor(() => expect(screen.getByText(/that helps the next person/i)).toBeInTheDocument());
+    unmount();
+
+    render(<VerifyWidget coupon={baseCoupon} />);
+    expect(screen.getByText(/you reported this worked on this device/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Worked" })).not.toBeInTheDocument();
   });
 
   it("shows 'No reports yet' when nothing has been reported", () => {

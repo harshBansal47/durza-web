@@ -8,6 +8,7 @@ import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
 import { StoreFollowButton } from "@/components/StoreFollowButton";
 import { RecordView } from "@/components/Analytics";
+import { storeInitials } from "@/lib/catalog";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { groupSimilar } from "@/lib/grouping";
@@ -49,7 +50,7 @@ function StoreMark({ store, size = 64 }: { store: Store; size?: number }) {
       className="flex shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-ink-soft"
       style={{ width: size, height: size, fontSize: size / 2.6 }}
     >
-      {store.name.charAt(0).toUpperCase()}
+      {storeInitials(store.name)}
     </span>
   );
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How Durza works",
+  title: "How it works",
   description: "From sourcing to verification to disclosure — how the platform works.",
 };
 
@@ -17,7 +17,7 @@ const STEPS: [string, string][] = [
 export default function HowItWorksPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">How Durza works</h1>
+      <h1 className="font-serif text-4xl font-extrabold text-ink sm:text-5xl">How it works</h1>
       <ol className="mt-10 space-y-8 border-l border-ledger-line pl-8">
         {STEPS.map(([title, body], i) => (
           <li key={title}>

@@ -1,7 +1,9 @@
 import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
+import { storeInitials } from "@/lib/catalog";
 import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports } from "@/lib/format";
+import { maskCode } from "@/lib/codes";
 import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
@@ -37,7 +39,7 @@ interface CouponCardProps {
 }
 
 function initials(name: string) {
-  return name.split(/\s+/).slice(0, 2).map((w) => w.charAt(0)).join("").toUpperCase();
+  return storeInitials(name);
 }
 
 function StoreLine({ store }: { store: CouponCardStore }) {
@@ -187,9 +189,9 @@ export function CouponCard({
                 <>
                   Code{" "}
                   <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-2 py-0.5 font-mono text-sm font-medium text-ink">
-                    {coupon.code}
+                    {maskCode(coupon.code) ?? coupon.code}
                   </code>{" "}
-                  at checkout
+                  — tap &ldquo;Get code&rdquo; to reveal it
                 </>
               ) : requirement ? (
                 requirement

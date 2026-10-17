@@ -27,7 +27,7 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
     title: "Company",
     links: [
       { href: "/about", label: "About" },
-      { href: "/trust", label: "How it works" },
+      { href: "/how-it-works", label: "How it works" },
       { href: "/contact", label: "Contact" },
     ],
   },
@@ -63,35 +63,6 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
           />
         </div>
       )}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="bg-paper-alt relative overflow-hidden rounded-[20px] px-6 py-10 border border-ledger-line shadow-[var(--shadow-hairline)] sm:px-12">
-          <div
-            className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-accent-soft/30"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute -bottom-12 -left-12 h-48 w-48 rounded-full bg-accent-soft/15"
-            aria-hidden="true"
-          />
-          <div className="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-            <div className="max-w-xl">
-              <h2 className="font-sans text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-                Stop checking back. Let the price come to you.
-              </h2>
-              <p className="mt-2 text-sm text-ink-soft">
-                Follow a product and we email you when its price drops or its
-                store gets a new tracked offer. Free, no spam.
-              </p>
-            </div>
-            <Link
-              href="/account/register"
-              className="btn btn-primary shrink-0 px-6 py-3 text-base"
-            >
-              Create a free account
-            </Link>
-          </div>
-        </div>
-      </div>
 
       <div className="mt-14 border-t border-ledger-line pt-12 text-ink-soft">
         <div className="mx-auto max-w-6xl px-6">

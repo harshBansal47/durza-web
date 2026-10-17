@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api, ApiError } from "@/lib/api";
+import { DEVICE_STATE_EVENT, getVote, hasRevealed, markVoted } from "@/lib/deviceState";
 import { formatRelativeTime } from "@/lib/format";
 import type { CouponPublic } from "@/lib/types";
 
 type Stats = Pick<CouponPublic, "success_count" | "fail_count" | "last_verified_at" | "success_rate">;
 
+/**
+ * "Did it work?" widget. Two honesty rules:
+ *  - a vote needs a reveal first — you can only report on an offer you saw;
+ *  - this device remembers its own vote, so the buttons don't invite a second
+ *    one the server would reject anyway (the server keeps its own cooldown).
+ */
 export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
   const [stats, setStats] = useState<Stats>({
     success_count: coupon.success_count,
@@ -15,6 +22,20 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
     success_rate: coupon.success_rate,
   });
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "limited">("idle");
+  const [device, setDevice] = useState<{ revealed: boolean; vote: "worked" | "failed" | null } | null>(null);
+
+  useEffect(() => {
+    function refresh() {
+      setDevice({ revealed: hasRevealed(coupon.id), vote: getVote(coupon.id) });
+    }
+    refresh();
+    window.addEventListener(DEVICE_STATE_EVENT, refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener(DEVICE_STATE_EVENT, refresh);
+      window.removeEventListener("storage", refresh);
+    };
+  }, [coupon.id]);
 
   async function report(worked: boolean) {
     if (status === "sending") return;
@@ -22,6 +43,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
     try {
       const updated = await api.verifyCoupon(coupon.id, worked);
       setStats(updated);
+      markVoted(coupon.id, worked);
       setStatus("done");
     } catch (err) {
       setStatus(err instanceof ApiError && err.status === 429 ? "limited" : "idle");
@@ -57,7 +79,12 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
         <p className="text-sm text-verified">Thanks — that helps the next person.</p>
       ) : status === "limited" ? (
         <p className="text-sm text-ink-soft">You&apos;ve already reported on this one recently.</p>
-      ) : (
+      ) : device?.vote ? (
+        <p className="text-sm text-ink-soft">
+          You reported this {device.vote === "worked" ? "worked" : "didn&apos;t work"} on this device.
+          One vote per offer per day — thanks for keeping it honest.
+        </p>
+      ) : device?.revealed ? (
         <div className="flex flex-wrap items-center gap-2">
           <span className="mr-1 text-sm text-ink-soft">Did this work for you?</span>
           <button
@@ -77,7 +104,15 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
             Didn&apos;t work
           </button>
         </div>
-      )}
+      ) : device ? (
+        <p className="text-sm text-ink-soft">
+          Votes come from people who actually tried the offer.{" "}
+          <a href="#code-panel" className="text-inkblue underline-offset-2 hover:underline">
+            Reveal the code
+          </a>{" "}
+          first, then come back and say how it went.
+        </p>
+      ) : null}
     </div>
   );
 }

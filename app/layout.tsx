@@ -3,6 +3,7 @@ import { GeistSans, GeistMono } from "geist/font";
 import { displayName, getSessionUser } from "@/lib/session";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PriceAlertBanner from "@/components/PriceAlertBanner";
 import PromoStrip from "@/components/PromoStrip";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
@@ -68,7 +69,7 @@ const MORE_NAV_LINKS = [
   { href: "/reviews", label: "Reviews" },
   { href: "/collections", label: "Collections" },
   { href: "/saved", label: "Saved" },
-  { href: "/trust", label: "How this works" },
+  { href: "/trust", label: "How Durza works" },
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -92,6 +93,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main id="main" className="flex-1">
             {children}
           </main>
+          <PriceAlertBanner />
           <Footer ad={footerAd} />
           <MobileTabBar />
           <InstallPrompt />

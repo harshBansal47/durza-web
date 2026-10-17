@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { storeInitials } from "@/lib/catalog";
 import {
   formatDate,
   formatDiscount,
@@ -53,7 +54,7 @@ export default function DealCard({
               />
             ) : (
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-mono text-xs text-ink">
-                {(store?.name ?? "D").charAt(0).toUpperCase()}
+                {storeInitials(store?.name)}
               </span>
             )}
             <span className="truncate">{store?.name ?? "Deal"}</span>

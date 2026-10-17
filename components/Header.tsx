@@ -252,7 +252,12 @@ export default function Header({
             </button>
 
             <MobileNav
-              links={[...links, ...moreLinks]}
+              links={[
+                ...links,
+                // The phone tab bar already owns "Saved"; the hamburger
+                // repeating it is the duplicate this menu used to show.
+                ...moreLinks.filter((link) => link.href !== "/saved"),
+              ]}
               accountLink={
                 user
                   ? { href: "/account", label: "Your account" }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import OutboundLink from "./OutboundLink";
 import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
+import { markRevealed } from "@/lib/deviceState";
 import { rememberGo } from "@/lib/lastGo";
 import { cardRequirementLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
@@ -25,6 +26,7 @@ export default function CouponCodePanel({
 
   async function reveal() {
     setRevealed(true);
+    markRevealed(coupon.id);
     track("coupon_reveal", { coupon_id: coupon.id });
     // Reveal means "take me to the deal": open the store in a NEW tab through
     // the tracked /go link so the click is attributable, AND copy the code so

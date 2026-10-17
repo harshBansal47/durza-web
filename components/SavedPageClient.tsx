@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { storeInitials } from "@/lib/catalog";
 import { getFollowedStores, getSavedCouponIds } from "@/lib/personalization";
 import { CouponCardGrid, type CouponCardStore } from "@/components/CouponCard";
 import type { CouponPublic, Store } from "@/lib/types";
@@ -103,7 +104,7 @@ export function SavedPageClient() {
                     aria-hidden="true"
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-sm text-ink-soft"
                   >
-                    {s.name.charAt(0).toUpperCase()}
+                    {storeInitials(s.name)}
                   </span>
                   <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{s.name}</span>
                   <span className="shrink-0 text-sm text-ink-soft">→</span>
