@@ -158,7 +158,7 @@
           pageId={coupon.slug}
         />
 
-        <header className="bg-brand relative mb-8 overflow-hidden rounded-[26px]  shadow-[var(--shadow-overlay)]">
+        <header className="dark-surface bg-brand relative mb-8 overflow-hidden rounded-[26px]  shadow-[var(--shadow-overlay)]">
           <div className="relative flex flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-10">
             <div className="min-w-0 flex-1 text-white">
               {store && (

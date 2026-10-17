@@ -2,10 +2,14 @@
 
 /*
   Design concept: "premium marketplace, quiet confidence." A light, refined
-  storefront inspired by Framer's design language: champagne gold accents,
-  generous whitespace, soft shadows, and precise typography. The brand promise
-  stays the same (community-verified, commission disclosed): the energy is in
-  the restraint, never in fake countdowns or invented scarcity.
+  storefront: generous whitespace, soft shadows, and precise typography. The
+  brand promise stays the same (community-verified, commission disclosed): the
+  energy is in the restraint, never in fake countdowns or invented scarcity.
+
+  Cascade layers: element defaults live in @layer base and the design system
+  classes (.btn, .input, .ticket, …) in @layer components, so Tailwind
+  utilities can always override them. Anything left unlayered (keyframes,
+  reduced-motion and print overrides) intentionally wins over everything.
 */
 @theme {
   --color-paper: #fafaf8;
@@ -34,13 +38,42 @@
   --color-pink: #ff4d8d;
   --color-night: #0a0a0a;
 
-  --font-sans: var(--font-body), "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-code), ui-monospace, "SF Mono", monospace;
+  /* Dark-surface tokens: used by .dark-surface so headings, body copy and
+     borders stay readable on navy/ink panels without per-element overrides. */
+  --color-ink-on-dark: #ffffff;
+  --color-ink-soft-on-dark: rgba(255, 255, 255, 0.78);
+  --color-ledger-line-on-dark: rgba(255, 255, 255, 0.18);
 
+  --font-sans: var(--font-geist-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  --font-serif: "Newsreader Variable", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+
+  /* Type scale: display / title / heading / body / small / caption. */
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-heading: 1.25rem;
+  --text-heading--line-height: 1.3;
+  --text-title: 1.75rem;
+  --text-title--line-height: 1.15;
+  --text-display: clamp(1.875rem, 1.6vw + 1.2rem, 2.5rem);
+  --text-display--line-height: 1.1;
+
+  /* Radius scale: 8 / 12 / 16 / 20 px, plus pills. */
+  --radius-xs: 8px;
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 20px;
   --radius-full: 999px;
+
+  /* Motion: calm durations only. Fast for taps, base for hovers, slow for
+     entrances. */
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+  --duration-slow: 640ms;
 
   --shadow-hairline: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-raised: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.06);
@@ -58,371 +91,380 @@
   --animate-gradient: gradientShift 14s ease infinite;
 }
 
-:root {
-  color-scheme: light;
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ---- Typography scale ----
+     Element defaults only. Utility classes now override these (they used to
+     lose to unlayered rules, which is why authored sizes like text-[17px]
+     never applied). On dark surfaces use .dark-surface so ink and
+     ink-soft resolve to readable values. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    color: var(--color-ink);
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  h4, h5, h6 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
 }
 
-body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ---- Typography scale ----
-   Note: these element-level colours beat colours inherited from an ancestor
-   (e.g. a `text-white` wrapper). On dark surfaces — bg-ink, bg-brand, the
-   store-page header — the heading, paragraph or link itself must carry an
-   explicit text-* class, or it will render near-black on near-black. */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  color: var(--color-ink);
-}
-
-h1 {
-  font-size: clamp(44px, 7.4vw, 108px);
-  font-weight: 500;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-h2 {
-  font-size: clamp(34px, 4.6vw, 64px);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-}
-
-h3 {
-  font-size: clamp(20px, 2.4vw, 28px);
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-
-p {
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--color-ink-soft);
-}
-
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-/* ---- Layout ---- */
-.page-shell {
-  width: min(100%, 1280px);
-  margin-inline: auto;
-  padding-inline: 24px;
-  padding-block: 1.5rem;
-}
-
-@media (min-width: 640px) {
+@layer components {
+  /* ---- Layout ---- */
   .page-shell {
-    padding-inline: 48px;
-    padding-block: 2rem;
+    width: min(100%, 1280px);
+    margin-inline: auto;
+    padding-inline: 24px;
+    padding-block: 1.5rem;
   }
-}
 
-.section-panel {
-  position: relative;
-  border: 1px solid var(--color-ledger-line);
-  background: var(--color-paper-raised);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-hairline);
-}
-
-.section-panel-muted {
-  border: 1px solid var(--color-ledger-line);
-  background: var(--color-paper-alt);
-  box-shadow: var(--shadow-hairline);
-}
-
-.info-card {
-  border: 1px solid var(--color-ledger-line);
-  background: var(--color-paper-raised);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-hairline);
-  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out), border-color 200ms ease;
-}
-
-.info-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-accent-soft);
-  box-shadow: var(--shadow-raised);
-}
-
-/* ---- Buttons ---- */
-.btn,
-.btn-primary,
-.btn-outline,
-.btn-verified,
-.btn-cta,
-.btn-danger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: var(--radius-full);
-  border: 1px solid transparent;
-  padding: 0.65rem 1.25rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out),
-    background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  min-height: 44px;
-}
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn:active:not(:disabled) { transform: scale(0.97); }
-
-.btn-primary {
-  background: var(--color-ink);
-  color: #fff;
-  box-shadow: none;
-}
-.btn-primary:hover:not(:disabled) {
-  transform: translateY(-1px);
-  background: var(--color-accent);
-  box-shadow: var(--shadow-raised);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--color-ink);
-  border-color: rgba(0, 0, 0, 0.25);
-}
-.btn-outline:hover:not(:disabled) {
-  background: var(--color-ink);
-  color: #fff;
-  border-color: var(--color-ink);
-}
-
-.btn-danger {
-  background: var(--color-rust);
-  color: #fff;
-  box-shadow: var(--shadow-glow-orange);
-}
-.btn-danger:hover:not(:disabled) { transform: translateY(-1px); background: #a8370b; }
-
-.btn-ghost { background: transparent; color: var(--color-ink-soft); }
-.btn-ghost:hover:not(:disabled) { color: var(--color-ink); background: rgba(0, 0, 0, 0.04); }
-
-.btn-verified { background: var(--color-verified); color: #fff; border-color: var(--color-verified); box-shadow: 0 4px 12px rgba(45, 122, 79, 0.15); }
-.btn-verified:hover:not(:disabled) { transform: translateY(-1px); opacity: 0.95; }
-
-.btn-cta {
-  background: var(--color-ink);
-  color: #fff;
-  box-shadow: none;
-}
-.btn-cta:hover:not(:disabled) {
-  transform: translateY(-1px);
-  background: var(--color-accent);
-  box-shadow: var(--shadow-raised);
-}
-
-/* ---- Inputs ---- */
-.input {
-  width: 100%;
-  border: 1px solid var(--color-ledger-line);
-  border-radius: var(--radius-sm);
-  background: var(--color-paper-raised);
-  padding: 0.65rem 0.9rem;
-  font-size: 0.875rem;
-  color: var(--color-ink);
-  transition: border-color 150ms ease, box-shadow 150ms ease;
-}
-.input:focus {
-  outline: none;
-  border-color: var(--color-accent-soft);
-  box-shadow: 0 0 0 3px rgba(200, 182, 138, 0.2);
-}
-.input::placeholder { color: var(--color-ink-soft); }
-.input[aria-invalid="true"] { border-color: var(--color-rust); }
-
-/* ---- Brand surfaces ---- */
-.bg-brand {
-  background: var(--color-ink);
-}
-.bg-brand-warm {
-  background: var(--color-accent);
-}
-.bg-brand-night {
-  background: var(--color-ink);
-}
-.bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-.text-gradient {
-  background-image: linear-gradient(90deg, var(--color-ink), var(--color-accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* ---- Motion language ---- */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
-}
-
-/* ---- Signature elements ---- */
-.marker {
-  background-image: linear-gradient(100deg, transparent 2%, var(--color-accent-soft) 4%, var(--color-accent-soft) 96%, transparent 98%);
-  background-repeat: no-repeat;
-  background-size: 100% 0.55em;
-  background-position: 0 88%;
-  padding: 0 0.1em;
-}
-
-.stamp {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border: 1px solid var(--color-ledger-line);
-  border-radius: var(--radius-full);
-  padding: 0.2rem 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.savings-figure {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-/* ---- Lift-on-hover card ---- */
-.lift {
-  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out), border-color 200ms ease;
-}
-.lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-raised);
-  border-color: var(--color-accent-soft);
-}
-
-/* ---- Ticket card ---- */
-.ticket {
-  position: relative;
-  --notch-y: 5.6rem;
-  -webkit-mask:
-    radial-gradient(circle 9px at 0 var(--notch-y), #0000 98%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 9px at 100% var(--notch-y), #0000 98%, #000) right / 51% 100% no-repeat;
-  mask:
-    radial-gradient(circle 9px at 0 var(--notch-y), #0000 98%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 9px at 100% var(--notch-y), #0000 98%, #000) right / 51% 100% no-repeat;
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: var(--animate-marquee);
-}
-.marquee:hover .marquee-track { animation-play-state: paused; }
-
-.shimmer {
-  background: linear-gradient(100deg, #f2f1ed 30%, #fafaf8 50%, #f2f1ed 70%);
-  background-size: 200% 100%;
-  animation: var(--animate-shimmer);
-}
-
-.confetti-piece {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 8px;
-  height: 12px;
-  border-radius: 2px;
-  background: var(--c, #c8b68a);
-  pointer-events: none;
-  animation: confetti 900ms var(--ease-out) forwards;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-  50% { transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 4deg)); }
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@keyframes shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
-}
-@keyframes pop {
-  0% { opacity: 0; transform: scale(0.85); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-@keyframes confetti {
-  0% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-  100% {
-    opacity: 0;
-    transform: translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, -80px))) rotate(var(--rot, 300deg)) scale(0.6);
+  @media (min-width: 640px) {
+    .page-shell {
+      padding-inline: 48px;
+      padding-block: 2rem;
+    }
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .section-panel {
+    position: relative;
+    border: 1px solid var(--color-ledger-line);
+    background: var(--color-paper-raised);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hairline);
   }
+
+  .section-panel-muted {
+    border: 1px solid var(--color-ledger-line);
+    background: var(--color-paper-alt);
+    box-shadow: var(--shadow-hairline);
+  }
+
+  .info-card {
+    border: 1px solid var(--color-ledger-line);
+    background: var(--color-paper-raised);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hairline);
+    transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), border-color var(--duration-base) ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent-soft);
+    box-shadow: var(--shadow-raised);
+  }
+
+  /* ---- Surfaces ----
+     A dark panel redefines the ink tokens inside itself so plain headings,
+     paragraphs, links and hairlines stay readable without per-element
+     overrides. A nested light card resets them with .light-surface. */
+  .dark-surface {
+    --color-ink: var(--color-ink-on-dark);
+    --color-ink-soft: var(--color-ink-soft-on-dark);
+    --color-ledger-line: var(--color-ledger-line-on-dark);
+  }
+
+  .light-surface {
+    --color-ink: #0a0a0a;
+    --color-ink-soft: #5c5c5c;
+    --color-ledger-line: rgba(0, 0, 0, 0.10);
+  }
+
+  /* ---- Buttons ---- */
+  .btn,
+  .btn-primary,
+  .btn-outline,
+  .btn-verified,
+  .btn-cta,
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) ease, color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease, opacity var(--duration-fast) ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 44px;
+  }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--color-ink);
+    color: #fff;
+    box-shadow: none;
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--color-accent);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+  .btn-outline:hover:not(:disabled) {
+    background: var(--color-ink);
+    color: #fff;
+    border-color: var(--color-ink);
+  }
+
+  .btn-danger {
+    background: var(--color-rust);
+    color: #fff;
+    box-shadow: var(--shadow-glow-orange);
+  }
+  .btn-danger:hover:not(:disabled) { transform: translateY(-1px); background: #a8370b; }
+
+  .btn-ghost { background: transparent; color: var(--color-ink-soft); }
+  .btn-ghost:hover:not(:disabled) { color: var(--color-ink); background: rgba(0, 0, 0, 0.04); }
+
+  .btn-verified { background: var(--color-verified); color: #fff; border-color: var(--color-verified); box-shadow: 0 4px 12px rgba(45, 122, 79, 0.15); }
+  .btn-verified:hover:not(:disabled) { transform: translateY(-1px); opacity: 0.95; }
+
+  .btn-cta {
+    background: var(--color-ink);
+    color: #fff;
+    box-shadow: none;
+  }
+  .btn-cta:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--color-accent);
+    box-shadow: var(--shadow-raised);
+  }
+
+  /* ---- Inputs ---- */
+  .input {
+    width: 100%;
+    border: 1px solid var(--color-ledger-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-paper-raised);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-accent-soft);
+    box-shadow: 0 0 0 3px rgba(200, 182, 138, 0.2);
+  }
+  .input::placeholder { color: var(--color-ink-soft); }
+  .input[aria-invalid="true"] { border-color: var(--color-rust); }
+
+  /* ---- Brand surfaces ---- */
+  .bg-brand {
+    background: var(--color-ink);
+  }
+  .bg-brand-warm {
+    background: var(--color-accent);
+  }
+  .bg-brand-night {
+    background: var(--color-ink);
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .text-gradient {
+    background-image: linear-gradient(90deg, var(--color-ink), var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Motion language ---- */
   .reveal {
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+  }
+
+  /* ---- Signature elements ---- */
+  /* Lower-third highlight: an underline that sits beneath the baseline,
+     never a strike-through across the figures. */
+  .marker {
+    background-image: linear-gradient(100deg, transparent 2%, var(--color-accent-soft) 4%, var(--color-accent-soft) 96%, transparent 98%);
+    background-repeat: no-repeat;
+    background-size: 100% 0.26em;
+    background-position: 0 100%;
+    padding: 0 0.12em;
+  }
+
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: 1px solid var(--color-ledger-line);
+    border-radius: var(--radius-full);
+    padding: 0.2rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .savings-figure {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  /* ---- Lift-on-hover card ---- */
+  .lift {
+    transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), border-color var(--duration-base) ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-raised);
+    border-color: var(--color-accent-soft);
+  }
+
+  /* ---- Ticket card ---- */
+  .ticket {
+    position: relative;
+    --notch-y: 5.6rem;
+    -webkit-mask:
+      radial-gradient(circle 9px at 0 var(--notch-y), #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 9px at 100% var(--notch-y), #0000 98%, #000) right / 51% 100% no-repeat;
+    mask:
+      radial-gradient(circle 9px at 0 var(--notch-y), #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 9px at 100% var(--notch-y), #0000 98%, #000) right / 51% 100% no-repeat;
+  }
+
+  .ticket-wrap {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.04));
+    transition: transform var(--duration-base) var(--ease-out), filter var(--duration-base) var(--ease-out);
+  }
+  .ticket-wrap:hover {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.06));
+  }
+  .ticket { --notch-y: 6rem; }
+  .deal-ticket { --notch-y: 4rem; }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: var(--animate-marquee);
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
+  .shimmer {
+    background: linear-gradient(100deg, #f2f1ed 30%, #fafaf8 50%, #f2f1ed 70%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  .confetti-piece {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 8px;
+    height: 12px;
+    border-radius: 2px;
+    background: var(--c, #c8b68a);
+    pointer-events: none;
+    animation: confetti 900ms var(--ease-out) forwards;
+  }
+
+  /* ---- Perforated edge ---- */
+  .perforated-bottom {
+    position: relative;
+  }
+  .perforated-bottom::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 8px;
+    background-image: radial-gradient(circle at 6px 0, transparent 4px, var(--color-paper) 4.5px);
+    background-size: 12px 8px;
+    background-repeat: repeat-x;
+  }
+
+  .break-anywhere {
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 640px) {
+    .btn,
+    .input,
+    select {
+      min-height: 44px;
+    }
+    .btn {
+      padding: 0.625rem 1rem;
+    }
   }
 }
 
-/* ---- Focus ---- */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* ---- Perforated edge ---- */
-.perforated-bottom {
-  position: relative;
-}
-.perforated-bottom::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 8px;
-  background-image: radial-gradient(circle at 6px 0, transparent 4px, var(--color-paper) 4.5px);
-  background-size: 12px 8px;
-  background-repeat: repeat-x;
-}
-
-/* ---- Utilities ---- */
 @layer utilities {
   .touch-target {
     min-height: 44px;
@@ -464,46 +506,70 @@ a {
   }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 4deg)); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@keyframes pop {
+  0% { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes confetti {
+  0% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, -80px))) rotate(var(--rot, 300deg)) scale(0.6);
+  }
+}
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slideIn {
   from { opacity: 0; transform: translateX(100%); }
   to { opacity: 1; transform: translateX(0); }
 }
-
 @keyframes slideUpStagger {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 640px) {
-  .btn,
-  .input,
-  select {
-    min-height: 44px;
+/* Unlayered on purpose: these must win over every utility and component
+   class when the user asks for less motion, or when printing. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-  .btn {
-    padding: 0.625rem 1rem;
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
-}
-
-@layer components {
-  .break-anywhere {
-    overflow-wrap: anywhere;
-  }
+  .marquee-track { animation: none !important; }
+  .marquee { overflow-x: auto; }
 }
 
 @media print {
@@ -511,19 +577,3 @@ a {
     display: none !important;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none !important; }
-  .marquee { overflow-x: auto; }
-}
-
-.ticket-wrap {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.04));
-  transition: transform 200ms var(--ease-out), filter 200ms var(--ease-out);
-}
-.ticket-wrap:hover {
-  transform: translateY(-4px);
-  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.06));
-}
-.ticket { --notch-y: 6rem; }
-.deal-ticket { --notch-y: 4rem; }

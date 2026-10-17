@@ -17,6 +17,8 @@ export const BRAND = {
   orangeDeep: "#C2410C",
   white: "#FFFFFF",
   ink: "#141414",
+  /** Page background, matches --color-paper in app/globals.css. */
+  paper: "#FAFAF8",
 } as const;
 
 /** The D mark on a 512x512 grid. Fill with fillRule="evenodd". */

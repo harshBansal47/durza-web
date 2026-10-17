@@ -49,7 +49,7 @@ function StoreMark({ store, size = 64 }: { store: Store; size?: number }) {
   return (
     <span
       aria-hidden="true"
-      className="flex shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-ink-soft"
+      className="light-surface flex shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-ink-soft"
       style={{ width: size, height: size, fontSize: size / 2.6 }}
     >
       {storeInitials(store.name)}
@@ -126,7 +126,7 @@ export default function StorePageClient({
     <div className="space-y-10 sm:space-y-14">
       <RecordView storeSlug={store.slug} />
       <header
-        className="relative overflow-hidden rounded-[26px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]"
+        className="dark-surface relative overflow-hidden rounded-[26px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]"
         style={{ backgroundImage: "linear-gradient(120deg, #1b1836, #253d70)" }}
       >
         {/* The store's own accent colour, sampled from its icon — decorative only. */}
@@ -174,7 +174,7 @@ export default function StorePageClient({
           <button
             type="button"
             onClick={share}
-            className="btn shrink-0 self-start bg-white text-ink hover:bg-white/90"
+            className="btn light-surface shrink-0 self-start bg-white text-ink hover:bg-white/90"
             aria-live="polite"
           >
             {copied ? "Link copied" : "Share"}

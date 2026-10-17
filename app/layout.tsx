@@ -13,6 +13,8 @@ import ConsentBanner from "@/components/ConsentBanner";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
+import { BRAND } from "@/lib/brand";
+import "@fontsource-variable/newsreader";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#fafaf8",
+  themeColor: BRAND.paper,
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
