@@ -11,7 +11,6 @@ import {
 } from "@/lib/format";
 import { sourceLine } from "@/lib/requirements";
 import { storeLogoUrl } from "@/lib/storeLogos";
-import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import type { CouponPublic, Store } from "@/lib/types";
 import { CardImpressions } from "./CardImpressions";
 import { CardSaveButton } from "./CardSaveButton";
@@ -119,9 +118,6 @@ export default function DealCard({
             >
               Get Deal
             </Link>
-            <p className="mt-2 text-center text-[11px] leading-snug text-ink-soft">
-              {store?.commission_disclosure || DEFAULT_DISCLOSURE}
-            </p>
           </div>
         </div>
       </article>

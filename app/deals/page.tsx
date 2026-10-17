@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { resilient } from "@/lib/api";
 import DealCard from "@/components/DealCard";
 import EmptyState from "@/components/EmptyState";
@@ -223,10 +224,15 @@ export default async function DealsPage({
         )}
         <p className="mt-4 text-right text-sm">
           <Link href="/coupons" className="text-inkblue hover:underline">
-            All coupons →
+            All coupons
+            <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
           </Link>
         </p>
       </FilterLayout>
+      <p className="mt-6 text-center text-xs text-ink-soft">
+        We may earn a commission when you shop through links on this page. It
+        does not change the price you pay.
+      </p>
     </div>
   );
 }
