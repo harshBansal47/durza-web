@@ -153,7 +153,7 @@ export default function StorePageClient({
           </div>
 
           <div className="min-w-0 flex-1">
-            <PageTitle>{store.name}</PageTitle>
+            <PageTitle className="text-white">{store.name}</PageTitle>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                 {stats.total} listed offers

@@ -221,18 +221,17 @@
     box-shadow: var(--shadow-raised);
   }
 
-  /* ---- Surfaces ----
-     A dark panel redefines the ink tokens inside itself so plain headings,
-     paragraphs, links and hairlines stay readable without per-element
-     overrides. A nested light card resets them with .light-surface. */
+  /* A dark panel redefines the soft ink and hairline tokens inside itself so
+     body copy and borders stay readable on navy/ink panels. The base ink
+     token is intentionally left alone: `bg-ink`/`bg-brand` use it for their
+     own backgrounds, and headings on these surfaces carry an explicit
+     `text-white`. */
   .dark-surface {
-    --color-ink: var(--color-ink-on-dark);
     --color-ink-soft: var(--color-ink-soft-on-dark);
     --color-ledger-line: var(--color-ledger-line-on-dark);
   }
 
   .light-surface {
-    --color-ink: #0a0a0a;
     --color-ink-soft: #5c5c5c;
     --color-ledger-line: rgba(0, 0, 0, 0.10);
   }

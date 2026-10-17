@@ -178,7 +178,7 @@ import PageTitle from "@/components/ui/PageTitle";
                   {store.name}
                 </Link>
               )}
-  <PageTitle className="leading-tight">{coupon.title}</PageTitle>
+  <PageTitle className="leading-tight text-white">{coupon.title}</PageTitle>
               <p className="mt-2 inline-block rounded-xl bg-white px-3 py-1 font-serif text-xl font-extrabold text-inkblue shadow-sm">
                 {formatDiscount(coupon, store?.currency ?? "INR")}
               </p>

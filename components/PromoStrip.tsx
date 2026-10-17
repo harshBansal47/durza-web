@@ -21,7 +21,7 @@ export default function PromoStrip() {
   const [paused, setPaused] = useState(false);
   const loop = [...MESSAGES, ...MESSAGES];
   return (
-    <div className="dark-surface bg-ink relative overflow-hidden text-white no-print">
+    <div className="bg-ink relative overflow-hidden text-white no-print">
       <div className="relative mx-auto flex max-w-6xl items-center gap-3 px-4 py-1.5 sm:px-6">
         <span className="hidden shrink-0 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-medium sm:inline">
           Sourced from official store pages
