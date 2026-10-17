@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { Menu, Search, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import type { NavLink } from "./Header";
 import Logo from "@/components/Logo";
@@ -75,13 +76,9 @@ export default function MobileNav({
         aria-label="Menu"
         aria-expanded={open}
         aria-haspopup="dialog"
-        className="btn-ghost flex h-11 w-11 items-center justify-center touch-target"
+        className="btn-ghost flex h-11 w-11 items-center justify-center touch-target p-0"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <Menu aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
       </button>
 
       {open &&
@@ -110,12 +107,9 @@ export default function MobileNav({
                   type="button"
                   onClick={close}
                   aria-label="Close menu"
-                  className="btn-ghost -mr-2 flex h-11 w-11 items-center justify-center touch-target"
+                  className="btn-ghost -mr-2 flex h-11 w-11 items-center justify-center touch-target p-0"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
+                  <X aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
                 </button>
               </div>
 
@@ -152,10 +146,7 @@ export default function MobileNav({
                     }}
                     className="flex h-12 w-full items-center justify-center gap-2 rounded-sm border border-ledger-line bg-paper px-4 text-base font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inkblue"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                      <circle cx="11" cy="11" r="8" />
-                      <path d="M21 21l-4.35-4.35" />
-                    </svg>
+                    <Search aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={1.75} />
                     Search
                   </button>
                 )}

@@ -3,6 +3,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ChevronDown, Search, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import { HeaderSearch, MobileSearch } from "./HeaderSearch";
@@ -126,10 +127,8 @@ export default function Header({
             {moreLinks.length > 0 && (
               <details className="group relative flex h-full items-center">
                 <summary className="flex h-10 cursor-pointer list-none items-center rounded-full px-4 text-[13px] font-medium tracking-wide text-ink-soft hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">
-                  Explore
-                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="ml-1 h-4 w-4">
-                    <path d="m6 8 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  More
+                  <ChevronDown aria-hidden="true" className="ml-1 h-4 w-4" strokeWidth={1.75} />
                 </summary>
                 <div className="invisible absolute right-0 top-full z-50 mt-2 min-w-48 translate-y-1 rounded-2xl border border-ledger-line bg-white p-2 opacity-0 shadow-[var(--shadow-overlay)] transition group-open:visible group-open:translate-y-0 group-open:opacity-100">
                   {moreLinks.map((link) => (
@@ -177,43 +176,11 @@ export default function Header({
                     {user.name}
                   </span>
 
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    className="h-4 w-4 text-ink-soft"
-                  >
-                    <path
-                      d="m6 8 4 4 4-4"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <ChevronDown aria-hidden="true" className="h-4 w-4 text-ink-soft" strokeWidth={1.75} />
                 </>
               ) : (
                 <>
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="h-[17px] w-[17px] text-accent"
-                  >
-                    <path
-                      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                      stroke="currentColor"
-                      strokeWidth="1.7"
-                      strokeLinecap="round"
-                    />
-                    <circle
-                      cx="12"
-                      cy="7"
-                      r="4"
-                      stroke="currentColor"
-                      strokeWidth="1.7"
-                    />
-                  </svg>
+                  <User aria-hidden="true" className="h-4 w-4 text-accent" strokeWidth={1.75} />
 
                   <span>Sign in</span>
                 </>
@@ -236,19 +203,7 @@ export default function Header({
               "
               aria-label="Open search"
             >
-              <svg
-                width="21"
-                height="21"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <circle cx="11" cy="11" r="7.5" />
-                <path d="m16.5 16.5 4 4" />
-              </svg>
+              <Search aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
             </button>
 
             <MobileNav

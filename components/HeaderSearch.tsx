@@ -10,8 +10,9 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from "react";
-import { api } from "@/lib/api";
+import { Clock, Flame, Folder, Tag, X } from "lucide-react";
 import { track } from "@/lib/analytics";
+import { api } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
 import type { AutocompleteResult } from "@/lib/types";
 
@@ -151,51 +152,11 @@ function StoreGlyph({ name }: { name: string }) {
 }
 
 function Icon({ name }: { name: "clock" | "category" | "tag" | "flame" }) {
-  const paths = {
-    clock: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <polyline points="12 7 12 12 15.5 14" />
-      </>
-    ),
-    category: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M15.5 8.5l-3 3" />
-        <path d="M8.5 15.5l3-3" />
-      </>
-    ),
-    tag: (
-      <>
-        <path d="M20.6 13.4L12 22l-9-9V3h10l7.6 7.6a2 2 0 010 2.8z" />
-        <circle cx="7.5" cy="7.5" r="1.2" />
-      </>
-    ),
-    flame: (
-      <>
-        <path d="M12 22c4 0 7-2.7 7-6.5 0-4.5-4-6.5-4-11 0 0-2 1.5-2 4 0 1.5-1 2-1.8 1.3C10 8.6 9.5 7 9.5 7S5 10 5 15.5C5 19.3 8 22 12 22z" />
-      </>
-    ),
-  }[name];
-
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="shrink-0 text-ink-soft"
-      aria-hidden="true"
-    >
-      {paths}
-    </svg>
-  );
+  if (name === "clock") return <Clock aria-hidden="true" className="h-4 w-4 shrink-0 text-ink-soft" strokeWidth={1.75} />;
+  if (name === "category") return <Folder aria-hidden="true" className="h-4 w-4 shrink-0 text-ink-soft" strokeWidth={1.75} />;
+  if (name === "tag") return <Tag aria-hidden="true" className="h-4 w-4 shrink-0 text-ink-soft" strokeWidth={1.75} />;
+  return <Flame aria-hidden="true" className="h-4 w-4 shrink-0 text-ink-soft" strokeWidth={1.75} />;
 }
-
 /**
  * Header search with debounced, abortable type-ahead over stores, categories
  * and products. Recents live in localStorage; popular terms are seeded by the
@@ -470,10 +431,7 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
           className="btn-ghost -ml-1 flex h-11 w-11 items-center justify-center"
           aria-label="Close search"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <X aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
         </button>
         <form
           role="search"
