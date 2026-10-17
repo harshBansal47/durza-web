@@ -3,6 +3,7 @@ import Link from "next/link";
 import { resilient } from "@/lib/api";
 import { categoryLabel } from "@/lib/catalog";
 import PageTitle from "@/components/ui/PageTitle";
+import CategoryIcon from "@/components/CategoryIcon";
 import { absoluteUrl } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -28,14 +29,20 @@ export default async function CategoriesIndexPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
       <PageTitle className="mb-8">Categories</PageTitle>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {items.map((c) => (
           <Link
             key={c.id}
             href={`/categories/${c.slug}`}
-            className="border border-ledger-line bg-paper-raised px-4 py-6 text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+            className="group flex flex-col items-center gap-3 rounded-lg border border-ledger-line bg-paper-raised px-4 py-6 text-center transition-colors hover:border-accent-soft hover:text-ink"
           >
-            {categoryLabel(c)}
+            <span
+              aria-hidden="true"
+              className="flex h-12 w-12 items-center justify-center rounded-lg border border-ledger-line bg-paper text-ink shadow-[var(--shadow-hairline)] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-accent-soft group-hover:shadow-[var(--shadow-raised)]"
+            >
+              <CategoryIcon category={c} className="h-6 w-6" />
+            </span>
+            <span className="text-sm font-medium text-ink group-hover:text-accent">{categoryLabel(c)}</span>
           </Link>
         ))}
       </div>
