@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useId, type FormEvent } from "react";
+import { useCallback, useId, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export interface KeywordFormProps {
@@ -19,6 +19,9 @@ export interface KeywordFormProps {
  * the whole query string, so searching for a new term would silently drop the
  * store, type and sort a visitor had already chosen. This reads the current URL,
  * rewrites only `q`, and resets paging.
+ *
+ * Typing now drives the results (debounced) so a shopper never has to hunt for
+ * a submit button; Enter still works for the impatient.
  */
 export default function KeywordForm({
   placeholder = "Search coupons by keyword…",
@@ -34,10 +37,13 @@ export default function KeywordForm({
 
   const current = params.get("q") ?? params.get("search") ?? "";
 
+  const [value, setValue] = useState(current);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const push = useCallback(
-    (value: string) => {
+    (nextValue: string) => {
       const next = new URLSearchParams(params.toString());
-      if (value) next.set("q", value);
+      if (nextValue) next.set("q", nextValue);
       else {
         next.delete("q");
         next.delete("search");
@@ -49,10 +55,15 @@ export default function KeywordForm({
     [params, pathname, router],
   );
 
+  function schedule(value: string) {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => push(value.trim()), 250);
+  }
+
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const raw = new FormData(e.currentTarget).get("q");
-    push(typeof raw === "string" ? raw.trim() : "");
+    if (timer.current) clearTimeout(timer.current);
+    push(value.trim());
   }
 
   const large = size === "lg";
@@ -71,7 +82,11 @@ export default function KeywordForm({
         name="q"
         type="search"
         key={current}
-        defaultValue={current}
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+          schedule(e.target.value);
+        }}
         placeholder={placeholder}
         autoFocus={autoFocus}
         className={
