@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowDown, BadgeCheck, ChevronLeft, ChevronRight, Percent, type LucideIcon } from "lucide-react";
 import { api } from "@/lib/api";
 import type { Ad } from "@/lib/types";
 
@@ -24,7 +25,7 @@ interface Banner {
   body: string;
   cta: string;
   href: string;
-  glyph: string;
+  glyph: LucideIcon;
   background: string;
   heading: string;
   text: string;
@@ -40,7 +41,7 @@ const BANNERS: Banner[] = [
     body: "Every offer links to the store page it was read from, with the date we last checked it.",
     cta: "Browse coupons",
     href: "/coupons",
-    glyph: "✓",
+    glyph: BadgeCheck,
     background: `linear-gradient(135deg, ${PALETTE.darkSoft} 0%, ${PALETTE.dark} 65%)`,
     heading: PALETTE.white,
     text: PALETTE.onDarkBody,
@@ -54,7 +55,7 @@ const BANNERS: Banner[] = [
     body: "Expiry dates come from the stores' own terms — not pressure timers. Expired offers are removed.",
     cta: "See today's deals",
     href: "/deals",
-    glyph: "%",
+    glyph: Percent,
     background: `linear-gradient(135deg, ${PALETTE.goldLight} 0%, ${PALETTE.gold} 70%)`,
     heading: PALETTE.onGoldHeading,
     text: PALETTE.onGoldBody,
@@ -68,7 +69,7 @@ const BANNERS: Banner[] = [
     body: "Track a product and we email you when the price drops or its store gets a new tracked offer.",
     cta: "Create a free account",
     href: "/account/register",
-    glyph: "↓",
+    glyph: ArrowDown,
     background: `linear-gradient(135deg, ${PALETTE.dark} 0%, ${PALETTE.darkSoft} 100%)`,
     heading: PALETTE.white,
     text: PALETTE.onDarkBody,
@@ -130,10 +131,12 @@ export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null })
     >
       <div
         ref={trackRef}
-        className="scrollbar-hide flex snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-[20px] shadow-md"
+        className="scrollbar-hide flex snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-lg shadow-raised"
         style={{ boxShadow: "0 0 0 1px rgba(20,17,10,0.12), 0 4px 14px rgba(20,17,10,0.1)" }}
       >
-        {BANNERS.map((b, i) => (
+        {BANNERS.map((b, i) => {
+        const Glyph = b.glyph;
+        return (
           <div
             key={b.title}
             role="group"
@@ -153,13 +156,12 @@ export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null })
               className="pointer-events-none absolute -bottom-16 right-1/3 h-40 w-40 rounded-full"
               style={{ backgroundColor: b.deco }}
             />
-            <span
+            <Glyph
               aria-hidden="true"
-              className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none font-sans text-[9rem] font-semibold leading-none sm:right-10 sm:text-[13rem]"
+              className="pointer-events-none absolute -right-2 top-1/2 h-[9rem] w-[9rem] -translate-y-1/2 select-none sm:right-10 sm:h-[13rem] sm:w-[13rem]"
+              strokeWidth={1}
               style={{ color: b.glyphColor }}
-            >
-              {b.glyph}
-            </span>
+            />
 
             <div className="relative max-w-lg">
               <h2
@@ -180,7 +182,8 @@ export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null })
               </Link>
             </div>
           </div>
-        ))}
+        );
+      })}
 
         {sponsored && (
           <div
@@ -240,7 +243,7 @@ export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null })
           className="flex h-9 w-9 items-center justify-center rounded-full text-lg leading-none shadow-sm transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           style={arrowStyle}
         >
-          ‹
+          <ChevronLeft aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
         </button>
         {Array.from({ length: total }, (_, i) => (
           <button
@@ -264,7 +267,7 @@ export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null })
           className="flex h-9 w-9 items-center justify-center rounded-full text-lg leading-none shadow-sm transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           style={arrowStyle}
         >
-          ›
+          <ChevronRight aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
         </button>
       </div>
     </section>

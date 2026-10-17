@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check, Plus } from "lucide-react";
 import { track } from "@/lib/analytics";
 import { isStoreFollowed, toggleFollowedStore } from "@/lib/personalization";
 
@@ -40,7 +41,17 @@ export function StoreFollowButton({
           : `btn shrink-0 ${on ? "btn-primary" : "btn-outline"}`
       }
     >
-      {on ? "✓ Following" : "+ Follow"}
+      {on ? (
+        <>
+          <Check aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+          Following
+        </>
+      ) : (
+        <>
+          <Plus aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+          Follow
+        </>
+      )}
     </button>
   );
 }

@@ -1,30 +1,12 @@
 import Link from "next/link";
 import { categoryLabel } from "@/lib/catalog";
+import CategoryIcon from "@/components/CategoryIcon";
 
 interface Cat {
   id: string;
   name: string;
   slug: string;
   icon?: string | null;
-}
-
-// Fallback glyphs when a category has no icon of its own.
-const GLYPHS: [RegExp, string][] = [
-  [/fashion|cloth|apparel|wear|shoe/i, "👕"],
-  [/electron|mobile|phone|laptop|gadget/i, "📱"],
-  [/food|dining|restaurant|grocer/i, "🍔"],
-  [/travel|flight|hotel/i, "✈️"],
-  [/beauty|health|care|wellness/i, "💄"],
-  [/home|kitchen|furnit/i, "🛋️"],
-  [/book|educat|course/i, "📚"],
-  [/game|toy|kid/i, "🎮"],
-  [/sport|fitness|gym/i, "🏏"],
-];
-
-function glyphFor(c: Cat) {
-  if (c.icon) return c.icon;
-  const probe = c.name ?? c.slug;
-  return GLYPHS.find(([re]) => re.test(probe) || re.test(c.slug))?.[1] ?? "🏷️";
 }
 
 export default function CategoryRow({ categories }: { categories: Cat[] }) {
@@ -37,9 +19,9 @@ export default function CategoryRow({ categories }: { categories: Cat[] }) {
             <Link href={`/categories/${c.slug}`} className="group flex w-[76px] flex-col items-center gap-2 text-center">
               <span
                 aria-hidden="true"
-                className="flex h-16 w-16 items-center justify-center rounded-[20px] border border-ledger-line bg-white text-3xl shadow-[var(--shadow-hairline)] transition-all duration-200 group-hover:-translate-y-1 group-hover:border-accent-soft group-hover:shadow-[var(--shadow-raised)]"
+                className="flex h-16 w-16 items-center justify-center rounded-lg border border-ledger-line bg-white text-ink shadow-[var(--shadow-hairline)] transition-all duration-200 group-hover:-translate-y-1 group-hover:border-accent-soft group-hover:shadow-[var(--shadow-raised)]"
               >
-                {glyphFor(c)}
+                <CategoryIcon category={c} className="h-7 w-7" />
               </span>
               <span className="line-clamp-2 text-xs font-medium text-ink group-hover:text-accent">{categoryLabel(c)}</span>
             </Link>

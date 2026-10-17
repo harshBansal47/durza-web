@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { CheckCircle2, CircleAlert, Info, TriangleAlert, X } from "lucide-react";
 
 export type ToastType = "default" | "success" | "error" | "warning" | "info";
 
@@ -56,12 +57,13 @@ const typeStyles: Record<ToastType, string> = {
   info: "border-inkblue bg-inkblue/10 text-inkblue",
 };
 
-const typeIcons: Record<ToastType, string> = {
-  default: "",
-  success: "✓",
-  error: "✕",
-  warning: "!",
-  info: "i",
+/** One line-icon set for toast feedback: circle badges for states. */
+const typeIcons: Record<ToastType, ReactNode> = {
+  default: null,
+  success: <CheckCircle2 aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />,
+  error: <CircleAlert aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />,
+  warning: <TriangleAlert aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />,
+  info: <Info aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />,
 };
 
 function ToastRow({ toast, onDismiss }: { toast: Toast; onDismiss: (id: number) => void }) {
@@ -86,7 +88,7 @@ function ToastRow({ toast, onDismiss }: { toast: Toast; onDismiss: (id: number) 
       onBlur={() => setPaused(false)}
     >
       {typeIcons[toast.type] && (
-        <span aria-hidden="true" className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-current font-mono text-[10px]">
+        <span aria-hidden="true" className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-current text-[10px]">
           {typeIcons[toast.type]}
         </span>
       )}
@@ -109,7 +111,7 @@ function ToastRow({ toast, onDismiss }: { toast: Toast; onDismiss: (id: number) 
         className="shrink-0 opacity-50 transition-opacity hover:opacity-100"
         aria-label="Dismiss notification"
       >
-        ✕
+        <X aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
       </button>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import CouponCard, { type CouponCardStore } from "@/components/CouponCard";
 import type { ImpressionPageType } from "@/lib/analytics";
 import type { CouponPublic } from "@/lib/types";
@@ -51,17 +52,17 @@ export default function DealsCarousel({
         type="button"
         onClick={() => scrollBy(-1)}
         aria-label="Scroll deals left"
-        className="absolute -left-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ledger-line bg-white text-xl text-accent shadow-[var(--shadow-raised)] transition-transform hover:scale-110 lg:flex"
+        className="absolute -left-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ledger-line bg-white text-accent shadow-[var(--shadow-raised)] transition-transform hover:scale-110 lg:flex"
       >
-        ‹
+        <ChevronLeft aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
       </button>
       <button
         type="button"
         onClick={() => scrollBy(1)}
         aria-label="Scroll deals right"
-        className="absolute -right-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ledger-line bg-white text-xl text-accent shadow-[var(--shadow-raised)] transition-transform hover:scale-110 lg:flex"
+        className="absolute -right-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ledger-line bg-white text-accent shadow-[var(--shadow-raised)] transition-transform hover:scale-110 lg:flex"
       >
-        ›
+        <ChevronRight aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
       </button>
     </div>
   );

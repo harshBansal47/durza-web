@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Home, Search, Bookmark, User } from "lucide-react";
 import { getSavedCouponIds } from "@/lib/personalization";
 
 const TABS = [
-  { href: "/", label: "Home", icon: "⌂" },
-  { href: "/search", label: "Search", icon: "⚲" },
-  { href: "/saved", label: "Saved", icon: "▱", badge: true },
-  { href: "/account", label: "Account", icon: "○" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/search", label: "Search", icon: Search },
+  { href: "/saved", label: "Saved", icon: Bookmark, badge: true },
+  { href: "/account", label: "Account", icon: User },
 ];
 
 /**
@@ -50,13 +51,11 @@ export function MobileTabBar() {
                 <Link
                   href={tab.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium ${
+                  className={`relative flex flex-col items-center gap-1 py-2 text-[11px] font-medium ${
                     active ? "text-accent" : "text-ink-soft"
                   }`}
                 >
-                  <span aria-hidden="true" className="text-lg leading-none">
-                    {tab.icon}
-                  </span>
+                  <tab.icon aria-hidden="true" className="h-5 w-5" strokeWidth={active ? 2 : 1.75} />
                   {tab.label}
                   {tab.badge && savedCount > 0 && (
                     <span

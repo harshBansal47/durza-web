@@ -33,7 +33,7 @@ export default function PromoStrip() {
           >
             {loop.map((m, i) => (
               <span key={i} className="mr-10 inline-flex items-center gap-2" aria-hidden={i >= MESSAGES.length}>
-                <span aria-hidden="true" className="text-accent-soft">★</span>
+                <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent-soft" />
                 {m}
               </span>
             ))}

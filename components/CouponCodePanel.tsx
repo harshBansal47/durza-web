@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
 import OutboundLink from "./OutboundLink";
 import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
@@ -115,9 +116,7 @@ export default function CouponCodePanel({
             {revealed ? (
               copied ? (
                 <>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+                  <Check aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2.5} />
                   Copied
                 </>
               ) : (
@@ -132,13 +131,15 @@ export default function CouponCodePanel({
 
       {copied && (
         <p className="animate-fade-in px-5 text-center text-sm font-medium text-verified" role="status">
-          ✓ Copied — paste it at {storeName || "the store"} checkout.
+          <Check aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2.5} />
+          {" "}Copied — paste it at {storeName || "the store"} checkout.
         </p>
       )}
       {copied && storeSlug && (
         <p className="px-5 pt-1 text-center text-sm">
           <Link href={`/stores/${storeSlug}`} className="font-semibold text-inkblue hover:underline">
-            More {storeName || "store"} deals →
+            More {storeName || "store"} deals
+            <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
           </Link>
         </p>
       )}
@@ -150,7 +151,14 @@ export default function CouponCodePanel({
           src="coupon-page"
           className="btn btn-cta w-full py-3 text-base"
         >
-          {revealed ? `Take me to ${storeName || "the store"} →` : "Get this deal at the store"}
+          {revealed ? (
+            <>
+              Take me to {storeName || "the store"}
+              <ArrowRight aria-hidden="true" className="inline h-4 w-4 align-[-2px]" strokeWidth={2} />
+            </>
+          ) : (
+            "Get this deal at the store"
+          )}
         </OutboundLink>
         <p className="mt-2 text-center text-xs text-ink-soft">
           {coupon.code

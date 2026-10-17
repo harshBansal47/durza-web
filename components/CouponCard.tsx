@@ -1,6 +1,7 @@
 import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { storeInitials } from "@/lib/catalog";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports } from "@/lib/format";
@@ -144,7 +145,8 @@ export function CouponCard({
             )}
             {trusted && !expired && (
               <span className="stamp text-verified" title={`Worked for ${coupon.success_count} of ${reports} people who tried it`}>
-                ✓ {rate} · {reports} reports
+                <Check aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
+                {rate} · {reports} reports
               </span>
             )}
             {expired && <span className="stamp text-ink-soft">Expired</span>}
