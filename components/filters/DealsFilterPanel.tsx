@@ -103,14 +103,35 @@ function FacetGroup({
       <legend className="mb-2 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
         {label}
       </legend>
-      <div className="max-h-56 space-y-2 overflow-y-auto">
+      <div className="max-h-56 space-y-1.5 overflow-y-auto">
         {items.map((item) => (
-          <label key={item.id} className="flex cursor-pointer items-center gap-2 text-sm text-ink">
+          <label
+            key={item.id}
+            className={`flex cursor-pointer items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
+              selected.includes(item.slug)
+                ? "bg-accent-faint text-ink"
+                : "text-ink-soft hover:bg-paper-raised hover:text-ink"
+            }`}
+          >
+            <span
+              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
+                selected.includes(item.slug)
+                  ? "border-accent bg-accent text-white"
+                  : "border-ledger-line bg-paper-raised"
+              }`}
+              aria-hidden="true"
+            >
+              {selected.includes(item.slug) && (
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              )}
+            </span>
             <input
               type="checkbox"
               checked={selected.includes(item.slug)}
               onChange={(event) => onToggle(item.slug, event.target.checked)}
-              className="accent-vermilion"
+              className="sr-only"
             />
             <span className="truncate">{item.name}</span>
           </label>
