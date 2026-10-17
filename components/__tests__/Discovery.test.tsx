@@ -76,7 +76,10 @@ describe("StoreFollowButton", () => {
     localStorage.clear();
   });
 
-  it("follows and unfollows anonymously with pressed state", async () => {
+  it("follows and unfollows when signed in, with pressed state", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ signedIn: true }), { status: 200, headers: { "Content-Type": "application/json" } }),
+    );
     const { default: userEvent } = await import("@testing-library/user-event");
     const user = userEvent.setup();
     render(<StoreFollowButton slug="nike" name="Nike" />);
@@ -84,5 +87,6 @@ describe("StoreFollowButton", () => {
     expect(btn).toHaveAttribute("aria-pressed", "false");
     await user.click(btn);
     expect(btn).toHaveAttribute("aria-pressed", "true");
+    vi.restoreAllMocks();
   });
 });

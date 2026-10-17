@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Plus } from "lucide-react";
 import { track } from "@/lib/analytics";
 import { isStoreFollowed, toggleFollowedStore } from "@/lib/personalization";
 
-/**
- * Anonymous store follow. No login wall: follows live in localStorage and
- * become deal-alert candidates later (§24). The account page can adopt
- * these ids on sign-in.
- */
+let sessionPromise: Promise<boolean> | null = null;
+function signedIn(): Promise<boolean> {
+  if (!sessionPromise) {
+    sessionPromise = fetch("/api/session", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => Boolean(d?.signedIn))
+      .catch(() => false);
+  }
+  return sessionPromise;
+}
+
 export function StoreFollowButton({
   slug,
   name,
@@ -20,8 +26,24 @@ export function StoreFollowButton({
   compact?: boolean;
 }) {
   const [on, setOn] = useState<boolean>(() => isStoreFollowed(slug));
+  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    signedIn().then((v) => {
+      if (!cancelled) setIsSignedIn(v);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   function click() {
+    if (isSignedIn === false) {
+      const next = encodeURIComponent(window.location.pathname + window.location.search);
+      window.location.assign(`/account/login?next=${next}`);
+      return;
+    }
     const next = toggleFollowedStore(slug);
     setOn(next);
     track(next ? "follow_store" : "unfollow_store", { store_slug: slug });
@@ -35,11 +57,12 @@ export function StoreFollowButton({
       aria-label={on ? `Stop following ${name}` : `Follow ${name} for new deals`}
       className={
         compact
-          ? `rounded-full px-3 py-1.5 text-xs font-semibold transition-all active:scale-95 ${
+          ? `rounded-full px-3 py-1.5 text-xs font-semibold transition-all active:scale-90 ${
               on ? "bg-ink text-white" : "border border-ledger-line bg-white text-ink hover:border-ink"
             }`
           : `btn shrink-0 ${on ? "btn-primary" : "btn-outline"}`
       }
+      title={isSignedIn === false ? "Sign in to follow" : undefined}
     >
       {on ? (
         <>
