@@ -96,10 +96,6 @@ export default function Hero({
             aria-label="Search deals, stores, products and guides"
           >
             <HeaderSearch popular={popularStores.map((store) => store.name)} />
-
-            <p className="mt-2 text-xs text-ink-soft">
-              Search deals, stores, products and guides
-            </p>
           </div>
 
           {/* Popular stores */}

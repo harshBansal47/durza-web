@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback, type MouseEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { X } from "lucide-react";
 
 interface ModalProps {
   open: boolean;
@@ -124,12 +125,9 @@ export default function Modal({
             <button
               onClick={onClose}
               aria-label="Close"
-              className="shrink-0 btn-ghost px-2 py-1 rounded-sm -mr-2 -mt-2"
+              className="shrink-0 btn-ghost p-0 rounded-sm -mr-2 -mt-2"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <X aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
             </button>
           )}
         </div>
