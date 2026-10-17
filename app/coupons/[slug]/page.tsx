@@ -18,6 +18,8 @@ import StickyDealBar from "@/components/StickyDealBar";
 import { ImpressionTracker } from "@/components/ImpressionTracker";
 import { RecordView } from "@/components/Analytics";
 
+export const revalidate = 300;
+
 async function loadCoupon(slug: string): Promise<CouponPublic | null> {
   try {
     return await resilient.getCouponBySlug(slug);
@@ -211,10 +213,14 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
         </section>
       )}
 
-      {/* Verification status */}
-      <section className="mb-8">
-        <VerifyWidget coupon={coupon} />
-      </section>
+      {/* Verification status. An expired offer cannot be tried, so there is
+          nothing honest to vote on; the success-rate chip in the header still
+          carries whatever real signal exists. */}
+      {!expired && (
+        <section className="mb-8">
+          <VerifyWidget coupon={coupon} />
+        </section>
+      )}
 
       {/* Verification History Timeline */}
       {verificationHistory.length > 0 && (
@@ -433,7 +439,8 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
         </Link>
       </nav>
 
-      <StickyDealBar coupon={coupon} storeName={store?.name} />
+      {/* No sticky CTA on an expired offer — the notice is the action. */}
+      {!expired && <StickyDealBar coupon={coupon} storeName={store?.name} />}
     </div>
   );
 }

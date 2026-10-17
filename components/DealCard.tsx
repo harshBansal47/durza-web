@@ -112,6 +112,7 @@ export default function DealCard({
           <div className="mt-auto pt-1">
             <Link
               href={api.goUrl(coupon.id, "deals")}
+              rel="sponsored nofollow noopener"
               className="btn btn-cta w-full"
             >
               Get Deal

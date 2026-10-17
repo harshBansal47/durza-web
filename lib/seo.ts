@@ -48,6 +48,41 @@ export function faqPageJsonLd(faqs: { question: string; answer: string }[]) {
 }
 
 /**
+ * The site's Organization entity — name, URL and the logo we actually ship.
+ * Nothing here is a claim: no ratings, no founding date, no address.
+ */
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Durza",
+    url: SITE_URL,
+    logo: absoluteUrl("/logo.png"),
+  };
+}
+
+/**
+ * WebSite node with the SearchAction for the search box the site actually
+ * has (/search?q=…), so engines can wire their sitelinks search box to it.
+ */
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Durza",
+    url: SITE_URL,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+/**
  * Maps our community "worked" / "didn't work" reports onto schema.org's
  * AggregateRating (1-5 scale), since that's the vocabulary search engines
  * understand for rich snippets. This is a real, disclosed mapping of a real

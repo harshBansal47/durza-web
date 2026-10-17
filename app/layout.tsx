@@ -11,6 +11,7 @@ import { getSponsored } from "@/lib/ads";
 import ToastProvider from "@/components/ui/Toast";
 import ConsentBanner from "@/components/ConsentBanner";
 import { SITE_URL } from "@/lib/site";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
 import "./globals.css";
 
@@ -81,6 +82,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
+        {/* Organization + WebSite speak for the whole site, once. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
+        />
         <ToastProvider>
           <a
             href="#main"

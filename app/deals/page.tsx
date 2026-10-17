@@ -12,6 +12,8 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import { parseDealFilters, resolveDealFacets, toDealQuery } from "@/lib/deal-discovery";
 import { absoluteUrl } from "@/lib/seo";
 
+export const revalidate = 300;
+
 const PAGE_SIZE = 20;
 
 export const metadata: Metadata = {

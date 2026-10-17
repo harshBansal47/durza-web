@@ -11,6 +11,8 @@ import SortControl from "@/components/filters/SortControl";
 import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
+export const revalidate = 300;
+
 const PAGE_SIZE = 20;
 
 export const metadata: Metadata = {

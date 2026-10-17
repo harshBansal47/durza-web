@@ -4,6 +4,8 @@ import { resilient } from "@/lib/api";
 import EmptyState from "@/components/EmptyState";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: "Stores",
   description: "Browse every store on Durza.",

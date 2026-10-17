@@ -4,6 +4,8 @@ import { resilient } from "@/lib/api";
 import { categoryLabel } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: "Categories",
   description: "Browse coupons and deals by category.",

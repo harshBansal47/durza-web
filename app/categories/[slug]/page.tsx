@@ -14,6 +14,8 @@ import { carriedParams, parseFilters, resolveIds, toCouponQuery } from "@/lib/fi
 import { categoryLabel } from "@/lib/catalog";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
+export const revalidate = 300;
+
 const PAGE_SIZE = 20;
 
 type Params = Promise<{ slug: string }>;
