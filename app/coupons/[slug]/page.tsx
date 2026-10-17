@@ -6,7 +6,8 @@
   import SponsoredCard from "@/components/SponsoredCard";
   import { getSponsored } from "@/lib/ads";
   import { storeInitials } from "@/lib/catalog";
-  import { storeLogoUrl } from "@/lib/storeLogos";
+  import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
+  import { maskCode } from "@/lib/codes";
   import VerifyWidget from "@/components/VerifyWidget";
   import DisclosureNote from "@/components/DisclosureNote";
   import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
@@ -160,7 +161,13 @@ import PageTitle from "@/components/ui/PageTitle";
           pageId={coupon.slug}
         />
 
-        <header className="dark-surface bg-brand relative mb-8 overflow-hidden rounded-[26px]  shadow-[var(--shadow-overlay)]">
+        <header
+          className="dark-surface relative mb-8 overflow-hidden rounded-[26px] shadow-[var(--shadow-overlay)]"
+          style={{ backgroundImage: "linear-gradient(120deg, var(--color-navy), var(--color-navy-deep))" }}
+        >
+          {store && storeAccent(store.slug) && (
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: storeAccent(store.slug)! }} />
+          )}
           <div className="relative flex flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-10">
             <div className="min-w-0 flex-1 text-white">
               {store && (
@@ -412,18 +419,20 @@ import PageTitle from "@/components/ui/PageTitle";
               {relatedCoupons.map((c) => (
                 <Link key={c.id} href={`/coupons/${c.slug}`} className="block">
                   <div className="lift flex items-center gap-4 rounded-2xl border border-ledger-line bg-white p-3">
-                    {store && (
+                    {storeLogo ? (
+                      <Image src={storeLogo} alt="" width={40} height={40} className="h-10 w-10 shrink-0 rounded-full border border-ledger-line bg-paper object-contain" />
+                    ) : store ? (
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-sm text-ink-soft">
                         {storeInitials(store.name)}
                       </div>
-                    )}
+                    ) : null}
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-ink truncate">{c.title}</p>
                       <p className="text-sm text-ink-soft font-mono">{formatDiscount(c, store?.currency ?? "INR")}</p>
                     </div>
                     {c.code && (
                       <span className="shrink-0 rounded-lg border border-dashed border-inkblue/40 bg-inkblue/5 px-2 py-1 font-mono text-xs font-semibold text-inkblue">
-                        {c.code}
+                        {maskCode(c.code) ?? c.code}
                       </span>
                     )}
                   </div>
