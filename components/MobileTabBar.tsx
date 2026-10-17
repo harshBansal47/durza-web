@@ -55,7 +55,14 @@ export function MobileTabBar() {
                     active ? "text-accent" : "text-ink-soft"
                   }`}
                 >
-                  <tab.icon aria-hidden="true" className="h-5 w-5" strokeWidth={active ? 2 : 1.75} />
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+                      active ? "bg-accent/10 text-accent" : "text-ink-soft"
+                    }`}
+                  >
+                    <tab.icon aria-hidden="true" className="h-5 w-5" strokeWidth={active ? 2 : 1.75} />
+                  </span>
                   {tab.label}
                   {tab.badge && savedCount > 0 && (
                     <span

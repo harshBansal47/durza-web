@@ -185,12 +185,12 @@ export default function StorePageClient({
         </div>
       </header>
 
-      {/* Disclosure sits above the deals, not buried in a footer — the whole
-          point of the site is that you can see where the money comes from.
-          Shown even when the store has no custom disclosure text. */}
-      <section className="rounded-2xl border border-inkblue/20 bg-inkblue/5 px-5 py-4">
-        <h2 className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Commission</h2>
-        <p className="mt-1 text-sm text-ink">{store.commission_disclosure ?? DEFAULT_DISCLOSURE}</p>
+      <section className="rounded-lg border border-ledger-line bg-paper-alt px-4 py-2.5 text-sm">
+        <p className="text-ink-soft">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Commission</span>
+          {" · "}
+          {store.commission_disclosure ?? DEFAULT_DISCLOSURE}
+        </p>
       </section>
 
       {visibleTabs.length > 0 ? (
