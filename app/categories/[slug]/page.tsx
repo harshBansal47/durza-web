@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageTitle from "@/components/ui/PageTitle";
+import CategoryIcon from "@/components/CategoryIcon";
 import { resilient } from "@/lib/api";
 import CategoryChips from "@/components/CategoryChips";
 import CouponRow from "@/components/CouponRow";
@@ -116,7 +117,12 @@ export default async function CategoryPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
 
-      <PageTitle className="mb-6">{categoryName} coupons</PageTitle>
+      <div className="mb-6 flex items-center gap-3">
+        <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-lg border border-ledger-line bg-paper text-ink shadow-[var(--shadow-hairline)]">
+          <CategoryIcon category={category} className="h-6 w-6" />
+        </span>
+        <PageTitle className="mb-0">{categoryName} coupons</PageTitle>
+      </div>
       <div className="mb-6">
         <CategoryChips categories={categories} activeSlug={category.slug} />
       </div>
