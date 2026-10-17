@@ -10,49 +10,49 @@ const PALETTE = {
   border: "var(--color-ledger-line)",
 };
 
-const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
-  {
-    title: "Deals",
-    links: [
-      { href: "/coupons", label: "Coupons" },
-      { href: "/deals", label: "Today's deals" },
-      { href: "/stores", label: "Stores" },
-      { href: "/categories", label: "Categories" },
-      { href: "/guides", label: "Buying guides" },
-      { href: "/reviews", label: "Reviews" },
-      { href: "/compare", label: "Comparisons" },
-      { href: "/collections", label: "Collections" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { href: "/about", label: "About" },
-      { href: "/how-it-works", label: "How it works" },
-      { href: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    title: "Account",
-    links: [
-      { href: "/account", label: "My account" },
-      { href: "/account/saved", label: "Saved deals" },
-      { href: "/account/products", label: "Tracked prices" },
-      { href: "/account/unsubscribe", label: "Turn off emails" },
-    ],
-  },
-  {
-    title: "Trust",
-    links: [
-      { href: "/trust", label: "How Durza Works" },
-      { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
-      { href: "/privacy", label: "Privacy" },
-      { href: "/terms", label: "Terms" },
-    ],
-  },
-];
+function columns(hasComparisons: boolean) {
+  const dealsLinks = [
+    { href: "/coupons", label: "Coupons" },
+    { href: "/deals", label: "Today's deals" },
+    { href: "/stores", label: "Stores" },
+    { href: "/categories", label: "Categories" },
+    { href: "/guides", label: "Buying guides" },
+    { href: "/reviews", label: "Reviews" },
+    ...(hasComparisons ? [{ href: "/compare", label: "Comparisons" }] : []),
+    { href: "/collections", label: "Collections" },
+  ];
+  return [
+    { title: "Deals", links: dealsLinks },
+    {
+      title: "Company",
+      links: [
+        { href: "/about", label: "About" },
+        { href: "/how-it-works", label: "How it works" },
+        { href: "/contact", label: "Contact" },
+      ],
+    },
+    {
+      title: "Account",
+      links: [
+        { href: "/account", label: "My account" },
+        { href: "/account/saved", label: "Saved deals" },
+        { href: "/account/products", label: "Tracked prices" },
+        { href: "/account/unsubscribe", label: "Turn off emails" },
+      ],
+    },
+    {
+      title: "Trust",
+      links: [
+        { href: "/trust", label: "How Durza Works" },
+        { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
+        { href: "/privacy", label: "Privacy" },
+        { href: "/terms", label: "Terms" },
+      ],
+    },
+  ];
+}
 
-export default function Footer({ ad }: { ad?: Ad | null }) {
+export default function Footer({ ad, hasComparisons = false }: { ad?: Ad | null; hasComparisons?: boolean }) {
   return (
     <footer className="mt-16 no-print">
       {ad && (
@@ -76,7 +76,7 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
                 Save money before you buy.
               </p>
             </div>
-            {COLUMNS.map((col) => (
+            {columns(hasComparisons).map((col) => (
               <div key={col.title}>
                 <p className="text-sm font-medium text-ink">{col.title}</p>
                 <ul className="mt-3 space-y-2 text-sm">

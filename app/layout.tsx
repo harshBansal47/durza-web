@@ -8,6 +8,7 @@ import PromoStrip from "@/components/PromoStrip";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
 import { getSponsored } from "@/lib/ads";
+import { resilient } from "@/lib/api";
 import ToastProvider from "@/components/ui/Toast";
 import ConsentBanner from "@/components/ConsentBanner";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
@@ -76,6 +77,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     getSessionUser().catch(() => null),
     getSponsored("footer"),
   ]);
+  // Hide comparison surfaces until there is at least one published comparison.
+  let hasComparisons = false;
+  try {
+    const page = await resilient.listEditorial({ content_type: "comparison", limit: 1 });
+    hasComparisons = (page.total ?? page.items.length) > 0;
+  } catch {
+    hasComparisons = false;
+  }
+
+  const navLinks = hasComparisons
+    ? NAV_LINKS
+    : NAV_LINKS.filter((l) => l.href !== "/compare");
+  const moreNavLinks = hasComparisons
+    ? MORE_NAV_LINKS
+    : MORE_NAV_LINKS.filter((l) => l.href !== "/compare");
 
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
@@ -97,12 +113,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             Skip to content
           </a>
           <PromoStrip />
-          <Header links={NAV_LINKS} moreLinks={MORE_NAV_LINKS} user={user ? { name: displayName(user) } : null} />
+          <Header links={navLinks} moreLinks={moreNavLinks} user={user ? { name: displayName(user) } : null} />
           <main id="main" className="flex-1">
             {children}
           </main>
           <PriceAlertBanner />
-          <Footer ad={footerAd} />
+          <Footer ad={footerAd} hasComparisons={hasComparisons} />
           <MobileTabBar />
           <InstallPrompt />
           <ConsentBanner />
