@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -43,6 +44,42 @@ function ActionMessages({ state }: { state: ActionResult }) {
   );
 }
 
+function PasswordField({
+  label,
+  name,
+  autoComplete,
+  required,
+  hint,
+}: {
+  label: string;
+  name: string;
+  autoComplete?: string;
+  required?: boolean;
+  hint?: string;
+}) {
+  const [show, setShow] = useState(false);
+  return (
+    <Input
+      label={label}
+      name={name}
+      type={show ? "text" : "password"}
+      autoComplete={autoComplete}
+      required={required}
+      hint={hint}
+      rightIcon={
+        <button
+          type="button"
+          onClick={() => setShow((v) => !v)}
+          aria-label={show ? "Hide password" : "Show password"}
+          className="text-ink-soft transition-colors hover:text-ink"
+        >
+          {show ? <EyeOff className="h-4 w-4" strokeWidth={1.75} /> : <Eye className="h-4 w-4" strokeWidth={1.75} />}
+        </button>
+      }
+    />
+  );
+}
+
 const EMPTY: ActionResult = {};
 
 export function LoginForm({
@@ -60,10 +97,9 @@ export function LoginForm({
 
       <Input label="Email" name="email" type="email" autoComplete="email" required />
 
-      <Input
+      <PasswordField
         label="Password"
         name="password"
-        type="password"
         autoComplete="current-password"
         required
       />
@@ -92,10 +128,9 @@ export function RegisterForm({
 
       <Input label="Email" name="email" type="email" autoComplete="email" required />
 
-      <Input
+      <PasswordField
         label="Password"
         name="password"
-        type="password"
         autoComplete="new-password"
         required
         hint="At least 8 characters."
@@ -131,19 +166,17 @@ export function ResetPasswordForm({
     <form action={formAction} className="space-y-4">
       <input type="hidden" name="token" value={token} />
 
-      <Input
+      <PasswordField
         label="New password"
         name="new_password"
-        type="password"
         autoComplete="new-password"
         required
         hint="At least 8 characters"
       />
 
-      <Input
+      <PasswordField
         label="Confirm new password"
         name="confirm_password"
-        type="password"
         autoComplete="new-password"
         required
       />
