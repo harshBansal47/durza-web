@@ -6,6 +6,7 @@ import CouponCodePanel from "@/components/CouponCodePanel";
 import SponsoredCard from "@/components/SponsoredCard";
 import { getSponsored } from "@/lib/ads";
 import { storeInitials } from "@/lib/catalog";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import VerifyWidget from "@/components/VerifyWidget";
 import DisclosureNote from "@/components/DisclosureNote";
 import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
@@ -99,6 +100,8 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
     loadCategory(coupon.category_id),
   ]);
 
+  const storeLogo = storeLogoUrl(store);
+
   // schema.org structured data
   const rating = aggregateRatingJsonLd(coupon.success_count, coupon.fail_count);
   const jsonLd = {
@@ -149,10 +152,10 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
             {store && (
               <Link
                 href={`/stores/${store.slug}`}
-                className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 py-1 pl-1 pr-3.5 text-sm font-semibold backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
+                className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/20 py-1 pl-1 pr-3.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
               >
-                {store.logo_url ? (
-                  <Image src={store.logo_url} alt="" width={24} height={24} className="h-6 w-6 rounded-full bg-white object-contain" />
+                {storeLogo ? (
+                  <Image src={storeLogo} alt="" width={24} height={24} className="h-6 w-6 rounded-full bg-white object-contain" />
                 ) : (
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white font-serif text-xs font-bold text-inkblue">
                     {storeInitials(store.name)}
@@ -161,7 +164,7 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
                 {store.name}
               </Link>
             )}
-            <h1 className="font-serif text-4xl font-extrabold leading-tight sm:text-5xl">{coupon.title}</h1>
+            <h1 className="font-serif text-4xl font-extrabold leading-tight text-white sm:text-5xl">{coupon.title}</h1>
             <p className="mt-2 inline-block rounded-xl bg-white px-3 py-1 font-serif text-xl font-extrabold text-inkblue shadow-sm">
               {formatDiscount(coupon, store?.currency ?? "INR")}
             </p>
@@ -345,8 +348,8 @@ export default async function CouponDetailPage({ params }: { params: Params }) {
           <div className="rounded-[22px] border border-ledger-line bg-white p-5 shadow-[var(--shadow-hairline)]">
             <div className="flex items-start gap-4">
               <div className="shrink-0">
-                {store.logo_url ? (
-                  <Image src={store.logo_url} alt={store.name} width={60} height={60} className="rounded-full border border-ledger-line object-contain bg-paper-raised" />
+                {storeLogo ? (
+                  <Image src={storeLogo} alt={store.name} width={60} height={60} className="rounded-full border border-ledger-line object-contain bg-paper-raised" />
                 ) : (
                   <div className="flex h-16 w-16 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-2xl text-ink-soft">
                     {storeInitials(store.name)}

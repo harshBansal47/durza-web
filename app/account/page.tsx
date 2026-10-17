@@ -6,6 +6,7 @@ import { requireAccount } from "@/app/account/actions";
 import { resilient } from "@/lib/api";
 import { formatMoney, formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
+import { storeLogoUrl } from "@/lib/storeLogos";
 
 export const metadata: Metadata = {
   title: "Your account",
@@ -132,25 +133,28 @@ export default async function AccountOverviewPage() {
         <section className="mt-10">
           <h3 className="font-serif text-lg text-ink">Stores you follow</h3>
           <ul className="mt-3 flex flex-wrap gap-2">
-            {resolvedStores.map((store) => (
-              <li key={store.id}>
-                <Link
-                  href={`/stores/${store.slug}`}
-                  className="flex items-center gap-2 border border-ledger-line bg-paper-raised px-3 py-1.5 text-sm text-ink transition-colors hover:border-inkblue"
-                >
-                  {store.logo_url && (
-                    <Image
-                      src={store.logo_url}
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="h-5 w-5 rounded-full border border-ledger-line bg-paper object-contain"
-                    />
-                  )}
-                  {store.name}
-                </Link>
-              </li>
-            ))}
+            {resolvedStores.map((store) => {
+              const logo = storeLogoUrl(store);
+              return (
+                <li key={store.id}>
+                  <Link
+                    href={`/stores/${store.slug}`}
+                    className="flex items-center gap-2 border border-ledger-line bg-paper-raised px-3 py-1.5 text-sm text-ink transition-colors hover:border-inkblue"
+                  >
+                    {logo && (
+                      <Image
+                        src={logo}
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="h-5 w-5 rounded-full border border-ledger-line bg-paper object-contain"
+                      />
+                    )}
+                    {store.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </section>
       )}

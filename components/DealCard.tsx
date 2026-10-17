@@ -10,6 +10,7 @@ import {
   totalReports,
 } from "@/lib/format";
 import { sourceLine } from "@/lib/requirements";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import type { CouponPublic, Store } from "@/lib/types";
 import { CardImpressions } from "./CardImpressions";
@@ -29,6 +30,7 @@ export default function DealCard({
   const rate = successRateLabel(coupon);
   const reports = totalReports(coupon);
   const source = sourceLine(coupon);
+  const logo = storeLogoUrl(store);
 
   return (
     <div className="ticket-wrap h-full">
@@ -44,9 +46,9 @@ export default function DealCard({
             href={store ? `/stores/${store.slug}` : `/coupons/${coupon.slug}`}
             className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink hover:text-accent"
           >
-            {store?.logo_url ? (
+            {logo ? (
               <Image
-                src={store.logo_url}
+                src={logo}
                 alt=""
                 width={32}
                 height={32}

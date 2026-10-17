@@ -48,7 +48,7 @@ export default function PromoStrip() {
           {paused ? "Play" : "Pause"}
           <span className="sr-only">{paused ? " announcements" : " announcement ticker"}</span>
         </button>
-        <Link href="/how-it-works" className="shrink-0 text-xs font-medium underline-offset-2 hover:underline">
+        <Link href="/how-it-works" className="shrink-0 text-xs font-medium text-white underline-offset-2 hover:underline">
           How it works
         </Link>
       </div>

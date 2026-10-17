@@ -12,6 +12,7 @@ import { storeInitials } from "@/lib/catalog";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { groupSimilar } from "@/lib/grouping";
+import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic, Store } from "@/lib/types";
 
 interface StorePageClientProps {
@@ -32,10 +33,11 @@ interface StorePageClientProps {
 }
 
 function StoreMark({ store, size = 64 }: { store: Store; size?: number }) {
-  if (store.logo_url) {
+  const logo = storeLogoUrl(store);
+  if (logo) {
     return (
       <Image
-        src={store.logo_url}
+        src={logo}
         alt=""
         width={size}
         height={size}
@@ -64,6 +66,7 @@ export default function StorePageClient({
 }: StorePageClientProps) {
   const code = currency ?? "INR";
   const hasVotes = stats.totalReports > 0;
+  const accent = storeAccent(store.slug);
 
   // A tab with nothing in it is noise — only offer tabs that have coupons.
   const visibleTabs = useMemo(
@@ -126,13 +129,29 @@ export default function StorePageClient({
         className="relative overflow-hidden rounded-[26px] bg-[#1b1836] text-white shadow-[var(--shadow-overlay)]"
         style={{ backgroundImage: "linear-gradient(120deg, #1b1836, #253d70)" }}
       >
+        {/* The store's own accent colour, sampled from its icon — decorative only. */}
+        {accent && (
+          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: accent }} />
+        )}
         <div className="relative flex flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:px-9 sm:py-10">
-          <div className="shrink-0 self-start rounded-full bg-white p-1.5 shadow-[var(--shadow-overlay)]">
-            <StoreMark store={store} size={76} />
+          <div className="relative shrink-0 self-start">
+            {accent && (
+              <span
+                aria-hidden="true"
+                className="absolute -inset-3 rounded-full opacity-40 blur-xl"
+                style={{ backgroundColor: accent }}
+              />
+            )}
+            <div
+              className="relative rounded-full bg-white p-1.5 shadow-[var(--shadow-overlay)]"
+              style={accent ? { boxShadow: `0 0 0 3px ${accent}66, var(--shadow-overlay)` } : undefined}
+            >
+              <StoreMark store={store} size={76} />
+            </div>
           </div>
 
           <div className="min-w-0 flex-1">
-            <h1 className="font-serif text-3xl font-extrabold leading-tight sm:text-5xl">{store.name}</h1>
+            <h1 className="font-serif text-3xl font-extrabold leading-tight text-white sm:text-5xl">{store.name}</h1>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                 {stats.total} listed offers
@@ -142,7 +161,7 @@ export default function StorePageClient({
                   href={store.website_url}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="rounded-full bg-white/20 px-3 py-1 backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
+                  className="rounded-full bg-white/20 px-3 py-1 text-white backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
                 >
                   {new URL(store.website_url).hostname.replace(/^www\./, "")}
                   <span className="sr-only"> (opens in a new tab)</span>

@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { resilient } from "@/lib/api";
+import { storeInitials } from "@/lib/catalog";
 import EmptyState from "@/components/EmptyState";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
+import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
+import type { Store } from "@/lib/types";
 
 export const revalidate = 300;
 
@@ -11,6 +15,62 @@ export const metadata: Metadata = {
   description: "Browse every store on Durza.",
   alternates: { canonical: absoluteUrl("/stores") },
 };
+
+/** A store card: its own logo, a stripe of the accent sampled from that logo,
+ * and a quiet hostname line — the store's identity, not a plain text link. */
+function StoreCard({ store }: { store: Store }) {
+  const logo = storeLogoUrl(store);
+  const accent = storeAccent(store.slug);
+
+  let host: string | null = null;
+  if (store.website_url) {
+    try {
+      host = new URL(store.website_url).hostname.replace(/^www\./, "");
+    } catch {
+      host = null;
+    }
+  }
+
+  return (
+    <Link
+      href={`/stores/${store.slug}`}
+      className="lift group relative flex h-full items-center gap-3 overflow-hidden rounded-2xl border border-ledger-line bg-white p-4 pr-4 shadow-[var(--shadow-hairline)]"
+    >
+      {accent && (
+        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1" style={{ backgroundColor: accent }} />
+      )}
+      {logo ? (
+        <Image
+          src={logo}
+          alt=""
+          width={48}
+          height={48}
+          className="h-12 w-12 shrink-0 rounded-full border border-ledger-line bg-white object-contain"
+          style={accent ? { boxShadow: `0 0 0 3px ${accent}26` } : undefined}
+        />
+      ) : (
+        <span
+          aria-hidden="true"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-base text-ink-soft"
+        >
+          {storeInitials(store.name)}
+        </span>
+      )}
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[15px] font-semibold text-ink">{store.name}</span>
+        <span className="block truncate text-xs text-ink-soft">
+          {host ?? "Offers and coupon codes"}
+        </span>
+      </span>
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-ink-soft transition-transform group-hover:translate-x-0.5 group-hover:text-inkblue"
+      >
+        →
+      </span>
+    </Link>
+  );
+}
 
 export default async function StoresIndexPage({
   searchParams,
@@ -46,7 +106,11 @@ export default async function StoresIndexPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
-      <h1 className="mb-8 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Stores</h1>
+      <h1 className="mb-4 font-serif text-4xl font-extrabold text-ink sm:text-5xl">Stores</h1>
+      <p className="mb-8 max-w-xl text-sm leading-relaxed text-ink-soft">
+        Every store we track, with the offers we found on its own pages — not a directory of
+        everything that exists.
+      </p>
       <form action="/stores" className="mb-10 max-w-md">
         <label htmlFor="store-filter" className="sr-only">Filter stores</label>
         <input
@@ -60,9 +124,13 @@ export default async function StoresIndexPage({
       </form>
 
       {letters.length > 0 && (
-        <nav className="mb-8 flex flex-wrap gap-2 font-mono text-sm" aria-label="Alphabet">
+        <nav className="mb-10 flex flex-wrap gap-2" aria-label="Jump to letter">
           {letters.map((l) => (
-            <a key={l} href={`#letter-${l}`} className="border border-ledger-line px-2.5 py-1 text-ink-soft hover:border-inkblue hover:text-inkblue">
+            <a
+              key={l}
+              href={`#letter-${l}`}
+              className="rounded-full border border-ledger-line px-3 py-1 font-mono text-xs font-medium text-ink-soft transition-colors hover:border-inkblue hover:text-inkblue"
+            >
               {l}
             </a>
           ))}
@@ -72,20 +140,27 @@ export default async function StoresIndexPage({
       {items.length === 0 ? (
         <EmptyState title="No stores found." body="Try a different filter." cta={{ href: "/stores", label: "All stores" }} />
       ) : (
-        letters.map((l) => (
-          <section key={l} id={`letter-${l}`} className="mb-10">
-            <h2 className="mb-3 border-b border-ledger-line pb-1 font-mono text-sm uppercase tracking-widest text-ink-soft">{l}</h2>
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-3">
-              {groups.get(l)!.map((s) => (
-                <li key={s.id}>
-                  <Link href={`/stores/${s.slug}`} className="text-ink hover:text-inkblue">
-                    {s.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
+        <div className="space-y-10">
+          {letters.map((l) => (
+            <section key={l} id={`letter-${l}`} className="scroll-mt-24">
+              <h2 className="mb-4 flex items-baseline gap-2.5">
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+                  {l === "#" ? "Others" : l}
+                </span>
+                <span className="text-[11px] text-ink-soft">
+                  {groups.get(l)!.length} {groups.get(l)!.length === 1 ? "store" : "stores"}
+                </span>
+              </h2>
+              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {groups.get(l)!.map((s) => (
+                  <li key={s.id}>
+                    <StoreCard store={s} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
       )}
     </div>
   );

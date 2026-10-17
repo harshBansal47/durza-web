@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { storeInitials } from "@/lib/catalog";
+import { storeLogoUrl } from "@/lib/storeLogos";
 
 interface MarqueeStore {
   id: string;
@@ -10,13 +11,14 @@ interface MarqueeStore {
 }
 
 function Chip({ store }: { store: MarqueeStore }) {
+  const logo = storeLogoUrl(store);
   return (
     <Link
       href={`/stores/${store.slug}`}
       className="mx-2 flex shrink-0 items-center gap-2.5 rounded-full border border-ledger-line bg-white py-2 pl-2 pr-5 shadow-[var(--shadow-hairline)] transition-all hover:-translate-y-0.5 hover:border-accent-soft hover:shadow-[var(--shadow-raised)]"
     >
-      {store.logo_url ? (
-        <Image src={store.logo_url} alt="" width={36} height={36} className="h-9 w-9 rounded-full bg-paper object-contain" />
+      {logo ? (
+        <Image src={logo} alt="" width={36} height={36} className="h-9 w-9 rounded-full bg-paper object-contain" />
       ) : (
         <span aria-hidden="true" className="bg-ink flex h-9 w-9 items-center justify-center rounded-full font-sans text-sm font-medium text-white">
           {storeInitials(store.name)}

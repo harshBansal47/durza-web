@@ -4,6 +4,7 @@ import { resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 
@@ -130,13 +131,21 @@ export default async function StorePage({ params }: Props) {
   ];
   const faqJsonLd = faqPageJsonLd(faqs);
 
+  // The page shows the store's own icon; absolute-ise it for structured data.
+  const storeLogo = storeLogoUrl(store);
+  const storeLogoUrlAbsolute = storeLogo
+    ? storeLogo.startsWith("/")
+      ? `${SITE_URL}${storeLogo}`
+      : storeLogo
+    : null;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: store.name,
     url: `${SITE_URL}/stores/${store.slug}`,
     ...(store.website_url ? { sameAs: store.website_url } : {}),
-    ...(store.logo_url ? { logo: store.logo_url } : {}),
+    ...(storeLogoUrlAbsolute ? { logo: storeLogoUrlAbsolute } : {}),
   };
 
   return (

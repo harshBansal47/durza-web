@@ -70,7 +70,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---- Typography scale ---- */
+/* ---- Typography scale ----
+   Note: these element-level colours beat colours inherited from an ancestor
+   (e.g. a `text-white` wrapper). On dark surfaces — bg-ink, bg-brand, the
+   store-page header — the heading, paragraph or link itself must carry an
+   explicit text-* class, or it will render near-black on near-black. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-weight: 500;

@@ -138,7 +138,7 @@ export default async function CouponsPage({
                 <CouponRow
                   key={coupon.id}
                   coupon={coupon}
-                  store={store ? { name: store.name, logoUrl: store.logo_url } : undefined}
+                  store={store ? { name: store.name, slug: store.slug, logoUrl: store.logo_url } : undefined}
                 />
               );
             })}

@@ -2,6 +2,7 @@ import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
 import { storeInitials } from "@/lib/catalog";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports } from "@/lib/format";
 import { maskCode } from "@/lib/codes";
 import { cardRequirementLine, sourceLine } from "@/lib/requirements";
@@ -43,13 +44,14 @@ function initials(name: string) {
 }
 
 function StoreLine({ store }: { store: CouponCardStore }) {
+  const logo = storeLogoUrl(store);
   return (
     <Link
       href={`/stores/${store.slug}`}
       className="relative z-10 flex min-w-0 items-center gap-2 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink"
     >
-      {store.logo_url ? (
-        <Image src={store.logo_url} alt="" width={22} height={22} className="h-[22px] w-[22px] rounded-full border border-ledger-line bg-white object-contain" />
+      {logo ? (
+        <Image src={logo} alt="" width={22} height={22} className="h-[22px] w-[22px] rounded-full border border-ledger-line bg-white object-contain" />
       ) : (
         <span aria-hidden="true" className="flex h-[22px] w-[22px] items-center justify-center rounded-full border border-ledger-line bg-paper font-mono text-[9px] font-medium text-ink-soft">
           {initials(store.name)}

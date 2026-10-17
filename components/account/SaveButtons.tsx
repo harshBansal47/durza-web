@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { storeInitials } from "@/lib/catalog";
 import { maskCode } from "@/lib/codes";
+import { storeLogoUrl } from "@/lib/storeLogos";
 
 /**
  * Save/follow toggles.
@@ -113,11 +114,12 @@ export function StoreFollowRow({
   initiallySaved: boolean;
   action: (storeId: string, currentlySaved: boolean) => Promise<ToggleResult>;
 }) {
+  const logo = storeLogoUrl(store);
   return (
     <li className="flex items-center gap-3 border border-ledger-line bg-paper-raised p-3">
-      {store.logo_url ? (
+      {logo ? (
         <Image
-          src={store.logo_url}
+          src={logo}
           alt=""
           width={32}
           height={32}
