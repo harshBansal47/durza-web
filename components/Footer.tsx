@@ -2,6 +2,7 @@ import Link from "next/link";
 import SponsoredCard from "@/components/SponsoredCard";
 import type { Ad } from "@/lib/types";
 import Logo from "@/components/Logo";
+import AppDownloadLink from "@/components/AppDownloadLink";
 
 const PALETTE = {
   dark: "var(--color-ink-warm)",
@@ -92,6 +93,14 @@ export default function Footer({ ad }: { ad?: Ad | null }) {
                 </ul>
               </div>
             ))}
+            <div>
+              <p className="text-sm font-medium text-ink">App</p>
+              <ul className="mt-3 space-y-2 text-sm">
+                <li>
+                  <AppDownloadLink />
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div
