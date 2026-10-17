@@ -1,9 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { track } from "@/lib/analytics";
 
 const KEY = "durza.saved_coupons";
+
+let sessionPromise: Promise<boolean> | null = null;
+function signedIn(): Promise<boolean> {
+  if (!sessionPromise) {
+    sessionPromise = fetch("/api/session", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => Boolean(d?.signedIn))
+      .catch(() => false);
+  }
+  return sessionPromise;
+}
 
 function read(): string[] {
   try {
@@ -14,13 +25,29 @@ function read(): string[] {
   }
 }
 
-/** Anonymous save: localStorage today, account sync later. No login wall. */
+/** Save requires a signed-in account: anonymous saves can't sync to a profile. */
 export function CardSaveButton({ couponId }: { couponId: string }) {
+  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
   const [saved, setSaved] = useState<boolean>(() =>
     typeof window === "undefined" ? false : read().includes(couponId),
   );
 
+  useEffect(() => {
+    let cancelled = false;
+    signedIn().then((v) => {
+      if (!cancelled) setIsSignedIn(v);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   function toggle() {
+    if (isSignedIn === false) {
+      const next = encodeURIComponent(window.location.pathname + window.location.search);
+      window.location.assign(`/account/login?next=${next}`);
+      return;
+    }
     const next = !saved;
     setSaved(next);
     try {
@@ -33,15 +60,23 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
     track(next ? "save_coupon" : "unsave_coupon", { coupon_id: couponId });
   }
 
+  // While auth state is unknown, render the button inert to avoid a flash.
+  const disabled = isSignedIn === null;
+
   return (
     <button
       type="button"
       onClick={toggle}
+      disabled={disabled}
       aria-pressed={saved}
       aria-label={saved ? "Remove from saved deals" : "Save this deal"}
-      title={saved ? "Saved" : "Save for later"}
+      title={isSignedIn === false ? "Sign in to save" : saved ? "Saved" : "Save for later"}
       className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all active:scale-90 ${
-        saved ? "border-rust bg-rust text-white" : "border-ledger-line bg-white text-ink-soft hover:border-rust hover:text-rust"
+        disabled
+          ? "border-ledger-line bg-white text-ink-soft opacity-50"
+          : saved
+            ? "border-rust bg-rust text-white"
+            : "border-ledger-line bg-white text-ink-soft hover:border-rust hover:text-rust"
       }`}
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -50,3 +85,4 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
     </button>
   );
 }
+
