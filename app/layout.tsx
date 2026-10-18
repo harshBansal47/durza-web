@@ -25,6 +25,13 @@ export const metadata: Metadata = {
     template: "%s — Durza",
   },
   description: SITE_DESCRIPTION,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
