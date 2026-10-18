@@ -306,6 +306,14 @@ export const api = {
   googleLoginUrl: (returnTo = "/account") =>
     `${API_URL}/auth/google?redirect=${encodeURIComponent(returnTo)}`,
 
+  /** Set a password for an account that has none (e.g. Google-only). */
+  setPassword: (newPassword: string) =>
+    apiFetch<void>("/auth/set-password", {
+      method: "POST",
+      body: JSON.stringify({ new_password: newPassword }),
+      cache: "no-store",
+    }),
+
   /** Request a password reset email. Always succeeds (even for unknown emails). */
   forgotPassword: (email: string) =>
     apiFetch<void>("/auth/forgot-password", {

@@ -52,9 +52,9 @@ function StoreLine({ store }: { store: CouponCardStore }) {
       className="relative z-10 flex min-w-0 items-center gap-2 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink"
     >
       {logo ? (
-        <Image src={logo} alt="" width={22} height={22} className="h-[22px] w-[22px] rounded-full border border-ledger-line bg-white object-contain" />
+        <Image src={logo} alt="" width={40} height={40} className="h-10 w-10 rounded-lg border border-ledger-line bg-white object-contain" />
       ) : (
-        <span aria-hidden="true" className="flex h-[22px] w-[22px] items-center justify-center rounded-full border border-ledger-line bg-paper font-mono text-[9px] font-medium text-ink-soft">
+        <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-lg border border-ledger-line bg-paper font-mono text-xs font-medium text-ink-soft">
           {initials(store.name)}
         </span>
       )}
@@ -101,14 +101,14 @@ export function CouponCard({
     <div className={`ticket-wrap h-full ${expired ? "opacity-70" : ""} ${className}`}>
       <CardImpressions couponId={coupon.id} merchantId={coupon.store_id} pageType={pageType} position={position} />
       <article
-        className={`ticket flex h-full flex-col overflow-hidden rounded-[20px] border bg-paper-raised ${
+        className={`ticket flex h-full flex-col overflow-hidden rounded-xl border bg-paper-raised shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
           resolved === "expiring-soon" && !expired ? "border-rust/40" : "border-ledger-line"
         } ${featured ? "ring-1 ring-accent-soft" : ""}`}
       >
         {/* Discount is the visual hero */}
-        <div className="flex items-start justify-between gap-3 px-4 pt-4">
+        <div className="flex items-start justify-between gap-3 px-5 pt-5">
           <div className="min-w-0">
-            <p className={`savings-figure ${featured ? "text-[2rem]" : "text-[1.7rem]"}`}>
+            <p className={`savings-figure ${featured ? "text-3xl" : "text-2xl"} font-extrabold`}>
               {resolved === "price-drop" ? (
                 "Price ↓"
               ) : resolved === "free-shipping" ? (
@@ -126,7 +126,7 @@ export function CouponCard({
           <CardSaveButton couponId={coupon.id} />
         </div>
 
-        <div className="flex flex-1 flex-col gap-3 p-4 pt-3">
+        <div className="flex flex-1 flex-col gap-3 p-5 pt-4">
           <div className="min-w-0">
             <h3 className="font-sans text-[17px] font-medium leading-snug text-ink">
               <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
@@ -154,11 +154,23 @@ export function CouponCard({
                 last read. Expiry urgency already has its own single label at the
                 bottom of the card. */}
             {!expired && source?.checkedDate && (
-              <span
-                className="font-mono text-[11px] text-ink-soft"
-                title={source.url ? `${source.text} — ${source.url}` : source.text}
-              >
-                Checked {source.checkedDate}
+              <span className="flex flex-wrap items-center gap-1.5">
+                <span
+                  className="font-mono text-[11px] text-ink-soft"
+                  title={source.url ? `${source.text} — ${source.url}` : source.text}
+                >
+                  Checked {source.checkedDate}
+                </span>
+                {source.url && (
+                  <a
+                    href={source.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="font-mono text-[11px] font-medium text-inkblue underline-offset-2 hover:underline"
+                  >
+                    View source
+                  </a>
+                )}
               </span>
             )}
           </div>
@@ -192,7 +204,7 @@ export function CouponCard({
               {coupon.code ? (
                 <>
                   Code{" "}
-                  <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-2 py-0.5 font-mono text-sm font-medium text-ink">
+                  <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-3 py-2 font-mono text-sm font-medium text-ink">
                     {maskCode(coupon.code) ?? coupon.code}
                   </code>{" "}
                   — tap &ldquo;Get code&rdquo; to reveal it
@@ -223,7 +235,7 @@ export function CouponCard({
           <Link
             href={href}
             aria-disabled={expired}
-            className={`btn relative z-10 justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-cta"}`}
+            className={`btn relative z-10 justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-primary"}`}
           >
             {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "Get code" : "Get deal")}
           </Link>

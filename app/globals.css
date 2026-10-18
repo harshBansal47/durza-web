@@ -12,25 +12,25 @@
   reduced-motion and print overrides) intentionally wins over everything.
 */
 @theme {
-  --color-paper: #fafaf8;
-  --color-warm-paper: #fafaf8;
+  --color-paper: #f9fafb;
+  --color-warm-paper: #f9fafb;
   --color-paper-raised: #ffffff;
-  --color-paper-alt: #f2f1ed;
-  --color-ink: #0a0a0a;
-  --color-ink-soft: #5c5c5c;
-  --color-accent: #7a6633;
-  --color-accent-soft: #c8b68a;
-  --color-accent-faint: #f5f0e8;
-  --color-verified: #2d7a4f;
-  --color-verified-soft: #e8f5ee;
-  --color-rust: #c2410c;
-  --color-vermilion: #c2410c;
-  --color-rust-soft: #fef3ec;
+  --color-paper-alt: #f3f4f6;
+  --color-ink: #111827;
+  --color-ink-soft: #4b5563;
+  --color-accent: #ea580c;
+  --color-accent-soft: #fdba74;
+  --color-accent-faint: #fff7ed;
+  --color-verified: #16a34a;
+  --color-verified-soft: #dcfce7;
+  --color-rust: #ea580c;
+  --color-vermilion: #ea580c;
+  --color-rust-soft: #fff7ed;
   --color-durza: #ee5a0b;
   --color-durza-deep: #c2410c;
   --color-durza-soft: #fff1e8;
-  --color-ledger-line: rgba(0, 0, 0, 0.10);
-  --color-inkblue: #7a6633;
+  --color-ledger-line: rgba(0, 0, 0, 0.08);
+  --color-inkblue: #ea580c;
 
   --color-violet: #7c3aed;
   --color-sun: #c8b68a;
@@ -60,8 +60,8 @@
   /* Dark-surface tokens: used by .dark-surface so headings, body copy and
      borders stay readable on navy/ink panels without per-element overrides. */
   --color-ink-on-dark: #ffffff;
-  --color-ink-soft-on-dark: rgba(255, 255, 255, 0.78);
-  --color-ledger-line-on-dark: rgba(255, 255, 255, 0.18);
+  --color-ink-soft-on-dark: rgba(255, 255, 255, 0.75);
+  --color-ledger-line-on-dark: rgba(255, 255, 255, 0.12);
 
   --font-sans: var(--font-geist-sans), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
@@ -475,7 +475,7 @@
     .btn,
     .input,
     select {
-      min-height: 44px;
+      min-height: 48px;
     }
     .btn {
       padding: 0.625rem 1rem;

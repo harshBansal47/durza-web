@@ -119,9 +119,7 @@ export function LoginForm({
         type="button"
         onClick={() => {
           const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-          const redirectUri = process.env.NEXT_PUBLIC_SITE_URL
-            ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/google`
-            : "http://localhost:3000/api/auth/callback/google";
+          const redirectUri = `${window.location.origin}/api/auth/callback/google`;
           const params = new URLSearchParams({
             client_id: clientId ?? "",
             redirect_uri: redirectUri,
@@ -188,9 +186,7 @@ export function RegisterForm({
         type="button"
         onClick={() => {
           const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-          const redirectUri = process.env.NEXT_PUBLIC_SITE_URL
-            ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/google`
-            : "http://localhost:3000/api/auth/callback/google";
+          const redirectUri = `${window.location.origin}/api/auth/callback/google`;
           const params = new URLSearchParams({
             client_id: clientId ?? "",
             redirect_uri: redirectUri,

@@ -94,8 +94,8 @@ export default function CouponCodePanel({
               </span>
             ) : (
               <>
-                <span aria-hidden className="select-none blur-sm">
-                  {"• • • • • •"}
+                <span aria-hidden className="select-none">
+                  {coupon.code.slice(0, Math.min(3, coupon.code.length))}••••
                 </span>
                 <span className="sr-only">Code hidden until revealed</span>
               </>
