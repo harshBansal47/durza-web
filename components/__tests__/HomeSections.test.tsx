@@ -1,9 +1,14 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { Tag } from "lucide-react";
 import BannerCarousel from "@/components/home/BannerCarousel";
-import CategoryRow from "@/components/home/CategoryRow";
-import StoreMarquee from "@/components/home/StoreMarquee";
+import CategoryGrid from "@/components/home/CategoryGrid";
+import StoreScroller from "@/components/home/StoreScroller";
+import ActivityTicker from "@/components/home/ActivityTicker";
+import FeaturedBanner from "@/components/home/FeaturedBanner";
 import Hero from "@/components/home/Hero";
+import SectionTitle from "@/components/SectionTitle";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn() }),
@@ -20,31 +25,78 @@ describe("BannerCarousel", () => {
   });
 });
 
-describe("CategoryRow", () => {
-  it("links each category and falls back to a glyph when there is no icon", () => {
-    render(<CategoryRow categories={[{ id: "1", name: "Electronics", slug: "electronics" }]} />);
+describe("CategoryGrid", () => {
+  it("links each category and the all-categories tile", () => {
+    render(<CategoryGrid categories={[{ id: "1", name: "Electronics", slug: "electronics" }]} />);
     expect(screen.getByRole("link", { name: /Electronics/ })).toHaveAttribute("href", "/categories/electronics");
+    expect(screen.getByRole("link", { name: /All categories/ })).toHaveAttribute("href", "/categories");
   });
 
   it("renders nothing for an empty list", () => {
-    const { container } = render(<CategoryRow categories={[]} />);
+    const { container } = render(<CategoryGrid categories={[]} />);
     expect(container).toBeEmptyDOMElement();
   });
 });
 
-describe("StoreMarquee", () => {
+describe("StoreScroller", () => {
   it("renders nothing without stores", () => {
-    const { container } = render(<StoreMarquee stores={[]} />);
+    const { container } = render(<StoreScroller stores={[]} />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("hides the duplicated loop copy from assistive tech so each store is announced once", () => {
-    render(<StoreMarquee stores={[{ id: "1", name: "Amazon", slug: "amazon" }]} />);
-    expect(screen.getAllByRole("link", { name: /Amazon/ }).length).toBeGreaterThan(0);
-    const exposed = document.querySelectorAll("div:not([aria-hidden='true']) > a");
-    const hidden = document.querySelectorAll("[aria-hidden='true'] a");
-    expect(exposed.length).toBeGreaterThan(0);
-    expect(hidden.length).toBeGreaterThan(0);
+  it("gives every logo card an accessible store name", () => {
+    render(<StoreScroller stores={[{ id: "1", name: "Amazon", slug: "amazon" }]} />);
+    expect(screen.getByRole("link", { name: "Amazon" })).toHaveAttribute("href", "/stores/amazon");
+  });
+});
+
+describe("ActivityTicker", () => {
+  const items = [
+    { kind: "verified" as const, text: "Code SAVE20 confirmed 2 minutes ago" },
+    { kind: "percent" as const, text: "60% off at Lenskart" },
+  ];
+
+  it("renders nothing without activity", () => {
+    const { container } = render(<ActivityTicker items={[]} />);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it("repeats the tape for the loop but hides the duplicate from assistive tech", () => {
+    render(<ActivityTicker items={items} />);
+    const lines = screen.getAllByText("Code SAVE20 confirmed 2 minutes ago");
+    expect(lines).toHaveLength(2);
+    expect(lines.filter((node) => node.closest('[aria-hidden="true"]'))).toHaveLength(1);
+  });
+
+  it("offers a pause control (WCAG 2.2.2)", async () => {
+    const user = userEvent.setup();
+    render(<ActivityTicker items={items} />);
+    const pause = screen.getByRole("button", { name: /pause activity ticker/i });
+    await user.click(pause);
+    expect(screen.getByRole("button", { name: /play activity ticker/i })).toHaveAttribute("aria-pressed", "true");
+  });
+});
+
+describe("FeaturedBanner", () => {
+  it("states the tracked top percentage honestly and links to the biggest discounts", () => {
+    render(<FeaturedBanner percent={62} />);
+    expect(screen.getByText(/Up to 62% off/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /See the biggest discounts/ })).toHaveAttribute(
+      "href",
+      "/coupons?sort=biggest_discount",
+    );
+  });
+});
+
+describe("SectionTitle", () => {
+  it("renders an optional action link next to the title", () => {
+    render(
+      <SectionTitle hint="tracked offers" icon={Tag} action={{ href: "/deals", label: "Browse all deals" }}>
+        Latest deals
+      </SectionTitle>,
+    );
+    expect(screen.getByRole("heading", { name: "Latest deals" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Browse all deals/ })).toHaveAttribute("href", "/deals");
   });
 });
 

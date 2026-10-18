@@ -1,16 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check, Percent, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Clock,
+  Compass,
+  Infinity as InfinityIcon,
+  Percent,
+  Star,
+  Store,
+  Tag,
+  TicketPercent,
+  TrendingUp,
+} from "lucide-react";
 import { CouponCardGrid } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
 import Hero from "@/components/home/Hero";
+import ActivityTicker, { type ActivityItem } from "@/components/home/ActivityTicker";
 import BannerCarousel from "@/components/home/BannerCarousel";
-import CategoryRow from "@/components/home/CategoryRow";
-import StoreMarquee from "@/components/home/StoreMarquee";
+import CategoryGrid from "@/components/home/CategoryGrid";
+import FeaturedBanner from "@/components/home/FeaturedBanner";
+import StoreScroller from "@/components/home/StoreScroller";
 import HowItWorks from "@/components/home/HowItWorks";
 import DealsCarousel from "@/components/home/DealsCarousel";
 import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
+import { formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
@@ -126,7 +141,7 @@ export default async function HomePage() {
   ]);
 
   // The store list is a lookup table for card badges (every card needs its store); the
-  // marquee only shows the first dozen.
+  // stores rail only shows the first dozen.
   const cardStores = stores.items.map((s) => ({
     id: s.id,
     name: s.name,
@@ -165,6 +180,44 @@ export default async function HomePage() {
     4,
   );
   const newestItems = take(newest.items, 8);
+
+  // The activity tape under the hero is built only from rows already on this
+  // page (confirmations, the steepest percentages, the newest deals) — a line
+  // exists only when the data behind it does. Kinds interleave so the tape
+  // reads as a mix rather than three stacked lists.
+  const storeNameById = new Map(cardStores.map((s) => [s.id, s.name]));
+  const storeNameFor = (coupon: CouponPublic) => storeNameById.get(coupon.store_id) ?? "a tracked store";
+  const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text);
+  const verifiedTape: ActivityItem[] = recentlyVerifiedItems
+    .filter((c) => c.last_verified_at !== null)
+    .slice(0, 4)
+    .map((c) => ({
+      kind: "verified",
+      text: c.code
+        ? `Code ${c.code} confirmed ${formatRelativeTime(c.last_verified_at)}`
+        : `${storeNameFor(c)} offer confirmed ${formatRelativeTime(c.last_verified_at)}`,
+    }));
+  const percentTape: ActivityItem[] = biggestItems
+    .filter((c) => c.discount_value != null)
+    .slice(0, 4)
+    .map((c) => ({ kind: "percent", text: `${c.discount_value}% off at ${storeNameFor(c)}` }));
+  const dealTape: ActivityItem[] = latestDealsItems
+    .slice(0, 4)
+    .map((c) => ({ kind: "deal", text: clip(c.title, 64) }));
+  const activityItems: ActivityItem[] = [];
+  for (let i = 0; activityItems.length < 12; i += 1) {
+    const wave = [verifiedTape[i], percentTape[i], dealTape[i]].filter(
+      (item): item is ActivityItem => item !== undefined,
+    );
+    if (wave.length === 0) break;
+    activityItems.push(...wave.slice(0, 12 - activityItems.length));
+  }
+
+  // The steepest percentage currently tracked — the featured banner's number.
+  const biggestPercent = Math.max(
+    0,
+    ...biggestItems.map((c) => (c.discount_type === "percentage" && c.discount_value != null ? c.discount_value : 0)),
+  );
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
@@ -215,9 +268,11 @@ export default async function HomePage() {
         </section>
       ) : (
         <>
+          <ActivityTicker items={activityItems} />
+
           {categories.items.length > 0 && (
-            <section className="mt-10" id="categories" aria-label="Shop by category">
-              <CategoryRow categories={categories.items} />
+            <section className="mt-4" id="categories" aria-label="Shop by category">
+              <CategoryGrid categories={categories.items} />
             </section>
           )}
 
@@ -237,37 +292,35 @@ export default async function HomePage() {
 
           {latestDealsItems.length > 0 && (
             <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="latest-deals-heading">
-              <SectionTitle hint="tracked offers">
+              <SectionTitle
+                hint="tracked offers"
+                icon={Tag}
+                action={{ href: "/deals", label: "Browse all deals" }}
+              >
                 <span id="latest-deals-heading">Latest deals</span>
               </SectionTitle>
               <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Latest deals" pageType="homepage" />
-              <p className="mt-2 text-right text-sm">
-                <Link href="/deals" className="font-semibold text-rust hover:underline">
-                  Browse all deals
-                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
-                </Link>
-              </p>
             </section>
           )}
 
           {endingSoonItems.length > 0 && (
             <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="ending-heading">
-              <SectionTitle hint="real expiry dates only">
+              <SectionTitle
+                hint="real expiry dates only"
+                icon={Clock}
+                action={{ href: "/coupons", label: "All coupons" }}
+              >
                 <span id="ending-heading">Ending soon</span>
               </SectionTitle>
               <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Deals ending soon" pageType="homepage" />
-              <p className="mt-2 text-right text-sm">
-                <Link href="/coupons" className="font-semibold text-rust hover:underline">
-                  All coupons
-                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
-                </Link>
-              </p>
             </section>
           )}
 
+          {biggestPercent > 0 && <FeaturedBanner percent={biggestPercent} />}
+
           {confirmedItems.length > 0 && (
             <section className="mt-12" aria-labelledby="confirmed-heading">
-              <SectionTitle hint={`${confirmedItems.length} with shopper votes`}>
+              <SectionTitle hint={`${confirmedItems.length} with shopper votes`} icon={Star}>
                 <span id="confirmed-heading">Top rated by shoppers</span>
               </SectionTitle>
               <DealsCarousel coupons={confirmedItems} stores={cardStores} label="Deals rated by shoppers" pageType="homepage" />
@@ -288,7 +341,7 @@ export default async function HomePage() {
 
           {biggestItems.length > 0 && (
             <section className="mt-12" aria-labelledby="biggest-heading">
-              <SectionTitle hint="percentage offers only">
+              <SectionTitle hint="percentage offers only" icon={Percent}>
                 <span id="biggest-heading">Biggest % off</span>
               </SectionTitle>
               <CouponCardGrid
@@ -302,22 +355,24 @@ export default async function HomePage() {
 
           {stores.items.length > 0 && (
             <section className="section-panel mt-12 p-5 sm:p-6" aria-labelledby="stores-heading">
-              <SectionTitle hint={`${stores.total} tracked`}>
+              <SectionTitle
+                hint={`${stores.total} tracked`}
+                icon={Store}
+                action={{ href: "/stores", label: "All stores" }}
+              >
                 <span id="stores-heading">Stores we track</span>
               </SectionTitle>
-              <StoreMarquee stores={stores.items.slice(0, 12)} />
-              <p className="mt-4 text-right text-sm">
-                <Link href="/stores" className="font-semibold text-inkblue hover:underline">
-                  All stores
-                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
-                </Link>
-              </p>
+              <StoreScroller stores={stores.items.slice(0, 12)} />
             </section>
           )}
 
           {bestCouponsItems.length > 0 && (
             <section className="mt-12" aria-labelledby="best-coupons-heading">
-              <SectionTitle hint="codes only">
+              <SectionTitle
+                hint="codes only"
+                icon={TicketPercent}
+                action={{ href: "/coupons", label: "Browse all coupons" }}
+              >
                 <span id="best-coupons-heading">Best coupons</span>
               </SectionTitle>
               <CouponCardGrid
@@ -326,12 +381,6 @@ export default async function HomePage() {
                 variant="featured"
                 className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
               />
-              <p className="mt-3 text-right text-sm">
-                <Link href="/coupons" className="font-semibold text-inkblue hover:underline">
-                  Browse all coupons
-                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
-                </Link>
-              </p>
             </section>
           )}
 
@@ -362,7 +411,7 @@ export default async function HomePage() {
 
           {evergreen.length > 0 && (
             <section className="mt-12">
-              <SectionTitle hint="no expiry date">Codes with no expiry</SectionTitle>
+              <SectionTitle hint="no expiry date" icon={InfinityIcon}>Codes with no expiry</SectionTitle>
               <CouponCardGrid
                 coupons={evergreen}
                 stores={cardStores}
@@ -377,7 +426,7 @@ export default async function HomePage() {
           </div>
 
           <section className="mt-16">
-            <SectionTitle>How it works</SectionTitle>
+            <SectionTitle icon={Compass}>How it works</SectionTitle>
             <HowItWorks />
           </section>
 

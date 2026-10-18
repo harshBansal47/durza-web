@@ -185,7 +185,7 @@ export default function Hero({
             />
 
             {/* Floating Deal Card */}
-            <div className="absolute right-10 top-10 w-72 rotate-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-2xl transition-transform duration-500 hover:rotate-0">
+            <div className="animate-float-soft absolute right-10 top-10 w-72 rotate-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-2xl transition-transform duration-500 hover:rotate-0 hover:[animation-play-state:paused]">
               {topCoupon ? (
                 <>
                   {/* Store logo + name */}
@@ -237,7 +237,7 @@ export default function Hero({
             </div>
 
             {/* Secondary floating element */}
-            <div className="absolute bottom-20 left-10 flex -rotate-2 items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-xl">
+            <div className="animate-float-slow absolute bottom-20 left-10 flex -rotate-2 items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-xl [animation-delay:1.5s]">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-100">
                 <CheckCircle2 className="h-5 w-5 text-green-600" />
               </div>

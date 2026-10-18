@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Wand2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { getSignals } from "@/lib/personalization";
 import SectionTitle from "@/components/SectionTitle";
@@ -66,7 +67,7 @@ export function RecommendedRow() {
 
   return (
     <section aria-labelledby="for-you">
-      <SectionTitle hint="based on stores you follow and view">
+      <SectionTitle hint="based on stores you follow and view" icon={Wand2}>
         <span id="for-you">For you</span>
       </SectionTitle>
       {rows.map((row) => (

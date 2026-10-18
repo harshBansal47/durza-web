@@ -1,3 +1,4 @@
+import { BadgeCheck, Clock, Sparkles } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import DealsCarousel from "@/components/home/DealsCarousel";
 import type { CouponCardStore } from "@/components/CouponCard";
@@ -28,7 +29,7 @@ export function RecentlyVerifiedRow({
   if (rows.length === 0) return null;
   return (
     <section aria-labelledby="freshly-checked">
-      <SectionTitle hint="checked by shoppers">
+      <SectionTitle hint="checked by shoppers" icon={BadgeCheck}>
         <span id="freshly-checked">Freshly checked</span>
       </SectionTitle>
       <DealsCarousel coupons={rows} stores={storesFor(rows, stores)} label="Recently verified deals" />
@@ -47,7 +48,7 @@ export function NewDealsRow({
   if (rows.length === 0) return null;
   return (
     <section aria-labelledby="new-deals">
-      <SectionTitle hint="just listed">
+      <SectionTitle hint="just listed" icon={Sparkles}>
         <span id="new-deals">New deals</span>
       </SectionTitle>
       <DealsCarousel coupons={rows} stores={storesFor(rows, stores)} label="New deals" />
@@ -71,7 +72,7 @@ export function ExpiringRow({
   if (rows.length === 0) return null;
   return (
     <section aria-labelledby="ending-soon">
-      <SectionTitle hint="real expiry dates only">
+      <SectionTitle hint="real expiry dates only" icon={Clock}>
         <span id="ending-soon">Ending soon</span>
       </SectionTitle>
       <DealsCarousel coupons={rows} stores={storesFor(rows, stores)} label="Deals ending soon" />
