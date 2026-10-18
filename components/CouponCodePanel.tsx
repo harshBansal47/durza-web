@@ -154,7 +154,6 @@ export default function CouponCodePanel({
           {revealed ? (
             <>
               Take me to {storeName || "the store"}
-              <ArrowRight aria-hidden="true" className="inline h-4 w-4 align-[-2px]" strokeWidth={2} />
             </>
           ) : (
             "Get this deal at the store"

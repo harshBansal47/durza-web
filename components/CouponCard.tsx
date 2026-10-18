@@ -220,7 +220,13 @@ export function CouponCard({
           <div className="mt-auto flex flex-wrap items-center justify-between gap-2 text-xs text-ink-soft">
             <div>
               {!hideExpiry && expiryLabel(coupon.expires_at) && (
-                <span className={expiringSoon ? "font-medium text-rust" : undefined}>
+                <span
+                  className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
+                    daysLeft !== null && daysLeft >= 0 && daysLeft <= 1
+                      ? "bg-orange-100 text-orange-700"
+                      : "bg-gray-100 text-gray-700"
+                  }`}
+                >
                   {expiryLabel(coupon.expires_at)}
                 </span>
               )}

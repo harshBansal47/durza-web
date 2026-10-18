@@ -106,13 +106,13 @@ export function totalReports(coupon: CouponPublic): number {
   return coupon.success_count + coupon.fail_count;
 }
 
-/** "3 days left" / "Ends 12 Mar 2025" / null when there is no expiry. */
+/** "Expires 20 Oct" / "Ends today" / "Ends tomorrow" / null when no expiry. */
 export function expiryLabel(iso: string | null, now: Date = new Date()): string | null {
   const days = daysUntil(iso, now);
   if (days === null) return null;
   if (days < 0) return `Expired ${formatRelativeTime(iso, now)}`;
   if (days === 0) return "Ends today";
   if (days === 1) return "Ends tomorrow";
-  if (days <= 14) return `${days} days left`;
-  return `Ends ${formatDate(iso)}`;
+  const date = new Date(iso!).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return `Expires ${date}`;
 }

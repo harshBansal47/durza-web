@@ -153,7 +153,7 @@ describe("CouponCard", () => {
 
     it("counts down in days when the code is still live", () => {
       render(<CouponCard coupon={makeCoupon({ expires_at: daysFromNow(4) })} store={store} />);
-      expect(screen.getByText(/4 days left/)).toBeInTheDocument();
+      expect(screen.getByText(/Expires/)).toBeInTheDocument();
     });
 
     it("treats a code expiring today as still valid", () => {
@@ -166,7 +166,7 @@ describe("CouponCard", () => {
       const { rerender } = render(
         <CouponCard coupon={makeCoupon({ expires_at: daysFromNow(4) })} store={store} />,
       );
-      expect(screen.getByText(/4 days left/)).toBeInTheDocument();
+      expect(screen.getByText(/Expires/)).toBeInTheDocument();
 
       rerender(
         <CouponCard
@@ -175,7 +175,7 @@ describe("CouponCard", () => {
           hideExpiry
         />,
       );
-      expect(screen.queryByText(/4 days left/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Expires/)).not.toBeInTheDocument();
     });
   });
 

@@ -10,7 +10,6 @@ import { StoreFollowButton } from "@/components/StoreFollowButton";
 import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
-import { ArrowRight } from "lucide-react";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { groupSimilar } from "@/lib/grouping";
@@ -212,7 +211,6 @@ export default function StorePageClient({
               </span>
               <span className="btn btn-cta shrink-0">
               Get it
-              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
             </span>
             </Link>
           )}

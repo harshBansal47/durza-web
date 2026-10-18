@@ -15,7 +15,7 @@
   import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd, metaDescription } from "@/lib/seo";
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
-  import { ArrowRight, Check, X } from "lucide-react";
+  import { Check, X } from "lucide-react";
   import VerifiedGauge from "@/components/VerifiedGauge";
 import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
@@ -223,7 +223,6 @@ import PageTitle from "@/components/ui/PageTitle";
               {store && (
                 <Link href={`/stores/${store.slug}`} className="btn btn-cta mt-4 inline-flex items-center gap-1.5">
                   See current {store.name} deals
-                  <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
                 </Link>
               )}
             </div>
