@@ -1,23 +1,10 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { displayName } from "@/lib/session";
 import { logoutAction } from "@/app/account/actions";
 import PageTitle from "@/components/ui/PageTitle";
+import AccountTabs from "@/components/account/AccountTabs";
 
-const TABS = [
-  { href: "/account", label: "Overview" },
-  { href: "/account/saved", label: "Saved" },
-  { href: "/account/products", label: "Tracked" },
-  { href: "/account/alerts", label: "Alerts" },
-  { href: "/account/notifications", label: "Notifications" },
-  { href: "/account/settings", label: "Settings" },
-];
-
-/**
- * Shared account shell: the signed-in identity, the tab rail, and a sign-out
- * form. Every account page renders inside this so navigation is consistent.
- */
 export default function AccountShell({
   user,
   active,
@@ -58,36 +45,7 @@ export default function AccountShell({
         </form>
       </header>
 
-      <nav
-        aria-label="Account sections"
-        className="-mb-px overflow-x-auto border-b border-ledger-line scrollbar-hide"
-      >
-        <ul className="flex min-w-max">
-          {TABS.map((tab) => {
-            const isActive = tab.href === active;
-            const count = counts[tab.href];
-            return (
-              <li key={tab.href}>
-                <Link
-                  href={tab.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={[
-                    "inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm whitespace-nowrap transition-colors",
-                    isActive
-                      ? "border-ink text-ink"
-                      : "border-transparent text-ink-soft hover:border-ledger-line hover:text-ink",
-                  ].join(" ")}
-                >
-                  {tab.label}
-                  {count !== undefined && count > 0 && (
-                    <span className="font-mono text-[10px] text-ink-soft">{count}</span>
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      <AccountTabs active={active} counts={counts} />
 
       <div className="pt-8">{children}</div>
     </div>

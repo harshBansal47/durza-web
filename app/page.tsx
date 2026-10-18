@@ -12,7 +12,6 @@ import DealsCarousel from "@/components/home/DealsCarousel";
 import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
 import { absoluteUrl } from "@/lib/seo";
-import { getSessionUser } from "@/lib/session";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
@@ -70,9 +69,6 @@ export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
   const emptyEditorialPage: Paginated<EditorialContent> = { items: [], total: 0, skip: 0, limit: 0 };
   const emptyEditorial: EditorialHomepage = { guides: [], comparisons: [], reviews: [], collections: [] };
-
-  // Hide the "create an account" promo for signed-in visitors.
-  const user = await getSessionUser().catch(() => null);
 
   // Every ordering and count below is the backend's answer to a real query. This page
   // never ranks, filters a sample, or estimates: a number on screen is a `total`.
@@ -287,7 +283,7 @@ export default async function HomePage() {
           </div>
 
           <section className="mt-8">
-            <BannerCarousel sponsored={headerAd} signedIn={!!user} />
+            <BannerCarousel sponsored={headerAd} />
           </section>
 
           {biggestItems.length > 0 && (

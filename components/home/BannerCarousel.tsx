@@ -82,8 +82,28 @@ const BANNERS: Banner[] = [
 
 const SLIDE_HEIGHT = "min-h-[240px] sm:min-h-[300px]";
 
-export default function BannerCarousel({ sponsored, signedIn = false }: { sponsored?: Ad | null; signedIn?: boolean }) {
-  const banners = signedIn ? BANNERS.filter((b) => b.href !== "/account/register") : BANNERS;
+export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null }) {
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/session", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => {
+        if (!cancelled) setSignedIn(Boolean(d?.signedIn));
+      })
+      .catch(() => {
+        if (!cancelled) setSignedIn(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // While auth state is unknown, keep every slide (anonymous view) to avoid a
+  // flash of a half-empty carousel.
+  const banners =
+    signedIn === true ? BANNERS.filter((b) => b.href !== "/account/register") : BANNERS;
   const total = banners.length + (sponsored ? 1 : 0);
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
