@@ -82,6 +82,35 @@ function PasswordField({
 
 const EMPTY: ActionResult = {};
 
+/**
+ * Starts the Google OAuth redirect flow.
+ *
+ * `state` carries the post-login destination through Google and back; the
+ * callback validates that it is a same-site path before using it. Without
+ * this, a visitor who clicks "Continue with Google" on
+ * /account/login?next=/saved lands on /account instead.
+ */
+function startGoogleOAuth(next?: string) {
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  if (!clientId) {
+    // Build-time misconfiguration (NEXT_PUBLIC_GOOGLE_CLIENT_ID missing from
+    // the deploy environment). Sending an empty client_id makes Google render
+    // a raw error page, which is a worse outcome than a no-op that logs here.
+    console.error("NEXT_PUBLIC_GOOGLE_CLIENT_ID is not set — Google sign-in unavailable");
+    return;
+  }
+  const params = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: `${window.location.origin}/api/auth/callback/google`,
+    response_type: "code",
+    scope: "openid email profile",
+    access_type: "offline",
+    prompt: "select_account",
+    state: next && next.startsWith("/") && !next.startsWith("//") ? next : "/account",
+  });
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+}
+
 export function LoginForm({
   action,
   next,
@@ -117,19 +146,7 @@ export function LoginForm({
 
       <button
         type="button"
-        onClick={() => {
-          const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-          const redirectUri = `${window.location.origin}/api/auth/callback/google`;
-          const params = new URLSearchParams({
-            client_id: clientId ?? "",
-            redirect_uri: redirectUri,
-            response_type: "code",
-            scope: "openid email profile",
-            access_type: "offline",
-            prompt: "select_account",
-          });
-          window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
-        }}
+        onClick={() => startGoogleOAuth(next)}
         className="btn btn-outline flex w-full items-center justify-center gap-2"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" xmlns="http://www.w3.org/2000/svg">
@@ -184,19 +201,7 @@ export function RegisterForm({
 
       <button
         type="button"
-        onClick={() => {
-          const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-          const redirectUri = `${window.location.origin}/api/auth/callback/google`;
-          const params = new URLSearchParams({
-            client_id: clientId ?? "",
-            redirect_uri: redirectUri,
-            response_type: "code",
-            scope: "openid email profile",
-            access_type: "offline",
-            prompt: "select_account",
-          });
-          window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
-        }}
+        onClick={() => startGoogleOAuth(next)}
         className="btn btn-outline flex w-full items-center justify-center gap-2"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" xmlns="http://www.w3.org/2000/svg">
