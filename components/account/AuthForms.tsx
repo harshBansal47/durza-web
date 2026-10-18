@@ -6,7 +6,6 @@ import { Eye, EyeOff, Globe } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { api } from "@/lib/api";
 import type { ActionResult } from "@/app/account/actions";
 
 /**
@@ -119,7 +118,19 @@ export function LoginForm({
       <button
         type="button"
         onClick={() => {
-          window.location.href = api.googleLoginUrl(next);
+          const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+          const redirectUri = process.env.NEXT_PUBLIC_SITE_URL
+            ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/google`
+            : "http://localhost:3000/api/auth/callback/google";
+          const params = new URLSearchParams({
+            client_id: clientId ?? "",
+            redirect_uri: redirectUri,
+            response_type: "code",
+            scope: "openid email profile",
+            access_type: "offline",
+            prompt: "select_account",
+          });
+          window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
         }}
         className="btn btn-outline flex w-full items-center justify-center gap-2"
       >
@@ -171,7 +182,19 @@ export function RegisterForm({
       <button
         type="button"
         onClick={() => {
-          window.location.href = api.googleLoginUrl(next);
+          const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+          const redirectUri = process.env.NEXT_PUBLIC_SITE_URL
+            ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/google`
+            : "http://localhost:3000/api/auth/callback/google";
+          const params = new URLSearchParams({
+            client_id: clientId ?? "",
+            redirect_uri: redirectUri,
+            response_type: "code",
+            scope: "openid email profile",
+            access_type: "offline",
+            prompt: "select_account",
+          });
+          window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
         }}
         className="btn btn-outline flex w-full items-center justify-center gap-2"
       >
