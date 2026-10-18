@@ -15,6 +15,13 @@ import type { CouponPublic, Store } from "@/lib/types";
 import { CardImpressions } from "./CardImpressions";
 import { CardSaveButton } from "./CardSaveButton";
 
+/**
+ * The store fields a deal card renders. A full `Store` is assignable; the
+ * slim shape exists so client components (the "load more" pager) can pass
+ * stores without shipping every column.
+ */
+export type DealCardStore = Pick<Store, "id" | "name" | "slug" | "logo_url" | "currency">;
+
 export default function DealCard({
   coupon,
   store,
@@ -22,7 +29,7 @@ export default function DealCard({
   price,
 }: {
   coupon: CouponPublic;
-  store?: Store;
+  store?: DealCardStore;
   position: number;
   price?: { current: number; original: number | null; currency: string };
 }) {
@@ -39,7 +46,7 @@ export default function DealCard({
         pageType="deals"
         position={position}
       />
-      <article className="ticket deal-ticket flex h-full flex-col overflow-hidden rounded-[20px] border border-ledger-line bg-paper-raised">
+      <article className="ticket deal-ticket flex h-full flex-col overflow-hidden rounded-xl border border-ledger-line bg-paper-raised md:rounded-[20px]">
         <div className="flex items-center justify-between gap-3 border-b border-ledger-line px-4 py-4">
           <Link
             href={store ? `/stores/${store.slug}` : `/coupons/${coupon.slug}`}

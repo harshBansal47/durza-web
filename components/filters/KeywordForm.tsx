@@ -2,13 +2,18 @@
 
 import { useCallback, useId, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Search } from "lucide-react";
 
 export interface KeywordFormProps {
   placeholder?: string;
   label?: string;
   submitLabel?: string;
-  /** `lg` is the search page's full-width box; `sm` fits above a result list. */
-  size?: "lg" | "sm";
+  /**
+   * `lg` is the search page's full-width box; `sm` fits above a result list;
+   * `bar` is the compact icon-inset field for the sticky mobile toolbar —
+   * Enter submits, typing still commits after the debounce.
+   */
+  size?: "lg" | "sm" | "bar";
   autoFocus?: boolean;
 }
 
@@ -67,6 +72,38 @@ export default function KeywordForm({
   }
 
   const large = size === "lg";
+
+  if (size === "bar") {
+    return (
+      <form onSubmit={onSubmit} role="search" className="relative min-w-0 flex-1">
+        <label htmlFor={id} className="sr-only">
+          {label}
+        </label>
+        <Search
+          aria-hidden="true"
+          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-soft"
+          strokeWidth={2}
+        />
+        <input
+          id={id}
+          name="q"
+          type="search"
+          key={current}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            schedule(e.target.value);
+          }}
+          placeholder={placeholder}
+          autoFocus={autoFocus}
+          className="h-10 w-full rounded-xl border border-ledger-line bg-paper-alt pl-9 pr-3 text-sm text-ink placeholder:text-ink-soft focus:border-accent-soft focus:bg-paper-raised focus:outline-none"
+        />
+        <button type="submit" className="sr-only">
+          {submitLabel}
+        </button>
+      </form>
+    );
+  }
 
   return (
     <form

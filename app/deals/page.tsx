@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { resilient } from "@/lib/api";
-import DealCard from "@/components/DealCard";
+import type { DealCardStore } from "@/components/DealCard";
 import EmptyState from "@/components/EmptyState";
 import Pagination from "@/components/Pagination";
 import SectionTitle from "@/components/SectionTitle";
@@ -11,7 +11,13 @@ import PageTitle from "@/components/ui/PageTitle";
 import DealsSortControl from "@/components/filters/DealsSortControl";
 import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
+import DealFeed from "@/components/deals/DealFeed";
+import DealsCategoryPills from "@/components/deals/DealsCategoryPills";
+import DealsMobileToolbar from "@/components/deals/DealsMobileToolbar";
+import LoadMoreDeals from "@/components/deals/LoadMoreDeals";
+import SpotlightDeal from "@/components/deals/SpotlightDeal";
 import { parseDealFilters, resolveDealFacets, toDealQuery } from "@/lib/deal-discovery";
+import { pickSpotlightDeal } from "@/lib/deal-feed";
 import { absoluteUrl } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -76,7 +82,6 @@ export default async function DealsPage({
       : resilient.listProducts({ limit: 50 }),
   ]);
 
-  const storeById = new Map(stores.map((s) => [s.id, s]));
   const total = coupons.total;
   const page = Math.floor(skip / PAGE_SIZE) + 1;
   const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
@@ -90,6 +95,28 @@ export default async function DealsPage({
     filters.categories.length +
     Number(filters.verifiedWithinHours !== undefined) +
     Number(filters.expiresWithinDays !== undefined);
+  const filterPanel = (
+    <DealsFilterPanel
+      stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
+      categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+      filters={filters}
+    />
+  );
+  const pillCategories = categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }));
+  const dealStores: DealCardStore[] = stores.map((store) => ({
+    id: store.id,
+    name: store.name,
+    slug: store.slug,
+    logo_url: store.logo_url,
+    currency: store.currency,
+  }));
+  const categoryNames: Record<string, string> = Object.fromEntries(
+    categories.map((category) => [category.id, category.name]),
+  );
+  // The mobile spotlight is an editorial pick, not a re-order: the list keeps
+  // the backend's order, and the spotlight names a discount that same rendered
+  // list can back — the steepest percentage, then the biggest fixed amount.
+  const spotlight = pickSpotlightDeal(coupons.items);
   const paginationParams: Record<string, string | undefined> = {
     q: keyword || undefined,
     stores: filters.stores.length ? filters.stores.join(",") : undefined,
@@ -98,6 +125,12 @@ export default async function DealsPage({
     expires_within_days: filters.expiresWithinDays?.toString(),
     sort: filters.sort === "recommended" ? undefined : filters.sort,
   };
+  const nextPageParams = new URLSearchParams();
+  for (const [key, value] of Object.entries(paginationParams)) {
+    if (value) nextPageParams.set(key, value);
+  }
+  nextPageParams.set("skip", String(skip + PAGE_SIZE));
+  const nextPageHref = `/deals?${nextPageParams.toString()}`;
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -119,7 +152,7 @@ export default async function DealsPage({
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="mx-auto max-w-6xl px-4 pb-20 md:px-6 md:py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
@@ -128,34 +161,36 @@ export default async function DealsPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema).replace(/</g, "\\u003c") }}
       />
-      <PageTitle className="mb-2">Today&apos;s deals</PageTitle>
-      <p className="mb-8 text-sm text-ink-soft">
+      {/* Phones drop the title block and start at the sticky tool row below;
+          the h1 stays for structure and screen readers. */}
+      <PageTitle className="sr-only md:not-sr-only">Today&apos;s deals</PageTitle>
+      <p className="mb-8 mt-2 hidden text-sm text-ink-soft md:block">
         What shoppers most recently confirmed working, and where prices moved.
       </p>
-      <div className="mb-8">
+      <div className="mb-8 hidden md:block">
         <KeywordForm
           placeholder="Search today's deals…"
           label="Search today's deals"
         />
       </div>
 
-      <FilterLayout
-        mobileDrawer
-        panel={
-          <DealsFilterPanel
-            stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug }))}
-            categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
-            filters={filters}
-          />
-        }
-      >
+      <DealsMobileToolbar panel={filterPanel} activeFilterCount={activeFilterCount} />
+      <DealsCategoryPills
+        categories={pillCategories}
+        active={filters.categories}
+        params={paginationParams}
+      />
+
+      <FilterLayout mobileDrawer mobileTrigger="none" panel={filterPanel}>
         <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
               {total} deal{total === 1 ? "" : "s"}
-              {total > 0 ? ` · page ${page} of ${pages}` : ""}
+              {total > 0 ? (
+                <span className="hidden md:inline">{` · page ${page} of ${pages}`}</span>
+              ) : null}
             </p>
-            <p className="mt-1 text-xs text-ink-soft">
+            <p className="mt-1 hidden text-xs text-ink-soft md:block">
               {activeFilterCount > 0 ? "Filtered — only matching deals are shown." : "Every active deal, best match first."}
             </p>
           </div>
@@ -175,25 +210,50 @@ export default async function DealsPage({
             cta={{ href: "/deals", label: "All deals" }}
           />
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {coupons.items.map((coupon, index) => (
-              <DealCard
-                key={coupon.id}
-                coupon={coupon}
-                store={storeById.get(coupon.store_id)}
-                position={skip + index + 1}
+          <>
+            {spotlight ? (
+              <SpotlightDeal
+                coupon={spotlight}
+                store={dealStores.find((store) => store.id === spotlight.store_id)}
+                position={coupons.items.indexOf(spotlight) + 1}
               />
-            ))}
-          </div>
+            ) : null}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+              <DealFeed
+                coupons={coupons.items}
+                startIndex={skip}
+                stores={dealStores}
+                categoryNames={categoryNames}
+                hideOnMobileIds={spotlight ? [spotlight.id] : []}
+              />
+              <LoadMoreDeals
+                key={nextPageHref}
+                filters={filters}
+                facets={resolved}
+                keyword={keyword}
+                baseSkip={skip}
+                serverCount={coupons.items.length}
+                serverIds={coupons.items.map((coupon) => coupon.id)}
+                total={total}
+                limit={PAGE_SIZE}
+                stores={dealStores}
+                categoryNames={categoryNames}
+                nextHref={nextPageHref}
+              />
+            </div>
+          </>
         )}
 
-        <Pagination
-          basePath="/deals"
-          searchParams={paginationParams}
-          skip={skip}
-          limit={PAGE_SIZE}
-          total={total}
-        />
+        {/* Phones advance with "Load more deals…" in place; the numbered footer stays for desktop. */}
+        <div className="hidden md:block">
+          <Pagination
+            basePath="/deals"
+            searchParams={paginationParams}
+            skip={skip}
+            limit={PAGE_SIZE}
+            total={total}
+          />
+        </div>
 
         {!keyword && (
           <section className="mt-16">

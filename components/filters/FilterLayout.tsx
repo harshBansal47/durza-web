@@ -11,14 +11,23 @@ export default function FilterLayout({
   children,
   summaryLabel = "Filters",
   mobileDrawer = false,
+  mobileTrigger,
 }: {
   panel: ReactNode;
   children: ReactNode;
   summaryLabel?: string;
   mobileDrawer?: boolean;
+  /**
+   * The narrow-screen trigger. Defaults to the existing behaviour
+   * (`mobileDrawer` ? a modal sheet : a collapsed details panel); `"none"`
+   * is for pages whose own toolbar owns the trigger, leaving only the
+   * wide-screen sidebar.
+   */
+  mobileTrigger?: "drawer" | "details" | "none";
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const trigger = mobileTrigger ?? (mobileDrawer ? "drawer" : "details");
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -39,7 +48,7 @@ export default function FilterLayout({
         </div>
       </aside>
       <div className="min-w-0">
-        {mobileDrawer ? (
+        {trigger === "drawer" ? (
           <>
             <button
               type="button"
@@ -74,14 +83,14 @@ export default function FilterLayout({
               </div>
             </dialog>
           </>
-        ) : (
+        ) : trigger === "details" ? (
           <details className="mb-6 border border-ledger-line bg-paper-raised p-4 lg:hidden">
             <summary className="btn-outline cursor-pointer list-none">{summaryLabel}</summary>
             <div className="mt-4">
               <Suspense fallback={null}>{panel}</Suspense>
             </div>
           </details>
-        )}
+        ) : null}
         {children}
       </div>
     </div>
