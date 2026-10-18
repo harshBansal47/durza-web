@@ -21,20 +21,56 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <article className="mx-auto max-w-2xl px-6 py-16">
-      <PageTitle>
-        Terms of Use
-      </PageTitle>
-      <p className="mt-3 text-sm text-ink-soft">
-        Last updated: {LEGAL_LAST_UPDATED}
-      </p>
-      <div className="mt-6 space-y-4 text-ink-soft">
-        <p>
-          These terms govern your use of Durza (durza.in). By using the site,
-          you agree to them. If you do not agree, please do not use Durza.
-        </p>
+    <div className="mx-auto max-w-5xl px-6 py-16">
+      <PageTitle>Terms of Use</PageTitle>
+      <p className="mt-3 text-sm text-ink-soft">Last updated: {LEGAL_LAST_UPDATED}</p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+      <div className="mt-10 grid gap-12 md:grid-cols-4">
+        <aside className="hidden md:block">
+          <nav className="sticky top-24 space-y-1">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-ink-soft">On this page</p>
+            {[
+              ["Eligibility and Your Account", "eligibility-and-your-account"],
+              ["Using Durza", "using-durza"],
+              ["Coupon and Deal Information", "coupon-and-deal-information"],
+              ["Third-Party Stores and External Links", "third-party-stores-and-external-links"],
+              ["Affiliate Relationships", "affiliate-relationships"],
+              ["Acceptable Use", "acceptable-use"],
+              ["Your Reports and Contributions", "your-reports-and-contributions"],
+              ["Intellectual Property", "intellectual-property"],
+              ["Availability and Changes", "availability-and-changes"],
+              ["Disclaimers", "disclaimers"],
+              ["Limitation of Liability", "limitation-of-liability"],
+              ["Indemnity", "indemnity"],
+              ["Termination", "termination"],
+              ["Governing Law and Jurisdiction", "governing-law-and-jurisdiction"],
+              ["Changes to These Terms", "changes-to-these-terms"],
+              ["Contact and Grievance", "contact-and-grievance"],
+            ].map(([label, id]) => (
+              <a key={id} href={`#${id}`} className="block rounded-md px-2 py-1.5 text-sm text-ink-soft transition-colors hover:bg-paper-raised hover:text-ink">
+                {label}
+              </a>
+            ))}
+          </nav>
+        </aside>
+
+        <div className="md:col-span-3 space-y-4 text-ink-soft">
+          <div className="mb-10 rounded-xl border border-orange-100 bg-orange-50 p-6">
+            <p className="mb-2 font-semibold text-ink">Key highlights</p>
+            <ul className="list-disc space-y-1 pl-5 text-sm text-ink-soft">
+              <li>Durza is free to use. Commissions come from stores and never change the price you pay.</li>
+              <li>Offers are sourced from store pages and carry a source link and last-checked date.</li>
+              <li>Shopper votes set success rates; no rate is shown until someone reports.</li>
+              <li>Sponsored placements are always labelled. Commission data is only one ranking input.</li>
+            </ul>
+          </div>
+
+          <p>
+            These terms govern your use of Durza (durza.in). By using the site,
+            you agree to them. If you do not agree, please do not use Durza.
+          </p>
+
+        <h2 id="eligibility-and-your-account" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Eligibility and Your Account
         </h2>
         <p>
@@ -50,14 +86,14 @@ export default function TermsPage() {
           terms.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">Using Durza</h2>
+        <h2 id="using-durza" className="pt-4 font-serif text-xl text-ink scroll-mt-24">Using Durza</h2>
         <p>
           Durza helps you discover coupons, deals, and offers from online
           stores. Use it for that — for your own personal, non-commercial
           shopping.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="coupon-and-deal-information" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Coupon and Deal Information
         </h2>
         <p>
@@ -73,7 +109,7 @@ export default function TermsPage() {
           Always check the store&rsquo;s checkout page before buying.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="third-party-stores-and-external-links" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Third-Party Stores and External Links
         </h2>
         <p>
@@ -83,7 +119,7 @@ export default function TermsPage() {
           stores or websites.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="affiliate-relationships" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Affiliate Relationships
         </h2>
         <p>
@@ -100,7 +136,7 @@ export default function TermsPage() {
           for the full picture.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">Acceptable Use</h2>
+        <h2 id="acceptable-use" className="pt-4 font-serif text-xl text-ink scroll-mt-24">Acceptable Use</h2>
         <p>
           To keep Durza useful for everyone, you agree not to:
         </p>
@@ -112,7 +148,7 @@ export default function TermsPage() {
           users&rsquo; information.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="your-reports-and-contributions" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Your Reports and Contributions
         </h2>
         <p>
@@ -123,7 +159,7 @@ export default function TermsPage() {
           access to the service.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="intellectual-property" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Intellectual Property
         </h2>
         <p>
@@ -135,7 +171,7 @@ export default function TermsPage() {
           will address it.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="availability-and-changes" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Availability and Changes
         </h2>
         <p>
@@ -145,7 +181,7 @@ export default function TermsPage() {
           constitutes acceptance of the updated terms.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">Disclaimers</h2>
+        <h2 id="disclaimers" className="pt-4 font-serif text-xl text-ink scroll-mt-24">Disclaimers</h2>
         <p>
           Durza is provided &ldquo;as is&rdquo; and &ldquo;as
           available&rdquo;, to the fullest extent permitted by law. We list
@@ -154,7 +190,7 @@ export default function TermsPage() {
           saving.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="limitation-of-liability" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Limitation of Liability
         </h2>
         <p>
@@ -165,14 +201,14 @@ export default function TermsPage() {
           consumer protection law.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">Indemnity</h2>
+        <h2 id="indemnity" className="pt-4 font-serif text-xl text-ink scroll-mt-24">Indemnity</h2>
         <p>
           To the extent permitted by law, you agree to indemnify Durza against
           claims, losses, or costs arising from your misuse of the service or
           your breach of these terms.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="termination" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Termination
         </h2>
         <p>
@@ -183,7 +219,7 @@ export default function TermsPage() {
           survive termination.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="governing-law-and-jurisdiction" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Governing Law and Jurisdiction
         </h2>
         <p>
@@ -193,7 +229,7 @@ export default function TermsPage() {
           terms or your use of Durza.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="changes-to-these-terms" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Changes to These Terms
         </h2>
         <p>
@@ -202,7 +238,7 @@ export default function TermsPage() {
           surfaced on the site.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="contact-and-grievance" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Contact and Grievance
         </h2>
         <p>
@@ -218,6 +254,7 @@ export default function TermsPage() {
           the timelines required by law.
         </p>
       </div>
-    </article>
+      </div>
+    </div>
   );
 }
