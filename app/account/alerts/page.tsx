@@ -33,17 +33,23 @@ const CHANNEL_LABEL: Record<string, string> = {
  * three channels enabled that they got the same news four times, which is
  * precisely the impression this page exists to correct.
  */
+const KIND_PRIORITY: Record<AlertKind, number> = {
+  target_met: 0,
+  price_drop: 1,
+  coupon_appeared: 2,
+};
+
 function groupByAlert(events: AlertEvent[]): { key: string; event: AlertEvent; attempts: AlertEvent[] }[] {
   const groups = new Map<string, AlertEvent[]>();
   for (const event of events) {
-    // The price point is what makes an alert an alert, so it is the natural
-    // identity: every channel of the same alert shares it.
     const key = `${event.price_point_id ?? event.id}`;
     const bucket = groups.get(key);
     if (bucket) bucket.push(event);
     else groups.set(key, [event]);
   }
-  return [...groups.entries()].map(([key, attempts]) => ({ key, event: attempts[0]!, attempts }));
+  return [...groups.entries()]
+    .map(([key, attempts]) => ({ key, event: attempts[0]!, attempts }))
+    .sort((a, b) => (KIND_PRIORITY[a.event.kind] ?? 9) - (KIND_PRIORITY[b.event.kind] ?? 9));
 }
 
 export default async function AlertsPage() {
