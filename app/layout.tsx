@@ -129,7 +129,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main id="main" className="flex-1">
             {children}
           </main>
-          <PriceAlertBanner />
+          <PriceAlertBanner signedIn={!!user} />
           <Footer ad={footerAd} hasComparisons={hasComparisons} />
           <MobileTabBar />
           <InstallPrompt />

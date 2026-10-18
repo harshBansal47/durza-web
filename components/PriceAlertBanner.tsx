@@ -32,7 +32,7 @@ function getServerSnapshot() {
  * It now lives above the footer, is dismissible, and remembers the choice on
  * this device (localStorage only — nothing is sent to the server).
  */
-export default function PriceAlertBanner() {
+export default function PriceAlertBanner({ signedIn = false }: { signedIn?: boolean }) {
   const dismissed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   function dismiss() {
@@ -44,7 +44,7 @@ export default function PriceAlertBanner() {
     window.dispatchEvent(new CustomEvent(DISMISS_EVENT));
   }
 
-  if (dismissed) return null;
+  if (dismissed || signedIn) return null;
 
   return (
     <div className="mt-16 no-print">

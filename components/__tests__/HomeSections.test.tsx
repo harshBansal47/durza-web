@@ -72,6 +72,6 @@ describe("Hero", () => {
 
   it("shows an honest empty spotlight instead of a fabricated deal", () => {
     render(<Hero stats={[]} popularStores={[]} spotlight={[]} />);
-    expect(screen.getByText(/No spotlight coupons/)).toBeInTheDocument();
+    expect(screen.getByText(/No featured deal right now/)).toBeInTheDocument();
   });
 });

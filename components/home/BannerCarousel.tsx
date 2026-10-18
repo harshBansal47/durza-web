@@ -82,8 +82,9 @@ const BANNERS: Banner[] = [
 
 const SLIDE_HEIGHT = "min-h-[240px] sm:min-h-[300px]";
 
-export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null }) {
-  const total = BANNERS.length + (sponsored ? 1 : 0);
+export default function BannerCarousel({ sponsored, signedIn = false }: { sponsored?: Ad | null; signedIn?: boolean }) {
+  const banners = signedIn ? BANNERS.filter((b) => b.href !== "/account/register") : BANNERS;
+  const total = banners.length + (sponsored ? 1 : 0);
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -134,7 +135,7 @@ export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null })
         className="scrollbar-hide flex snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-lg shadow-raised"
         style={{ boxShadow: "0 0 0 1px rgba(20,17,10,0.12), 0 4px 14px rgba(20,17,10,0.1)" }}
       >
-        {BANNERS.map((b, i) => {
+        {banners.map((b, i) => {
         const Glyph = b.glyph;
         return (
           <div
