@@ -2,10 +2,11 @@
 
 import { useActionState, useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Globe } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { api } from "@/lib/api";
 import type { ActionResult } from "@/app/account/actions";
 
 /**
@@ -106,6 +107,26 @@ export function LoginForm({
 
       <SubmitButton label="Sign in" pendingLabel="Signing in…" />
 
+      <div className="relative my-2">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t border-ledger-line" />
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-paper px-3 text-xs text-ink-soft">or</span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          window.location.href = api.googleLoginUrl(next);
+        }}
+        className="btn btn-outline flex w-full items-center justify-center gap-2"
+      >
+        <Globe aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
+        Continue with Google
+      </button>
+
       <ActionMessages state={state} />
     </form>
   );
@@ -137,6 +158,26 @@ export function RegisterForm({
       />
 
       <SubmitButton label="Create account" pendingLabel="Creating your account…" />
+
+      <div className="relative my-2">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t border-ledger-line" />
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-paper px-3 text-xs text-ink-soft">or</span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          window.location.href = api.googleLoginUrl(next);
+        }}
+        className="btn btn-outline flex w-full items-center justify-center gap-2"
+      >
+        <Globe aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
+        Continue with Google
+      </button>
 
       <ActionMessages state={state} />
 

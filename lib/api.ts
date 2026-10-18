@@ -302,6 +302,10 @@ export const api = {
       cache: "no-store",
     }),
 
+  /** Start Google OAuth: returns the URL the browser should visit. */
+  googleLoginUrl: (returnTo = "/account") =>
+    `${API_URL}/auth/google?redirect=${encodeURIComponent(returnTo)}`,
+
   /** Request a password reset email. Always succeeds (even for unknown emails). */
   forgotPassword: (email: string) =>
     apiFetch<void>("/auth/forgot-password", {
