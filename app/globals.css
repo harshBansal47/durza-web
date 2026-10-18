@@ -608,7 +608,15 @@
     transform: none !important;
   }
   .marquee-track { animation: none !important; }
-  .marquee { overflow-x: auto; }
+  /* Still manually scrollable without motion, but never draw the scrollbar
+     chrome for it. */
+  .marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .marquee::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @media print {

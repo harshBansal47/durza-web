@@ -48,6 +48,16 @@ describe("StoreScroller", () => {
     render(<StoreScroller stores={[{ id: "1", name: "Amazon", slug: "amazon" }]} />);
     expect(screen.getByRole("link", { name: "Amazon" })).toHaveAttribute("href", "/stores/amazon");
   });
+
+  it("contains the hidden name inside the card, not the scroll rail", () => {
+    render(<StoreScroller stores={[{ id: "1", name: "Amazon", slug: "amazon" }]} />);
+    const link = screen.getByRole("link", { name: "Amazon" });
+    // The sr-only label is position:absolute. Without a positioned ancestor in
+    // the card, its containing block becomes the section and it escapes the
+    // rail's overflow clip — each label then stretches the document's width.
+    expect(link).toHaveClass("relative");
+    expect(link.querySelector("span.sr-only")).toHaveTextContent("Amazon");
+  });
 });
 
 describe("ActivityTicker", () => {

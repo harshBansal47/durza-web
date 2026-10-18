@@ -29,7 +29,7 @@ export default function StoreScroller({ stores }: { stores: ScrollerStore[] }) {
             <Link
               href={`/stores/${store.slug}`}
               title={store.name}
-              className="flex h-20 w-32 items-center justify-center rounded-xl border border-ledger-line bg-paper-raised p-4 shadow-[var(--shadow-hairline)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-soft hover:shadow-[var(--shadow-raised)]"
+              className="relative flex h-20 w-32 items-center justify-center rounded-xl border border-ledger-line bg-paper-raised p-4 shadow-[var(--shadow-hairline)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-soft hover:shadow-[var(--shadow-raised)]"
             >
               {logo ? (
                 <Image src={logo} alt="" width={96} height={40} className="h-10 w-auto max-w-full object-contain" />
