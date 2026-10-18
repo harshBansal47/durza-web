@@ -21,14 +21,49 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <article className="mx-auto max-w-2xl px-6 py-16">
-      <PageTitle>
-        Privacy Policy
-      </PageTitle>
-      <p className="mt-3 text-sm text-ink-soft">
-        Last updated: {LEGAL_LAST_UPDATED}
-      </p>
-      <div className="mt-6 space-y-4 text-ink-soft">
+    <div className="mx-auto max-w-5xl px-6 py-16">
+      <PageTitle>Privacy Policy</PageTitle>
+      <p className="mt-3 text-sm text-ink-soft">Last updated: {LEGAL_LAST_UPDATED}</p>
+
+      <div className="mt-10 grid gap-12 md:grid-cols-4">
+        <aside className="hidden md:block">
+          <nav className="sticky top-24 space-y-1">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-ink-soft">On this page</p>
+            {[
+              ["Information We Collect", "information-we-collect"],
+              ["How We Use Information", "how-we-use-information"],
+              ["What We Do Not Do", "what-we-do-not-do"],
+              ["Cookies, Analytics, and Your Choices", "cookies-analytics-and-your-choices"],
+              ["Your Rights Under the DPDP Act", "your-rights-under-the-dpdp-act"],
+              ["Data Retention and Deletion", "data-retention-and-deletion"],
+              ["Sharing and Third-Party Services", "sharing-and-third-party-services"],
+              ["Where Your Data Is Processed", "where-your-data-is-processed"],
+              ["Children", "children"],
+              ["Security", "security"],
+              ["Changes to This Policy", "changes-to-this-policy"],
+              ["Grievance and Contact", "grievance-and-contact"],
+            ].map(([label, id]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="block rounded-md px-2 py-1.5 text-sm text-ink-soft transition-colors hover:bg-paper-raised hover:text-ink"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </aside>
+
+        <div className="md:col-span-3 space-y-4 text-ink-soft">
+          <div className="mb-10 rounded-xl border border-orange-100 bg-orange-50 p-6">
+            <p className="mb-2 font-semibold text-ink">Key highlights</p>
+            <ul className="list-disc space-y-1 pl-5 text-sm text-ink-soft">
+              <li>We collect only what we need to run Durza — account details, saved stores, tracked products, and anonymised usage.</li>
+              <li>We never sell your personal data. Commissions come from stores, not from you.</li>
+              <li>You can request a copy, correction, or deletion of your data at any time.</li>
+              <li>Verification reports are public attestations and are kept even after account deletion.</li>
+            </ul>
+          </div>
         <p>
           Durza (durza.in) helps shoppers find coupons and deals. This policy
           explains what personal data we collect, why we collect it, who we
@@ -40,7 +75,7 @@ export default function PrivacyPage() {
           Act).
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="information-we-collect" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Information We Collect
         </h2>
         <p>
@@ -82,7 +117,7 @@ export default function PrivacyPage() {
           shoppers.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="how-we-use-information" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           How We Use Information
         </h2>
         <p>
@@ -94,7 +129,7 @@ export default function PrivacyPage() {
           monitoring); and to meet our legal obligations.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="what-we-do-not-do" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           What We Do Not Do
         </h2>
         <p>
@@ -109,7 +144,7 @@ export default function PrivacyPage() {
           your card details.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="cookies-analytics-and-your-choices" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Cookies, Analytics, and Your Choices
         </h2>
         <p>
@@ -126,7 +161,7 @@ export default function PrivacyPage() {
           functionality may still use first-party data.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="your-rights-under-the-dpdp-act" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Your Rights Under the DPDP Act
         </h2>
         <p>
@@ -178,7 +213,7 @@ export default function PrivacyPage() {
           keep.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="data-retention-and-deletion" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Data Retention and Deletion
         </h2>
         <p>
@@ -194,7 +229,7 @@ export default function PrivacyPage() {
           required.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="sharing-and-third-party-services" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Sharing and Third-Party Services
         </h2>
         <p>
@@ -212,7 +247,7 @@ export default function PrivacyPage() {
           We may also disclose information where we are legally required to.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="where-your-data-is-processed" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Where Your Data Is Processed
         </h2>
         <p>
@@ -223,14 +258,14 @@ export default function PrivacyPage() {
           security practices.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">Children</h2>
+        <h2 id="children" className="pt-4 font-serif text-xl text-ink scroll-mt-24">Children</h2>
         <p>
           Durza is intended for adults. We do not knowingly process personal
           data of children under 18. If you believe a child has given us
           personal data, contact us and we will delete it.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">Security</h2>
+        <h2 id="security" className="pt-4 font-serif text-xl text-ink scroll-mt-24">Security</h2>
         <p>
           Passwords are stored hashed, never in readable form; the site runs
           over HTTPS; and access to personal data is limited to what the
@@ -239,7 +274,7 @@ export default function PrivacyPage() {
           quickly.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="changes-to-this-policy" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Changes to This Policy
         </h2>
         <p>
@@ -248,7 +283,7 @@ export default function PrivacyPage() {
           material changes on the site.
         </p>
 
-        <h2 className="pt-4 font-serif text-xl text-ink">
+        <h2 id="grievance-and-contact" className="pt-4 font-serif text-xl text-ink scroll-mt-24">
           Grievance and Contact
         </h2>
         <p>
@@ -265,7 +300,8 @@ export default function PrivacyPage() {
           required by law.
         </p>
       </div>
+      </div>
       <ConsentPreferences />
-    </article>
+    </div>
   );
 }
