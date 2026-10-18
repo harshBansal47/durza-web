@@ -224,6 +224,8 @@ export interface User {
   id: string;
   email: string;
   full_name: string | null;
+  /** Google account photo URL; null for password-only accounts. */
+  avatar_url?: string | null;
   role: Role;
   is_active: boolean;
   has_password?: boolean;

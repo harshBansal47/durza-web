@@ -2,9 +2,11 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search, User } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { logoutAction } from "@/app/account/actions";
 import MobileNav from "./MobileNav";
 import { HeaderSearch, MobileSearch } from "./HeaderSearch";
 import Logo from "@/components/Logo";
@@ -14,6 +16,12 @@ export interface NavLink {
   label: string;
 }
 
+export interface HeaderUser {
+  name: string;
+  /** Google account photo URL; falls back to initials when absent. */
+  avatarUrl?: string | null;
+}
+
 export default function Header({
   links,
   moreLinks = [],
@@ -21,13 +29,20 @@ export default function Header({
 }: {
   links: NavLink[];
   moreLinks?: NavLink[];
-  user?: { name: string } | null;
+  user?: HeaderUser | null;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
+  const accountMenuRef = useRef<HTMLDetailsElement>(null);
+
+  // The header lives in the persistent layout, so a client-side navigation
+  // would otherwise leave the account menu open behind the new page.
+  const closeAccountMenu = () => {
+    if (accountMenuRef.current) accountMenuRef.current.open = false;
+  };
 
   useLayoutEffect(() => {
     const updateHeaderHeight = () => {
@@ -148,44 +163,97 @@ export default function Header({
 
           {/* Account */}
           <div className="hidden shrink-0 md:block">
-            <Link
-              href={user ? "/account" : "/account/login"}
-              className="
-                group flex min-h-10 items-center gap-2.5
-                rounded-full border border-ledger-line
-                bg-white px-4
-                text-sm font-medium text-ink
-                transition-all duration-150
-                hover:border-accent-soft hover:bg-accent-faint
-              "
-            >
-              {user ? (
-                <>
-                  <span
-                    aria-hidden="true"
-                    className="
-                      flex h-7 w-7 shrink-0 items-center justify-center
-                      rounded-full bg-ink
-                      text-xs font-medium text-white
-                    "
-                  >
-                    {user.name.trim().charAt(0).toUpperCase() || "U"}
-                  </span>
+            {user ? (
+              <details ref={accountMenuRef} className="group relative">
+                <summary
+                  className="
+                    group flex min-h-10 cursor-pointer list-none items-center gap-2.5
+                    rounded-full border border-ledger-line
+                    bg-white px-4
+                    text-sm font-medium text-ink
+                    transition-all duration-150
+                    hover:border-accent-soft hover:bg-accent-faint
+                    focus-visible:outline-2 focus-visible:outline-accent
+                  "
+                >
+                  {user.avatarUrl ? (
+                    <Image
+                      src={user.avatarUrl}
+                      alt=""
+                      width={28}
+                      height={28}
+                      aria-hidden="true"
+                      className="h-7 w-7 shrink-0 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className="
+                        flex h-7 w-7 shrink-0 items-center justify-center
+                        rounded-full bg-ink
+                        text-xs font-medium text-white
+                      "
+                    >
+                      {user.name.trim().charAt(0).toUpperCase() || "U"}
+                    </span>
+                  )}
 
                   <span className="max-w-[100px] truncate">
                     {user.name}
                   </span>
 
-                  <ChevronDown aria-hidden="true" className="h-4 w-4 text-ink-soft" strokeWidth={1.75} />
-                </>
-              ) : (
-                <>
-                  <User aria-hidden="true" className="h-4 w-4 text-accent" strokeWidth={1.75} />
+                  <ChevronDown
+                    aria-hidden="true"
+                    className="h-4 w-4 text-ink-soft transition-transform group-open:rotate-180"
+                    strokeWidth={1.75}
+                  />
+                </summary>
 
-                  <span>Sign in</span>
-                </>
-              )}
-            </Link>
+                <div className="invisible absolute right-0 top-full z-50 mt-2 min-w-48 translate-y-1 rounded-2xl border border-ledger-line bg-white p-2 opacity-0 shadow-[var(--shadow-overlay)] transition group-open:visible group-open:translate-y-0 group-open:opacity-100">
+                  <Link
+                    href="/account"
+                    onClick={closeAccountMenu}
+                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                  >
+                    Your account
+                  </Link>
+
+                  <Link
+                    href="/account/settings"
+                    onClick={closeAccountMenu}
+                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                  >
+                    Settings
+                  </Link>
+
+                  <form action={logoutAction}>
+                    <button
+                      type="submit"
+                      onClick={closeAccountMenu}
+                      className="block w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                    >
+                      Sign out
+                    </button>
+                  </form>
+                </div>
+              </details>
+            ) : (
+              <Link
+                href="/account/login"
+                className="
+                  group flex min-h-10 items-center gap-2.5
+                  rounded-full border border-ledger-line
+                  bg-white px-4
+                  text-sm font-medium text-ink
+                  transition-all duration-150
+                  hover:border-accent-soft hover:bg-accent-faint
+                "
+              >
+                <User aria-hidden="true" className="h-4 w-4 text-accent" strokeWidth={1.75} />
+
+                <span>Sign in</span>
+              </Link>
+            )}
           </div>
 
           {/* Mobile actions */}

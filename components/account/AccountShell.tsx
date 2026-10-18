@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { displayName } from "@/lib/session";
 import { logoutAction } from "@/app/account/actions";
@@ -23,7 +24,7 @@ export default function AccountShell({
   counts = {},
   children,
 }: {
-  user: { email: string; full_name: string | null };
+  user: { email: string; full_name: string | null; avatar_url?: string | null };
   active: string;
   counts?: Partial<Record<string, number>>;
   children: ReactNode;
@@ -31,9 +32,21 @@ export default function AccountShell({
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-6">
       <header className="flex flex-wrap items-end justify-between gap-4 border-b border-ledger-line pb-6">
-        <div className="min-w-0">
-          <PageTitle>{displayName(user)}</PageTitle>
-          <p className="truncate text-sm text-ink-soft">{user.email}</p>
+        <div className="flex min-w-0 items-center gap-4">
+          {user.avatar_url && (
+            <Image
+              src={user.avatar_url}
+              alt=""
+              width={48}
+              height={48}
+              aria-hidden="true"
+              className="h-12 w-12 shrink-0 rounded-full border border-ledger-line object-cover"
+            />
+          )}
+          <div className="min-w-0">
+            <PageTitle>{displayName(user)}</PageTitle>
+            <p className="truncate text-sm text-ink-soft">{user.email}</p>
+          </div>
         </div>
         <form action={logoutAction}>
           <button

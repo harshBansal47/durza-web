@@ -121,7 +121,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             Skip to content
           </a>
           <PromoStrip />
-          <Header links={navLinks} moreLinks={moreNavLinks} user={user ? { name: displayName(user) } : null} />
+          <Header
+            links={navLinks}
+            moreLinks={moreNavLinks}
+            user={user ? { name: displayName(user), avatarUrl: user.avatar_url } : null}
+          />
           <main id="main" className="flex-1">
             {children}
           </main>
