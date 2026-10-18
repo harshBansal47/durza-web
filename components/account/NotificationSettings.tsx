@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Select";
-import type { ActionResult } from "@/app/account/actions";
+import type { ActionResult } from "@/app/account/action-result";
 import {
   PUSH_UNAVAILABLE_COPY,
   PushUnsupportedError,

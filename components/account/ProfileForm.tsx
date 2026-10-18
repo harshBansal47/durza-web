@@ -4,7 +4,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import type { ActionResult } from "@/app/account/actions";
+import type { ActionResult } from "@/app/account/action-result";
 
 /**
  * Profile editor: display name and password.

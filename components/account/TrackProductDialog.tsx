@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import Modal from "@/components/ui/Modal";
 import { formatMoney } from "@/lib/format";
-import type { ActionResult } from "@/app/account/actions";
+import type { ActionResult } from "@/app/account/action-result";
 
 /**
  * The "Track this" dialog.

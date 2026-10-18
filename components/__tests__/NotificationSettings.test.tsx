@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import NotificationSettings from "@/components/account/NotificationSettings";
-import type { ActionResult } from "@/app/account/actions";
+import type { ActionResult } from "@/app/account/action-result";
 
 /**
  * The push row is the only place in the account area where a browser permission

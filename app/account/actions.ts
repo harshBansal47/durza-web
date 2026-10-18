@@ -1,4 +1,4 @@
-import "server-only";
+"use server";
 
 import { cookies } from "next/headers";
 import { api, ApiError } from "@/lib/api";
@@ -7,40 +7,21 @@ import {
   getAccessToken,
   setSessionCookies,
 } from "@/lib/session";
-import type { PushPublicKey, PushSubscriptionPayload, User } from "@/lib/types";
+import type { PushPublicKey, PushSubscriptionPayload } from "@/lib/types";
+import { describeError, fail, ok, type ActionResult } from "./action-result";
 
 /**
  * Server Actions for the account area.
+ *
+ * `'use server'` is declared once at the top of this file rather than inline
+ * on each function. Client Components (the header sign-out button, for one)
+ * import actions from here, and only a file-level directive keeps the module
+ * — and its `server-only` / `next/headers` imports — out of the client bundle.
  *
  * Every action follows the same contract: return a plain serialisable result
  * rather than throwing, because a thrown error in a Server Action turns into an
  * opaque digest on the client. `useActionState` in the forms reads `error`.
  */
-
-export interface ActionResult {
-  error?: string;
-  message?: string;
-}
-
-export function ok(message?: string): ActionResult {
-  return { message };
-}
-
-export function fail(error: string): ActionResult {
-  return { error };
-}
-
-/** Turns an API failure into something worth showing a person. */
-export function describeError(error: unknown): string {
-  if (error instanceof ApiError) {
-    if (error.status === 401) return "Your session has expired. Please sign in again.";
-    if (error.status === 409) return "That account already exists. Try signing in instead.";
-    if (error.status === 422) return error.message;
-    if (error.status >= 500) return "The service is having trouble. Please try again shortly.";
-    return error.message;
-  }
-  return "Something went wrong. Please try again.";
-}
 
 /**
  * The access token for an authenticated action.
@@ -81,7 +62,6 @@ export async function loginAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   const next = safeRedirect(formData.get("next"));
@@ -111,7 +91,6 @@ export async function registerAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   const fullName = String(formData.get("full_name") ?? "").trim();
@@ -138,7 +117,6 @@ export async function registerAction(
 }
 
 export async function logoutAction(): Promise<void> {
-  "use server";
   await clearSessionCookies();
   const { redirect } = await import("next/navigation");
   redirect("/");
@@ -153,7 +131,6 @@ export async function forgotPasswordAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const email = String(formData.get("email") ?? "").trim();
 
   if (!email) return fail("Enter your email address.");
@@ -172,7 +149,6 @@ export async function resetPasswordAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const token = String(formData.get("token") ?? "");
   const newPassword = String(formData.get("new_password") ?? "");
   const confirmPassword = String(formData.get("confirm_password") ?? "");
@@ -207,7 +183,6 @@ export async function deleteAccountAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const confirmEmail = String(formData.get("confirm_email") ?? "").trim().toLowerCase()
   const currentPassword = String(formData.get("current_password") ?? "")
 
@@ -247,7 +222,6 @@ export async function updateProfileAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const fullName = String(formData.get("full_name") ?? "").trim();
   const newPassword = String(formData.get("new_password") ?? "");
   const currentPassword = String(formData.get("current_password") ?? "");
@@ -296,12 +270,10 @@ async function savedIds(
 }
 
 export async function getSavedStoreIds(): Promise<Set<string>> {
-  "use server";
   return savedIds("store", api.listSavedStores);
 }
 
 export async function getSavedCouponIds(): Promise<Set<string>> {
-  "use server";
   return savedIds("coupon", api.listSavedCoupons);
 }
 
@@ -309,7 +281,6 @@ export async function toggleSavedStore(
   storeId: string,
   currentlySaved: boolean,
 ): Promise<ActionResult> {
-  "use server";
   try {
     const token = await requireToken();
     if (currentlySaved) {
@@ -327,7 +298,6 @@ export async function toggleSavedCoupon(
   couponId: string,
   currentlySaved: boolean,
 ): Promise<ActionResult> {
-  "use server";
   try {
     const token = await requireToken();
     if (currentlySaved) {
@@ -349,7 +319,6 @@ export async function trackProductAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const productId = String(formData.get("product_id") ?? "");
   const rawTarget = String(formData.get("target_price") ?? "").trim();
   const currency = String(formData.get("currency") ?? "INR").toUpperCase();
@@ -382,7 +351,6 @@ export async function updateTargetPriceAction(
   trackedId: string,
   rawTarget: string,
 ): Promise<ActionResult> {
-  "use server";
   const trimmed = rawTarget.trim();
   let targetPrice: number | null = null;
   if (trimmed) {
@@ -402,7 +370,6 @@ export async function updateTargetPriceAction(
 }
 
 export async function untrackProductAction(trackedId: string): Promise<ActionResult> {
-  "use server";
   try {
     const token = await requireToken();
     await api.untrackProduct(token, trackedId);
@@ -420,7 +387,6 @@ export async function updatePreferencesAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const on = (name: string) => formData.get(name) === "on" || formData.get(name) === "true";
 
   // A push subscription is only meaningful alongside push_enabled, and an
@@ -467,7 +433,6 @@ export async function subscribePushAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  "use server";
   const token = await getAccessToken();
   if (!token) return fail("Sign in to turn on browser notifications.");
 
@@ -500,7 +465,6 @@ export async function subscribePushAction(
  * two buttons.
  */
 export async function unsubscribePushAction(previous: ActionResult): Promise<ActionResult> {
-  "use server";
   // The argument is only there because `useActionState` requires the
   // (state, formData) shape; this action takes no form.
   void previous;
@@ -524,7 +488,6 @@ export async function unsubscribePushAction(previous: ActionResult): Promise<Act
  * which is the safe direction: the toggle hides itself.
  */
 export async function loadPushKey(): Promise<PushPublicKey> {
-  "use server";
   try {
     return await api.getPushPublicKey();
   } catch {
@@ -541,7 +504,6 @@ export async function loadPushKey(): Promise<PushPublicKey> {
  * session — a signed-out reader clicking "unsubscribe" should still be honoured.
  */
 export async function unsubscribeAction(_prev: ActionResult, formData: FormData): Promise<ActionResult> {
-  "use server";
   const email = String(formData.get("email") ?? "").trim();
   if (!email) return fail("Enter the email address you subscribed with.");
 
@@ -565,7 +527,6 @@ export async function unsubscribeAction(_prev: ActionResult, formData: FormData)
 /* ------------------------------------------------------------------ */
 
 export async function loadAccount() {
-  "use server";
   const token = await getAccessToken();
   if (!token) return null;
 
@@ -585,12 +546,9 @@ export async function loadAccount() {
 }
 
 export async function requireAccount() {
-  "use server";
   const account = await loadAccount();
   if (account) return account;
   const { redirect } = await import("next/navigation");
   redirect("/account/login?next=%2Faccount");
   throw new Error("unreachable");
 }
-
-export type { User };

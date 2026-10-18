@@ -6,7 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import type { ActionResult } from "@/app/account/actions";
+import type { ActionResult } from "@/app/account/action-result";
 
 /**
  * Sign-in and registration forms. Both are Server Actions driven by
