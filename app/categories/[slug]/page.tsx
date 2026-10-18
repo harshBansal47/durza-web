@@ -4,7 +4,7 @@ import PageTitle from "@/components/ui/PageTitle";
 import CategoryIcon from "@/components/CategoryIcon";
 import { resilient } from "@/lib/api";
 import CategoryChips from "@/components/CategoryChips";
-import CouponRow from "@/components/CouponRow";
+import { CouponCardGrid } from "@/components/CouponCard";
 import EmptyState from "@/components/EmptyState";
 import Pagination from "@/components/Pagination";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
@@ -88,7 +88,6 @@ export default async function CategoryPage({
     }),
   );
 
-  const storeById = new Map(stores.map((s) => [s.id, s]));
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   // The category comes from the path, so a stray `?category=` must not ride
   // along in the pagination links and contradict the page it is on.
@@ -162,18 +161,11 @@ export default async function CategoryPage({
             cta={{ href: `/categories/${category.slug}`, label: `All ${categoryName} coupons` }}
           />
         ) : (
-          <div>
-            {coupons.items.map((coupon) => {
-              const store = storeById.get(coupon.store_id);
-              return (
-                <CouponRow
-                  key={coupon.id}
-                  coupon={coupon}
-                  store={store ? { name: store.name, slug: store.slug, logoUrl: store.logo_url } : undefined}
-                />
-              );
-            })}
-          </div>
+          <CouponCardGrid
+            coupons={coupons.items}
+            stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug, currency: s.currency }))}
+            className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          />
         )}
 
         <Pagination
