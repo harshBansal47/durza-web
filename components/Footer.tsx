@@ -14,6 +14,7 @@ function columns(hasComparisons: boolean) {
   const dealsLinks = [
     { href: "/coupons", label: "Coupons" },
     { href: "/deals", label: "Today's deals" },
+    { href: "/bank-offers", label: "Bank & card offers" },
     { href: "/stores", label: "Stores" },
     { href: "/categories", label: "Categories" },
     { href: "/guides", label: "Buying guides" },

@@ -73,6 +73,7 @@ const NAV_LINKS = [
 ];
 
 const MORE_NAV_LINKS = [
+  { href: "/bank-offers", label: "Bank & card offers" },
   { href: "/categories", label: "Categories" },
   { href: "/reviews", label: "Reviews" },
   { href: "/collections", label: "Collections" },
