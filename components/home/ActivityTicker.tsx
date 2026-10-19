@@ -35,7 +35,7 @@ export default function ActivityTicker({ items }: { items: ActivityItem[] }) {
           className="marquee-track gap-8 whitespace-nowrap pr-8 text-xs font-medium text-ink-soft"
           style={{
             animationDuration: `${Math.max(items.length * 5, 32)}s`,
-            animationPlayState: paused ? "paused" : undefined,
+            animationPlayState: paused ? "paused" : "running",
           }}
         >
           {loop.map((item, i) => {
