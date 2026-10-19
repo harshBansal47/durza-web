@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
 import { StoreFollowButton } from "@/components/StoreFollowButton";
+import { SessionProvider } from "@/components/session/SessionProvider";
 import type { CouponPublic } from "@/lib/types";
 
 vi.mock("next/navigation", () => ({
@@ -77,16 +78,18 @@ describe("StoreFollowButton", () => {
   });
 
   it("follows and unfollows when signed in, with pressed state", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify({ signedIn: true }), { status: 200, headers: { "Content-Type": "application/json" } }),
-    );
     const { default: userEvent } = await import("@testing-library/user-event");
     const user = userEvent.setup();
-    render(<StoreFollowButton slug="nike" name="Nike" />);
+    render(
+      <SessionProvider
+        initial={{ status: "authenticated", user: { name: "Ada", avatarUrl: null } }}
+      >
+        <StoreFollowButton slug="nike" name="Nike" />
+      </SessionProvider>,
+    );
     const btn = screen.getByRole("button", { name: /Follow Nike/ });
     expect(btn).toHaveAttribute("aria-pressed", "false");
     await user.click(btn);
     expect(btn).toHaveAttribute("aria-pressed", "true");
-    vi.restoreAllMocks();
   });
 });

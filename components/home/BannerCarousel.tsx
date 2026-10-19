@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowDown, BadgeCheck, ChevronLeft, ChevronRight, Percent, type LucideIcon } from "lucide-react";
 import { api } from "@/lib/api";
+import { useSession } from "@/components/session/SessionProvider";
 import type { Ad } from "@/lib/types";
 
 // Edit brand colors here. They are applied as inline styles, so global CSS
@@ -83,22 +84,10 @@ const BANNERS: Banner[] = [
 const SLIDE_HEIGHT = "min-h-[240px] sm:min-h-[300px]";
 
 export default function BannerCarousel({ sponsored }: { sponsored?: Ad | null }) {
-  const [signedIn, setSignedIn] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/session", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => {
-        if (!cancelled) setSignedIn(Boolean(d?.signedIn));
-      })
-      .catch(() => {
-        if (!cancelled) setSignedIn(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // Shared with the header — one session check per page load, not one per
+  // component that cares about it.
+  const { session } = useSession();
+  const signedIn = session.status === "loading" ? null : session.status === "authenticated";
 
   // While auth state is unknown, keep every slide (anonymous view) to avoid a
   // flash of a half-empty carousel.

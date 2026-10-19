@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { GeistSans, GeistMono } from "geist/font";
-import { displayName, getSessionUser } from "@/lib/session";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FooterAd, { FooterAdFallback } from "@/components/FooterAd";
 import PriceAlertBanner from "@/components/PriceAlertBanner";
 import PromoStrip from "@/components/PromoStrip";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
-import { getSponsored } from "@/lib/ads";
-import { resilient } from "@/lib/api";
 import ToastProvider from "@/components/ui/Toast";
 import ConsentBanner from "@/components/ConsentBanner";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
 import { BRAND } from "@/lib/brand";
+import { getHasComparisons } from "@/lib/layout-data";
+import { SessionProvider } from "@/components/session/SessionProvider";
 import "@fontsource-variable/newsreader";
 import "./globals.css";
 
@@ -82,18 +83,10 @@ const MORE_NAV_LINKS = [
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [user, footerAd] = await Promise.all([
-    getSessionUser().catch(() => null),
-    getSponsored("footer"),
-  ]);
-  // Hide comparison surfaces until there is at least one published comparison.
-  let hasComparisons = false;
-  try {
-    const page = await resilient.listEditorial({ content_type: "comparison", limit: 1 });
-    hasComparisons = (page.total ?? page.items.length) > 0;
-  } catch {
-    hasComparisons = false;
-  }
+  // The only data the shell waits on. Session state and the footer ad are
+  // deliberately NOT awaited here: reading the session cookie would opt every
+  // route in the app into dynamic rendering, and the ad sits behind Suspense.
+  const hasComparisons = await getHasComparisons();
 
   const navLinks = hasComparisons
     ? NAV_LINKS
@@ -114,29 +107,34 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
-        <ToastProvider>
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-          >
-            Skip to content
-          </a>
-          <PromoStrip />
-          <Header
-            links={navLinks}
-            moreLinks={moreNavLinks}
-            user={user ? { name: displayName(user), avatarUrl: user.avatar_url } : null}
-          />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <PriceAlertBanner signedIn={!!user} />
-          <Footer ad={footerAd} hasComparisons={hasComparisons} />
-          <MobileTabBar />
-          <InstallPrompt />
-          <ConsentBanner />
-          <AnalyticsPageView />
-        </ToastProvider>
+        <SessionProvider>
+          <ToastProvider>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+            >
+              Skip to content
+            </a>
+            <PromoStrip />
+            <Header links={navLinks} moreLinks={moreNavLinks} />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <PriceAlertBanner />
+            <Footer
+              hasComparisons={hasComparisons}
+              adSlot={
+                <Suspense fallback={<FooterAdFallback />}>
+                  <FooterAd />
+                </Suspense>
+              }
+            />
+            <MobileTabBar />
+            <InstallPrompt />
+            <ConsentBanner />
+            <AnalyticsPageView />
+          </ToastProvider>
+        </SessionProvider>
       </body>
     </html>
   );

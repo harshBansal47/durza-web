@@ -1,20 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { track } from "@/lib/analytics";
+import { useSession } from "@/components/session/SessionProvider";
 
 const KEY = "durza.saved_coupons";
-
-let sessionPromise: Promise<boolean> | null = null;
-function signedIn(): Promise<boolean> {
-  if (!sessionPromise) {
-    sessionPromise = fetch("/api/session", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => Boolean(d?.signedIn))
-      .catch(() => false);
-  }
-  return sessionPromise;
-}
 
 function read(): string[] {
   try {
@@ -27,20 +17,13 @@ function read(): string[] {
 
 /** Save requires a signed-in account: anonymous saves can't sync to a profile. */
 export function CardSaveButton({ couponId }: { couponId: string }) {
-  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
+  // Shared with the header; null means the check is still in flight, and the
+  // button stays inert until it lands (see `disabled` below).
+  const { session } = useSession();
+  const isSignedIn = session.status === "loading" ? null : session.status === "authenticated";
   const [saved, setSaved] = useState<boolean>(() =>
     typeof window === "undefined" ? false : read().includes(couponId),
   );
-
-  useEffect(() => {
-    let cancelled = false;
-    signedIn().then((v) => {
-      if (!cancelled) setIsSignedIn(v);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   function toggle() {
     if (isSignedIn === false) {

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { displayName } from "@/lib/session";
-import { logoutAction } from "@/app/account/actions";
+import SignOutForm from "@/components/session/SignOutForm";
 import PageTitle from "@/components/ui/PageTitle";
 import AccountTabs from "@/components/account/AccountTabs";
 
@@ -35,14 +35,7 @@ export default function AccountShell({
             <p className="truncate text-sm text-ink-soft">{user.email}</p>
           </div>
         </div>
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            className="text-sm text-ink-soft underline underline-offset-4 hover:text-ink hover:no-underline"
-          >
-            Sign out
-          </button>
-        </form>
+        <SignOutForm className="text-sm text-ink-soft underline underline-offset-4 hover:text-ink hover:no-underline" />
       </header>
 
       <AccountTabs active={active} counts={counts} />

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import SponsoredCard from "@/components/SponsoredCard";
 import type { Ad } from "@/lib/types";
 import Logo from "@/components/Logo";
@@ -53,18 +54,28 @@ function columns(hasComparisons: boolean) {
   ];
 }
 
-export default function Footer({ ad, hasComparisons = false }: { ad?: Ad | null; hasComparisons?: boolean }) {
+export default function Footer({
+  ad,
+  adSlot,
+  hasComparisons = false,
+}: {
+  ad?: Ad | null;
+  /** Pre-rendered ad block; takes precedence over `ad` (see the layout). */
+  adSlot?: ReactNode;
+  hasComparisons?: boolean;
+}) {
   return (
     <footer className="mt-16 no-print">
-      {ad && (
-        <div className="mx-auto mb-8 max-w-6xl px-4 sm:px-6">
-          <SponsoredCard
-            ad={ad}
-            src="ad-footer"
-            aspect="aspect-[4/1] sm:aspect-[6/1]"
-          />
-        </div>
-      )}
+      {adSlot ??
+        (ad ? (
+          <div className="mx-auto mb-8 max-w-6xl px-4 sm:px-6">
+            <SponsoredCard
+              ad={ad}
+              src="ad-footer"
+              aspect="aspect-[4/1] sm:aspect-[6/1]"
+            />
+          </div>
+        ) : null)}
 
       <div className="mt-14 border-t border-ledger-line pt-12 text-ink-soft">
         <div className="mx-auto max-w-6xl px-6">

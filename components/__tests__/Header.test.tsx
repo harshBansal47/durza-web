@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Header from "@/components/Header";
+import { SessionProvider, type SessionUser } from "@/components/session/SessionProvider";
 
 vi.mock("next/navigation", () => ({
   usePathname: () => "/",
@@ -27,17 +28,40 @@ const signedIn = {
   avatarUrl: "https://lh3.googleusercontent.com/a/abc=s96-c",
 };
 
+/** The header reads the session from context; the provider takes a test seam. */
+function renderHeader(user: SessionUser | null) {
+  return render(
+    <SessionProvider
+      initial={
+        user ? { status: "authenticated", user } : { status: "anonymous", user: null }
+      }
+    >
+      <Header links={links} />
+    </SessionProvider>,
+  );
+}
+
 describe("Header account chip", () => {
   it("shows a sign-in link when signed out", () => {
-    render(<Header links={links} />);
+    renderHeader(null);
     expect(screen.getByRole("link", { name: /sign in/i })).toHaveAttribute(
       "href",
       "/account/login",
     );
   });
 
+  it("stays neutral while the session check is in flight", () => {
+    render(
+      <SessionProvider>
+        <Header links={links} />
+      </SessionProvider>,
+    );
+    expect(screen.queryByRole("link", { name: /sign in/i })).toBeNull();
+    expect(screen.queryByRole("img")).toBeNull();
+  });
+
   it("renders the Google avatar photo when one is available", () => {
-    const { container } = render(<Header links={links} user={signedIn} />);
+    const { container } = renderHeader(signedIn);
     const img = container.querySelector("img");
     expect(img).not.toBeNull();
     // next/image rewrites src to the optimizer URL; the source is query-encoded.
@@ -47,9 +71,7 @@ describe("Header account chip", () => {
   });
 
   it("falls back to initials when there is no photo", () => {
-    const { container } = render(
-      <Header links={links} user={{ name: "Ada Lovelace", avatarUrl: null }} />,
-    );
+    const { container } = renderHeader({ name: "Ada Lovelace", avatarUrl: null });
     expect(container.querySelector("img")).toBeNull();
     const summary = container.querySelector("summary");
     expect(summary).not.toBeNull();
@@ -57,7 +79,7 @@ describe("Header account chip", () => {
   });
 
   it("opens a menu with account links and sign out", () => {
-    const { container } = render(<Header links={links} user={signedIn} />);
+    const { container } = renderHeader(signedIn);
     const menu = container.querySelector("details");
     expect(menu).not.toBeNull();
     const scope = within(menu as HTMLElement);

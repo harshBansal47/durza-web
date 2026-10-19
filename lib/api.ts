@@ -28,7 +28,27 @@ import type {
   VerifyResponse,
 } from "./types";
 
+/**
+ * The API as the browser reaches it. Everything that builds a URL a visitor
+ * follows — affiliate redirects, OAuth — uses this, so it is never the private
+ * address below.
+ */
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+
+/**
+ * The base for server-side reads. When the Next server shares a host with the
+ * API, set API_INTERNAL_URL to the private address (e.g.
+ * `http://127.0.0.1:8000/api/v1`) so a render does not leave the host and come
+ * straight back through the public domain.
+ *
+ * Deliberately a function: the env read only runs where `process.env` is real,
+ * so a private address can never end up in a link the browser follows, and no
+ * client bundle depends on how the bundler handles a non-public variable.
+ */
+function serverApiUrl(): string {
+  if (typeof window !== "undefined") return API_URL;
+  return process.env.API_INTERNAL_URL?.trim() || API_URL;
+}
 
 export class ApiError extends Error {
   constructor(
@@ -49,7 +69,8 @@ type FetchOptions = RequestInit & {
 
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
   const { revalidate, token, headers, ...rest } = options;
-  const res = await fetch(`${API_URL}${path}`, {
+  const base = serverApiUrl();
+  const res = await fetch(`${base}${path}`, {
     ...rest,
     headers: {
       ...(rest.body ? { "Content-Type": "application/json" } : {}),
@@ -145,14 +166,14 @@ export const api = {
   // ---- Public catalogue -------------------------------------------------
 
   listCoupons: (params: CouponListParams = {}) =>
-    apiFetch<Paginated<CouponPublic>>(`/coupons${qs(params)}`, { revalidate: 30 }),
+    apiFetch<Paginated<CouponPublic>>(`/coupons${qs(params)}`, { revalidate: 300 }),
 
   getCouponBySlug: (slug: string) =>
-    apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: 30 }),
+    apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
   /** Account pages hold coupon ids (from /me/saved-coupons), not slugs. */
   getCouponById: (couponId: string) =>
-    apiFetch<CouponPublic>(`/coupons/${couponId}`, { revalidate: 30 }),
+    apiFetch<CouponPublic>(`/coupons/${couponId}`, { revalidate: 300 }),
 
   /**
    * Affiliate URLs are only ever resolved by the server-side /go redirect.
@@ -163,7 +184,7 @@ export const api = {
 
   /** Live sponsored placements (the backend already enforces the booked window). */
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
-    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 60 }),
+    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 600 }),
 
   /** Tracked redirect to an advertiser. The advertiser URL is never in API JSON. */
   adGoUrl: (adId: string, src?: string) => `${API_URL}/ads/${adId}/go${goQuery(src)}`,
@@ -204,7 +225,7 @@ export const api = {
 
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     apiFetch<VerificationHistoryItem[]>(`/coupons/${couponId}/verification-history${qs({ limit })}`, {
-      revalidate: 60,
+      revalidate: 300,
     }),
 
   listStores: (params: StoreListParams = {}) =>
@@ -217,7 +238,7 @@ export const api = {
 
   getStoreDestination: (slug: string) =>
     apiFetch<StoreDestination>(`/stores/by-slug/${encodeURIComponent(slug)}/destination`, {
-      revalidate: 120,
+      revalidate: 300,
     }),
 
   listEditorial: (
@@ -246,14 +267,14 @@ export const api = {
 
   listProducts: (
     params: { search?: string; store_id?: string; category_id?: string; skip?: number; limit?: number } = {},
-  ) => apiFetch<Paginated<Product>>(`/products${qs(params)}`, { revalidate: 60 }),
+  ) => apiFetch<Paginated<Product>>(`/products${qs(params)}`, { revalidate: 300 }),
 
-  getProductBySlug: (slug: string) => apiFetch<Product>(`/products/by-slug/${encodeURIComponent(slug)}`, { revalidate: 60 }),
+  getProductBySlug: (slug: string) => apiFetch<Product>(`/products/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
-  getProductById: (id: string) => apiFetch<Product>(`/products/${id}`, { revalidate: 60 }),
+  getProductById: (id: string) => apiFetch<Product>(`/products/${id}`, { revalidate: 300 }),
 
   getPriceHistory: (productId: string) =>
-    apiFetch<PricePoint[]>(`/products/${productId}/price-history`, { revalidate: 60 }),
+    apiFetch<PricePoint[]>(`/products/${productId}/price-history`, { revalidate: 300 }),
 
   // ---- Autocomplete (no cache, abortable) -------------------------------
 

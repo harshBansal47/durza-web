@@ -76,6 +76,22 @@ npm run dev
 Open http://localhost:3000. `.env.local` points at `http://localhost:8000/api/v1`
 by default — change `NEXT_PUBLIC_API_URL` if your backend runs elsewhere.
 
+### Serving the API over a private address
+
+`NEXT_PUBLIC_API_URL` is what the browser uses, and it is also what every
+outbound link is built from, so it must always be an address a visitor can
+reach. When the Next server happens to run on the same host as the API, set
+`API_INTERNAL_URL` as well and Server Components will read through that instead:
+
+```bash
+NEXT_PUBLIC_API_URL=https://api.example.com/api/v1
+API_INTERNAL_URL=http://127.0.0.1:8000/api/v1
+```
+
+The internal address is never used for links a visitor follows, and the browser
+never reads it. It buys one thing: a render that would otherwise leave the host,
+hairpin through the public internet (or a CDN), and come straight back.
+
 ## Build for production
 
 ```bash

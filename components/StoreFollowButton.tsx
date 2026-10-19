@@ -1,20 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Check, Plus } from "lucide-react";
 import { track } from "@/lib/analytics";
 import { isStoreFollowed, toggleFollowedStore } from "@/lib/personalization";
-
-let sessionPromise: Promise<boolean> | null = null;
-function signedIn(): Promise<boolean> {
-  if (!sessionPromise) {
-    sessionPromise = fetch("/api/session", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => Boolean(d?.signedIn))
-      .catch(() => false);
-  }
-  return sessionPromise;
-}
+import { useSession } from "@/components/session/SessionProvider";
 
 export function StoreFollowButton({
   slug,
@@ -26,17 +16,11 @@ export function StoreFollowButton({
   compact?: boolean;
 }) {
   const [on, setOn] = useState<boolean>(() => isStoreFollowed(slug));
-  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    signedIn().then((v) => {
-      if (!cancelled) setIsSignedIn(v);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // null while the shared session check is in flight. `click` only diverts to
+  // the login page on an explicit `false`, so an unknown state never bounces a
+  // signed-in visitor out of the page.
+  const { session } = useSession();
+  const isSignedIn = session.status === "loading" ? null : session.status === "authenticated";
 
   function click() {
     if (isSignedIn === false) {

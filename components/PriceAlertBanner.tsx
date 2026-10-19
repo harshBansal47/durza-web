@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
+import { useSession } from "@/components/session/SessionProvider";
 
 const STORAGE_KEY = "durza.banner.price-alert.dismissed";
 const DISMISS_EVENT = "durza:banner-dismissed";
@@ -32,7 +33,8 @@ function getServerSnapshot() {
  * It now lives above the footer, is dismissible, and remembers the choice on
  * this device (localStorage only — nothing is sent to the server).
  */
-export default function PriceAlertBanner({ signedIn = false }: { signedIn?: boolean }) {
+export default function PriceAlertBanner() {
+  const { session } = useSession();
   const dismissed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   function dismiss() {
@@ -44,7 +46,7 @@ export default function PriceAlertBanner({ signedIn = false }: { signedIn?: bool
     window.dispatchEvent(new CustomEvent(DISMISS_EVENT));
   }
 
-  if (dismissed || signedIn) return null;
+  if (dismissed || session.status === "authenticated") return null;
 
   return (
     <div className="mt-16 no-print">

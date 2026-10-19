@@ -6,31 +6,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search, User } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { logoutAction } from "@/app/account/actions";
 import MobileNav from "./MobileNav";
 import { HeaderSearch, MobileSearch } from "./HeaderSearch";
 import Logo from "@/components/Logo";
+import { useSession } from "@/components/session/SessionProvider";
+import SignOutForm from "@/components/session/SignOutForm";
 
 export interface NavLink {
   href: string;
   label: string;
 }
 
-export interface HeaderUser {
-  name: string;
-  /** Google account photo URL; falls back to initials when absent. */
-  avatarUrl?: string | null;
-}
-
 export default function Header({
   links,
   moreLinks = [],
-  user,
 }: {
   links: NavLink[];
   moreLinks?: NavLink[];
-  user?: HeaderUser | null;
 }) {
+  // The session arrives after hydration (see SessionProvider): keeping it out
+  // of the server render is what lets every page below be cached.
+  const { session } = useSession();
+  const user = session.user;
   const [scrolled, setScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
@@ -163,7 +160,18 @@ export default function Header({
 
           {/* Account */}
           <div className="hidden shrink-0 md:block">
-            {user ? (
+            {session.status === "loading" ? (
+              // Neutral placeholder: the signed-in state is unknowable until
+              // the client fetch lands, and guessing "Sign in" would flash the
+              // wrong label at every signed-in visitor.
+              <span
+                aria-hidden="true"
+                className="flex min-h-10 items-center gap-2.5 rounded-full border border-ledger-line bg-white px-4"
+              >
+                <User className="h-4 w-4 text-accent/40" strokeWidth={1.75} />
+                <span className="h-3 w-14 rounded-full bg-ink/10" />
+              </span>
+            ) : user ? (
               <details ref={accountMenuRef} className="group relative">
                 <summary
                   className="
@@ -226,15 +234,10 @@ export default function Header({
                     Settings
                   </Link>
 
-                  <form action={logoutAction}>
-                    <button
-                      type="submit"
-                      onClick={closeAccountMenu}
-                      className="block w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                    >
-                      Sign out
-                    </button>
-                  </form>
+                  <SignOutForm
+                    onClick={closeAccountMenu}
+                    className="block w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                  />
                 </div>
               </details>
             ) : (
@@ -284,7 +287,11 @@ export default function Header({
               accountLink={
                 user
                   ? { href: "/account", label: "Your account" }
-                  : { href: "/account/login", label: "Sign in" }
+                  : session.status === "loading"
+                    ? // Mid-check: /account redirects anonymous visitors to the
+                      // sign-in page, so this is right either way.
+                      { href: "/account", label: "Account" }
+                    : { href: "/account/login", label: "Sign in" }
               }
               onOpenSearch={() => setMobileSearchOpen(true)}
             />
