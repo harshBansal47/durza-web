@@ -24,8 +24,8 @@ export default function ConsentBanner() {
     >
       <p className="flex-1 text-sm text-ink-soft">
         Durza uses a pseudonymous visitor ID for attribution. Optional analytics events use
-        that ID and a hashed IP, and are sent only if you accept. Declining disables those events.
-        You can change this choice anytime in the{" "}
+        that ID and a hashed IP. Editorial pages also load Google AdSense only if you accept.
+        Declining disables both. You can change this choice anytime in the{" "}
         <Link href="/privacy" className="text-accent underline underline-offset-2">
           privacy policy
         </Link>

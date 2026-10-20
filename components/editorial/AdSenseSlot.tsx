@@ -31,7 +31,7 @@ export default function AdSenseSlot({
   desktopOnly?: boolean;
 }) {
   const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || BRAND.adsensePublisherId;
-  const resolvedSlot = slot ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+  const resolvedSlot = slot || process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
   const initialized = useRef(false);
   const [consented, setConsented] = useState(false);
   const [visible, setVisible] = useState(!desktopOnly);

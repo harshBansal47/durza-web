@@ -11,8 +11,19 @@ export const BRAND = {
   tagline: "Coupon & Deals",
   fullName: "Durza: Coupon & Deals",
   domain: "durza.in",
-  /** Public AdSense publisher id. Slot ids remain environment-specific. */
+  /** Public AdSense publisher id. Slot ids can be overridden by env. */
   adsensePublisherId: "ca-pub-2024460550564731",
+  /**
+   * Default guide placements. These are public identifiers, not secrets; the
+   * env vars override them so a different account can be used without a code
+   * change. The fourth unit is desktop-only in EditorialComponents.
+   */
+  adsenseSlots: {
+    top: "1170962423",
+    mid: "4892830993",
+    lower: "1496511464",
+    end: "6358875776",
+  },
   /** Brand orange. White on it is 3.4:1, fine for the graphic mark. */
   orange: "#EE5A0B",
   /** Darker orange for small text on light backgrounds (5.2:1 on white). */

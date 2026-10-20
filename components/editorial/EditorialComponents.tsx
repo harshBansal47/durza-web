@@ -13,6 +13,7 @@ import PageTitle from "@/components/ui/PageTitle";
 import { editorialPath } from "@/lib/editorial-path";
 import { absoluteUrl, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
+import { BRAND } from "@/lib/brand";
 import AdSenseSlot from "./AdSenseSlot";
 
 const TYPE_LABELS: Record<EditorialType, string> = {
@@ -362,14 +363,15 @@ export default async function EditorialArticle({ content }: { content: Editorial
       : adCount === 3 && blockCount >= 2
         ? [Math.max(1, Math.floor(blockCount / 2))]
         : [];
+  const contentAdSlot = process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
   const topAdSlot =
-    process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP || BRAND.adsenseSlots.top || contentAdSlot;
   const midAdSlot =
-    process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID || BRAND.adsenseSlots.mid || contentAdSlot;
   const lowerAdSlot =
-    process.env.NEXT_PUBLIC_ADSENSE_SLOT_LOWER ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_LOWER || BRAND.adsenseSlots.lower || contentAdSlot;
   const endAdSlot =
-    process.env.NEXT_PUBLIC_ADSENSE_SLOT_END ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_END || BRAND.adsenseSlots.end || contentAdSlot;
 
   const breadcrumbs = [
     { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
