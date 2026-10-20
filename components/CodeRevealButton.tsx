@@ -26,7 +26,7 @@ export interface CodeRevealButtonProps {
 export default function CodeRevealButton({
   code,
   url,
-  label = "Reveal code",
+  label = "Copy & open",
   successMessage = "✅ Code copied! You're ready to save.",
   className = "",
   showCode = true,

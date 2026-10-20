@@ -216,7 +216,7 @@ export function CouponCard({
                   <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-3 py-2 font-mono text-sm font-medium text-ink">
                     {maskCode(coupon.code) ?? coupon.code}
                   </code>{" "}
-                  — tap &ldquo;Get code&rdquo; to reveal it
+                  — tap &ldquo;View code&rdquo; to reveal it
                 </>
               ) : requirement ? (
                 requirement
@@ -252,7 +252,7 @@ export function CouponCard({
             aria-disabled={expired}
             className={`btn relative z-10 justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-primary"}`}
           >
-            {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "Get code" : "Get deal")}
+            {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "View code" : "Get deal")}
           </Link>
         </div>
       </article>

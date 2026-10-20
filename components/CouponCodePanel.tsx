@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import OutboundLink from "./OutboundLink";
 import CodeRevealButton from "./CodeRevealButton";
+import { copy } from "@/lib/copy";
 import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
 import { markRevealed } from "@/lib/deviceState";
@@ -80,7 +81,7 @@ export default function CouponCodePanel({
           <CodeRevealButton
             code={coupon.code}
             url={api.goUrl(coupon.id, "reveal")}
-            label="Reveal code"
+            label={copy.actions.copyCodeAndOpen}
             successMessage="✅ Code copied! You're ready to save."
             showCode={false}
             className="min-w-[7.5rem] shrink-0"
@@ -123,8 +124,8 @@ export default function CouponCodePanel({
         <p className="mt-2 text-center text-xs text-ink-soft">
           {coupon.code
             ? revealed
-              ? `${storeName || "The store"} opened in a new tab. Copy your code here, paste it at checkout, then tell us if it worked.`
-              : `Revealing the code opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy.`
+              ? `${storeName || "The store"} opened in a new tab. Paste your code at checkout, then tell us if it worked.`
+              : `Copying the code opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy.`
             : `Opens ${storeName || "the store"} in a new tab. Come back and tell us if it worked.`}
         </p>
         {requirement && coupon.code && (

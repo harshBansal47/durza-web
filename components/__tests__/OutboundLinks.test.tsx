@@ -40,7 +40,7 @@ describe("outbound coupon links are tracked and marked as affiliate links", () =
 
   it("the sticky bar jumps to the code panel when there is a code (so the code is seen first)", () => {
     render(<StickyDealBar coupon={base} storeName="Amazon" />);
-    const link = screen.getByRole("link", { name: /get code/i });
+    const link = screen.getByRole("link", { name: /view code/i });
     expect(link).toHaveAttribute("href", "#code-panel");
   });
 
