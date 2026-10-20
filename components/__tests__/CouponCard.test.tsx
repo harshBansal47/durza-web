@@ -158,7 +158,7 @@ describe("CouponCard", () => {
 
     it("treats a code expiring today as still valid", () => {
       render(<CouponCard coupon={makeCoupon({ expires_at: daysFromNow(0) })} store={store} />);
-      expect(screen.getByRole("link", { name: "Get code" })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "View code" })).toBeInTheDocument();
       expect(screen.queryByText("No longer valid")).not.toBeInTheDocument();
     });
 

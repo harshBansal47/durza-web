@@ -26,7 +26,7 @@ export interface CodeRevealButtonProps {
 export default function CodeRevealButton({
   code,
   url,
-  label = "Reveal code",
+  label = "Copy & open",
   successMessage = "✅ Code copied! You're ready to save.",
   className = "",
   showCode = true,
@@ -91,7 +91,7 @@ export default function CodeRevealButton({
       onClick={revealed ? copyAgain : reveal}
       aria-label={buttonLabel}
       className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 active:scale-95 ${
-        copied ? "bg-green-600 hover:bg-green-700" : "bg-gray-900 hover:bg-black"
+        copied ? "bg-verified text-white hover:bg-verified/90" : "bg-ink text-paper hover:bg-ink-hover"
       } ${className}`}
     >
       {copied ? <Check aria-hidden="true" className="h-4 w-4" strokeWidth={2.5} /> : <Copy aria-hidden="true" className="h-4 w-4" strokeWidth={2} />}

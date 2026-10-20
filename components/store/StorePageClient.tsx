@@ -211,7 +211,7 @@ export default function StorePageClient({
                 {tabs.best.items[0].title}
               </span>
               <span className="btn btn-cta shrink-0">
-              Get it
+              View offer
             </span>
             </Link>
           )}

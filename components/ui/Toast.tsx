@@ -161,10 +161,12 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
 }
 
 /** Same context, with the type pre-filled. */
+const noop = () => {};
+
 export function useTypedToast() {
   const context = useContext(ToastContext);
-  const toast = context?.toast ?? (() => {});
-  const dismiss = context?.dismiss ?? (() => {});
+  const toast = context?.toast ?? noop;
+  const dismiss = context?.dismiss ?? noop;
   return useMemo(
     () => ({
       toast,
