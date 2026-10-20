@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BRAND } from "@/lib/brand";
 import { getConsent, onConsentChange } from "@/lib/consent";
 
 declare global {
@@ -29,7 +30,7 @@ export default function AdSenseSlot({
   slot?: string;
   desktopOnly?: boolean;
 }) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || BRAND.adsensePublisherId;
   const resolvedSlot = slot ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
   const initialized = useRef(false);
   const [consented, setConsented] = useState(false);

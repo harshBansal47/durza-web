@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+  other: {
+    "google-adsense-account": BRAND.adsensePublisherId,
+  },
   openGraph: {
     type: "website",
     siteName: "Durza",

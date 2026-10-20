@@ -11,6 +11,8 @@ export const BRAND = {
   tagline: "Coupon & Deals",
   fullName: "Durza: Coupon & Deals",
   domain: "durza.in",
+  /** Public AdSense publisher id. Slot ids remain environment-specific. */
+  adsensePublisherId: "ca-pub-2024460550564731",
   /** Brand orange. White on it is 3.4:1, fine for the graphic mark. */
   orange: "#EE5A0B",
   /** Darker orange for small text on light backgrounds (5.2:1 on white). */
