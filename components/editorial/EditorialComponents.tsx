@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type {
@@ -10,6 +11,8 @@ import type {
 import { api } from "@/lib/api";
 import PageTitle from "@/components/ui/PageTitle";
 import { editorialPath } from "@/lib/editorial-path";
+import { absoluteUrl, faqPageJsonLd } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 import AdSenseSlot from "./AdSenseSlot";
 
 const TYPE_LABELS: Record<EditorialType, string> = {
@@ -93,7 +96,93 @@ function safeHref(value: unknown): string | null {
   }
 }
 
-function ContentBlock({ block }: { block: Record<string, unknown> }) {
+function absoluteHref(value: string): string {
+  return /^https?:\/\//i.test(value) ? value : absoluteUrl(value);
+}
+
+function headingLabel(block: Record<string, unknown>): string | null {
+  const type = asText(block.type) ?? "paragraph";
+  if (type !== "heading" && type !== "h2" && type !== "h3") return null;
+  return asText(block.heading) ?? asText(block.title) ?? asText(block.text);
+}
+
+function headingId(block: Record<string, unknown>, index: number): string | undefined {
+  const label = headingLabel(block);
+  if (!label) return undefined;
+  const slug = label
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+  return `section-${index}-${slug || "section"}`;
+}
+
+function countWords(value: unknown): number {
+  if (typeof value === "string") return value.trim() ? value.trim().split(/\s+/).length : 0;
+  if (Array.isArray(value)) {
+    return value.reduce<number>((total, item) => total + countWords(item), 0);
+  }
+  if (value && typeof value === "object") {
+    return Object.values(value as Record<string, unknown>).reduce<number>(
+      (total, item) => total + countWords(item),
+      0,
+    );
+  }
+  return 0;
+}
+
+function Sources({ sources }: { sources: unknown }) {
+  if (!Array.isArray(sources)) return null;
+  const items = sources.flatMap((source) => {
+    if (!source || typeof source !== "object") return [];
+    const record = source as Record<string, unknown>;
+    const url = safeHref(record.url);
+    if (!url || !/^https?:\/\//i.test(url)) return [];
+    const title = asText(record.title) ?? url;
+    const publisher = asText(record.publisher);
+    const note = asText(record.note);
+    const accessed = asText(record.accessed_at);
+    const accessedLabel =
+      accessed && !Number.isNaN(Date.parse(accessed))
+        ? new Date(accessed).toLocaleDateString("en-IN")
+        : null;
+    return [{ url, title, publisher, note, accessedLabel }];
+  });
+  if (items.length === 0) return null;
+  return (
+    <section className="mt-12" aria-labelledby="editorial-sources-heading">
+      <h2 id="editorial-sources-heading" className="font-serif text-2xl font-extrabold text-ink">
+        Sources
+      </h2>
+      <p className="mt-2 text-sm leading-6 text-ink-soft">
+        These are the official pages and references used when this guide was checked.
+      </p>
+      <ol className="mt-4 space-y-3">
+        {items.map((item) => (
+          <li key={item.url} className="rounded-xl border border-ledger-line bg-white px-4 py-3 text-sm leading-6">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-inkblue underline decoration-inkblue/30 underline-offset-2 hover:decoration-inkblue"
+            >
+              {item.title}
+            </a>
+            {item.publisher && <span className="text-ink-soft"> · {item.publisher}</span>}
+            {item.accessedLabel && (
+              <span className="text-ink-soft"> · checked {item.accessedLabel}</span>
+            )}
+            {item.note && <p className="mt-1 text-ink-soft">{item.note}</p>}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function ContentBlock({ block, id }: { block: Record<string, unknown>; id?: string }) {
   const type = asText(block.type) ?? "paragraph";
   const heading = asText(block.heading) ?? asText(block.title);
   const text = asText(block.text) ?? asText(block.body);
@@ -101,9 +190,13 @@ function ContentBlock({ block }: { block: Record<string, unknown> }) {
     const label = heading ?? text;
     if (!label) return null;
     return type === "h3" ? (
-      <h3 className="mt-8 font-serif text-xl font-bold text-ink">{label}</h3>
+      <h3 id={id} className="mt-8 scroll-mt-24 font-serif text-xl font-bold text-ink">
+        {label}
+      </h3>
     ) : (
-      <h2 className="mt-10 font-serif text-2xl font-extrabold text-ink">{label}</h2>
+      <h2 id={id} className="mt-10 scroll-mt-24 font-serif text-2xl font-extrabold text-ink">
+        {label}
+      </h2>
     );
   }
   if (type === "list" || type === "unordered_list" || type === "ordered_list") {
@@ -246,11 +339,62 @@ export default async function EditorialArticle({ content }: { content: Editorial
   const bestFor = asText(data.best_for);
   const checkedAt = asText(data.checked_at);
   const faqItems: EditorialFAQ[] = [...content.faqs].sort((a, b) => a.sort_order - b.sort_order);
+  const keyTakeaways = asStringArray(data.key_takeaways);
+  const keywordValues = Array.isArray(data.keywords)
+    ? asStringArray(data.keywords)
+    : typeof data.keywords === "string"
+      ? data.keywords.split(",").map((keyword) => keyword.trim()).filter(Boolean)
+      : [];
+  const tocItems = content.content_blocks.flatMap((block, index) => {
+    const label = headingLabel(block);
+    const id = headingId(block, index);
+    if (!label || !id) return [];
+    const type = asText(block.type) ?? "paragraph";
+    return [{ id, label, level: type === "h3" ? 3 : 2 }];
+  });
+  const articleWords =
+    countWords(content.content_blocks) + countWords(faqItems) + countWords(content.summary);
+  const adCount = articleWords >= 1200 ? 4 : articleWords >= 900 ? 3 : 2;
+  const blockCount = content.content_blocks.length;
+  const midAdPositions =
+    adCount >= 4 && blockCount >= 3
+      ? [Math.max(1, Math.floor(blockCount / 3)), Math.max(2, Math.floor((blockCount * 2) / 3))]
+      : adCount === 3 && blockCount >= 2
+        ? [Math.max(1, Math.floor(blockCount / 2))]
+        : [];
+  const topAdSlot =
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+  const midAdSlot =
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+  const lowerAdSlot =
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_LOWER ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+  const endAdSlot =
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_END ?? process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+
   const breadcrumbs = [
-    { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-    { "@type": "ListItem", position: 2, name: TYPE_LABELS[content.content_type], item: editorialPath({ content_type: content.content_type, slug: "" }).replace(/\/$/, "") },
-    { "@type": "ListItem", position: 3, name: content.title, item: editorialPath(content) },
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: TYPE_LABELS[content.content_type],
+      item: absoluteUrl(editorialPath({ content_type: content.content_type, slug: "" }).replace(/\/$/, "")),
+    },
+    { "@type": "ListItem", position: 3, name: content.title, item: absoluteUrl(editorialPath(content)) },
   ];
+  const canonicalPath = content.canonical_url ?? editorialPath(content);
+  const canonicalUrl = absoluteHref(canonicalPath);
+  const heroImage = content.hero_image_url
+    ? absoluteHref(content.hero_image_url)
+    : content.content_type === "guide"
+      ? absoluteUrl(`/guides/${content.slug}/opengraph-image`)
+      : absoluteUrl("/opengraph-image");
+  const author = content.author_name
+    ? {
+        "@type": /editorial|team/i.test(content.author_name) ? "Organization" : "Person",
+        name: content.author_name,
+        url: absoluteUrl("/about"),
+      }
+    : undefined;
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -258,14 +402,29 @@ export default async function EditorialArticle({ content }: { content: Editorial
     description: content.meta_description ?? content.summary,
     datePublished: content.published_at ?? content.created_at,
     dateModified: content.updated_at,
-    ...(content.author_name ? { author: { "@type": "Person", name: content.author_name } } : {}),
-    mainEntityOfPage: content.canonical_url ?? editorialPath(content),
+    ...(author ? { author } : {}),
+    publisher: {
+      "@type": "Organization",
+      name: "Durza",
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: absoluteUrl("/logo.png") },
+    },
+    image: [heroImage],
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    articleSection: TYPE_LABELS[content.content_type],
+    ...(keywordValues.length > 0 ? { keywords: keywordValues.join(", ") } : {}),
   };
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: breadcrumbs }) }} />
+      {faqItems.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd(faqItems)) }}
+        />
+      )}
       <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-soft">
         <Link href="/" className="hover:text-inkblue">Home</Link>
         <span className="px-2" aria-hidden="true">/</span>
@@ -286,12 +445,50 @@ export default async function EditorialArticle({ content }: { content: Editorial
       </p>
       {content.hero_image_url && <Image src={content.hero_image_url} alt="" width={1200} height={675} unoptimized className="mt-8 h-auto w-full rounded-2xl border border-ledger-line" />}
       {verdict && <aside className="my-8 rounded-2xl border border-verified/20 bg-verified-soft p-5"><p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-verified">The short answer</p><p className="mt-2 text-base leading-7 text-ink">{verdict}</p>{bestFor && <p className="mt-2 text-sm text-ink-soft"><strong>Best for:</strong> {bestFor}</p>}</aside>}
+      {keyTakeaways.length > 0 && (
+        <aside className="my-8 rounded-2xl border border-inkblue/15 bg-inkblue/[0.04] p-5" aria-labelledby="key-takeaways-heading">
+          <h2 id="key-takeaways-heading" className="font-serif text-lg font-bold text-ink">Key takeaways</h2>
+          <ul className="mt-3 space-y-2 text-sm leading-6 text-ink-soft">
+            {keyTakeaways.map((item) => <li key={item} className="flex gap-2"><span aria-hidden="true">•</span>{item}</li>)}
+          </ul>
+        </aside>
+      )}
       {content.content_type === "comparison" && <ComparisonTable data={data} />}
       {content.content_type === "review" && <ReviewHighlights data={data} />}
       {content.content_type === "guide" && asText(data.methodology) && <aside className="my-8 rounded-2xl border border-ledger-line bg-white p-5"><h2 className="font-serif text-lg font-bold text-ink">How we chose</h2><p className="mt-2 text-sm leading-6 text-ink-soft">{asText(data.methodology)}</p></aside>}
+      {tocItems.length >= 3 && (
+        <nav aria-label="On this page" className="my-8 rounded-2xl border border-ledger-line bg-white p-5">
+          <h2 className="font-serif text-lg font-bold text-ink">On this page</h2>
+          <ol className="mt-3 grid gap-2 sm:grid-cols-2">
+            {tocItems.map((item) => (
+              <li key={item.id} className={item.level === 3 ? "pl-4" : undefined}>
+                <a href={`#${item.id}`} className="text-sm font-semibold text-inkblue hover:underline">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <AdSenseSlot eligible={content.adsense_eligible} slot={topAdSlot} />
       <div className="editorial-body mt-8">
-        {content.content_blocks.map((block, index) => <ContentBlock key={`${String(block.type ?? "block")}-${index}`} block={block} />)}
+        {content.content_blocks.map((block, index) => (
+          <Fragment key={`${String(block.type ?? "block")}-${index}`}>
+            <ContentBlock block={block} id={headingId(block, index)} />
+            {midAdPositions[0] === index && (
+              <AdSenseSlot eligible={content.adsense_eligible} slot={midAdSlot} />
+            )}
+            {midAdPositions[1] === index && (
+              <AdSenseSlot
+                eligible={content.adsense_eligible}
+                slot={lowerAdSlot}
+                desktopOnly
+              />
+            )}
+          </Fragment>
+        ))}
       </div>
+      <AdSenseSlot eligible={content.adsense_eligible} slot={endAdSlot} />
       {faqItems.length > 0 && (
         <section className="mt-12" aria-labelledby="editorial-faq-heading">
           <h2 id="editorial-faq-heading" className="font-serif text-2xl font-extrabold text-ink">Frequently asked questions</h2>
@@ -300,9 +497,9 @@ export default async function EditorialArticle({ content }: { content: Editorial
           </dl>
         </section>
       )}
+      <Sources sources={data.sources} />
       <LinkedEntities links={content.entity_links} />
       <RelatedEditorial relations={content.relations} />
-      <AdSenseSlot eligible={content.adsense_eligible} />
       <p className="mt-10 border-t border-ledger-line pt-5 text-xs leading-5 text-ink-soft">Prices and product features can change. Check the provider’s current terms before purchasing. Recommendations are editorial; paid placements are labeled.</p>
     </article>
   );
