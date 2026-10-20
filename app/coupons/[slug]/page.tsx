@@ -19,6 +19,7 @@
   import VerifiedGauge from "@/components/VerifiedGauge";
 import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
+import TrackDealBanner from "@/components/TrackDealBanner";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
 
@@ -407,6 +408,13 @@ import PageTitle from "@/components/ui/PageTitle";
             <DisclosureNote commissionDisclosure={null} />
           </section>
         )}
+
+        <TrackDealBanner
+          currentPrice={null}
+          targetPrice={null}
+          currency={store?.currency ?? "INR"}
+          dealTitle={coupon.title}
+        />
 
         {/* Related Coupons */}
         {relatedCoupons.length > 0 && (

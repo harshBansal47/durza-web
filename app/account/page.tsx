@@ -63,6 +63,9 @@ export default async function AccountOverviewPage() {
       }}
     >
       <h2 className="font-serif text-xl text-ink">Overview</h2>
+      <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-inkblue/20 bg-inkblue/5 px-3 py-1.5 text-sm font-medium text-inkblue">
+        Smart shopper badge: savings estimate coming soon
+      </div>
 
       {!prefs.email_enabled && !prefs.push_enabled && (
         <p className="mt-4 border border-rust bg-rust-soft px-4 py-3 text-sm text-rust">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import OutboundLink from "./OutboundLink";
+import CodeRevealButton from "./CodeRevealButton";
 import { api } from "@/lib/api";
 import { track } from "@/lib/analytics";
 import { markRevealed } from "@/lib/deviceState";
@@ -25,52 +26,20 @@ export default function CouponCodePanel({
   const [copied, setCopied] = useState(false);
   const requirement = cardRequirementLine(coupon);
 
-  async function reveal() {
-    setRevealed(true);
+  function handleReveal() {
     markRevealed(coupon.id);
     track("coupon_reveal", { coupon_id: coupon.id });
-    // Reveal means "take me to the deal": open the store in a NEW tab through
-    // the tracked /go link so the click is attributable, AND copy the code so
-    // the shopper can paste it at checkout. The code stays visible for a
-    // re-copy, and it only ever happens as the direct result of the shopper's
-    // own click.
     rememberGo({
       couponId: coupon.id,
       title: coupon.title,
       storeName,
       hadCode: true,
     });
-    let copyPromise: Promise<void> | null = null;
-    try {
-      if (coupon.code && navigator.clipboard?.writeText) {
-        copyPromise = navigator.clipboard.writeText(coupon.code);
-      }
-    } catch {
-      /* clipboard unavailable — the code remains visible on the page */
-    }
-    window.open(api.goUrl(coupon.id, "reveal"), "_blank", "noopener");
-    if (copyPromise) {
-      try {
-        await copyPromise;
-        track("copy_code", { coupon_id: coupon.id, via: "reveal" });
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
-      } catch {
-        /* clipboard unavailable — the code is visible on the page */
-      }
-    }
   }
 
-  async function handleCopy() {
-    if (!coupon.code) return;
-    try {
-      await navigator.clipboard.writeText(coupon.code);
-    } catch {
-      /* clipboard unavailable — code stays visible, still usable */
-    }
-    setCopied(true);
-    track("copy_code", { coupon_id: coupon.id });
-    setTimeout(() => setCopied(false), 2500);
+  function handleStateChange(state: { revealed: boolean; copied: boolean }) {
+    setRevealed(state.revealed);
+    setCopied(state.copied);
   }
 
   return (
@@ -108,24 +77,16 @@ export default function CouponCodePanel({
         </div>
 
         {coupon.code && (
-          <button
-            type="button"
-            onClick={() => (revealed ? handleCopy() : reveal())}
-            className={`btn min-w-[7.5rem] shrink-0 ${copied ? "btn-verified" : revealed ? "btn-cta" : "btn-primary"}`}
-          >
-            {revealed ? (
-              copied ? (
-                <>
-                  <Check aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2.5} />
-                  Copied
-                </>
-              ) : (
-                "Copy code"
-              )
-            ) : (
-              "Reveal code"
-            )}
-          </button>
+          <CodeRevealButton
+            code={coupon.code}
+            url={api.goUrl(coupon.id, "reveal")}
+            label="Reveal code"
+            successMessage="✅ Code copied! You're ready to save."
+            showCode={false}
+            className="min-w-[7.5rem] shrink-0"
+            onReveal={handleReveal}
+            onStateChange={handleStateChange}
+          />
         )}
       </div>
 

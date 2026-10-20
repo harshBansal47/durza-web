@@ -10,6 +10,7 @@ import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
 import { CardImpressions } from "./CardImpressions";
+import TrustBadge from "./TrustBadge";
 
 export type CouponCardVariant = "coupon" | "price-drop" | "free-shipping" | "expiring-soon" | "featured";
 
@@ -148,6 +149,13 @@ export function CouponCard({
                 <Check aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
                 {rate} · {reports} reports
               </span>
+            )}
+            {!expired && (
+              <TrustBadge
+                successRate={coupon.success_rate}
+                reports={reports}
+                checkedDate={source?.checkedDate}
+              />
             )}
             {expired && <span className="stamp text-ink-soft">Expired</span>}
             {/* Source provenance, not a shopper vote: when the store's page was

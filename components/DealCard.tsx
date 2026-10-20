@@ -3,6 +3,7 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
 import {
+  daysUntil,
   formatDate,
   formatDiscount,
   formatMoney,
@@ -14,6 +15,8 @@ import { storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic, Store } from "@/lib/types";
 import { CardImpressions } from "./CardImpressions";
 import { CardSaveButton } from "./CardSaveButton";
+import TrustBadge from "./TrustBadge";
+import { Calendar } from "lucide-react";
 
 /**
  * The store fields a deal card renders. A full `Store` is assignable; the
@@ -109,10 +112,18 @@ export default function DealCard({
                 {rate} worked
               </span>
             )}
+            <TrustBadge successRate={coupon.success_rate} reports={reports} checkedDate={source?.checkedDate} />
           </div>
 
           {coupon.expires_at && (
-            <p className="text-xs text-ink-soft">
+            <p
+              className={`flex items-center gap-1 text-xs ${
+                daysUntil(coupon.expires_at) !== null && (daysUntil(coupon.expires_at) as number) >= 0 && (daysUntil(coupon.expires_at) as number) < 2
+                  ? "font-medium text-orange-600"
+                  : "text-gray-500"
+              }`}
+            >
+              <Calendar aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
               Expires {formatDate(coupon.expires_at)}
             </p>
           )}

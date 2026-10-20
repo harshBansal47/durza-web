@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const total = offers.total;
   const drops = products.items.filter((product) => product.last_price_drop_pct != null).length;
 
-  const title = total > 0 ? `Today's Deals: ${total} Live Offers` : "Today's Deals & Offers";
+  const title = total > 0 ? `Today's Verified Deals: ${total} Live Offers` : "Today's Verified Deals & Offers";
   const description =
     total > 0
       ? `Browse ${total} live deals and offers${drops > 0 ? ", plus price drops Durza tracks" : ""} — each deal shows the store page it came from and when it was last checked.`
@@ -163,7 +163,7 @@ export default async function DealsPage({
       />
       {/* Phones drop the title block and start at the sticky tool row below;
           the h1 stays for structure and screen readers. */}
-      <PageTitle className="sr-only md:not-sr-only">Today&apos;s deals</PageTitle>
+      <PageTitle className="sr-only md:not-sr-only">Today&apos;s verified deals</PageTitle>
       <p className="mb-8 mt-2 hidden text-sm text-ink-soft md:block">
         What shoppers most recently confirmed working, and where prices moved.
       </p>

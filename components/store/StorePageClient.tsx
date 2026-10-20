@@ -7,6 +7,7 @@ import { CouponCard } from "@/components/CouponCard";
 import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
 import { StoreFollowButton } from "@/components/StoreFollowButton";
+import TrackDealBanner from "@/components/TrackDealBanner";
 import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
@@ -222,6 +223,11 @@ export default function StorePageClient({
           store&apos;s own pages, so this page stays empty rather than showing dead offers.
         </p>
       )}
+
+      <TrackDealBanner
+        currency={code}
+        dealTitle={`${store.name} offers`}
+      />
 
       <section aria-labelledby="proof">
         <h2 id="proof" className="font-serif text-2xl font-extrabold text-ink">

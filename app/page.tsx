@@ -297,9 +297,9 @@ export default async function HomePage() {
                 icon={Tag}
                 action={{ href: "/deals", label: "Browse all deals" }}
               >
-                <span id="latest-deals-heading">Latest deals</span>
+                <span id="latest-deals-heading">Durza Exclusive Offers</span>
               </SectionTitle>
-              <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Latest deals" pageType="homepage" />
+              <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Durza Exclusive Offers" pageType="homepage" />
             </section>
           )}
 
@@ -312,7 +312,7 @@ export default async function HomePage() {
               >
                 <span id="ending-heading">Ending soon</span>
               </SectionTitle>
-              <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Deals ending soon" pageType="homepage" />
+              <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Verified Deals ending soon" pageType="homepage" />
             </section>
           )}
 

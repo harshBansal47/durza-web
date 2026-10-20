@@ -14,6 +14,7 @@ import { editorialPath } from "@/lib/editorial-path";
 import { absoluteUrl, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
+import { renderBrandText } from "@/lib/brandMentions";
 import AdSenseSlot from "./AdSenseSlot";
 
 const TYPE_LABELS: Record<EditorialType, string> = {
@@ -192,11 +193,11 @@ function ContentBlock({ block, id }: { block: Record<string, unknown>; id?: stri
     if (!label) return null;
     return type === "h3" ? (
       <h3 id={id} className="mt-8 scroll-mt-24 font-serif text-xl font-bold text-ink">
-        {label}
+        {renderBrandText(label)}
       </h3>
     ) : (
       <h2 id={id} className="mt-10 scroll-mt-24 font-serif text-2xl font-extrabold text-ink">
-        {label}
+        {renderBrandText(label)}
       </h2>
     );
   }
@@ -206,7 +207,7 @@ function ContentBlock({ block, id }: { block: Record<string, unknown>; id?: stri
     const List = type === "ordered_list" ? "ol" : "ul";
     return (
       <List className="my-5 space-y-2 pl-6 text-base leading-7 text-ink-soft" style={{ listStyleType: type === "ordered_list" ? "decimal" : "disc" }}>
-        {items.map((item, index) => <li key={`${index}-${item.slice(0, 24)}`}>{item}</li>)}
+        {items.map((item, index) => <li key={`${index}-${item.slice(0, 24)}`}>{renderBrandText(item)}</li>)}
       </List>
     );
   }
@@ -226,13 +227,27 @@ function ContentBlock({ block, id }: { block: Record<string, unknown>; id?: stri
       </div>
     );
   }
-  if (type === "image") {
+  if (type === "image" || type === "gif") {
     const src = safeHref(block.url) ?? safeHref(block.src);
     if (!src) return null;
-    return <figure className="my-8"><Image src={src} alt={asText(block.alt) ?? ""} width={1200} height={675} unoptimized className="h-auto w-full rounded-2xl border border-ledger-line" />{asText(block.caption) && <figcaption className="mt-2 text-center text-sm text-ink-soft">{asText(block.caption)}</figcaption>}</figure>;
+    const isGif = /\.gif(?:[?#].*)?$/i.test(src) || type === "gif";
+    return (
+      <figure className="my-8">
+        <Image
+          src={src}
+          alt={asText(block.alt) ?? ""}
+          width={1200}
+          height={675}
+          unoptimized
+          loading="lazy"
+          className={`h-auto w-full rounded-2xl border border-ledger-line ${isGif ? "bg-paper" : ""}`}
+        />
+        {asText(block.caption) && <figcaption className="mt-2 text-center text-sm text-ink-soft">{asText(block.caption)}</figcaption>}
+      </figure>
+    );
   }
   if (!text) return null;
-  return <p className="my-5 text-base leading-8 text-ink-soft">{text}</p>;
+  return <p className="my-5 text-base leading-8 text-ink-soft">{renderBrandText(text)}</p>;
 }
 
 function ComparisonTable({ data }: { data: Record<string, unknown> }) {
@@ -434,7 +449,7 @@ export default async function EditorialArticle({ content }: { content: Editorial
       </nav>
       <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">{TYPE_LABELS[content.content_type]}</p>
       <PageTitle className="mt-3 leading-tight">{content.title}</PageTitle>
-      {content.summary && <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-soft">{content.summary}</p>}
+      {content.summary && <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-soft">{renderBrandText(content.summary)}</p>}
       <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs text-ink-soft">
         {content.author_name && <span>By {content.author_name}</span>}
         {content.published_at && <time dateTime={content.published_at}>Published {new Date(content.published_at).toLocaleDateString("en-IN")}</time>}
@@ -495,7 +510,7 @@ export default async function EditorialArticle({ content }: { content: Editorial
         <section className="mt-12" aria-labelledby="editorial-faq-heading">
           <h2 id="editorial-faq-heading" className="font-serif text-2xl font-extrabold text-ink">Frequently asked questions</h2>
           <dl className="mt-4 divide-y divide-ledger-line rounded-2xl border border-ledger-line bg-white px-5">
-            {faqItems.map((faq) => <div key={faq.question} className="py-4"><dt className="font-semibold text-ink">{faq.question}</dt><dd className="mt-2 text-sm leading-6 text-ink-soft">{faq.answer}</dd></div>)}
+            {faqItems.map((faq) => <div key={faq.question} className="py-4"><dt className="font-semibold text-ink">{renderBrandText(faq.question)}</dt><dd className="mt-2 text-sm leading-6 text-ink-soft">{renderBrandText(faq.answer)}</dd></div>)}
           </dl>
         </section>
       )}
