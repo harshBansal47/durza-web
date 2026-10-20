@@ -19,12 +19,12 @@ describe("ConsentPreferences", () => {
 
     expect(screen.getByRole("status")).toHaveTextContent(/not chosen/i);
 
-    await user.click(screen.getByRole("button", { name: "Disable analytics and ads" }));
+    await user.click(screen.getByRole("button", { name: "Disable analytics" }));
     expect(getConsent()).toBe("declined");
-    expect(screen.getByRole("status")).toHaveTextContent(/analytics and ads are disabled/i);
+    expect(screen.getByRole("status")).toHaveTextContent(/analytics are disabled/i);
 
-    await user.click(screen.getByRole("button", { name: "Allow analytics and ads" }));
+    await user.click(screen.getByRole("button", { name: "Allow analytics" }));
     expect(getConsent()).toBe("accepted");
-    expect(screen.getByRole("status")).toHaveTextContent(/analytics and ads are enabled/i);
+    expect(screen.getByRole("status")).toHaveTextContent(/analytics are enabled/i);
   });
 });

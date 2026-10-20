@@ -112,9 +112,9 @@ export default function PrivacyPage() {
       </h2>
       <p>
         We do not sell personal data, and we do not use your browsing history to rank deals.
-        On editorial pages, if you accept, Google AdSense may use cookies and device identifiers
-        to serve and measure ads; that is described below. Affiliate commissions may be one of
-        several signals used to order offers; verification evidence, shopper success, and
+        On editorial pages, Google AdSense may use cookies and device identifiers to serve and
+        measure non-personalized ads; that is described below. Affiliate commissions may be one
+        of several signals used to order offers; verification evidence, shopper success, and
         relevance also matter.
       </p>
       <p>
@@ -137,14 +137,16 @@ export default function PrivacyPage() {
         Optional analytics events — such as page views, searches, and coupon impressions — are sent
         only if you accept analytics. You can change or withdraw that choice at any time using the
         controls at the end of this page. Declining blocks those events; necessary session and deal
-        functionality may still use first-party data.
+        functionality may still use first-party data. This choice controls analytics only; it does
+        not turn ads off.
       </p>
       <p>
         <strong className="font-semibold text-ink">Editorial advertising.</strong> Guides, reviews,
-        and comparisons can show Google AdSense units. The AdSense script loads only after you
-        accept. Google and its partners may use cookies or device identifiers to serve, limit, and
-        measure ads. We do not pass your account email or name to AdSense. If you withdraw consent,
-        the script will not load on subsequent pages.
+        and comparisons show Google AdSense units to all visitors. We request non-personalized ads,
+        which are selected from the page content rather than your past behaviour. Google may still
+        use cookies or device identifiers for frequency capping and aggregated ad reporting. We do
+        not pass your account email or name to AdSense. You can block cookies in your browser, but
+        some ad delivery features may then be affected.
       </p>
 
       <h2 id="your-rights-under-the-dpdp-act" className="scroll-mt-24 pt-4 font-serif text-xl text-ink">

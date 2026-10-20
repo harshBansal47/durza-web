@@ -1,11 +1,6 @@
 import { render, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import AdSenseSlot from "../AdSenseSlot";
-
-vi.mock("@/lib/consent", () => ({
-  getConsent: () => "accepted",
-  onConsentChange: () => () => {},
-}));
 
 describe("AdSenseSlot", () => {
   afterEach(() => {
@@ -13,18 +8,23 @@ describe("AdSenseSlot", () => {
     delete (window as Window & { adsbygoogle?: unknown[] }).adsbygoogle;
   });
 
-  it("renders the configured unit and publisher after consent", async () => {
+  it("renders a unit for every eligible article and requests non-personalized ads", async () => {
     const { container } = render(<AdSenseSlot eligible slot="1170962423" />);
 
-    await waitFor(() => {
-      expect(container.querySelector("ins.adsbygoogle")).toBeInTheDocument();
-    });
-
     const unit = container.querySelector("ins.adsbygoogle");
+    expect(unit).toBeInTheDocument();
     expect(unit).toHaveAttribute("data-ad-client", "ca-pub-2024460550564731");
     expect(unit).toHaveAttribute("data-ad-slot", "1170962423");
     expect(unit).toHaveAttribute("data-ad-format", "auto");
     expect(unit).toHaveAttribute("data-full-width-responsive", "true");
+
+    await waitFor(() => {
+      expect(document.getElementById("google-adsense-script")).toBeInTheDocument();
+    });
+    const script = document.getElementById("google-adsense-script") as HTMLScriptElement;
+    script.dispatchEvent(new Event("load"));
+
+    expect(window.adsbygoogle?.requestNonPersonalizedAds).toBe(1);
   });
 
   it("renders nothing when the article is not ads-eligible", () => {

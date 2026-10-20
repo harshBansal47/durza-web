@@ -17,7 +17,7 @@ describe("ConsentBanner", () => {
     render(<ConsentBanner />);
 
     expect(screen.getByRole("dialog", { name: /cookie and data consent/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Accept" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Accept analytics" })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /decline/i })).not.toBeInTheDocument();
   });
 
@@ -25,7 +25,7 @@ describe("ConsentBanner", () => {
     const user = userEvent.setup();
     render(<ConsentBanner />);
 
-    await user.click(screen.getByRole("button", { name: "Accept" }));
+    await user.click(screen.getByRole("button", { name: "Accept analytics" }));
 
     expect(getConsent()).toBe("accepted");
     await waitFor(() => {

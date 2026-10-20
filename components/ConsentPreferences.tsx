@@ -19,10 +19,10 @@ export default function ConsentPreferences() {
 
   const status =
     consent === "accepted"
-      ? "Analytics and ads are enabled."
+      ? "Analytics are enabled."
       : consent === "declined"
-        ? "Analytics and ads are disabled."
-        : "You have not chosen whether to enable analytics and ads.";
+        ? "Analytics are disabled."
+        : "You have not chosen whether to enable analytics.";
 
   return (
     <section
@@ -33,11 +33,12 @@ export default function ConsentPreferences() {
         id="consent-preferences-heading"
         className="font-serif text-xl font-bold text-ink"
       >
-        Analytics and ads preferences
+        Analytics preferences
       </h2>
       <p className="mt-2 text-sm text-ink-soft" role="status">
-        {status} Optional analytics events and AdSense ads load only when enabled. Session,
-        attribution, and deal functionality may still process first-party data as described above.
+        {status} Optional analytics events are sent only when enabled. AdSense ads are
+        non-personalized and are shown regardless of this choice. Session, attribution, and deal
+        functionality may still process first-party data as described above.
       </p>
       <div className="mt-4 flex flex-wrap gap-3">
         <button
@@ -46,7 +47,7 @@ export default function ConsentPreferences() {
           onClick={() => setConsent("accepted")}
           className="btn-primary"
         >
-          Allow analytics and ads
+          Allow analytics
         </button>
         <button
           type="button"
@@ -54,7 +55,7 @@ export default function ConsentPreferences() {
           onClick={() => setConsent("declined")}
           className="btn-outline"
         >
-          Disable analytics and ads
+          Disable analytics
         </button>
       </div>
     </section>

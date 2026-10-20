@@ -2,16 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BRAND } from "@/lib/brand";
-import { getConsent, onConsentChange } from "@/lib/consent";
+
+type AdsByGoogle = unknown[] & { requestNonPersonalizedAds?: number };
 
 declare global {
   interface Window {
-    adsbygoogle?: unknown[];
+    adsbygoogle?: AdsByGoogle;
   }
 }
 
 /**
  * One responsive AdSense unit.
+ *
+ * Ads are not gated on the analytics consent banner. Eligible editorial pages
+ * show them to every visitor, and every request is marked non-personalized so
+ * ad selection does not use the visitor's past behaviour. Google may still use
+ * cookies for frequency capping and aggregate reporting; see the privacy page.
  *
  * `slot` lets the article place distinct units (top, mid, lower, end). It falls
  * back to the original content slot so existing deployments keep working.
@@ -19,7 +25,7 @@ declare global {
  * which keeps the mobile page to at most three units.
  *
  * The script is loaded here rather than in the root layout, so non-article
- * pages do not pay for it and it only loads after the visitor has consented.
+ * pages do not pay for it and it only appears on eligible article pages.
  */
 export default function AdSenseSlot({
   eligible,
@@ -33,14 +39,7 @@ export default function AdSenseSlot({
   const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || BRAND.adsensePublisherId;
   const resolvedSlot = slot || process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
   const initialized = useRef(false);
-  const [consented, setConsented] = useState(false);
   const [visible, setVisible] = useState(!desktopOnly);
-
-  useEffect(() => {
-    const update = () => setConsented(getConsent() === "accepted");
-    update();
-    return onConsentChange(update);
-  }, []);
 
   useEffect(() => {
     if (!desktopOnly) return;
@@ -52,12 +51,14 @@ export default function AdSenseSlot({
   }, [desktopOnly]);
 
   useEffect(() => {
-    if (!eligible || !consented || !visible || !client || !resolvedSlot) return;
+    if (!eligible || !visible || !client || !resolvedSlot) return;
     const scriptId = "google-adsense-script";
     let script = document.getElementById(scriptId) as HTMLScriptElement | null;
     const initializeSlot = () => {
       if (initialized.current) return;
       window.adsbygoogle = window.adsbygoogle ?? [];
+      // https://support.google.com/adsense/answer/7670312
+      window.adsbygoogle.requestNonPersonalizedAds = 1;
       window.adsbygoogle.push({});
       initialized.current = true;
     };
@@ -79,9 +80,9 @@ export default function AdSenseSlot({
       script.addEventListener("load", markLoaded, { once: true });
     }
     return () => script?.removeEventListener("load", markLoaded);
-  }, [eligible, consented, visible, client, resolvedSlot]);
+  }, [eligible, visible, client, resolvedSlot]);
 
-  if (!eligible || !consented || !visible || !client || !resolvedSlot) return null;
+  if (!eligible || !visible || !client || !resolvedSlot) return null;
   return (
     <ins
       className="adsbygoogle my-10 block min-h-[100px] overflow-hidden text-center"

@@ -24,8 +24,9 @@ export default function ConsentBanner() {
     >
       <p className="flex-1 text-sm text-ink-soft">
         Durza uses a pseudonymous visitor ID for attribution. Optional analytics events use
-        that ID and a hashed IP. Editorial pages also load Google AdSense. These load only
-        after you accept. You can review or withdraw this choice in the{" "}
+        that ID and a hashed IP and are sent only if you accept. Editorial pages show
+        non-personalized Google AdSense ads regardless of this choice. You can review or
+        withdraw this analytics choice in the{" "}
         <Link href="/privacy" className="text-accent underline underline-offset-2">
           privacy policy
         </Link>
@@ -37,7 +38,7 @@ export default function ConsentBanner() {
           onClick={() => setConsent("accepted")}
           className="btn-primary rounded-full px-4 py-2 text-sm"
         >
-          Accept
+          Accept analytics
         </button>
       </div>
     </div>
