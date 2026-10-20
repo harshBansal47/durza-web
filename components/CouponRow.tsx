@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { storeInitials } from "@/lib/catalog";
-import { formatDiscount, successRateLabel } from "@/lib/format";
+import { formatDiscount } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic } from "@/lib/types";
+import TrustBadge from "./TrustBadge";
 
 interface StoreInfo {
   name: string;
@@ -12,7 +13,6 @@ interface StoreInfo {
 }
 
 export default function CouponRow({ coupon, store }: { coupon: CouponPublic; store?: StoreInfo }) {
-  const rate = successRateLabel(coupon);
 
   return (
     <Link
@@ -27,7 +27,7 @@ export default function CouponRow({ coupon, store }: { coupon: CouponPublic; sto
       </div>
       <div className="shrink-0 text-right">
         <p className="font-mono text-sm text-ink">{formatDiscount(coupon)}</p>
-        <p className="text-xs text-ink-soft">{rate ? `${rate} verified` : "Not yet verified"}</p>
+        <TrustBadge successRate={coupon.success_rate} reports={coupon.success_count + coupon.fail_count} />
       </div>
     </Link>
   );

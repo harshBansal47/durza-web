@@ -2,6 +2,7 @@ import Link from "next/link";
 import { formatDiscount } from "@/lib/format";
 import { maskCode } from "@/lib/codes";
 import type { CouponPublic } from "@/lib/types";
+import TrustBadge from "./TrustBadge";
 
 /**
  * One card for a family of near-identical offers (same title, different
@@ -25,6 +26,12 @@ export default function CouponGroupCard({
           <span className="block font-serif text-base font-bold leading-snug text-ink">{label}</span>
           <span className="mt-1 block text-xs text-ink-soft">
             {coupons.length} separate codes for this offer — open to see each one.
+          </span>
+          <span className="mt-2 block">
+            <TrustBadge
+              successRate={coupons[0]?.success_rate ?? null}
+              reports={(coupons[0]?.success_count ?? 0) + (coupons[0]?.fail_count ?? 0)}
+            />
           </span>
         </div>
         <span className="shrink-0 rounded-full bg-paper-alt px-3 py-1 font-mono text-[11px] text-ink-soft">

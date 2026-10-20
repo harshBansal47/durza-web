@@ -1,5 +1,6 @@
 import { formatDate, formatMoney } from "@/lib/format";
 import type { PricePoint } from "@/lib/types";
+import { priceInsight } from "@/lib/persuasion";
 
 /**
  * Price history as a table rather than a chart.
@@ -43,10 +44,12 @@ export default function PriceHistory({
   points,
   currency,
   limit = 30,
+  currentPrice = null,
 }: {
   points: PricePoint[];
   currency: string;
   limit?: number;
+  currentPrice?: number | null;
 }) {
   if (points.length === 0) {
     return (
@@ -63,6 +66,11 @@ export default function PriceHistory({
   return (
     <>
       <Change points={recent} currency={currency} />
+      {currentPrice !== null && priceInsight(points, currentPrice) && (
+        <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-verified-soft px-2.5 py-1 text-xs font-medium text-verified">
+          {priceInsight(points, currentPrice)}
+        </p>
+      )}
 
       <div className="mt-4 overflow-x-auto">
         <table className="w-full min-w-[28rem] text-sm">

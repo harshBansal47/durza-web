@@ -11,6 +11,7 @@ import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
 import { CardImpressions } from "./CardImpressions";
 import TrustBadge from "./TrustBadge";
+import { expiryTone } from "@/lib/persuasion";
 
 export type CouponCardVariant = "coupon" | "price-drop" | "free-shipping" | "expiring-soon" | "featured";
 
@@ -230,9 +231,9 @@ export function CouponCard({
               {!hideExpiry && expiryLabel(coupon.expires_at) && (
                 <span
                   className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
-                    daysLeft !== null && daysLeft >= 0 && daysLeft <= 1
-                      ? "bg-orange-100 text-orange-700"
-                      : "bg-gray-100 text-gray-700"
+                    expiryTone(coupon.expires_at) === "warning"
+                      ? "bg-rust-soft text-rust"
+                      : "bg-paper-alt text-ink-soft"
                   }`}
                 >
                   {expiryLabel(coupon.expires_at)}

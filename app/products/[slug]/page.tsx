@@ -233,7 +233,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       <section className="mt-14">
         <h2 className="font-serif text-xl text-ink">Price history</h2>
-        <PriceHistory points={history} currency={product.currency} />
+        <PriceHistory points={history} currency={product.currency} currentPrice={product.current_price} />
       </section>
     </main>
   );

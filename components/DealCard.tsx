@@ -3,7 +3,6 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
 import {
-  daysUntil,
   formatDate,
   formatDiscount,
   formatMoney,
@@ -16,6 +15,7 @@ import type { CouponPublic, Store } from "@/lib/types";
 import { CardImpressions } from "./CardImpressions";
 import { CardSaveButton } from "./CardSaveButton";
 import TrustBadge from "./TrustBadge";
+import { expiryTone } from "@/lib/persuasion";
 import { Calendar } from "lucide-react";
 
 /**
@@ -118,9 +118,9 @@ export default function DealCard({
           {coupon.expires_at && (
             <p
               className={`flex items-center gap-1 text-xs ${
-                daysUntil(coupon.expires_at) !== null && (daysUntil(coupon.expires_at) as number) >= 0 && (daysUntil(coupon.expires_at) as number) < 2
-                  ? "font-medium text-orange-600"
-                  : "text-gray-500"
+                expiryTone(coupon.expires_at) === "warning"
+                  ? "font-medium text-rust"
+                  : "text-ink-soft"
               }`}
             >
               <Calendar aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
