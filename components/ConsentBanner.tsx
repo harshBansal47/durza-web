@@ -4,10 +4,10 @@ import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { getConsent, setConsent, onConsentChange, type ConsentState } from "@/lib/consent";
 
-const SERVER_SNAPSHOT: ConsentState = null;
+const SERVER_SNAPSHOT = "server" as const;
 
 export default function ConsentBanner() {
-  const stored = useSyncExternalStore(
+  const stored = useSyncExternalStore<ConsentState | typeof SERVER_SNAPSHOT>(
     (onChange) => onConsentChange(onChange),
     () => getConsent(),
     () => SERVER_SNAPSHOT,
@@ -24,21 +24,14 @@ export default function ConsentBanner() {
     >
       <p className="flex-1 text-sm text-ink-soft">
         Durza uses a pseudonymous visitor ID for attribution. Optional analytics events use
-        that ID and a hashed IP. Editorial pages also load Google AdSense only if you accept.
-        Declining disables both. You can change this choice anytime in the{" "}
+        that ID and a hashed IP. Editorial pages also load Google AdSense. These load only
+        after you accept. You can review or withdraw this choice in the{" "}
         <Link href="/privacy" className="text-accent underline underline-offset-2">
           privacy policy
         </Link>
         .
       </p>
       <div className="flex shrink-0 gap-2">
-        <button
-          type="button"
-          onClick={() => setConsent("declined")}
-          className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink hover:bg-ink/[0.04]"
-        >
-          Decline
-        </button>
         <button
           type="button"
           onClick={() => setConsent("accepted")}
