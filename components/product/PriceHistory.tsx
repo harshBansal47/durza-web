@@ -66,6 +66,9 @@ export default function PriceHistory({
   return (
     <>
       <Change points={recent} currency={currency} />
+      <p className="mt-2 text-xs text-ink-soft">
+        Showing {recent.length} captures, newest first.
+      </p>
       {currentPrice !== null && priceInsight(points, currentPrice) && (
         <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-verified-soft px-2.5 py-1 text-xs font-medium text-verified">
           {priceInsight(points, currentPrice)}

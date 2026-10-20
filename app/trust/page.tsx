@@ -6,14 +6,14 @@ import PageTitle from "@/components/ui/PageTitle";
 export const metadata: Metadata = {
   title: "How Durza Works",
   description:
-    "Learn how Durza helps you find coupons, deals, and offers from online stores.",
+    "How Durza finds coupons and deals, how offers are checked, and how commissions are disclosed.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },
   openGraph: {
     title: "How Durza Works",
     description:
-      "Find coupons and deals with Durza. Here's how it works.",
+      "How Durza finds coupons and deals, how offers are checked, and how commissions are disclosed.",
     url: absoluteUrl("/trust"),
   },
 };

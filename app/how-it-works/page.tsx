@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageTitle from "@/components/ui/PageTitle";
+import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "How it works",
   description: "From sourcing to verification to disclosure — how the platform works.",
+  alternates: { canonical: absoluteUrl("/how-it-works") },
 };
 
 const STEPS: [string, string][] = [
