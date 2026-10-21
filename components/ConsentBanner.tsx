@@ -1,8 +1,14 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { getConsent, setConsent, onConsentChange, type ConsentState } from "@/lib/consent";
+import {
+  ensureConsentCookie,
+  getConsent,
+  setConsent,
+  onConsentChange,
+  type ConsentState,
+} from "@/lib/consent";
 
 const SERVER_SNAPSHOT = "server" as const;
 
@@ -12,6 +18,15 @@ export default function ConsentBanner() {
     () => getConsent(),
     () => SERVER_SNAPSHOT,
   );
+
+  // A visitor who accepted before — in an earlier visit, in another browser,
+  // or before the consent cookie existed — has the choice in localStorage and
+  // no cookie, and the server stores nothing for them. The banner is hidden
+  // once a choice exists, so nobody would ever ask again. This asks for the
+  // cookie to be re-issued, without the visitor clicking anything.
+  useEffect(() => {
+    ensureConsentCookie();
+  }, []);
 
   if (stored === SERVER_SNAPSHOT || stored !== null) return null;
 
