@@ -67,6 +67,17 @@ type FetchOptions = RequestInit & {
   token?: string | null;
 };
 
+export interface SaleSeriesResponse {
+  series: string;
+  title?: string;
+  edition: string;
+}
+
+export interface SaleEditionResponse {
+  lifecycle_status: string;
+  dates_confirmed: boolean;
+}
+
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
   const { revalidate, token, headers, ...rest } = options;
   const base = serverApiUrl();
@@ -261,9 +272,12 @@ export const api = {
 
   listSales: () => apiFetch<{ slug: string; title: string }[]>(`/sales`, { revalidate: 300 }),
   getSaleSeries: (series: string) =>
-    apiFetch<any>(`/sales/${encodeURIComponent(series)}`, { revalidate: 300 }),
+    apiFetch<SaleSeriesResponse>(`/sales/${encodeURIComponent(series)}`, { revalidate: 300 }),
   getSaleEdition: (series: string, edition: string) =>
-    apiFetch<any>(`/sales/${encodeURIComponent(series)}/${encodeURIComponent(edition)}`, { revalidate: 300 }),
+    apiFetch<SaleEditionResponse>(
+      `/sales/${encodeURIComponent(series)}/${encodeURIComponent(edition)}`,
+      { revalidate: 300 },
+    ),
 
   /** ISO 3166-1 alpha-2 codes Durza currently serves. */
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
