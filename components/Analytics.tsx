@@ -20,6 +20,7 @@ export function AnalyticsPageView() {
 /** One-off product event from a server-rendered page (search, filter, …). */
 export function TrackEvent({ event, payload }: { event: AnalyticsEvent; payload?: Record<string, unknown> }) {
   useEffect(() => {
+    if (!isAnalyticsAllowed()) return;
     track(event, payload ?? {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [event]);

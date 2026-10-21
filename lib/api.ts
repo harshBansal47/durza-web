@@ -219,6 +219,7 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
       cache: "no-store",
+      credentials: "include",
     }).then((r) => {
       if (!r.ok) throw new Error("impression failed");
     }),
