@@ -70,12 +70,27 @@ type FetchOptions = RequestInit & {
 export interface SaleSeriesResponse {
   series: string;
   title?: string;
+  description?: string;
   edition: string;
+  year?: number;
+  lifecycle_status?: string;
+  start_at?: string | null;
+  end_at?: string | null;
+  dates_confirmed?: boolean;
+  coupons?: CouponPublic[];
 }
 
 export interface SaleEditionResponse {
+  series: string;
+  title?: string;
+  edition: string;
+  year?: number;
   lifecycle_status: string;
   dates_confirmed: boolean;
+  start_at?: string | null;
+  end_at?: string | null;
+  content_ref?: string;
+  coupons?: CouponPublic[];
 }
 
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
