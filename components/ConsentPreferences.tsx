@@ -5,7 +5,6 @@ import {
   getConsent,
   onConsentChange,
   setConsent,
-  getPersonalizationConsent,
   setPersonalizationConsent,
   type ConsentState,
 } from "@/lib/consent";
