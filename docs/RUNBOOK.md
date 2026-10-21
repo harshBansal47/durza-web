@@ -35,7 +35,7 @@ All three are off unless somebody deliberately sets them at build time.
 
 | Flag | Default | Effect |
 |---|---|---|
-| `NEXT_PUBLIC_PERSONALIZATION_ENABLED` | `false` | no personalization control, no module, no request — and, once PR #10 is merged, no "For you" row either |
+| `NEXT_PUBLIC_PERSONALIZATION_ENABLED` | `false` | no personalization control, no module, no request, no "For you" row |
 | `NEXT_PUBLIC_PERSONALIZATION_EXPERIMENTS_ENABLED` | `false` | experiment assignment returns the control variant |
 | `NEXT_PUBLIC_SALE_HUBS_ENABLED` | `false` | the sale-hub pages answer 404 |
 
@@ -82,15 +82,13 @@ both cookies. The full analytics runbook is in the backend repository
 Personalization is separate from analytics and is currently switched off
 entirely, so there is nothing to withdraw and nothing to export.
 
-**In flight, not merged.** PR #11 (with the backend PR `durza#15`) changes
-what the server stores: the API issues a signed, HttpOnly consent cookie
-scoped to the parent domain when the visitor accepts, and it records an
-analytics event only when it can verify that cookie. A request without one
-is still answered 202 — the event is simply not kept. Expect analytics row
-counts to drop until visitors accept, and expect the analytics verification
-runbook in the backend repository to need an update.
+**Merged.** The API issues a signed, HttpOnly consent cookie scoped to the
+parent domain when the visitor accepts, and it records an analytics event
+only when it can verify that cookie. A request without one is still answered
+202 — the event is simply not kept. Expect analytics row counts to drop until
+visitors accept.
 
-**In flight, not merged.** PR #10 puts the home page's "For you" row behind
+**Merged.** The home page's "For you" row is behind
 `NEXT_PUBLIC_PERSONALIZATION_ENABLED` and the visitor's personalization
 purpose. With either missing the row does not exist and nothing is fetched
 for it.
