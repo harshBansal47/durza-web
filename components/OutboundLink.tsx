@@ -35,6 +35,7 @@ export default function OutboundLink({
   coupon,
   storeName,
   src,
+  contentRef,
   className = "",
   children,
 }: OutboundLinkProps) {

@@ -159,11 +159,10 @@ export interface StoreListParams {
 }
 
 function goQuery(src?: string, contentRef?: string): string {
-  const params = new URLSearchParams();
-  if (src) params.set("src", src);
-  if (contentRef) params.set("content_ref", contentRef);
-  const query = params.toString();
-  return query ? `?${query}` : "";
+  const parts: string[] = [];
+  if (src) parts.push(`src=${encodeURIComponent(src)}`);
+  if (contentRef) parts.push(`content_ref=${encodeURIComponent(contentRef)}`);
+  return parts.length ? `?${parts.join("&")}` : "";
 }
 
 export const api = {
