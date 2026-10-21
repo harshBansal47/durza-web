@@ -10,11 +10,17 @@ export default async function SalesIndexPage() {
   return (
     <main>
       <h1>Sales</h1>
-      <ul>
-        {series.map((s) => (
-          <li key={s.slug}>{s.title}</li>
-        ))}
-      </ul>
+      {series.length === 0 ? (
+        <p>No sales are running right now.</p>
+      ) : (
+        <ul>
+          {series.map((s) => (
+            <li key={s.slug}>
+              <a href={`/sales/${s.slug}`}>{s.title}</a>
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
