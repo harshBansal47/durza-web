@@ -7,6 +7,7 @@ import DeleteAccountForm from "@/components/account/DeleteAccountForm";
 import PersonalizationSettings from "@/components/account/PersonalizationSettings";
 import { requireAccount, updateProfileAction, deleteAccountAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
+import { PERSONALIZATION_ENABLED } from "@/lib/flags";
 
 export const metadata: Metadata = {
   title: "Account settings",
@@ -41,14 +42,16 @@ export default async function SettingsPage() {
         </section>
       )}
 
-      <section className="mt-10 border-t border-ledger-line pt-6">
-        <h3 className="text-sm uppercase tracking-wider text-ink-soft">Personalization</h3>
-        <p className="mt-2 text-sm text-ink-soft">
-          Personalization is optional and separate from analytics. Turning it off deletes local
-          taste signals and any synced interests.
-        </p>
-        <PersonalizationSettings />
-      </section>
+      {PERSONALIZATION_ENABLED ? (
+        <section className="mt-10 border-t border-ledger-line pt-6">
+          <h3 className="text-sm uppercase tracking-wider text-ink-soft">Personalization</h3>
+          <p className="mt-2 text-sm text-ink-soft">
+            Personalization is optional and separate from analytics. Turning it off deletes local
+            taste signals and any synced interests.
+          </p>
+          <PersonalizationSettings />
+        </section>
+      ) : null}
 
       <section className="mt-10 border-t border-ledger-line pt-6">
         <h3 className="text-sm uppercase tracking-wider text-ink-soft">Your data</h3>

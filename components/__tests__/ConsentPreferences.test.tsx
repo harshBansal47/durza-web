@@ -4,9 +4,20 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ConsentPreferences from "@/components/ConsentPreferences";
 import { getConsent, getPersonalizationConsent } from "@/lib/consent";
 
+// The personalization controls only exist when personalization is switched
+// on, and the flag defaults to false.
+const { flag } = vi.hoisted(() => ({ flag: { personalizationEnabled: true } }));
+vi.mock("@/lib/flags", () => ({
+  // A getter, so the test can turn the flag on and off between renders.
+  get PERSONALIZATION_ENABLED() {
+    return flag.personalizationEnabled;
+  },
+}));
+
 describe("ConsentPreferences", () => {
   beforeEach(() => {
     window.localStorage.clear();
+    flag.personalizationEnabled = true;
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }));
   });
 
@@ -28,6 +39,17 @@ describe("ConsentPreferences", () => {
     await user.click(screen.getByRole("button", { name: "Allow analytics" }));
     expect(getConsent()).toBe("accepted");
     expect(screen.getByText(/analytics are enabled/i)).toBeInTheDocument();
+  });
+
+  it("shows no personalization control while the flag is off", () => {
+    flag.personalizationEnabled = false;
+    render(<ConsentPreferences />);
+
+    expect(screen.queryByRole("button", { name: "Personalize my experience" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Turn off personalization" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Reset my interests" })).toBeNull();
+    // The analytics controls are unaffected.
+    expect(screen.getByRole("button", { name: "Allow analytics" })).toBeInTheDocument();
   });
 
   it("turns personalization off and clears local signals", async () => {

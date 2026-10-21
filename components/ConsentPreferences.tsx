@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { PERSONALIZATION_ENABLED } from "@/lib/flags";
 import {
   getConsent,
   getPersonalizationConsent,
@@ -77,36 +78,40 @@ export default function ConsentPreferences() {
         </button>
       </div>
 
-      <h3 className="mt-6 font-serif text-lg font-bold text-ink">Personalization</h3>
-      <p className="mt-2 text-sm text-ink-soft" role="status">
-        {personalizationStatus} This is separate from analytics. It only changes how eligible deals
-        are ordered; it never hides deals or changes the public page for other visitors.
-      </p>
-      <div className="mt-4 flex flex-wrap gap-3">
-        <button
-          type="button"
-          aria-pressed={personalization === "accepted"}
-          onClick={() => setPersonalizationConsent("accepted")}
-          className="btn-primary"
-        >
-          Personalize my experience
-        </button>
-        <button
-          type="button"
-          aria-pressed={personalization === "declined"}
-          onClick={() => void withdrawPersonalization()}
-          className="btn-outline"
-        >
-          Turn off personalization
-        </button>
-        <button
-          type="button"
-          onClick={() => void resetPersonalization()}
-          className="btn-outline"
-        >
-          Reset my interests
-        </button>
-      </div>
+      {PERSONALIZATION_ENABLED ? (
+        <>
+          <h3 className="mt-6 font-serif text-lg font-bold text-ink">Personalization</h3>
+          <p className="mt-2 text-sm text-ink-soft" role="status">
+            {personalizationStatus} This is separate from analytics. It only changes how eligible
+            deals are ordered; it never hides deals or changes the public page for other visitors.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button
+              type="button"
+              aria-pressed={personalization === "accepted"}
+              onClick={() => setPersonalizationConsent("accepted")}
+              className="btn-primary"
+            >
+              Personalize my experience
+            </button>
+            <button
+              type="button"
+              aria-pressed={personalization === "declined"}
+              onClick={() => void withdrawPersonalization()}
+              className="btn-outline"
+            >
+              Turn off personalization
+            </button>
+            <button
+              type="button"
+              onClick={() => void resetPersonalization()}
+              className="btn-outline"
+            >
+              Reset my interests
+            </button>
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }

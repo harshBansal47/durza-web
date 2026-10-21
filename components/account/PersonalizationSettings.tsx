@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PERSONALIZATION_ENABLED } from "@/lib/flags";
 import {
   getPersonalizationConsent,
   resetPersonalization,
@@ -12,7 +13,20 @@ function apiBase(): string {
   return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 }
 
+/**
+ * The personalization panel.
+ *
+ * It only exists when personalization is switched on: the flag defaults to
+ * false, so a build without it shows no personalization controls at all. The
+ * gate lives in a wrapper rather than inside the panel, so the panel's hooks
+ * are not conditional.
+ */
 export default function PersonalizationSettings() {
+  if (!PERSONALIZATION_ENABLED) return null;
+  return <PersonalizationSettingsPanel />;
+}
+
+function PersonalizationSettingsPanel() {
   const [status, setStatus] = useState<string>(() =>
     getPersonalizationConsent() === "accepted"
       ? "Personalization is on."

@@ -3,9 +3,18 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import PersonalizationSettings from "@/components/account/PersonalizationSettings";
 
+const { flag } = vi.hoisted(() => ({ flag: { personalizationEnabled: true } }));
+vi.mock("@/lib/flags", () => ({
+  // A getter, so the test can turn the flag on and off between renders.
+  get PERSONALIZATION_ENABLED() {
+    return flag.personalizationEnabled;
+  },
+}));
+
 describe("PersonalizationSettings", () => {
   beforeEach(() => {
     localStorage.clear();
+    flag.personalizationEnabled = true;
     localStorage.setItem("durza_personalization_v1", "accepted");
     localStorage.setItem("durza.taste_v2", '{"version":2,"stores":[{"id":"nike","at":1}]}');
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => [] }));
@@ -15,6 +24,16 @@ describe("PersonalizationSettings", () => {
     localStorage.clear();
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
+  });
+
+  it("does not exist while personalization is off", () => {
+    flag.personalizationEnabled = false;
+    const { container } = render(<PersonalizationSettings />);
+
+    expect(container.innerHTML).toBe("");
+    expect(screen.queryByRole("button", { name: "Export my personalization data" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Turn off personalization" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Reset my interests" })).toBeNull();
   });
 
   it("turns personalization off and deletes local and synced interests", async () => {

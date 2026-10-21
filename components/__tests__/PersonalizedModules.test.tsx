@@ -6,16 +6,37 @@ import { isPersonalizationAllowed } from "@/lib/consent";
 
 vi.mock("@/lib/consent", () => ({ isPersonalizationAllowed: vi.fn() }));
 
+// Personalization is off by default: the module must not even ask.
+const { flag } = vi.hoisted(() => ({ flag: { personalizationEnabled: true } }));
+vi.mock("@/lib/flags", () => ({
+  // A getter, so the test can turn the flag on and off between renders.
+  get PERSONALIZATION_ENABLED() {
+    return flag.personalizationEnabled;
+  },
+}));
+
 const mockAllowed = isPersonalizationAllowed as ReturnType<typeof vi.fn>;
 
 describe("PersonalizedModules", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    flag.personalizationEnabled = true;
     mockAllowed.mockReturnValue(false);
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+  });
+
+  it("does not call the personalization API while the flag is off", async () => {
+    flag.personalizationEnabled = false;
+    mockAllowed.mockReturnValue(true);
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const { container } = render(<PersonalizedModules />);
+    await Promise.resolve();
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(container.innerHTML).toBe("");
   });
 
   it("does not call the personalization API before consent", async () => {
