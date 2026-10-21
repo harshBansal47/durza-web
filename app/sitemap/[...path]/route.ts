@@ -108,6 +108,14 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       priority: 0.6,
     }));
   }
+  if (kind === "sales") {
+    const series = await api.listSales();
+    return series.map((item: any) => ({
+      url: `${SITE_URL}/sales/${item.slug}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+  }
   const contentType = EDITORIAL_SITEMAP_TYPES[kind];
   if (contentType) {
     let items: EditorialContent[];

@@ -1,4 +1,5 @@
 import { ApiError, api } from "./api";
+import { SALE_HUBS_ENABLED } from "./flags";
 import type { EditorialType } from "./types";
 
 /**
@@ -24,7 +25,8 @@ export type SitemapKind =
   | "guides"
   | "reviews"
   | "comparisons"
-  | "collections";
+  | "collections"
+  | "sales";
 
 export const EDITORIAL_SITEMAP_TYPES: Partial<Record<SitemapKind, EditorialType>> = {
   guides: "guide",
@@ -70,6 +72,7 @@ export async function sitemapIds(): Promise<SitemapId[]> {
   ]);
 
   const ids: SitemapId[] = [{ id: "static", kind: "static", chunk: 0 }];
+  if (SALE_HUBS_ENABLED) ids.push({ id: "sales-0", kind: "sales", chunk: 0 });
   const groups: Array<[SitemapKind, number]> = [
     ["coupons", coupons.total],
     ["stores", stores.total],
