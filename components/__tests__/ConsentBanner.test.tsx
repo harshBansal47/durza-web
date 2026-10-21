@@ -13,12 +13,12 @@ describe("ConsentBanner", () => {
     window.localStorage.clear();
   });
 
-  it("offers only an accept action", () => {
+  it("offers accept and decline actions", () => {
     render(<ConsentBanner />);
 
     expect(screen.getByRole("dialog", { name: /cookie and data consent/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Accept analytics" })).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /decline/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /decline/i })).toBeInTheDocument();
   });
 
   it("stores acceptance and dismisses the banner", async () => {

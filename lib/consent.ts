@@ -38,6 +38,18 @@ export function setConsent(state: "accepted" | "declined"): void {
   } catch {
     // private mode: choice applies to this visit only
   }
+  // On decline, ask the API to clear cz_vid/cz_sid. Taste signals in
+  // localStorage are not transmitted and are left in place; only analytics
+  // tracking and visitor/session cookies are stopped.
+  if (state === "declined") {
+    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+    void fetch(`${base}/analytics/consent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ choice: "declined" }),
+      credentials: "include",
+    }).catch(() => {});
+  }
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 

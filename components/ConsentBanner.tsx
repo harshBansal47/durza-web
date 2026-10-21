@@ -35,6 +35,13 @@ export default function ConsentBanner() {
       <div className="flex shrink-0 gap-2">
         <button
           type="button"
+          onClick={() => setConsent("declined")}
+          className="rounded-full border border-ledger-line px-4 py-2 text-sm text-ink-soft"
+        >
+          Decline
+        </button>
+        <button
+          type="button"
           onClick={() => setConsent("accepted")}
           className="btn-primary rounded-full px-4 py-2 text-sm"
         >
