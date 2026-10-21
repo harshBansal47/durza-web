@@ -2,18 +2,8 @@
 
 import { useState } from "react";
 import { track } from "@/lib/analytics";
+import { getSavedCouponIds, toggleSavedCoupon } from "@/lib/personalization";
 import { useSession } from "@/components/session/SessionProvider";
-
-const KEY = "durza.saved_coupons";
-
-function read(): string[] {
-  try {
-    const raw: unknown = JSON.parse(localStorage.getItem(KEY) ?? "[]");
-    return Array.isArray(raw) ? raw.filter((x): x is string => typeof x === "string") : [];
-  } catch {
-    return [];
-  }
-}
 
 /** Save requires a signed-in account: anonymous saves can't sync to a profile. */
 export function CardSaveButton({ couponId }: { couponId: string }) {
@@ -22,7 +12,7 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
   const { session } = useSession();
   const isSignedIn = session.status === "loading" ? null : session.status === "authenticated";
   const [saved, setSaved] = useState<boolean>(() =>
-    typeof window === "undefined" ? false : read().includes(couponId),
+    typeof window === "undefined" ? false : getSavedCouponIds().includes(couponId),
   );
 
   function toggle() {
@@ -31,15 +21,8 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
       window.location.assign(`/account/login?next=${next}`);
       return;
     }
-    const next = !saved;
+    const next = toggleSavedCoupon(couponId);
     setSaved(next);
-    try {
-      const list = read().filter((id) => id !== couponId);
-      if (next) list.unshift(couponId);
-      localStorage.setItem(KEY, JSON.stringify(list.slice(0, 200)));
-    } catch {
-      /* private mode — best effort */
-    }
     track(next ? "save_coupon" : "unsave_coupon", { coupon_id: couponId });
   }
 

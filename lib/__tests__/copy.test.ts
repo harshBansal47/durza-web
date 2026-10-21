@@ -34,4 +34,16 @@ describe("copy lint", () => {
       expect.arrayContaining([expect.objectContaining({ kind: "length" })]),
     );
   });
+
+  it("flags fake urgency and scarcity claims", () => {
+    expect(lintCopy("Hurry, last chance!")).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: "urgency" })]),
+    );
+    expect(lintCopy("Only 2 left")).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: "urgency" })]),
+    );
+    expect(lintCopy("14 people are viewing this")).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: "urgency" })]),
+    );
+  });
 });

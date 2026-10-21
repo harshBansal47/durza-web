@@ -57,6 +57,31 @@ export function setConsent(state: "accepted" | "declined"): void {
 
 export type PersonalizationState = "accepted" | "declined" | null;
 
+const PERSONALIZATION_KEYS = [
+  "durza.taste_v2",
+  "durza.recent_stores",
+  "durza.recent_coupons",
+  "durza.clicked_coupons",
+  "durza.saved_coupons",
+  "durza.followed_stores",
+  "durza.recent",
+];
+
+function personalizationApiBase(): string {
+  return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+}
+
+/** Remove all local taste signals without changing the consent choice. */
+export function clearPersonalizationSignals(): void {
+  for (const key of PERSONALIZATION_KEYS) {
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      /* private mode */
+    }
+  }
+}
+
 export function getPersonalizationConsent(): PersonalizationState {
   if (typeof window === "undefined") return null;
   try {
@@ -70,20 +95,35 @@ export function setPersonalizationConsent(state: "accepted" | "declined"): void 
   try {
     window.localStorage.setItem(PERSONALIZATION_KEY, state);
   } catch {}
-  if (state === "declined") {
-    // Clear local taste signals on withdrawal.
-    for (const key of [
-      "durza.recent_stores",
-      "durza.recent_coupons",
-      "durza.clicked_coupons",
-      "durza.saved_coupons",
-      "durza.followed_stores",
-      "durza.recent",
-    ]) {
-      try { window.localStorage.removeItem(key); } catch {}
-    }
-  }
+  if (state === "declined") clearPersonalizationSignals();
   window.dispatchEvent(new Event(PERSONALIZATION_EVENT));
+}
+
+/** Withdrawal: clear local signals, persist the decline, delete synced rows. */
+export async function withdrawPersonalization(): Promise<void> {
+  setPersonalizationConsent("declined");
+  try {
+    await fetch(`${personalizationApiBase()}/personalization/interests`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+  } catch {
+    /* the local choice is already off; server cleanup is best effort */
+  }
+}
+
+/** Reset: clear local and synced interests but keep the current consent choice. */
+export async function resetPersonalization(): Promise<void> {
+  clearPersonalizationSignals();
+  window.dispatchEvent(new Event(PERSONALIZATION_EVENT));
+  try {
+    await fetch(`${personalizationApiBase()}/personalization/interests`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+  } catch {
+    /* best effort */
+  }
 }
 
 export function isPersonalizationAllowed(): boolean {

@@ -45,4 +45,14 @@ describe("personalization signals", () => {
     localStorage.setItem("durza.recent_stores", "not-json{{{");
     expect(getSignals().stores).toEqual([]);
   });
+
+  it("migrates the legacy string-list format to versioned, timestamped entries", () => {
+    localStorage.setItem("durza.recent_stores", JSON.stringify(["nike", "adidas"]));
+    expect(getSignals().stores).toEqual(["nike", "adidas"]);
+
+    const raw = JSON.parse(localStorage.getItem("durza.taste_v2") ?? "{}");
+    expect(raw.version).toBe(2);
+    expect(raw.stores[0].id).toBe("nike");
+    expect(typeof raw.stores[0].at).toBe("number");
+  });
 });

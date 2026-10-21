@@ -5,3 +5,5 @@ export const SALE_HUBS_ENABLED = process.env.NEXT_PUBLIC_SALE_HUBS_ENABLED === "
 // behaves exactly like a build without the feature.
 export const PERSONALIZATION_ENABLED =
   process.env.NEXT_PUBLIC_PERSONALIZATION_ENABLED === "true";
+export const PERSONALIZATION_EXPERIMENTS_ENABLED =
+  process.env.NEXT_PUBLIC_PERSONALIZATION_EXPERIMENTS_ENABLED === "true";

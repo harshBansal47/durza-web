@@ -91,9 +91,10 @@ export default function PrivacyPage() {
       </p>
       <p>
         <strong className="font-semibold text-ink">Clicks, votes, and reports.</strong> Coupon votes
-        and outbound clicks are logged with a <em>salted one-way hash</em> of your IP address, never
-        the raw address, and we scrub even that hash after 90 days. The event itself stays (without
-        you in it) so we can tell which deals actually help shoppers.
+        and reports are rate-limited using a <em>salted one-way hash</em> of your IP address, never
+        the raw address. Outbound clicks use the same kind of salted hash, and we null that click
+        identifier after 90 days. The click event itself stays (without you in it) so we can tell
+        which deals actually help shoppers.
       </p>
 
       <h2 id="how-we-use-information" className="scroll-mt-24 pt-4 font-serif text-xl text-ink">
@@ -199,10 +200,11 @@ export default function PrivacyPage() {
         preferences.
       </p>
       <p>
-        Click and vote identifiers are scrubbed after 90 days, as described above. Anonymized
-        analytics data — which cannot identify you — may be retained in aggregate form. If the law
-        requires us to keep something, we keep only what is required and only for as long as
-        required.
+        Outbound click identifiers are scrubbed after 90 days, as described above. Vote and report
+        hashes are retained for abuse prevention and the report audit trail while the report is
+        kept. Anonymized analytics data — which cannot identify you — may be retained in aggregate
+        form. If the law requires us to keep something, we keep only what is required and only for
+        as long as required.
       </p>
 
       <h2
