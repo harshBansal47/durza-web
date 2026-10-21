@@ -5,6 +5,8 @@ import {
   getConsent,
   onConsentChange,
   setConsent,
+  getPersonalizationConsent,
+  setPersonalizationConsent,
   type ConsentState,
 } from "@/lib/consent";
 
@@ -56,6 +58,24 @@ export default function ConsentPreferences() {
           className="btn-outline"
         >
           Disable analytics
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+            void fetch(`${base}/personalization/interests`, { method: "DELETE", credentials: "include" }).catch(() => {});
+          }}
+          className="btn-outline"
+        >
+          Reset my interests
+        </button>
+      </div>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <button type="button" onClick={() => setPersonalizationConsent("accepted")} className="btn-outline">
+          Enable personalization
+        </button>
+        <button type="button" onClick={() => setPersonalizationConsent("declined")} className="btn-outline">
+          Disable personalization
         </button>
       </div>
     </section>
