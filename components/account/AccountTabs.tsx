@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 const TABS = [
@@ -46,17 +46,15 @@ export default function AccountTabs({
   active: string;
   counts?: Partial<Record<string, number>>;
 }) {
-  const [ordered, setOrdered] = useState(TABS);
-
-  useEffect(() => {
+  const [ordered, setOrdered] = useState(() => {
+    if (typeof window === "undefined") return TABS;
     const visits = readVisits();
-    const ranked = [...TABS].sort((a, b) => {
+    return [...TABS].sort((a, b) => {
       if (a.href === "/account") return -1;
       if (b.href === "/account") return 1;
       return (visits[b.href] ?? 0) - (visits[a.href] ?? 0);
     });
-    setOrdered(ranked);
-  }, []);
+  });
 
   return (
     <nav
@@ -72,7 +70,7 @@ export default function AccountTabs({
               <Link
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}
-                onClick={() => recordVisit(tab.href)}
+                onClick={() => { recordVisit(tab.href); setOrdered(() => { const visits = readVisits(); return [...TABS].sort((a, b) => { if (a.href === "/account") return -1; if (b.href === "/account") return 1; return (visits[b.href] ?? 0) - (visits[a.href] ?? 0); }); }); }}
                 className={[
                   "inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm whitespace-nowrap transition-colors",
                   isActive
