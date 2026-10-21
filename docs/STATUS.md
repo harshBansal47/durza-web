@@ -1,7 +1,7 @@
 # Status — Durza web
 
 **Repository:** `harshBansal47/durza-web` (`couponza-web/`)
-**Branch state at the time of writing:** `main` = `f8ffac1d0f5cf416fa4fd4f4e42b65ecf540d9ba`
+**Branch state at the time of writing:** `main` = `00eef0f` (the Phase 5 web stack)
 
 ## What is merged
 
@@ -14,6 +14,14 @@
 | Phase 5d — personalized module, separate personalization consent, the personalization flag | merged, deployed |
 | Phase 5e — experiments, account settings controls, export path, withdrawal deletion, privacy draft copy | merged, deployed |
 
+## Open PRs (draft, not merged)
+
+| PR | What it does | State |
+|---|---|---|
+| `durza-web#9` | The sale-hub pages show the coupons their rules resolve to, the description and the dates, instead of a title and a status. Still behind `NEXT_PUBLIC_SALE_HUBS_ENABLED`. | CI green, not merged |
+| `durza-web#10` | The "For you" row on the home page is gated: it needs `NEXT_PUBLIC_PERSONALIZATION_ENABLED` **and** the visitor's personalization purpose, and it says why it is there. | CI green, not merged |
+| `durza-web#11` | The analytics choice is sent to the API on accept as well as on decline, so the server can issue the signed consent cookie it needs before it records anything. | CI green, not merged |
+
 ## What is scaffolding, with the flags off
 
 Every flag below is **off**. `NEXT_PUBLIC_PERSONALIZATION_ENABLED` defaults to
@@ -25,30 +33,30 @@ API answers 404 for the personalization endpoints anyway.
 |---|---|---|---|
 | Personalization surface (settings panel, "Personalize my experience", export button, module) | `NEXT_PUBLIC_PERSONALIZATION_ENABLED` | `false` | nothing is rendered, no request is made |
 | Experiment assignment and exposure | `NEXT_PUBLIC_PERSONALIZATION_EXPERIMENTS_ENABLED` | `false` | `getVariant` returns the control variant and nothing is logged |
-| Sale hubs | `NEXT_PUBLIC_SALE_HUBS_ENABLED` | `false` | the sale pages are not routed |
+| Sale hubs | `NEXT_PUBLIC_SALE_HUBS_ENABLED` | `false` | the sale pages answer 404 |
 
 Still scaffolding: the geo helper (reads a CDN header, not wired, and it is
-not state-level yet), the payment picker (local-only, not wired), the
-personalized module (unmounted), and the "For you" row on the home page, which
-predates Phase 5 and is driven by followed stores rather than by the
-personalization consent — it is not behind the flag and is listed as an open
-question below.
+not state-level yet), the payment picker (local-only, not wired), and the
+personalized module (unmounted).
+
+The "For you" row on the home page was the last personalized surface with no
+flag in front of it: it is driven by followed and recently viewed stores. PR
+#10 puts it behind `NEXT_PUBLIC_PERSONALIZATION_ENABLED` and the
+personalization purpose, and gives it a "Why am I seeing this?" control.
 
 ## Open TODOs (deferred)
 
-1. **Follow-up PR** — a server-side consent requirement for
-   `POST /api/v1/analytics/event`: the API currently stores whatever it is
-   sent, and the gate is only client-side.
-2. **The "For you" row** (`components/discovery/Recommended.tsx`) shows a
-   taste-signal-driven row with no flag. It is pre-existing rather than new,
-   so it was left alone; decide whether it belongs behind
-   `NEXT_PUBLIC_PERSONALIZATION_ENABLED`.
-3. **Geo helper** — make it state-level, consent-gated and overridable before
+1. **The server-side consent requirement** — the API currently stores
+   whatever it is sent, and the gate is only client-side. **In flight as
+   `durza#15` (backend) and `durza-web#11` (the storefront tells the API
+   the choice), not merged.** The consequence to expect once it lands:
+   analytics events are only recorded for visitors who accepted.
+2. **Geo helper** — make it state-level, consent-gated and overridable before
    it is wired to anything.
-4. **Real-browser E2E and CLS checks** — before any personalization flag is
+3. **Real-browser E2E and CLS checks** — before any personalization flag is
    turned on.
-5. **GSC credentials** — still blocked on `GSC_CREDENTIALS_FILE` and
+4. **GSC credentials** — still blocked on `GSC_CREDENTIALS_FILE` and
    `GSC_SITE_URL`.
-6. **Phases 6–8** — not started.
-7. **Personalization wiring** — the module, the controls and the sync are
+5. **Phases 6–8** — not started.
+6. **Personalization wiring** — the module, the controls and the sync are
    built and hidden; turning them on is a separate, deliberate decision.
