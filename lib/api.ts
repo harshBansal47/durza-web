@@ -158,8 +158,11 @@ export interface StoreListParams {
   [key: string]: string | number | boolean | undefined;
 }
 
-function goQuery(src?: string): string {
-  return src ? `?src=${encodeURIComponent(src)}` : "";
+function goQuery(src?: string, contentRef?: string): string {
+  const parts: string[] = [];
+  if (src) parts.push(`src=${encodeURIComponent(src)}`);
+  if (contentRef) parts.push(`content_ref=${encodeURIComponent(contentRef)}`);
+  return parts.length ? `?${parts.join("&")}` : "";
 }
 
 export const api = {
@@ -180,18 +183,18 @@ export const api = {
    * `src` tags which surface sent the click ("coupon-page", "sticky-bar", ...);
    * the backend only accepts short lowercase tags and files anything else as "unknown".
    */
-  goUrl: (couponId: string, src?: string) => `${API_URL}/coupons/${couponId}/go${goQuery(src)}`,
+  goUrl: (couponId: string, src?: string, contentRef?: string) => `${API_URL}/coupons/${couponId}/go${goQuery(src, contentRef)}`,
 
   /** Live sponsored placements (the backend already enforces the booked window). */
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
     apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 600 }),
 
   /** Tracked redirect to an advertiser. The advertiser URL is never in API JSON. */
-  adGoUrl: (adId: string, src?: string) => `${API_URL}/ads/${adId}/go${goQuery(src)}`,
+  adGoUrl: (adId: string, src?: string, contentRef?: string) => `${API_URL}/ads/${adId}/go${goQuery(src, contentRef)}`,
 
   /** Tracked redirect to a product's store page. The raw URL is never in API JSON. */
-  productGoUrl: (productId: string, src?: string) =>
-    `${API_URL}/products/${productId}/go${goQuery(src)}`,
+  productGoUrl: (productId: string, src?: string, contentRef?: string) =>
+    `${API_URL}/products/${productId}/go${goQuery(src, contentRef)}`,
 
   verifyCoupon: (couponId: string, worked: boolean, note?: string) =>
     apiFetch<VerifyResponse>(`/coupons/${couponId}/verify`, {
@@ -205,6 +208,7 @@ export const api = {
     merchant_id: string;
     page_type: string;
     page_id?: string;
+    list_id?: string;
     position: number;
     ranking_version?: string;
     ranking_score?: number | null;
