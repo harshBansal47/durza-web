@@ -60,6 +60,16 @@ export const BANNED_HYPE = [
   "100%",
 ] as const;
 
+/** Fake scarcity/urgency. Real expiry dates are rendered from data, not copy. */
+export const BANNED_URGENCY = [
+  "hurry",
+  "act now",
+  "last chance",
+  "selling fast",
+  "before it's gone",
+  "don't miss",
+] as const;
+
 export const GLOSSARY_TERMS = [
   { term: "coupon", allowed: ["coupon", "offer", "deal"] },
   { term: "code", allowed: ["code", "promo code"] },
