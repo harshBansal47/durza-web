@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — Durza",
+    template: "%s — Durza Coupons",
   },
   description: SITE_DESCRIPTION,
   icons: {
