@@ -9,6 +9,7 @@ export function CardImpressions(props: {
   merchantId: string;
   pageType: ImpressionPageType;
   position: number;
+  listId?: string;
 }) {
-  return <ImpressionTracker {...props} />;
+  return <ImpressionTracker {...props} listId={props.listId} />;
 }

@@ -62,12 +62,13 @@ export function track(event: AnalyticsEvent, payload: Record<string, unknown> = 
   if (!isAnalyticsAllowed()) return;
   try {
     if (event === "coupon_impression") {
-      const { coupon_id, merchant_id, page_type, position, page_id, sponsored } = payload as {
+      const { coupon_id, merchant_id, page_type, position, page_id, list_id, sponsored } = payload as {
         coupon_id: string;
         merchant_id: string;
         page_type: string;
         position: number;
         page_id?: string;
+        list_id?: string;
         sponsored?: boolean;
       };
       // The backend requires a known page type and a 1-based position; sending anything
@@ -90,6 +91,7 @@ export function track(event: AnalyticsEvent, payload: Record<string, unknown> = 
             page_type,
             position: position1,
             page_id: page_id as string | undefined,
+            list_id: list_id as string | undefined,
             sponsored: Boolean(sponsored ?? false),
             source: "web",
           })

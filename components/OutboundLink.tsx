@@ -15,6 +15,8 @@ interface OutboundLinkProps {
   storeName: string;
   /** Which surface sent the click. */
   src: string;
+  /** Optional editorial content reference. */
+  contentRef?: string;
   /** className for the <a>. */
   className?: string;
   /** Children (link text). */
@@ -44,11 +46,11 @@ export default function OutboundLink({
       hadCode: Boolean(coupon.code),
     });
     markRevealed(coupon.id);
-    track("coupon_click", { coupon_id: coupon.id, src });
+    track("coupon_click", { coupon_id: coupon.id, src, content_ref: contentRef });
     recordCouponClick(coupon.id);
   }, [coupon, storeName, src]);
 
-  const href = api.goUrl(coupon.id, src);
+  const href = api.goUrl(coupon.id, src, contentRef);
 
   return (
     <a

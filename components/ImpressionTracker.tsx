@@ -16,6 +16,7 @@ export function ImpressionTracker({
   pageType,
   position,
   pageId,
+  listId,
   sponsored,
 }: {
   couponId: string;
@@ -24,6 +25,7 @@ export function ImpressionTracker({
   /** 1-based position within its list. */
   position: number;
   pageId?: string;
+  listId?: string;
   sponsored?: boolean;
 }) {
   const marker = useRef<HTMLSpanElement>(null);
@@ -40,6 +42,7 @@ export function ImpressionTracker({
         page_type: pageType,
         position,
         page_id: pageId,
+        list_id: listId,
         sponsored: sponsored ?? false,
       });
     };
@@ -59,7 +62,7 @@ export function ImpressionTracker({
     );
     io.observe(card);
     return () => io.disconnect();
-  }, [couponId, merchantId, pageType, position, pageId, sponsored]);
+  }, [couponId, merchantId, pageType, position, pageId, listId, sponsored]);
 
   return <span ref={marker} aria-hidden="true" className="hidden" />;
 }
