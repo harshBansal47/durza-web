@@ -73,6 +73,7 @@ export function setPersonalizationConsent(state: "accepted" | "declined"): void 
   if (state === "declined") {
     // Clear local taste signals on withdrawal.
     for (const key of [
+      "durza.taste_v2",
       "durza.recent_stores",
       "durza.recent_coupons",
       "durza.clicked_coupons",

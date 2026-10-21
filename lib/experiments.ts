@@ -20,7 +20,6 @@ export function registerExperiment(exp: Experiment) {
 
 export function getVariant(experiment: string, variants: string[]): string {
   const fallback = variants[0] ?? "control";
-  if (!isAnalyticsAllowed()) return fallback;
   try {
     const key = `durza.exp.${experiment}`;
     const stored = localStorage.getItem(key);
@@ -28,7 +27,7 @@ export function getVariant(experiment: string, variants: string[]): string {
     const pick = variants[Math.floor(Math.random() * variants.length)] ?? fallback;
     localStorage.setItem(key, pick);
     const exp = REGISTRY[experiment];
-    if (exp && !localStorage.getItem(`${key}:exposed`)) {
+    if (exp && isAnalyticsAllowed() && !localStorage.getItem(`${key}:exposed`)) {
       track("filter_change", { experiment, variant: pick, outcome: "exposure" });
       localStorage.setItem(`${key}:exposed`, "1");
     }
