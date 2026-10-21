@@ -17,7 +17,9 @@
 export type ConsentState = "accepted" | "declined" | null;
 
 const STORAGE_KEY = "durza_consent_v1";
+const PERSONALIZATION_KEY = "durza_personalization_v1";
 const CHANGE_EVENT = "durza:consent-changed";
+const PERSONALIZATION_EVENT = "durza:personalization-changed";
 
 /** Read the current consent state from localStorage. */
 export function getConsent(): ConsentState {
@@ -51,6 +53,47 @@ export function setConsent(state: "accepted" | "declined"): void {
     }).catch(() => {});
   }
   window.dispatchEvent(new Event(CHANGE_EVENT));
+}
+
+export type PersonalizationState = "accepted" | "declined" | null;
+
+export function getPersonalizationConsent(): PersonalizationState {
+  if (typeof window === "undefined") return null;
+  try {
+    const stored = window.localStorage.getItem(PERSONALIZATION_KEY);
+    if (stored === "accepted" || stored === "declined") return stored;
+  } catch {}
+  return null;
+}
+
+export function setPersonalizationConsent(state: "accepted" | "declined"): void {
+  try {
+    window.localStorage.setItem(PERSONALIZATION_KEY, state);
+  } catch {}
+  if (state === "declined") {
+    // Clear local taste signals on withdrawal.
+    for (const key of [
+      "durza.recent_stores",
+      "durza.recent_coupons",
+      "durza.clicked_coupons",
+      "durza.saved_coupons",
+      "durza.followed_stores",
+      "durza.recent",
+    ]) {
+      try { window.localStorage.removeItem(key); } catch {}
+    }
+  }
+  window.dispatchEvent(new Event(PERSONALIZATION_EVENT));
+}
+
+export function isPersonalizationAllowed(): boolean {
+  return getPersonalizationConsent() === "accepted";
+}
+
+export function onPersonalizationChange(callback: (state: PersonalizationState) => void): () => void {
+  const handler = () => callback(getPersonalizationConsent());
+  window.addEventListener(PERSONALIZATION_EVENT, handler);
+  return () => window.removeEventListener(PERSONALIZATION_EVENT, handler);
 }
 
 /** Whether analytics tracking is currently permitted. */

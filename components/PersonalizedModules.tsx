@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isAnalyticsAllowed } from "@/lib/consent";
+import { isAnalyticsAllowed, isPersonalizationAllowed } from "@/lib/consent";
 
 export default function PersonalizedModules() {
   const [items, setItems] = useState<any[]>([]);
   const [reason, setReason] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAnalyticsAllowed()) return;
+    if (!isPersonalizationAllowed()) return;
     fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/personalization/picked-for-you`, {
       credentials: "include",
       cache: "no-store",
