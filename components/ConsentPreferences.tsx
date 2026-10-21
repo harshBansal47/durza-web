@@ -57,6 +57,16 @@ export default function ConsentPreferences() {
         >
           Disable analytics
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+            void fetch(`${base}/personalization/interests`, { method: "DELETE", credentials: "include" }).catch(() => {});
+          }}
+          className="btn-outline"
+        >
+          Reset my interests
+        </button>
       </div>
     </section>
   );
