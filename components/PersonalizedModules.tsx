@@ -38,12 +38,17 @@ export default function PersonalizedModules() {
   if (!items.length) return null;
   return (
     <section>
-      {reason && <p>{reason}</p>}
       <ul>
         {items.map((item, i) => (
           <li key={i}>{item.title ?? "Item"}</li>
         ))}
       </ul>
+      {reason && (
+        <details>
+          <summary>Why am I seeing this?</summary>
+          <p>{reason}</p>
+        </details>
+      )}
     </section>
   );
 }
