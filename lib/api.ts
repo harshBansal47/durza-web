@@ -538,7 +538,7 @@ export const resilient = {
     orNull(api.getEditorial(contentType, slug)),
   getEditorialHomepage: () =>
     orNull(api.getEditorialHomepage()),
-  listSales: () => orEmpty(api.listSales()),
+  listSales: () => orEmptyArray(api.listSales()),
   getSaleSeries: (series: string) => orNull(api.getSaleSeries(series)),
   getSaleEdition: (series: string, edition: string) => orNull(api.getSaleEdition(series, edition)),
 };
