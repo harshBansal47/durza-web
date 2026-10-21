@@ -155,6 +155,8 @@ export interface CouponPublic {
   /** Store-stated conditions: minimum order, terms, source page, check date. */
   restrictions: Record<string, unknown> | null;
   created_at: string;
+  ranking_version?: string;
+  is_exploration?: boolean;
 }
 
 export interface VerifyResponse {
