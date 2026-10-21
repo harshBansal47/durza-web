@@ -259,6 +259,12 @@ export const api = {
   getEditorialHomepage: () =>
     apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: 300 }),
 
+  listSales: () => apiFetch<{ slug: string; title: string }[]>(`/sales`, { revalidate: 300 }),
+  getSaleSeries: (series: string) =>
+    apiFetch<any>(`/sales/${encodeURIComponent(series)}`, { revalidate: 300 }),
+  getSaleEdition: (series: string, edition: string) =>
+    apiFetch<any>(`/sales/${encodeURIComponent(series)}/${encodeURIComponent(edition)}`, { revalidate: 300 }),
+
   /** ISO 3166-1 alpha-2 codes Durza currently serves. */
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
 
@@ -532,4 +538,7 @@ export const resilient = {
     orNull(api.getEditorial(contentType, slug)),
   getEditorialHomepage: () =>
     orNull(api.getEditorialHomepage()),
+  listSales: () => orEmpty(api.listSales()),
+  getSaleSeries: (series: string) => orNull(api.getSaleSeries(series)),
+  getSaleEdition: (series: string, edition: string) => orNull(api.getSaleEdition(series, edition)),
 };
