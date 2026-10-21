@@ -4,6 +4,7 @@ import AccountShell from "@/components/account/AccountShell";
 import ProfileForm from "@/components/account/ProfileForm";
 import SetPasswordForm from "@/components/account/SetPasswordForm";
 import DeleteAccountForm from "@/components/account/DeleteAccountForm";
+import PersonalizationSettings from "@/components/account/PersonalizationSettings";
 import { requireAccount, updateProfileAction, deleteAccountAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -39,6 +40,15 @@ export default async function SettingsPage() {
           </div>
         </section>
       )}
+
+      <section className="mt-10 border-t border-ledger-line pt-6">
+        <h3 className="text-sm uppercase tracking-wider text-ink-soft">Personalization</h3>
+        <p className="mt-2 text-sm text-ink-soft">
+          Personalization is optional and separate from analytics. Turning it off deletes local
+          taste signals and any synced interests.
+        </p>
+        <PersonalizationSettings />
+      </section>
 
       <section className="mt-10 border-t border-ledger-line pt-6">
         <h3 className="text-sm uppercase tracking-wider text-ink-soft">Your data</h3>

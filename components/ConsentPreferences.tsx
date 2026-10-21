@@ -3,19 +3,30 @@
 import { useSyncExternalStore } from "react";
 import {
   getConsent,
+  getPersonalizationConsent,
   onConsentChange,
+  onPersonalizationChange,
+  resetPersonalization,
   setConsent,
   setPersonalizationConsent,
+  withdrawPersonalization,
   type ConsentState,
+  type PersonalizationState,
 } from "@/lib/consent";
 
 const SERVER_SNAPSHOT: ConsentState = null;
+const PERSONALIZATION_SNAPSHOT: PersonalizationState = null;
 
 export default function ConsentPreferences() {
   const consent = useSyncExternalStore(
     (onChange) => onConsentChange(onChange),
     getConsent,
     () => SERVER_SNAPSHOT,
+  );
+  const personalization = useSyncExternalStore(
+    (onChange) => onPersonalizationChange(onChange),
+    getPersonalizationConsent,
+    () => PERSONALIZATION_SNAPSHOT,
   );
 
   const status =
@@ -24,6 +35,12 @@ export default function ConsentPreferences() {
       : consent === "declined"
         ? "Analytics are disabled."
         : "You have not chosen whether to enable analytics.";
+  const personalizationStatus =
+    personalization === "accepted"
+      ? "Personalization is on."
+      : personalization === "declined"
+        ? "Personalization is off and stored interests have been cleared."
+        : "Personalization is off until you choose it.";
 
   return (
     <section
@@ -58,23 +75,36 @@ export default function ConsentPreferences() {
         >
           Disable analytics
         </button>
+      </div>
+
+      <h3 className="mt-6 font-serif text-lg font-bold text-ink">Personalization</h3>
+      <p className="mt-2 text-sm text-ink-soft" role="status">
+        {personalizationStatus} This is separate from analytics. It only changes how eligible deals
+        are ordered; it never hides deals or changes the public page for other visitors.
+      </p>
+      <div className="mt-4 flex flex-wrap gap-3">
         <button
           type="button"
-          onClick={() => {
-            const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
-            void fetch(`${base}/personalization/interests`, { method: "DELETE", credentials: "include" }).catch(() => {});
-          }}
+          aria-pressed={personalization === "accepted"}
+          onClick={() => setPersonalizationConsent("accepted")}
+          className="btn-primary"
+        >
+          Personalize my experience
+        </button>
+        <button
+          type="button"
+          aria-pressed={personalization === "declined"}
+          onClick={() => void withdrawPersonalization()}
+          className="btn-outline"
+        >
+          Turn off personalization
+        </button>
+        <button
+          type="button"
+          onClick={() => void resetPersonalization()}
           className="btn-outline"
         >
           Reset my interests
-        </button>
-      </div>
-      <div className="mt-4 flex flex-wrap gap-3">
-        <button type="button" onClick={() => setPersonalizationConsent("accepted")} className="btn-outline">
-          Enable personalization
-        </button>
-        <button type="button" onClick={() => setPersonalizationConsent("declined")} className="btn-outline">
-          Disable personalization
         </button>
       </div>
     </section>

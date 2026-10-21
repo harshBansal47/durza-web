@@ -30,7 +30,29 @@ describe("PersonalizedModules", () => {
     expect(renderToString(<PersonalizedModules />)).toBe("");
   });
 
-  it("shows a plain-language reason when items are returned", async () => {
+  it.each([
+    { personalization: "accepted", analytics: "accepted", signals: '{"version":2,"stores":[{"id":"nike","at":1}]}' },
+    { personalization: "declined", analytics: "declined", signals: null },
+    { personalization: null, analytics: null, signals: null },
+  ])("server output is identical for %o", ({ personalization, analytics, signals }) => {
+    if (personalization) localStorage.setItem("durza_personalization_v1", personalization);
+    if (analytics) localStorage.setItem("durza_consent_v1", analytics);
+    if (signals) localStorage.setItem("durza.taste_v2", signals);
+    expect(renderToString(<PersonalizedModules />)).toBe("");
+  });
+
+  it("renders no placeholder, so an empty module cannot shift layout", async () => {
+    mockAllowed.mockReturnValue(true);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({ ok: true, json: async () => ({ items: [], reason: "No signal." }) }),
+    );
+    const { container } = render(<PersonalizedModules />);
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(container.innerHTML).toBe("");
+  });
+
+  it("explains why an item is shown", async () => {
     mockAllowed.mockReturnValue(true);
     vi.stubGlobal(
       "fetch",
@@ -41,6 +63,7 @@ describe("PersonalizedModules", () => {
     );
     render(<PersonalizedModules />);
     await waitFor(() => expect(screen.getByText("A deal")).toBeInTheDocument());
+    expect(screen.getByText("Why am I seeing this?")).toBeInTheDocument();
     expect(screen.getByText("Because you viewed this store.")).toBeInTheDocument();
   });
 });
