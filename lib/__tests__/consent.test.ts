@@ -36,6 +36,28 @@ describe("consent gating (D3)", () => {
     expect(mockRecordImpression).not.toHaveBeenCalled();
   });
 
+  it("the choice is sent to the API, so it can issue a consent cookie", () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    setConsent("accepted");
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.stringContaining("/analytics/consent"),
+      expect.objectContaining({
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({ choice: "accepted" }),
+      }),
+    );
+
+    setConsent("declined");
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.stringContaining("/analytics/consent"),
+      expect.objectContaining({ body: JSON.stringify({ choice: "declined" }) }),
+    );
+    vi.unstubAllGlobals();
+  });
+
   it("declined => analytics does not fire", () => {
     setConsent("declined");
     expect(getConsent()).toBe("declined");
