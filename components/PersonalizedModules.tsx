@@ -1,10 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isAnalyticsAllowed, isPersonalizationAllowed } from "@/lib/consent";
+import { isPersonalizationAllowed } from "@/lib/consent";
+
+interface PersonalizedItem {
+  title?: string;
+}
+
+interface PersonalizedResponse {
+  items?: PersonalizedItem[];
+  reason?: string;
+}
 
 export default function PersonalizedModules() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<PersonalizedItem[]>([]);
   const [reason, setReason] = useState<string | null>(null);
 
   useEffect(() => {
@@ -13,7 +22,7 @@ export default function PersonalizedModules() {
       credentials: "include",
       cache: "no-store",
     })
-      .then((r) => (r.ok ? r.json() : null))
+      .then((r) => (r.ok ? (r.json() as Promise<PersonalizedResponse>) : null))
       .then((data) => {
         if (data) {
           setItems(data.items ?? []);
