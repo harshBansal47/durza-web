@@ -49,7 +49,10 @@ export type AnalyticsEvent =
   | "unfollow_store"
   | "merchant_click"
   | "filter_change"
-  | "verify_vote";
+  | "verify_vote"
+  | "content_view"
+  | "scroll"
+  | "engaged_time";
 
 /**
  * Single frontend event bus. Coupon impressions/clicks flow into the backend

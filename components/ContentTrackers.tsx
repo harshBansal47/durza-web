@@ -9,7 +9,7 @@ export function ContentViewTracker({ contentId, contentType }: { contentId: stri
   useEffect(() => {
     if (fired.current || !isAnalyticsAllowed()) return;
     fired.current = true;
-    track("content_view" as any, { content_id: contentId, content_type: contentType });
+    track("content_view", { content_id: contentId, content_type: contentType });
   }, [contentId, contentType]);
   return null;
 }
@@ -23,7 +23,7 @@ export function ScrollTracker() {
       for (const mark of [25, 50, 75, 100]) {
         if (pct >= mark && !fired.current.has(mark)) {
           fired.current.add(mark);
-          track("scroll" as any, { depth: mark });
+          track("scroll", { depth: mark });
         }
       }
     };
@@ -49,7 +49,7 @@ export function EngagedTimeTracker() {
     const send = () => {
       tick();
       const ms = Math.min(total.current + (start.current ? Date.now() - start.current : 0), 300000);
-      track("engaged_time" as any, { ms });
+      track("engaged_time", { ms });
     };
     document.addEventListener("visibilitychange", tick);
     window.addEventListener("pagehide", send);

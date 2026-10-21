@@ -110,7 +110,7 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
   }
   if (kind === "sales") {
     const series = await api.listSales();
-    return series.map((item: any) => ({
+    return series.map((item) => ({
       url: `${SITE_URL}/sales/${item.slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.7,
