@@ -10,7 +10,7 @@ import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
 import ToastProvider from "@/components/ui/Toast";
 import ConsentBanner from "@/components/ConsentBanner";
-import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
+import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, TITLE_TEMPLATE } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
 import { BRAND } from "@/lib/brand";
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — Durza Coupons",
+    template: TITLE_TEMPLATE,
   },
   description: SITE_DESCRIPTION,
   icons: {
