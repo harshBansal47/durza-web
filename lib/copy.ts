@@ -26,6 +26,10 @@ export const copy = {
     noAlerts: "No alerts yet.",
     noTracked: "No tracked products yet.",
   },
+  ranking: {
+    whyThisOrder: "Why this order?",
+    body: "Part of this order reflects how offers perform for shoppers, including affiliate earnings that fund the site. Some spots try newer offers. Read the affiliate disclosure and how it works for details.",
+  },
   errors: {
     loadFailed: "We could not load this. Try again.",
     clipboardFailed: "Copy did not work. The code is still visible.",
