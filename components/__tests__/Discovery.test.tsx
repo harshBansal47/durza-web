@@ -6,6 +6,23 @@ import { StoreFollowButton } from "@/components/StoreFollowButton";
 import { SessionProvider } from "@/components/session/SessionProvider";
 import type { CouponPublic } from "@/lib/types";
 
+// The "For you" row is personalised: it needs the build flag on and the
+// visitor's personalization consent. Both are mocked so a test can turn them
+// on and off.
+const { flagState } = vi.hoisted(() => ({
+  flagState: { personalizationEnabled: true, consentGranted: true },
+}));
+vi.mock("@/lib/flags", () => ({
+  get PERSONALIZATION_ENABLED() {
+    return flagState.personalizationEnabled;
+  },
+}));
+vi.mock("@/lib/consent", () => ({
+  isPersonalizationAllowed: () => flagState.consentGranted,
+  isAnalyticsAllowed: () => true,
+  getPersonalizationConsent: () => (flagState.consentGranted ? "accepted" : null),
+}));
+
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn() }),
   usePathname: () => "/",
@@ -44,6 +61,9 @@ const stores = [{ id: "s1", name: "Amazon", slug: "amazon", currency: "USD" }];
 describe("discovery modules", () => {
   beforeEach(() => {
     localStorage.clear();
+    flagState.personalizationEnabled = true;
+    flagState.consentGranted = true;
+    vi.unstubAllGlobals();
   });
 
   it("RecentlyVerified renders nothing without verification data — never fake freshness", () => {
@@ -69,6 +89,84 @@ describe("discovery modules", () => {
   it("Recommended stays hidden with no taste signals — never invents picks", () => {
     const { container } = render(<RecommendedRow />);
     expect(container).toBeEmptyDOMElement();
+  });
+
+  it("Recommended stays hidden while personalization is off", async () => {
+    flagState.personalizationEnabled = false;
+    localStorage.setItem(
+      "durza.taste_v2",
+      JSON.stringify({ version: 2, stores: [{ id: "amazon", at: Date.now() }], followed: [] }),
+    );
+    localStorage.setItem("durza_personalization_v1", "accepted");
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("/coupons")) {
+        return { ok: true, json: async () => ({ items: [makeCoupon()], total: 1 }) };
+      }
+      return {
+        ok: true,
+        json: async () => ({
+          id: "s1",
+          name: "Amazon",
+          slug: "amazon",
+          logo_url: null,
+          currency: "INR",
+        }),
+      };
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { container } = render(<RecommendedRow />);
+    await Promise.resolve();
+
+    expect(container).toBeEmptyDOMElement();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("Recommended stays hidden without the personalization purpose", async () => {
+    flagState.consentGranted = false;
+    localStorage.setItem(
+      "durza.taste_v2",
+      JSON.stringify({ version: 2, stores: [{ id: "amazon", at: Date.now() }], followed: [] }),
+    );
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { container } = render(<RecommendedRow />);
+    await Promise.resolve();
+
+    expect(container).toBeEmptyDOMElement();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("Recommended shows the row and says why when it is allowed", async () => {
+    localStorage.setItem(
+      "durza.taste_v2",
+      JSON.stringify({ version: 2, stores: [{ id: "amazon", at: Date.now() }], followed: [] }),
+    );
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("/coupons")) {
+        return { ok: true, json: async () => ({ items: [makeCoupon()], total: 1 }) };
+      }
+      return {
+        ok: true,
+        json: async () => ({
+          id: "s1",
+          name: "Amazon",
+          slug: "amazon",
+          logo_url: null,
+          currency: "INR",
+        }),
+      };
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<RecommendedRow />);
+
+    expect(await screen.findByText("For you")).toBeInTheDocument();
+    expect(screen.getByText("Why am I seeing this?")).toBeInTheDocument();
+    expect(screen.getByText(/You have looked at Amazon/)).toBeInTheDocument();
   });
 });
 
