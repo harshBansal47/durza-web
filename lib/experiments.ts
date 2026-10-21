@@ -2,6 +2,7 @@
 
 import { track } from "./analytics";
 import { isAnalyticsAllowed } from "./consent";
+import { PERSONALIZATION_EXPERIMENTS_ENABLED } from "./flags";
 
 export interface Experiment {
   id: string;
@@ -20,6 +21,7 @@ export function registerExperiment(exp: Experiment) {
 
 export function getVariant(experiment: string, variants: string[]): string {
   const fallback = variants[0] ?? "control";
+  if (!PERSONALIZATION_EXPERIMENTS_ENABLED) return fallback;
   try {
     const key = `durza.exp.${experiment}`;
     const stored = localStorage.getItem(key);
@@ -38,6 +40,7 @@ export function getVariant(experiment: string, variants: string[]): string {
 }
 
 export function trackOutcome(experiment: string, variant: string, outcome: string) {
+  if (!PERSONALIZATION_EXPERIMENTS_ENABLED) return;
   if (!isAnalyticsAllowed()) return;
   track("filter_change", { experiment, variant, outcome });
 }

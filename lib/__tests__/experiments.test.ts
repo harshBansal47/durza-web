@@ -5,6 +5,7 @@ import { isAnalyticsAllowed } from "@/lib/consent";
 
 vi.mock("@/lib/analytics", () => ({ track: vi.fn() }));
 vi.mock("@/lib/consent", () => ({ isAnalyticsAllowed: vi.fn() }));
+vi.mock("@/lib/flags", () => ({ PERSONALIZATION_EXPERIMENTS_ENABLED: true }));
 
 const mockTrack = track as ReturnType<typeof vi.fn>;
 const mockAnalyticsAllowed = isAnalyticsAllowed as ReturnType<typeof vi.fn>;
