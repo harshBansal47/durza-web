@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import Image from "next/image";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import { REDESIGN_ENABLED } from "@/lib/flags";
-import DealStack from "@/components/home/DealStack";
-import { formatDiscount } from "@/lib/format";
-import { storeInitials } from "@/lib/catalog";
+import HeroIllustration from "@/components/home/HeroIllustration";
+import HeroSpotlight from "@/components/home/HeroSpotlight";
 import type { CouponPublic } from "@/lib/types";
 
 interface HeroProps {
@@ -29,7 +28,9 @@ export default function Hero({
   showStats = true,
 }: HeroProps) {
   const topCoupon = spotlight[0];
-  const additionalCoupons = spotlight.slice(1, 3);
+  const topStore = topCoupon
+    ? popularStores.find((store) => store.id === topCoupon.store_id)
+    : undefined;
 
   const visibleStats = stats.filter((stat) => stat.value > 0).slice(0, 3);
 
@@ -67,8 +68,8 @@ export default function Hero({
         </>
       )}
 
-      <div className="relative px-5 py-8 sm:px-8 sm:py-10 lg:mx-auto lg:max-w-7xl lg:px-6 lg:py-24">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:gap-16 lg:items-center">
+      <div className="relative px-5 py-8 sm:px-8 sm:py-10 lg:mx-auto lg:max-w-7xl lg:px-6 lg:py-14">
+        <div className="lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-14">
           {/* Left — text, search, pills, stats (unchanged on mobile) */}
           <div>
             {/* Dynamic activity information */}
@@ -85,7 +86,8 @@ export default function Hero({
                 )}
 
                 {endingSoon > 0 && (
-                  <span className="text-xs text-ink-soft">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-ledger-line bg-paper-raised px-3 py-1.5 text-xs font-medium text-ink-soft">
+                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-gold" />
                     {endingSoon.toLocaleString("en-IN")} ending soon
                   </span>
                 )}
@@ -135,48 +137,11 @@ export default function Hero({
               ))}
             </ul>
 
-            {REDESIGN_ENABLED && popularStores.length > 0 && (
-              <div className="mt-6 overflow-hidden">
-                <ul className="flex w-max gap-6 motion-safe:animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
-                  {[...popularStores, ...popularStores].map((store, i) => {
-                    const logo = storeLogoUrl(store);
-                    return (
-                      <li
-                        key={`${store.id}-${i}`}
-                        aria-hidden={i >= popularStores.length}
-                        inert={i >= popularStores.length}
-                        className="shrink-0"
-                      >
-                        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper-raised grayscale transition-all duration-200 hover:grayscale-0">
-                          {logo ? (
-                            <Image
-                              src={logo}
-                              alt=""
-                              width={28}
-                              height={28}
-                              className="h-7 w-7 object-contain"
-                            />
-                          ) : (
-                            <span className="text-xs font-medium text-ink-soft">
-                              {store.name.slice(0, 2).toUpperCase()}
-                            </span>
-                          )}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
-
             {/* Quick category pills — subtle tags on desktop, popular stores on mobile */}
             {popularStores.length > 0 && (
               <div className="mt-7 lg:mt-4">
-                <p className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.24em] text-ink-soft lg:hidden">
+                <p className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.24em] text-ink-soft">
                   Popular stores
-                </p>
-                <p className="mb-2.5 hidden text-[10px] font-medium uppercase tracking-[0.24em] text-ink-soft lg:block">
-                  Quick categories
                 </p>
 
                 <div className="flex flex-wrap gap-2">
@@ -227,115 +192,57 @@ export default function Hero({
               </dl>
             )}
 
-            {/* Additional spotlight coupons — desktop only, below stats */}
-            {additionalCoupons.length > 0 && (
-              <div className="mt-8 hidden lg:block">
-                <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.24em] text-ink-soft">
-                  More featured deals
-                </p>
-                <ul className="divide-y divide-ledger-line rounded-2xl border border-ledger-line bg-paper-raised shadow-[var(--shadow-hairline)]">
-                  {additionalCoupons.map((coupon) => (
-                    <li key={coupon.id}>
-                      <Link
-                        href={`/coupons/${coupon.slug}`}
-                        className="group flex items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-paper-alt/50"
-                      >
-                        <span className="min-w-0 truncate text-sm font-medium text-ink-soft transition-colors group-hover:text-ink">
-                          {coupon.title}
-                        </span>
-                        <span className="shrink-0 font-mono text-xs font-medium text-accent">
-                          {formatDiscount(coupon)}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
 
-          {/* Right / Visual Anchor (desktop only) */}
-          {REDESIGN_ENABLED ? (
-            <div className="mt-10 lg:mt-0 lg:pt-8">
-              <DealStack deals={spotlight} stores={popularStores} />
-            </div>
-          ) : (
-          <div className="relative hidden h-[400px] lg:block">
-            {/* Background blob */}
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-200/40 blur-3xl"
-            />
-
-            {/* Floating Deal Card */}
-            <div className="animate-float-soft absolute right-10 top-10 w-72 rotate-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-2xl transition-transform duration-500 hover:rotate-0 hover:[animation-play-state:paused]">
+          {/* Right: illustration and one real deal (desktop only; mobile stays compact) */}
+          <div className="relative mt-10 hidden lg:mt-0 lg:block">
+            <HeroIllustration className="mx-auto h-auto w-full max-w-[520px]" />
+            <div className="relative z-10 mx-auto -mt-4 max-w-[440px]">
               {topCoupon ? (
-                <>
-                  {/* Store logo + name */}
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 font-serif text-sm font-bold text-white">
-                      {storeInitials(topCoupon.title)}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold text-gray-900">{topCoupon.title}</p>
-                      <p className="text-xs text-gray-500">Featured Deal</p>
-                    </div>
-                  </div>
-
-                  {/* Big discount */}
-                  <p className="text-4xl font-extrabold tracking-tight text-orange-600">
-                    {formatDiscount(topCoupon)}
-                  </p>
-
-                  {/* Masked code box */}
-                  <div className="mt-4 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-3">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="font-mono text-sm tracking-widest text-gray-400">
-                        {topCoupon.code
-                          ? `${topCoupon.code.slice(0, 3)}${"•".repeat(Math.max(0, topCoupon.code.length - 3))}`
-                          : "DUR••••••"}
-                      </span>
-                      <Link
-                        href={`/coupons/${topCoupon.slug}`}
-                        className="flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-black active:scale-95"
-                      >
-                        Get Code
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Expiry note */}
-                  <p className="mt-3 text-xs text-gray-400">Verified today • Ends soon</p>
-                </>
+                <HeroSpotlight coupon={topCoupon} store={topStore} />
               ) : (
-                /* Empty state */
-                <div className="flex min-h-[200px] flex-col items-center justify-center text-center">
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100">
-                    <ArrowRight className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <p className="text-sm font-medium text-gray-900">No featured deal right now</p>
-                  <p className="mt-1 text-xs text-gray-500">Check back soon for fresh offers</p>
+                <div className="rounded-2xl border border-ledger-line bg-paper-raised px-4 py-3 text-center shadow-[var(--shadow-hairline)]">
+                  <p className="text-sm font-medium text-ink">No featured deal right now</p>
+                  <p className="mt-0.5 text-xs text-ink-soft">Check back soon for fresh offers</p>
                 </div>
               )}
             </div>
-
-            {/* Secondary floating element */}
-            <div className="animate-float-slow absolute bottom-20 left-10 flex -rotate-2 items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-xl [animation-delay:1.5s]">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-900">
-                  {verifiedToday > 0
-                    ? `${verifiedToday.toLocaleString("en-IN")} verified today`
-                    : "Verified 2 mins ago"}
-                </p>
-                <p className="text-xs text-gray-500">Trusted by 10k+ shoppers</p>
-              </div>
-            </div>
           </div>
-          )}
         </div>
+
+            {REDESIGN_ENABLED && popularStores.length > 0 && (
+              <div className="mt-10 overflow-hidden border-t border-ledger-line pt-6">
+                <ul className="flex w-max gap-6 motion-safe:animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
+                  {[...popularStores, ...popularStores].map((store, i) => {
+                    const logo = storeLogoUrl(store);
+                    return (
+                      <li
+                        key={`${store.id}-${i}`}
+                        aria-hidden={i >= popularStores.length}
+                        inert={i >= popularStores.length}
+                        className="shrink-0"
+                      >
+                        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper-raised grayscale transition-all duration-200 hover:grayscale-0">
+                          {logo ? (
+                            <Image
+                              src={logo}
+                              alt=""
+                              width={28}
+                              height={28}
+                              className="h-7 w-7 object-contain"
+                            />
+                          ) : (
+                            <span className="text-xs font-medium text-ink-soft">
+                              {store.name.slice(0, 2).toUpperCase()}
+                            </span>
+                          )}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
       </div>
     </section>
   );
