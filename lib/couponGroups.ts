@@ -74,3 +74,41 @@ export function groupCouponsForRow(
 
   return groups;
 }
+
+/**
+ * Stores whose cards were dropped by the per-store cap in `groupCouponsForRow`,
+ * together with how many cards were dropped. Used to surface a "View all
+ * <store>" link where the dedupe hides offers.
+ */
+export function storesHiddenByDedupe(
+  coupons: CouponPublic[],
+  options: GroupOptions = {},
+): { storeId: string; count: number }[] {
+  const maxGroupsPerStore = options.maxGroupsPerStore ?? 2;
+  if (!coupons || coupons.length === 0) return [];
+
+  const buckets = new Map<string, number>(); // key -> count
+  const order: string[] = [];
+  for (const coupon of coupons) {
+    const key = `${coupon.store_id}|${offerTypeKey(coupon)}`;
+    if (!buckets.has(key)) {
+      buckets.set(key, 0);
+      order.push(key);
+    }
+    buckets.set(key, buckets.get(key)! + 1);
+  }
+
+  const distinctPerStore = new Map<string, number>();
+  for (const key of order) {
+    const storeId = key.split("|")[0];
+    distinctPerStore.set(storeId, (distinctPerStore.get(storeId) ?? 0) + 1);
+  }
+
+  const out: { storeId: string; count: number }[] = [];
+  for (const [storeId, n] of distinctPerStore) {
+    if (n > maxGroupsPerStore) {
+      out.push({ storeId, count: n - maxGroupsPerStore });
+    }
+  }
+  return out;
+}

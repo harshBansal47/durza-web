@@ -20,6 +20,7 @@ import Hero from "@/components/home/Hero";
 import ActivityTicker, { type ActivityItem } from "@/components/home/ActivityTicker";
 import BannerCarousel from "@/components/home/BannerCarousel";
 import CategoryGrid from "@/components/home/CategoryGrid";
+import CategoryTileGrid from "@/components/home/CategoryTileGrid";
 import FeaturedBanner from "@/components/home/FeaturedBanner";
 import StoreScroller from "@/components/home/StoreScroller";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -144,6 +145,20 @@ export default async function HomePage() {
 
   // The store list is a lookup table for card badges (every card needs its store); the
   // stores rail only shows the first dozen.
+  // Real per-category offer counts for the redesign's category tiles. Only
+  // fetched when the redesign is on, since the legacy grid doesn't show them.
+  const categoryCounts: Record<string, number> = {};
+  if (REDESIGN_ENABLED && categories.items.length > 0) {
+    const totals = await Promise.all(
+      categories.items.slice(0, 7).map((c) =>
+        safe(api.listCoupons({ category_id: c.id, active_only: true, limit: 1 }), emptyPage as Paginated<CouponPublic>),
+      ),
+    );
+    categories.items.slice(0, 7).forEach((c, i) => {
+      categoryCounts[c.id] = totals[i].total;
+    });
+  }
+
   const cardStores = stores.items.map((s) => ({
     id: s.id,
     name: s.name,
@@ -274,7 +289,11 @@ export default async function HomePage() {
 
           {categories.items.length > 0 && (
             <section className="mt-4" id="categories" aria-label="Shop by category">
-              <CategoryGrid categories={categories.items} />
+              {REDESIGN_ENABLED ? (
+                <CategoryTileGrid categories={categories.items} counts={categoryCounts} />
+              ) : (
+                <CategoryGrid categories={categories.items} />
+              )}
             </section>
           )}
 
