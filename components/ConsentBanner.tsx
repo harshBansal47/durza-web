@@ -38,10 +38,7 @@ export default function ConsentBanner() {
       className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-3xl flex-col gap-3 rounded-[20px] border border-ledger-line bg-paper-raised px-5 py-4 shadow-[var(--shadow-raised)] sm:flex-row sm:items-center"
     >
       <p className="flex-1 text-sm text-ink-soft">
-        Durza uses a pseudonymous visitor ID for attribution. Optional analytics events use
-        that ID and a hashed IP and are sent only if you accept. Editorial pages show
-        non-personalized Google AdSense ads regardless of this choice. You can review or
-        withdraw this analytics choice in the{" "}
+        We use cookies and similar technologies to improve your experience. By continuing to use our site, you agree to our{" "}
         <Link href="/privacy" className="text-durza-deep underline underline-offset-2">
           privacy policy
         </Link>
