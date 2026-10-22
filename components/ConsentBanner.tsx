@@ -42,7 +42,7 @@ export default function ConsentBanner() {
         that ID and a hashed IP and are sent only if you accept. Editorial pages show
         non-personalized Google AdSense ads regardless of this choice. You can review or
         withdraw this analytics choice in the{" "}
-        <Link href="/privacy" className="text-accent underline underline-offset-2">
+        <Link href="/privacy" className="text-durza-deep underline underline-offset-2">
           privacy policy
         </Link>
         .

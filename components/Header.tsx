@@ -100,7 +100,6 @@ export default function Header({
           {/* Brand */}
           <Link
             href="/"
-            aria-label="Durza: Coupon & Deals — home"
             className="group flex shrink-0 items-center"
           >
             <Logo

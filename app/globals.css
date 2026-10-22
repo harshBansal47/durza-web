@@ -22,6 +22,7 @@
   --color-accent-soft: #fdba74;
   --color-accent-faint: #fff7ed;
   --color-verified: #16a34a;
+    --color-verified-ink: #15803d;
   --color-verified-soft: #dcfce7;
   --color-rust: #ea580c;
   --color-vermilion: #ea580c;
@@ -307,7 +308,7 @@
   .btn-verified:hover:not(:disabled) { transform: translateY(-1px); opacity: 0.95; }
 
   .btn-cta {
-    background: var(--color-accent);
+    background: var(--color-durza-deep);
     color: #fff;
     border-radius: var(--radius-xs);
     padding: 0.625rem 1.25rem;
@@ -318,7 +319,7 @@
   }
   .btn-cta:hover:not(:disabled) {
     transform: translateY(-1px);
-    background: var(--color-durza-deep);
+    background: #a8370a;
     box-shadow: var(--shadow-raised);
   }
   .btn-cta::after {

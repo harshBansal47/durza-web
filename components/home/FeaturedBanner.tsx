@@ -36,7 +36,7 @@ export default function FeaturedBanner({ percent }: { percent: number }) {
           The steepest cuts we are tracking today. Each one links to the store page it was read
           from, with the date we last checked it.
         </p>
-        <Link href="/coupons?sort=biggest_discount" className="btn-cta mt-7 rounded-xl px-6 py-3 font-semibold">
+        <Link href="/coupons?sort=biggest_discount" className="btn-cta mt-7 rounded-xl px-6 py-3 font-semibold text-white">
           See the biggest discounts
         </Link>
       </div>

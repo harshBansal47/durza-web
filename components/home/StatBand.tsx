@@ -98,28 +98,29 @@ export default function StatBand({
 
   return (
     <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {items.map((item, i) => (
-        <div
-          key={item.label}
-          className="flex items-center gap-3 rounded-2xl border border-ledger-line bg-paper-raised p-4 shadow-[var(--shadow-hairline)]"
-        >
-          <span
-            aria-hidden="true"
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-faint text-accent"
+      {items.map((item, i) => {
+        const ref = i === 0 ? couponRef : i === 1 ? storeRef : i === 2 ? catRef : undefined;
+        return (
+          <div
+            key={item.label}
+            className="flex min-w-0 items-center gap-3 rounded-2xl border border-ledger-line bg-paper-raised p-4 shadow-[var(--shadow-hairline)]"
           >
-            {item.icon}
-          </span>
-          <div className="min-w-0">
+            <span
+              aria-hidden="true"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-faint text-accent"
+            >
+              {item.icon}
+            </span>
             <dd
-              ref={i === 0 ? couponRef : i === 1 ? storeRef : i === 2 ? catRef : undefined}
+              ref={ref}
               className="font-mono text-xl font-medium tracking-tight text-ink"
             >
               {item.value}
             </dd>
             <dt className="truncate text-[11px] text-ink-soft">{item.label}</dt>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </dl>
   );
 }

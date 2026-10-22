@@ -29,7 +29,7 @@ export default function CouponTicketExtras({
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((v) => !v)}
-        className="text-xs font-medium text-durza-deep underline-offset-2 hover:underline"
+        className="inline-flex min-h-6 items-center px-1 text-xs font-medium text-durza-deep underline-offset-2 hover:underline"
       >
         {open ? "Hide" : `+${extra.length} more ${extra.length === 1 ? "code" : "codes"}`}
       </button>

@@ -175,7 +175,7 @@ export function CouponCard({
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="font-mono text-[11px] font-medium text-inkblue underline-offset-2 hover:underline"
+                    className="font-mono text-[11px] font-medium text-durza-deep underline-offset-2 hover:underline"
                   >
                     View source
                   </a>
