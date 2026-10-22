@@ -11,6 +11,7 @@ import type { CouponPublic } from "@/lib/types";
 import { CardImpressions } from "@/components/CardImpressions";
 import { CardSaveButton } from "@/components/CardSaveButton";
 import TicketCodeAction from "@/components/coupons/TicketCodeAction";
+import CouponTicketExtras from "@/components/coupons/CouponTicketExtras";
 
 export interface CouponTicketStore {
   id: string;
@@ -78,7 +79,7 @@ export default function CouponTicket({
         <div className="flex items-start justify-between gap-3 px-4 pt-4">
           <Link
             href={store ? `/stores/${store.slug}` : href}
-            className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
+            className="relative z-10 flex min-w-0 items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
           >
             {logo ? (
               <Image
@@ -124,7 +125,7 @@ export default function CouponTicket({
                   href={source.url}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="font-medium text-inkblue underline-offset-2 hover:underline"
+                  className="relative z-10 inline-flex min-h-6 items-center px-1 font-medium text-durza-deep underline-offset-2 hover:underline"
                 >
                   source
                 </a>
@@ -170,29 +171,8 @@ export default function CouponTicket({
 
         {/* Extra codes from the same store and offer type. */}
         {extra.length > 0 && (
-          <div className="px-4 pt-3">
-            <details>
-              <summary className="cursor-pointer list-none text-xs font-medium text-inkblue underline-offset-2 hover:underline">
-                +{extra.length} more {extra.length === 1 ? "code" : "codes"}
-              </summary>
-              <ul className="mt-2 divide-y divide-ledger-line border-t border-ledger-line">
-                {extra.map((other) => (
-                  <li key={other.id}>
-                    <Link
-                      href={`/coupons/${other.slug}`}
-                      className="flex min-h-11 items-center justify-between gap-3 py-2 transition-colors hover:text-accent"
-                    >
-                      <span className="min-w-0 flex-1 truncate text-sm text-ink">
-                        {other.title}
-                      </span>
-                      <span className="shrink-0 rounded-md border border-dashed border-ledger-line bg-paper-alt px-2 py-0.5 font-mono text-xs text-ink-soft">
-                        {maskCode(other.code) ?? "No code"}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+          <div className="relative z-10 px-4 pt-3">
+            <CouponTicketExtras extra={extra} id={`ticket-extras-${coupon.id}`} />
           </div>
         )}
 
@@ -201,7 +181,7 @@ export default function CouponTicket({
 
         {/* Action area */}
         <div
-          className="flex shrink-0 flex-col justify-center gap-2 px-4 pb-4 pt-3"
+          className="relative z-10 flex shrink-0 flex-col justify-center gap-2 px-4 pb-4 pt-3"
           style={{ height: ACTION_HEIGHT }}
         >
           {coupon.code ? (

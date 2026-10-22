@@ -435,10 +435,10 @@ export default async function HomePage() {
             <section className="mt-12" aria-label="Curated savings collections">
               <div className="mb-5 flex items-end justify-between gap-3">
                 <div>
-                  <p className="font-mono text-caption font-semibold uppercase tracking-widest text-inkblue">Built around your goals</p>
+                  <p className="font-mono text-caption font-semibold uppercase tracking-widest text-durza-deep">Built around your goals</p>
                   <h2 className="mt-1 font-serif text-title font-medium text-ink">Curated collections</h2>
                 </div>
-                <Link href="/collections" className="min-h-11 inline-flex items-center text-sm font-medium text-inkblue hover:underline">
+                <Link href="/collections" className="min-h-11 inline-flex items-center text-sm font-medium text-durza-deep hover:underline">
                   All collections
                   <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
                 </Link>

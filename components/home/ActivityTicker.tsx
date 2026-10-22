@@ -59,7 +59,7 @@ export default function ActivityTicker({ items }: { items: ActivityItem[] }) {
         onClick={() => setPaused((value) => !value)}
         aria-pressed={paused}
         aria-label={paused ? "Play activity ticker" : "Pause activity ticker"}
-        className="mr-2 shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium text-ink-soft transition-colors hover:bg-paper-raised hover:text-ink"
+        className="mr-2 shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium text-ink-soft transition-colors hover:bg-paper-raised hover:text-ink min-h-6 min-w-6"
       >
         {paused ? "Play" : "Pause"}
       </button>

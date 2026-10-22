@@ -167,7 +167,7 @@
   }
 
   a {
-    color: var(--color-accent);
+    color: var(--color-accent-ink);
     text-decoration: none;
     transition: color var(--duration-fast) ease;
   }
@@ -230,6 +230,12 @@
   .dark-surface {
     --color-ink-soft: var(--color-ink-soft-on-dark);
     --color-ledger-line: var(--color-ledger-line-on-dark);
+  }
+  .dark-surface a {
+    color: var(--color-accent);
+  }
+  .dark-surface a {
+    color: var(--color-accent-soft);
   }
 
   .light-surface {

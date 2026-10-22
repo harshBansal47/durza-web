@@ -18,7 +18,7 @@ export default function SectionTitle({
     <div className="mb-6 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
       <div className="flex min-w-0 items-center gap-3">
         {hint ? (
-          <span aria-hidden="true" className="text-[13px] font-medium uppercase tracking-[0.24em] text-accent">
+          <span aria-hidden="true" className="text-[13px] font-medium uppercase tracking-[0.24em] text-durza-deep">
             {hint}
           </span>
         ) : null}
@@ -30,7 +30,7 @@ export default function SectionTitle({
       {action ? (
         <Link
           href={action.href}
-          className="group ml-auto inline-flex min-h-9 items-center gap-1 whitespace-nowrap text-sm font-semibold text-accent transition-colors hover:text-durza-deep"
+          className="group ml-auto inline-flex min-h-9 items-center gap-1 whitespace-nowrap text-sm font-semibold text-durza-deep transition-colors hover:text-accent"
         >
           {action.label}
           <ArrowRight

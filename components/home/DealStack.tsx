@@ -147,7 +147,7 @@ export default function DealStack({ deals, stores = [] }: DealStackProps) {
                     <p className="min-w-0 flex-1 truncate text-sm font-medium text-ink">
                       {coupon.title}
                     </p>
-                    <span className="shrink-0 text-sm font-extrabold text-accent">
+                    <span className="shrink-0 text-sm font-extrabold text-durza-deep">
                       {formatDiscount(coupon)}
                     </span>
                   </div>

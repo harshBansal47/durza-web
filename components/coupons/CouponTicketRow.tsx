@@ -2,8 +2,9 @@
 
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import CouponTicket, { type CouponTicketStore } from "@/components/coupons/CouponTicket";
-import { groupCouponsForRow } from "@/lib/couponGroups";
+import { groupCouponsForRow, storesHiddenByDedupe } from "@/lib/couponGroups";
 import type { ImpressionPageType } from "@/lib/analytics";
 import type { CouponPublic } from "@/lib/types";
 
@@ -47,18 +48,38 @@ export default function CouponTicketRow({
     );
   }
 
+  const hiddenStores = storesHiddenByDedupe(coupons);
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {groups.map((group, index) => (
-        <CouponTicket
-          key={group.primary.id}
-          coupon={group.primary}
-          store={storeById.get(group.storeId)}
-          extra={group.extra}
-          position={index + 1}
-          pageType={pageType}
-        />
-      ))}
+    <div className="flex flex-col gap-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {groups.map((group, index) => (
+          <CouponTicket
+            key={group.primary.id}
+            coupon={group.primary}
+            store={storeById.get(group.storeId)}
+            extra={group.extra}
+            position={index + 1}
+            pageType={pageType}
+          />
+        ))}
+      </div>
+      {hiddenStores.length > 0 && (
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          {hiddenStores.map((h) => {
+            const store = stores.find((st) => st.id === h.storeId);
+            if (!store) return null;
+            return (
+              <Link
+                key={h.storeId}
+                href={`/stores/${store.slug}`}
+                className="font-medium text-durza-deep underline-offset-2 hover:underline"
+              >
+                View all {store.name} offers →
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -84,6 +105,14 @@ function CouponTicketScroller({
 
   return (
     <div className="relative" role="region" aria-label={label}>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-paper to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-paper to-transparent"
+      />
       <div
         ref={ref}
         className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-6 pt-1 sm:mx-0 sm:px-0"

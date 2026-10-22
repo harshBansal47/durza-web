@@ -27,7 +27,7 @@ const TYPE_LABELS: Record<EditorialType, string> = {
 export function EditorialCard({ content }: { content: EditorialContent }) {
   return (
     <article className="info-card lift flex h-full flex-col p-5">
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">
+      <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
         {TYPE_LABELS[content.content_type]}
         {content.updated_at ? ` · Updated ${new Date(content.updated_at).toLocaleDateString("en-IN")}` : ""}
       </p>
@@ -39,7 +39,7 @@ export function EditorialCard({ content }: { content: EditorialContent }) {
       {content.summary && <p className="mt-2 line-clamp-3 text-sm leading-6 text-ink-soft">{content.summary}</p>}
       <Link
         href={editorialPath(content)}
-        className="mt-auto inline-flex min-h-11 items-center pt-4 text-sm font-bold text-inkblue"
+        className="mt-auto inline-flex min-h-11 items-center pt-4 text-sm font-bold text-durza-deep"
       >
         Read {content.content_type === "comparison" ? "comparison" : content.content_type} <span aria-hidden="true"> →</span>
       </Link>
