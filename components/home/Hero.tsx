@@ -91,6 +91,20 @@ export default function Hero({
               </div>
             </div>
 
+            {/* Trust row under the search */}
+            <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-ink-soft">
+              {[
+                "Sourced from official pages",
+                "Check date on every offer",
+                "No fake timers",
+              ].map((label) => (
+                <li key={label} className="inline-flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-verified" aria-hidden="true" />
+                  {label}
+                </li>
+              ))}
+            </ul>
+
             {/* Quick category pills — subtle tags on desktop, popular stores on mobile */}
             {popularStores.length > 0 && (
               <div className="mt-7 lg:mt-4">
