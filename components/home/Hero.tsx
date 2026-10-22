@@ -138,7 +138,12 @@ export default function Hero({
                   {[...popularStores, ...popularStores].map((store, i) => {
                     const logo = storeLogoUrl(store);
                     return (
-                      <li key={`${store.id}-${i}`} className="shrink-0">
+                      <li
+                        key={`${store.id}-${i}`}
+                        aria-hidden={i >= popularStores.length}
+                        inert={i >= popularStores.length}
+                        className="shrink-0"
+                      >
                         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper-raised grayscale transition-all duration-200 hover:grayscale-0">
                           {logo ? (
                             <Image
