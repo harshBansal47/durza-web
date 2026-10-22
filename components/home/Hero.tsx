@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
+import DealStack from "@/components/home/DealStack";
 import { formatDiscount } from "@/lib/format";
 import { storeInitials } from "@/lib/catalog";
 import type { CouponPublic } from "@/lib/types";
@@ -191,6 +192,11 @@ export default function Hero({
           </div>
 
           {/* Right / Visual Anchor (desktop only) */}
+          {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" ? (
+            <div className="lg:pt-8">
+              <DealStack deals={spotlight} />
+            </div>
+          ) : (
           <div className="relative hidden h-[400px] lg:block">
             {/* Background blob */}
             <div
@@ -265,6 +271,7 @@ export default function Hero({
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </section>
