@@ -14,6 +14,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { CouponCardGrid } from "@/components/CouponCard";
+import CouponTicketRow from "@/components/coupons/CouponTicketRow";
 import SectionTitle from "@/components/SectionTitle";
 import Hero from "@/components/home/Hero";
 import ActivityTicker, { type ActivityItem } from "@/components/home/ActivityTicker";
@@ -27,6 +28,7 @@ import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
+import { REDESIGN_ENABLED } from "@/lib/flags";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
@@ -299,7 +301,17 @@ export default async function HomePage() {
               >
                 <span id="latest-deals-heading">Durza Exclusive Offers</span>
               </SectionTitle>
-              <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Durza Exclusive Offers" pageType="homepage" />
+              {REDESIGN_ENABLED ? (
+                <CouponTicketRow
+                  coupons={latestDealsItems}
+                  stores={cardStores}
+                  label="Durza Exclusive Offers"
+                  pageType="homepage"
+                  variant="scroll"
+                />
+              ) : (
+                <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Durza Exclusive Offers" pageType="homepage" />
+              )}
             </section>
           )}
 
@@ -312,7 +324,17 @@ export default async function HomePage() {
               >
                 <span id="ending-heading">Ending soon</span>
               </SectionTitle>
-              <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Verified Deals ending soon" pageType="homepage" />
+              {REDESIGN_ENABLED ? (
+                <CouponTicketRow
+                  coupons={endingSoonItems}
+                  stores={cardStores}
+                  label="Verified Deals ending soon"
+                  pageType="homepage"
+                  variant="scroll"
+                />
+              ) : (
+                <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Verified Deals ending soon" pageType="homepage" />
+              )}
             </section>
           )}
 
@@ -344,12 +366,21 @@ export default async function HomePage() {
               <SectionTitle hint="percentage offers only" icon={Percent}>
                 <span id="biggest-heading">Biggest % off</span>
               </SectionTitle>
-              <CouponCardGrid
-                coupons={biggestItems}
-                stores={cardStores}
-                variant="featured"
-                className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-              />
+              {REDESIGN_ENABLED ? (
+                <CouponTicketRow
+                  coupons={biggestItems}
+                  stores={cardStores}
+                  label="Biggest percentage discounts"
+                  pageType="homepage"
+                />
+              ) : (
+                <CouponCardGrid
+                  coupons={biggestItems}
+                  stores={cardStores}
+                  variant="featured"
+                  className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+                />
+              )}
             </section>
           )}
 
@@ -375,12 +406,21 @@ export default async function HomePage() {
               >
                 <span id="best-coupons-heading">Best coupons</span>
               </SectionTitle>
-              <CouponCardGrid
-                coupons={bestCouponsItems}
-                stores={cardStores}
-                variant="featured"
-                className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-              />
+              {REDESIGN_ENABLED ? (
+                <CouponTicketRow
+                  coupons={bestCouponsItems}
+                  stores={cardStores}
+                  label="Best coupons"
+                  pageType="homepage"
+                />
+              ) : (
+                <CouponCardGrid
+                  coupons={bestCouponsItems}
+                  stores={cardStores}
+                  variant="featured"
+                  className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+                />
+              )}
             </section>
           )}
 

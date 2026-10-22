@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import Image from "next/image";
 import { storeLogoUrl } from "@/lib/storeLogos";
+import { REDESIGN_ENABLED } from "@/lib/flags";
 import DealStack from "@/components/home/DealStack";
 import { formatDiscount } from "@/lib/format";
 import { storeInitials } from "@/lib/catalog";
@@ -40,7 +41,7 @@ export default function Hero({
         <div className="absolute -bottom-16 right-1/4 h-56 w-56 rounded-full bg-accent-faint/30 blur-3xl" />
       </div>
 
-      {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" && (
+      {REDESIGN_ENABLED && (
         <>
           {/* Phase 2a background: radial accent tint + fading dot grid */}
           <div
@@ -132,7 +133,7 @@ export default function Hero({
               ))}
             </ul>
 
-            {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" && popularStores.length > 0 && (
+            {REDESIGN_ENABLED && popularStores.length > 0 && (
               <div className="mt-6 overflow-hidden">
                 <ul className="flex w-max gap-6 motion-safe:animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
                   {[...popularStores, ...popularStores].map((store, i) => {
@@ -252,7 +253,7 @@ export default function Hero({
           </div>
 
           {/* Right / Visual Anchor (desktop only) */}
-          {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" ? (
+          {REDESIGN_ENABLED ? (
             <div className="lg:pt-8">
               <DealStack deals={spotlight} stores={popularStores} />
             </div>
