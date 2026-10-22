@@ -1,23 +1,62 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { formatDiscount, formatDate } from "@/lib/format";
 import { storeInitials } from "@/lib/catalog";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic } from "@/lib/types";
+
+interface DealStackStore {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url?: string | null;
+}
 
 interface DealStackProps {
   deals: CouponPublic[];
+  stores?: DealStackStore[];
 }
 
-export default function DealStack({ deals }: DealStackProps) {
+function StoreLogo({ store }: { store: DealStackStore | undefined }) {
+  const logo = storeLogoUrl(store ?? null);
+  const [failed, setFailed] = useState(false);
+
+  if (!logo || failed) {
+    return (
+      <span
+        aria-hidden="true"
+        className="flex h-10 w-10 items-center justify-center rounded-xl bg-ink font-serif text-sm font-bold text-paper"
+      >
+        {storeInitials(store?.name ?? "")}
+      </span>
+    );
+  }
+
+  return (
+    <Image
+      src={logo}
+      alt=""
+      width={40}
+      height={40}
+      className="h-10 w-10 rounded-xl object-contain"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+export default function DealStack({ deals, stores = [] }: DealStackProps) {
   if (!deals || deals.length === 0) return null;
 
+  const storeById = new Map(stores.map((s) => [s.id, s]));
   const cards = deals.slice(0, 3);
   const rotations = ["-rotate-3", "rotate-0", "rotate-3"];
   const offsets = ["lg:translate-y-6", "lg:translate-y-0", "lg:-translate-y-6"];
 
   return (
-    <div className="relative" aria-hidden="false">
+    <div className="relative overflow-hidden">
       {/* Soft accent tint behind the stack */}
       <div
         aria-hidden="true"
@@ -26,6 +65,7 @@ export default function DealStack({ deals }: DealStackProps) {
 
       <ul className="relative flex flex-col items-center gap-4 lg:block lg:h-[420px]">
         {cards.map((coupon, index) => {
+          const store = storeById.get(coupon.store_id);
           const hasSource =
             typeof coupon.restrictions?.source_url === "string" &&
             (coupon.restrictions?.source_url as string).length > 0;
@@ -44,7 +84,7 @@ export default function DealStack({ deals }: DealStackProps) {
             >
               <Link
                 href={`/coupons/${coupon.slug}`}
-                className="group block rounded-2xl border border-ledger-line bg-paper-raised p-5 shadow-[var(--shadow-raised)] transition-transform duration-300 hover:rotate-0 hover:shadow-[var(--shadow-overlay)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="group relative block rounded-2xl border border-ledger-line bg-paper-raised p-5 shadow-[var(--shadow-raised)] transition-transform duration-300 hover:rotate-0 hover:shadow-[var(--shadow-overlay)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {/* Notch cutouts */}
                 <span
@@ -57,9 +97,7 @@ export default function DealStack({ deals }: DealStackProps) {
                 />
 
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ink font-serif text-sm font-bold text-paper">
-                    {storeInitials(coupon.title)}
-                  </div>
+                  <StoreLogo store={store} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold text-ink">{coupon.title}</p>
                     <p className="text-xs text-ink-soft">Featured deal</p>

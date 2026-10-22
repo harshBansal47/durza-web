@@ -252,7 +252,7 @@ export default async function HomePage() {
           { label: "Stores", value: stores.total },
           { label: "Categories", value: categories.total },
         ]}
-        popularStores={stores.items.map((st) => ({ id: st.id, name: st.name, slug: st.slug }))}
+        popularStores={stores.items.map((st) => ({ id: st.id, name: st.name, slug: st.slug, logo_url: st.logo_url }))}
         spotlight={spotlight}
         verifiedToday={verifiedToday.total}
         endingSoon={endingSoon.total}

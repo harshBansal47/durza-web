@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
+import Image from "next/image";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import DealStack from "@/components/home/DealStack";
 import { formatDiscount } from "@/lib/format";
 import { storeInitials } from "@/lib/catalog";
@@ -10,7 +12,7 @@ import type { CouponPublic } from "@/lib/types";
 
 interface HeroProps {
   stats: { label: string; value: number }[];
-  popularStores: { id: string; name: string; slug: string }[];
+  popularStores: { id: string; name: string; slug: string; logo_url?: string | null }[];
   spotlight?: CouponPublic[];
   verifiedToday?: number;
   endingSoon?: number;
@@ -37,6 +39,30 @@ export default function Hero({
         <div className="absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-accent-soft/20 blur-3xl" />
         <div className="absolute -bottom-16 right-1/4 h-56 w-56 rounded-full bg-accent-faint/30 blur-3xl" />
       </div>
+
+      {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" && (
+        <>
+          {/* Phase 2a background: radial accent tint + fading dot grid */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 20%, rgba(234,88,12,0.08), transparent 60%)",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: "radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px)",
+              backgroundSize: "20px 20px",
+              maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+              WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+            }}
+          />
+        </>
+      )}
 
       <div className="relative px-5 py-8 sm:px-8 sm:py-10 lg:mx-auto lg:max-w-7xl lg:px-6 lg:py-24">
         <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:gap-16 lg:items-center">
@@ -105,6 +131,35 @@ export default function Hero({
                 </li>
               ))}
             </ul>
+
+            {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" && popularStores.length > 0 && (
+              <div className="mt-6 overflow-hidden">
+                <ul className="flex w-max gap-6 motion-safe:animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
+                  {[...popularStores, ...popularStores].map((store, i) => {
+                    const logo = storeLogoUrl(store);
+                    return (
+                      <li key={`${store.id}-${i}`} className="shrink-0">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper-raised grayscale transition-all duration-200 hover:grayscale-0">
+                          {logo ? (
+                            <Image
+                              src={logo}
+                              alt=""
+                              width={28}
+                              height={28}
+                              className="h-7 w-7 object-contain"
+                            />
+                          ) : (
+                            <span className="text-xs font-medium text-ink-soft">
+                              {store.name.slice(0, 2).toUpperCase()}
+                            </span>
+                          )}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
 
             {/* Quick category pills — subtle tags on desktop, popular stores on mobile */}
             {popularStores.length > 0 && (
@@ -194,7 +249,7 @@ export default function Hero({
           {/* Right / Visual Anchor (desktop only) */}
           {process.env.NEXT_PUBLIC_HERO_DEALSTACK === "1" ? (
             <div className="lg:pt-8">
-              <DealStack deals={spotlight} />
+              <DealStack deals={spotlight} stores={popularStores} />
             </div>
           ) : (
           <div className="relative hidden h-[400px] lg:block">
