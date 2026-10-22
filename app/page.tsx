@@ -302,6 +302,7 @@ export default async function HomePage() {
             items={editorial.guides}
             href="/guides"
             label="All guides"
+            wideFirst={REDESIGN_ENABLED}
           />
 
           <EditorialSection
