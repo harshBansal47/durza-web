@@ -5,24 +5,21 @@ export const revalidate = 3600;
 
 const RETRY_AFTER_SECONDS = 60;
 
-let cachedSitemap: Response | null = null;
-
-function staticFallbackSitemap(): Response {
-  return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap><loc>${SITE_URL}/sitemap/static.xml</loc><lastmod>${new Date().toISOString()}</lastmod></sitemap>
-</sitemapindex>
-`,
-    { status: 503, headers: { "Content-Type": "application/xml; charset=utf-8", "Retry-After": String(RETRY_AFTER_SECONDS) } },
-  );
-}
+/**
+ * The last sitemap index that was generated successfully.
+ *
+ * A sitemap that lists fewer URLs than the catalogue is worse than no sitemap
+ * at all: a crawler would treat the short list as the truth and stop indexing
+ * the rest. So when the backend cannot be reached we serve the last good
+ * copy, and if there is no copy yet we answer 503 and let the crawler retry.
+ */
+let cachedBody: string | null = null;
 
 export async function GET() {
   try {
     const ids = await sitemapIds();
     const lastmod = new Date().toISOString();
-    const body = `<?xml version="1.0" encoding="UTF-8"?>
+    cachedBody = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${ids
   .map(
@@ -32,15 +29,22 @@ ${ids
   .join("\n")}
 </sitemapindex>
 `;
-    const response = new Response(body, {
+    return new Response(cachedBody, {
       headers: { "Content-Type": "application/xml; charset=utf-8" },
     });
-    cachedSitemap = response;
-    return response;
   } catch (error) {
-    if (cachedSitemap) {
-      return cachedSitemap;
+    console.warn("sitemap: backend unreachable", error);
+    if (cachedBody) {
+      return new Response(cachedBody, {
+        headers: { "Content-Type": "application/xml; charset=utf-8" },
+      });
     }
-    return staticFallbackSitemap();
+    return new Response("Sitemap is temporarily unavailable. Please retry.", {
+      status: 503,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Retry-After": String(RETRY_AFTER_SECONDS),
+      },
+    });
   }
 }
