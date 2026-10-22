@@ -17,6 +17,7 @@ interface HeroProps {
   spotlight?: CouponPublic[];
   verifiedToday?: number;
   endingSoon?: number;
+  showStats?: boolean;
 }
 
 export default function Hero({
@@ -25,6 +26,7 @@ export default function Hero({
   spotlight = [],
   verifiedToday = 0,
   endingSoon = 0,
+  showStats = true,
 }: HeroProps) {
   const topCoupon = spotlight[0];
   const additionalCoupons = spotlight.slice(1, 3);
@@ -202,7 +204,7 @@ export default function Hero({
             )}
 
             {/* Dynamic statistics */}
-            {visibleStats.length > 0 && (
+            {showStats && visibleStats.length > 0 && (
               <dl className="mt-9 flex max-w-xl border-t border-ledger-line pt-5">
                 {visibleStats.map((stat, index) => (
                   <div

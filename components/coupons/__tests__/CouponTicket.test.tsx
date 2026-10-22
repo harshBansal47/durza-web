@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import userEvent from "@testing-library/user-event";
 import CouponTicket from "@/components/coupons/CouponTicket";
 import type { CouponPublic } from "@/lib/types";
 
@@ -77,7 +78,7 @@ describe("CouponTicket", () => {
     expect(screen.queryByText("Be the first to report")).not.toBeInTheDocument();
   });
 
-  it("expands extra codes from the same store and offer type", () => {
+  it("expands extra codes from the same store and offer type", async () => {
     render(
       <CouponTicket
         coupon={makeCoupon()}
@@ -85,7 +86,11 @@ describe("CouponTicket", () => {
         extra={[makeCoupon({ id: "c2", slug: "second", title: "Second code" })]}
       />,
     );
-    expect(screen.getByText("+1 more code")).toBeInTheDocument();
+    const user = userEvent.setup();
+    const expander = screen.getByRole("button", { name: /\+1 more code/ });
+    expect(expander).toHaveAttribute("aria-expanded", "false");
+    await user.click(expander);
+    expect(expander).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("link", { name: /Second code/ })).toHaveAttribute(
       "href",
       "/coupons/second",

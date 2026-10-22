@@ -21,6 +21,7 @@ import ActivityTicker, { type ActivityItem } from "@/components/home/ActivityTic
 import BannerCarousel from "@/components/home/BannerCarousel";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
+import StatBand from "@/components/home/StatBand";
 import FeaturedBanner from "@/components/home/FeaturedBanner";
 import StoreScroller from "@/components/home/StoreScroller";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -159,6 +160,10 @@ export default async function HomePage() {
     });
   }
 
+  const lastCheckedAt = REDESIGN_ENABLED
+    ? (coupons.items.map((c) => c.last_checked_at).filter(Boolean).sort().pop() ?? null)
+    : null;
+
   const cardStores = stores.items.map((s) => ({
     id: s.id,
     name: s.name,
@@ -273,7 +278,19 @@ export default async function HomePage() {
         spotlight={spotlight}
         verifiedToday={verifiedToday.total}
         endingSoon={endingSoon.total}
+        showStats={!REDESIGN_ENABLED}
       />
+
+      {REDESIGN_ENABLED && (
+        <section className="mt-6" aria-label="Site stats">
+          <StatBand
+            coupons={coupons.total}
+            stores={stores.total}
+            categories={categories.total}
+            lastCheckedAt={lastCheckedAt}
+          />
+        </section>
+      )}
 
       {isEmpty ? (
        <section className="section-panel mt-12 px-6 py-14 text-center">
