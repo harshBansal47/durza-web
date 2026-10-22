@@ -254,7 +254,7 @@ export default function Hero({
 
           {/* Right / Visual Anchor (desktop only) */}
           {REDESIGN_ENABLED ? (
-            <div className="lg:pt-8">
+            <div className="mt-10 lg:mt-0 lg:pt-8">
               <DealStack deals={spotlight} stores={popularStores} />
             </div>
           ) : (

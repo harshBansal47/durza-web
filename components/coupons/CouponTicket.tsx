@@ -1,18 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, ExternalLink, Tag } from "lucide-react";
-import { api } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
-import { daysUntil, formatDate, formatDiscount } from "@/lib/format";
+import { daysUntil, formatDate, formatDiscount, successRateLabel, totalReports } from "@/lib/format";
 import { requirementLabels, sourceLine } from "@/lib/requirements";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import { maskCode } from "@/lib/codes";
-import { successRateLabel, totalReports } from "@/lib/format";
 import type { ImpressionPageType } from "@/lib/analytics";
 import type { CouponPublic } from "@/lib/types";
 import { CardImpressions } from "@/components/CardImpressions";
 import { CardSaveButton } from "@/components/CardSaveButton";
-import CodeRevealButton from "@/components/CodeRevealButton";
+import TicketCodeAction from "@/components/coupons/TicketCodeAction";
 
 export interface CouponTicketStore {
   id: string;
@@ -31,6 +29,9 @@ interface CouponTicketProps {
   pageType?: ImpressionPageType;
   className?: string;
 }
+
+/** Height of the action area, so the side notches land on the perforation. */
+const ACTION_HEIGHT = 124;
 
 /**
  * A coupon rendered as a ticket: notched sides, a dashed perforation between
@@ -67,9 +68,11 @@ export default function CouponTicket({
         position={position}
       />
       <article
-        className={`ticket deal-ticket flex h-full min-h-[420px] flex-col overflow-hidden rounded-xl border bg-paper-raised shadow-[var(--shadow-hairline)] transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[var(--shadow-raised)] ${
-          expired ? "border-ledger-line opacity-70" : "border-ledger-line"
-        }`}
+        className="ticket deal-ticket flex h-full min-h-[380px] flex-col overflow-hidden rounded-xl border border-ledger-line bg-paper-raised shadow-[var(--shadow-hairline)] transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[var(--shadow-raised)]"
+        // The mask that cuts the notches is positioned from the top of the
+        // card; the perforation sits at a fixed distance from the bottom, so
+        // the notches are pinned to the same line.
+        style={{ "--notch-y": `calc(100% - ${ACTION_HEIGHT}px)` } as React.CSSProperties}
       >
         {/* Logo tile (top-left) and save (top-right) */}
         <div className="flex items-start justify-between gap-3 px-4 pt-4">
@@ -104,7 +107,7 @@ export default function CouponTicket({
             {formatDiscount(coupon, store?.currency ?? "INR")}
           </p>
           <h3 className="mt-2 line-clamp-2 min-h-[2.6rem] font-sans text-[15px] font-medium leading-snug text-ink">
-            <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
+            <Link href={href} className="text-ink after:absolute after:inset-0 hover:text-accent">
               {coupon.title}
             </Link>
           </h3>
@@ -165,34 +168,10 @@ export default function CouponTicket({
           )}
         </div>
 
-        {/* Perforation between the information area and the action area. */}
-        <div className="mt-auto px-4 pt-4">
-          <div aria-hidden="true" className="border-t border-dashed border-ledger-line" />
-        </div>
-
-        {/* Action area */}
-        <div className="px-4 pb-4 pt-3">
-          {coupon.code ? (
-            <div className="flex flex-col gap-2">
-              <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-3 py-2 font-mono text-sm font-medium text-ink">
-                {maskCode(coupon.code) ?? coupon.code}
-              </code>
-              <CodeRevealButton
-                code={coupon.code}
-                url={api.goUrl(coupon.id, "coupon-page")}
-                label="Reveal code"
-                showCode={false}
-                className="w-full justify-center"
-              />
-            </div>
-          ) : (
-            <p className="text-sm text-ink-soft">
-              {requirement ?? "The offer applies at checkout"}
-            </p>
-          )}
-
-          {extra.length > 0 && (
-            <details className="mt-3">
+        {/* Extra codes from the same store and offer type. */}
+        {extra.length > 0 && (
+          <div className="px-4 pt-3">
+            <details>
               <summary className="cursor-pointer list-none text-xs font-medium text-inkblue underline-offset-2 hover:underline">
                 +{extra.length} more {extra.length === 1 ? "code" : "codes"}
               </summary>
@@ -214,6 +193,40 @@ export default function CouponTicket({
                 ))}
               </ul>
             </details>
+          </div>
+        )}
+
+        {/* Perforation between the information area and the action area. */}
+        <div className="mt-auto h-px w-full border-t border-dashed border-ledger-line" />
+
+        {/* Action area */}
+        <div
+          className="flex shrink-0 flex-col justify-center gap-2 px-4 pb-4 pt-3"
+          style={{ height: ACTION_HEIGHT }}
+        >
+          {coupon.code ? (
+            <>
+              <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-3 py-2 font-mono text-sm font-medium text-ink">
+                {maskCode(coupon.code) ?? coupon.code}
+              </code>
+              <TicketCodeAction
+                coupon={coupon}
+                storeName={store?.name ?? ""}
+                src="coupon-card"
+              />
+            </>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <p className="text-sm text-ink-soft">
+                {requirement ?? "The offer applies at checkout"}
+              </p>
+              <Link
+                href={href}
+                className="btn btn-primary w-full justify-center"
+              >
+                Get deal
+              </Link>
+            </div>
           )}
         </div>
       </article>
