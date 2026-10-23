@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { storeInitials } from "@/lib/catalog";
 import { maskCode } from "@/lib/codes";
+import { setFollowedStore, setSavedCoupon } from "@/lib/personalization";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 /**
@@ -55,9 +56,11 @@ export function SaveCouponButton({
   action: (couponId: string, currentlySaved: boolean) => Promise<ToggleResult>;
   className?: string;
 }) {
-  const { active, isPending, toggle } = useOptimisticToggle(initiallySaved, (next) =>
-    action(couponId, !next),
-  );
+  const { active, isPending, toggle } = useOptimisticToggle(initiallySaved, async (next) => {
+    const result = await action(couponId, !next);
+    if (!result.error) setSavedCoupon(couponId, next);
+    return result;
+  });
 
   return (
     <Button
@@ -76,18 +79,22 @@ export function SaveCouponButton({
 
 export function FollowStoreButton({
   storeId,
+  storeSlug,
   initiallySaved,
   action,
   className = "",
 }: {
   storeId: string;
+  storeSlug: string;
   initiallySaved: boolean;
   action: (storeId: string, currentlySaved: boolean) => Promise<ToggleResult>;
   className?: string;
 }) {
-  const { active, isPending, toggle } = useOptimisticToggle(initiallySaved, (next) =>
-    action(storeId, !next),
-  );
+  const { active, isPending, toggle } = useOptimisticToggle(initiallySaved, async (next) => {
+    const result = await action(storeId, !next);
+    if (!result.error) setFollowedStore(storeSlug, next);
+    return result;
+  });
 
   return (
     <Button
@@ -141,6 +148,7 @@ export function StoreFollowRow({
       </Link>
       <FollowStoreButton
         storeId={store.id}
+        storeSlug={store.slug}
         initiallySaved={initiallySaved}
         action={action}
         className="shrink-0"

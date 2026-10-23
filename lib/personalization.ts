@@ -152,17 +152,25 @@ function push(bucket: SignalBucket, value: string): void {
   }
 }
 
-function toggle(bucket: SignalBucket, value: string): boolean {
+function setSignal(bucket: SignalBucket, value: string, active: boolean): void {
   const store = readStore();
-  const on = !store[bucket].some((entry) => entry.id === value);
+  const exists = store[bucket].some((entry) => entry.id === value);
+  if (exists === active) return;
+
   try {
-    store[bucket] = on
+    store[bucket] = active
       ? [{ id: value, at: Date.now() }, ...store[bucket]].slice(0, 200)
       : store[bucket].filter((entry) => entry.id !== value);
     writeV2(store);
   } catch {
     /* best effort */
   }
+}
+
+function toggle(bucket: SignalBucket, value: string): boolean {
+  const store = readStore();
+  const on = !store[bucket].some((entry) => entry.id === value);
+  setSignal(bucket, value, on);
   return on;
 }
 
@@ -203,6 +211,10 @@ export function toggleSavedCoupon(id: string): boolean {
   return toggle("saved", id);
 }
 
+export function setSavedCoupon(id: string, saved: boolean): void {
+  if (isClient() && id) setSignal("saved", id, saved);
+}
+
 export function getFollowedStores(): string[] {
   return isClient() ? readList("followed") : [];
 }
@@ -214,4 +226,8 @@ export function isStoreFollowed(slug: string): boolean {
 export function toggleFollowedStore(slug: string): boolean {
   if (!isClient() || !slug) return false;
   return toggle("followed", slug);
+}
+
+export function setFollowedStore(slug: string, followed: boolean): void {
+  if (isClient() && slug) setSignal("followed", slug, followed);
 }

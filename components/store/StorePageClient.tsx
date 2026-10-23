@@ -181,7 +181,7 @@ export default function StorePageClient({
           >
             {copied ? "Link copied" : "Share"}
           </button>
-          <StoreFollowButton slug={store.slug} name={store.name} />
+          <StoreFollowButton storeId={store.id} slug={store.slug} name={store.name} />
         </div>
       </header>
 

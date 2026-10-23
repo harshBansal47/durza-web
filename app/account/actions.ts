@@ -277,38 +277,69 @@ export async function getSavedCouponIds(): Promise<Set<string>> {
   return savedIds("coupon", api.listSavedCoupons);
 }
 
+async function setSavedItem(
+  kind: "store" | "coupon",
+  itemId: string,
+  shouldSave: boolean,
+): Promise<ActionResult> {
+  try {
+    const token = await requireToken();
+    const rows =
+      kind === "store" ? await api.listSavedStores(token) : await api.listSavedCoupons(token);
+    const isSaved = rows.some((row) => row.kind === kind && row.item_id === itemId);
+
+    if (shouldSave && !isSaved) {
+      if (kind === "store") await api.saveStore(token, itemId);
+      else await api.saveCoupon(token, itemId);
+    } else if (!shouldSave && isSaved) {
+      if (kind === "store") await api.unsaveStore(token, itemId);
+      else await api.unsaveCoupon(token, itemId);
+    }
+
+    if (kind === "store") {
+      return ok(
+        shouldSave
+          ? "Saved. We will email you when this store has a confirmed code."
+          : "Removed from your stores.",
+      );
+    }
+    return ok(
+      shouldSave
+        ? "Saved. We will email you when this code is confirmed working."
+        : "Removed from your saved codes.",
+    );
+  } catch (error) {
+    return fail(describeError(error));
+  }
+}
+
+/** Set backend state explicitly so browser-local state cannot invert a save. */
+export async function setSavedStoreAction(
+  storeId: string,
+  shouldSave: boolean,
+): Promise<ActionResult> {
+  return setSavedItem("store", storeId, shouldSave);
+}
+
+export async function setSavedCouponAction(
+  couponId: string,
+  shouldSave: boolean,
+): Promise<ActionResult> {
+  return setSavedItem("coupon", couponId, shouldSave);
+}
+
 export async function toggleSavedStore(
   storeId: string,
   currentlySaved: boolean,
 ): Promise<ActionResult> {
-  try {
-    const token = await requireToken();
-    if (currentlySaved) {
-      await api.unsaveStore(token, storeId);
-      return ok("Removed from your stores.");
-    }
-    await api.saveStore(token, storeId);
-    return ok("Saved. We will email you when this store has a confirmed code.");
-  } catch (error) {
-    return fail(describeError(error));
-  }
+  return setSavedStoreAction(storeId, !currentlySaved);
 }
 
 export async function toggleSavedCoupon(
   couponId: string,
   currentlySaved: boolean,
 ): Promise<ActionResult> {
-  try {
-    const token = await requireToken();
-    if (currentlySaved) {
-      await api.unsaveCoupon(token, couponId);
-      return ok("Removed from your saved codes.");
-    }
-    await api.saveCoupon(token, couponId);
-    return ok("Saved. We will email you when this code is confirmed working.");
-  } catch (error) {
-    return fail(describeError(error));
-  }
+  return setSavedCouponAction(couponId, !currentlySaved);
 }
 
 /* ------------------------------------------------------------------ */
