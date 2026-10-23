@@ -45,10 +45,16 @@ export default async function AccountOverviewPage() {
   );
   const liveProducts = trackedWithPrices.filter((t) => t.product !== null);
 
+  // These counts come from the authenticated account endpoints, not catalogue
+  // lookups that may fail or no longer have a matching public row.
+  const storeCount = storeIds.size;
+  const couponCount = couponIds.size;
+  const trackedCount = tracked.length;
+
   const stats = [
-    { label: "Stores followed", value: resolvedStores.length, href: "/account/saved" },
-    { label: "Codes saved", value: resolvedCoupons.length, href: "/account/saved" },
-    { label: "Products tracked", value: liveProducts.length, href: "/account/products" },
+    { label: "Stores followed", value: storeCount, href: "/account/saved" },
+    { label: "Codes saved", value: couponCount, href: "/account/saved" },
+    { label: "Products tracked", value: trackedCount, href: "/account/products" },
     { label: "Alerts", value: alertKeys.size, href: "/account/alerts" },
   ];
 
@@ -57,8 +63,8 @@ export default async function AccountOverviewPage() {
       user={user}
       active="/account"
       counts={{
-        "/account/saved": resolvedStores.length + resolvedCoupons.length,
-        "/account/products": liveProducts.length,
+        "/account/saved": storeCount + couponCount,
+        "/account/products": trackedCount,
         "/account/alerts": alertKeys.size,
       }}
     >
