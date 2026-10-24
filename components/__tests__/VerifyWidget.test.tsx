@@ -32,7 +32,7 @@ const baseCoupon: CouponPublic = {
 
 vi.mock("@/lib/api", async () => {
   const actual = await vi.importActual<typeof import("@/lib/api")>("@/lib/api");
-  return { ...actual, api: { ...actual.api, verifyCoupon: vi.fn() } };
+  return { ...actual, api: { ...actual.api, verifyCoupon: vi.fn(), getCouponStats: vi.fn() } };
 });
 
 import { api } from "@/lib/api";
@@ -40,6 +40,7 @@ import { api } from "@/lib/api";
 describe("VerifyWidget", () => {
   beforeEach(() => {
     vi.mocked(api.verifyCoupon).mockReset();
+    vi.mocked(api.getCouponStats).mockReset();
     window.localStorage.clear();
     // Voting is reveal-gated: the reported flow starts after "reveal".
     markRevealed("c1");
@@ -81,6 +82,31 @@ describe("VerifyWidget", () => {
     render(<VerifyWidget coupon={baseCoupon} />);
     expect(screen.getByText(/you reported this worked on this device/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Worked" })).not.toBeInTheDocument();
+  });
+
+  it("replaces stale cached counts with live ones once mounted", async () => {
+    // The page is cached for minutes; it was rendered before these votes landed.
+    vi.mocked(api.getCouponStats).mockResolvedValue({
+      ...baseCoupon,
+      success_count: 9,
+      fail_count: 1,
+      success_rate: 0.9,
+    });
+
+    render(<VerifyWidget coupon={{ ...baseCoupon, success_count: 0, fail_count: 0, success_rate: null }} />);
+
+    expect(await screen.findByText("90%")).toBeInTheDocument();
+    expect(screen.getByText("(10 reports)")).toBeInTheDocument();
+    expect(api.getCouponStats).toHaveBeenCalledWith("c1");
+  });
+
+  it("keeps the page's numbers if the live lookup fails", async () => {
+    vi.mocked(api.getCouponStats).mockRejectedValue(new Error("offline"));
+
+    render(<VerifyWidget coupon={baseCoupon} />);
+
+    await waitFor(() => expect(api.getCouponStats).toHaveBeenCalled());
+    expect(screen.getByText("67%")).toBeInTheDocument();
   });
 
   it("shows 'No reports yet' when nothing has been reported", () => {

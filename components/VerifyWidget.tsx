@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api, ApiError } from "@/lib/api";
 import { DEVICE_STATE_EVENT, getVote, hasRevealed, markVoted } from "@/lib/deviceState";
 import { formatRelativeTime } from "@/lib/format";
@@ -24,6 +24,34 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "limited">("idle");
   const [device, setDevice] = useState<{ revealed: boolean; vote: "worked" | "failed" | null } | null>(null);
 
+  // The page this widget sits on is cached for minutes, so `coupon` can predate
+  // votes that were already cast — including this visitor's own, which is why a
+  // vote seemed to "disappear" on reload. Ask for the live numbers once mounted.
+  // Skipped if the visitor votes first: their response is already the freshest.
+  const votedRef = useRef(false);
+  useEffect(() => {
+    let alive = true;
+    // `Promise.resolve().then` so a throw inside the call becomes a rejection
+    // the catch below swallows, rather than an error during the effect.
+    Promise.resolve()
+      .then(() => api.getCouponStats(coupon.id))
+      .then((fresh) => {
+        if (!alive || votedRef.current) return;
+        setStats({
+          success_count: fresh.success_count,
+          fail_count: fresh.fail_count,
+          last_verified_at: fresh.last_verified_at,
+          success_rate: fresh.success_rate,
+        });
+      })
+      .catch(() => {
+        // Keep the numbers the page was rendered with.
+      });
+    return () => {
+      alive = false;
+    };
+  }, [coupon.id]);
+
   useEffect(() => {
     function refresh() {
       setDevice({ revealed: hasRevealed(coupon.id), vote: getVote(coupon.id) });
@@ -42,6 +70,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
     setStatus("sending");
     try {
       const updated = await api.verifyCoupon(coupon.id, worked);
+      votedRef.current = true;
       setStats(updated);
       markVoted(coupon.id, worked);
       setStatus("done");
@@ -105,13 +134,24 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
           </button>
         </div>
       ) : device ? (
-        <p className="text-sm text-ink-soft">
-          Votes come from people who actually tried the offer.{" "}
-          <a href="#code-panel" className="text-inkblue underline-offset-2 hover:underline">
-            Reveal the code
-          </a>{" "}
-          first, then come back and say how it went.
-        </p>
+        <div className="rounded-[var(--radius-sm)] border border-dashed border-ledger-line bg-paper-raised px-3 py-3 text-sm">
+          <p className="font-medium text-ink">Did this code work for you?</p>
+          <p className="mt-1 text-ink-soft">
+            Only people who tried the offer can vote, so the numbers stay honest.
+          </p>
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-ink-soft">
+            <li>
+              <a href="#code-panel" className="font-medium text-inkblue underline-offset-2 hover:underline">
+                Reveal the code
+              </a>{" "}
+              and use it at checkout.
+            </li>
+            <li>
+              Come back here and tap <span className="text-ink">Worked</span> or{" "}
+              <span className="text-ink">Didn&apos;t work</span>.
+            </li>
+          </ol>
+        </div>
       ) : null}
     </div>
   );

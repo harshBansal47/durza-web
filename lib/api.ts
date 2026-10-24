@@ -93,11 +93,28 @@ export interface SaleEditionResponse {
   coupons?: CouponPublic[];
 }
 
+/**
+ * Upper bound for any API call. Without one, a single slow or hung endpoint
+ * stalls the whole page render (pages await several calls together) for as long
+ * as the server cares to wait. The `resilient.*` wrappers already turn a failure
+ * into an empty fallback, so a timeout lets the page render without that one
+ * piece instead of not rendering at all.
+ */
+const REQUEST_TIMEOUT_MS = 8000;
+
+function timeoutSignal(): AbortSignal | undefined {
+  // AbortSignal.timeout is missing from older WebViews (the Capacitor apps).
+  return typeof AbortSignal !== "undefined" && "timeout" in AbortSignal
+    ? AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+    : undefined;
+}
+
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
   const { revalidate, token, headers, ...rest } = options;
   const base = serverApiUrl();
   const res = await fetch(`${base}${path}`, {
     ...rest,
+    signal: rest.signal ?? timeoutSignal(),
     headers: {
       ...(rest.body ? { "Content-Type": "application/json" } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -199,6 +216,14 @@ export const api = {
 
   getCouponBySlug: (slug: string) =>
     apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+
+  /**
+   * Live vote counts for one coupon, never cached. The coupon page itself is
+   * cached for five minutes, so the counts baked into it can be stale; the vote
+   * widget asks again once it is on screen.
+   */
+  getCouponStats: (couponId: string) =>
+    apiFetch<CouponPublic>(`/coupons/${couponId}`, { cache: "no-store" }),
 
   /** Account pages hold coupon ids (from /me/saved-coupons), not slugs. */
   getCouponById: (couponId: string) =>
