@@ -105,14 +105,7 @@ export default function Footer({
                 </ul>
               </div>
             ))}
-            <div>
-              <p className="text-sm font-medium text-ink">App</p>
-              <ul className="mt-3 space-y-2 text-sm">
-                <li>
-                  <AppDownloadLink />
-                </li>
-              </ul>
-            </div>
+            <AppDownloadLink/>
           </div>
 
           <div
