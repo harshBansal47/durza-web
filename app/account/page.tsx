@@ -23,27 +23,30 @@ export default async function AccountOverviewPage() {
   const couponIds = new Set(coupons.filter((c) => c.kind === "coupon").map((c) => c.item_id));
 
   // The /me endpoints return bare ids, so the rows themselves are fetched here.
-  const [savedStores, savedCoupons] = await Promise.all([
+  // Everything runs in parallel (one network round-trip, not three in a row),
+  // and only what the page actually renders is fetched: every followed store,
+  // but just the first few tracked products (it shows 4; the extra two cover
+  // any that were deleted from the catalogue). Saved coupons are only counted
+  // on this page, never displayed, so they are not looked up at all.
+  const [savedStores, trackedWithPrices] = await Promise.all([
     Promise.all([...storeIds].map((id) => resilient.getStoreById(id))),
-    Promise.all([...couponIds].map((id) => resilient.getCouponById(id))),
+    Promise.all(
+      tracked.slice(0, 6).map(async (row) => ({
+        row,
+        product: await resilient.getProductById(row.product_id),
+      })),
+    ),
   ]);
 
   // A saved row whose catalogue entry has since been deleted is dropped rather
   // than rendered as a broken link.
   const resolvedStores = savedStores.filter((s) => s !== null);
-  const resolvedCoupons = savedCoupons.filter((c) => c !== null);
+  const liveProducts = trackedWithPrices.filter((t) => t.product !== null);
 
   // Count distinct alerts, not delivery attempts. A user with email and push on
   // got one price drop, not two — showing "2 alerts sent" for a single drop is
   // the kind of small inaccuracy that makes a statistics panel untrustworthy.
   const alertKeys = new Set(alerts.map((a) => a.price_point_id ?? a.id));
-  const trackedWithPrices = await Promise.all(
-    tracked.map(async (row) => ({
-      row,
-      product: await resilient.getProductById(row.product_id),
-    })),
-  );
-  const liveProducts = trackedWithPrices.filter((t) => t.product !== null);
 
   // These counts come from the authenticated account endpoints, not catalogue
   // lookups that may fail or no longer have a matching public row.

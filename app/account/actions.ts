@@ -486,8 +486,8 @@ export async function loadAccount() {
   if (!token) return null;
 
   try {
-    const user = await api.me(token);
-    const [stores, coupons, tracked, prefs, alerts] = await Promise.all([
+      const [user, stores, coupons, tracked, prefs, alerts] = await Promise.all([
+      api.me(token),
       api.listSavedStores(token),
       api.listSavedCoupons(token),
       api.listTrackedProducts(token),
