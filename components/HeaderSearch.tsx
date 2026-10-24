@@ -13,7 +13,9 @@ import {
 import { Clock, Flame, Folder, Tag, X } from "lucide-react";
 import { track } from "@/lib/analytics";
 import { api } from "@/lib/api";
+import Image from "next/image";
 import { storeInitials } from "@/lib/catalog";
+import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import type { AutocompleteResult } from "@/lib/types";
 
 const RECENT_KEY = "durza.recent";
@@ -140,11 +142,87 @@ function suggestionHref(kind: Suggestion["kind"], label: string) {
   return `/search?q=${encodeURIComponent(label)}`;
 }
 
-function StoreGlyph({ name }: { name: string }) {
+type StoreIdentity = { slug: string; logo_url: string | null };
+type StoreDirectory = ReadonlyMap<string, StoreIdentity>;
+
+const EMPTY_DIRECTORY: StoreDirectory = new Map();
+let directoryPromise: Promise<StoreDirectory> | null = null;
+
+/**
+ * Store name -> slug and logo, fetched once per page load.
+ *
+ * Autocomplete returns bare names, which is not enough to pick a logo: logos
+ * are keyed by slug, and guessing a slug from a name breaks for stores like
+ * "Amazon India" (`amazon-in`). Looking the name up in the real store list
+ * gives the same logo the stores page shows, including any logo the backend
+ * supplies. A failed fetch is not cached, so the next open retries.
+ */
+function loadStoreDirectory(): Promise<StoreDirectory> {
+  directoryPromise ??= api
+    .listStores({ limit: 100 })
+    .then(
+      (page): StoreDirectory =>
+        new Map(
+          page.items.map((s): [string, StoreIdentity] => [
+            s.name.toLowerCase(),
+            { slug: s.slug, logo_url: s.logo_url ?? null },
+          ]),
+        ),
+    )
+    .catch(() => {
+      directoryPromise = null;
+      return EMPTY_DIRECTORY;
+    });
+  return directoryPromise;
+}
+
+/** Loads the directory the first time `enabled` is true (when a search opens). */
+function useStoreDirectory(enabled: boolean): StoreDirectory {
+  const [directory, setDirectory] = useState<StoreDirectory>(EMPTY_DIRECTORY);
+  useEffect(() => {
+    if (!enabled) return;
+    let alive = true;
+    void loadStoreDirectory().then((d) => {
+      if (alive) setDirectory(d);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [enabled]);
+  return directory;
+}
+
+/** The store's logo as on the stores page; initials until (or unless) one is known. */
+function StoreLogo({
+  name,
+  identity,
+  size = "sm",
+}: {
+  name: string;
+  identity?: StoreIdentity;
+  size?: "sm" | "md";
+}) {
+  const logo = storeLogoUrl(identity);
+  const accent = storeAccent(identity?.slug);
+  const box = size === "md" ? "h-8 w-8" : "h-6 w-6";
+  const px = size === "md" ? 32 : 24;
+
+  if (logo) {
+    return (
+      <Image
+        src={logo}
+        alt=""
+        width={px}
+        height={px}
+        className={`${box} shrink-0 rounded-full border border-ledger-line bg-white object-contain`}
+        style={accent ? { boxShadow: `0 0 0 2px ${accent}26` } : undefined}
+      />
+    );
+  }
   return (
     <span
       aria-hidden="true"
-      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-xs text-ink-soft"
+      className={`flex ${box} shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-xs text-ink-soft`}
     >
       {storeInitials(name)}
     </span>
@@ -169,6 +247,7 @@ export function HeaderSearch({ popular = [] }: { popular?: string[] }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const { recent, remember } = useRecentSearches();
   const { groups, loading } = useSuggestions(value);
+  const storeDirectory = useStoreDirectory(open);
   const boxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -351,7 +430,7 @@ export function HeaderSearch({ popular = [] }: { popular?: string[] }) {
                       ].join(" ")}
                     >
                       {suggestion.kind === "store" ? (
-                        <StoreGlyph name={suggestion.label} />
+                        <StoreLogo name={suggestion.label} identity={storeDirectory.get(suggestion.label.toLowerCase())} />
                       ) : (
                         <Icon
                           name={
@@ -384,6 +463,7 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
   const [value, setValue] = useState("");
   const { recent, remember } = useRecentSearches();
   const { groups, loading } = useSuggestions(value);
+  const storeDirectory = useStoreDirectory(isOpen);
   const inputRef = useRef<HTMLInputElement>(null);
   const popular = readPopular();
 
@@ -416,9 +496,9 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
   const live = value.trim()
     ? [
-        ...groups.stores.map((label) => ({ label, href: `/search?q=${encodeURIComponent(label)}` })),
-        ...groups.categories.map((label) => ({ label, href: `/search?category=${encodeURIComponent(label)}` })),
-        ...groups.products.map((label) => ({ label, href: `/search?q=${encodeURIComponent(label)}` })),
+        ...groups.stores.map((label) => ({ kind: "store" as const, label, href: `/search?q=${encodeURIComponent(label)}` })),
+        ...groups.categories.map((label) => ({ kind: "category" as const, label, href: `/search?category=${encodeURIComponent(label)}` })),
+        ...groups.products.map((label) => ({ kind: "product" as const, label, href: `/search?q=${encodeURIComponent(label)}` })),
       ]
     : [];
 
@@ -476,7 +556,11 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                     }}
                     className="flex w-full items-center gap-2 rounded-sm px-3 py-3 text-left text-base text-ink hover:bg-ledger-line/40"
                   >
-                    <Icon name="tag" />
+                    {item.kind === "store" ? (
+                      <StoreLogo name={item.label} identity={storeDirectory.get(item.label.toLowerCase())} size="md" />
+                    ) : (
+                      <Icon name={item.kind === "category" ? "category" : "tag"} />
+                    )}
                     {item.label}
                   </button>
                 </li>

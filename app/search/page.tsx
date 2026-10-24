@@ -21,6 +21,7 @@ import {
   toCouponQuery,
   type CouponFilters,
 } from "@/lib/filters";
+import StoreCard from "@/components/stores/StoreCard";
 import type { Product, Store } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -261,10 +262,10 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
       {storeHits.length > 0 && (
         <section className="mt-8">
           <SectionTitle hint={String(matchingStores.total)}>Stores</SectionTitle>
-          <ul className="divide-y divide-ledger-line border border-ledger-line">
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {storeHits.map((s) => (
               <li key={s.id}>
-                <StoreRow store={s} />
+                <StoreCard store={s} />
               </li>
             ))}
           </ul>
@@ -361,30 +362,6 @@ function refine(
   }
   const s = qs.toString();
   return s ? `/search?${s}` : "/search";
-}
-
-function StoreRow({ store }: { store: Store }) {
-  return (
-    <Link
-      href={`/stores/${store.slug}`}
-      className="flex items-center gap-3 px-4 py-3 text-ink transition-colors hover:bg-paper-raised"
-    >
-      <StoreGlyph name={store.name} />
-      <span className="min-w-0 flex-1 truncate">{store.name}</span>
-      {store.country_code && <span className="font-mono text-xs text-ink-soft">{store.country_code}</span>}
-    </Link>
-  );
-}
-
-function StoreGlyph({ name }: { name: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-sm text-ink-soft"
-    >
-      {name.charAt(0).toUpperCase()}
-    </span>
-  );
 }
 
 function ProductRow({ product, store }: { product: Product; store?: Store }) {
