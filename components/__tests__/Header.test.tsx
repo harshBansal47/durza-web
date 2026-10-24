@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Header from "@/components/Header";
 import { SessionProvider, type SessionUser } from "@/components/session/SessionProvider";
@@ -73,14 +73,16 @@ describe("Header account chip", () => {
   it("falls back to initials when there is no photo", () => {
     const { container } = renderHeader({ name: "Ada Lovelace", avatarUrl: null });
     expect(container.querySelector("img")).toBeNull();
-    const summary = container.querySelector("summary");
-    expect(summary).not.toBeNull();
-    expect(within(summary as HTMLElement).getByText("A")).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: /Ada Lovelace/i });
+    expect(button).not.toBeNull();
+    expect(within(button as HTMLElement).getByText("A")).toBeInTheDocument();
   });
 
   it("opens a menu with account links and sign out", () => {
     const { container } = renderHeader(signedIn);
-    const menu = container.querySelector("details");
+    const button = screen.getByRole("button", { name: /Ava Tar/i });
+    fireEvent.click(button);
+    const menu = container.querySelector("div.absolute");
     expect(menu).not.toBeNull();
     const scope = within(menu as HTMLElement);
     expect(scope.getByRole("link", { name: "Your account" })).toHaveAttribute(

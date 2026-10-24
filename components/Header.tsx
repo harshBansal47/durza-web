@@ -30,16 +30,51 @@ export default function Header({
   const user = session.user;
   const [scrolled, setScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
 
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
-  const accountMenuRef = useRef<HTMLDetailsElement>(null);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
+  const accountMenuRef = useRef<HTMLDivElement>(null);
 
-  // The header lives in the persistent layout, so a client-side navigation
-  // would otherwise leave the account menu open behind the new page.
-  const closeAccountMenu = () => {
-    if (accountMenuRef.current) accountMenuRef.current.open = false;
-  };
+  const closeMoreMenu = () => setMoreOpen(false);
+  const closeAccountMenu = () => setAccountOpen(false);
+
+  // Close either menu when the visitor taps outside it or presses Escape.
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+        setMoreOpen(false);
+      }
+      if (accountMenuRef.current && !accountMenuRef.current.contains(event.target as Node)) {
+        setAccountOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMoreOpen(false);
+        setAccountOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
+  // A client-side navigation should never leave a stale menu open. Defer the
+  // state reset so React does not treat it as a synchronous effect update.
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setMoreOpen(false);
+      setAccountOpen(false);
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const updateHeaderHeight = () => {
@@ -136,19 +171,38 @@ export default function Header({
               );
             })}
             {moreLinks.length > 0 && (
-              <details className="group relative flex h-full items-center">
-                <summary className="flex h-10 cursor-pointer list-none items-center rounded-full px-4 text-[13px] font-medium tracking-wide text-ink-soft hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">
+              <div ref={moreMenuRef} className="relative flex h-full items-center">
+                <button
+                  type="button"
+                  aria-expanded={moreOpen}
+                  onClick={() => {
+                    setMoreOpen((open) => !open);
+                    setAccountOpen(false);
+                  }}
+                  className="flex h-10 items-center rounded-full px-4 text-[13px] font-medium tracking-wide text-ink-soft hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
+                >
                   More
-                  <ChevronDown aria-hidden="true" className="ml-1 h-4 w-4" strokeWidth={1.75} />
-                </summary>
-                <div className="invisible absolute right-0 top-full z-50 mt-2 min-w-48 translate-y-1 rounded-2xl border border-ledger-line bg-white p-2 opacity-0 shadow-[var(--shadow-overlay)] transition group-open:visible group-open:translate-y-0 group-open:opacity-100">
-                  {moreLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink">
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </details>
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={`ml-1 h-4 w-4 transition-transform ${moreOpen ? "rotate-180" : ""}`}
+                    strokeWidth={1.75}
+                  />
+                </button>
+                {moreOpen && (
+                  <div className="absolute right-0 top-full z-50 mt-2 min-w-48 rounded-2xl border border-ledger-line bg-white p-2 shadow-[var(--shadow-overlay)]">
+                    {moreLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={closeMoreMenu}
+                        className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
           </nav>
 
@@ -171,17 +225,15 @@ export default function Header({
                 <span className="h-3 w-14 rounded-full bg-ink/10" />
               </span>
             ) : user ? (
-              <details ref={accountMenuRef} className="group relative">
-                <summary
-                  className="
-                    group flex min-h-10 cursor-pointer list-none items-center gap-2.5
-                    rounded-full border border-ledger-line
-                    bg-white px-4
-                    text-sm font-medium text-ink
-                    transition-all duration-150
-                    hover:border-accent-soft hover:bg-accent-faint
-                    focus-visible:outline-2 focus-visible:outline-accent
-                  "
+              <div ref={accountMenuRef} className="relative">
+                <button
+                  type="button"
+                  aria-expanded={accountOpen}
+                  onClick={() => {
+                    setAccountOpen((open) => !open);
+                    setMoreOpen(false);
+                  }}
+                  className="group flex min-h-10 items-center gap-2.5 rounded-full border border-ledger-line bg-white px-4 text-sm font-medium text-ink transition-all duration-150 hover:border-accent-soft hover:bg-accent-faint focus-visible:outline-2 focus-visible:outline-accent"
                 >
                   {user.avatarUrl ? (
                     <Image
@@ -195,11 +247,7 @@ export default function Header({
                   ) : (
                     <span
                       aria-hidden="true"
-                      className="
-                        flex h-7 w-7 shrink-0 items-center justify-center
-                        rounded-full bg-ink
-                        text-xs font-medium text-white
-                      "
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-medium text-white"
                     >
                       {user.name.trim().charAt(0).toUpperCase() || "U"}
                     </span>
@@ -211,34 +259,36 @@ export default function Header({
 
                   <ChevronDown
                     aria-hidden="true"
-                    className="h-4 w-4 text-ink-soft transition-transform group-open:rotate-180"
+                    className={`h-4 w-4 text-ink-soft transition-transform ${accountOpen ? "rotate-180" : ""}`}
                     strokeWidth={1.75}
                   />
-                </summary>
+                </button>
 
-                <div className="invisible absolute right-0 top-full z-50 mt-2 min-w-48 translate-y-1 rounded-2xl border border-ledger-line bg-white p-2 opacity-0 shadow-[var(--shadow-overlay)] transition group-open:visible group-open:translate-y-0 group-open:opacity-100">
-                  <Link
-                    href="/account"
-                    onClick={closeAccountMenu}
-                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                  >
-                    Your account
-                  </Link>
+                {accountOpen && (
+                  <div className="absolute right-0 top-full z-50 mt-2 min-w-48 rounded-2xl border border-ledger-line bg-white p-2 shadow-[var(--shadow-overlay)]">
+                    <Link
+                      href="/account"
+                      onClick={closeAccountMenu}
+                      className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                    >
+                      Your account
+                    </Link>
 
-                  <Link
-                    href="/account/settings"
-                    onClick={closeAccountMenu}
-                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                  >
-                    Settings
-                  </Link>
+                    <Link
+                      href="/account/settings"
+                      onClick={closeAccountMenu}
+                      className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                    >
+                      Settings
+                    </Link>
 
-                  <SignOutForm
-                    onClick={closeAccountMenu}
-                    className="block w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                  />
-                </div>
-              </details>
+                    <SignOutForm
+                      onClick={closeAccountMenu}
+                      className="block w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                    />
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 href="/account/login"
