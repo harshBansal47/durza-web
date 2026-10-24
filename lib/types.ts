@@ -226,11 +226,10 @@ export interface User {
   id: string;
   email: string;
   full_name: string | null;
-  /** Google account photo URL; null for password-only accounts. */
+  /** Google account photo URL; null when the account has no Google photo. */
   avatar_url?: string | null;
   role: Role;
   is_active: boolean;
-  has_password?: boolean;
   created_at: string;
 }
 

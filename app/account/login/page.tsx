@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LoginForm } from "@/components/account/AuthForms";
-import { loginAction } from "@/app/account/actions";
+import { EmailOtpLoginForm } from "@/components/account/EmailOtpLoginForm";
+import { requestEmailOtpAction, verifyEmailOtpAction } from "@/app/account/actions";
 import { getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
 import PageTitle from "@/components/ui/PageTitle";
@@ -34,7 +34,7 @@ function first(value: string | string[] | undefined): string | undefined {
  */
 const GOOGLE_ERROR_MESSAGES: Record<string, string> = {
   missing_config:
-    "Google sign-in isn't fully configured on our side yet. Please sign in with your email and password.",
+    "Google sign-in isn't fully configured on our side yet. Please sign in with your email instead.",
   google_denied: "Google sign-in was cancelled or denied.",
   exchange_failed: "Google rejected the sign-in attempt. Please try again.",
   exchange_unreachable: "We couldn't reach Google. Check your connection and try again.",
@@ -77,7 +77,7 @@ export default async function LoginPage({
       )}
 
       <div className="mt-8">
-        <LoginForm action={loginAction} next={next} />
+        <EmailOtpLoginForm requestAction={requestEmailOtpAction} verifyAction={verifyEmailOtpAction} next={next} />
       </div>
 
       <p className="mt-6 text-sm text-ink-soft">

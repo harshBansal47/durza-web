@@ -70,7 +70,7 @@ export default function PrivacyPage() {
       </h2>
       <p>
         <strong className="font-semibold text-ink">Account information.</strong> When you create an
-        account, we store your email address, a hashed password, and optionally your full name. We
+        account, we store your email address and the preferences you choose. We
         use this information to authenticate you and provide access to your saved deals, tracked
         products, and alerts.
       </p>

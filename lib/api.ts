@@ -351,15 +351,19 @@ export const api = {
 
   // ---- Auth -------------------------------------------------------------
 
-  register: (body: { email: string; password: string; full_name?: string | null }) =>
-    apiFetch<User>("/auth/register", { method: "POST", body: JSON.stringify(body), cache: "no-store" }),
-
-  /** OAuth2 password flow: email goes in as `username`, form-encoded. */
-  login: (email: string, password: string) =>
-    apiFetch<TokenPair>("/auth/login", {
+  /** Ask the backend for a passwordless email sign-in code. */
+  requestEmailOtp: (email: string) =>
+    apiFetch<void>("/auth/email/request", {
       method: "POST",
-      body: new URLSearchParams({ username: email, password }).toString(),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: JSON.stringify({ email }),
+      cache: "no-store",
+    }),
+
+  /** Exchange a six-digit sign-in code for a token pair. */
+  verifyEmailOtp: (email: string, code: string) =>
+    apiFetch<TokenPair>("/auth/email/verify", {
+      method: "POST",
+      body: JSON.stringify({ email, code }),
       cache: "no-store",
     }),
 
@@ -367,27 +371,11 @@ export const api = {
   googleLoginUrl: (returnTo = "/account") =>
     `${API_URL}/auth/google?redirect=${encodeURIComponent(returnTo)}`,
 
-  /** Set a password for an account that has none (e.g. Google-only). */
-  setPassword: (newPassword: string) =>
-    apiFetch<void>("/auth/set-password", {
+  /** Revoke the current session and every token issued before the logout. */
+  logout: (token: string) =>
+    apiFetch<void>("/auth/logout", {
       method: "POST",
-      body: JSON.stringify({ new_password: newPassword }),
-      cache: "no-store",
-    }),
-
-  /** Request a password reset email. Always succeeds (even for unknown emails). */
-  forgotPassword: (email: string) =>
-    apiFetch<void>("/auth/forgot-password", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-      cache: "no-store",
-    }),
-
-  /** Reset password using a token from the reset email. */
-  resetPassword: (token: string, new_password: string) =>
-    apiFetch<void>("/auth/reset-password", {
-      method: "POST",
-      body: JSON.stringify({ token, new_password }),
+      token,
       cache: "no-store",
     }),
 
@@ -400,11 +388,8 @@ export const api = {
 
   me: (token: string) => apiFetch<User>("/auth/me", { token, cache: "no-store" }),
 
-  /** Self-service profile edit: display name and/or password. */
-  updateMe: (
-    token: string,
-    patch: { full_name?: string | null; password?: string; current_password?: string },
-  ) =>
+  /** Self-service profile edit: display name. */
+  updateMe: (token: string, patch: { full_name?: string | null }) =>
     apiFetch<User>("/auth/me", {
       method: "PATCH",
       token,
@@ -414,7 +399,7 @@ export const api = {
 
   // ---- Account (/me) ----------------------------------------------------
 
-  listSavedStores: (token: string) => apiFetch<SavedItem[]>("/me/saved-stores", { token, cache: "no-store" }),
+  listSavedStores: (token: string) => apiFetch<SavedItem[]>("/me/ ", { token, cache: "no-store" }),
 
   saveStore: (token: string, storeId: string) =>
     apiFetch<{ status: string }>(`/me/saved-stores/${storeId}`, { method: "POST", token, cache: "no-store" }),
@@ -467,11 +452,11 @@ export const api = {
     }),
 
   /** Permanently delete the current user's account. */
-  deleteAccount: (token: string, current_password: string) =>
+  deleteAccount: (token: string, confirmEmail: string) =>
     apiFetch<void>("/auth/me", {
       method: "DELETE",
       token,
-      body: JSON.stringify({ current_password }),
+      body: JSON.stringify({ confirm_email: confirmEmail }),
       cache: "no-store",
     }),
 

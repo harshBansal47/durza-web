@@ -33,7 +33,7 @@ const ANONYMOUS: SessionState = { status: "anonymous", user: null };
  * login page would otherwise hold its pre-login answer for the rest of the
  * visit. Leaving one of these routes is the cue to ask again.
  */
-const AUTH_ROUTES = ["/account/login", "/account/register", "/account/reset-password"];
+const AUTH_ROUTES = ["/account/login", "/account/register"];
 
 interface SessionContextValue {
   session: SessionState;

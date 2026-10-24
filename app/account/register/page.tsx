@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { RegisterForm } from "@/components/account/AuthForms";
-import { registerAction } from "@/app/account/actions";
 import { getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
-import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Create an account",
@@ -13,8 +9,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
+/** First value of a search param that may arrive as string or string[]. */
+function first(value: string | string[] | undefined): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+/** Only same-origin, path-relative destinations are ever honoured. */
 function safeNext(value: string | string[] | undefined): string | undefined {
-  const raw = Array.isArray(value) ? value[0] : value;
+  const raw = first(value);
   if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return undefined;
   return raw;
 }
@@ -33,36 +35,10 @@ export default async function RegisterPage({
     redirect(next ?? "/account");
   }
 
-  return (
-    <main className="mx-auto w-full max-w-sm px-4 py-16">
-      <PageTitle>Create your account</PageTitle>
-      <p className="mt-2 text-sm text-ink-soft">
-        Save the stores you use, follow a product, and we will email you when its price drops or a
-        code is confirmed working.
-      </p>
-
-      <div className="mt-8">
-        <RegisterForm action={registerAction} next={next} />
-      </div>
-
-      <p className="mt-6 text-sm text-ink-soft">
-        Already registered?{" "}
-        <Link
-          href={next ? `/account/login?next=${encodeURIComponent(next)}` : "/account/login"}
-          className="text-inkblue hover:underline"
-        >
-          Sign in
-        </Link>
-      </p>
-
-      <p className="mt-6 border-t border-ledger-line pt-4 text-xs text-ink-soft">
-        We email you when something you asked about changes. Nothing else, and no selling your
-        address. Turn alerts off at any time from{" "}
-        <Link href="/account/notifications" className="text-inkblue hover:underline">
-          notification settings
-        </Link>
-        .
-      </p>
-    </main>
-  );
+  // Public sign-in no longer has a password-based registration step. A visitor
+  // who wants an account goes through the email sign-in code flow, which
+  // creates the account under the public policy once the code is verified.
+  const { redirect } = await import("next/navigation");
+  redirect(next ? `/account/login?next=${encodeURIComponent(next)}` : "/account/login");
+  throw new Error("unreachable");
 }

@@ -1,5 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { setSessionCookies } from "@/lib/session";
+import {
+  GOOGLE_OAUTH_STATE_COOKIE,
+  verifyGoogleOAuthState,
+} from "@/lib/google-oauth-state";
 
 /**
  * Google OAuth callback. Google redirects here with `?code=...`. We exchange
@@ -17,23 +21,41 @@ import { setSessionCookies } from "@/lib/session";
  *   POST /auth/google  { id_token: string }
  *     -> { access_token, refresh_token }  (same shape as /auth/login)
  */
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const error = url.searchParams.get("error");
-  const next = url.searchParams.get("state") ?? "/account";
-  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/account";
+  const stateParam = url.searchParams.get("state");
 
   const fail = (reason: string, detail?: string) => {
     console.error(`[google-oauth] ${reason}${detail ? `: ${detail}` : ""}`);
-    return NextResponse.redirect(
+    const response = NextResponse.redirect(
       new URL(`/account/login?error=google&reason=${encodeURIComponent(reason)}`, request.url),
     );
+    response.cookies.set(GOOGLE_OAUTH_STATE_COOKIE, "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/api/auth/callback/google",
+      maxAge: 0,
+    });
+    return response;
   };
 
   if (error || !code) {
     return fail("google_denied", error ?? "no code in callback");
   }
+
+  const secret = process.env.GOOGLE_OAUTH_STATE_SECRET;
+  if (!secret) {
+    return fail("missing_state_secret");
+  }
+  const verifiedState = await verifyGoogleOAuthState(secret, stateParam);
+  const stateCookie = request.cookies.get(GOOGLE_OAUTH_STATE_COOKIE)?.value;
+  if (!verifiedState || stateParam !== stateCookie) {
+    return fail("invalid_state");
+  }
+  const safeNext = verifiedState.next;
 
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -104,5 +126,13 @@ export async function GET(request: Request) {
   }
 
   await setSessionCookies(session.access_token, session.refresh_token);
-  return NextResponse.redirect(new URL(safeNext, request.url));
+  const response = NextResponse.redirect(new URL(safeNext, request.url));
+  response.cookies.set(GOOGLE_OAUTH_STATE_COOKIE, "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/api/auth/callback/google",
+    maxAge: 0,
+  });
+  return response;
 }

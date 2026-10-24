@@ -51,16 +51,7 @@ export default function DeleteAccountForm({ action }: DeleteAccountFormProps) {
             type="email"
             autoComplete="email"
             required
-            hint="Must match the email above exactly"
-          />
-
-          <Input
-            label="Current password"
-            name="current_password"
-            type="password"
-            autoComplete="current-password"
-            required
-            hint="Your current password is required to confirm this is really you"
+            hint="We will send a confirmation email to that address."
           />
         </div>
 

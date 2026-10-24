@@ -34,7 +34,7 @@ describe("AccountShell identity", () => {
     expect(screen.getByText("Ava Tar")).toBeInTheDocument();
   });
 
-  it("renders no photo for password-only accounts", () => {
+  it("renders no photo for accounts without a Google photo", () => {
     const { container } = render(
       <AccountShell
         user={{ email: "ada@example.com", full_name: null, avatar_url: null }}

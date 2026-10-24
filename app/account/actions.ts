@@ -58,54 +58,42 @@ function safeRedirect(target: FormDataEntryValue | null | undefined): string | n
   return target;
 }
 
-export async function loginAction(
+export async function requestEmailOtpAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const next = safeRedirect(formData.get("next"));
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
 
-  if (!email || !password) return fail("Enter your email and password.");
-
+  if (!email) return fail("Enter your email address.");
   try {
-    const tokens = await api.login(email, password);
-    await setSessionCookies(tokens.access_token, tokens.refresh_token);
-  } catch (error) {
-    // Deliberately vague: a precise message here tells an attacker which half
-    // of a credential pair was right.
-    if (error instanceof ApiError && error.status === 401) {
-      return fail("That email and password do not match.");
-    }
-    return fail(describeError(error));
+    await api.requestEmailOtp(email);
+  } catch {
+    // Unknown addresses, cooldowns and delivery failures all resolve to this
+    // same message, so no failure here should ever be shown to the person.
+    return fail("If that address can sign in, a sign-in code is on its way.");
   }
 
-  const { redirect } = await import("next/navigation");
-  redirect(next ?? "/account");
-  // `redirect` never returns, but TypeScript cannot see through a dynamic
-  // import. Anything unreachable past this point is a bug, not a silent return.
-  throw new Error("redirect did not return");
+  return ok("If that address can sign in, a sign-in code is on its way.");
 }
 
-export async function registerAction(
+export async function verifyEmailOtpAction(
   _prev: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const fullName = String(formData.get("full_name") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const code = String(formData.get("code") ?? "").trim();
   const next = safeRedirect(formData.get("next"));
 
-  if (!email || !password) return fail("Enter your email and a password.");
-  if (password.length < 8) return fail("Use a password of at least 8 characters.");
+  if (!email) return fail("Enter your email address.");
+  if (!/^\d{6}$/.test(code)) return fail("Enter the 6-digit code from your email.");
 
   try {
-    // Registration returns the user but not a token pair, so sign in straight
-    // afterwards rather than making the visitor type their password twice.
-    await api.register({ email, password, full_name: fullName || null });
-    const tokens = await api.login(email, password);
+    const tokens = await api.verifyEmailOtp(email, code);
     await setSessionCookies(tokens.access_token, tokens.refresh_token);
   } catch (error) {
+    if (error instanceof ApiError && error.status === 400) {
+      return fail("That code is invalid or has expired. Please request a new one.");
+    }
     return fail(describeError(error));
   }
 
@@ -117,62 +105,20 @@ export async function registerAction(
 }
 
 export async function logoutAction(): Promise<void> {
+  const token = await getAccessToken();
+  if (token) {
+    try {
+      await api.logout(token);
+    } catch {
+      // Logout is best-effort on the backend: clearing the browser cookies is
+      // the local part of the operation, and a failed revocation still means the
+      // holder just lost access through the cookie.
+    }
+  }
   await clearSessionCookies();
   const { redirect } = await import("next/navigation");
   redirect("/");
   throw new Error("redirect did not return");
-}
-
-/* ------------------------------------------------------------------ */
-/* Password reset                                                      */
-/* ------------------------------------------------------------------ */
-
-export async function forgotPasswordAction(
-  _prev: ActionResult,
-  formData: FormData,
-): Promise<ActionResult> {
-  const email = String(formData.get("email") ?? "").trim();
-
-  if (!email) return fail("Enter your email address.");
-
-  try {
-    await api.forgotPassword(email);
-  } catch {
-    // Always succeed to prevent user enumeration
-    return ok("If an account exists, a reset email has been sent.");
-  }
-
-  return ok("If an account exists, a reset email has been sent.");
-}
-
-export async function resetPasswordAction(
-  _prev: ActionResult,
-  formData: FormData,
-): Promise<ActionResult> {
-  const token = String(formData.get("token") ?? "");
-  const newPassword = String(formData.get("new_password") ?? "");
-  const confirmPassword = String(formData.get("confirm_password") ?? "");
-
-  if (!token) return fail("Invalid reset link.")
-  if (!newPassword || !confirmPassword)
-    return fail("Enter and confirm your new password.")
-  if (newPassword !== confirmPassword)
-    return fail("Passwords do not match.")
-  if (newPassword.length < 8)
-    return fail("Use a password of at least 8 characters.")
-
-  try {
-    await api.resetPassword(token, newPassword)
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 400) {
-      return fail("Invalid or expired reset token. Please request a new one.")
-    }
-    return fail(describeError(error))
-  }
-
-  const { redirect } = await import("next/navigation")
-  redirect("/account/login?reset=success")
-  throw new Error("redirect did not return")
 }
 
 /* ------------------------------------------------------------------ */
@@ -184,10 +130,8 @@ export async function deleteAccountAction(
   formData: FormData,
 ): Promise<ActionResult> {
   const confirmEmail = String(formData.get("confirm_email") ?? "").trim().toLowerCase()
-  const currentPassword = String(formData.get("current_password") ?? "")
 
   if (!confirmEmail) return fail("Confirm your email address.")
-  if (!currentPassword) return fail("Enter your current password.")
 
   try {
     const token = await requireToken()
@@ -197,11 +141,11 @@ export async function deleteAccountAction(
       return fail("The email address does not match your account.")
     }
 
-    await api.deleteAccount(token, currentPassword)
+    await api.deleteAccount(token, confirmEmail)
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.status === 401) return fail("Your session has expired. Please sign in again.")
-      if (error.status === 400) return fail("The password you entered is not correct.")
+      if (error.status === 400) return fail("The email address does not match your account.")
     }
     return fail(describeError(error))
   }
@@ -223,36 +167,16 @@ export async function updateProfileAction(
   formData: FormData,
 ): Promise<ActionResult> {
   const fullName = String(formData.get("full_name") ?? "").trim();
-  const newPassword = String(formData.get("new_password") ?? "");
-  const currentPassword = String(formData.get("current_password") ?? "");
-
-  const patch: {
-    full_name?: string | null;
-    password?: string;
-    current_password?: string;
-  } = { full_name: fullName || null };
-
-  if (newPassword) {
-    if (newPassword.length < 8) return fail("Use a password of at least 8 characters.");
-    patch.password = newPassword;
-    patch.current_password = currentPassword;
-  }
+  const patch: { full_name?: string | null } = { full_name: fullName || null };
 
   try {
     const token = await requireToken();
     await api.updateMe(token, patch);
   } catch (error) {
-    if (error instanceof ApiError && error.status === 400) {
-      return fail("Your current password is not correct.");
-    }
     return fail(describeError(error));
   }
 
-  // A password change invalidates nothing on our side, but the visitor should
-  // not be left with the new one still sitting in the form field.
-  return ok(
-    newPassword ? "Profile updated. Your new password is now in use." : "Profile updated.",
-  );
+  return ok("Profile updated.");
 }
 
 /* ------------------------------------------------------------------ */

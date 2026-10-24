@@ -35,8 +35,6 @@ export default function InstallPrompt() {
   const isAuthRoute =
     pathname.startsWith("/account/login") ||
     pathname.startsWith("/account/register") ||
-    pathname.startsWith("/account/forgot-password") ||
-    pathname.startsWith("/account/reset-password") ||
     pathname.startsWith("/account/unsubscribe");
 
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);

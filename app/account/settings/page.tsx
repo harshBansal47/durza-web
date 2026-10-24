@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import AccountShell from "@/components/account/AccountShell";
 import ProfileForm from "@/components/account/ProfileForm";
-import SetPasswordForm from "@/components/account/SetPasswordForm";
 import DeleteAccountForm from "@/components/account/DeleteAccountForm";
 import PersonalizationSettings from "@/components/account/PersonalizationSettings";
 import { requireAccount, updateProfileAction, deleteAccountAction } from "@/app/account/actions";
@@ -11,7 +10,7 @@ import { PERSONALIZATION_ENABLED } from "@/lib/flags";
 
 export const metadata: Metadata = {
   title: "Account settings",
-  description: "Your display name, password and data choices.",
+  description: "Your display name and data choices.",
   alternates: { canonical: absoluteUrl("/account/settings") },
   robots: { index: false, follow: false },
 };
@@ -29,18 +28,6 @@ export default async function SettingsPage() {
           <ProfileForm action={updateProfileAction} user={user} />
         </div>
       </section>
-
-      {!user.has_password && (
-        <section className="mt-6 border-t border-ledger-line pt-6">
-          <h3 className="text-sm uppercase tracking-wider text-ink-soft">Password</h3>
-          <p className="mt-2 text-sm text-ink-soft">
-            Your account was created with Google. Set a password to also sign in with email.
-          </p>
-          <div className="mt-3">
-            <SetPasswordForm />
-          </div>
-        </section>
-      )}
 
       {PERSONALIZATION_ENABLED ? (
         <section className="mt-10 border-t border-ledger-line pt-6">
