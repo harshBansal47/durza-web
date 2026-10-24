@@ -399,7 +399,7 @@ export const api = {
 
   // ---- Account (/me) ----------------------------------------------------
 
-  listSavedStores: (token: string) => apiFetch<SavedItem[]>("/me/ ", { token, cache: "no-store" }),
+  listSavedStores: (token: string) => apiFetch<SavedItem[]>("/me/saved-stores", { token, cache: "no-store" }),
 
   saveStore: (token: string, storeId: string) =>
     apiFetch<{ status: string }>(`/me/saved-stores/${storeId}`, { method: "POST", token, cache: "no-store" }),
