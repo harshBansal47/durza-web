@@ -12,7 +12,7 @@ import { api } from "@/lib/api";
 import PageTitle from "@/components/ui/PageTitle";
 import { editorialPath } from "@/lib/editorial-path";
 import { absoluteUrl, faqPageJsonLd } from "@/lib/seo";
-import { GuideCover, guideCoverVariant } from "./GuideCover";
+import GuideArt from "./GuideArt";
 import { SITE_URL } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { renderBrandText } from "@/lib/brandMentions";
@@ -45,13 +45,19 @@ function guideReadMinutes(content: EditorialContent): number {
 
 export function EditorialCard({ content, wide = false }: { content: EditorialContent; wide?: boolean }) {
   const isGuide = content.content_type === "guide";
-  const variant = guideCoverVariant(content.title, content.summary);
   const readTime = guideReadMinutes(content);
   const updated = content.updated_at ? new Date(content.updated_at).toLocaleDateString("en-IN") : null;
 
   return (
     <article className={`info-card lift flex h-full flex-col ${wide ? "sm:col-span-2 lg:col-span-3" : ""} p-5`}>
-      {isGuide && <GuideCover variant={variant} className="mb-4" />}
+      {isGuide && (
+        <GuideArt
+          title={content.title}
+          summary={content.summary}
+          heroImageUrl={content.hero_image_url}
+          className="mb-4"
+        />
+      )}
       <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
         {TYPE_LABELS[content.content_type]}
         {updated ? ` · Updated ${updated}` : ""}
@@ -499,7 +505,15 @@ export default async function EditorialArticle({ content }: { content: Editorial
         We may earn a commission when you buy through links on this page. This does not change the price you pay. See our{" "}
         <Link href="/affiliate-disclosure" className="font-semibold text-inkblue underline">affiliate disclosure</Link>.
       </p>
-      {content.hero_image_url && <Image src={content.hero_image_url} alt="" width={1200} height={675} unoptimized className="mt-8 h-auto w-full rounded-2xl border border-ledger-line" />}
+      {(content.hero_image_url || content.content_type === "guide") && (
+        <GuideArt
+          title={content.title}
+          summary={content.summary}
+          heroImageUrl={content.hero_image_url}
+          size="hero"
+          className="mt-8"
+        />
+      )}
       {verdict && <aside className="my-8 rounded-2xl border border-verified/20 bg-verified-soft p-5"><p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-verified">The short answer</p><p className="mt-2 text-base leading-7 text-ink">{verdict}</p>{bestFor && <p className="mt-2 text-sm text-ink-soft"><strong>Best for:</strong> {bestFor}</p>}</aside>}
       {keyTakeaways.length > 0 && (
         <aside className="my-8 rounded-2xl border border-inkblue/15 bg-inkblue/[0.04] p-5" aria-labelledby="key-takeaways-heading">

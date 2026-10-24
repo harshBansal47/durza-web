@@ -1,4 +1,6 @@
 import type { ReactElement } from "react";
+import Image from "next/image";
+import { storeLogoUrl } from "@/lib/storeLogos";
 
 /**
  * Generated cover art for buying guides. One outline-icon palette, four
@@ -19,13 +21,59 @@ export function guideCoverVariant(title: string, summary: string): GuideCoverVar
   return "generic";
 }
 
+/**
+ * Stores a guide is about, read from its own title and summary, in the order
+ * they first appear. Only stores we hold a logo for are listed — an unknown
+ * name simply yields no logo rather than a guess. Capped so the cover stays
+ * uncluttered.
+ */
+const STORE_MENTIONS: [slug: string, pattern: RegExp][] = [
+  ["amazon-in", /\bamazon(\.in| india)?\b/],
+  ["flipkart", /\bflipkart\b/],
+  ["myntra", /\bmyntra\b/],
+  ["meesho", /\bmeesho\b/],
+  ["ajio", /\bajio\b/],
+  ["nykaa", /\bnykaa\b/],
+  ["croma", /\bcroma\b/],
+  ["reliance-digital", /\breliance digital\b/],
+  ["bigbasket", /\bbig ?basket\b/],
+  ["firstcry", /\bfirst ?cry\b/],
+  ["lenskart", /\blenskart\b/],
+  ["makemytrip", /\bmake ?my ?trip\b/],
+  ["ixigo", /\bixigo\b/],
+  ["swiggy", /\bswiggy\b/],
+  ["zomato", /\bzomato\b/],
+];
+
+export function guideStoreMentions(title: string, summary: string, max = 3): string[] {
+  const probe = `${title} ${summary}`.toLowerCase();
+  return STORE_MENTIONS.flatMap(([slug, pattern]) => {
+    const at = probe.search(pattern);
+    return at === -1 ? [] : [{ slug, at }];
+  })
+    .sort((a, b) => a.at - b.at)
+    .slice(0, max)
+    .map((m) => m.slug);
+}
+
 export function GuideCover({
   variant,
+  storeSlugs = [],
+  size = "card",
   className = "",
 }: {
   variant: GuideCoverVariant;
+  /** Slugs of stores to show as logos beside the topic icon. */
+  storeSlugs?: string[];
+  /** `card` for listings, `hero` for the top of a guide. */
+  size?: "card" | "hero";
   className?: string;
 }) {
+  const hero = size === "hero";
+  const logos = storeSlugs.flatMap((slug) => {
+    const src = storeLogoUrl({ slug });
+    return src ? [{ slug, src }] : [];
+  });
   const palette = {
     cart: { bg: "bg-accent-faint", ink: "text-accent" },
     card: { bg: "bg-accent-faint", ink: "text-durza-deep" },
@@ -66,11 +114,10 @@ export function GuideCover({
   return (
     <div
       aria-hidden="true"
-      className={`relative flex h-24 w-full items-center justify-center overflow-hidden rounded-xl ${palette.bg} ${palette.ink} ${className}`}
+      className={`relative flex w-full items-center justify-center gap-4 overflow-hidden ${
+        hero ? "aspect-[2/1] rounded-2xl sm:aspect-[21/9]" : "aspect-[16/9] rounded-xl"
+      } ${palette.bg} ${palette.ink} ${className}`}
     >
-      <svg viewBox="0 0 24 24" className="h-10 w-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {glyph[variant]}
-      </svg>
       {/* Faint dot grid fading toward the edges */}
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
@@ -81,6 +128,34 @@ export function GuideCover({
           WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
         }}
       />
+      <span
+        className={`relative flex shrink-0 items-center justify-center rounded-full bg-white/70 ${
+          hero ? "h-24 w-24" : "h-16 w-16"
+        }`}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          className={hero ? "h-12 w-12" : "h-8 w-8"}
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {glyph[variant]}
+        </svg>
+      </span>
+      {logos.length > 0 && (
+        <span className="relative flex -space-x-3">
+          {logos.map(({ slug, src }) => (
+            <Image
+              key={slug}
+              src={src}
+              alt=""
+              width={hero ? 64 : 48}
+              height={hero ? 64 : 48}
+              className={`${hero ? "h-16 w-16" : "h-12 w-12"} rounded-full border-2 border-white bg-white object-contain`}
+            />
+          ))}
+        </span>
+      )}
     </div>
   );
 }
