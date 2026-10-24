@@ -501,10 +501,7 @@ export default async function EditorialArticle({ content }: { content: Editorial
         <time dateTime={content.updated_at}>Updated {new Date(content.updated_at).toLocaleDateString("en-IN")}</time>
         {checkedAt && <span>Pricing checked {new Date(checkedAt).toLocaleDateString("en-IN")}</span>}
       </div>
-      <p className="mt-5 rounded-xl border border-inkblue/15 bg-inkblue/[0.04] px-4 py-3 text-sm leading-6 text-ink-soft">
-        We may earn a commission when you buy through links on this page. This does not change the price you pay. See our{" "}
-        <Link href="/affiliate-disclosure" className="font-semibold text-inkblue underline">affiliate disclosure</Link>.
-      </p>
+
       {(content.hero_image_url || content.content_type === "guide") && (
         <GuideArt
           title={content.title}
