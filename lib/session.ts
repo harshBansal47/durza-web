@@ -46,8 +46,12 @@ export async function setSessionCookies(accessToken: string, refreshToken: strin
 /** Only call from a Server Action or Route Handler. */
 export async function clearSessionCookies() {
   const store = await cookies();
-  store.delete(ACCESS_COOKIE);
-  store.delete(REFRESH_COOKIE);
+  // Explicitly expire the cookies with the same attributes they were set with.
+  // `delete(name)` alone can leave a cookie in place when the original cookie
+  // carried path/domain attributes, which is exactly what made a reload resurrect
+  // the session after sign-out.
+  store.set(ACCESS_COOKIE, "", { ...baseCookieOptions, maxAge: 0 });
+  store.set(REFRESH_COOKIE, "", { ...baseCookieOptions, maxAge: 0 });
 }
 
 /**
