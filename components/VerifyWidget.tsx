@@ -80,29 +80,38 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
   }
 
   const total = stats.success_count + stats.fail_count;
+  const hasCode = Boolean(coupon.code);
 
   return (
     <div className="rounded-[var(--radius-md)] border border-ledger-line px-4 py-4">
-      <dl className="mb-4 grid grid-cols-2 gap-3 text-sm">
-        <div>
-          <dt className="text-ink-soft">Success rate</dt>
-          <dd className="font-mono text-base text-ink">
-            {stats.success_rate !== null ? `${Math.round(stats.success_rate * 100)}%` : "No reports yet"}
-            {total > 0 && (
-              <span className="text-ink-soft">
-                {" "}
-                ({total} report{total === 1 ? "" : "s"})
-              </span>
-            )}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-ink-soft">Last vote</dt>
-          <dd className="font-mono text-base text-ink">
-            {stats.last_verified_at ? formatRelativeTime(stats.last_verified_at) : "No votes yet"}
-          </dd>
-        </div>
-      </dl>
+      {total === 0 ? (
+        // Two monospace "No reports yet / No votes yet" cells read like broken data;
+        // one sentence says the same thing and invites the first vote.
+        <p className="mb-4 text-sm text-ink-soft">
+          <span className="font-medium text-ink">No reports yet.</span> Be the first to tell us whether this worked.
+        </p>
+      ) : (
+        <dl className="mb-4 grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <dt className="text-ink-soft">Success rate</dt>
+            <dd className="font-mono text-base text-ink">
+              {stats.success_rate !== null ? `${Math.round(stats.success_rate * 100)}%` : "No reports yet"}
+              {total > 0 && (
+                <span className="text-ink-soft">
+                  {" "}
+                  ({total} report{total === 1 ? "" : "s"})
+                </span>
+              )}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-ink-soft">Last vote</dt>
+            <dd className="font-mono text-base text-ink">
+              {stats.last_verified_at ? formatRelativeTime(stats.last_verified_at) : "No votes yet"}
+            </dd>
+          </div>
+        </dl>
+      )}
 
       {status === "done" ? (
         <p className="text-sm text-verified">Thanks — that helps the next person.</p>
@@ -120,7 +129,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
             type="button"
             onClick={() => report(true)}
             disabled={status === "sending"}
-            className="rounded-[var(--radius-sm)] border border-verified px-3 py-1.5 text-sm text-verified transition-colors hover:bg-verified-soft disabled:opacity-50"
+            className="rounded-[var(--radius-sm)] border border-verified min-h-11 px-4 py-1.5 text-sm text-verified transition-colors hover:bg-verified-soft disabled:opacity-50"
           >
             Worked
           </button>
@@ -128,23 +137,23 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
             type="button"
             onClick={() => report(false)}
             disabled={status === "sending"}
-            className="rounded-[var(--radius-sm)] border border-rust px-3 py-1.5 text-sm text-rust transition-colors hover:bg-rust-soft disabled:opacity-50"
+            className="rounded-[var(--radius-sm)] border border-rust min-h-11 px-4 py-1.5 text-sm text-rust transition-colors hover:bg-rust-soft disabled:opacity-50"
           >
             Didn&apos;t work
           </button>
         </div>
       ) : device ? (
         <div className="rounded-[var(--radius-sm)] border border-dashed border-ledger-line bg-paper-raised px-3 py-3 text-sm">
-          <p className="font-medium text-ink">Did this code work for you?</p>
+          <p className="font-medium text-ink">Did this {hasCode ? "code" : "deal"} work for you?</p>
           <p className="mt-1 text-ink-soft">
             Only people who tried the offer can vote, so the numbers stay honest.
           </p>
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-ink-soft">
             <li>
               <a href="#code-panel" className="font-medium text-inkblue underline-offset-2 hover:underline">
-                Reveal the code
+                {hasCode ? "Reveal the code" : "Get the deal at the store"}
               </a>{" "}
-              and use it at checkout.
+              {hasCode ? "and use it at checkout." : "and complete your purchase."}
             </li>
             <li>
               Come back here and tap <span className="text-ink">Worked</span> or{" "}

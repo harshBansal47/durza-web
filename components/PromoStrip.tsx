@@ -26,7 +26,10 @@ export default function PromoStrip() {
         <span className="hidden shrink-0 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-medium sm:inline">
           Sourced from official store pages
         </span>
-        <div className="marquee relative min-w-0 flex-1 overflow-hidden" aria-label="Site announcements" role="marquee">
+        {/* Phones get one static line: a scrolling ticker cuts words off at the edge and crowds
+            the controls beside it. The animated ticker (with its pause control) is for wider screens. */}
+        <p className="min-w-0 flex-1 truncate text-xs font-medium sm:hidden">Sourced from official store pages</p>
+        <div className="marquee relative hidden min-w-0 flex-1 overflow-hidden sm:block" aria-label="Site announcements" role="marquee">
           <div
             className="marquee-track gap-10 whitespace-nowrap text-xs font-medium"
             style={{ animationDuration: "40s", animationPlayState: paused ? "paused" : undefined }}
@@ -43,7 +46,7 @@ export default function PromoStrip() {
           type="button"
           onClick={() => setPaused((value) => !value)}
           aria-pressed={paused}
-          className="shrink-0 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-medium transition-colors hover:bg-white/20"
+          className="hidden shrink-0 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-medium transition-colors hover:bg-white/20 sm:inline-block"
         >
           {paused ? "Play" : "Pause"}
           <span className="sr-only">{paused ? " announcements" : " announcement ticker"}</span>

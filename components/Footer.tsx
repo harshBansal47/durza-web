@@ -79,9 +79,13 @@ export default function Footer({
 
       <div className="mt-14 border-t border-ledger-line pt-12 text-ink-soft">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-10 sm:grid-cols-5 pb-4">
-            <div className="sm:col-span-1">
-              <Link href="/" aria-label="Durza: Coupon & Deals — home" className="inline-flex">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 sm:grid-cols-5 sm:gap-10">
+            <div className="col-span-2 sm:col-span-1">
+              <Link
+                href="/"
+                aria-label="Durza: Coupon & Deals — home"
+                className="inline-flex"
+              >
                 <Logo size={34} tagline />
               </Link>
               <p className="mt-3 text-sm text-ink-soft">
@@ -105,7 +109,9 @@ export default function Footer({
                 </ul>
               </div>
             ))}
-            <AppDownloadLink/>
+            <div className="col-span-2 empty:hidden sm:col-span-1">
+              <AppDownloadLink />
+            </div>
           </div>
 
           <div
@@ -132,4 +138,4 @@ export default function Footer({
       </div>
     </footer>
   );
-}
+}\n

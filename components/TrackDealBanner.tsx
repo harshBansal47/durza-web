@@ -78,7 +78,7 @@ export default function TrackDealBanner({
             </div>
             <button
               type="submit"
-              className="rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent/90 active:scale-95"
+              className="btn btn-cta min-h-11 shrink-0"
             >
               Track Deal
             </button>

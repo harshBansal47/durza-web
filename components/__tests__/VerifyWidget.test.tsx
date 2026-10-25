@@ -109,9 +109,24 @@ describe("VerifyWidget", () => {
     expect(screen.getByText("67%")).toBeInTheDocument();
   });
 
-  it("shows 'No reports yet' when nothing has been reported", () => {
+  it("shows one inviting empty state, not two 'No …' cells, when nothing has been reported", () => {
     render(<VerifyWidget coupon={{ ...baseCoupon, success_count: 0, fail_count: 0, success_rate: null }} />);
-    expect(screen.getByText("No reports yet")).toBeInTheDocument();
+    expect(screen.getByText(/no reports yet/i)).toBeInTheDocument();
+    expect(screen.getByText(/be the first to tell us/i)).toBeInTheDocument();
+    expect(screen.queryByText("Success rate")).not.toBeInTheDocument();
+    expect(screen.queryByText(/no votes yet/i)).not.toBeInTheDocument();
+  });
+
+  it("tells a visitor to get the deal, not 'reveal the code', when the offer has no code", async () => {
+    window.localStorage.clear(); // beforeEach marks c1 as revealed; this visitor has not clicked through yet
+    render(<VerifyWidget coupon={{ ...baseCoupon, code: null }} />);
+
+    expect(await screen.findByText(/did this deal work for you/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /get the deal at the store/i })).toHaveAttribute(
+      "href",
+      "#code-panel",
+    );
+    expect(screen.queryByRole("link", { name: /reveal the code/i })).not.toBeInTheDocument();
   });
 
   it("submits a 'worked' report and shows the thank-you state with updated stats", async () => {

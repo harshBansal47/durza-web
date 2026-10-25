@@ -95,6 +95,7 @@ export default function AppDownloadLink() {
 
         <Button
           type="button"
+          variant="outline"
           size="sm"
           fullWidth
           className="mt-3"

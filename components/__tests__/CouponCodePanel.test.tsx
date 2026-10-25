@@ -91,6 +91,20 @@ describe("CouponCodePanel", () => {
     expect(screen.queryByRole("button", { name: /reveal|copy/i })).not.toBeInTheDocument();
   });
 
+  it("does not repeat itself for a code-less deal: no empty 'applies at checkout' box", () => {
+    render(<CouponCodePanel coupon={{ ...codedCoupon, code: null }} storeName="Nykaa" />);
+
+    // "No code needed" is said once, in the bar; the dashed box that restated it is gone.
+    expect(screen.getAllByText(/no code needed/i)).toHaveLength(1);
+    expect(screen.queryByText(/applies at checkout/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  });
+
+  it("discloses a possible commission next to the CTA for a code-less deal too", () => {
+    render(<CouponCodePanel coupon={{ ...codedCoupon, code: null }} storeName="Nykaa" />);
+    expect(screen.getByText(/opens nykaa in a new tab\. we may earn a commission/i)).toBeInTheDocument();
+  });
+
   it("links the CTA to the /go redirect endpoint for this coupon's id", () => {
     render(<CouponCodePanel coupon={codedCoupon} />);
     const link = screen.getByRole("link", { name: /get this deal/i });

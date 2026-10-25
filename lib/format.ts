@@ -116,3 +116,15 @@ export function expiryLabel(iso: string | null, now: Date = new Date()): string 
   const date = new Date(iso!).toLocaleDateString("en-US", { month: "short", day: "numeric" });
   return `Expires ${date}`;
 }
+
+/**
+ * Drop a leading "Store:" from a deal title when it is already shown under that
+ * store's own logo or heading ("Nykaa: 20% off on Kay Beauty" -> "20% off on
+ * Kay Beauty"). Falls back to the full title if nothing would be left.
+ */
+export function stripStorePrefix(title: string, storeName: string | null | undefined): string {
+  if (!storeName) return title;
+  const escaped = storeName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const stripped = title.replace(new RegExp(`^\\s*${escaped}\\s*[:\\-–—|]\\s*`, "i"), "").trim();
+  return stripped || title;
+}

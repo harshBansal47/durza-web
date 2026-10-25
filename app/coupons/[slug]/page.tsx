@@ -19,6 +19,7 @@
   import VerifiedGauge from "@/components/VerifiedGauge";
 import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
+  import { stripStorePrefix } from "@/lib/format";
 import TrackDealBanner from "@/components/TrackDealBanner";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
@@ -150,7 +151,7 @@ import TrackDealBanner from "@/components/TrackDealBanner";
     const fullTerms = getRequirements(coupon).terms;
 
     return (
-      <div className="mx-auto max-w-4xl px-4 py-6 pb-28 sm:px-6 sm:py-10 md:pb-10">
+      <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
         <RecordView storeSlug={store?.slug} couponId={coupon.id} />
@@ -291,10 +292,10 @@ import TrackDealBanner from "@/components/TrackDealBanner";
           <p className="text-sm leading-relaxed text-ink-soft">
             {coupon.code
               ? `Reveal and copy the code above, then paste it at ${store?.name ?? "the store"}'s checkout.`
-              : `No code needed — ${store?.name ?? "the store"} applies the offer when the store's conditions below are met.`}
+              : `${store?.name ?? "The store"} applies this offer automatically when its conditions are met.`}
           </p>
           {source && (
-            <p className="mt-3 text-xs text-ink-soft">
+            <p className="mt-3 text-[13px] text-ink-soft">
               Source:{" "}
               {source.url ? (
                 <a
@@ -386,18 +387,14 @@ import TrackDealBanner from "@/components/TrackDealBanner";
                     </a>
                   )}
                   {store.description && <p className="mt-2 text-sm text-ink-soft line-clamp-3">{store.description}</p>}
+                  <Link href={`/stores/${store.slug}`} className="mt-2 inline-block text-sm font-medium text-inkblue hover:underline">
+                    All {store.name} deals →
+                  </Link>
                 </div>
               </div>
-              {store.commission_disclosure ? (
-                <div className="mt-4 pt-4 border-t border-ledger-line">
-                  <p className="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Commission Disclosure</p>
-                  <p className="text-sm text-ink">{store.commission_disclosure}</p>
-                </div>
-              ) : (
-                <div className="mt-4 pt-4 border-t border-ledger-line">
-                  <DisclosureNote commissionDisclosure={null} />
-                </div>
-              )}
+              <div className="mt-4 border-t border-ledger-line pt-4">
+                <DisclosureNote compact commissionDisclosure={store.commission_disclosure} />
+              </div>
             </div>
           </section>
         )}
@@ -409,12 +406,15 @@ import TrackDealBanner from "@/components/TrackDealBanner";
           </section>
         )}
 
-        <TrackDealBanner
-          currentPrice={null}
-          targetPrice={null}
-          currency={store?.currency ?? "INR"}
-          dealTitle={coupon.title}
-        />
+        {/* Every other section carries mb-8; without it the next heading sat flush against this card. */}
+        <div className="mb-8">
+          <TrackDealBanner
+            currentPrice={null}
+            targetPrice={null}
+            currency={store?.currency ?? "INR"}
+            dealTitle={coupon.title}
+          />
+        </div>
 
         {/* Related Coupons */}
         {relatedCoupons.length > 0 && (
@@ -425,7 +425,7 @@ import TrackDealBanner from "@/components/TrackDealBanner";
             <div className="space-y-3">
               {relatedCoupons.map((c) => (
                 <Link key={c.id} href={`/coupons/${c.slug}`} className="block">
-                  <div className="lift flex items-center gap-4 rounded-2xl border border-ledger-line bg-white p-3">
+                  <div className="lift flex items-start gap-3 rounded-2xl border border-ledger-line bg-white p-3">
                     {storeLogo ? (
                       <Image src={storeLogo} alt="" width={40} height={40} className="h-10 w-10 shrink-0 rounded-full border border-ledger-line bg-paper object-contain" />
                     ) : store ? (
@@ -433,15 +433,18 @@ import TrackDealBanner from "@/components/TrackDealBanner";
                         {storeInitials(store.name)}
                       </div>
                     ) : null}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-ink truncate">{c.title}</p>
-                      <p className="text-sm text-ink-soft font-mono">{formatDiscount(c, store?.currency ?? "INR")}</p>
+                    <div className="min-w-0 flex-1">
+                      {/* The logo and the section heading already say which store this is. */}
+                      <p className="line-clamp-2 font-medium leading-snug text-ink">{stripStorePrefix(c.title, store?.name)}</p>
+                      {c.code && (
+                        <span className="mt-1.5 inline-block rounded-lg border border-dashed border-inkblue/40 bg-inkblue/5 px-2 py-0.5 font-mono text-xs font-semibold text-inkblue">
+                          {maskCode(c.code) ?? c.code}
+                        </span>
+                      )}
                     </div>
-                    {c.code && (
-                      <span className="shrink-0 rounded-lg border border-dashed border-inkblue/40 bg-inkblue/5 px-2 py-1 font-mono text-xs font-semibold text-inkblue">
-                        {maskCode(c.code) ?? c.code}
-                      </span>
-                    )}
+                    <span className="shrink-0 rounded-full bg-accent-faint px-2.5 py-1 font-mono text-xs font-semibold text-accent">
+                      {formatDiscount(c, store?.currency ?? "INR")}
+                    </span>
                   </div>
                 </Link>
               ))}

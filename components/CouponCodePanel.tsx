@@ -49,47 +49,51 @@ export default function CouponCodePanel({
         <span className="relative">{coupon.code ? "Your code" : "No code needed"}</span>
       </div>
 
-      <div className="relative flex flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        <div
-          className={`min-w-0 flex-1 rounded-xl border-2 border-dashed px-4 py-3 text-center font-mono text-xl font-semibold tracking-widest transition-colors ${
-            revealed ? "border-ink/40 bg-paper text-ink" : "border-ledger-line bg-paper text-ink"
-          }`}
-          role="status"
-          aria-live="polite"
-        >
-          {coupon.code ? (
-            revealed ? (
-              <span key="code" className="animate-pop inline-block break-all">
-                {coupon.code}
-              </span>
-            ) : (
-              <>
-                <span aria-hidden className="select-none">
-                  {coupon.code.slice(0, Math.min(3, coupon.code.length))}••••
+      {/* A code to show, or a real requirement to state. Without either, a box that only says
+          "applies at checkout" repeats the bar above and the text below. */}
+      {(coupon.code || requirement) && (
+        <div className="relative flex flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <div
+            className={`min-w-0 flex-1 rounded-xl border-2 border-dashed px-4 py-3 text-center font-mono text-xl font-semibold tracking-widest transition-colors ${
+              revealed ? "border-ink/40 bg-paper text-ink" : "border-ledger-line bg-paper text-ink"
+            }`}
+            role="status"
+            aria-live="polite"
+          >
+            {coupon.code ? (
+              revealed ? (
+                <span key="code" className="animate-pop inline-block break-all">
+                  {coupon.code}
                 </span>
-                <span className="sr-only">Code hidden until revealed</span>
-              </>
-            )
-          ) : (
-            <span className="text-sm font-medium tracking-normal text-ink-soft">
-              {requirement ?? "The offer applies at checkout"}
-            </span>
+              ) : (
+                <>
+                  <span aria-hidden className="select-none">
+                    {coupon.code.slice(0, Math.min(3, coupon.code.length))}••••
+                  </span>
+                  <span className="sr-only">Code hidden until revealed</span>
+                </>
+              )
+            ) : (
+              <span className="text-sm font-medium tracking-normal text-ink-soft">
+                {requirement}
+              </span>
+            )}
+          </div>
+
+          {coupon.code && (
+            <CodeRevealButton
+              code={coupon.code}
+              url={api.goUrl(coupon.id, "reveal")}
+              label={copy.actions.copyCodeAndOpen}
+              successMessage="✅ Code copied! You're ready to save."
+              showCode={false}
+              className="min-w-[7.5rem] shrink-0"
+              onReveal={handleReveal}
+              onStateChange={handleStateChange}
+            />
           )}
         </div>
-
-        {coupon.code && (
-          <CodeRevealButton
-            code={coupon.code}
-            url={api.goUrl(coupon.id, "reveal")}
-            label={copy.actions.copyCodeAndOpen}
-            successMessage="✅ Code copied! You're ready to save."
-            showCode={false}
-            className="min-w-[7.5rem] shrink-0"
-            onReveal={handleReveal}
-            onStateChange={handleStateChange}
-          />
-        )}
-      </div>
+      )}
 
       {copied && (
         <p className="animate-fade-in px-5 text-center text-sm font-medium text-verified" role="status">
@@ -106,7 +110,7 @@ export default function CouponCodePanel({
         </p>
       )}
 
-      <div className="px-5 pb-5 pt-1">
+      <div className={`px-5 pb-5 ${coupon.code || requirement ? "pt-1" : "pt-5"}`}>
         <OutboundLink
           coupon={coupon}
           storeName={storeName}
@@ -121,15 +125,15 @@ export default function CouponCodePanel({
             "Get this deal at the store"
           )}
         </OutboundLink>
-        <p className="mt-2 text-center text-xs text-ink-soft">
+        <p className="mt-2 text-center text-[13px] text-ink-soft">
           {coupon.code
             ? revealed
               ? `${storeName || "The store"} opened in a new tab. Paste your code at checkout, then tell us if it worked.`
               : `Copying the code opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy.`
-            : `Opens ${storeName || "the store"} in a new tab. Come back and tell us if it worked.`}
+            : `Opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy. Come back and tell us if it worked.`}
         </p>
         {requirement && coupon.code && (
-          <p className="mt-1 text-center text-xs text-ink-soft">{requirement}</p>
+          <p className="mt-1 text-center text-[13px] text-ink-soft">{requirement}</p>
         )}
       </div>
     </div>
