@@ -23,7 +23,7 @@ export default function CouponTicketExtras({
   if (extra.length === 0) return null;
 
   return (
-    <div className="relative z-10 mt-3">
+    <div className="relative z-10 mt-1.5">
       <button
         type="button"
         aria-expanded={open}

@@ -32,7 +32,7 @@ interface CouponTicketProps {
 }
 
 /** Height of the action area, so the side notches land on the perforation. */
-const ACTION_HEIGHT = 124;
+const ACTION_HEIGHT = 104;
 
 /**
  * A coupon rendered as a ticket: notched sides, a dashed perforation between
@@ -69,14 +69,14 @@ export default function CouponTicket({
         position={position}
       />
       <article
-        className="ticket deal-ticket flex h-full min-h-[380px] flex-col overflow-hidden rounded-xl border border-ledger-line bg-paper-raised shadow-[var(--shadow-hairline)] transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[var(--shadow-raised)]"
+        className="ticket deal-ticket flex h-full min-h-[320px] flex-col overflow-hidden rounded-xl border border-ledger-line bg-paper-raised shadow-[var(--shadow-hairline)] transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[var(--shadow-raised)]"
         // The mask that cuts the notches is positioned from the top of the
         // card; the perforation sits at a fixed distance from the bottom, so
         // the notches are pinned to the same line.
         style={{ "--notch-y": `calc(100% - ${ACTION_HEIGHT}px)` } as React.CSSProperties}
       >
         {/* Logo tile (top-left) and save (top-right) */}
-        <div className="flex items-start justify-between gap-3 px-4 pt-4">
+        <div className="flex items-start justify-between gap-3 px-3 pt-3">
           <Link
             href={store ? `/stores/${store.slug}` : href}
             className="relative z-10 flex min-w-0 items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
@@ -85,14 +85,14 @@ export default function CouponTicket({
               <Image
                 src={logo}
                 alt=""
-                width={40}
-                height={40}
-                className="h-10 w-10 shrink-0 rounded-lg border border-ledger-line bg-white object-contain"
+                width={32}
+                height={32}
+                className="h-8 w-8 shrink-0 rounded-lg border border-ledger-line bg-white object-contain"
               />
             ) : (
               <span
                 aria-hidden="true"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-ledger-line bg-paper font-mono text-xs font-medium text-ink-soft"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-ledger-line bg-paper font-mono text-xs font-medium text-ink-soft"
               >
                 {storeInitials(store?.name ?? coupon.title)}
               </span>
@@ -103,11 +103,11 @@ export default function CouponTicket({
         </div>
 
         {/* Discount is the anchor; the title is the second thing read. */}
-        <div className="px-4 pt-3">
-          <p className="savings-figure text-3xl font-extrabold text-accent">
+        <div className="px-3 pt-2">
+          <p className="savings-figure text-2xl font-extrabold text-accent">
             {formatDiscount(coupon, store?.currency ?? "INR")}
           </p>
-          <h3 className="mt-2 line-clamp-2 min-h-[2.6rem] font-sans text-[15px] font-medium leading-snug text-ink">
+          <h3 className="mt-1 line-clamp-2 min-h-[2.5rem] font-sans text-sm font-semibold leading-snug text-ink">
             <Link href={href} className="text-ink after:absolute after:inset-0 hover:text-accent">
               {coupon.title}
             </Link>
@@ -115,7 +115,7 @@ export default function CouponTicket({
         </div>
 
         {/* One metadata row: source, check date, expiry, requirement. */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 px-4 pt-3 text-[11px] text-ink-soft">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 px-3 pt-2 text-[10px] text-ink-soft">
           {source?.checkedDate && (
             <span className="inline-flex items-center gap-1">
               <ExternalLink aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
@@ -147,11 +147,11 @@ export default function CouponTicket({
         </div>
 
         {/* Success rate only when shoppers have actually voted. */}
-        <div className="px-4 pt-3">
+        <div className="px-3 pt-2">
           {rate !== null && reports > 0 ? (
             <div className="flex items-center gap-2">
               <span
-                className="h-1.5 w-24 overflow-hidden rounded-full bg-paper-alt"
+                className="h-1.5 w-16 overflow-hidden rounded-full bg-paper-alt"
                 role="img"
                 aria-label={`${rate} of ${reports} shoppers said it worked`}
               >
@@ -160,18 +160,18 @@ export default function CouponTicket({
                   style={{ width: `${Math.round((coupon.success_rate ?? 0) * 100)}%` }}
                 />
               </span>
-              <span className="font-mono text-[11px] text-ink-soft">
+              <span className="font-mono text-[10px] text-ink-soft">
                 {rate} worked · {reports} reports
               </span>
             </div>
           ) : (
-            <p className="text-[11px] text-ink-soft">Be the first to report</p>
+            <p className="text-[10px] text-ink-soft">Be the first to report</p>
           )}
         </div>
 
         {/* Extra codes from the same store and offer type. */}
         {extra.length > 0 && (
-          <div className="relative z-10 px-4 pt-3">
+          <div className="relative z-10 px-3 pt-1">
             <CouponTicketExtras extra={extra} id={`ticket-extras-${coupon.id}`} />
           </div>
         )}
@@ -181,12 +181,12 @@ export default function CouponTicket({
 
         {/* Action area */}
         <div
-          className="relative z-10 flex shrink-0 flex-col justify-center gap-2 px-4 pb-4 pt-3"
+          className="relative z-10 flex shrink-0 flex-col justify-center gap-2 px-3 pb-3 pt-2"
           style={{ height: ACTION_HEIGHT }}
         >
           {coupon.code ? (
             <>
-              <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-3 py-2 font-mono text-sm font-medium text-ink">
+              <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-2 py-1.5 font-mono text-xs font-medium text-ink">
                 {maskCode(coupon.code) ?? coupon.code}
               </code>
               <TicketCodeAction
@@ -196,8 +196,8 @@ export default function CouponTicket({
               />
             </>
           ) : (
-            <div className="flex flex-col gap-2">
-              <p className="text-sm text-ink-soft">
+            <div className="flex flex-col gap-1">
+              <p className="text-xs leading-tight text-ink-soft">
                 {requirement ?? "The offer applies at checkout"}
               </p>
               <Link

@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import CouponTicket from "@/components/coupons/CouponTicket";
 import type { CouponPublic } from "@/lib/types";
+
+vi.mock("@/components/CardSaveButton", () => ({ CardSaveButton: () => null }));
 
 function makeCoupon(overrides: Partial<CouponPublic> = {}): CouponPublic {
   return {
@@ -45,6 +47,24 @@ describe("CouponTicket", () => {
   it("prints the discount as the anchor", () => {
     render(<CouponTicket coupon={makeCoupon()} store={store} />);
     expect(screen.getByText("20% off")).toBeInTheDocument();
+  });
+
+  it("keeps conditions and the deal link visible for code-free offers", () => {
+    render(
+      <CouponTicket
+        coupon={makeCoupon({
+          code: null,
+          title: "HDFC Bank offer on headphones",
+        })}
+        store={store}
+      />,
+    );
+
+    expect(screen.getAllByText("Bank offer: HDFC Bank")).toHaveLength(2);
+    expect(screen.getByRole("link", { name: "Get deal" })).toHaveAttribute(
+      "href",
+      "/coupons/20-off-headphones",
+    );
   });
 
   it("shows the real check date", () => {
