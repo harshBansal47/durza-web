@@ -58,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
     other: {
       "google-adsense-account": BRAND.adsensePublisherId,
-      "mitgo-verification": "36557085-458b-4657-ac1f-8b23e530c956",
+      "mitgo-verification": process.env.MITGO_VERIFICATION ?? "36557085-458b-4657-ac1f-8b23e530c956",
     },
   };
 }
