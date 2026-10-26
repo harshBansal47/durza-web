@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CouponCard, { CouponCardGrid, type CouponCardStore } from "@/components/CouponCard";
 import type { CouponPublic } from "@/lib/types";
 
+vi.mock("@/components/CardSaveButton", () => ({ CardSaveButton: () => null }));
+
 const NOW = new Date("2026-03-15T12:00:00Z");
 
 function makeCoupon(overrides: Partial<CouponPublic> = {}): CouponPublic {
@@ -65,7 +67,7 @@ describe("CouponCard", () => {
     render(<CouponCard coupon={makeCoupon()} store={store} />);
     expect(screen.getByText("SAV•••")).toBeInTheDocument();
     expect(screen.queryByText("SAVE20")).not.toBeInTheDocument();
-    expect(screen.getByText(/to reveal it/)).toBeInTheDocument();
+    expect(screen.getByText("Tap View code to reveal")).toBeInTheDocument();
   });
 
   it("says a discount is already applied when there is no code", () => {
@@ -74,51 +76,102 @@ describe("CouponCard", () => {
     expect(screen.queryByText("SAVE20")).not.toBeInTheDocument();
   });
 
-  describe("verified stamp", () => {
-    it("stays hidden below two reports — one click is not evidence", () => {
+  describe("shopper report summary", () => {
+    it("shows report count without implying a verified result", () => {
       render(
         <CouponCard
-          coupon={makeCoupon({ success_count: 1, fail_count: 0, success_rate: 100 })}
+          coupon={makeCoupon({ success_count: 1, fail_count: 0, success_rate: 1 })}
           store={store}
         />,
       );
-      expect(screen.queryByTitle(/Worked for/)).not.toBeInTheDocument();
+      expect(screen.getByLabelText("100% worked, 1 shopper report")).toBeInTheDocument();
+      expect(screen.queryByText(/Verified working/)).not.toBeInTheDocument();
     });
 
-    it("appears once there are at least two reports", () => {
+    it("shows the rate and count for existing reports without a duplicate check badge", () => {
       render(
         <CouponCard
-          coupon={makeCoupon({ success_count: 9, fail_count: 1, success_rate: 90 })}
+          coupon={makeCoupon({ success_count: 9, fail_count: 1, success_rate: 0.9 })}
           store={store}
         />,
       );
-      expect(screen.getByTitle("Worked for 9 of 10 people who tried it")).toBeInTheDocument();
+      expect(screen.getByLabelText("90% worked, 10 shopper reports")).toBeInTheDocument();
+      expect(screen.queryByText("No votes yet")).not.toBeInTheDocument();
     });
 
-    it("appears even when the rate is poor — it reports, not endorses", () => {
+    it("shows a poor rate accurately without treating it as an endorsement", () => {
       render(
         <CouponCard
-          coupon={makeCoupon({ success_count: 2, fail_count: 8, success_rate: 20 })}
+          coupon={makeCoupon({ success_count: 2, fail_count: 8, success_rate: 0.2 })}
           store={store}
         />,
       );
-      expect(screen.getByTitle("Worked for 2 of 10 people who tried it")).toBeInTheDocument();
+      expect(screen.getByLabelText("20% worked, 10 shopper reports")).toBeInTheDocument();
     });
 
-    it("does not appear on an expired coupon", () => {
+    it("does not show shopper reports for an expired coupon", () => {
       render(
         <CouponCard
           coupon={makeCoupon({
             expires_at: daysFromNow(-1),
             success_count: 9,
             fail_count: 1,
-            success_rate: 90,
+            success_rate: 0.9,
           })}
           store={store}
         />,
       );
-      expect(screen.queryByTitle(/Worked for/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/worked ·/)).not.toBeInTheDocument();
     });
+  });
+
+  it("uses a clear heading when the coupon has no stated discount amount", () => {
+    render(
+      <CouponCard
+        coupon={makeCoupon({ discount_type: "deal", discount_value: null })}
+        store={store}
+      />,
+    );
+    expect(screen.getByText("Special Offer")).toBeInTheDocument();
+  });
+
+  it("clamps long offer titles and descriptions while keeping title text accessible", () => {
+    render(
+      <CouponCard
+        coupon={makeCoupon({
+          title: "A long offer title with conditions that spans several lines on a card",
+          description: "A supporting description that also contains enough detail to span more than two lines in the grid.",
+        })}
+        store={store}
+      />,
+    );
+    const title = screen.getByRole("heading", {
+      name: "A long offer title with conditions that spans several lines on a card",
+    });
+    expect(title).toHaveClass("line-clamp-2");
+    expect(screen.getByText(/supporting description/)).toHaveClass("line-clamp-2");
+  });
+
+  it("shows the checked date once alongside the source link", () => {
+    render(
+      <CouponCard
+        coupon={makeCoupon({
+          last_checked_at: "2026-10-17T00:00:00Z",
+          restrictions: {
+            source_url: "https://shop.example/offer",
+            source_kind: "store page",
+            checked_on: "2026-10-17",
+          },
+        })}
+        store={store}
+      />,
+    );
+    expect(screen.getAllByText(/Checked 17 Oct 2026/)).toHaveLength(1);
+    expect(screen.getByRole("link", { name: "View source" })).toHaveAttribute(
+      "href",
+      "https://shop.example/offer",
+    );
+    expect(screen.queryByText(/No votes yet.*Checked/)).not.toBeInTheDocument();
   });
 
   describe("expiry", () => {

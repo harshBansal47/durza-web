@@ -42,6 +42,12 @@ export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
   return "Deal";
 }
 
+/** A visual fallback for offer cards when the source supplies no amount. */
+export function formatDiscountHeading(coupon: CouponPublic, currency = "INR"): string {
+  const discount = formatDiscount(coupon, currency);
+  return discount === "Deal" ? "Special Offer" : discount;
+}
+
 /**
  * Money formatting that respects the store/product's own currency.
  * Durza lists Indian stores, so the default is INR formatted for India

@@ -60,7 +60,7 @@ describe("CouponTicket", () => {
       />,
     );
 
-    expect(screen.getAllByText("Bank offer: HDFC Bank")).toHaveLength(2);
+    expect(screen.getByText("Bank offer: HDFC Bank")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Get deal" })).toHaveAttribute(
       "href",
       "/coupons/20-off-headphones",
@@ -81,10 +81,10 @@ describe("CouponTicket", () => {
     expect(screen.getByText(/Expires 1 Nov 2026/)).toBeInTheDocument();
   });
 
-  it("asks for a first report instead of claiming no votes", () => {
+  it("omits report messaging when no shopper reports exist", () => {
     render(<CouponTicket coupon={makeCoupon()} store={store} />);
-    expect(screen.getByText("Be the first to report")).toBeInTheDocument();
-    expect(screen.queryByText(/No votes yet/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/report/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Checked 10 Mar 2026/)).toBeInTheDocument();
   });
 
   it("shows the success rate only when shoppers have voted", () => {

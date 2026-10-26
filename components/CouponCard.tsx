@@ -1,16 +1,21 @@
 import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
-import { Check } from "lucide-react";
 import { storeInitials } from "@/lib/catalog";
 import { storeLogoUrl } from "@/lib/storeLogos";
-import { daysUntil, expiryLabel, formatDiscount, formatMoney, successRateLabel, totalReports } from "@/lib/format";
+import {
+  daysUntil,
+  expiryLabel,
+  formatDiscountHeading,
+  formatMoney,
+  successRateLabel,
+  totalReports,
+} from "@/lib/format";
 import { maskCode } from "@/lib/codes";
 import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
 import { CardImpressions } from "./CardImpressions";
-import TrustBadge from "./TrustBadge";
 import { expiryTone } from "@/lib/persuasion";
 
 export type CouponCardVariant = "coupon" | "price-drop" | "free-shipping" | "expiring-soon" | "featured";
@@ -51,12 +56,12 @@ function StoreLine({ store }: { store: CouponCardStore }) {
   return (
     <Link
       href={`/stores/${store.slug}`}
-      className="relative z-10 flex min-w-0 items-center gap-2 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink"
+      className="relative z-10 flex min-w-0 items-center gap-2 text-xs font-medium text-ink-soft transition-colors hover:text-ink"
     >
       {logo ? (
-        <Image src={logo} alt="" width={40} height={40} className="h-10 w-10 rounded-lg border border-ledger-line bg-white object-contain" />
+        <Image src={logo} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-lg border border-ledger-line bg-white object-contain" />
       ) : (
-        <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-lg border border-ledger-line bg-paper font-mono text-xs font-medium text-ink-soft">
+        <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-ledger-line bg-paper font-mono text-xs font-medium text-ink-soft">
           {initials(store.name)}
         </span>
       )}
@@ -94,10 +99,15 @@ export function CouponCard({
   const href = ctaHref ?? `/coupons/${coupon.slug}`;
   const rate = successRateLabel(coupon);
   const reports = totalReports(coupon);
-  const trusted = rate !== null && reports >= 2;
   const featured = resolved === "featured";
   const source = sourceLine(coupon);
   const requirement = cardRequirementLine(coupon);
+  const discountHeading =
+    resolved === "price-drop"
+      ? "Price ↓"
+      : resolved === "free-shipping"
+        ? "Free ship"
+        : formatDiscountHeading(coupon, currency);
 
   return (
     <div className={`ticket-wrap h-full ${expired ? "opacity-70" : ""} ${className}`}>
@@ -108,79 +118,78 @@ export function CouponCard({
         } ${featured ? "ring-1 ring-accent-soft" : ""}`}
       >
         {/* Discount is the visual hero */}
-        <div className="flex items-start justify-between gap-3 px-5 pt-5">
-          <div className="min-w-0">
-            <p className={`savings-figure ${featured ? "text-3xl" : "text-2xl"} font-extrabold`}>
-              {resolved === "price-drop" ? (
-                "Price ↓"
-              ) : resolved === "free-shipping" ? (
-                "Free ship"
-              ) : featured ? (
-                <span className="marker">{formatDiscount(coupon, currency)}</span>
+        <div className="flex items-start justify-between gap-3 px-4 pt-2">
+          <div className="min-w-0 flex-1">
+            <p
+              className={`savings-figure truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} font-extrabold`}
+              title={discountHeading}
+            >
+              {featured ? (
+                <span className="marker">{discountHeading}</span>
               ) : (
-                formatDiscount(coupon, currency)
+                discountHeading
               )}
             </p>
-            <div className="mt-1.5">
+            <div className="mt-0">
               {store ? <StoreLine store={store} /> : null}
             </div>
           </div>
           <CardSaveButton couponId={coupon.id} />
         </div>
 
-        <div className="flex flex-1 flex-col gap-3 p-5 pt-4">
+        <div className="flex flex-1 flex-col gap-1.5 px-4 pb-2 pt-1.5">
           <div className="min-w-0">
-            <h3 className="font-sans text-[17px] font-medium leading-snug text-ink">
+            <h3 className="line-clamp-2 min-h-[2.25rem] font-sans text-[15px] font-semibold leading-[1.125rem] text-ink">
               <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
                 {coupon.title}
               </Link>
             </h3>
-            {coupon.description && <p className="mt-1 line-clamp-2 text-sm text-ink-soft">{coupon.description}</p>}
+            {coupon.description && (
+              <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
+                {coupon.description}
+              </p>
+            )}
           </div>
 
-          {/* Trust signals: only what the data supports */}
-          <div className="flex flex-wrap items-center gap-1.5" aria-label="Deal status">
+          <div className="relative z-10 flex min-h-5 flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-soft">
             {badge && (
               <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-white">
                 {badge}
               </span>
             )}
-            {trusted && !expired && (
-              <span className="stamp text-verified" title={`Worked for ${coupon.success_count} of ${reports} people who tried it`}>
-                <Check aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
-                {rate} · {reports} reports
+            {!expired && reports > 0 && (
+              <span
+                className="font-mono text-[11px] text-ink-soft"
+                aria-label={`${rate ? `${rate} worked, ` : ""}${reports} shopper ${reports === 1 ? "report" : "reports"}`}
+              >
+                {rate ? `${rate} worked · ` : ""}
+                {reports} {reports === 1 ? "report" : "reports"}
               </span>
             )}
-            {!expired && (
-              <TrustBadge
-                successRate={coupon.success_rate}
-                reports={reports}
-                checkedDate={source?.checkedDate}
-              />
-            )}
             {expired && <span className="stamp text-ink-soft">Expired</span>}
-            {/* Source provenance, not a shopper vote: when the store's page was
-                last read. Expiry urgency already has its own single label at the
-                bottom of the card. */}
-            {!expired && source?.checkedDate && (
-              <span className="flex flex-wrap items-center gap-1.5">
-                <span
-                  className="font-mono text-[11px] text-ink-soft"
-                  title={source.url ? `${source.text} — ${source.url}` : source.text}
-                >
-                  Checked {source.checkedDate}
-                </span>
+            {source && (source.checkedDate || source.url || source.text) && (
+              <>
+                {source.checkedDate ? (
+                  <span
+                    className="font-mono text-[11px] text-ink-soft"
+                    title={source.text}
+                  >
+                    Checked {source.checkedDate}
+                  </span>
+                ) : (
+                  <span className="truncate">{source.text}</span>
+                )}
                 {source.url && (
                   <a
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="font-mono text-[11px] font-medium text-durza-deep underline-offset-2 hover:underline"
+                    className="shrink-0 font-mono text-[11px] font-medium text-durza-deep underline-offset-2 hover:underline"
                   >
                     View source
                   </a>
                 )}
-              </span>
+              </>
             )}
           </div>
 
@@ -209,24 +218,28 @@ export function CouponCard({
           )}
 
           {resolved !== "price-drop" && resolved !== "free-shipping" && (
-            <p className="text-sm text-ink-soft">
-              {coupon.code ? (
-                <>
-                  Code{" "}
-                  <code className="break-anywhere rounded-lg border border-dashed border-ink/30 bg-paper px-3 py-2 font-mono text-sm font-medium text-ink">
-                    {maskCode(coupon.code) ?? coupon.code}
-                  </code>{" "}
-                  — tap &ldquo;View code&rdquo; to reveal it
-                </>
-              ) : requirement ? (
-                requirement
-              ) : (
-                "No code needed — the offer applies at checkout"
-              )}
-            </p>
+            <div className="@container/coupon-card-code min-w-0">
+              <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-soft">
+                {coupon.code ? (
+                  <>
+                    <span className="text-ink-soft">Code</span>
+                    <code className="break-anywhere rounded-md border border-dashed border-ink/30 bg-paper px-2 py-1 font-mono text-xs font-medium text-ink">
+                      {maskCode(coupon.code) ?? coupon.code}
+                    </code>
+                    <span className="basis-full text-[11px] text-ink-soft @min-[300px]/coupon-card-code:basis-auto">
+                      Tap View code to reveal
+                    </span>
+                  </>
+                ) : requirement ? (
+                  requirement
+                ) : (
+                  "No code needed — the offer applies at checkout"
+                )}
+              </div>
+            </div>
           )}
 
-          <div className="mt-auto flex flex-wrap items-center justify-between gap-2 text-xs text-ink-soft">
+          <div className="mt-auto flex min-h-5 flex-wrap items-center justify-between gap-2 text-xs text-ink-soft">
             <div>
               {!hideExpiry && expiryLabel(coupon.expires_at) && (
                 <span
@@ -281,7 +294,7 @@ export function CouponCardGrid({
   const storeById = new Map(stores.map((s) => [s.id, s]));
   if (coupons.length === 0) return null;
   return (
-    <div className={`grid gap-4 ${className}`}>
+    <div className={`grid items-stretch gap-3 ${className}`}>
       {coupons.map((coupon, i) => (
         <CouponCard
           key={coupon.id}

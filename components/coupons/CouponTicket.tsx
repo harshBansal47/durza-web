@@ -1,9 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarDays, ExternalLink, Tag } from "lucide-react";
+import { CalendarDays, Tag } from "lucide-react";
 import { storeInitials } from "@/lib/catalog";
-import { daysUntil, formatDate, formatDiscount, successRateLabel, totalReports } from "@/lib/format";
-import { requirementLabels, sourceLine } from "@/lib/requirements";
+import {
+  daysUntil,
+  formatDate,
+  formatDiscountHeading,
+  successRateLabel,
+  totalReports,
+} from "@/lib/format";
+import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import { maskCode } from "@/lib/codes";
 import type { ImpressionPageType } from "@/lib/analytics";
@@ -57,8 +63,9 @@ export default function CouponTicket({
   const rate = successRateLabel(coupon);
   const daysLeft = daysUntil(coupon.expires_at);
   const expired = daysLeft !== null && daysLeft < 0;
-  const requirement = requirementLabels(coupon)[0] ?? (coupon.code ? null : "No code needed");
+  const requirement = cardRequirementLine(coupon) ?? (coupon.code ? null : "No code needed");
   const href = `/coupons/${coupon.slug}`;
+  const discountHeading = formatDiscountHeading(coupon, store?.currency ?? "INR");
 
   return (
     <div className={`ticket-wrap h-full ${className}`}>
@@ -76,7 +83,7 @@ export default function CouponTicket({
         style={{ "--notch-y": `calc(100% - ${ACTION_HEIGHT}px)` } as React.CSSProperties}
       >
         {/* Logo tile (top-left) and save (top-right) */}
-        <div className="flex items-start justify-between gap-3 px-3 pt-3">
+        <div className="flex items-start justify-between gap-3 px-3 pt-2">
           <Link
             href={store ? `/stores/${store.slug}` : href}
             className="relative z-10 flex min-w-0 items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
@@ -103,31 +110,40 @@ export default function CouponTicket({
         </div>
 
         {/* Discount is the anchor; the title is the second thing read. */}
-        <div className="px-3 pt-2">
-          <p className="savings-figure text-2xl font-extrabold text-accent">
-            {formatDiscount(coupon, store?.currency ?? "INR")}
+        <div className="px-3 pt-1">
+          <p
+            className="savings-figure truncate text-xl font-extrabold text-accent"
+            title={discountHeading}
+          >
+            {discountHeading}
           </p>
-          <h3 className="mt-1 line-clamp-2 min-h-[2.5rem] font-sans text-sm font-semibold leading-snug text-ink">
+          <h3 className="mt-1 line-clamp-2 min-h-[2.25rem] font-sans text-sm font-semibold leading-[1.125rem] text-ink">
             <Link href={href} className="text-ink after:absolute after:inset-0 hover:text-accent">
               {coupon.title}
             </Link>
           </h3>
+          {coupon.description && (
+            <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
+              {coupon.description}
+            </p>
+          )}
         </div>
 
-        {/* One metadata row: source, check date, expiry, requirement. */}
+        {/* Compact source, expiry, and requirement metadata. */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 px-3 pt-2 text-[10px] text-ink-soft">
-          {source?.checkedDate && (
+          {(source?.checkedDate || source?.url) && (
             <span className="inline-flex items-center gap-1">
-              <ExternalLink aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
-              <span className="font-mono">Checked {source.checkedDate}</span>
+              {source.checkedDate && (
+                <span className="font-mono">Checked {source.checkedDate}</span>
+              )}
               {source.url && (
                 <a
                   href={source.url}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="relative z-10 inline-flex min-h-6 items-center px-1 font-medium text-durza-deep underline-offset-2 hover:underline"
+                  className="relative z-10 inline-flex min-h-6 items-center font-medium text-durza-deep underline-offset-2 hover:underline"
                 >
-                  source
+                  View source
                 </a>
               )}
             </span>
@@ -139,14 +155,13 @@ export default function CouponTicket({
             </span>
           )}
           {requirement && (
-            <span className="inline-flex items-center gap-1">
+            <span className="inline-flex min-w-0 items-center gap-1">
               <Tag aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
-              {requirement}
+              <span className="truncate">{requirement}</span>
             </span>
           )}
         </div>
 
-        {/* Success rate only when shoppers have actually voted. */}
         <div className="px-3 pt-2">
           {rate !== null && reports > 0 ? (
             <div className="flex items-center gap-2">
@@ -164,9 +179,11 @@ export default function CouponTicket({
                 {rate} worked · {reports} reports
               </span>
             </div>
-          ) : (
-            <p className="text-[10px] text-ink-soft">Be the first to report</p>
-          )}
+          ) : reports > 0 ? (
+            <p className="font-mono text-[10px] text-ink-soft">
+              {reports} {reports === 1 ? "report" : "reports"}
+            </p>
+          ) : null}
         </div>
 
         {/* Extra codes from the same store and offer type. */}
@@ -196,10 +213,7 @@ export default function CouponTicket({
               />
             </>
           ) : (
-            <div className="flex flex-col gap-1">
-              <p className="text-xs leading-tight text-ink-soft">
-                {requirement ?? "The offer applies at checkout"}
-              </p>
+            <div className="flex flex-col">
               <Link
                 href={href}
                 className="btn btn-primary w-full justify-center"

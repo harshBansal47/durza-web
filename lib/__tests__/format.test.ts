@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { formatDiscount, formatRelativeTime, successRateLabel } from "@/lib/format";
+import {
+  formatDiscount,
+  formatDiscountHeading,
+  formatRelativeTime,
+  successRateLabel,
+} from "@/lib/format";
 import type { CouponPublic } from "@/lib/types";
 
 function makeCoupon(overrides: Partial<CouponPublic> = {}): CouponPublic {
@@ -61,6 +66,12 @@ describe("formatDiscount", () => {
   it("falls back to 'Deal' when discount_value is missing even for percentage/fixed", () => {
     expect(formatDiscount(makeCoupon({ discount_type: "percentage", discount_value: null }))).toBe(
       "Deal",
+    );
+  });
+
+  it("uses a neutral visual heading when no discount amount is available", () => {
+    expect(formatDiscountHeading(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
+      "Special Offer",
     );
   });
 });
