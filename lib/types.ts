@@ -245,7 +245,14 @@ export interface SavedItem {
   saved_id: string;
 }
 
-export type AlertKind = "price_drop" | "coupon_appeared" | "target_met";
+export type AlertKind =
+  | "price_drop"
+  | "coupon_appeared"
+  | "target_met"
+  | "new_offer"
+  | "confirmed"
+  | "ending_soon"
+  | "ended";
 
 export interface TrackedProduct {
   id: string;
@@ -282,6 +289,10 @@ export interface AlertEvent {
   detail: string | null;
   delivered: boolean;
   price_point_id: string | null;
+  /** Deal alerts: shared by every channel row of one alert. */
+  batch_id?: string | null;
+  coupon_id?: string | null;
+  store_id?: string | null;
   created_at: string;
 }
 

@@ -46,7 +46,7 @@ export default async function AccountOverviewPage() {
   // Count distinct alerts, not delivery attempts. A user with email and push on
   // got one price drop, not two — showing "2 alerts sent" for a single drop is
   // the kind of small inaccuracy that makes a statistics panel untrustworthy.
-  const alertKeys = new Set(alerts.map((a) => a.price_point_id ?? a.id));
+  const alertKeys = new Set(alerts.map((a) => a.price_point_id ?? a.batch_id ?? a.id));
 
   // These counts come from the authenticated account endpoints, not catalogue
   // lookups that may fail or no longer have a matching public row.

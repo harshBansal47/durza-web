@@ -39,12 +39,18 @@ interface SessionContextValue {
   session: SessionState;
   /** Optimistic switch used the moment a sign-out is submitted. */
   markSignedOut: () => void;
+  /** Ask the server again who this is, e.g. after signing in without leaving the page. */
+  refresh: () => void;
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null);
 
 /** Stable fallback so a consumer rendered outside the provider still renders. */
-const NO_SESSION: SessionContextValue = { session: ANONYMOUS, markSignedOut: () => {} };
+const NO_SESSION: SessionContextValue = {
+  session: ANONYMOUS,
+  markSignedOut: () => {},
+  refresh: () => {},
+};
 
 /**
  * The signed-in visitor, resolved on the client.
@@ -112,8 +118,14 @@ export function SessionProvider({
   }, [pathname, initial, refresh]);
 
   const value = useMemo(
-    () => ({ session, markSignedOut: () => setSession(ANONYMOUS) }),
-    [session],
+    () => ({
+      session,
+      markSignedOut: () => setSession(ANONYMOUS),
+      refresh: () => {
+        void refresh();
+      },
+    }),
+    [session, refresh],
   );
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;

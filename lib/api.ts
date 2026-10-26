@@ -432,6 +432,14 @@ export const api = {
   unsaveStore: (token: string, storeId: string) =>
     apiFetch<void>(`/me/saved-stores/${storeId}`, { method: "DELETE", token, cache: "no-store" }),
 
+  /** Turn off alert email with the signed token from an email. No session needed. */
+  unsubscribeByToken: (token: string) =>
+    apiFetch<void>("/auth/unsubscribe-email", {
+      method: "POST",
+      body: JSON.stringify({ token }),
+      cache: "no-store",
+    }),
+
   listSavedCoupons: (token: string) => apiFetch<SavedItem[]>("/me/saved-coupons", { token, cache: "no-store" }),
 
   saveCoupon: (token: string, couponId: string) =>

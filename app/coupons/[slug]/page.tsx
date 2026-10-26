@@ -409,10 +409,7 @@ import TrackDealBanner from "@/components/TrackDealBanner";
         {/* Every other section carries mb-8; without it the next heading sat flush against this card. */}
         <div className="mb-8">
           <TrackDealBanner
-            currentPrice={null}
-            targetPrice={null}
-            currency={store?.currency ?? "INR"}
-            dealTitle={coupon.title}
+            target={{ kind: "coupon", id: coupon.id, title: coupon.title, storeName: store?.name }}
           />
         </div>
 

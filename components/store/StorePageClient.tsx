@@ -224,10 +224,7 @@ export default function StorePageClient({
         </p>
       )}
 
-      <TrackDealBanner
-        currency={code}
-        dealTitle={`${store.name} offers`}
-      />
+      <TrackDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />
 
       <section aria-labelledby="proof">
         <h2 id="proof" className="font-serif text-2xl font-extrabold text-ink">

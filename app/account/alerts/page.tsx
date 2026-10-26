@@ -17,6 +17,10 @@ const KIND_LABEL: Record<AlertKind, string> = {
   price_drop: "Price drop",
   coupon_appeared: "New code",
   target_met: "Target reached",
+  new_offer: "New offer",
+  confirmed: "Confirmed working",
+  ending_soon: "Ending soon",
+  ended: "No longer available",
 };
 
 const CHANNEL_LABEL: Record<string, string> = {
@@ -35,14 +39,18 @@ const CHANNEL_LABEL: Record<string, string> = {
  */
 const KIND_PRIORITY: Record<AlertKind, number> = {
   target_met: 0,
-  price_drop: 1,
-  coupon_appeared: 2,
+  ending_soon: 1,
+  price_drop: 2,
+  ended: 3,
+  confirmed: 4,
+  new_offer: 5,
+  coupon_appeared: 6,
 };
 
 function groupByAlert(events: AlertEvent[]): { key: string; event: AlertEvent; attempts: AlertEvent[] }[] {
   const groups = new Map<string, AlertEvent[]>();
   for (const event of events) {
-    const key = `${event.price_point_id ?? event.id}`;
+    const key = `${event.price_point_id ?? event.batch_id ?? event.id}`;
     const bucket = groups.get(key);
     if (bucket) bucket.push(event);
     else groups.set(key, [event]);

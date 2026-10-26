@@ -8,36 +8,41 @@ import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Turn off email alerts",
-  description: "Stop Durza email alerts without signing in.",
+  description: "Stop Durza email alerts using the link in your email.",
   alternates: { canonical: absoluteUrl("/account/unsubscribe") },
   robots: { index: false, follow: false },
 };
 
-export default async function UnsubscribePage() {
-  // Prefill from the session when there is one, but do not require it — this
-  // page is reached from a link in an alert email.
-  const token = await getAccessToken();
-  let email = "";
-  if (token) {
-    try {
-      const { api } = await import("@/lib/api");
-      email = (await api.me(token)).email;
-    } catch {
-      email = "";
-    }
-  }
+export default async function UnsubscribePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ token?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const token = Array.isArray(params.token) ? params.token[0] : params.token;
+
+  // Signed in? Then the page can act on the account without a token.
+  const session = await getAccessToken();
 
   return (
     <main className="mx-auto w-full max-w-xl px-4 py-16">
       <PageTitle>Turn off email alerts</PageTitle>
       <p className="mt-2 text-ink-soft">
-        {email
-          ? "This will stop email alerts for your account. Everything else on Durza keeps working."
-          : "Enter the address you receive Durza alerts at and we will stop emailing it. You can turn alerts back on at any time."}
+        {token
+          ? "This will stop Durza alert emails to the address this link was sent to. Everything else on Durza keeps working."
+          : session
+            ? "This will stop email alerts for your account. Everything else on Durza keeps working."
+            : "Open the unsubscribe link from one of our emails, or sign in to manage alerts from your account."}
       </p>
 
       <div className="mt-8">
-        <UnsubscribeForm action={unsubscribeAction} initialEmail={email} />
+        {token || session ? (
+          <UnsubscribeForm action={unsubscribeAction} token={token} />
+        ) : (
+          <Link href="/account/login?next=/account/notifications" className="text-inkblue hover:underline">
+            Sign in to manage alerts
+          </Link>
+        )}
       </div>
 
       <p className="mt-8 text-sm text-ink-soft">

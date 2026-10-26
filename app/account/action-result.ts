@@ -18,6 +18,23 @@ export interface ActionResult {
   message?: string;
 }
 
+/**
+ * Result of one step of "track this" for someone who may not be signed in.
+ *
+ * `codeSentTo` moves the flow to the code step; `tracking` means the visitor is
+ * now signed in *and* tracking. `signedIn` without `tracking` is the awkward
+ * middle (the code was right but saving failed): the visitor has a session and
+ * only needs to press the button again.
+ */
+export interface TrackFlowResult extends ActionResult {
+  codeSentTo?: string;
+  sentAt?: number;
+  tracking?: boolean;
+  signedIn?: boolean;
+  /** Masked, for reassurance ("we'll email a•••@gmail.com"), never the full address. */
+  email?: string;
+}
+
 export function ok(message?: string): ActionResult {
   return { message };
 }

@@ -8,7 +8,13 @@ import {
   setSessionCookies,
 } from "@/lib/session";
 import type { PushPublicKey, PushSubscriptionPayload } from "@/lib/types";
-import { describeError, fail, ok, type ActionResult } from "./action-result";
+import {
+  describeError,
+  fail,
+  ok,
+  type ActionResult,
+  type TrackFlowResult,
+} from "./action-result";
 
 /**
  * Server Actions for the account area.
@@ -223,18 +229,127 @@ async function setSavedItem(
     if (kind === "store") {
       return ok(
         shouldSave
-          ? "Saved. We will email you when this store has a confirmed code."
-          : "Removed from your stores.",
+          ? "You're following this store. We'll email you when it has a new offer, at most once a day."
+          : "You've stopped following this store.",
       );
     }
     return ok(
       shouldSave
-        ? "Saved. We will email you when this code is confirmed working."
-        : "Removed from your saved codes.",
+        ? "You're tracking this offer. We'll email you if it's confirmed working, about to end, or stops working."
+        : "You've stopped tracking this offer.",
     );
   } catch (error) {
     return fail(describeError(error));
   }
+}
+
+/* ------------------------------------------------------------------ */
+/* Track / follow, for visitors who may not have an account yet         */
+/* ------------------------------------------------------------------ */
+
+type TrackKind = "store" | "coupon";
+
+function isTrackKind(value: unknown): value is TrackKind {
+  return value === "store" || value === "coupon";
+}
+
+/** `harsh@gmail.com` -> `h••••@gmail.com`. Enough to recognise, not enough to harvest. */
+function maskEmail(email: string): string {
+  const [name = "", domain] = email.split("@");
+  if (!domain) return email;
+  return `${name.slice(0, 1)}${"\u2022".repeat(Math.min(Math.max(name.length - 1, 1), 4))}@${domain}`;
+}
+
+/**
+ * Is this visitor signed in, and are they already tracking this?
+ *
+ * Asked from the client once the page is on screen, so the cached page itself
+ * never depends on who is looking. Any failure reads as "signed out": the
+ * worst case is that a signed-in visitor is offered the email-code step, which
+ * still works.
+ */
+export async function trackingStatusAction(
+  kind: TrackKind,
+  itemId: string,
+): Promise<{ signedIn: boolean; tracking: boolean; email: string | null }> {
+  const token = await getAccessToken();
+  if (!token || !isTrackKind(kind)) return { signedIn: false, tracking: false, email: null };
+  try {
+    const [rows, me] = await Promise.all([
+      kind === "store" ? api.listSavedStores(token) : api.listSavedCoupons(token),
+      api.me(token),
+    ]);
+    return {
+      signedIn: true,
+      tracking: rows.some((row) => row.kind === kind && row.item_id === itemId),
+      email: maskEmail(me.email),
+    };
+  } catch {
+    return { signedIn: false, tracking: false, email: null };
+  }
+}
+
+/**
+ * Step 1 for a signed-out visitor: email them a sign-in code.
+ *
+ * Like the login page, it never reveals why a code might not arrive (unknown
+ * address, cooldown, delivery trouble all look the same), so only a malformed
+ * address is reported back.
+ */
+export async function requestTrackCodeAction(
+  _prev: TrackFlowResult,
+  formData: FormData,
+): Promise<TrackFlowResult> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  if (!email || !email.includes("@")) return fail("Enter a valid email address.");
+
+  try {
+    await api.requestEmailOtp(email);
+  } catch {
+    // Deliberately silent; see above.
+  }
+  return { codeSentTo: email, sentAt: Date.now() };
+}
+
+/**
+ * Step 2: confirm the code, sign them in, and start tracking, in one go.
+ *
+ * Unlike `verifyEmailOtpAction` this does not redirect: the visitor stays on
+ * the offer they were looking at. The save uses the tokens straight from the
+ * verify call rather than re-reading the cookie that was just set.
+ */
+export async function trackWithEmailCodeAction(
+  _prev: TrackFlowResult,
+  formData: FormData,
+): Promise<TrackFlowResult> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const code = String(formData.get("code") ?? "").replace(/\s+/g, "");
+  const kind = formData.get("kind");
+  const itemId = String(formData.get("itemId") ?? "");
+
+  if (!email || !isTrackKind(kind) || !itemId) return fail("Start again and enter your email address.");
+  if (!/^\d{6}$/.test(code)) return { ...fail("Enter the 6-digit code from your email."), codeSentTo: email };
+
+  let accessToken: string;
+  try {
+    const tokens = await api.verifyEmailOtp(email, code);
+    await setSessionCookies(tokens.access_token, tokens.refresh_token);
+    accessToken = tokens.access_token;
+  } catch (error) {
+    const message =
+      error instanceof ApiError && error.status === 400
+        ? "That code is invalid or has expired. Send a new one."
+        : describeError(error);
+    return { ...fail(message), codeSentTo: email };
+  }
+
+  try {
+    if (kind === "store") await api.saveStore(accessToken, itemId);
+    else await api.saveCoupon(accessToken, itemId);
+  } catch (error) {
+    return { ...fail(describeError(error)), signedIn: true };
+  }
+  return { tracking: true, signedIn: true, email: maskEmail(email) };
 }
 
 /** Set backend state explicitly so browser-local state cannot invert a save. */
@@ -459,22 +574,35 @@ export async function loadPushKey(): Promise<PushPublicKey> {
  * session — a signed-out reader clicking "unsubscribe" should still be honoured.
  */
 export async function unsubscribeAction(_prev: ActionResult, formData: FormData): Promise<ActionResult> {
-  const email = String(formData.get("email") ?? "").trim();
-  if (!email) return fail("Enter the email address you subscribed with.");
+  const emailToken = String(formData.get("token") ?? "");
 
-  try {
-    const token = (await getAccessToken()) ?? "";
-    if (token) {
-      await api.updateNotificationPreferences(token, { email_enabled: false });
+  // From the link in an email: the signed token is the proof, no session needed.
+  if (emailToken) {
+    try {
+      await api.unsubscribeByToken(emailToken);
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 400) {
+        return fail("This unsubscribe link isn't valid. Sign in and use your notification settings instead.");
+      }
+      return fail(describeError(error));
     }
-  } catch {
-    // Anonymous: there is no per-subscriber token to disable, so confirm
-    // plainly rather than reporting a failure we cannot act on.
+    return ok("Done. We've switched off email alerts for this address. You can turn them back on from your account at any time.");
   }
 
-  return {
-    message: `We have switched off email alerts for ${email}. You can turn them back on from your account at any time.`,
-  };
+  // Signed in: change the account's own setting.
+  const sessionToken = await getAccessToken();
+  if (sessionToken) {
+    try {
+      await api.updateNotificationPreferences(sessionToken, { email_enabled: false });
+    } catch (error) {
+      return fail(describeError(error));
+    }
+    return ok("We've switched off email alerts for your account. You can turn them back on at any time.");
+  }
+
+  // Neither. This used to report success without doing anything, which left
+  // people believing they had unsubscribed while alerts kept coming.
+  return fail("To turn off alerts, open the unsubscribe link in one of our emails, or sign in and use your notification settings.");
 }
 
 /* ------------------------------------------------------------------ */
