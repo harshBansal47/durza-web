@@ -32,6 +32,7 @@ import { formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
+import { BRAND } from "@/lib/brand";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
 import { Reveal } from "@/components/Reveal";
@@ -55,6 +56,10 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
     },
     twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
+    other: {
+      "google-adsense-account": BRAND.adsensePublisherId,
+      "mitgo-verification": "36557085-458b-4657-ac1f-8b23e530c956",
+    },
   };
 }
 
