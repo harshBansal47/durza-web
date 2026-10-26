@@ -3,6 +3,7 @@ import { resilient } from "@/lib/api";
 import { CouponCardGrid } from "@/components/CouponCard";
 import Pagination from "@/components/Pagination";
 import EmptyState from "@/components/EmptyState";
+import PopularChips from "@/components/PopularChips";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
 import FilterChips from "@/components/filters/FilterChips";
 import FilterLayout from "@/components/filters/FilterLayout";
@@ -143,7 +144,9 @@ export default async function CouponsPage({
                 : "Loosen a filter above, or check back soon — new codes land daily."
             }
             cta={{ href: "/coupons", label: "Browse all coupons" }}
-          />
+          >
+            <PopularChips stores={stores} categories={categoriesPage.items} />
+          </EmptyState>
         ) : (
           <CouponCardGrid
             coupons={coupons.items}

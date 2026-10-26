@@ -51,6 +51,17 @@ export default function StoreCard({ store }: { store: Store }) {
         <span className="block truncate text-xs text-ink-soft">
           {host ?? "Offers and coupon codes"}
         </span>
+        {typeof store.offer_count === "number" && (
+          <span
+            className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
+              store.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
+            }`}
+          >
+            {store.offer_count > 0
+              ? `${store.offer_count} live ${store.offer_count === 1 ? "offer" : "offers"}`
+              : "No live offers right now"}
+          </span>
+        )}
       </span>
       <ArrowRight
         aria-hidden="true"

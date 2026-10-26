@@ -47,7 +47,7 @@ export default function FilterLayout({
           <Suspense fallback={<div className="h-64 bg-paper-raised" />}>{panel}</Suspense>
         </div>
       </aside>
-      <div className="min-w-0">
+      <div className="min-w-0" data-filter-results>
         {trigger === "drawer" ? (
           <>
             <button

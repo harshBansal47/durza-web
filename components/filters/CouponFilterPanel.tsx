@@ -1,7 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useFilterNavigation } from "./FilterNavigation";
 import { Dropdown } from "@/components/ui/Dropdown";
 import {
   CODE_OPTIONS,
@@ -39,7 +40,7 @@ export default function CouponFilterPanel({
   hideCategory = false,
   note,
 }: CouponFilterPanelProps) {
-  const router = useRouter();
+  const { navigate } = useFilterNavigation();
   const pathname = usePathname();
   const params = useSearchParams();
   const filters = parseFilters(params);
@@ -52,7 +53,7 @@ export default function CouponFilterPanel({
     else next.set(key, value);
     next.delete("skip");
     const qs = next.toString();
-    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    navigate(qs ? `${pathname}?${qs}` : pathname);
   }
 
   function clearAll() {
@@ -62,7 +63,7 @@ export default function CouponFilterPanel({
     }
     next.delete("skip");
     const qs = next.toString();
-    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    navigate(qs ? `${pathname}?${qs}` : pathname);
   }
 
   const count = filterCount(filters);

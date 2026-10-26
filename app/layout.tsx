@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import FooterAd, { FooterAdFallback } from "@/components/FooterAd";
 import PriceAlertBanner from "@/components/PriceAlertBanner";
 import PromoStrip from "@/components/PromoStrip";
+import { FilterNavigationProvider } from "@/components/filters/FilterNavigation";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
 import ToastProvider from "@/components/ui/Toast";
@@ -89,7 +90,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // The only data the shell waits on. Session state and the footer ad are
   // deliberately NOT awaited here: reading the session cookie would opt every
   // route in the app into dynamic rendering, and the ad sits behind Suspense.
-  const hasComparisons = await getHasComparisons();
+  const hasComparisons = await getHasComparisons().catch(() => false);
 
   const navLinks = hasComparisons
     ? NAV_LINKS
@@ -120,9 +121,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </a>
             <PromoStrip />
             <Header links={navLinks} moreLinks={moreNavLinks} />
-            <main id="main" className="flex-1">
-              {children}
-            </main>
+            <FilterNavigationProvider>
+              <main id="main" className="flex-1">
+                {children}
+              </main>
+            </FilterNavigationProvider>
             <PriceAlertBanner />
             <Footer
               hasComparisons={hasComparisons}

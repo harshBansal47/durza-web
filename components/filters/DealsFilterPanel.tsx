@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useFilterNavigation } from "./FilterNavigation";
 import type { DealFilters } from "@/lib/deal-discovery";
 
 interface Facet {
@@ -18,7 +19,7 @@ export default function DealsFilterPanel({
   categories: Facet[];
   filters: DealFilters;
 }) {
-  const router = useRouter();
+  const { navigate } = useFilterNavigation();
   const pathname = usePathname();
   const params = useSearchParams();
 
@@ -28,7 +29,7 @@ export default function DealsFilterPanel({
     else next.delete(key);
     next.delete("skip");
     const query = next.toString();
-    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    navigate(query ? `${pathname}?${query}` : pathname);
   }
 
   function toggleFacet(key: "stores" | "categories", slug: string, checked: boolean) {

@@ -6,6 +6,7 @@ import { resilient } from "@/lib/api";
 import CategoryChips from "@/components/CategoryChips";
 import { CouponCardGrid } from "@/components/CouponCard";
 import EmptyState from "@/components/EmptyState";
+import PopularChips from "@/components/PopularChips";
 import Pagination from "@/components/Pagination";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
 import FilterChips from "@/components/filters/FilterChips";
@@ -159,7 +160,9 @@ export default async function CategoryPage({
             title={`No matching coupons in ${categoryName}.`}
             body="Try removing a filter above, or check back soon."
             cta={{ href: `/categories/${category.slug}`, label: `All ${categoryName} coupons` }}
-          />
+          >
+            <PopularChips stores={stores} categories={categoriesPage.items} />
+          </EmptyState>
         ) : (
           <CouponCardGrid
             coupons={coupons.items}

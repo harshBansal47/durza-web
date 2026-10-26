@@ -1,25 +1,28 @@
   import type { Metadata } from "next";
+  import { Suspense } from "react";
   import Link from "next/link";
   import { notFound } from "next/navigation";
   import { ApiError, resilient } from "@/lib/api";
   import CouponCodePanel from "@/components/CouponCodePanel";
-  import SponsoredCard from "@/components/SponsoredCard";
-  import { getSponsored } from "@/lib/ads";
+  import {
+    CategoryLink,
+    RelatedOffers,
+    SectionSkeleton,
+    SidebarAd,
+    VerificationHistorySection,
+  } from "@/components/coupon/CouponSections";
   import { storeInitials } from "@/lib/catalog";
   import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
-  import { maskCode } from "@/lib/codes";
   import VerifyWidget from "@/components/VerifyWidget";
   import DisclosureNote from "@/components/DisclosureNote";
-  import { daysUntil, formatDiscount, formatRelativeTime } from "@/lib/format";
+  import { daysUntil, formatDiscount } from "@/lib/format";
   import { getRequirements, requirementLabels, sourceLine } from "@/lib/requirements";
   import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd, metaDescription } from "@/lib/seo";
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
-  import { Check, X } from "lucide-react";
   import VerifiedGauge from "@/components/VerifiedGauge";
 import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
-  import { stripStorePrefix } from "@/lib/format";
 import TrackDealBanner from "@/components/TrackDealBanner";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
@@ -41,33 +44,6 @@ import TrackDealBanner from "@/components/TrackDealBanner";
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) return null;
       throw err;
-    }
-  }
-
-  async function loadRelatedCoupons(couponId: string, storeId: string): Promise<CouponPublic[]> {
-    try {
-      const res = await resilient.listCoupons({ store_id: storeId, limit: 10 });
-      return res.items.filter((c) => c.id !== couponId).slice(0, 4);
-    } catch {
-      return [];
-    }
-  }
-
-  async function loadVerificationHistory(couponId: string) {
-    try {
-      return await resilient.getCouponVerificationHistory(couponId);
-    } catch {
-      return [];
-    }
-  }
-
-  async function loadCategory(categoryId: string | null) {
-    if (!categoryId) return null;
-    try {
-      const page = await resilient.listCategories({ limit: 200 });
-      return page.items.find((c) => c.id === categoryId) ?? null;
-    } catch {
-      return null;
     }
   }
 
@@ -109,13 +85,10 @@ import TrackDealBanner from "@/components/TrackDealBanner";
     const coupon = await loadCoupon(slug);
     if (!coupon) notFound();
 
-    const [store, relatedCoupons, verificationHistory, sidebarAd, category] = await Promise.all([
-      loadStore(coupon.store_id),
-      loadRelatedCoupons(coupon.id, coupon.store_id),
-      loadVerificationHistory(coupon.id),
-      getSponsored("sidebar"),
-      loadCategory(coupon.category_id),
-    ]);
+    // The only data the page waits for: the offer (above) and its store. Related offers,
+    // verification history, the category link and the sponsored slot each load behind their
+    // own <Suspense> below, so none of them can hold up the code and the button.
+    const store = await loadStore(coupon.store_id);
 
     const storeLogo = storeLogoUrl(store);
 
@@ -219,7 +192,7 @@ import TrackDealBanner from "@/components/TrackDealBanner";
               <p className="font-serif text-xl font-extrabold text-ink">This code has expired</p>
               <p className="mx-auto mt-1 max-w-md text-sm text-ink-soft">
                 {store
-                  ? `${store.name} still has ${relatedCoupons.length > 0 ? "live deals" : "a deals page"} — start there instead of a dead code.`
+                  ? `${store.name} has a deals page — start there instead of a dead code.`
                   : "This offer is no longer live — here is what still works."}
               </p>
               {store && (
@@ -233,11 +206,9 @@ import TrackDealBanner from "@/components/TrackDealBanner";
           )}
         </section>
 
-        {sidebarAd && (
-          <section className="mb-8" aria-label="Sponsored">
-            <SponsoredCard ad={sidebarAd} src="ad-sidebar" aspect="aspect-[4/1] sm:aspect-[5/1]" />
-          </section>
-        )}
+        <Suspense fallback={null}>
+          <SidebarAd />
+        </Suspense>
 
         {/* Verification status. An expired offer cannot be tried, so there is
             nothing honest to vote on; the success-rate chip in the header still
@@ -248,30 +219,9 @@ import TrackDealBanner from "@/components/TrackDealBanner";
           </section>
         )}
 
-        {/* Verification History Timeline */}
-        {verificationHistory.length > 0 && (
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl font-extrabold text-ink mb-4">Verification History</h2>
-            <dl className="divide-y divide-ledger-line">
-              {verificationHistory.map((v, i) => (
-                <div key={i} className="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <div className="flex items-center gap-3">
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-medium ${
-                      v.worked ? "bg-verified/10 text-verified" : "bg-rust/10 text-rust"
-                    }`}>
-                      {v.worked ? <Check aria-hidden="true" className="h-4 w-4" strokeWidth={2} /> : <X aria-hidden="true" className="h-4 w-4" strokeWidth={2} />}
-                    </span>
-                    <div>
-                      <p className="text-sm text-ink">{v.worked ? "Worked" : "Didn't work"}</p>
-                      <p className="text-xs text-ink-soft font-mono">{formatRelativeTime(v.created_at)}</p>
-                    </div>
-                  </div>
-                  {v.note && <p className="text-sm text-ink-soft sm:w-1/2">{v.note}</p>}
-                </div>
-              ))}
-            </dl>
-          </section>
-        )}
+        <Suspense fallback={<SectionSkeleton rows={2} />}>
+          <VerificationHistorySection couponId={coupon.id} />
+        </Suspense>
 
         {/* How to get it / Requirements — the store's own stated conditions,
             never a blanket "applies at checkout". */}
@@ -413,41 +363,9 @@ import TrackDealBanner from "@/components/TrackDealBanner";
           />
         </div>
 
-        {/* Related Coupons */}
-        {relatedCoupons.length > 0 && (
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl font-extrabold text-ink mb-4">
-              More {store ? `${store.name} savings` : "ways to save"}
-            </h2>
-            <div className="space-y-3">
-              {relatedCoupons.map((c) => (
-                <Link key={c.id} href={`/coupons/${c.slug}`} className="block">
-                  <div className="lift flex items-start gap-3 rounded-2xl border border-ledger-line bg-white p-3">
-                    {storeLogo ? (
-                      <Image src={storeLogo} alt="" width={40} height={40} className="h-10 w-10 shrink-0 rounded-full border border-ledger-line bg-paper object-contain" />
-                    ) : store ? (
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper-raised font-serif text-sm text-ink-soft">
-                        {storeInitials(store.name)}
-                      </div>
-                    ) : null}
-                    <div className="min-w-0 flex-1">
-                      {/* The logo and the section heading already say which store this is. */}
-                      <p className="line-clamp-2 font-medium leading-snug text-ink">{stripStorePrefix(c.title, store?.name)}</p>
-                      {c.code && (
-                        <span className="mt-1.5 inline-block rounded-lg border border-dashed border-inkblue/40 bg-inkblue/5 px-2 py-0.5 font-mono text-xs font-semibold text-inkblue">
-                          {maskCode(c.code) ?? c.code}
-                        </span>
-                      )}
-                    </div>
-                    <span className="shrink-0 rounded-full bg-accent-faint px-2.5 py-1 font-mono text-xs font-semibold text-accent">
-                      {formatDiscount(c, store?.currency ?? "INR")}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        <Suspense fallback={<SectionSkeleton rows={3} />}>
+          <RelatedOffers couponId={coupon.id} storeId={coupon.store_id} store={store} />
+        </Suspense>
 
         {/* Description fallback */}
         {coupon.description && !store && (
@@ -463,11 +381,9 @@ import TrackDealBanner from "@/components/TrackDealBanner";
               All {store.name} deals
             </Link>
           )}
-          {category && (
-            <Link href={`/categories/${category.slug}`} className="btn btn-outline">
-              More {category.name} deals
-            </Link>
-          )}
+          <Suspense fallback={null}>
+            <CategoryLink categoryId={coupon.category_id} />
+          </Suspense>
           <Link href="/coupons" className="btn btn-ghost">
             Browse everything →
           </Link>

@@ -5,10 +5,13 @@ export default function EmptyState({
   title,
   body,
   cta,
+  children,
 }: {
   title: string;
   body?: string;
   cta?: { href: string; label: string };
+  /** Extra navigation shown under the button (e.g. suggested stores). */
+  children?: React.ReactNode;
 }) {
   return (
     <div className="rounded-lg border-2 border-dashed border-ledger-line bg-white px-6 py-14 text-center">
@@ -22,6 +25,7 @@ export default function EmptyState({
           {cta.label}
         </Link>
       ) : null}
+      {children}
     </div>
   );
 }

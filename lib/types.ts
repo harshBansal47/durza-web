@@ -21,6 +21,8 @@ export interface Store {
   id: string;
   name: string;
   slug: string;
+  /** Live offers right now. Present on store listings; absent elsewhere. */
+  offer_count?: number | null;
   logo_url: string | null;
   website_url: string | null;
   description: string | null;

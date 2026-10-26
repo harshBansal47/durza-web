@@ -1,11 +1,12 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useFilterNavigation } from "./FilterNavigation";
 import { DEAL_SORT_OPTIONS } from "@/lib/deal-discovery";
 import type { DealSort } from "@/lib/deal-discovery";
 
 export default function DealsSortControl({ sort }: { sort: DealSort }) {
-  const router = useRouter();
+  const { navigate } = useFilterNavigation();
   const pathname = usePathname();
   const params = useSearchParams();
 
@@ -15,7 +16,7 @@ export default function DealsSortControl({ sort }: { sort: DealSort }) {
     else next.set("sort", value);
     next.delete("skip");
     const query = next.toString();
-    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    navigate(query ? `${pathname}?${query}` : pathname);
   }
 
   return (

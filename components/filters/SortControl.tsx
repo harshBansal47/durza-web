@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useFilterNavigation } from "./FilterNavigation";
 import { Dropdown } from "@/components/ui/Dropdown";
 import { DEFAULT_SORT, SORT_OPTIONS, hintOf, parseFilters } from "@/lib/filters";
 
@@ -13,7 +14,7 @@ import { DEFAULT_SORT, SORT_OPTIONS, hintOf, parseFilters } from "@/lib/filters"
  * letting the number of results quietly move under the visitor.
  */
 export default function SortControl({ className = "" }: { className?: string }) {
-  const router = useRouter();
+  const { navigate } = useFilterNavigation();
   const pathname = usePathname();
   const params = useSearchParams();
   const { sort } = parseFilters(params);
@@ -25,7 +26,7 @@ export default function SortControl({ className = "" }: { className?: string }) 
     else next.set("sort", value);
     next.delete("skip");
     const qs = next.toString();
-    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    navigate(qs ? `${pathname}?${qs}` : pathname);
   }
 
   const hint = hintOf(SORT_OPTIONS, sort);

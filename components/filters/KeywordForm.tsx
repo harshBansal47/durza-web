@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useId, useRef, useState, type FormEvent } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useFilterNavigation } from "./FilterNavigation";
 import { Search } from "lucide-react";
 
 export interface KeywordFormProps {
@@ -35,7 +36,7 @@ export default function KeywordForm({
   size = "sm",
   autoFocus = false,
 }: KeywordFormProps) {
-  const router = useRouter();
+  const { navigate } = useFilterNavigation();
   const pathname = usePathname();
   const params = useSearchParams();
   const id = useId();
@@ -55,9 +56,9 @@ export default function KeywordForm({
       }
       next.delete("skip");
       const qs = next.toString();
-      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+      navigate(qs ? `${pathname}?${qs}` : pathname);
     },
-    [params, pathname, router],
+    [params, pathname, navigate],
   );
 
   function schedule(value: string) {

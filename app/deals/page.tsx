@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { resilient } from "@/lib/api";
 import type { DealCardStore } from "@/components/DealCard";
 import EmptyState from "@/components/EmptyState";
+import PopularChips from "@/components/PopularChips";
 import Pagination from "@/components/Pagination";
 import SectionTitle from "@/components/SectionTitle";
 import DealsFilterPanel from "@/components/filters/DealsFilterPanel";
@@ -208,7 +209,9 @@ export default async function DealsPage({
             title={keyword || activeFilterCount > 0 ? "No deals match those filters." : "No deals right now."}
             body="New codes land through the day — loosen a filter, or check back soon."
             cta={{ href: "/deals", label: "All deals" }}
-          />
+          >
+            <PopularChips stores={stores} categories={categoriesPage.items} />
+          </EmptyState>
         ) : (
           <>
             {spotlight ? (

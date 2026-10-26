@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useFilterNavigation } from "./FilterNavigation";
 import { FILTER_KEYS, activeChips, parseFilters } from "@/lib/filters";
 
 /**
@@ -22,7 +23,7 @@ export default function FilterChips({
   /** A category-scoped page says so in its heading; a chip would repeat it. */
   hideCategory?: boolean;
 }) {
-  const router = useRouter();
+  const { navigate } = useFilterNavigation();
   const pathname = usePathname();
   const params = useSearchParams();
   const filters = parseFilters(params);
@@ -36,9 +37,9 @@ export default function FilterChips({
       const next = new URLSearchParams(params.toString());
       mutate(next);
       const qs = next.toString();
-      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+      navigate(qs ? `${pathname}?${qs}` : pathname);
     },
-    [params, pathname, router],
+    [params, pathname, navigate],
   );
 
   if (chips.length === 0) return null;

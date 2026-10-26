@@ -5,6 +5,7 @@ import { CouponCard } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
 import PageTitle from "@/components/ui/PageTitle";
 import EmptyState from "@/components/EmptyState";
+import PopularChips from "@/components/PopularChips";
 import { TrackEvent } from "@/components/Analytics";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
 import FilterChips from "@/components/filters/FilterChips";
@@ -202,7 +203,9 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
               : "We only list codes someone has confirmed, so a thin result is normal for new stores. Try a broader term, or start from one of these."
           }
           cta={{ href: "/categories", label: "Browse categories" }}
-        />
+        >
+          <PopularChips stores={stores} categories={categories} />
+        </EmptyState>
         <div className="mt-6 text-center">
           <Link href="/search" className="btn btn-ghost">
             Clear the search

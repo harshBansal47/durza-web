@@ -1,7 +1,22 @@
 import Link from "next/link";
 import PageTitle from "@/components/ui/PageTitle";
+import PopularChips from "@/components/PopularChips";
+import { resilient } from "@/lib/api";
 
-export default function NotFound() {
+/** Give a lookup two seconds, then carry on without it: a 404 must never itself be slow. */
+function soon<T>(promise: Promise<T>): Promise<T | null> {
+  return Promise.race([
+    promise,
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000)),
+  ]).catch(() => null);
+}
+
+export default async function NotFound() {
+  const [stores, categories] = await Promise.all([
+    soon(resilient.listStores({ limit: 100 })),
+    soon(resilient.listCategories({ limit: 100 })),
+  ]);
+
   return (
     <div className="mx-auto max-w-2xl px-6 py-20 text-center">
       <p
@@ -23,6 +38,8 @@ export default function NotFound() {
           Search instead
         </Link>
       </div>
+      {/* A dead end is the moment to offer the way back in, not just "Home". */}
+      <PopularChips stores={stores?.items ?? []} categories={categories?.items ?? []} />
     </div>
   );
 }

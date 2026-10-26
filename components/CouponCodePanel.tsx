@@ -135,6 +135,17 @@ export default function CouponCodePanel({
         {requirement && coupon.code && (
           <p className="mt-1 text-center text-[13px] text-ink-soft">{requirement}</p>
         )}
+        {/* The shopper who is not sold on this one still has somewhere to go. Deliberately a
+            quiet outline button: it must not compete with the main action above it. */}
+        {storeSlug && storeName && (
+          <Link
+            href={`/stores/${storeSlug}`}
+            className="btn btn-outline mt-4 w-full justify-center gap-1.5 py-2.5 text-sm"
+          >
+            All {storeName} deals
+            <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+          </Link>
+        )}
       </div>
     </div>
   );

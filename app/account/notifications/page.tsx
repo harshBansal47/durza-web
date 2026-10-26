@@ -36,7 +36,7 @@ export default async function NotificationsPage() {
     <AccountShell user={user} active="/account/notifications">
       <h2 className="font-serif text-xl text-ink">Notifications</h2>
       <p className="mt-2 max-w-prose text-sm text-ink-soft">
-        Pick how you hear about a price drop or a newly confirmed code. Turning everything off is a
+        Pick how you hear about a price drop, or a new, ending or confirmed offer. Turning everything off is a
         legitimate choice and nothing on the site will nag you about it.
       </p>
 

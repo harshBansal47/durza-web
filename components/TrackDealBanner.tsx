@@ -142,7 +142,7 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
 
   if (known?.tracking) {
     return (
-      <section aria-live="polite" className="rounded-xl border border-verified/40 bg-verified-soft p-5">
+      <section id="track-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-verified/40 bg-verified-soft p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
             <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper-raised text-verified">
@@ -179,7 +179,7 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
   const checking = session.status === "loading" || (signedIn && known === null);
 
   return (
-    <section aria-live="polite" className="rounded-xl border border-accent-soft bg-accent-faint p-5">
+    <section id="track-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-accent-soft bg-accent-faint p-5">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex gap-3">
           <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
