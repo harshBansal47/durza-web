@@ -5,9 +5,9 @@ backend](../durza) over HTTP. Nothing here touches the database directly.
 
 ## Why this exists as a separate app
 
-The backend already serves the JSON API and the `/admin` back office. This app is
-the third piece: a fast, SEO-friendly, agent-legible public site, built to embody
-three product bets (see the strategy discussion this came out of):
+The backend serves the JSON API and the `/admin` record-management back office.
+This app is the public site and the staff analytics UI at `/admin/analytics`,
+built to embody three product bets (see the strategy discussion this came out of):
 
 ## SEO and design, completed this round
 
@@ -75,6 +75,15 @@ npm run dev
 
 Open http://localhost:3000. `.env.local` points at `http://localhost:8000/api/v1`
 by default — change `NEXT_PUBLIC_API_URL` if your backend runs elsewhere.
+
+### Staff analytics
+
+Open http://localhost:3000/admin/analytics and sign in with a staff account
+(`admin`, `editor`, or `analytics_viewer`). The page sends requests through a
+same-origin Next.js route handler so the httpOnly access token is never exposed
+to browser JavaScript. The backend remains the authority for access. CSV export
+is available to admins only. See the API repository's
+`docs/ANALYTICS_VERIFY.md` for metric definitions and limitations.
 
 ### Serving the API over a private address
 
