@@ -308,6 +308,17 @@ export default function StorePageClient({
                   <StoreMark store={related} size={36} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm text-ink">{related.name}</span>
+                    {typeof related.offer_count === "number" && (
+                      <span
+                        className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
+                          related.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
+                        }`}
+                      >
+                        {related.offer_count > 0
+                          ? `${related.offer_count} live ${related.offer_count === 1 ? "offer" : "offers"}`
+                          : "No live offers right now"}
+                      </span>
+                    )}
                   </span>
                 </Link>
               </li>
