@@ -1,7 +1,7 @@
 # Durza Web
 
 The public frontend — a separate Next.js app that talks to the [Durza FastAPI
-backend](../durza) over HTTP. Nothing here touches the database directly.
+backend](../couponza) over HTTP. Nothing here touches the database directly.
 
 ## Why this exists as a separate app
 
@@ -36,10 +36,9 @@ built to embody three product bets (see the strategy discussion this came out of
 - **Store logos actually render now** (`components/CouponRow.tsx`'s `StoreMark`)
   — a real `next/image` when `logo_url` is set, a monogram fallback when not.
   They were fetched since Phase 3 but never displayed until now.
-- **39 frontend tests** (Vitest + React Testing Library): `lib/format.ts` and
-  `lib/seo.ts`'s pure logic, plus `VerifyWidget`, `CouponCodePanel`, and
-  `Pagination`'s interactive behavior — including the 429 rate-limit path and
-  clipboard-API failure, not just the happy path. Run with `npm test`.
+- **447 frontend tests** (Vitest + React Testing Library) covering `lib/format.ts`,
+  `lib/seo.ts`, `lib/filters.ts`, and component behavior including the 429
+  rate-limit path and clipboard-API failure. Run with `npm test`.
 
 **A real bug this caught:** `next/og`'s renderer (Satori) crashes if you pass
 `fontFamily: undefined` in a style object rather than omitting it or giving a
@@ -62,7 +61,7 @@ correctly, just not tilted as designed.
 ## Prerequisites
 
 - Node.js 22+
-- The backend running locally (see `../durza/README.md`) — `docker compose up`
+- The backend running locally (see `../couponza/README.md`) — `docker compose up`
   there, with at least one store/category/coupon created via `/admin` or the API.
 
 ## First run
@@ -124,7 +123,12 @@ self-hosted font files.
 | `components/filters/*` | Shared listing chrome — `CouponFilterPanel`, `SortControl`, `FilterChips`, `KeywordForm`, `FilterLayout` |
 | `app/page.tsx` | Homepage: live example, search, category filter, listing |
 | `app/coupons/[slug]/page.tsx` | Coupon detail: code reveal, verification, disclosure, JSON-LD |
+| `app/products/[slug]/page.tsx` | Product detail with price history and effective price |
 | `app/stores/[slug]/page.tsx`, `app/categories/[slug]/page.tsx` | Filtered listings |
+| `app/sales/[series]/page.tsx`, `app/collections/[slug]/page.tsx` | Sale hubs and curated collections |
+| `app/guides/[slug]/page.tsx`, `app/reviews/[slug]/page.tsx` | Editorial guides and reviews |
+| `app/account/*` | Account area: saved, tracked products, alerts, notifications, settings |
+| `app/admin/analytics/page.tsx` | Staff analytics dashboard |
 | `app/trust/page.tsx` | The trust pledge (hardcoded) + an optional CMS-editable extended policy |
 | `app/sitemap.ts`, `app/robots.ts` | Generated from live backend data |
 | `components/CouponCodePanel.tsx` | Client component: reveal/copy code + the `/go` redirect CTA |
@@ -169,9 +173,10 @@ self-hosted font files.
 
 ## Next step
 
-The backend now has an MCP server (`../durza/mcp_server`) completing priority
-#3. Still genuinely open on the frontend: no user accounts/login UI (the
-backend's auth is fully built but nothing here calls it yet), no browser
-extension, and the homepage's store-name/logo lookup still fetches up to 100
-stores per request rather than using a proper join — fine at current scale,
-worth revisiting before it isn't.
+The backend now has an MCP server (`../couponza/mcp_server`). The frontend has
+grown well beyond the original scope: account area (saved stores/coupons,
+tracked products, alerts, notification preferences), product pages with price
+history, sales hubs, collections, guides, reviews, compare, bank offers, and
+an admin analytics dashboard. Still genuinely open: browser extension, web-push
+delivery, and the homepage's store-name/logo lookup still fetches up to 100
+stores per request rather than using a proper join — fine at current scale.
