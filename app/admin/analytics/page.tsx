@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   AlertTriangle,
@@ -150,6 +151,14 @@ export default function AdminAnalyticsDashboard() {
               <RefreshCw aria-hidden="true" className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
               Refresh
             </button>
+            {data?.meta.user_role === "admin" || data?.meta.user_role === "editor" ? (
+              <Link
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-black/10 bg-white px-3 text-sm font-medium hover:bg-gray-50"
+                href="/admin/ingestion"
+              >
+                Ingestion controls
+              </Link>
+            ) : null}
             {data?.meta.user_role === "admin" ? (
               <button
                 className="inline-flex h-10 items-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700 disabled:opacity-50"
