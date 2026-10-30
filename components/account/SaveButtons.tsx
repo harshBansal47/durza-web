@@ -122,6 +122,18 @@ export function StoreFollowRow({
   action: (storeId: string, currentlySaved: boolean) => Promise<ToggleResult>;
 }) {
   const logo = storeLogoUrl(store);
+  const [removed, setRemoved] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  function remove() {
+    startTransition(async () => {
+      const result = await action(store.id, true);
+      if (!result?.error) setRemoved(true);
+    });
+  }
+
+  if (removed) return null;
+
   return (
     <li className="flex items-center gap-3 border border-ledger-line bg-paper-raised p-3">
       {logo ? (
@@ -146,13 +158,16 @@ export function StoreFollowRow({
       >
         {store.name}
       </Link>
-      <FollowStoreButton
-        storeId={store.id}
-        storeSlug={store.slug}
-        initiallySaved={initiallySaved}
-        action={action}
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={remove}
+        disabled={isPending}
         className="shrink-0"
-      />
+      >
+        {isPending ? "Removing…" : "Unfollow"}
+      </Button>
     </li>
   );
 }
@@ -175,6 +190,18 @@ export function SavedCouponRow({
   initiallySaved: boolean;
   action: (couponId: string, currentlySaved: boolean) => Promise<ToggleResult>;
 }) {
+  const [removed, setRemoved] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  function remove() {
+    startTransition(async () => {
+      const result = await action(coupon.id, true);
+      if (!result?.error) setRemoved(true);
+    });
+  }
+
+  if (removed) return null;
+
   return (
     <li className="flex flex-wrap items-center gap-3 border border-ledger-line bg-paper-raised p-3">
       <Link
@@ -191,12 +218,16 @@ export function SavedCouponRow({
         </code>
       )}
       {expiry && <span className="text-xs text-ink-soft">{expiry}</span>}
-      <SaveCouponButton
-        couponId={coupon.id}
-        initiallySaved={initiallySaved}
-        action={action}
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={remove}
+        disabled={isPending}
         className="shrink-0"
-      />
+      >
+        {isPending ? "Removing…" : "Remove"}
+      </Button>
     </li>
   );
 }
