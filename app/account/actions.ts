@@ -13,6 +13,7 @@ import {
   fail,
   ok,
   type ActionResult,
+  type EmailOtpRequestResult,
   type TrackFlowResult,
 } from "./action-result";
 
@@ -67,19 +68,23 @@ function safeRedirect(target: FormDataEntryValue | null | undefined): string | n
 export async function requestEmailOtpAction(
   _prev: ActionResult,
   formData: FormData,
-): Promise<ActionResult> {
+): Promise<EmailOtpRequestResult> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
 
   if (!email) return fail("Enter your email address.");
   try {
     await api.requestEmailOtp(email);
-  } catch {
-    // Unknown addresses, cooldowns and delivery failures all resolve to this
-    // same message, so no failure here should ever be shown to the person.
-    return fail("If that address can sign in, a sign-in code is on its way.");
+  } catch (error) {
+    const message =
+      error instanceof Error && error.name === "TimeoutError"
+        ? "The request timed out. A code may still arrive; enter it below or use Resend."
+        : describeError(error);
+    const result = fail(message);
+    if (error instanceof ApiError && error.status === 422) return result;
+    return { ...result, codeEntry: true };
   }
 
-  return ok("If that address can sign in, a sign-in code is on its way.");
+  return { codeEntry: true };
 }
 
 export async function verifyEmailOtpAction(

@@ -1,12 +1,13 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import type { ActionResult } from "@/app/account/action-result";
+import type { ActionResult, EmailOtpRequestResult } from "@/app/account/action-result";
 
 const EMPTY: ActionResult = {};
+const EMPTY_REQUEST: EmailOtpRequestResult = {};
 
 const CODE_PATTERN = "^[0-9]{6}$";
 
@@ -46,27 +47,20 @@ export function EmailOtpLoginForm({
   verifyAction,
   next,
 }: {
-  requestAction: (prev: ActionResult, formData: FormData) => Promise<ActionResult>;
+  requestAction: (prev: EmailOtpRequestResult, formData: FormData) => Promise<EmailOtpRequestResult>;
   verifyAction: (prev: ActionResult, formData: FormData) => Promise<ActionResult>;
   next?: string;
 }) {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
-  const [stepOverride, setStepOverride] = useState<"email" | "code" | null>(null);
-  const [lastRequestState, setLastRequestState] = useState<ActionResult>(EMPTY);
+  const [step, setStep] = useState<"email" | "code">("email");
 
-  const [requestState, requestActionState] = useActionState(requestAction, EMPTY);
+  const [requestState, requestActionState] = useActionState(requestAction, EMPTY_REQUEST);
   const [verifyState, verifyActionState] = useActionState(verifyAction, EMPTY);
 
-  const step = stepOverride ?? (requestState.message ? "code" : "email");
-
-  // `useActionState` hands back a fresh result object after a submission, so
-  // comparing identities (not message strings) follows the transition without
-  // setting state from an effect.
-  if (requestState !== lastRequestState) {
-    setLastRequestState(requestState);
-    if (requestState.message) setStepOverride(null);
-  }
+  useEffect(() => {
+    if (requestState.codeEntry) setStep("code");
+  }, [requestState]);
 
   const googleHref = `/api/auth/start/google${next ? `?next=${encodeURIComponent(next)}` : ""}`;
 
@@ -84,7 +78,7 @@ export function EmailOtpLoginForm({
             onChange={(event) => setEmail(event.target.value)}
           />
           <SubmitButton label="Send sign-in code" pendingLabel="Sending…" />
-          <ActionMessages state={requestState} />
+          <ActionMessages state={{ error: requestState.error }} />
         </form>
 
         <div className="relative my-2">
@@ -133,6 +127,7 @@ export function EmailOtpLoginForm({
     <div className="space-y-4">
       <form action={verifyActionState} className="space-y-4">
         <input type="hidden" name="email" value={email} />
+        {next && <input type="hidden" name="next" value={next} />}
         <Input
           label="Sign-in code"
           name="code"
@@ -145,6 +140,9 @@ export function EmailOtpLoginForm({
           value={code}
           onChange={(event) => setCode(event.target.value.replace(/\D/g, ""))}
         />
+        <p className="text-sm text-ink-soft">
+          Enter the 6-digit code from your email. If it hasn’t arrived yet, you can resend it.
+        </p>
         <SubmitButton label="Sign in" pendingLabel="Signing in…" />
         <ActionMessages state={verifyState} />
       </form>
@@ -152,7 +150,7 @@ export function EmailOtpLoginForm({
       <form action={requestActionState} className="space-y-4">
         <input type="hidden" name="email" value={email} />
         <SubmitButton label="Resend code" pendingLabel="Sending…" />
-        <ActionMessages state={requestState} />
+        <ActionMessages state={{ error: requestState.error }} />
       </form>
 
       <Button
@@ -160,7 +158,7 @@ export function EmailOtpLoginForm({
         variant="outline"
         fullWidth
         onClick={() => {
-          setStepOverride("email");
+          setStep("email");
           setCode("");
         }}
       >

@@ -63,6 +63,8 @@ export class ApiError extends Error {
 type FetchOptions = RequestInit & {
   /** Next.js data-cache revalidate window, in seconds. Omit to opt out of caching. */
   revalidate?: number;
+  /** Override the default API request timeout for endpoints with slower side effects. */
+  timeoutMs?: number;
   /** Bearer token for authenticated endpoints. Server-only in practice. */
   token?: string | null;
 };
@@ -94,27 +96,25 @@ export interface SaleEditionResponse {
 }
 
 /**
- * Upper bound for any API call. Without one, a single slow or hung endpoint
- * stalls the whole page render (pages await several calls together) for as long
- * as the server cares to wait. The `resilient.*` wrappers already turn a failure
- * into an empty fallback, so a timeout lets the page render without that one
- * piece instead of not rendering at all.
+ * Default upper bound for API calls. Slower operations with external side
+ * effects can override it, while resilient reads can fail without stalling a
+ * whole page render.
  */
 const REQUEST_TIMEOUT_MS = 8000;
 
-function timeoutSignal(): AbortSignal | undefined {
+function timeoutSignal(timeoutMs = REQUEST_TIMEOUT_MS): AbortSignal | undefined {
   // AbortSignal.timeout is missing from older WebViews (the Capacitor apps).
   return typeof AbortSignal !== "undefined" && "timeout" in AbortSignal
-    ? AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+    ? AbortSignal.timeout(timeoutMs)
     : undefined;
 }
 
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
-  const { revalidate, token, headers, ...rest } = options;
+  const { revalidate, token, headers, timeoutMs, ...rest } = options;
   const base = serverApiUrl();
   const res = await fetch(`${base}${path}`, {
     ...rest,
-    signal: rest.signal ?? timeoutSignal(),
+    signal: rest.signal ?? timeoutSignal(timeoutMs),
     headers: {
       ...(rest.body ? { "Content-Type": "application/json" } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -378,10 +378,11 @@ export const api = {
 
   /** Ask the backend for a passwordless email sign-in code. */
   requestEmailOtp: (email: string) =>
-    apiFetch<void>("/auth/email/request", {
+    apiFetch<{ message: string }>("/auth/email/request", {
       method: "POST",
       body: JSON.stringify({ email }),
       cache: "no-store",
+      timeoutMs: 35_000,
     }),
 
   /** Exchange a six-digit sign-in code for a token pair. */

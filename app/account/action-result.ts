@@ -18,6 +18,10 @@ export interface ActionResult {
   message?: string;
 }
 
+export interface EmailOtpRequestResult extends ActionResult {
+  codeEntry?: true;
+}
+
 /**
  * Result of one step of "track this" for someone who may not be signed in.
  *
