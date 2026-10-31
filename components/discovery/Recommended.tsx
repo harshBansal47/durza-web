@@ -17,7 +17,14 @@ interface Row {
   /** True when the visitor follows this store, false when they only viewed it. */
   followed: boolean;
   coupons: CouponPublic[];
-  stores: { id: string; name: string; slug: string; logo_url?: string | null; currency?: string | null }[];
+  stores: {
+    id: string;
+    name: string;
+    slug: string;
+    logo_url?: string | null;
+    website_url?: string | null;
+    currency?: string | null;
+  }[];
 }
 
 /**
