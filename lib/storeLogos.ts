@@ -47,6 +47,14 @@ export const STORE_ACCENTS: Record<string, string> = {
   zomato: "#cc202e",
 };
 
+const WEBSITE_HOST_PREFIXES = ["www", "store", "shop", "m", "mobile"];
+
+function faviconDomain(hostname: string): string {
+  const labels = hostname.toLowerCase().split(".");
+  while (labels.length > 2 && WEBSITE_HOST_PREFIXES.includes(labels[0])) labels.shift();
+  return labels.join(".");
+}
+
 /**
  * Prefer the backend logo, then a curated local asset, then the website's
  * cached favicon. Null means no usable website URL is available; use initials.
@@ -66,7 +74,7 @@ export function storeLogoUrl(
       const website = new URL(store.website_url);
       if (website.protocol !== "https:" && website.protocol !== "http:") return null;
       const favicon = new URL("https://www.google.com/s2/favicons");
-      favicon.searchParams.set("domain_url", website.origin);
+      favicon.searchParams.set("domain", faviconDomain(website.hostname));
       favicon.searchParams.set("sz", "128");
       return favicon.toString();
     } catch {
