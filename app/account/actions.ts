@@ -76,12 +76,10 @@ export async function requestEmailOtpAction(
     await api.requestEmailOtp(email);
   } catch (error) {
     const message =
-      error instanceof Error && error.name === "TimeoutError"
-        ? "The request timed out. A code may still arrive; enter it below or use Resend."
+      error instanceof Error && ["TimeoutError", "AbortError"].includes(error.name)
+        ? "We couldn't confirm the request yet. Please try again."
         : describeError(error);
-    const result = fail(message);
-    if (error instanceof ApiError && error.status === 422) return result;
-    return { ...result, codeEntry: true };
+    return fail(message);
   }
 
   return { codeEntry: true };

@@ -34,12 +34,11 @@ describe("EmailOtpLoginForm", () => {
     expect(screen.getByDisplayValue("/account/saved")).toHaveAttribute("name", "next");
   });
 
-  it("opens code entry after an ambiguous request failure", async () => {
+  it("stays on email entry when the request is not confirmed", async () => {
     const user = userEvent.setup();
     const requestAction = vi.fn(
       async (_previous: EmailOtpRequestResult, _formData: FormData): Promise<EmailOtpRequestResult> => ({
-        error: "Something went wrong. Please try again.",
-        codeEntry: true,
+        error: "We couldn't confirm the request yet. Please try again.",
       }),
     );
     const verifyAction = vi.fn(
@@ -51,9 +50,9 @@ describe("EmailOtpLoginForm", () => {
     await user.type(screen.getByLabelText("Email"), "reader@example.com");
     await user.click(screen.getByRole("button", { name: "Send sign-in code" }));
 
-    expect(await screen.findByLabelText("Sign-in code")).toBeInTheDocument();
-    expect(screen.getByRole("alert")).toHaveTextContent("Something went wrong.");
-    expect(screen.getByText(/Enter the 6-digit code from your email/)).toBeInTheDocument();
+    expect(await screen.findByRole("alert")).toHaveTextContent("We couldn't confirm the request yet.");
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Sign-in code")).not.toBeInTheDocument();
     expect(
       screen.queryByText("If that address can sign in, a sign-in code is on its way."),
     ).not.toBeInTheDocument();

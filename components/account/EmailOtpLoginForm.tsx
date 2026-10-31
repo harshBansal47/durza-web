@@ -14,9 +14,16 @@ const CODE_PATTERN = "^[0-9]{6}$";
 function SubmitButton({ label, pendingLabel }: { label: string; pendingLabel: string }) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" fullWidth loading={pending} className="mt-2">
-      {pending ? pendingLabel : label}
-    </Button>
+    <>
+      <Button type="submit" fullWidth loading={pending} className="mt-2">
+        {pending ? pendingLabel : label}
+      </Button>
+      {pending && (
+        <p role="status" className="mt-2 text-center text-sm text-ink-soft">
+          Processing OTP.
+        </p>
+      )}
+    </>
   );
 }
 
@@ -77,7 +84,7 @@ export function EmailOtpLoginForm({
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <SubmitButton label="Send sign-in code" pendingLabel="Sending…" />
+          <SubmitButton label="Send sign-in code" pendingLabel="Waiting…" />
           <ActionMessages state={{ error: requestState.error }} />
         </form>
 
@@ -149,7 +156,7 @@ export function EmailOtpLoginForm({
 
       <form action={requestActionState} className="space-y-4">
         <input type="hidden" name="email" value={email} />
-        <SubmitButton label="Resend code" pendingLabel="Sending…" />
+        <SubmitButton label="Resend code" pendingLabel="Waiting…" />
         <ActionMessages state={{ error: requestState.error }} />
       </form>
 

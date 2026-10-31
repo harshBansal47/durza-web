@@ -382,7 +382,7 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ email }),
       cache: "no-store",
-      timeoutMs: 35_000,
+      timeoutMs: 60_000,
     }),
 
   /** Exchange a six-digit sign-in code for a token pair. */
