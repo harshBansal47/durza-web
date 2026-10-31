@@ -180,15 +180,17 @@ export default function StorePageClient({
             {store.description && <p className="mt-3 max-w-prose text-sm text-white/90 sm:text-base">{store.description}</p>}
           </div>
 
-          <button
-            type="button"
-            onClick={share}
-            className="btn light-surface shrink-0 self-start bg-white text-ink hover:bg-white/90"
-            aria-live="polite"
-          >
-            {copied ? "Link copied" : "Share"}
-          </button>
-          <StoreFollowButton storeId={store.id} slug={store.slug} name={store.name} />
+          <div className="flex shrink-0 items-start gap-3 self-start sm:self-center">
+            <button
+              type="button"
+              onClick={share}
+              className="btn light-surface shrink-0 bg-white text-ink hover:bg-white/90"
+              aria-live="polite"
+            >
+              {copied ? "Link copied" : "Share"}
+            </button>
+            <StoreFollowButton storeId={store.id} slug={store.slug} name={store.name} />
+          </div>
         </div>
       </header>
 
