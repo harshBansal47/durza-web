@@ -12,7 +12,13 @@ import type { CouponPublic } from "@/lib/types";
 
 interface HeroProps {
   stats: { label: string; value: number }[];
-  popularStores: { id: string; name: string; slug: string; logo_url?: string | null }[];
+  popularStores: {
+    id: string;
+    name: string;
+    slug: string;
+    logo_url?: string | null;
+    website_url?: string | null;
+  }[];
   spotlight?: CouponPublic[];
   verifiedToday?: number;
   endingSoon?: number;

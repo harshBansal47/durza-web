@@ -23,7 +23,10 @@ import { Calendar } from "lucide-react";
  * slim shape exists so client components (the "load more" pager) can pass
  * stores without shipping every column.
  */
-export type DealCardStore = Pick<Store, "id" | "name" | "slug" | "logo_url" | "currency">;
+export type DealCardStore = Pick<
+  Store,
+  "id" | "name" | "slug" | "logo_url" | "website_url" | "currency"
+>;
 
 export default function DealCard({
   coupon,

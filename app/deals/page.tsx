@@ -109,6 +109,7 @@ export default async function DealsPage({
     name: store.name,
     slug: store.slug,
     logo_url: store.logo_url,
+    website_url: store.website_url,
     currency: store.currency,
   }));
   const categoryNames: Record<string, string> = Object.fromEntries(

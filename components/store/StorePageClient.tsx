@@ -95,7 +95,14 @@ export default function StorePageClient({
                     <CouponCard
                       key={entry.coupon.id}
                       coupon={entry.coupon}
-                      store={{ id: store.id, name: store.name, slug: store.slug, logo_url: store.logo_url, currency: code }}
+                      store={{
+                        id: store.id,
+                        name: store.name,
+                        slug: store.slug,
+                        logo_url: store.logo_url,
+                        website_url: store.website_url,
+                        currency: code,
+                      }}
                       variant={id === "expiring" ? "expiring-soon" : "coupon"}
                     />
                   ),

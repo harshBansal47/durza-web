@@ -142,7 +142,7 @@ function suggestionHref(kind: Suggestion["kind"], label: string) {
   return `/search?q=${encodeURIComponent(label)}`;
 }
 
-type StoreIdentity = { slug: string; logo_url: string | null };
+type StoreIdentity = { slug: string; logo_url: string | null; website_url: string | null };
 type StoreDirectory = ReadonlyMap<string, StoreIdentity>;
 
 const EMPTY_DIRECTORY: StoreDirectory = new Map();
@@ -165,7 +165,7 @@ function loadStoreDirectory(): Promise<StoreDirectory> {
         new Map(
           page.items.map((s): [string, StoreIdentity] => [
             s.name.toLowerCase(),
-            { slug: s.slug, logo_url: s.logo_url ?? null },
+            { slug: s.slug, logo_url: s.logo_url ?? null, website_url: s.website_url ?? null },
           ]),
         ),
     )

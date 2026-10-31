@@ -166,7 +166,14 @@ export default async function CategoryPage({
         ) : (
           <CouponCardGrid
             coupons={coupons.items}
-            stores={stores.map((s) => ({ id: s.id, name: s.name, slug: s.slug, currency: s.currency }))}
+            stores={stores.map((s) => ({
+              id: s.id,
+              name: s.name,
+              slug: s.slug,
+              logo_url: s.logo_url,
+              website_url: s.website_url,
+              currency: s.currency,
+            }))}
             className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           />
         )}

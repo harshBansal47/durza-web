@@ -174,6 +174,7 @@ export default async function HomePage() {
     name: s.name,
     slug: s.slug,
     logo_url: s.logo_url,
+    website_url: s.website_url,
     currency: s.currency,
   }));
 
@@ -279,7 +280,13 @@ export default async function HomePage() {
           { label: "Stores", value: stores.total },
           { label: "Categories", value: categories.total },
         ]}
-        popularStores={stores.items.map((st) => ({ id: st.id, name: st.name, slug: st.slug, logo_url: st.logo_url }))}
+        popularStores={stores.items.map((st) => ({
+          id: st.id,
+          name: st.name,
+          slug: st.slug,
+          logo_url: st.logo_url,
+          website_url: st.website_url,
+        }))}
         spotlight={spotlight}
         verifiedToday={verifiedToday.total}
         endingSoon={endingSoon.total}

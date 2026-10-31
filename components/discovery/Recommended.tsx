@@ -66,7 +66,14 @@ export function RecommendedRow() {
             followed: signals.followed.includes(slug),
             coupons: items,
             stores: [
-              { id: store.id, name: store.name, slug: store.slug, logo_url: store.logo_url, currency: store.currency },
+              {
+                id: store.id,
+                name: store.name,
+                slug: store.slug,
+                logo_url: store.logo_url,
+                website_url: store.website_url,
+                currency: store.currency,
+              },
             ],
           });
         } catch {

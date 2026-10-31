@@ -1,10 +1,10 @@
 /**
  * Store identity: self-hosted icons and an accent colour for store pages.
  *
- * Every icon under /public/stores was fetched once from the store itself
- * (its own favicon, Apple touch icon, or published app icon) and is served
- * from Durza — nothing is hand-drawn, invented, or hotlinked. Stores without
- * an icon keep their monogram (storeInitials in lib/catalog).
+ * Curated icons under /public/stores are served from Durza. For new stores,
+ * use Google's favicon cache with the store's website URL so the frontend does
+ * not need a per-brand code change. Stores without a website keep their
+ * monogram (storeInitials in lib/catalog).
  *
  * STORE_ACCENTS was sampled from each store's own icon (its most frequent
  * sufficiently saturated colour). It is used for decorative tints only —
@@ -48,15 +48,31 @@ export const STORE_ACCENTS: Record<string, string> = {
 };
 
 /**
- * The store's logo: its backend value first (a store may later ship its own
- * asset), then the self-hosted icon for that slug. Null means "use initials".
+ * Prefer the backend logo, then a curated local asset, then the website's
+ * cached favicon. Null means no usable website URL is available; use initials.
  */
 export function storeLogoUrl(
-  store: { slug?: string | null; logo_url?: string | null } | null | undefined,
+  store: {
+    slug?: string | null;
+    logo_url?: string | null;
+    website_url?: string | null;
+  } | null | undefined,
 ): string | null {
   if (!store) return null;
   if (store.logo_url) return store.logo_url;
   if (store.slug && LOCAL_STORE_LOGOS[store.slug]) return LOCAL_STORE_LOGOS[store.slug];
+  if (store.website_url) {
+    try {
+      const website = new URL(store.website_url);
+      if (website.protocol !== "https:" && website.protocol !== "http:") return null;
+      const favicon = new URL("https://www.google.com/s2/favicons");
+      favicon.searchParams.set("domain_url", website.origin);
+      favicon.searchParams.set("sz", "128");
+      return favicon.toString();
+    } catch {
+      return null;
+    }
+  }
   return null;
 }
 

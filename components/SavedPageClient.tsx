@@ -73,6 +73,7 @@ export function SavedPageClient() {
     name: s.name,
     slug: s.slug,
     logo_url: s.logo_url,
+    website_url: s.website_url,
     currency: s.currency,
   }));
 

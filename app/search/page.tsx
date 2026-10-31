@@ -292,6 +292,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
                           name: store.name,
                           slug: store.slug,
                           logo_url: store.logo_url,
+                          website_url: store.website_url,
                           currency: store.currency,
                         }
                       : undefined

@@ -56,19 +56,25 @@ import TrackDealBanner from "@/components/TrackDealBanner";
 
     const store = await loadStore(coupon.store_id);
 
-    // The offer's own researched description is the best copy when present;
-    // copy from the API can run past the length a result shows, so it is
-    // normalised to one line and cut on a word boundary. Without one, the
-    // discount, store and code/deal nature are the only facts available.
+    // Lead with the merchant and offer type so a result remains relevant to
+    // searches like "Acer promo code" even when the provider's offer title
+    // omits the merchant name. Keep the description grounded in offer data.
     const discount = formatDiscount(coupon, store?.currency ?? "INR");
-    const headline =
-      discount === "Deal"
-        ? `${store ? `${store.name} deal` : "Deal"}`
-        : `${discount}${store ? ` at ${store.name}` : ""}`;
-    const description =
-      metaDescription(coupon.description) ??
-      `${headline} — ${coupon.code ? "a promo code" : "an auto-applied offer"} read from the store's own page, with the last-checked date shown on Durza.`;
-    const title = coupon.title;
+    const merchantName = store?.name;
+    const offerKind = coupon.code ? "promo code" : "offer";
+    const title = `${merchantName ? `${merchantName} ` : ""}${offerKind}: ${coupon.title}`;
+    const description = metaDescription(
+      [
+        merchantName,
+        coupon.code ? "promo code available" : "offer",
+        discount !== "Deal" ? discount : null,
+        coupon.title,
+        coupon.description,
+        "See offer details and last-checked information on Durza.",
+      ]
+        .filter(Boolean)
+        .join(" — "),
+    );
     const canonical = absoluteUrl(`/coupons/${coupon.slug}`);
 
     return {
