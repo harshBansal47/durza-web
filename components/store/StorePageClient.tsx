@@ -196,7 +196,7 @@ export default function StorePageClient({
         <p className="text-ink-soft">
           <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Commission</span>
           {" · "}
-          {store.commission_disclosure ?? DEFAULT_DISCLOSURE}
+          {/* {store.commission_disclosure ?? DEFAULT_DISCLOSURE} */}
         </p>
       </section>
 
