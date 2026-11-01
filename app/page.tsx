@@ -67,27 +67,27 @@ async function safe<T>(promise: Promise<T>, fallback: T): Promise<T> {
   return promise.catch(() => fallback);
 }
 
-const PILLARS = [
-  {
-    title: "Sourced, not scraped",
-    body: "Every offer links to the store page it was read from, with the date we last checked it — not a marketing claim.",
-    points: [
-      "Source page on every offer",
-      "Check date on every card",
-      "Codes only where the store published them",
-    ],
-  },
-  {
-    title: "Commission disclosed",
-    body: "We publish what we earn on every store and coupon page. Expected earnings are one weighted input in ranking — and we say so.",
-    points: ["Per-store commission note", "Sponsored placements are labelled", "Ranking inputs explained"],
-  },
-  {
-    title: "Evidence over urgency",
-    body: "Expiry dates come from the store's own terms, not countdown theatre. Expired offers are hidden and archived.",
-    points: ["Expiry from store terms", "Expired offers removed", "Price history per product"],
-  },
-];
+// const PILLARS = [
+//   {
+//     title: "Sourced, not scraped",
+//     body: "Every offer links to the store page it was read from, with the date we last checked it — not a marketing claim.",
+//     points: [
+//       "Source page on every offer",
+//       "Check date on every card",
+//       "Codes only where the store published them",
+//     ],
+//   },
+//   {
+//     title: "Commission disclosed",
+//     body: "We publish what we earn on every store and coupon page. Expected earnings are one weighted input in ranking — and we say so.",
+//     points: ["Per-store commission note", "Sponsored placements are labelled", "Ranking inputs explained"],
+//   },
+//   {
+//     title: "Evidence over urgency",
+//     body: "Expiry dates come from the store's own terms, not countdown theatre. Expired offers are hidden and archived.",
+//     points: ["Expiry from store terms", "Expired offers removed", "Price history per product"],
+//   },
+// ];
 
 export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
@@ -536,13 +536,13 @@ export default async function HomePage() {
             <SectionTitle icon={Compass}>How it works</SectionTitle>
             <HowItWorks />
           </section>
-
-          <Reveal>
-          <section className="mt-16">
+{/* 
+          <Reveal> */}
+          {/* <section className="mt-16">
             <h2 className="text-center font-serif text-title font-medium text-ink">
               Why this is not a red-badge countdown site
             </h2>
-            <ul className="mt-8 grid gap-5 md:grid-cols-3">
+             <ul className="mt-8 grid gap-5 md:grid-cols-3">
               {PILLARS.map((pillar, i) => {
                 const Glyph = [Check, Percent, TrendingUp][i];
                 return (
@@ -576,8 +576,9 @@ export default async function HomePage() {
                 </li>
                 );
               })}
-            </ul>
-          </section>          </Reveal>
+            </ul> 
+          </section>      */}
+               {/* </Reveal> */}
         </>
       )}
     </div>
