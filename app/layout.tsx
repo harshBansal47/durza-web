@@ -82,7 +82,6 @@ const MORE_NAV_LINKS = [
   { href: "/reviews", label: "Reviews" },
   { href: "/collections", label: "Collections" },
   { href: "/saved", label: "Saved" },
-  { href: "/trust", label: "How Durza works" },
   { href: "/compare", label: "Compare" },
 ];
 
