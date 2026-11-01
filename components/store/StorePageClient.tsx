@@ -196,8 +196,8 @@ export default function StorePageClient({
 
       <section className="rounded-lg border border-ledger-line bg-paper-alt px-4 py-2.5 text-sm">
         <p className="text-ink-soft">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Commission</span>
-          {" · "}
+          <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Shop with confidence! All our offers are personally checked and verified from our side to avail working discount.</span>
+         
           {/* {store.commission_disclosure ?? DEFAULT_DISCLOSURE} */}
         </p>
       </section>
