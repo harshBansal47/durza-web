@@ -26,6 +26,15 @@ function columns(hasComparisons: boolean) {
   return [
     { title: "Deals", links: dealsLinks },
     {
+      title: "Popular categories",
+      links: [
+        { href: "/categories/flights", label: "Flight coupons" },
+        { href: "/categories/fashion", label: "Fashion deals" },
+        { href: "/categories/electronics", label: "Electronics" },
+        { href: "/categories/software", label: "Software" },
+      ],
+    },
+    {
       title: "Company",
       links: [
         { href: "/about", label: "About" },
@@ -79,7 +88,7 @@ export default function Footer({
 
       <div className="mt-14 border-t border-ledger-line pt-12 text-ink-soft">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 sm:grid-cols-5 sm:gap-10">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 sm:grid-cols-[1fr_1fr_1.15fr_.75fr_1fr_.8fr_1.55fr] sm:gap-5 xl:gap-6">
             <div className="col-span-2 sm:col-span-1">
               <Link
                 href="/"

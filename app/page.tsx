@@ -196,11 +196,12 @@ export default async function HomePage() {
   };
 
   const spotlight = take(coupons.items, 3);
+  const topPicks = take(biggest.items, 4);
   const latestDealsItems = take(latestDeals.items, 8);
   const endingSoonItems = take(endingSoon.items, 8);
   const confirmedItems = take(confirmed, 8);
   const recentlyVerifiedItems = take(recentlyVerified.items, 8);
-  const biggestItems = take(biggest.items, 4);
+  const biggestItems = topPicks;
   const bestCouponsItems = take(bestCoupons.items, 8);
   // A presentation filter over the backend's recommended order (not a re-ranking).
   const evergreen = take(
@@ -326,6 +327,24 @@ export default async function HomePage() {
             </section>
           )}
 
+          {topPicks.length > 0 && (
+            <section className="mt-10" aria-labelledby="top-picks-heading">
+              <SectionTitle hint="handpicked from live offers" icon={TrendingUp} action={{ href: "/deals", label: "Browse all deals" }}>
+                <span id="top-picks-heading">Today&apos;s top picks</span>
+              </SectionTitle>
+              <CouponCardGrid coupons={topPicks} stores={cardStores} variant="featured" className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" pageType="homepage" />
+            </section>
+          )}
+
+          {stores.items.length > 0 && (
+            <section className="section-panel mt-10 p-5 sm:p-6" aria-labelledby="stores-heading">
+              <SectionTitle hint={`${stores.total} tracked`} icon={Store}>
+                <span id="stores-heading">Stores we track</span>
+              </SectionTitle>
+              <StoreScroller stores={stores.items.slice(0, 8)} />
+            </section>
+          )}
+
           <EditorialSection
             title="Featured buying guides"
             items={editorial.guides}
@@ -363,6 +382,18 @@ export default async function HomePage() {
               )}
             </section>
           )}
+
+          <section className="mt-8 rounded-2xl border border-verified/15 bg-verified-soft/50 px-5 py-5 sm:px-7" aria-label="Our deal standards">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-lg font-bold text-ink">Real offers. Clear proof.</p>
+                <p className="mt-1 text-sm text-ink-soft">Every deal has a source and a check date. No fake countdowns or manufactured urgency.</p>
+              </div>
+              <div className="flex flex-wrap gap-2 text-xs font-semibold text-verified-ink">
+                {["Verified dates", "No fake urgency", "Sourced from stores"].map((label) => <span key={label} className="rounded-full bg-white px-3 py-2">✓ {label}</span>)}
+              </div>
+            </div>
+          </section>
 
           {endingSoonItems.length > 0 && (
             <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="ending-heading">
@@ -430,19 +461,6 @@ export default async function HomePage() {
                   className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                 />
               )}
-            </section>
-          )}
-
-          {stores.items.length > 0 && (
-            <section className="section-panel mt-12 p-5 sm:p-6" aria-labelledby="stores-heading">
-              <SectionTitle
-                hint={`${stores.total} tracked`}
-                icon={Store}
-                action={{ href: "/stores", label: "All stores" }}
-              >
-                <span id="stores-heading">Stores we track</span>
-              </SectionTitle>
-              <StoreScroller stores={stores.items.slice(0, 12)} />
             </section>
           )}
 

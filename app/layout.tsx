@@ -70,20 +70,20 @@ export const viewport = {
 };
 
 const NAV_LINKS = [
-  { href: "/deals", label: "Deals" },
   { href: "/coupons", label: "Coupons" },
+  { href: "/deals", label: "Deals" },
   { href: "/stores", label: "Stores" },
-  { href: "/guides", label: "Guides" },
-  { href: "/compare", label: "Compare" },
+  { href: "/categories", label: "Categories" },
 ];
 
 const MORE_NAV_LINKS = [
+  { href: "/guides", label: "Guides" },
   { href: "/bank-offers", label: "Bank & card offers" },
-  { href: "/categories", label: "Categories" },
   { href: "/reviews", label: "Reviews" },
   { href: "/collections", label: "Collections" },
   { href: "/saved", label: "Saved" },
   { href: "/trust", label: "How Durza works" },
+  { href: "/compare", label: "Compare" },
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -92,9 +92,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // route in the app into dynamic rendering, and the ad sits behind Suspense.
   const hasComparisons = await getHasComparisons().catch(() => false);
 
-  const navLinks = hasComparisons
-    ? NAV_LINKS
-    : NAV_LINKS.filter((l) => l.href !== "/compare");
+  const navLinks = NAV_LINKS;
   const moreNavLinks = hasComparisons
     ? MORE_NAV_LINKS
     : MORE_NAV_LINKS.filter((l) => l.href !== "/compare");

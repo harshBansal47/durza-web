@@ -74,22 +74,22 @@ export default function AppDownloadLink() {
     <div>
       <p className="text-sm font-medium text-ink">Get the app</p>
 
-      <div className="mt-3 border border-ledger-line bg-paper-raised p-4">
+      <div className="mt-3 rounded-2xl border border-accent-soft/60 bg-accent-faint/70 p-4 shadow-[var(--shadow-hairline)]">
         <div className="flex items-center gap-3">
           <Image
             src="/icon-192.png"
             alt=""
             width={44}
             height={44}
-            className="h-11 w-11 shrink-0 rounded-xl border border-ledger-line"
+            className="h-12 w-12 shrink-0 rounded-xl border border-white bg-white shadow-sm"
           />
           <div className="min-w-0 leading-tight">
             <p className="text-sm font-medium text-ink">Durza</p>
-            <p className="mt-0.5 text-xs text-ink-soft">Free · installs in seconds</p>
+            <p className="mt-0.5 text-xs text-ink-soft">Free · ready in seconds</p>
           </div>
         </div>
 
-        <p className="mt-3 text-xs leading-relaxed text-ink-soft">
+        <p className="mt-3 text-xs leading-5 text-ink-soft">
           Price-drop alerts, saved codes and your followed stores, one tap from your home screen.
         </p>
 

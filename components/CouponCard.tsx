@@ -264,7 +264,7 @@ export function CouponCard({
           <Link
             href={href}
             aria-disabled={expired}
-            className={`btn relative z-10 justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-primary"}`}
+            className={`btn relative z-10 w-full justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-cta"}`}
           >
             {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "View code" : "Get deal")}
           </Link>

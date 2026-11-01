@@ -217,7 +217,7 @@ export default function CouponTicket({
             <div className="flex flex-col">
               <Link
                 href={href}
-                className="btn btn-primary w-full justify-center"
+                className="btn btn-cta w-full justify-center"
               >
                 Get deal
               </Link>

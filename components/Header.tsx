@@ -131,84 +131,23 @@ export default function Header({
           scrolled ? "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]" : "",
         ].join(" ")}
       >
-        <div className="mx-auto flex min-h-[68px] max-w-[1280px] items-center gap-5 px-6 sm:min-h-[76px] lg:gap-8 lg:px-12">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-12">
+          <div className="flex min-h-[68px] items-center gap-3 sm:min-h-[76px] sm:gap-5">
           {/* Brand */}
           <Link
             href="/"
             className="group flex shrink-0 items-center"
           >
             <Logo
-              size={38}
+              size={36}
               tagline
               markClassName="transition-transform duration-200 group-hover:scale-[1.04]"
             />
           </Link>
 
-          {/* Desktop navigation */}
-          <nav
-            className="hidden h-full flex-1 items-center justify-center gap-1 xl:flex"
-            aria-label="Main navigation"
-          >
-            {links.map((link) => {
-              const active = isActive(link.href);
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={active ? "page" : undefined}
-                  className={[
-                    "relative flex h-10 items-center rounded-full px-4",
-                    "text-[13px] font-medium tracking-wide",
-                    "transition-colors duration-150",
-                    active
-                      ? "bg-ink/[0.06] text-ink"
-                      : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink",
-                  ].join(" ")}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-            {moreLinks.length > 0 && (
-              <div ref={moreMenuRef} className="relative flex h-full items-center">
-                <button
-                  type="button"
-                  aria-expanded={moreOpen}
-                  onClick={() => {
-                    setMoreOpen((open) => !open);
-                    setAccountOpen(false);
-                  }}
-                  className="flex h-10 items-center rounded-full px-4 text-[13px] font-medium tracking-wide text-ink-soft hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
-                >
-                  More
-                  <ChevronDown
-                    aria-hidden="true"
-                    className={`ml-1 h-4 w-4 transition-transform ${moreOpen ? "rotate-180" : ""}`}
-                    strokeWidth={1.75}
-                  />
-                </button>
-                {moreOpen && (
-                  <div className="absolute right-0 top-full z-50 mt-2 min-w-48 rounded-2xl border border-ledger-line bg-white p-2 shadow-[var(--shadow-overlay)]">
-                    {moreLinks.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={closeMoreMenu}
-                        className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </nav>
-
           {/* Search */}
-          <div className="ml-auto hidden w-full max-w-[260px] shrink-0 md:block lg:ml-0 lg:max-w-[280px]">
-            <HeaderSearch />
+          <div className="ml-auto hidden min-w-0 flex-1 md:block">
+            <HeaderSearch prominent />
           </div>
 
           {/* Account */}
@@ -345,6 +284,58 @@ export default function Header({
               onOpenSearch={() => setMobileSearchOpen(true)}
             />
           </div>
+          </div>
+
+          {/* Primary navigation lives on its own row, leaving the search free to grow. */}
+          <nav
+            className="hidden min-h-[48px] items-center gap-1 border-t border-ledger-line/70 md:flex"
+            aria-label="Main navigation"
+          >
+            {links.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative flex h-10 items-center rounded-full px-4 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-accent ${active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            {moreLinks.length > 0 && (
+              <div ref={moreMenuRef} className="relative flex h-full items-center">
+                <button
+                  type="button"
+                  aria-expanded={moreOpen}
+                  onClick={() => {
+                    setMoreOpen((open) => !open);
+                    setAccountOpen(false);
+                  }}
+                  className={`flex h-10 items-center rounded-full px-4 text-[15px] font-semibold transition-colors hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent ${moreLinks.some((link) => isActive(link.href)) ? "text-ink" : "text-ink-soft"}`}
+                >
+                  More
+                  <ChevronDown aria-hidden="true" className={`ml-1 h-4 w-4 transition-transform ${moreOpen ? "rotate-180" : ""}`} strokeWidth={1.75} />
+                </button>
+                {moreOpen && (
+                  <div className="absolute left-0 top-full z-50 mt-1 min-w-52 rounded-2xl border border-ledger-line bg-white p-2 shadow-[var(--shadow-overlay)]">
+                    {moreLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={closeMoreMenu}
+                        aria-current={isActive(link.href) ? "page" : undefined}
+                        className="block rounded-xl px-3 py-2.5 text-[15px] font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </nav>
         </div>
       </header>
 

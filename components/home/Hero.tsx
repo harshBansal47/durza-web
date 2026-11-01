@@ -143,6 +143,12 @@ export default function Hero({
               ))}
             </ul>
 
+            {topCoupon && (
+              <div className="mt-5 lg:hidden">
+                <HeroSpotlight coupon={topCoupon} store={topStore} />
+              </div>
+            )}
+
             {/* Quick category pills — subtle tags on desktop, popular stores on mobile */}
             {popularStores.length > 0 && (
               <div className="mt-7 lg:mt-4">

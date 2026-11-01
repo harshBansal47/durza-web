@@ -240,7 +240,7 @@ function Icon({ name }: { name: "clock" | "category" | "tag" | "flame" }) {
  * and products. Recents live in localStorage; popular terms are seeded by the
  * server so the first render already has something useful.
  */
-export function HeaderSearch({ popular = [] }: { popular?: string[] }) {
+export function HeaderSearch({ popular = [], prominent = false }: { popular?: string[]; prominent?: boolean }) {
   const router = useRouter();
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
@@ -371,7 +371,7 @@ export function HeaderSearch({ popular = [] }: { popular?: string[] }) {
     onKeyDown={handleKeyDown}
     autoComplete="off"
     style={{ paddingLeft: "2.75rem", paddingRight: "2.5rem" }}
-    className="input h-10 w-full truncate text-sm [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
+    className={`input w-full truncate ${prominent ? "h-12 text-[15px]" : "h-10 text-sm"} [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
   />
 
   {loading ? (
