@@ -339,7 +339,7 @@ export default function Header({
             <Link
               href="/how-it-works"
               aria-current={isActive("/how-it-works") ? "page" : undefined}
-              className={`relative ml-auto flex h-10 items-center rounded-full px-4 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-accent ${isActive("/how-it-works") ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
+              className={`relative ml-auto flex h-10 items-center  px-4 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-accent ${isActive("/how-it-works") ? "bg-ink/[0.06] text-slate-700" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
             >
               How it works
             </Link>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { guideImageFor } from "@/lib/siteImages";
 import { GuideCover, guideCoverVariant, guideStoreMentions } from "./GuideCover";
 
 /**
@@ -26,6 +27,8 @@ export default function GuideArt({
   size?: "card" | "hero";
   className?: string;
 }) {
+  const localImage = guideImageFor(title, summary);
+
   if (heroImageUrl) {
     return (
       <Image
@@ -37,6 +40,22 @@ export default function GuideArt({
         priority={size === "hero"}
         className={`w-full border border-ledger-line ${
           size === "hero" ? "h-auto rounded-2xl" : "aspect-[16/9] rounded-xl object-cover"
+        } ${className}`}
+      />
+    );
+  }
+
+  if (localImage) {
+    return (
+      <Image
+        src={localImage}
+        alt=""
+        width={1200}
+        height={675}
+        priority={size === "hero"}
+        sizes={size === "hero" ? "100vw" : "(max-width: 768px) 100vw, 33vw"}
+        className={`w-full border border-ledger-line object-cover ${
+          size === "hero" ? "aspect-[16/9] rounded-2xl" : "aspect-[16/9] rounded-xl"
         } ${className}`}
       />
     );
