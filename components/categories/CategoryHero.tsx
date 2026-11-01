@@ -34,14 +34,15 @@ export default function CategoryHero({
           className="object-cover object-center"
           priority
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/5 sm:via-white/65" />
+        <div aria-hidden="true" className="absolute inset-0 bg-black/15" />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10 sm:via-black/40" />
         <div className="absolute inset-y-0 left-0 flex max-w-[85%] items-center p-5 sm:max-w-[60%] sm:p-8">
           <div>
-            <span aria-hidden="true" className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 text-accent shadow-sm">
+            <span aria-hidden="true" className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl border border-white/25 bg-black/20 text-white shadow-sm backdrop-blur-sm">
               <CategoryIcon category={category} className="h-5 w-5" />
             </span>
-            <PageTitle className="text-2xl text-ink sm:text-4xl">{title}</PageTitle>
-            <p className="mt-2 max-w-md text-sm leading-6 text-ink-soft sm:text-base">
+            <PageTitle className="!text-2xl !text-white sm:!text-4xl">{title}</PageTitle>
+            <p className="mt-2 max-w-md text-sm leading-6 text-white/90 sm:text-base">
               Browse current {category.name.toLowerCase()} deals and coupons, with source details and check dates on every offer.
             </p>
           </div>
