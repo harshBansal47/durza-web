@@ -5,7 +5,7 @@
  * signal collection in localStorage today:
  *
  *   recent stores · recent coupons · clicked coupons · saved coupons ·
- *   followed stores . searches
+ *   saved stores . searches
  *
  * Signals are stored in a versioned, timestamped shape so the server can
  * apply decay without trusting a client-computed score. The old unversioned

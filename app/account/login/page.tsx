@@ -66,7 +66,7 @@ export default async function LoginPage({
       <p className="mt-2 text-sm text-ink-soft">
         {next
           ? "Sign in to continue where you left off."
-          : "Your saved stores and followed products live here."}
+          : "Your saved stores and coupons live here."}
       </p>
 
       {error === "google" && (

@@ -136,7 +136,7 @@ export default function SaveDealBanner({ target }: { target: SaveTarget }) {
       }
       mirrorLocally(next);
       setKnown((prev) => ({ saved: next, email: prev?.email ?? null }));
-      success(result.message ?? (next ? copy.toast : "Stopped."));
+      success(result.message ?? (next ? copy.toast : "Removed from saved items."));
     });
   }
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import AccountShell from "@/components/account/AccountShell";
-import { SavedCouponRow, StoreFollowRow } from "@/components/account/SaveButtons";
+import { SavedCouponRow, SavedStoreRow } from "@/components/account/SaveButtons";
 import { requireSavedAccount, toggleSavedCoupon, toggleSavedStore } from "@/app/account/actions";
 import { resilient } from "@/lib/api";
 import PopularChips from "@/components/PopularChips";
@@ -10,7 +10,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Saved deals",
-  description: "The stores you follow and the coupon codes you have saved.",
+  description: "The stores and coupon codes you have saved.",
   alternates: { canonical: absoluteUrl("/account/saved") },
   robots: { index: false, follow: false },
 };
@@ -59,8 +59,8 @@ export default async function SavedPage() {
         <div className="mt-6 border border-dashed border-ledger-line px-6 py-12 text-center">
           <p className="font-serif text-lg text-ink">Nothing saved yet</p>
           <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
-            Follow a store and we&apos;ll email you when it adds an offer. Track an offer and we&apos;ll
-            tell you if it&apos;s confirmed working, about to end, or stops working. At most one email a day.
+            Save a store to hear when it adds an offer, or save a coupon to get an update if its
+            status changes.
           </p>
           <PopularChips stores={[...directory.values()]} categories={[]} />
         </div>
@@ -69,14 +69,13 @@ export default async function SavedPage() {
           {rows.length > 0 && (
             <section className="mt-6">
               <h3 className="text-sm uppercase tracking-wider text-ink-soft">
-                Stores you follow
+                Saved stores
               </h3>
               <ul className="mt-3 space-y-2">
                 {rows.map((store) => (
-                  <StoreFollowRow
+                  <SavedStoreRow
                     key={store.id}
                     store={store}
-                    initiallySaved
                     action={toggleSavedStore}
                   />
                 ))}

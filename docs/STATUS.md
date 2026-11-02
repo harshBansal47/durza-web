@@ -35,7 +35,7 @@ not state-level yet), the payment picker (local-only, not wired), and the
 personalized module (unmounted).
 
 The "For you" row on the home page was the last personalized surface with no
-flag in front of it: it is driven by followed and recently viewed stores. It
+flag in front of it: it is driven by saved and recently viewed stores. It
 is now behind `NEXT_PUBLIC_PERSONALIZATION_ENABLED` and the personalization
 purpose, and it has a "Why am I seeing this?" control.
 

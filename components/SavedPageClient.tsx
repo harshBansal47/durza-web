@@ -9,7 +9,7 @@ import { CouponCardGrid, type CouponCardStore } from "@/components/CouponCard";
 import type { CouponPublic, Store } from "@/lib/types";
 
 /**
- * "My Deals" (§23) for anonymous visitors: saved coupons + followed stores
+ * "My Deals" (§23) for anonymous visitors: saved coupons + stores
  * from localStorage, resolved to live catalogue rows. Signed-in users get
  * the cross-device version at /account/saved — this page points them there.
  */
@@ -22,13 +22,13 @@ export function SavedPageClient() {
     (async () => {
       const ids = getSavedCouponIds().slice(0, 50);
       const slugs = getFollowedStores().slice(0, 50);
-      const [found, followed] = await Promise.all([
+      const [found, foundStores] = await Promise.all([
         Promise.all(ids.map((id) => api.getCouponById(id).catch(() => null))),
         Promise.all(slugs.map((slug) => api.getStoreBySlug(slug).catch(() => null))),
       ]);
       if (cancelled) return;
       setCoupons(found.filter((c): c is CouponPublic => c !== null));
-      setStores(followed.filter((s): s is Store => s !== null && s.is_active));
+      setStores(foundStores.filter((s): s is Store => s !== null && s.is_active));
     })();
     return () => {
       cancelled = true;
@@ -50,7 +50,7 @@ export function SavedPageClient() {
       <section className="rounded-[24px] border-2 border-dashed border-ledger-line bg-white px-6 py-14 text-center">
         <p className="font-serif text-2xl font-extrabold text-ink">Nothing saved yet</p>
         <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
-          Tap the bookmark on any deal or press Follow on a store and it will wait for you here —
+          Save any deal or store and it will wait for you here —
           no account needed. Sign in later to sync saved deals across devices.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -90,9 +90,9 @@ export function SavedPageClient() {
         </section>
       )}
       {stores.length > 0 && (
-        <section aria-labelledby="followed-stores">
-          <h2 id="followed-stores" className="font-serif text-xl font-extrabold text-ink">
-            Stores you follow ({stores.length})
+        <section aria-labelledby="saved-stores">
+          <h2 id="saved-stores" className="font-serif text-xl font-extrabold text-ink">
+            Saved stores ({stores.length})
           </h2>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             {stores.map((s) => (

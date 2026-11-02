@@ -33,7 +33,7 @@ describe("personalization signals", () => {
     expect(getSignals().clicked).toEqual(["c1"]);
   });
 
-  it("toggles followed stores", () => {
+  it("toggles saved stores", () => {
     expect(isStoreFollowed("nike")).toBe(false);
     expect(toggleFollowedStore("nike")).toBe(true);
     expect(isStoreFollowed("nike")).toBe(true);

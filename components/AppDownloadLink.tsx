@@ -90,7 +90,8 @@ export default function AppDownloadLink() {
         </div>
 
         <p className="mt-3 text-xs leading-5 text-ink-soft">
-          Price-drop alerts, saved codes and your followed stores, one tap from your home screen.
+          Saved coupons and stores, with email updates when an offer changes, one tap from your home
+          screen.
         </p>
 
         <Button

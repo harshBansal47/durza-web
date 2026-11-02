@@ -28,7 +28,7 @@ export default async function AccountOverviewPage() {
   const couponCount = couponIds.size;
 
   const stats = [
-    { label: "Stores followed", value: storeCount, href: "/account/saved" },
+    { label: "Stores saved", value: storeCount, href: "/account/saved" },
     { label: "Codes saved", value: couponCount, href: "/account/saved" },
   ];
 
@@ -58,7 +58,7 @@ export default async function AccountOverviewPage() {
 
       {resolvedStores.length > 0 && (
         <section className="mt-10">
-          <h3 className="font-serif text-lg text-ink">Stores you follow</h3>
+          <h3 className="font-serif text-lg text-ink">Saved stores</h3>
           <ul className="mt-3 flex flex-wrap gap-2">
             {resolvedStores.map((store) => {
               const logo = storeLogoUrl(store);

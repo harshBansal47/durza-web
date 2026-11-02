@@ -7,7 +7,6 @@ export const copy = {
     save: "Save",
     saved: "Saved",
     follow: "Follow",
-    following: "Following",
     signIn: "Sign in",
   },
   status: {

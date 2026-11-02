@@ -67,7 +67,7 @@ const BANNERS: Banner[] = [
   },
   {
     title: "Save offers, skip the refresh",
-    body: "Save coupons and follow stores; we'll email you when a saved offer changes or a store adds a deal.",
+    body: "Save coupons and stores; we'll email you when a saved offer changes or a saved store adds a deal.",
     cta: "Create a free account",
     href: "/account/register",
     glyph: ArrowDown,

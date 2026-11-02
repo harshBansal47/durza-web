@@ -48,7 +48,6 @@ function columns(hasComparisons: boolean) {
       links: [
         { href: "/account", label: "My account" },
         { href: "/account/saved", label: "Saved deals" },
-        { href: "/account/products", label: "Tracked prices" },
         { href: "/account/unsubscribe", label: "Turn off emails" },
       ],
     },

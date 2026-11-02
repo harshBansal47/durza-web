@@ -6,11 +6,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { storeInitials } from "@/lib/catalog";
 import { maskCode } from "@/lib/codes";
-import { setFollowedStore, setSavedCoupon } from "@/lib/personalization";
+import { setSavedCoupon } from "@/lib/personalization";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 /**
- * Save/follow toggles.
+ * Saved-item controls.
  *
  * These are optimistic: the visual state flips immediately and rolls back if the
  * Server Action fails, because waiting on a network round-trip to grey out a
@@ -77,48 +77,12 @@ export function SaveCouponButton({
   );
 }
 
-export function FollowStoreButton({
-  storeId,
-  storeSlug,
-  initiallySaved,
-  action,
-  className = "",
-}: {
-  storeId: string;
-  storeSlug: string;
-  initiallySaved: boolean;
-  action: (storeId: string, currentlySaved: boolean) => Promise<ToggleResult>;
-  className?: string;
-}) {
-  const { active, isPending, toggle } = useOptimisticToggle(initiallySaved, async (next) => {
-    const result = await action(storeId, !next);
-    if (!result.error) setFollowedStore(storeSlug, next);
-    return result;
-  });
-
-  return (
-    <Button
-      type="button"
-      variant={active ? "primary" : "outline"}
-      size="sm"
-      onClick={toggle}
-      disabled={isPending}
-      aria-pressed={active}
-      className={className}
-    >
-      {active ? "Following" : "Follow"}
-    </Button>
-  );
-}
-
-/** Follow/unfollow row for a store, used on the saved-deals page. */
-export function StoreFollowRow({
+/** Saved store row, used on the saved-deals page. */
+export function SavedStoreRow({
   store,
-  initiallySaved,
   action,
 }: {
   store: { id: string; name: string; slug: string; logo_url?: string | null };
-  initiallySaved: boolean;
   action: (storeId: string, currentlySaved: boolean) => Promise<ToggleResult>;
 }) {
   const logo = storeLogoUrl(store);
@@ -166,7 +130,7 @@ export function StoreFollowRow({
         disabled={isPending}
         className="shrink-0"
       >
-        {isPending ? "Removing…" : "Unfollow"}
+        {isPending ? "Removing…" : "Remove"}
       </Button>
     </li>
   );

@@ -75,12 +75,12 @@ export default function PrivacyPage() {
       </p>
       <p>
         <strong className="font-semibold text-ink">Saved data.</strong> If you choose to save
-        coupons or follow stores, we store those preferences so you can access them
+        coupons or stores, we store those preferences so you can access them
         when you return.
       </p>
       <p>
         <strong className="font-semibold text-ink">Notification preferences.</strong> We store your
-        email notification settings so we can deliver updates about saved offers and followed stores. The public
+        email notification settings so we can deliver updates about saved offers and saved stores. The public
         Telegram channel is separate from your account and does not require us to store a Telegram
         chat ID.
       </p>
