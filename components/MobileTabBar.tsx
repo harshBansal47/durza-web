@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, Bookmark, User } from "lucide-react";
-import { getSavedCouponIds } from "@/lib/personalization";
+import { Home, TicketPercent, Store, User } from "lucide-react";
 
 const TABS = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/search", label: "Search", icon: Search },
-  { href: "/saved", label: "Saved", icon: Bookmark, badge: true },
+  { href: "/coupons", label: "Coupons", icon: TicketPercent },
+  { href: "/stores", label: "Stores", icon: Store },
   { href: "/account", label: "Account", icon: User },
 ];
 
@@ -19,20 +17,6 @@ const TABS = [
  */
 export function MobileTabBar() {
   const pathname = usePathname();
-  const [savedCount, setSavedCount] = useState(0);
-
-  useEffect(() => {
-    function refresh() {
-      setSavedCount(getSavedCouponIds().length);
-    }
-    refresh();
-    window.addEventListener("focus", refresh);
-    window.addEventListener("storage", refresh);
-    return () => {
-      window.removeEventListener("focus", refresh);
-      window.removeEventListener("storage", refresh);
-    };
-  }, [pathname]);
 
   if (pathname.startsWith("/coupons/")) return null;
 
@@ -64,14 +48,6 @@ export function MobileTabBar() {
                     <tab.icon aria-hidden="true" className="h-5 w-5" strokeWidth={active ? 2 : 1.75} />
                   </span>
                   {tab.label}
-                  {tab.badge && savedCount > 0 && (
-                    <span
-                      aria-label={`${savedCount} saved deals`}
-                      className="absolute right-1/2 top-1 flex h-4 min-w-4 translate-x-5 items-center justify-center rounded-full bg-accent px-1 font-mono text-[9px] font-medium text-white"
-                    >
-                      {savedCount > 99 ? "99+" : savedCount}
-                    </span>
-                  )}
                 </Link>
               </li>
             );
