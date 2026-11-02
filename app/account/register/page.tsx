@@ -4,7 +4,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Create an account",
-  description: "Create a free Durza account to track prices and get alerted when new codes land.",
+  description: "Create a free Durza account to save coupons and get updates when they change.",
   alternates: { canonical: absoluteUrl("/account/register") },
   robots: { index: false, follow: true },
 };

@@ -8,7 +8,7 @@ import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to your Durza account to see saved deals and tracked prices.",
+  description: "Sign in to your Durza account to see saved deals and get updates about them.",
   alternates: { canonical: absoluteUrl("/account/login") },
   // Account pages are per-user; keep them out of the index.
   robots: { index: false, follow: true },

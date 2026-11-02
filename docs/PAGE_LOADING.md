@@ -8,7 +8,7 @@ visitor.**
 |---|---|---|
 | 1. Needed to show the page | The thing the URL names (the offer, the store, the guide) and what its headline and main button need | Awaited on the server. Keep this to one or two calls. |
 | 2. Adds to the page | Related offers, verification history, "More in category", sponsored slot, related stores | Its own async component behind `<Suspense>` with a skeleton (see `components/coupon/CouponSections.tsx`). Fails alone, renders nothing when empty. |
-| 3. Depends on who is looking, or what they do | Signed-in state, whether *you* follow a store, saving, tracking, voting | Client-side, after the page is showing. Never on the server: reading the session there would make every page dynamic. |
+| 3. Depends on who is looking, or what they do | Signed-in state, saved items, voting | Client-side, after the page is showing. Never on the server: reading the session there would make every page dynamic. |
 
 ## Rules
 

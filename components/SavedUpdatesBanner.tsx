@@ -29,9 +29,8 @@ function getServerSnapshot() {
 }
 
 /**
- * Price-alert CTA that used to sit inside the footer and could not be closed.
- * It now lives above the footer, is dismissible, and remembers the choice on
- * this device (localStorage only — nothing is sent to the server).
+ * Saved-item CTA that lives above the footer and remembers dismissal on this
+ * device (localStorage only — nothing is sent to the server).
  */
 export default function SavedUpdatesBanner() {
   const { session } = useSession();
@@ -76,7 +75,7 @@ export default function SavedUpdatesBanner() {
                 Save offers and we&apos;ll keep you posted.
               </p>
               <p className="mt-2 text-sm text-ink-soft">
-                Save a coupon or follow a store and we&apos;ll email you about useful updates. Free, no spam.
+                Save a coupon or store and we&apos;ll email you about useful updates. Free, no spam.
               </p>
             </div>
             <Link

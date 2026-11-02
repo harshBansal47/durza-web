@@ -25,7 +25,7 @@ starts from scratch.
   must read.
 - "How it works" → `/how-it-works`; "How Durza works" → `/trust`. Mobile
   menu must not repeat the tab bar's Saved.
-- Price-alert CTA sits above the footer and is dismissible for good
+- Saved-item updates CTA sits above the footer and is dismissible for good
   (`localStorage` via `useSyncExternalStore`). Install prompt: touch devices
   only, at most once.
 - Outbound links keep `rel="sponsored nofollow noopener"`. JSON-LD, ISR
@@ -115,9 +115,9 @@ Every persuasive pattern is data-backed and calm. Copy lives in `lib/persuasion.
 |---|---|---|---|
 | One-tap reveal + copy | `CouponPublic.code`, tracked `/go` URL | code exists | bare `window.open`, forced sign-in, full codes in lists |
 | Community trust badge | `success_rate`, `success_count`, `fail_count` | at least 5 reports | “verified by our team” without a human-check field |
-| Saved-item updates | `SavedItem`, store follow state | a real saved coupon or followed store | repeated nagging, pre-ticked consent |
+| Saved-item updates | `SavedItem`, saved store state | a real saved coupon or store | repeated nagging, pre-ticked consent |
 | Expiry tone | `expires_at` | under 48h = warning | countdown timers, fake “only 2 left” |
 | Price insight | `PriceHistory` points + current price | current price equals window minimum | “lowest ever” without data |
-| Smart-shopper confirmation | real action (reveal, vote, save, track, settings) | action completed | flattery, invented savings |
+| Smart-shopper confirmation | real action (reveal, vote, save, settings) | action completed | flattery, invented savings |
 
 The audit in `docs/persuasion-audit.md` lists every surface and the BACKEND-NEEDED fields. Persuasion must never blur editorial, sponsored or affiliate content.
