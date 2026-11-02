@@ -195,7 +195,9 @@ export default async function HomePage() {
     return picked;
   };
 
-  const spotlight = take(coupons.items, 3);
+  // The hero renders only spotlight[0], so reserve only that coupon. Reserving
+  // three here would make the other two disappear from every later section.
+  const spotlight = take(coupons.items, 1);
   const topPicks = take(biggest.items, 4);
   const latestDealsItems = take(latestDeals.items, 8);
   const endingSoonItems = take(endingSoon.items, 8);
