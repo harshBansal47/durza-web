@@ -6,7 +6,9 @@ const json = (body: unknown, status = 200) =>
 
 describe("api.autocomplete", () => {
   let fetchMock: ReturnType<typeof vi.fn>;
-  const urls = () => fetchMock.mock.calls.map((c) => String(c[0]));
+  const asUrl = (input: unknown) =>
+    typeof Request !== "undefined" && input instanceof Request ? input.url : String(input);
+  const urls = () => fetchMock.mock.calls.map((c) => asUrl(c[0]));
 
   beforeEach(() => {
     resetSuggestProbe();
@@ -26,10 +28,11 @@ describe("api.autocomplete", () => {
   });
 
   it("falls back to the three separate endpoints when the API predates /search/suggest", async () => {
-    fetchMock.mockImplementation((url: string) => {
-      if (String(url).includes("/search/suggest")) return json({ detail: "Not Found" }, 404);
-      if (String(url).includes("/stores/")) return json(["Nike"]);
-      if (String(url).includes("/categories/")) return json(["Shoes"]);
+    fetchMock.mockImplementation((input: unknown) => {
+      const url = asUrl(input);
+      if (url.includes("/search/suggest")) return json({ detail: "Not Found" }, 404);
+      if (url.includes("/stores/")) return json(["Nike"]);
+      if (url.includes("/categories/")) return json(["Shoes"]);
       return json(["Air Max"]);
     });
     const result = await api.autocomplete("ni");

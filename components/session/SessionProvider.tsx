@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { usePathname } from "next/navigation";
+import { sessionApi } from "@/lib/client-api/session";
 
 export interface SessionUser {
   name: string;
@@ -87,12 +88,8 @@ export function SessionProvider({
    */
   const refresh = useCallback(() => {
     const controller = new AbortController();
-    fetch("/api/session", { cache: "no-store", signal: controller.signal })
-      .then((response) =>
-        response.ok
-          ? (response.json() as Promise<{ signedIn?: boolean; user?: SessionUser | null }>)
-          : null,
-      )
+    sessionApi
+      .get(controller.signal)
       .then((data) => {
         if (!controller.signal.aborted) apply(data);
       })

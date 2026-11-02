@@ -9,6 +9,7 @@ import {
 import { track, resetImpressionDedupe } from "@/lib/analytics";
 import { flushImpressions, resetImpressionQueue } from "@/lib/impressionQueue";
 import { api } from "@/lib/api";
+import { personalizationApi } from "@/lib/client-api/personalization";
 
 /**
  * D3 tests: consent gating. Analytics must only fire when the visitor has
@@ -26,10 +27,13 @@ vi.mock("@/lib/api", () => ({
 const mockRecordImpression = api.recordImpressions as ReturnType<typeof vi.fn>;
 
 describe("consent gating (D3)", () => {
+  let postConsent: ReturnType<typeof vi.spyOn>;
+
   beforeEach(() => {
     window.localStorage.clear();
     window.sessionStorage.clear();
     vi.clearAllMocks();
+    postConsent = vi.spyOn(personalizationApi, "postConsent").mockResolvedValue(true);
     resetImpressionDedupe();
     resetImpressionQueue();
   });
@@ -50,25 +54,11 @@ describe("consent gating (D3)", () => {
   });
 
   it("the choice is sent to the API, so it can issue a consent cookie", () => {
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    vi.stubGlobal("fetch", fetchMock);
-
     setConsent("accepted");
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("/analytics/consent"),
-      expect.objectContaining({
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({ choice: "accepted" }),
-      }),
-    );
+    expect(postConsent).toHaveBeenCalledWith("accepted");
 
     setConsent("declined");
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("/analytics/consent"),
-      expect.objectContaining({ body: JSON.stringify({ choice: "declined" }) }),
-    );
-    vi.unstubAllGlobals();
+    expect(postConsent).toHaveBeenCalledWith("declined");
   });
 
   it("declined => analytics does not fire", () => {
@@ -135,61 +125,49 @@ describe("consent gating (D3)", () => {
     // The choice is in localStorage from an earlier visit; the cookie is not
     // there (it expired, or was cleared, or never existed for this visitor).
     window.localStorage.setItem("durza_consent_v1", "accepted");
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    vi.stubGlobal("fetch", fetchMock);
+    postConsent.mockResolvedValue(true);
 
     ensureConsentCookie();
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
-
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("/analytics/consent"),
-      expect.objectContaining({
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({ choice: "accepted" }),
-      }),
-    );
+    await vi.waitFor(() => expect(postConsent).toHaveBeenCalledTimes(1));
+    expect(postConsent).toHaveBeenCalledWith("accepted");
   });
 
   it("it asks once per session, not once per page", async () => {
     window.localStorage.setItem("durza_consent_v1", "accepted");
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    vi.stubGlobal("fetch", fetchMock);
+    postConsent.mockResolvedValue(true);
 
     ensureConsentCookie();
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    await vi.waitFor(() => expect(postConsent).toHaveBeenCalledTimes(1));
 
     ensureConsentCookie();
     ensureConsentCookie();
     await Promise.resolve();
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(postConsent).toHaveBeenCalledTimes(1);
   });
 
   it("a visitor who declined, or never chose, is not asked", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    vi.stubGlobal("fetch", fetchMock);
+    postConsent.mockResolvedValue(true);
 
     ensureConsentCookie();
     window.localStorage.setItem("durza_consent_v1", "declined");
     ensureConsentCookie();
     await Promise.resolve();
 
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(postConsent).not.toHaveBeenCalled();
   });
 
   it("a failed call is not remembered, so the next load tries again", async () => {
     window.localStorage.setItem("durza_consent_v1", "accepted");
-    const fetchMock = vi.fn().mockRejectedValue(new Error("offline"));
-    vi.stubGlobal("fetch", fetchMock);
+    postConsent.mockRejectedValueOnce(new Error("offline"));
 
     ensureConsentCookie();
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    await vi.waitFor(() => expect(postConsent).toHaveBeenCalledTimes(1));
     // let the rejection settle, so the pending marker is cleared
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    fetchMock.mockResolvedValue({ ok: true });
+    postConsent.mockResolvedValue(true);
     ensureConsentCookie();
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+    await vi.waitFor(() => expect(postConsent).toHaveBeenCalledTimes(2));
   });
 
   it("onConsentChange listener fires on consent change", () => {

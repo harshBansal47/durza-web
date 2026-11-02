@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import VerifyWidget from "@/components/VerifyWidget";
@@ -37,6 +38,15 @@ vi.mock("@/lib/api", async () => {
 
 import { api } from "@/lib/api";
 
+function renderWidget(coupon: CouponPublic) {
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  return render(
+    <QueryClientProvider client={queryClient}>
+      <VerifyWidget coupon={coupon} />
+    </QueryClientProvider>,
+  );
+}
+
 describe("VerifyWidget", () => {
   beforeEach(() => {
     vi.mocked(api.verifyCoupon).mockReset();
@@ -50,14 +60,14 @@ describe("VerifyWidget", () => {
   });
 
   it("shows the initial stats computed from the coupon prop", () => {
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     expect(screen.getByText("67%")).toBeInTheDocument();
     expect(screen.getByText("(3 reports)")).toBeInTheDocument();
   });
 
   it("does not invite votes before the code was revealed on this device", () => {
     window.localStorage.clear();
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     expect(screen.queryByRole("button", { name: "Worked" })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: /reveal the code/i })).toHaveAttribute(
       "href",
@@ -74,12 +84,12 @@ describe("VerifyWidget", () => {
       last_verified_at: "2026-01-02T00:00:00Z",
       success_rate: 0.75,
     });
-    const { unmount } = render(<VerifyWidget coupon={baseCoupon} />);
+    const { unmount } = renderWidget(baseCoupon);
     await userEvent.click(screen.getByRole("button", { name: "Worked" }));
     await waitFor(() => expect(screen.getByText(/that helps the next person/i)).toBeInTheDocument());
     unmount();
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     expect(screen.getByText(/you reported this worked on this device/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Worked" })).not.toBeInTheDocument();
   });
@@ -93,24 +103,27 @@ describe("VerifyWidget", () => {
       success_rate: 0.9,
     });
 
-    render(<VerifyWidget coupon={{ ...baseCoupon, success_count: 0, fail_count: 0, success_rate: null }} />);
+    renderWidget({ ...baseCoupon, success_count: 0, fail_count: 0, success_rate: null });
 
     expect(await screen.findByText("90%")).toBeInTheDocument();
     expect(screen.getByText("(10 reports)")).toBeInTheDocument();
-    expect(api.getCouponStats).toHaveBeenCalledWith("c1");
+    expect(api.getCouponStats).toHaveBeenCalledWith(
+      "c1",
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
+    );
   });
 
   it("keeps the page's numbers if the live lookup fails", async () => {
     vi.mocked(api.getCouponStats).mockRejectedValue(new Error("offline"));
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
 
     await waitFor(() => expect(api.getCouponStats).toHaveBeenCalled());
     expect(screen.getByText("67%")).toBeInTheDocument();
   });
 
   it("shows one inviting empty state, not two 'No …' cells, when nothing has been reported", () => {
-    render(<VerifyWidget coupon={{ ...baseCoupon, success_count: 0, fail_count: 0, success_rate: null }} />);
+    renderWidget({ ...baseCoupon, success_count: 0, fail_count: 0, success_rate: null });
     expect(screen.getByText(/no reports yet/i)).toBeInTheDocument();
     expect(screen.getByText(/be the first to tell us/i)).toBeInTheDocument();
     expect(screen.queryByText("Success rate")).not.toBeInTheDocument();
@@ -119,7 +132,7 @@ describe("VerifyWidget", () => {
 
   it("tells a visitor to get the deal, not 'reveal the code', when the offer has no code", async () => {
     window.localStorage.clear(); // beforeEach marks c1 as revealed; this visitor has not clicked through yet
-    render(<VerifyWidget coupon={{ ...baseCoupon, code: null }} />);
+    renderWidget({ ...baseCoupon, code: null });
 
     expect(await screen.findByText(/did this deal work for you/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /get the deal at the store/i })).toHaveAttribute(
@@ -137,7 +150,7 @@ describe("VerifyWidget", () => {
       success_rate: 0.75,
     });
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     await userEvent.click(screen.getByRole("button", { name: "Worked" }));
 
     await waitFor(() => expect(screen.getByText(/that helps the next person/i)).toBeInTheDocument());
@@ -153,7 +166,7 @@ describe("VerifyWidget", () => {
       success_rate: 0.5,
     });
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     await userEvent.click(screen.getByRole("button", { name: "Didn't work" }));
 
     await waitFor(() => expect(api.verifyCoupon).toHaveBeenCalledWith("c1", false));
@@ -162,7 +175,7 @@ describe("VerifyWidget", () => {
   it("shows a rate-limited message on a 429, not a generic error", async () => {
     vi.mocked(api.verifyCoupon).mockRejectedValue(new ApiError("rate limited", 429));
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     await userEvent.click(screen.getByRole("button", { name: "Worked" }));
 
     await waitFor(() =>
@@ -173,7 +186,7 @@ describe("VerifyWidget", () => {
   it("returns to the reportable state (not stuck) on a non-429 error", async () => {
     vi.mocked(api.verifyCoupon).mockRejectedValue(new ApiError("server error", 500));
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     await userEvent.click(screen.getByRole("button", { name: "Worked" }));
 
     await waitFor(() => expect(screen.getByRole("button", { name: "Worked" })).toBeEnabled());
@@ -187,7 +200,7 @@ describe("VerifyWidget", () => {
       }),
     );
 
-    render(<VerifyWidget coupon={baseCoupon} />);
+    renderWidget(baseCoupon);
     await userEvent.click(screen.getByRole("button", { name: "Worked" }));
 
     expect(screen.getByRole("button", { name: "Worked" })).toBeDisabled();

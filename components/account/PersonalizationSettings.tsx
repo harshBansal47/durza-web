@@ -8,7 +8,7 @@ import {
   setPersonalizationConsent,
   withdrawPersonalization,
 } from "@/lib/consent";
-import { getPublicApiBaseUrl } from "@/lib/api-url";
+import { personalizationApi } from "@/lib/client-api/personalization";
 
 /**
  * The personalization panel.
@@ -34,12 +34,7 @@ function PersonalizationSettingsPanel() {
   async function exportInterests() {
     setBusy(true);
     try {
-      const resp = await fetch(`${getPublicApiBaseUrl()}/personalization/export`, {
-        credentials: "include",
-        cache: "no-store",
-      });
-      if (!resp.ok) throw new Error("export failed");
-      const data = await resp.json();
+      const data = await personalizationApi.exportInterests();
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");

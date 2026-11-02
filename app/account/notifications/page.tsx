@@ -4,7 +4,7 @@ import AccountShell from "@/components/account/AccountShell";
 import NotificationSettings from "@/components/account/NotificationSettings";
 import {
   loadPushKey,
-  requireAccount,
+  requireNotificationAccount,
   subscribePushAction,
   unsubscribePushAction,
   updatePreferencesAction,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function NotificationsPage() {
-  const { user, prefs } = await requireAccount();
+  const { user, prefs } = await requireNotificationAccount();
 
   /*
    * Read on the server rather than fetched from the client.

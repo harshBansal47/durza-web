@@ -7,6 +7,17 @@ import { SessionProvider } from "@/components/session/SessionProvider";
 import { setSavedStoreAction } from "@/app/account/actions";
 import type { CouponPublic } from "@/lib/types";
 
+const { apiMock } = vi.hoisted(() => ({
+  apiMock: { getStoreBySlug: vi.fn(), listCoupons: vi.fn() },
+}));
+
+vi.mock("@/lib/api", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/api")>("@/lib/api");
+  return { ...actual, api: { ...actual.api, ...apiMock } };
+});
+
+import { api } from "@/lib/api";
+
 vi.mock("@/app/account/actions", () => ({
   setSavedStoreAction: vi.fn().mockResolvedValue({}),
   setSavedCouponAction: vi.fn().mockResolvedValue({}),
@@ -70,6 +81,7 @@ describe("discovery modules", () => {
     flagState.personalizationEnabled = true;
     flagState.consentGranted = true;
     vi.unstubAllGlobals();
+    vi.clearAllMocks();
   });
 
   it("RecentlyVerified renders nothing without verification data — never fake freshness", () => {
@@ -104,29 +116,12 @@ describe("discovery modules", () => {
       JSON.stringify({ version: 2, stores: [{ id: "amazon", at: Date.now() }], followed: [] }),
     );
     localStorage.setItem("durza_personalization_v1", "accepted");
-    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input);
-      if (url.includes("/coupons")) {
-        return { ok: true, json: async () => ({ items: [makeCoupon()], total: 1 }) };
-      }
-      return {
-        ok: true,
-        json: async () => ({
-          id: "s1",
-          name: "Amazon",
-          slug: "amazon",
-          logo_url: null,
-          currency: "INR",
-        }),
-      };
-    });
-    vi.stubGlobal("fetch", fetchMock);
-
     const { container } = render(<RecommendedRow />);
     await Promise.resolve();
 
     expect(container).toBeEmptyDOMElement();
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(api.getStoreBySlug).not.toHaveBeenCalled();
+    expect(api.listCoupons).not.toHaveBeenCalled();
   });
 
   it("Recommended stays hidden without the personalization purpose", async () => {
@@ -135,14 +130,12 @@ describe("discovery modules", () => {
       "durza.taste_v2",
       JSON.stringify({ version: 2, stores: [{ id: "amazon", at: Date.now() }], followed: [] }),
     );
-    const fetchMock = vi.fn();
-    vi.stubGlobal("fetch", fetchMock);
-
     const { container } = render(<RecommendedRow />);
     await Promise.resolve();
 
     expect(container).toBeEmptyDOMElement();
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(api.getStoreBySlug).not.toHaveBeenCalled();
+    expect(api.listCoupons).not.toHaveBeenCalled();
   });
 
   it("Recommended shows the row and says why when it is allowed", async () => {
@@ -150,23 +143,14 @@ describe("discovery modules", () => {
       "durza.taste_v2",
       JSON.stringify({ version: 2, stores: [{ id: "amazon", at: Date.now() }], followed: [] }),
     );
-    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input);
-      if (url.includes("/coupons")) {
-        return { ok: true, json: async () => ({ items: [makeCoupon()], total: 1 }) };
-      }
-      return {
-        ok: true,
-        json: async () => ({
-          id: "s1",
-          name: "Amazon",
-          slug: "amazon",
-          logo_url: null,
-          currency: "INR",
-        }),
-      };
+    apiMock.getStoreBySlug.mockResolvedValue({
+      id: "s1",
+      name: "Amazon",
+      slug: "amazon",
+      logo_url: null,
+      currency: "INR",
     });
-    vi.stubGlobal("fetch", fetchMock);
+    apiMock.listCoupons.mockResolvedValue({ items: [makeCoupon()], total: 1 });
 
     render(<RecommendedRow />);
 

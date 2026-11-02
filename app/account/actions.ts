@@ -602,12 +602,28 @@ export async function unsubscribeAction(_prev: ActionResult, formData: FormData)
 /* Account read helpers for pages                                      */
 /* ------------------------------------------------------------------ */
 
-export async function loadAccount() {
+async function requireAccountSlice<T>(loader: (token: string) => Promise<T>): Promise<T> {
   const token = await getAccessToken();
-  if (!token) return null;
+  if (!token) {
+    const { redirect } = await import("next/navigation");
+    redirect("/account/login?next=%2Faccount");
+    throw new Error("unreachable");
+  }
 
   try {
-      const [user, stores, coupons, tracked, prefs, alerts] = await Promise.all([
+    return await loader(token);
+  } catch {
+    // Preserve the existing account-page failure behavior while only making
+    // the requests each page actually needs.
+    const { redirect } = await import("next/navigation");
+    redirect("/account/login?next=%2Faccount");
+    throw new Error("unreachable");
+  }
+}
+
+export async function requireAccount() {
+  return requireAccountSlice(async (token) => {
+    const [user, stores, coupons, tracked, prefs, alerts] = await Promise.all([
       api.me(token),
       api.listSavedStores(token),
       api.listSavedCoupons(token),
@@ -616,15 +632,44 @@ export async function loadAccount() {
       api.listAlerts(token, 20),
     ]);
     return { user, stores, coupons, tracked, prefs, alerts };
-  } catch {
-    return null;
-  }
+  });
 }
 
-export async function requireAccount() {
-  const account = await loadAccount();
-  if (account) return account;
-  const { redirect } = await import("next/navigation");
-  redirect("/account/login?next=%2Faccount");
-  throw new Error("unreachable");
+export async function requireAccountUser() {
+  return requireAccountSlice(async (token) => ({ user: await api.me(token) }));
+}
+
+export async function requireSavedAccount() {
+  return requireAccountSlice(async (token) => {
+    const [user, stores, coupons] = await Promise.all([
+      api.me(token),
+      api.listSavedStores(token),
+      api.listSavedCoupons(token),
+    ]);
+    return { user, stores, coupons };
+  });
+}
+
+export async function requireTrackedAccount() {
+  return requireAccountSlice(async (token) => {
+    const [user, tracked] = await Promise.all([
+      api.me(token),
+      api.listTrackedProducts(token),
+    ]);
+    return { user, tracked };
+  });
+}
+
+export async function requireAlertsAccount() {
+  return requireAccountSlice(async (token) => {
+    const [user, alerts] = await Promise.all([api.me(token), api.listAlerts(token, 50)]);
+    return { user, alerts };
+  });
+}
+
+export async function requireNotificationAccount() {
+  return requireAccountSlice(async (token) => {
+    const [user, prefs] = await Promise.all([api.me(token), api.getNotificationPreferences(token)]);
+    return { user, prefs };
+  });
 }

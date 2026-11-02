@@ -59,24 +59,17 @@ export interface AnalyticsOverview {
     user_role: string;
   };
 }
-
 export async function fetchAnalyticsOverview(
   startDate: string,
   endDate: string,
   signal?: AbortSignal,
 ): Promise<AnalyticsOverview> {
   const params = new URLSearchParams({ start_date: startDate, end_date: endDate });
-  const response = await fetch(`/api/admin/analytics/overview?${params}`, {
-    cache: "no-store",
-    signal,
-  });
-  if (!response.ok) {
-    const body = (await response.json().catch(() => null)) as
-      | { detail?: string; error?: string }
-      | null;
-    throw new Error(body?.detail ?? body?.error ?? `Analytics request failed (${response.status})`);
-  }
-  return (await response.json()) as AnalyticsOverview;
+  const response = await clientHttp.get<AnalyticsOverview>(
+    clientAppUrl(`/api/admin/analytics/overview?${params}`),
+    clientRequestConfig(signal, { cache: "no-store" }),
+  );
+  return response.data;
 }
 
 export async function fetchAnalyticsCsv(startDate: string, endDate: string): Promise<Blob> {
@@ -85,16 +78,11 @@ export async function fetchAnalyticsCsv(startDate: string, endDate: string): Pro
     end_date: endDate,
     format: "csv",
   });
-  const response = await fetch(`/api/admin/analytics/overview?${params}`, {
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    const body = (await response.json().catch(() => null)) as
-      | { detail?: string; error?: string }
-      | null;
-    throw new Error(body?.detail ?? body?.error ?? `CSV export failed (${response.status})`);
-  }
-  return response.blob();
+  const response = await clientHttp.get<Blob>(
+    clientAppUrl(`/api/admin/analytics/overview?${params}`),
+    { ...clientRequestConfig(undefined, { cache: "no-store" }), responseType: "blob" },
+  );
+  return response.data;
 }
 
 // ---------------------------------------------------------------------------
@@ -154,18 +142,12 @@ export interface IngestionRunResult {
   skipped: { slug: string; reason: string }[];
 }
 
-async function readError(response: Response, fallback: string): Promise<Error> {
-  const body = (await response.json().catch(() => null)) as
-    | { detail?: unknown; error?: string }
-    | null;
-  const detail = typeof body?.detail === "string" ? body.detail : undefined;
-  return new Error(detail ?? body?.error ?? `${fallback} (${response.status})`);
-}
-
 export async function fetchIngestionOverview(signal?: AbortSignal): Promise<IngestionOverview> {
-  const response = await fetch("/api/admin/ingestion/overview", { cache: "no-store", signal });
-  if (!response.ok) throw await readError(response, "Ingestion status request failed");
-  return (await response.json()) as IngestionOverview;
+  const response = await clientHttp.get<IngestionOverview>(
+    clientAppUrl("/api/admin/ingestion/overview"),
+    clientRequestConfig(signal, { cache: "no-store" }),
+  );
+  return response.data;
 }
 
 export async function fetchIngestionRuns(
@@ -173,22 +155,20 @@ export async function fetchIngestionRuns(
   signal?: AbortSignal,
 ): Promise<IngestionRun[]> {
   const params = new URLSearchParams({ limit: String(limit) });
-  const response = await fetch(`/api/admin/ingestion/runs?${params}`, {
-    cache: "no-store",
-    signal,
-  });
-  if (!response.ok) throw await readError(response, "Ingestion runs request failed");
-  return (await response.json()) as IngestionRun[];
+  const response = await clientHttp.get<IngestionRun[]>(
+    clientAppUrl(`/api/admin/ingestion/runs?${params}`),
+    clientRequestConfig(signal, { cache: "no-store" }),
+  );
+  return response.data;
 }
 
 /** Start ingestion now. Pass slugs to pick providers, or null for every enabled one. */
 export async function triggerIngestion(slugs: string[] | null): Promise<IngestionRunResult> {
-  const response = await fetch("/api/admin/ingestion/run", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(slugs ? { source_slugs: slugs } : {}),
-    cache: "no-store",
-  });
-  if (!response.ok) throw await readError(response, "Could not start ingestion");
-  return (await response.json()) as IngestionRunResult;
+  const response = await clientHttp.post<IngestionRunResult>(
+    clientAppUrl("/api/admin/ingestion/run"),
+    slugs ? { source_slugs: slugs } : {},
+    clientRequestConfig(undefined, { cache: "no-store" }),
+  );
+  return response.data;
 }
+import { clientAppUrl, clientHttp, clientRequestConfig } from "@/lib/client-http";

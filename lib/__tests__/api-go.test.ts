@@ -24,16 +24,18 @@ describe("tracked outbound URLs", () => {
   });
 
   it("serializes every selected store and category facet as repeated query params", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: async () => ({ items: [], total: 0, skip: 0, limit: 20 }),
-    });
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ items: [], total: 0, skip: 0, limit: 20 }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
     vi.stubGlobal("fetch", fetchMock);
 
     await api.listCoupons({ store_ids: ["s1", "s2"], category_ids: ["c1"] });
 
-    const url = new URL(String(fetchMock.mock.calls[0][0]));
+    const request = fetchMock.mock.calls[0][0] as Request;
+    const url = new URL(request.url);
     expect(url.searchParams.getAll("store_ids")).toEqual(["s1", "s2"]);
     expect(url.searchParams.getAll("category_ids")).toEqual(["c1"]);
   });

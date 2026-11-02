@@ -14,6 +14,7 @@ import ConsentBanner from "@/components/ConsentBanner";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, TITLE_TEMPLATE } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
+import QueryProvider from "@/components/providers/QueryProvider";
 import { BRAND } from "@/lib/brand";
 import { getHasComparisons } from "@/lib/layout-data";
 import { SessionProvider } from "@/components/session/SessionProvider";
@@ -108,36 +109,38 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
-        <SessionProvider>
-          <ToastProvider>
-            <a
-              href="#main"
-              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-            >
-              Skip to content
-            </a>
-            <PromoStrip />
-            <Header links={navLinks} moreLinks={moreNavLinks} />
-            <FilterNavigationProvider>
-              <main id="main" className="flex-1">
-                {children}
-              </main>
-            </FilterNavigationProvider>
-            <PriceAlertBanner />
-            <Footer
-              hasComparisons={hasComparisons}
-              adSlot={
-                <Suspense fallback={<FooterAdFallback />}>
-                  <FooterAd />
-                </Suspense>
-              }
-            />
-            <MobileTabBar />
-            <InstallPrompt />
-            <ConsentBanner />
-            <AnalyticsPageView />
-          </ToastProvider>
-        </SessionProvider>
+        <QueryProvider>
+          <SessionProvider>
+            <ToastProvider>
+              <a
+                href="#main"
+                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+              >
+                Skip to content
+              </a>
+              <PromoStrip />
+              <Header links={navLinks} moreLinks={moreNavLinks} />
+              <FilterNavigationProvider>
+                <main id="main" className="flex-1">
+                  {children}
+                </main>
+              </FilterNavigationProvider>
+              <PriceAlertBanner />
+              <Footer
+                hasComparisons={hasComparisons}
+                adSlot={
+                  <Suspense fallback={<FooterAdFallback />}>
+                    <FooterAd />
+                  </Suspense>
+                }
+              />
+              <MobileTabBar />
+              <InstallPrompt />
+              <ConsentBanner />
+              <AnalyticsPageView />
+            </ToastProvider>
+          </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );

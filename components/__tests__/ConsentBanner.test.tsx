@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ConsentBanner from "@/components/ConsentBanner";
 import { getConsent } from "@/lib/consent";
+import { personalizationApi } from "@/lib/client-api/personalization";
 
 describe("ConsentBanner", () => {
   beforeEach(() => {
@@ -29,20 +30,12 @@ describe("ConsentBanner", () => {
     // there is a choice — but the server may have no cookie for them, so the
     // storefront asks for one on load.
     window.localStorage.setItem("durza_consent_v1", "accepted");
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    vi.stubGlobal("fetch", fetchMock);
+    const postConsent = vi.spyOn(personalizationApi, "postConsent").mockResolvedValue(true);
 
     render(<ConsentBanner />);
 
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("/analytics/consent"),
-      expect.objectContaining({
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({ choice: "accepted" }),
-      }),
-    );
+    await waitFor(() => expect(postConsent).toHaveBeenCalledTimes(1));
+    expect(postConsent).toHaveBeenCalledWith("accepted");
     expect(screen.queryByRole("dialog", { name: /cookie and data consent/i })).not.toBeInTheDocument();
   });
 

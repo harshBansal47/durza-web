@@ -28,6 +28,9 @@ import type {
   VerifyResponse,
 } from "./types";
 import { getPublicApiBaseUrl } from "./api-url";
+import { ApiError, apiErrorMessage } from "./api-error";
+
+export { ApiError } from "./api-error";
 
 /**
  * The API as the browser reaches it. Everything that builds a URL a visitor
@@ -49,16 +52,6 @@ const API_URL = getPublicApiBaseUrl();
 function serverApiUrl(): string {
   if (typeof window !== "undefined") return API_URL;
   return process.env.API_INTERNAL_URL?.trim() || API_URL;
-}
-
-export class ApiError extends Error {
-  constructor(
-    message: string,
-    public status: number,
-  ) {
-    super(message);
-    this.name = "ApiError";
-  }
 }
 
 type FetchOptions = RequestInit & {
@@ -112,6 +105,28 @@ function timeoutSignal(timeoutMs = REQUEST_TIMEOUT_MS): AbortSignal | undefined 
 
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
   const { revalidate, token, headers, timeoutMs, ...rest } = options;
+  if (typeof window !== "undefined") {
+    if (token) {
+      throw new ApiError("Authenticated API requests must run on the server.", 0);
+    }
+    const { clientHttp, clientApiUrl, clientRequestConfig } = await import("./client-http");
+    const requestHeaders = new Headers(headers);
+    if (rest.body) requestHeaders.set("Content-Type", "application/json");
+
+    const response = await clientHttp.request<T>({
+      url: clientApiUrl(path),
+      method: rest.method ?? "GET",
+      data: rest.body,
+      headers: Object.fromEntries(requestHeaders.entries()),
+      ...clientRequestConfig(rest.signal ?? undefined, {
+        timeoutMs,
+        credentials: rest.credentials,
+        cache: rest.cache,
+      }),
+    });
+    return response.data;
+  }
+
   const base = serverApiUrl();
   const res = await fetch(`${base}${path}`, {
     ...rest,
@@ -136,22 +151,7 @@ async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T>
 
 /** FastAPI puts the human-readable reason in `detail`, sometimes as a list. */
 function extractDetail(body: string): string {
-  if (!body) return "";
-  try {
-    const parsed: unknown = JSON.parse(body);
-    if (typeof parsed === "string") return parsed;
-    if (parsed && typeof parsed === "object" && "detail" in parsed) {
-      const detail = (parsed as { detail: unknown }).detail;
-      if (typeof detail === "string") return detail;
-      if (Array.isArray(detail) && detail.length > 0) {
-        const first = detail[0] as { msg?: string };
-        return first.msg ?? "Invalid input";
-      }
-    }
-  } catch {
-    // Not JSON — fall through to the raw text.
-  }
-  return body.slice(0, 300);
+  return body ? apiErrorMessage(body, body.slice(0, 300)) : "";
 }
 
 /** Serialises params into a query string, dropping empty values. */
@@ -246,8 +246,8 @@ export const api = {
    * cached for five minutes, so the counts baked into it can be stale; the vote
    * widget asks again once it is on screen.
    */
-  getCouponStats: (couponId: string) =>
-    apiFetch<CouponPublic>(`/coupons/${couponId}`, { cache: "no-store" }),
+  getCouponStats: (couponId: string, opts: { signal?: AbortSignal } = {}) =>
+    apiFetch<CouponPublic>(`/coupons/${couponId}`, { cache: "no-store", signal: opts.signal }),
 
   /** Account pages hold coupon ids (from /me/saved-coupons), not slugs. */
   getCouponById: (couponId: string) =>
@@ -279,27 +279,38 @@ export const api = {
     }),
 
   recordImpression: (body: ImpressionBody) =>
-    fetch(`${API_URL}/analytics/impression`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-      cache: "no-store",
-      credentials: "include",
-    }).then((r) => {
-      if (!r.ok) throw new Error("impression failed");
+    import("./client-http").then(async ({ clientHttp, clientApiUrl, clientRequestConfig }) => {
+      const response = await clientHttp.post(
+        clientApiUrl("/analytics/impression"),
+        body,
+        {
+          ...clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+          validateStatus: () => true,
+        },
+      );
+      if (response.status < 200 || response.status >= 300) {
+        throw new ApiError("impression failed", response.status);
+      }
     }),
 
   /** Many impressions in one request. Resolves with the HTTP status (never throws on 4xx/5xx),
    *  so the caller can tell "API predates the batch route" (404/405) from a real failure. */
   recordImpressions: (impressions: ImpressionBody[], opts: { keepalive?: boolean } = {}) =>
-    fetch(`${API_URL}/analytics/impressions`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ impressions }),
-      cache: "no-store",
-      credentials: "include",
-      keepalive: opts.keepalive,
-    }).then((r) => r.status),
+    import("./client-http").then(async ({ clientHttp, clientApiUrl, clientRequestConfig }) => {
+      const response = await clientHttp.post(
+        clientApiUrl("/analytics/impressions"),
+        { impressions },
+        {
+          ...clientRequestConfig(undefined, {
+            credentials: "include",
+            cache: "no-store",
+            keepalive: opts.keepalive,
+          }),
+          validateStatus: () => true,
+        },
+      );
+      return response.status;
+    }),
 
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     apiFetch<VerificationHistoryItem[]>(`/coupons/${couponId}/verification-history${qs({ limit })}`, {

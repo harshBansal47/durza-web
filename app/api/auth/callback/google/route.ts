@@ -84,6 +84,7 @@ export async function GET(request: NextRequest) {
         redirect_uri: redirectUri,
         grant_type: "authorization_code",
       }).toString(),
+      signal: AbortSignal.timeout(10_000),
     });
   } catch (err) {
     return fail("exchange_unreachable", err instanceof Error ? err.message : String(err));
@@ -110,6 +111,7 @@ export async function GET(request: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_token: idToken }),
+      signal: AbortSignal.timeout(10_000),
     });
   } catch (err) {
     return fail("backend_unreachable", err instanceof Error ? err.message : String(err));

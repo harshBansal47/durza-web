@@ -1,6 +1,6 @@
 "use client";
 
-import { getPublicApiBaseUrl } from "./api-url";
+import { personalizationApi } from "@/lib/client-api/personalization";
 
 /**
  * Consent state — the single source of truth for whether analytics tracking
@@ -56,15 +56,8 @@ export function getConsent(): ConsentState {
  * Taste signals stay in localStorage and are never transmitted.
  */
 async function postConsent(choice: "accepted" | "declined"): Promise<boolean> {
-  const base = getPublicApiBaseUrl();
   try {
-    const response = await fetch(`${base}/analytics/consent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ choice }),
-      credentials: "include",
-    });
-    return response.ok;
+    return await personalizationApi.postConsent(choice);
   } catch {
     return false;
   }
@@ -177,10 +170,7 @@ export function setPersonalizationConsent(state: "accepted" | "declined"): void 
 export async function withdrawPersonalization(): Promise<void> {
   setPersonalizationConsent("declined");
   try {
-    await fetch(`${getPublicApiBaseUrl()}/personalization/interests`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    await personalizationApi.deleteInterests();
   } catch {
     /* the local choice is already off; server cleanup is best effort */
   }
@@ -191,10 +181,7 @@ export async function resetPersonalization(): Promise<void> {
   clearPersonalizationSignals();
   window.dispatchEvent(new Event(PERSONALIZATION_EVENT));
   try {
-    await fetch(`${getPublicApiBaseUrl()}/personalization/interests`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    await personalizationApi.deleteInterests();
   } catch {
     /* best effort */
   }

@@ -1,30 +1,19 @@
 import { NextResponse } from "next/server";
-import { setSessionCookies } from "@/lib/session";
 
 /**
- * Receives the tokens the backend issues after a successful Google OAuth
- * callback. The backend redirects here with `?access_token=...&refresh_token=...`
- * (and optionally `?next=...`); we set the httpOnly session cookies and send
- * the visitor on to the app.
- *
- * Backend contract (implement on api.durza.in):
- *   GET /auth/google?redirect=<frontend-path>
- *     -> 302 to Google's consent screen
- *   GET /auth/google/callback?code=...&state=...
- *     -> verify code with Google, create/link account, then 302 to
- *        ${SITE_URL}/account/auth/callback?access_token=...&refresh_token=...&next=...
+ * Retired callback for the former token-in-query OAuth contract.
+ * The active callback exchanges Google's authorization code server-side at
+ * /api/auth/callback/google so session tokens never appear in a URL.
  */
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const accessToken = url.searchParams.get("access_token");
-  const refreshToken = url.searchParams.get("refresh_token");
-  const next = url.searchParams.get("next") ?? "/account";
-  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/account";
-
-  if (!accessToken || !refreshToken) {
-    return NextResponse.redirect(new URL(`/account/login?error=google`, request.url));
-  }
-
-  await setSessionCookies(accessToken, refreshToken);
-  return NextResponse.redirect(new URL(safeNext, request.url));
+  // Session tokens must never be accepted from a URL: URLs are retained in
+  // browser history and can leak through referrer headers, access logs, and
+  // analytics. The active Google flow exchanges its code server-side in
+  // /api/auth/callback/google and sets HttpOnly cookies there.
+  const response = NextResponse.redirect(
+    new URL("/account/login?error=google&reason=unsupported_callback", request.url),
+  );
+  response.headers.set("Cache-Control", "no-store");
+  response.headers.set("Referrer-Policy", "no-referrer");
+  return response;
 }

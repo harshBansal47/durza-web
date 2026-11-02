@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { SessionProvider, useSession } from "@/components/session/SessionProvider";
+import { sessionApi } from "@/lib/client-api/session";
 
 let pathname = "/";
 
@@ -18,14 +19,13 @@ function Probe() {
 }
 
 function stubSession(body: unknown) {
-  const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => body });
-  vi.stubGlobal("fetch", fetchMock);
-  return fetchMock;
+  return vi.spyOn(sessionApi, "get").mockResolvedValue(body as never);
 }
 
 afterEach(() => {
   pathname = "/";
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
 });
 
 describe("SessionProvider", () => {
@@ -44,14 +44,11 @@ describe("SessionProvider", () => {
     await waitFor(() =>
       expect(screen.getByTestId("state")).toHaveTextContent("authenticated:Ada"),
     );
-    expect(fetchMock).toHaveBeenCalledWith(
-      "/api/session",
-      expect.objectContaining({ cache: "no-store" }),
-    );
+    expect(fetchMock).toHaveBeenCalledWith(expect.any(AbortSignal));
   });
 
   it("reads as signed out when the endpoint is unreachable", async () => {
-    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
+    vi.spyOn(sessionApi, "get").mockRejectedValue(new Error("offline"));
 
     render(
       <SessionProvider>

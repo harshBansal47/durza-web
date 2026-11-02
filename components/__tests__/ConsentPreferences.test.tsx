@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ConsentPreferences from "@/components/ConsentPreferences";
 import { getConsent, getPersonalizationConsent } from "@/lib/consent";
+import { personalizationApi } from "@/lib/client-api/personalization";
 
 // The personalization controls only exist when personalization is switched
 // on, and the flag defaults to false.
@@ -18,7 +19,8 @@ describe("ConsentPreferences", () => {
   beforeEach(() => {
     window.localStorage.clear();
     flag.personalizationEnabled = true;
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }));
+    vi.spyOn(personalizationApi, "postConsent").mockResolvedValue(true);
+    vi.spyOn(personalizationApi, "deleteInterests").mockResolvedValue(undefined);
   });
 
   afterEach(() => {
@@ -62,9 +64,6 @@ describe("ConsentPreferences", () => {
 
     await waitFor(() => expect(getPersonalizationConsent()).toBe("declined"));
     expect(window.localStorage.getItem("durza.taste_v2")).toBeNull();
-    expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining("/personalization/interests"),
-      expect.objectContaining({ method: "DELETE" }),
-    );
+    expect(personalizationApi.deleteInterests).toHaveBeenCalled();
   });
 });

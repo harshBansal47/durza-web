@@ -4,7 +4,7 @@ import AccountShell from "@/components/account/AccountShell";
 import { RemoveSavedButton } from "@/components/account/SaveButtons";
 import TrackedPriceEditor from "@/components/account/TrackedPriceEditor";
 import {
-  requireAccount,
+  requireTrackedAccount,
   untrackProductAction,
   updateTargetPriceAction,
 } from "@/app/account/actions";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TrackedProductsPage() {
-  const { user, tracked } = await requireAccount();
+  const { user, tracked } = await requireTrackedAccount();
 
   const rows = await Promise.all(
     tracked.map(async (row) => ({ row, product: await resilient.getProductById(row.product_id) })),

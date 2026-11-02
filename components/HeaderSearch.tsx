@@ -12,7 +12,7 @@ import {
 } from "react";
 import { Clock, Flame, Folder, Tag, X } from "lucide-react";
 import { track } from "@/lib/analytics";
-import { api } from "@/lib/api";
+import { searchApi } from "@/lib/client-api/search";
 import Image from "next/image";
 import { storeInitials } from "@/lib/catalog";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
@@ -147,7 +147,7 @@ function useSuggestions(query: string) {
       }
       setState({ query: trimmed, groups: NO_SUGGESTIONS, pending: true });
       try {
-        const result = await api.autocomplete(trimmed, {
+        const result = await searchApi.autocomplete(trimmed, {
           limit: 5,
           signal: controller.signal,
         });
@@ -201,7 +201,7 @@ let directoryPromise: Promise<StoreDirectory> | null = null;
  * supplies. A failed fetch is not cached, so the next open retries.
  */
 function loadStoreDirectory(): Promise<StoreDirectory> {
-  directoryPromise ??= api
+  directoryPromise ??= searchApi
     .listStores({ limit: 100 })
     .then(
       (page): StoreDirectory =>

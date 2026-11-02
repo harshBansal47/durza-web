@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { api, ApiError } from "@/lib/api";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ApiError } from "@/lib/api-error";
+import { couponApi, couponQueryKeys } from "@/lib/client-api/coupons";
 import { DEVICE_STATE_EVENT, getVote, hasRevealed, markVoted } from "@/lib/deviceState";
 import { formatRelativeTime } from "@/lib/format";
 import type { CouponPublic } from "@/lib/types";
-
-type Stats = Pick<CouponPublic, "success_count" | "fail_count" | "last_verified_at" | "success_rate">;
 
 /**
  * "Did it work?" widget. Two honesty rules:
@@ -15,42 +15,27 @@ type Stats = Pick<CouponPublic, "success_count" | "fail_count" | "last_verified_
  *    one the server would reject anyway (the server keeps its own cooldown).
  */
 export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
-  const [stats, setStats] = useState<Stats>({
-    success_count: coupon.success_count,
-    fail_count: coupon.fail_count,
-    last_verified_at: coupon.last_verified_at,
-    success_rate: coupon.success_rate,
+  const queryClient = useQueryClient();
+  const statsKey = couponQueryKeys.stats(coupon.id);
+  const { data: stats } = useQuery({
+    queryKey: statsKey,
+    queryFn: ({ signal }) => couponApi.getStats(coupon.id, signal),
+    initialData: coupon,
+    initialDataUpdatedAt: 0,
+    refetchOnMount: "always",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "limited">("idle");
   const [device, setDevice] = useState<{ revealed: boolean; vote: "worked" | "failed" | null } | null>(null);
-
-  // The page this widget sits on is cached for minutes, so `coupon` can predate
-  // votes that were already cast — including this visitor's own, which is why a
-  // vote seemed to "disappear" on reload. Ask for the live numbers once mounted.
-  // Skipped if the visitor votes first: their response is already the freshest.
-  const votedRef = useRef(false);
-  useEffect(() => {
-    let alive = true;
-    // `Promise.resolve().then` so a throw inside the call becomes a rejection
-    // the catch below swallows, rather than an error during the effect.
-    Promise.resolve()
-      .then(() => api.getCouponStats(coupon.id))
-      .then((fresh) => {
-        if (!alive || votedRef.current) return;
-        setStats({
-          success_count: fresh.success_count,
-          fail_count: fresh.fail_count,
-          last_verified_at: fresh.last_verified_at,
-          success_rate: fresh.success_rate,
-        });
-      })
-      .catch(() => {
-        // Keep the numbers the page was rendered with.
-      });
-    return () => {
-      alive = false;
-    };
-  }, [coupon.id]);
+  const verifyMutation = useMutation({
+    mutationFn: (worked: boolean) => couponApi.verify(coupon.id, worked),
+    onMutate: () => queryClient.cancelQueries({ queryKey: statsKey }),
+    onSuccess: (updated) => {
+      queryClient.setQueryData<CouponPublic>(statsKey, (current) => ({
+        ...(current ?? coupon),
+        ...updated,
+      }));
+    },
+  });
 
   useEffect(() => {
     function refresh() {
@@ -69,9 +54,7 @@ export default function VerifyWidget({ coupon }: { coupon: CouponPublic }) {
     if (status === "sending") return;
     setStatus("sending");
     try {
-      const updated = await api.verifyCoupon(coupon.id, worked);
-      votedRef.current = true;
-      setStats(updated);
+      await verifyMutation.mutateAsync(worked);
       markVoted(coupon.id, worked);
       setStatus("done");
     } catch (err) {

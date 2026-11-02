@@ -4,7 +4,7 @@ import AccountShell from "@/components/account/AccountShell";
 import ProfileForm from "@/components/account/ProfileForm";
 import DeleteAccountForm from "@/components/account/DeleteAccountForm";
 import PersonalizationSettings from "@/components/account/PersonalizationSettings";
-import { requireAccount, updateProfileAction, deleteAccountAction } from "@/app/account/actions";
+import { requireAccountUser, updateProfileAction, deleteAccountAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
 import { PERSONALIZATION_ENABLED } from "@/lib/flags";
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingsPage() {
-  const { user } = await requireAccount();
+  const { user } = await requireAccountUser();
 
   return (
     <AccountShell user={user} active="/account/settings">

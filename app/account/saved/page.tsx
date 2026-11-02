@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import AccountShell from "@/components/account/AccountShell";
 import { SavedCouponRow, StoreFollowRow } from "@/components/account/SaveButtons";
-import { requireAccount, toggleSavedCoupon, toggleSavedStore } from "@/app/account/actions";
+import { requireSavedAccount, toggleSavedCoupon, toggleSavedStore } from "@/app/account/actions";
 import { resilient } from "@/lib/api";
 import PopularChips from "@/components/PopularChips";
 import type { Store } from "@/lib/types";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SavedPage() {
-  const { user, stores, coupons } = await requireAccount();
+  const { user, stores, coupons } = await requireSavedAccount();
 
   const storeIds = stores.filter((s) => s.kind === "store").map((s) => s.item_id);
   const couponIds = coupons.filter((c) => c.kind === "coupon").map((c) => c.item_id);

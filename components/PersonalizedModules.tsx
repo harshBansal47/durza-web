@@ -3,16 +3,7 @@
 import { useEffect, useState } from "react";
 import { isPersonalizationAllowed } from "@/lib/consent";
 import { PERSONALIZATION_ENABLED } from "@/lib/flags";
-import { getPublicApiBaseUrl } from "@/lib/api-url";
-
-interface PersonalizedItem {
-  title?: string;
-}
-
-interface PersonalizedResponse {
-  items?: PersonalizedItem[];
-  reason?: string;
-}
+import { personalizationApi, type PersonalizedItem } from "@/lib/client-api/personalization";
 
 export default function PersonalizedModules() {
   const [items, setItems] = useState<PersonalizedItem[]>([]);
@@ -22,16 +13,11 @@ export default function PersonalizedModules() {
     // The flag is off by default: no request is made, and nothing renders.
     if (!PERSONALIZATION_ENABLED) return;
     if (!isPersonalizationAllowed()) return;
-    fetch(`${getPublicApiBaseUrl()}/personalization/picked-for-you`, {
-      credentials: "include",
-      cache: "no-store",
-    })
-      .then((r) => (r.ok ? (r.json() as Promise<PersonalizedResponse>) : null))
+    personalizationApi
+      .getPickedForYou()
       .then((data) => {
-        if (data) {
-          setItems(data.items ?? []);
-          setReason(data.reason ?? null);
-        }
+        setItems(data.items ?? []);
+        setReason(data.reason ?? null);
       })
       .catch(() => {});
   }, []);

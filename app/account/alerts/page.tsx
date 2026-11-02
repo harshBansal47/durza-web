@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AccountShell from "@/components/account/AccountShell";
-import { requireAccount } from "@/app/account/actions";
+import { requireAlertsAccount } from "@/app/account/actions";
 import { formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
 import type { AlertEvent, AlertKind } from "@/lib/types";
@@ -61,7 +61,7 @@ function groupByAlert(events: AlertEvent[]): { key: string; event: AlertEvent; a
 }
 
 export default async function AlertsPage() {
-  const { user, alerts } = await requireAccount();
+  const { user, alerts } = await requireAlertsAccount();
 
   const groups = groupByAlert(alerts);
   const failedAttempts = alerts.filter((a) => !a.delivered);
