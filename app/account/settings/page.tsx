@@ -57,7 +57,7 @@ export default async function SettingsPage() {
         </dl>
         <p className="mt-4 text-sm text-ink-soft">
           To delete your account and everything attached to it, use the button below. We remove
-          saved stores, tracked products and alert history; your coupon verification reports stay,
+          saved stores and coupons; your coupon verification reports stay,
           without the account attached, because removing them would make other people&apos;s
           success rates less honest.
         </p>

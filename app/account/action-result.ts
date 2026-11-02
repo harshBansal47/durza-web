@@ -23,17 +23,17 @@ export interface EmailOtpRequestResult extends ActionResult {
 }
 
 /**
- * Result of one step of "track this" for someone who may not be signed in.
+ * Result of one step of saving an item for someone who may not be signed in.
  *
- * `codeSentTo` moves the flow to the code step; `tracking` means the visitor is
- * now signed in *and* tracking. `signedIn` without `tracking` is the awkward
+ * `codeSentTo` moves the flow to the code step; `saved` means the visitor is
+ * now signed in *and* the item is saved. `signedIn` without `saved` is the awkward
  * middle (the code was right but saving failed): the visitor has a session and
  * only needs to press the button again.
  */
-export interface TrackFlowResult extends ActionResult {
+export interface SaveFlowResult extends ActionResult {
   codeSentTo?: string;
   sentAt?: number;
-  tracking?: boolean;
+  saved?: boolean;
   signedIn?: boolean;
   /** Masked, for reassurance ("we'll email a•••@gmail.com"), never the full address. */
   email?: string;

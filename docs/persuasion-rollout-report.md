@@ -9,7 +9,7 @@ Branch: `persuasion-rollout`.
 - `components/TrustBadge.tsx` — real community verification above 5 reports; honest low-data / no-votes copy otherwise. Uses design tokens, not raw palette classes.
 - `components/TrustBadge.test.tsx` — covers verified, low-data and no-data states.
 - `components/CodeRevealButton.tsx` — one-tap reveal + copy + tracked open, with safe fallback and success state.
-- `components/TrackDealBanner.tsx` — open-loop promise with email capture and success state.
+- `components/SaveDealBanner.tsx` — saved-item updates with email capture and success state.
 - `components/DealCard.tsx`, `components/CouponCard.tsx` — expiry tone uses the shared 48h rule; trust badge is present.
 - `components/CouponRow.tsx`, `components/CouponGroupCard.tsx` — honest trust badge; masked codes remain masked.
 - `components/product/PriceHistory.tsx` + `app/products/[slug]/page.tsx` — “Lowest price in N months” only when computed from real `PriceHistory` data.

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 const HIGHLIGHTS = [
-  "We collect only what we need to run Durza — account details, saved stores, tracked products, and anonymised usage.",
+  "We collect only what we need to run Durza — account details, saved stores and coupons, and anonymised usage.",
   "We never sell your personal data. Commissions come from stores, not from you.",
   "You can request a copy, correction, or deletion of your data at any time.",
   "Verification reports are public attestations and are kept even after account deletion.",
@@ -71,17 +71,16 @@ export default function PrivacyPage() {
       <p>
         <strong className="font-semibold text-ink">Account information.</strong> When you create an
         account, we store your email address and the preferences you choose. We
-        use this information to authenticate you and provide access to your saved deals, tracked
-        products, and alerts.
+        use this information to authenticate you and provide access to your saved deals and alerts.
       </p>
       <p>
         <strong className="font-semibold text-ink">Saved data.</strong> If you choose to save
-        coupons, follow stores, or track products, we store those preferences so you can access them
+        coupons or follow stores, we store those preferences so you can access them
         when you return.
       </p>
       <p>
         <strong className="font-semibold text-ink">Notification preferences.</strong> We store your
-        email notification settings so we can deliver price-drop and deal alerts. The public
+        email notification settings so we can deliver updates about saved offers and followed stores. The public
         Telegram channel is separate from your account and does not require us to store a Telegram
         chat ID.
       </p>
@@ -197,7 +196,7 @@ export default function PrivacyPage() {
       </h2>
       <p>
         You can delete your account at any time from your account settings. When you do, we
-        permanently remove your account information, saved items, tracked products, and notification
+        permanently remove your account information, saved items, and notification
         preferences.
       </p>
       <p>

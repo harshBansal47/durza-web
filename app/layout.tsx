@@ -4,7 +4,7 @@ import { GeistSans, GeistMono } from "geist/font";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FooterAd, { FooterAdFallback } from "@/components/FooterAd";
-import PriceAlertBanner from "@/components/PriceAlertBanner";
+import SavedUpdatesBanner from "@/components/SavedUpdatesBanner";
 import PromoStrip from "@/components/PromoStrip";
 import { FilterNavigationProvider } from "@/components/filters/FilterNavigation";
 import { MobileTabBar } from "@/components/MobileTabBar";
@@ -125,7 +125,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   {children}
                 </main>
               </FilterNavigationProvider>
-              <PriceAlertBanner />
+              <SavedUpdatesBanner />
               <Footer
                 hasComparisons={hasComparisons}
                 adSlot={

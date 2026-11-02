@@ -1,6 +1,5 @@
 import type {
   CouponSort,
-  AlertEvent,
   AutocompleteResult,
   Category,
   CouponPublic,
@@ -19,7 +18,6 @@ import type {
   Store,
   StoreDestination,
   TokenPair,
-  TrackedProduct,
   User,
   VerificationHistoryItem,
   VerifyResponse,
@@ -496,28 +494,6 @@ export const api = {
   unsaveCoupon: (token: string, couponId: string) =>
     apiFetch<void>(`/me/saved-coupons/${couponId}`, { method: "DELETE", token, cache: "no-store" }),
 
-  listTrackedProducts: (token: string) =>
-    apiFetch<TrackedProduct[]>("/me/tracked-products", { token, cache: "no-store" }),
-
-  trackProduct: (token: string, productId: string, targetPrice?: number | null) =>
-    apiFetch<TrackedProduct>("/me/tracked-products", {
-      method: "POST",
-      token,
-      body: JSON.stringify({ product_id: productId, target_price: targetPrice ?? null }),
-      cache: "no-store",
-    }),
-
-  updateTrackedProduct: (token: string, trackedId: string, targetPrice: number | null) =>
-    apiFetch<TrackedProduct>(`/me/tracked-products/${trackedId}`, {
-      method: "PATCH",
-      token,
-      body: JSON.stringify({ target_price: targetPrice }),
-      cache: "no-store",
-    }),
-
-  untrackProduct: (token: string, trackedId: string) =>
-    apiFetch<void>(`/me/tracked-products/${trackedId}`, { method: "DELETE", token, cache: "no-store" }),
-
   getNotificationPreferences: (token: string) =>
     apiFetch<NotificationPreference>("/me/notification-preferences", { token, cache: "no-store" }),
 
@@ -540,9 +516,6 @@ export const api = {
       body: JSON.stringify({ confirm_email: confirmEmail }),
       cache: "no-store",
     }),
-
-  listAlerts: (token: string, limit = 50) =>
-    apiFetch<AlertEvent[]>(`/me/alerts${qs({ limit })}`, { token, cache: "no-store" }),
 
 };
 

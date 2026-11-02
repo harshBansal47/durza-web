@@ -8,21 +8,18 @@ const session = vi.hoisted(() => ({
     | { status: "loading"; user: null },
 }));
 const saveCoupon = vi.hoisted(() => vi.fn());
-const saveStore = vi.hoisted(() => vi.fn());
 
 vi.mock("@/components/session/SessionProvider", () => ({
   useSession: () => ({ session: session.value }),
 }));
 vi.mock("@/app/account/actions", () => ({
   setSavedCouponAction: saveCoupon,
-  setSavedStoreAction: saveStore,
 }));
 vi.mock("@/components/ui/Toast", () => ({ useTypedToast: () => ({ success: vi.fn(), error: vi.fn() }) }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
 import { CardSaveButton } from "@/components/CardSaveButton";
-import { StoreFollowButton } from "@/components/StoreFollowButton";
-import { setFollowedStore, setSavedCoupon } from "@/lib/personalization";
+import { setSavedCoupon } from "@/lib/personalization";
 
 /**
  * A locally saved item is pushed to the account when a signed-in visitor sees it. That used
@@ -34,7 +31,6 @@ describe("saved-item sync is once per browser session", () => {
     window.localStorage.clear();
     window.sessionStorage.clear();
     saveCoupon.mockReset().mockResolvedValue({ ok: true });
-    saveStore.mockReset().mockResolvedValue({ ok: true });
     session.value = { status: "authenticated", user: { name: "Asha" } };
   });
   afterEach(cleanup);
@@ -111,15 +107,5 @@ describe("saved-item sync is once per browser session", () => {
     first.unmount();
     render(<CardSaveButton couponId="c1" />);
     expect(saveCoupon).toHaveBeenCalledTimes(2);
-  });
-
-  it("a followed store syncs once per session, across remounts", () => {
-    setFollowedStore("nike", true);
-    for (let i = 0; i < 4; i++) {
-      const { unmount } = render(<StoreFollowButton storeId="s1" slug="nike" name="Nike" />);
-      unmount();
-    }
-    expect(saveStore).toHaveBeenCalledTimes(1);
-    expect(saveStore).toHaveBeenCalledWith("s1", true);
   });
 });

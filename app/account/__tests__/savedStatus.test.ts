@@ -25,9 +25,9 @@ vi.mock("@/lib/api", async (orig) => ({
   api: new Proxy({}, { get: (_t, key: string) => (apiMock as Record<string, unknown>)[key] }),
 }));
 
-import { setSavedCouponAction, setSavedStoreAction, trackingStatusAction } from "@/app/account/actions";
+import { savedStatusAction, setSavedCouponAction, setSavedStoreAction } from "@/app/account/actions";
 
-describe("trackingStatusAction", () => {
+describe("savedStatusAction", () => {
   beforeEach(() => {
     Object.values(apiMock).forEach((fn) => fn.mockReset());
     getAccessToken.mockReset().mockResolvedValue("tok");
@@ -35,26 +35,26 @@ describe("trackingStatusAction", () => {
 
   it("makes ONE backend call, and never asks /auth/me again", async () => {
     apiMock.listSavedCoupons.mockResolvedValue([{ kind: "coupon", item_id: "c1", saved_id: "s" }]);
-    const status = await trackingStatusAction("coupon", "c1");
-    expect(status).toEqual({ signedIn: true, tracking: true });
+    const status = await savedStatusAction("coupon", "c1");
+    expect(status).toEqual({ signedIn: true, saved: true });
     expect(apiMock.listSavedCoupons).toHaveBeenCalledTimes(1);
     expect(apiMock.me).not.toHaveBeenCalled();
   });
 
-  it("reports not tracking when the item is not in the saved list", async () => {
+  it("reports unsaved when the item is not in the saved list", async () => {
     apiMock.listSavedStores.mockResolvedValue([{ kind: "store", item_id: "other", saved_id: "s" }]);
-    expect(await trackingStatusAction("store", "s1")).toEqual({ signedIn: true, tracking: false });
+    expect(await savedStatusAction("store", "s1")).toEqual({ signedIn: true, saved: false });
   });
 
   it("makes no backend call at all for a signed-out visitor", async () => {
     getAccessToken.mockResolvedValue(null);
-    expect(await trackingStatusAction("coupon", "c1")).toEqual({ signedIn: false, tracking: false });
+    expect(await savedStatusAction("coupon", "c1")).toEqual({ signedIn: false, saved: false });
     expect(apiMock.listSavedCoupons).not.toHaveBeenCalled();
   });
 
   it("reads a backend failure (e.g. a rejected token) as signed out, as before", async () => {
     apiMock.listSavedCoupons.mockRejectedValue(new Error("401"));
-    expect(await trackingStatusAction("coupon", "c1")).toEqual({ signedIn: false, tracking: false });
+    expect(await savedStatusAction("coupon", "c1")).toEqual({ signedIn: false, saved: false });
   });
 });
 

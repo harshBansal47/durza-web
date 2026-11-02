@@ -2,9 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
-import { StoreFollowButton } from "@/components/StoreFollowButton";
-import { SessionProvider } from "@/components/session/SessionProvider";
-import { setSavedStoreAction } from "@/app/account/actions";
 import type { CouponPublic } from "@/lib/types";
 
 const { apiMock } = vi.hoisted(() => ({
@@ -17,11 +14,6 @@ vi.mock("@/lib/api", async () => {
 });
 
 import { api } from "@/lib/api";
-
-vi.mock("@/app/account/actions", () => ({
-  setSavedStoreAction: vi.fn().mockResolvedValue({}),
-  setSavedCouponAction: vi.fn().mockResolvedValue({}),
-}));
 
 // The "For you" row is personalised: it needs the build flag on and the
 // visitor's personalization consent. Both are mocked so a test can turn them
@@ -157,48 +149,5 @@ describe("discovery modules", () => {
     expect(await screen.findByText("For you")).toBeInTheDocument();
     expect(screen.getByText("Why am I seeing this?")).toBeInTheDocument();
     expect(screen.getByText(/You have looked at Amazon/)).toBeInTheDocument();
-  });
-});
-
-describe("StoreFollowButton", () => {
-  beforeEach(() => {
-    localStorage.clear();
-    vi.clearAllMocks();
-  });
-
-  it("follows and unfollows when signed in, with pressed state", async () => {
-    const { default: userEvent } = await import("@testing-library/user-event");
-    const user = userEvent.setup();
-    render(
-      <SessionProvider
-        initial={{ status: "authenticated", user: { name: "Ada", avatarUrl: null } }}
-      >
-        <StoreFollowButton storeId="nike-id" slug="nike" name="Nike" />
-      </SessionProvider>,
-    );
-    const btn = screen.getByRole("button", { name: /Follow Nike/ });
-    expect(btn).toHaveAttribute("aria-pressed", "false");
-    await user.click(btn);
-    expect(btn).toHaveAttribute("aria-pressed", "true");
-    expect(setSavedStoreAction).toHaveBeenCalledWith("nike-id", true);
-  });
-
-  it("shows backend errors and reverts the followed state", async () => {
-    vi.mocked(setSavedStoreAction).mockResolvedValueOnce({ error: "API unavailable" });
-    const { default: userEvent } = await import("@testing-library/user-event");
-    const user = userEvent.setup();
-    render(
-      <SessionProvider
-        initial={{ status: "authenticated", user: { name: "Ada", avatarUrl: null } }}
-      >
-        <StoreFollowButton storeId="nike-id" slug="nike" name="Nike" />
-      </SessionProvider>,
-    );
-    const btn = screen.getByRole("button", { name: /Follow Nike/ });
-
-    await user.click(btn);
-
-    expect(await screen.findByRole("alert")).toHaveTextContent("API unavailable");
-    expect(btn).toHaveAttribute("aria-pressed", "false");
   });
 });

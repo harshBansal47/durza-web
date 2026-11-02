@@ -40,7 +40,7 @@ export default function ProfileForm({
         </span>
         <p className="font-mono text-sm text-ink">{user.email}</p>
         <p className="mt-1 text-xs text-ink-soft">
-          Your email is the key to your alert history. To change it, contact us from this address.
+          Your email is the address we use for your account alerts. To change it, contact us from this address.
         </p>
       </div>
 

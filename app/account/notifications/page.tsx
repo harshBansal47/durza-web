@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import AccountShell from "@/components/account/AccountShell";
 import NotificationSettings from "@/components/account/NotificationSettings";
 import { requireNotificationAccount, updatePreferencesAction } from "@/app/account/actions";
@@ -38,13 +37,6 @@ export default async function NotificationsPage() {
         <TelegramChannelLink>Join Durza&apos;s public channel</TelegramChannelLink>
       </div>
 
-      <p className="mt-8 max-w-prose border-t border-ledger-line pt-4 text-xs text-ink-soft">
-        Every alert is also recorded in{" "}
-        <Link href="/account/alerts" className="text-inkblue hover:underline">
-          your alert history
-        </Link>
-        , whether or not it was delivered.
-      </p>
     </AccountShell>
   );
 }

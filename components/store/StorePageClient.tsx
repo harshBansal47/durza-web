@@ -6,8 +6,7 @@ import Image from "next/image";
 import { CouponCard } from "@/components/CouponCard";
 import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
-import { StoreFollowButton } from "@/components/StoreFollowButton";
-import TrackDealBanner from "@/components/TrackDealBanner";
+import SaveDealBanner from "@/components/SaveDealBanner";
 import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
@@ -189,7 +188,6 @@ export default function StorePageClient({
             >
               {copied ? "Link copied" : "Share"}
             </button>
-            <StoreFollowButton storeId={store.id} slug={store.slug} name={store.name} />
           </div>
         </div>
       </header>
@@ -233,7 +231,7 @@ export default function StorePageClient({
         </p>
       )}
 
-      <TrackDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />
+      <SaveDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />
 
       <section aria-labelledby="proof">
         <h2 id="proof" className="font-serif text-2xl font-extrabold text-ink">
@@ -341,7 +339,7 @@ export default function StorePageClient({
         <Link href="/search" className="text-inkblue underline-offset-2 hover:underline">
           Search all deals
         </Link>{" "}
-        and track its price — we email you when it falls.
+        and save the offers you want to revisit.
       </p>
     </div>
   );

@@ -5,52 +5,52 @@ import { useActionState, useCallback, useEffect, useId, useState, useTransition 
 import { useFormStatus } from "react-dom";
 import { Bell, Check, Loader2, Mail } from "lucide-react";
 import {
-  requestTrackCodeAction,
+  requestSaveCodeAction,
   setSavedCouponAction,
   setSavedStoreAction,
-  trackWithEmailCodeAction,
-  trackingStatusAction,
+  saveWithEmailCodeAction,
+  savedStatusAction,
 } from "@/app/account/actions";
-import type { TrackFlowResult } from "@/app/account/action-result";
+import type { SaveFlowResult } from "@/app/account/action-result";
 import { useSession } from "@/components/session/SessionProvider";
 import { useTypedToast } from "@/components/ui/Toast";
 import { track } from "@/lib/analytics";
 import { setFollowedStore, setSavedCoupon } from "@/lib/personalization";
 
-/** What the visitor is asking us to watch. */
-export type TrackTarget =
+/** What the visitor wants to save. */
+export type SaveTarget =
   | { kind: "store"; id: string; slug: string; name: string }
   | { kind: "coupon"; id: string; title: string; storeName?: string };
 
 /** Matches the API's per-account cooldown between sign-in codes. */
 const RESEND_AFTER_SECONDS = 60;
 
-const EMPTY: TrackFlowResult = {};
+const EMPTY: SaveFlowResult = {};
 
-function copyFor(target: TrackTarget) {
+function copyFor(target: SaveTarget) {
   if (target.kind === "store") {
     return {
       heading: `Never miss a ${target.name} offer`,
-      body: `Follow ${target.name} and we'll email you when it adds a new offer.`,
-      cta: `Follow ${target.name}`,
-      confirm: `Confirm and follow`,
-      doneTitle: `You're following ${target.name}`,
+      body: `Save ${target.name} and we'll email you when it adds a new offer.`,
+      cta: `Save ${target.name}`,
+      confirm: `Confirm and save`,
+      doneTitle: `${target.name} is saved`,
       doneBody: "We'll email you when it has a new offer.",
-      toast: `Following ${target.name}. We'll email you about new offers.`,
+      toast: `${target.name} is saved. We'll email you about new offers.`,
     };
   }
   return {
     heading: "Don't check back. We'll tell you.",
-    body: "Track this offer and we'll email you if it's confirmed working, about to end, or stops working.",
-    cta: "Track this offer",
-    confirm: "Confirm and track",
-    doneTitle: "You're tracking this offer",
+    body: "Save this offer and we'll email you if it's confirmed working, about to end, or stops working.",
+    cta: "Save this offer",
+    confirm: "Confirm and save",
+    doneTitle: "This offer is saved",
     doneBody: "We'll email you if it's confirmed working, about to end, or stops working.",
-    toast: "Tracking this offer. We'll email you if anything changes.",
+    toast: "This offer is saved. We'll email you if anything changes.",
   };
 }
 
-const FINE_PRINT = "At most one email a day. Unsubscribe any time.";
+const FINE_PRINT = "We only email when something changes. Unsubscribe any time.";
 const FINE_PRINT_NEW = `No password needed: we confirm your email with a 6-digit code. ${FINE_PRINT}`;
 
 const INPUT_CLASS =
@@ -61,31 +61,30 @@ function Spinner() {
 }
 
 /**
- * Follow a store / track an offer.
+ * Save a store or offer.
  *
  * Three kinds of visitor, one control:
- *  - signed in: one button; the state (idle, saving, tracking) is always visible;
+ *  - signed in: one button; the saved state is always visible;
  *  - signed out: email, then a 6-digit code, right here — no password, no trip
- *    to a login page and back. Confirming the code signs them in *and* starts
- *    tracking, so the first thing they did is the thing that happened;
- *  - already tracking: says so, says what will happen, and offers to stop.
+ *    to a login page and back. Confirming the code signs them in and saves the item;
+ *  - already saved: says what will happen and offers to remove the item.
  *
  * Whether the visitor is signed in is learned on the client after the page is
  * showing, so the page itself stays cacheable and nothing waits on it.
  */
-export default function TrackDealBanner({ target }: { target: TrackTarget }) {
+export default function SaveDealBanner({ target }: { target: SaveTarget }) {
   const { session, refresh } = useSession();
   const { success, error } = useTypedToast();
   const copy = copyFor(target);
-  const [known, setKnown] = useState<{ tracking: boolean; email: string | null } | null>(null);
+  const [known, setKnown] = useState<{ saved: boolean; email: string | null } | null>(null);
   const [pending, startTransition] = useTransition();
   const maskedEmail = session.user?.maskedEmail ?? null;
 
   useEffect(() => {
     if (session.status !== "authenticated") return;
     let alive = true;
-    void trackingStatusAction(target.kind, target.id).then((status) => {
-      if (alive) setKnown({ tracking: status.tracking, email: maskedEmail });
+    void savedStatusAction(target.kind, target.id).then((status) => {
+      if (alive) setKnown({ saved: status.saved, email: maskedEmail });
     });
     return () => {
       alive = false;
@@ -106,10 +105,10 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
     [target],
   );
 
-  const onTracked = useCallback(
+  const onSaved = useCallback(
     (email: string | null) => {
       mirrorLocally(true);
-      setKnown({ tracking: true, email });
+      setKnown({ saved: true, email });
       refresh();
       success(copy.toast);
     },
@@ -126,7 +125,7 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
     [refresh, error],
   );
 
-  function setTracking(next: boolean) {
+  function setSaved(next: boolean) {
     startTransition(async () => {
       const result = await (target.kind === "store"
         ? setSavedStoreAction(target.id, next)
@@ -136,14 +135,14 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
         return;
       }
       mirrorLocally(next);
-      setKnown((prev) => ({ tracking: next, email: prev?.email ?? null }));
+      setKnown((prev) => ({ saved: next, email: prev?.email ?? null }));
       success(result.message ?? (next ? copy.toast : "Stopped."));
     });
   }
 
-  if (known?.tracking) {
+  if (known?.saved) {
     return (
-      <section id="track-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-verified/40 bg-verified-soft p-5">
+      <section id="save-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-verified/40 bg-verified-soft p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
             <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper-raised text-verified">
@@ -163,12 +162,12 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
             </Link>
             <button
               type="button"
-              onClick={() => setTracking(false)}
+              onClick={() => setSaved(false)}
               disabled={pending}
               className="inline-flex min-h-11 items-center gap-2 text-ink-soft underline-offset-2 hover:text-ink hover:underline disabled:opacity-60"
             >
               {pending && <Spinner />}
-              {pending ? "Stopping" : "Stop"}
+              {pending ? "Removing" : "Remove"}
             </button>
           </div>
         </div>
@@ -180,7 +179,7 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
   const checking = session.status === "loading" || (signedIn && known === null);
 
   return (
-    <section id="track-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-accent-soft bg-accent-faint p-5">
+    <section id="save-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-accent-soft bg-accent-faint p-5">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex gap-3">
           <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
@@ -197,7 +196,7 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
           {signedIn || checking ? (
             <button
               type="button"
-              onClick={() => setTracking(true)}
+              onClick={() => setSaved(true)}
               disabled={checking || pending}
               aria-busy={checking || pending}
               className="btn btn-cta inline-flex min-h-11 w-full items-center justify-center gap-2 md:w-auto"
@@ -209,7 +208,7 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
             <SignedOutFlow
               target={target}
               copy={copy}
-              onTracked={onTracked}
+              onSaved={onSaved}
               onSignedInOnly={onSignedInOnly}
             />
           )}
@@ -221,9 +220,9 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
 
 /** Remounting is the only way to reset `useActionState`, so "start over" bumps a key. */
 function SignedOutFlow(props: {
-  target: TrackTarget;
+  target: SaveTarget;
   copy: ReturnType<typeof copyFor>;
-  onTracked: (email: string | null) => void;
+  onSaved: (email: string | null) => void;
   onSignedInOnly: (message: string) => void;
 }) {
   const [run, setRun] = useState(0);
@@ -233,30 +232,30 @@ function SignedOutFlow(props: {
 function FlowSteps({
   target,
   copy,
-  onTracked,
+  onSaved,
   onSignedInOnly,
   onStartOver,
 }: {
-  target: TrackTarget;
+  target: SaveTarget;
   copy: ReturnType<typeof copyFor>;
-  onTracked: (email: string | null) => void;
+  onSaved: (email: string | null) => void;
   onSignedInOnly: (message: string) => void;
   onStartOver: () => void;
 }) {
   const emailId = useId();
   const codeId = useId();
-  const [requested, requestForm, requesting] = useActionState(requestTrackCodeAction, EMPTY);
+  const [requested, requestForm, requesting] = useActionState(requestSaveCodeAction, EMPTY);
 
   // Side effects belong in the action, which runs on submit, not in an effect
   // that would have to notice a result changing.
   const verifyAndReport = useCallback(
-    async (prev: TrackFlowResult, formData: FormData) => {
-      const result = await trackWithEmailCodeAction(prev, formData);
-      if (result.tracking) onTracked(result.email ?? null);
+    async (prev: SaveFlowResult, formData: FormData) => {
+      const result = await saveWithEmailCodeAction(prev, formData);
+      if (result.saved) onSaved(result.email ?? null);
       else if (result.signedIn) onSignedInOnly(result.error ?? "You're signed in. Press the button to finish.");
       return result;
     },
-    [onTracked, onSignedInOnly],
+    [onSaved, onSignedInOnly],
   );
   const [verified, verifyForm, verifying] = useActionState(verifyAndReport, EMPTY);
 

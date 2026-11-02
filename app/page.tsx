@@ -365,7 +365,7 @@ export default async function HomePage() {
           {latestDealsItems.length > 0 && (
             <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="latest-deals-heading">
               <SectionTitle
-                hint="tracked offers"
+                hint="latest offers"
                 icon={Tag}
                 action={{ href: "/deals", label: "Browse all deals" }}
               >

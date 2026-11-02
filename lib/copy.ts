@@ -24,7 +24,6 @@ export const copy = {
     noVotes: "No votes yet. Be the first to tell us if it worked.",
     noSaved: "Nothing saved yet.",
     noAlerts: "No alerts yet.",
-    noTracked: "No tracked products yet.",
   },
   ranking: {
     whyThisOrder: "Why this order?",

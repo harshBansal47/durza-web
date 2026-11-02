@@ -121,15 +121,6 @@ export type CouponSort =
   | "biggest_discount"
   | "biggest_percent";
 
-/**
- * A product joined with its current price context. The account dashboard needs
- * a tracked product's current price to show "now vs target", which the bare
- * tracked-products endpoint doesn't return.
- */
-export interface TrackedProductView extends TrackedProduct {
-  product: Product;
-}
-
 // The public-safe view — deliberately has no destination_url. See
 // durza/app/schemas/coupon_public.py: the real URL is only ever
 // resolved server-side by GET /coupons/{id}/go.
@@ -247,51 +238,8 @@ export interface SavedItem {
   saved_id: string;
 }
 
-export type AlertKind =
-  | "price_drop"
-  | "coupon_appeared"
-  | "target_met"
-  | "new_offer"
-  | "confirmed"
-  | "ending_soon"
-  | "ended";
-
-export interface TrackedProduct {
-  id: string;
-  product_id: string;
-  target_price: number | null;
-  created_at: string;
-}
-
 export interface NotificationPreference {
   email_enabled: boolean;
-}
-
-/**
- * One delivery attempt, one channel.
- *
- * This is a row in the alert *history*, not the alert itself — hence one entry
- * per channel per alert. `delivered` exists because the honest question a user
- * asking "did you actually email me?" cannot be answered without it: an attempt
- * that was recorded and an attempt that arrived are different facts, and only
- * conflating them makes a bounced address look like a working one.
- *
- * `detail` is the alert's subject line, which carries the product and the new
- * price. There is no separate `message` field; there never was one on the
- * backend, and pretending otherwise is what made this interface lie.
- */
-export interface AlertEvent {
-  id: string;
-  kind: AlertKind;
-  channel: "email" | "telegram" | (string & {});
-  detail: string | null;
-  delivered: boolean;
-  price_point_id: string | null;
-  /** Deal alerts: shared by every channel row of one alert. */
-  batch_id?: string | null;
-  coupon_id?: string | null;
-  store_id?: string | null;
-  created_at: string;
 }
 
 export interface AutocompleteResult {

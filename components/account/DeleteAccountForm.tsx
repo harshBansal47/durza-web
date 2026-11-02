@@ -35,8 +35,7 @@ export default function DeleteAccountForm({ action }: DeleteAccountFormProps) {
         <ul className="list-disc pl-5 space-y-1 text-sm text-ink-soft">
           <li>Your profile (name, email)</li>
           <li>All saved stores and coupons</li>
-          <li>All tracked products and target prices</li>
-          <li>All alert history and notification preferences</li>
+          <li>Your notification preferences</li>
         </ul>
         <p className="text-sm text-ink-soft">
           Your coupon verification reports (<em>worked / did not work</em>) will remain public

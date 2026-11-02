@@ -13,7 +13,7 @@ import {
   ok,
   type ActionResult,
   type EmailOtpRequestResult,
-  type TrackFlowResult,
+  type SaveFlowResult,
 } from "./action-result";
 import { maskEmail } from "@/lib/maskEmail";
 
@@ -229,14 +229,14 @@ async function setSavedItem(
     if (kind === "store") {
       return ok(
         shouldSave
-          ? "You're following this store. We'll email you when it has a new offer, at most once a day."
+          ? "You're following this store. We'll email you when it has a new offer."
           : "You've stopped following this store.",
       );
     }
     return ok(
       shouldSave
-        ? "You're tracking this offer. We'll email you if it's confirmed working, about to end, or stops working."
-        : "You've stopped tracking this offer.",
+        ? "This offer is saved. We'll email you if it is confirmed working, about to end, or stops working."
+        : "This offer has been removed from your saved items.",
     );
   } catch (error) {
     return fail(describeError(error));
@@ -244,29 +244,29 @@ async function setSavedItem(
 }
 
 /* ------------------------------------------------------------------ */
-/* Track / follow, for visitors who may not have an account yet         */
+/* Save / follow, for visitors who may not have an account yet          */
 /* ------------------------------------------------------------------ */
 
-type TrackKind = "store" | "coupon";
+type SaveKind = "store" | "coupon";
 
-function isTrackKind(value: unknown): value is TrackKind {
+function isSaveKind(value: unknown): value is SaveKind {
   return value === "store" || value === "coupon";
 }
 
 /**
- * Is this visitor signed in, and are they already tracking this?
+ * Is this visitor signed in, and is this item already saved?
  *
  * Asked from the client once the page is on screen, so the cached page itself
  * never depends on who is looking. Any failure reads as "signed out": the
  * worst case is that a signed-in visitor is offered the email-code step, which
  * still works.
  */
-export async function trackingStatusAction(
-  kind: TrackKind,
+export async function savedStatusAction(
+  kind: SaveKind,
   itemId: string,
-): Promise<{ signedIn: boolean; tracking: boolean }> {
+): Promise<{ signedIn: boolean; saved: boolean }> {
   const token = await getAccessToken();
-  if (!token || !isTrackKind(kind)) return { signedIn: false, tracking: false };
+  if (!token || !isSaveKind(kind)) return { signedIn: false, saved: false };
   try {
     // One backend call. The masked email the banner shows comes from `/api/session`, which
     // has already looked the user up; asking `/auth/me` again here was the same lookup twice.
@@ -274,10 +274,10 @@ export async function trackingStatusAction(
       kind === "store" ? await api.listSavedStores(token) : await api.listSavedCoupons(token);
     return {
       signedIn: true,
-      tracking: rows.some((row) => row.kind === kind && row.item_id === itemId),
+      saved: rows.some((row) => row.kind === kind && row.item_id === itemId),
     };
   } catch {
-    return { signedIn: false, tracking: false };
+    return { signedIn: false, saved: false };
   }
 }
 
@@ -288,10 +288,10 @@ export async function trackingStatusAction(
  * address, cooldown, delivery trouble all look the same), so only a malformed
  * address is reported back.
  */
-export async function requestTrackCodeAction(
-  _prev: TrackFlowResult,
+export async function requestSaveCodeAction(
+  _prev: SaveFlowResult,
   formData: FormData,
-): Promise<TrackFlowResult> {
+): Promise<SaveFlowResult> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   if (!email || !email.includes("@")) return fail("Enter a valid email address.");
 
@@ -304,22 +304,22 @@ export async function requestTrackCodeAction(
 }
 
 /**
- * Step 2: confirm the code, sign them in, and start tracking, in one go.
+ * Step 2: confirm the code, sign them in, and save the item, in one go.
  *
  * Unlike `verifyEmailOtpAction` this does not redirect: the visitor stays on
  * the offer they were looking at. The save uses the tokens straight from the
  * verify call rather than re-reading the cookie that was just set.
  */
-export async function trackWithEmailCodeAction(
-  _prev: TrackFlowResult,
+export async function saveWithEmailCodeAction(
+  _prev: SaveFlowResult,
   formData: FormData,
-): Promise<TrackFlowResult> {
+): Promise<SaveFlowResult> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const code = String(formData.get("code") ?? "").replace(/\s+/g, "");
   const kind = formData.get("kind");
   const itemId = String(formData.get("itemId") ?? "");
 
-  if (!email || !isTrackKind(kind) || !itemId) return fail("Start again and enter your email address.");
+  if (!email || !isSaveKind(kind) || !itemId) return fail("Start again and enter your email address.");
   if (!/^\d{6}$/.test(code)) return { ...fail("Enter the 6-digit code from your email."), codeSentTo: email };
 
   let accessToken: string;
@@ -341,7 +341,7 @@ export async function trackWithEmailCodeAction(
   } catch (error) {
     return { ...fail(describeError(error)), signedIn: true };
   }
-  return { tracking: true, signedIn: true, email: maskEmail(email) };
+  return { saved: true, signedIn: true, email: maskEmail(email) };
 }
 
 /** Set backend state explicitly so browser-local state cannot invert a save. */
@@ -374,73 +374,6 @@ export async function toggleSavedCoupon(
 }
 
 /* ------------------------------------------------------------------ */
-/* Tracked products                                                    */
-/* ------------------------------------------------------------------ */
-
-export async function trackProductAction(
-  _prev: ActionResult,
-  formData: FormData,
-): Promise<ActionResult> {
-  const productId = String(formData.get("product_id") ?? "");
-  const rawTarget = String(formData.get("target_price") ?? "").trim();
-  const currency = String(formData.get("currency") ?? "INR").toUpperCase();
-
-  if (!productId) return fail("Missing product.");
-
-  let targetPrice: number | null = null;
-  if (rawTarget) {
-    targetPrice = Number(rawTarget.replace(/[^0-9.]/g, ""));
-    if (!Number.isFinite(targetPrice) || targetPrice <= 0) {
-      return fail("Enter a target price as a plain number.");
-    }
-  }
-
-  try {
-    const token = await requireToken();
-    await api.trackProduct(token, productId, targetPrice);
-  } catch (error) {
-    return fail(describeError(error));
-  }
-
-  return {
-    message: targetPrice
-      ? `Tracking this product. We will email you at ${targetPrice} ${currency} or below.`
-      : "Tracking this product. We will email you when the price drops.",
-  };
-}
-
-export async function updateTargetPriceAction(
-  trackedId: string,
-  rawTarget: string,
-): Promise<ActionResult> {
-  const trimmed = rawTarget.trim();
-  let targetPrice: number | null = null;
-  if (trimmed) {
-    targetPrice = Number(trimmed.replace(/[^0-9.]/g, ""));
-    if (!Number.isFinite(targetPrice) || targetPrice <= 0) {
-      return fail("Enter a target price as a plain number.");
-    }
-  }
-
-  try {
-    const token = await requireToken();
-    await api.updateTrackedProduct(token, trackedId, targetPrice);
-    return ok(targetPrice ? `Target set to ${targetPrice}.` : "Target cleared.");
-  } catch (error) {
-    return fail(describeError(error));
-  }
-}
-
-export async function untrackProductAction(trackedId: string): Promise<ActionResult> {
-  try {
-    const token = await requireToken();
-    await api.untrackProduct(token, trackedId);
-    return ok("No longer tracking this product.");
-  } catch (error) {
-    return fail(describeError(error));
-  }
-}
-
 /* ------------------------------------------------------------------ */
 /* Notification preferences                                            */
 /* ------------------------------------------------------------------ */
@@ -528,15 +461,12 @@ async function requireAccountSlice<T>(loader: (token: string) => Promise<T>): Pr
 
 export async function requireAccount() {
   return requireAccountSlice(async (token) => {
-    const [user, stores, coupons, tracked, prefs, alerts] = await Promise.all([
+    const [user, stores, coupons] = await Promise.all([
       api.me(token),
       api.listSavedStores(token),
       api.listSavedCoupons(token),
-      api.listTrackedProducts(token),
-      api.getNotificationPreferences(token),
-      api.listAlerts(token, 20),
     ]);
-    return { user, stores, coupons, tracked, prefs, alerts };
+    return { user, stores, coupons };
   });
 }
 
@@ -552,23 +482,6 @@ export async function requireSavedAccount() {
       api.listSavedCoupons(token),
     ]);
     return { user, stores, coupons };
-  });
-}
-
-export async function requireTrackedAccount() {
-  return requireAccountSlice(async (token) => {
-    const [user, tracked] = await Promise.all([
-      api.me(token),
-      api.listTrackedProducts(token),
-    ]);
-    return { user, tracked };
-  });
-}
-
-export async function requireAlertsAccount() {
-  return requireAccountSlice(async (token) => {
-    const [user, alerts] = await Promise.all([api.me(token), api.listAlerts(token, 50)]);
-    return { user, alerts };
   });
 }
 

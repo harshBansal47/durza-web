@@ -33,7 +33,7 @@ function getServerSnapshot() {
  * It now lives above the footer, is dismissible, and remembers the choice on
  * this device (localStorage only — nothing is sent to the server).
  */
-export default function PriceAlertBanner() {
+export default function SavedUpdatesBanner() {
   const { session } = useSession();
   const dismissed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
@@ -73,11 +73,10 @@ export default function PriceAlertBanner() {
           <div className="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <div className="max-w-xl">
               <p className="font-sans text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-                Stop checking back. Let the price come to you.
+                Save offers and we&apos;ll keep you posted.
               </p>
               <p className="mt-2 text-sm text-ink-soft">
-                Follow a product and we email you when its price drops or its
-                store gets a new tracked offer. Free, no spam.
+                Save a coupon or follow a store and we&apos;ll email you about useful updates. Free, no spam.
               </p>
             </div>
             <Link

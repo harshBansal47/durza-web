@@ -22,7 +22,7 @@ export default function NotificationSettings({
         <div className="border border-ledger-line bg-paper-raised p-4">
           <Checkbox
             label="Email alerts"
-            description="Price drops on tracked products, plus new, ending or confirmed offers from stores you follow and offers you track."
+            description="Updates about new offers from stores you follow and changes to offers you have saved."
             checked={emailEnabled}
             onChange={setEmailEnabled}
           />

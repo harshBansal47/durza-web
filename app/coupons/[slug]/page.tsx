@@ -23,7 +23,7 @@
   import VerifiedGauge from "@/components/VerifiedGauge";
 import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
-import TrackDealBanner from "@/components/TrackDealBanner";
+import SaveDealBanner from "@/components/SaveDealBanner";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
 
@@ -364,7 +364,7 @@ import TrackDealBanner from "@/components/TrackDealBanner";
 
         {/* Every other section carries mb-8; without it the next heading sat flush against this card. */}
         <div className="mb-8">
-          <TrackDealBanner
+          <SaveDealBanner
             target={{ kind: "coupon", id: coupon.id, title: coupon.title, storeName: store?.name }}
           />
         </div>

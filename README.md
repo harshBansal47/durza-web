@@ -127,7 +127,7 @@ self-hosted font files.
 | `app/stores/[slug]/page.tsx`, `app/categories/[slug]/page.tsx` | Filtered listings |
 | `app/sales/[series]/page.tsx`, `app/collections/[slug]/page.tsx` | Sale hubs and curated collections |
 | `app/guides/[slug]/page.tsx`, `app/reviews/[slug]/page.tsx` | Editorial guides and reviews |
-| `app/account/*` | Account area: saved, tracked products, alerts, notifications, settings |
+| `app/account/*` | Account area: saved coupons and stores, notification preferences, settings |
 | `app/admin/analytics/page.tsx` | Staff analytics dashboard |
 | `app/trust/page.tsx` | The trust pledge (hardcoded) + an optional CMS-editable extended policy |
 | `app/sitemap.ts`, `app/robots.ts` | Generated from live backend data |
@@ -175,7 +175,7 @@ self-hosted font files.
 
 The backend now has an MCP server (`../couponza/mcp_server`). The frontend has
 grown well beyond the original scope: account area (saved stores/coupons,
-tracked products, alerts, notification preferences), product pages with price
+notification preferences), product pages with price
 history, sales hubs, collections, guides, reviews, compare, bank offers, and
 an admin analytics dashboard. Still genuinely open: browser extension, web-push
 delivery, and the homepage's store-name/logo lookup still fetches up to 100

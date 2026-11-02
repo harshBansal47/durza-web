@@ -101,7 +101,7 @@ describe("FeaturedBanner", () => {
 describe("SectionTitle", () => {
   it("renders an optional action link next to the title", () => {
     render(
-      <SectionTitle hint="tracked offers" icon={Tag} action={{ href: "/deals", label: "Browse all deals" }}>
+      <SectionTitle hint="latest offers" icon={Tag} action={{ href: "/deals", label: "Browse all deals" }}>
         Latest deals
       </SectionTitle>,
     );

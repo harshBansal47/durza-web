@@ -66,8 +66,8 @@ const BANNERS: Banner[] = [
     buttonText: PALETTE.white,
   },
   {
-    title: "Follow a price, skip the refresh",
-    body: "Track a product and we email you when the price drops or its store gets a new tracked offer.",
+    title: "Save offers, skip the refresh",
+    body: "Save coupons and follow stores; we'll email you when a saved offer changes or a store adds a deal.",
     cta: "Create a free account",
     href: "/account/register",
     glyph: ArrowDown,

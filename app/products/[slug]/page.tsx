@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import TrackProductDialog from "@/components/account/TrackProductDialog";
-import { trackProductAction } from "@/app/account/actions";
 import { api, resilient } from "@/lib/api";
 import { formatMoney, formatRelativeTime } from "@/lib/format";
-import { getAccessToken, getSessionUser } from "@/lib/session";
 import { absoluteUrl } from "@/lib/seo";
 import PageTitle from "@/components/ui/PageTitle";
 import { LogoMark } from "@/components/Logo";
@@ -28,7 +25,7 @@ export async function generateMetadata({
     product.current_price !== null ? formatMoney(product.current_price, product.currency) : null;
   // The price is real data from the API, and it is only mentioned when it
   // exists — never estimated from the list price.
-  const description = `Current price${price ? ` (${price})` : ""} and price history for ${product.name}${store ? ` at ${store.name}` : ""} — see how it moved and get alerted when it drops.`;
+  const description = `Current price${price ? ` (${price})` : ""} and price history for ${product.name}${store ? ` at ${store.name}` : ""}.`;
   const ogTitle = `${product.name} — ${price ?? "price unknown"}`;
   const canonical = absoluteUrl(`/products/${product.slug}`);
 
@@ -51,22 +48,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await resilient.getProductBySlug(slug);
   if (!product) notFound();
 
-  const [store, history, user] = await Promise.all([
+  const [store, history] = await Promise.all([
     resilient.getStoreById(product.store_id),
     resilient.getPriceHistory(product.id),
-    getSessionUser(),
   ]);
 
-  // Only signed-in visitors can be tracking something, and a failed read should
-  // not block the page — fall back to "not tracked" rather than an error state.
-  const token = user ? await getAccessToken() : null;
-  const trackedRow = token
-    ? ((await api.listTrackedProducts(token).catch(() => []))
-        .find((row) => row.product_id === product.id) ?? null)
-    : null;
-
   // A product with a URL is the only case where we can link out; without one the
-  // page is still useful (price history, tracking) so it renders without a CTA.
+  // page is still useful (price history) so it renders without a CTA.
   const dropPct =
     product.last_price_drop_at !== null && product.last_price_drop_pct !== null
       ? product.last_price_drop_pct
@@ -183,39 +171,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 View at {store?.name ?? "the store"}
               </a>
             )}
-            <TrackProductDialog
-              product={{
-                id: product.id,
-                name: product.name,
-                currency: product.currency,
-                current_price: product.current_price,
-                lowest_price_30d: product.lowest_price_30d,
-              }}
-              action={trackProductAction}
-              isSignedIn={Boolean(user)}
-              loginHref={`/account/login?next=${encodeURIComponent(`/products/${product.slug}`)}`}
-              size="md"
-              triggerLabel={trackedRow ? "Edit tracking" : "Track this"}
-            />
-            {trackedRow && (
-              <Link href="/account/products" className="text-sm text-inkblue hover:underline">
-                Manage tracked products
-              </Link>
-            )}
           </div>
-
-          {!user && (
-            <p className="mt-3 text-xs text-ink-soft">
-              Tracking needs an account so we know where to send the alert.{" "}
-              <Link
-                href={`/account/register?next=${encodeURIComponent(`/products/${product.slug}`)}`}
-                className="text-inkblue hover:underline"
-              >
-                Create one free
-              </Link>
-              .
-            </p>
-          )}
 
           {store && (
             <p className="mt-6 border border-ledger-line bg-paper-raised p-4 text-sm text-ink-soft">

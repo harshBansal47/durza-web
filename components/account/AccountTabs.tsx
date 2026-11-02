@@ -6,8 +6,6 @@ import Link from "next/link";
 const TABS = [
   { href: "/account", label: "Overview" },
   { href: "/account/saved", label: "Saved" },
-  { href: "/account/products", label: "Tracked" },
-  { href: "/account/alerts", label: "Alerts" },
   { href: "/account/notifications", label: "Notifications" },
   { href: "/account/settings", label: "Settings" },
 ];
