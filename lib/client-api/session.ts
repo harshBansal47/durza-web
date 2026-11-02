@@ -11,7 +11,10 @@ export const sessionApi = {
     return clientHttp
       .get<SessionSnapshot>(
         clientAppUrl("/api/session"),
-        clientRequestConfig(signal, { cache: "no-store" }),
+        // The session route reads the HttpOnly auth cookies server-side.
+        // clientHttp omits credentials by default, so this same-origin call
+        // must opt in or the navbar will always appear signed out.
+        clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
       )
       .then(({ data }) => data);
   },
