@@ -27,13 +27,14 @@ import type {
   VerificationHistoryItem,
   VerifyResponse,
 } from "./types";
+import { getPublicApiBaseUrl } from "./api-url";
 
 /**
  * The API as the browser reaches it. Everything that builds a URL a visitor
  * follows — affiliate redirects, OAuth — uses this, so it is never the private
  * address below.
  */
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+const API_URL = getPublicApiBaseUrl();
 
 /**
  * The base for server-side reads. When the Next server shares a host with the
@@ -278,7 +279,7 @@ export const api = {
     }),
 
   recordImpression: (body: ImpressionBody) =>
-    fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/analytics/impression`, {
+    fetch(`${API_URL}/analytics/impression`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -291,7 +292,7 @@ export const api = {
   /** Many impressions in one request. Resolves with the HTTP status (never throws on 4xx/5xx),
    *  so the caller can tell "API predates the batch route" (404/405) from a real failure. */
   recordImpressions: (impressions: ImpressionBody[], opts: { keepalive?: boolean } = {}) =>
-    fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/analytics/impressions`, {
+    fetch(`${API_URL}/analytics/impressions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ impressions }),

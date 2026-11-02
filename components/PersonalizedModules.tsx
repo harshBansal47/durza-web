@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { isPersonalizationAllowed } from "@/lib/consent";
 import { PERSONALIZATION_ENABLED } from "@/lib/flags";
+import { getPublicApiBaseUrl } from "@/lib/api-url";
 
 interface PersonalizedItem {
   title?: string;
@@ -21,7 +22,7 @@ export default function PersonalizedModules() {
     // The flag is off by default: no request is made, and nothing renders.
     if (!PERSONALIZATION_ENABLED) return;
     if (!isPersonalizationAllowed()) return;
-    fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/personalization/picked-for-you`, {
+    fetch(`${getPublicApiBaseUrl()}/personalization/picked-for-you`, {
       credentials: "include",
       cache: "no-store",
     })

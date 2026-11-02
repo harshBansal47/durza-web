@@ -1,5 +1,7 @@
 "use client";
 
+import { getPublicApiBaseUrl } from "./api-url";
+
 /**
  * Consent state — the single source of truth for whether analytics tracking
  * is permitted. Every tracking call (track, impressions, pageviews) must
@@ -54,7 +56,7 @@ export function getConsent(): ConsentState {
  * Taste signals stay in localStorage and are never transmitted.
  */
 async function postConsent(choice: "accepted" | "declined"): Promise<boolean> {
-  const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+  const base = getPublicApiBaseUrl();
   try {
     const response = await fetch(`${base}/analytics/consent`, {
       method: "POST",
@@ -143,10 +145,6 @@ const PERSONALIZATION_KEYS = [
   "durza.recent",
 ];
 
-function personalizationApiBase(): string {
-  return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
-}
-
 /** Remove all local taste signals without changing the consent choice. */
 export function clearPersonalizationSignals(): void {
   for (const key of PERSONALIZATION_KEYS) {
@@ -179,7 +177,7 @@ export function setPersonalizationConsent(state: "accepted" | "declined"): void 
 export async function withdrawPersonalization(): Promise<void> {
   setPersonalizationConsent("declined");
   try {
-    await fetch(`${personalizationApiBase()}/personalization/interests`, {
+    await fetch(`${getPublicApiBaseUrl()}/personalization/interests`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -193,7 +191,7 @@ export async function resetPersonalization(): Promise<void> {
   clearPersonalizationSignals();
   window.dispatchEvent(new Event(PERSONALIZATION_EVENT));
   try {
-    await fetch(`${personalizationApiBase()}/personalization/interests`, {
+    await fetch(`${getPublicApiBaseUrl()}/personalization/interests`, {
       method: "DELETE",
       credentials: "include",
     });

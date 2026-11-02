@@ -8,10 +8,7 @@ import {
   setPersonalizationConsent,
   withdrawPersonalization,
 } from "@/lib/consent";
-
-function apiBase(): string {
-  return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
-}
+import { getPublicApiBaseUrl } from "@/lib/api-url";
 
 /**
  * The personalization panel.
@@ -37,7 +34,7 @@ function PersonalizationSettingsPanel() {
   async function exportInterests() {
     setBusy(true);
     try {
-      const resp = await fetch(`${apiBase()}/personalization/export`, {
+      const resp = await fetch(`${getPublicApiBaseUrl()}/personalization/export`, {
         credentials: "include",
         cache: "no-store",
       });

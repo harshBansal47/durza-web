@@ -2,6 +2,7 @@
 
 import { enqueueImpression } from "./impressionQueue";
 import { isAnalyticsAllowed } from "./consent";
+import { getPublicApiBaseUrl } from "./api-url";
 
 /**
  * Where an impression happened. These are the ONLY values the backend accepts
@@ -101,7 +102,7 @@ export function track(event: AnalyticsEvent, payload: Record<string, unknown> = 
       return;
     }
     const url = process.env.NEXT_PUBLIC_API_URL
-      ? `${process.env.NEXT_PUBLIC_API_URL}/analytics/event`
+      ? `${getPublicApiBaseUrl()}/analytics/event`
       : null;
     const body = JSON.stringify({ event, ...payload, ts: new Date().toISOString() });
     if (url && navigator.sendBeacon) {
