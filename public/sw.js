@@ -1,12 +1,11 @@
 /**
  * Durza's service worker.
  *
- * Three responsibilities:
+ * Two responsibilities:
  *
- *  1. Push notifications — the Push API requires a service worker.
- *  2. App shell caching — cache the HTML shell and static assets so the app
+ *  1. App shell caching — cache the HTML shell and static assets so the app
  *     loads instantly and works offline.
- *  3. Offline fallback — show a friendly offline page when the network is
+ *  2. Offline fallback — show a friendly offline page when the network is
  *     unavailable.
  *
  * Pages with live price data are NOT cached — a stale coupon page showing
@@ -36,13 +35,18 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      );
-    })
+    Promise.all([
+      caches.keys().then((cacheNames) =>
+        Promise.all(
+          cacheNames
+            .filter((name) => name !== CACHE_NAME)
+            .map((name) => caches.delete(name))
+        )
+      ),
+      self.registration.pushManager?.getSubscription().then((subscription) =>
+        subscription?.unsubscribe()
+      ).catch(() => undefined),
+    ])
   );
   self.clients.claim();
 });
@@ -104,47 +108,4 @@ self.addEventListener("fetch", (event) => {
       });
     })
   );
-});
-
-/**
- * Clicking a notification should land on the product the alert was about.
- */
-self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-  const target = event.notification.data && event.notification.data.url;
-
-  event.waitUntil(
-    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
-      for (const client of clientList) {
-        if ("focus" in client) {
-          if (target && "navigate" in client) {
-            return client.navigate(target).then((navigated) => navigated || client.focus());
-          }
-          return client.focus();
-        }
-      }
-      return self.clients.openWindow(target || "/account/alerts");
-    })
-  );
-});
-
-self.addEventListener("push", (event) => {
-  let payload = {};
-  try {
-    payload = event.data ? event.data.json() : {};
-  } catch {
-    payload = { title: "Durza", body: "A new deal just landed.", url: "/account/alerts" };
-  }
-
-  const title = payload.title || "Durza";
-  const options = {
-    body: payload.body || "",
-    tag: payload.tag || "durza-alert",
-    renotify: true,
-    icon: "/icon-192.png",
-    badge: "/icon-192.png",
-    data: { url: payload.url || "/account/alerts" },
-  };
-
-  event.waitUntil(self.registration.showNotification(title, options));
 });

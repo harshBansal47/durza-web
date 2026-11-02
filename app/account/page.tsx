@@ -43,8 +43,8 @@ export default async function AccountOverviewPage() {
   const resolvedStores = savedStores.filter((s) => s !== null);
   const liveProducts = trackedWithPrices.filter((t) => t.product !== null);
 
-  // Count distinct alerts, not delivery attempts. A user with email and push on
-  // got one price drop, not two — showing "2 alerts sent" for a single drop is
+  // Count distinct alerts, not delivery attempts. Historical channel rows can
+  // mean one alert has several entries; showing "2 alerts sent" for one is
   // the kind of small inaccuracy that makes a statistics panel untrustworthy.
   const alertKeys = new Set(alerts.map((a) => a.price_point_id ?? a.batch_id ?? a.id));
 
@@ -76,7 +76,7 @@ export default async function AccountOverviewPage() {
         Smart shopper badge: savings estimate coming soon
       </div>
 
-      {!prefs.email_enabled && !prefs.push_enabled && (
+      {!prefs.email_enabled && (
         <p className="mt-4 border border-rust bg-rust-soft px-4 py-3 text-sm text-rust">
           All alerts are off, so nothing will reach you when a tracked price drops.{" "}
           <Link href="/account/notifications" className="underline underline-offset-2">

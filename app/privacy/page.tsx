@@ -81,8 +81,9 @@ export default function PrivacyPage() {
       </p>
       <p>
         <strong className="font-semibold text-ink">Notification preferences.</strong> We store your
-        email notification settings and, if you opt in, your Telegram chat ID or browser push
-        subscription so we can deliver price-drop and deal alerts.
+        email notification settings so we can deliver price-drop and deal alerts. The public
+        Telegram channel is separate from your account and does not require us to store a Telegram
+        chat ID.
       </p>
       <p>
         <strong className="font-semibold text-ink">Usage data.</strong> Page views, searches, and

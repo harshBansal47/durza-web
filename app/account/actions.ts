@@ -7,7 +7,6 @@ import {
   getAccessToken,
   setSessionCookies,
 } from "@/lib/session";
-import type { PushPublicKey, PushSubscriptionPayload } from "@/lib/types";
 import {
   describeError,
   fail,
@@ -452,110 +451,16 @@ export async function updatePreferencesAction(
 ): Promise<ActionResult> {
   const on = (name: string) => formData.get(name) === "on" || formData.get(name) === "true";
 
-  // A push subscription is only meaningful alongside push_enabled, and an
-  // invalid one would make the alert engine fail every send.
-  const rawSubscription = String(formData.get("push_subscription") ?? "").trim();
-  let pushSubscription: Record<string, unknown> | null = null;
-  if (rawSubscription) {
-    try {
-      pushSubscription = JSON.parse(rawSubscription) as Record<string, unknown>;
-    } catch {
-      return fail("The browser gave us an unreadable push subscription. Re-enable it.");
-    }
-  }
-
   try {
     const token = await requireToken();
     await api.updateNotificationPreferences(token, {
       email_enabled: on("email_enabled"),
-      push_enabled: on("push_enabled") && pushSubscription !== null,
-      telegram_enabled: on("telegram_enabled"),
-      push_subscription: pushSubscription,
     });
   } catch (error) {
     return fail(describeError(error));
   }
 
   return ok("Preferences saved.");
-}
-
-/* ------------------------------------------------------------------ */
-/* Browser push                                                        */
-/* ------------------------------------------------------------------ */
-
-/**
- * Subscribe this browser to push.
- *
- * A Server Action rather than a direct client fetch because the access token
- * lives in an httpOnly cookie: the browser cannot read it, so it cannot
- * authenticate a call of its own. Keeping this on the server also means the
- * subscription never has to be passed through a form field as a JSON string,
- * which is the step where a half-serialised subscription most often goes wrong.
- */
-export async function subscribePushAction(
-  _prev: ActionResult,
-  formData: FormData,
-): Promise<ActionResult> {
-  const token = await getAccessToken();
-  if (!token) return fail("Sign in to turn on browser notifications.");
-
-  let payload: PushSubscriptionPayload;
-  try {
-    payload = JSON.parse(String(formData.get("subscription") ?? "")) as PushSubscriptionPayload;
-  } catch {
-    return fail("The browser gave us an unreadable push subscription. Try again.");
-  }
-  if (!payload?.endpoint || !payload?.keys?.p256dh || !payload?.keys?.auth) {
-    // Caught here rather than left to the API because a subscription without
-    // both key halves parses as valid JSON and then fails on every send.
-    return fail("The browser gave us an incomplete push subscription. Try again.");
-  }
-
-  try {
-    await api.subscribePush(token, payload);
-  } catch (error) {
-    return fail(describeError(error));
-  }
-  return ok("Browser notifications are on for this device.");
-}
-
-/**
- * Turn push off in both places.
- *
- * The browser's `unsubscribe()` alone leaves the server holding an endpoint
- * nobody listens to, which the push service answers with a 410 on every future
- * alert. Both halves have to go, which is why this is one action rather than
- * two buttons.
- */
-export async function unsubscribePushAction(previous: ActionResult): Promise<ActionResult> {
-  // The argument is only there because `useActionState` requires the
-  // (state, formData) shape; this action takes no form.
-  void previous;
-  const token = await getAccessToken();
-  if (!token) return fail("Sign in to change your notification settings.");
-
-  try {
-    await api.unsubscribePush(token);
-  } catch (error) {
-    return fail(describeError(error));
-  }
-  return ok("Browser notifications are off for this device.");
-}
-
-/**
- * Whether this deployment can send push at all.
- *
- * Read on the server and handed to the client as a boolean, so the settings
- * page does not have to fetch it on the client and flash "unsupported" before
- * the real answer arrives. A failed lookup is treated as "not configured",
- * which is the safe direction: the toggle hides itself.
- */
-export async function loadPushKey(): Promise<PushPublicKey> {
-  try {
-    return await api.getPushPublicKey();
-  } catch {
-    return { public_key: null, enabled: false };
-  }
 }
 
 /* ------------------------------------------------------------------ */

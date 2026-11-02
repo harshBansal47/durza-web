@@ -26,6 +26,8 @@ const KIND_LABEL: Record<AlertKind, string> = {
 const CHANNEL_LABEL: Record<string, string> = {
   email: "Email",
   push: "Push",
+  // Preserve the label for historical records from before private Telegram
+  // alerts were removed. New personal Telegram attempts are no longer created.
   telegram: "Telegram",
 };
 

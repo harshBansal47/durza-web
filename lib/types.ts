@@ -265,10 +265,6 @@ export interface TrackedProduct {
 
 export interface NotificationPreference {
   email_enabled: boolean;
-  telegram_enabled: boolean;
-  telegram_chat_id: string | null;
-  push_enabled: boolean;
-  push_subscription: Record<string, unknown> | null;
 }
 
 /**
@@ -287,7 +283,7 @@ export interface NotificationPreference {
 export interface AlertEvent {
   id: string;
   kind: AlertKind;
-  channel: "email" | "push" | "telegram" | (string & {});
+  channel: "email" | "telegram" | (string & {});
   detail: string | null;
   delivered: boolean;
   price_point_id: string | null;
@@ -296,36 +292,6 @@ export interface AlertEvent {
   coupon_id?: string | null;
   store_id?: string | null;
   created_at: string;
-}
-
-/** What the settings page needs to know about this device's push subscription. */
-export interface PushState {
-  push_enabled: boolean;
-  /** The API deliberately never echoes the subscription back; it is a credential. */
-  has_subscription: boolean;
-}
-
-/** The VAPID public key, plus whether push is configured on this deployment. */
-export interface PushPublicKey {
-  public_key: string | null;
-  enabled: boolean;
-}
-
-/**
- * A browser Push API subscription.
- *
- * `PushSubscription.toJSON()` produces exactly this shape, so it can be sent
- * straight through without reshaping. `expirationTime` is nullable and the keys
- * are required — a subscription missing either key half parses fine as JSON and
- * then fails inside the cryptography on every send.
- */
-export interface PushSubscriptionPayload {
-  endpoint: string;
-  expirationTime?: number | null;
-  keys: {
-    p256dh: string;
-    auth: string;
-  };
 }
 
 export interface AutocompleteResult {
