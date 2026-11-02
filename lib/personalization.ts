@@ -231,3 +231,34 @@ export function toggleFollowedStore(slug: string): boolean {
 export function setFollowedStore(slug: string, followed: boolean): void {
   if (isClient() && slug) setSignal("followed", slug, followed);
 }
+
+/**
+ * "Push this local save to the account" is idempotent, so doing it once per browser session
+ * is as good as doing it on every mount, and a page with several saved cards would
+ * otherwise fire one server action per card on every navigation.
+ *
+ * Returns true the first time it is called for (user, kind, id) in this browser session,
+ * false after. Keyed by user so a different account in the same tab still syncs. If
+ * sessionStorage is unavailable it always returns true: the old behaviour, never less.
+ */
+export function claimSessionSync(userKey: string, kind: "coupon" | "store", id: string): boolean {
+  if (!isClient()) return true;
+  const key = `durza:synced:${userKey}:${kind}:${id}`;
+  try {
+    if (window.sessionStorage.getItem(key)) return false;
+    window.sessionStorage.setItem(key, "1");
+  } catch {
+    /* storage blocked: sync every time rather than never */
+  }
+  return true;
+}
+
+/** Let the next mount try again, after a sync that failed. */
+export function releaseSessionSync(userKey: string, kind: "coupon" | "store", id: string): void {
+  if (!isClient()) return;
+  try {
+    window.sessionStorage.removeItem(`durza:synced:${userKey}:${kind}:${id}`);
+  } catch {
+    /* nothing to release */
+  }
+}

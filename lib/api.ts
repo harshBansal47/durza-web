@@ -208,6 +208,29 @@ function goQuery(src?: string, contentRef?: string): string {
   return parts.length ? `?${parts.join("&")}` : "";
 }
 
+/** Set once the API answers 404/405 for /search/suggest; see `api.autocomplete`. */
+let suggestRouteMissing = false;
+/** Test hook. */
+export function resetSuggestProbe() {
+  suggestRouteMissing = false;
+}
+
+export type ImpressionBody = {
+  coupon_id: string;
+  merchant_id: string;
+  page_type: string;
+  page_id?: string;
+  list_id?: string;
+  position: number;
+  ranking_version?: string;
+  ranking_score?: number | null;
+  source?: string;
+  referrer?: string;
+  device_type?: string;
+  country?: string;
+  sponsored?: boolean;
+};
+
 export const api = {
   // ---- Public catalogue -------------------------------------------------
 
@@ -254,21 +277,7 @@ export const api = {
       cache: "no-store",
     }),
 
-  recordImpression: (body: {
-    coupon_id: string;
-    merchant_id: string;
-    page_type: string;
-    page_id?: string;
-    list_id?: string;
-    position: number;
-    ranking_version?: string;
-    ranking_score?: number | null;
-    source?: string;
-    referrer?: string;
-    device_type?: string;
-    country?: string;
-    sponsored?: boolean;
-  }) =>
+  recordImpression: (body: ImpressionBody) =>
     fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/analytics/impression`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -278,6 +287,18 @@ export const api = {
     }).then((r) => {
       if (!r.ok) throw new Error("impression failed");
     }),
+
+  /** Many impressions in one request. Resolves with the HTTP status (never throws on 4xx/5xx),
+   *  so the caller can tell "API predates the batch route" (404/405) from a real failure. */
+  recordImpressions: (impressions: ImpressionBody[], opts: { keepalive?: boolean } = {}) =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"}/analytics/impressions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ impressions }),
+      cache: "no-store",
+      credentials: "include",
+      keepalive: opts.keepalive,
+    }).then((r) => r.status),
 
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     apiFetch<VerificationHistoryItem[]>(`/coupons/${couponId}/verification-history${qs({ limit })}`, {
@@ -361,6 +382,23 @@ export const api = {
     opts: { limit?: number; signal?: AbortSignal } = {},
   ): Promise<AutocompleteResult> => {
     const { limit = 5, signal } = opts;
+    const none: AutocompleteResult = { stores: [], categories: [], products: [] };
+
+    // One request for all three groups. If the API predates /search/suggest (frontend
+    // deployed first), fall back to the three separate calls and stop asking.
+    if (!suggestRouteMissing) {
+      try {
+        return await apiFetch<AutocompleteResult>(`/search/suggest${qs({ q: query, limit })}`, {
+          cache: "no-store",
+          signal,
+        });
+      } catch (error) {
+        const missing = error instanceof ApiError && (error.status === 404 || error.status === 405);
+        if (!missing) return none; // as before, a failed lookup is an empty one, never a throw
+        suggestRouteMissing = true;
+      }
+    }
+
     const run = (path: string) => apiFetch<string[]>(`${path}${qs({ q: query, limit })}`, { cache: "no-store", signal });
     const [stores, categories, products] = await Promise.allSettled([
       run("/stores/autocomplete"),

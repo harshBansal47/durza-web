@@ -4,7 +4,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Check, Loader2, Plus } from "lucide-react";
 import { track } from "@/lib/analytics";
-import { isStoreFollowed, setFollowedStore } from "@/lib/personalization";
+import {
+  claimSessionSync,
+  isStoreFollowed,
+  releaseSessionSync,
+  setFollowedStore,
+} from "@/lib/personalization";
 import { useSession } from "@/components/session/SessionProvider";
 import { useTypedToast } from "@/components/ui/Toast";
 import { setSavedStoreAction } from "@/app/account/actions";
@@ -51,20 +56,27 @@ export function StoreFollowButton({
     [],
   );
 
+  // Once per browser session; see CardSaveButton.
+  const userKey = session.user?.name ?? "";
   useEffect(() => {
     if (isSignedIn !== true || !isStoreFollowed(slug)) return;
+    if (!claimSessionSync(userKey, "store", storeId)) return;
     let active = true;
     void setSavedStoreAction(storeId, true)
       .then((result) => {
-        if (active && result.error) setError(result.error);
+        if (result.error) {
+          releaseSessionSync(userKey, "store", storeId);
+          if (active) setError(result.error);
+        }
       })
       .catch(() => {
+        releaseSessionSync(userKey, "store", storeId);
         if (active) setError("Could not sync this followed store. Please try again.");
       });
     return () => {
       active = false;
     };
-  }, [isSignedIn, slug, storeId]);
+  }, [isSignedIn, slug, storeId, userKey]);
 
   function goToSignUp() {
     const box = document.getElementById("track-deal");

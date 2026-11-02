@@ -2,6 +2,7 @@ import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ImpressionTracker } from "@/components/ImpressionTracker";
 import { resetImpressionDedupe } from "@/lib/analytics";
+import { flushImpressions, resetImpressionQueue } from "@/lib/impressionQueue";
 import { setConsent } from "@/lib/consent";
 import { api } from "@/lib/api";
 
@@ -33,7 +34,8 @@ describe("ImpressionTracker", () => {
     resetImpressionDedupe();
     ManualObserver.instances = [];
     globalThis.IntersectionObserver = ManualObserver as unknown as typeof IntersectionObserver;
-    spy = vi.spyOn(api, "recordImpression").mockResolvedValue(undefined as never);
+    resetImpressionQueue();
+    spy = vi.spyOn(api, "recordImpressions").mockResolvedValue(202);
   });
   afterEach(() => {
     globalThis.IntersectionObserver = original;
@@ -50,8 +52,10 @@ describe("ImpressionTracker", () => {
 
   it("does not report a card that is rendered but never scrolled into view", () => {
     mount();
+    flushImpressions();
     expect(spy).not.toHaveBeenCalled();
     ManualObserver.instances[0].show(false);
+    flushImpressions();
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -60,8 +64,10 @@ describe("ImpressionTracker", () => {
     const io = ManualObserver.instances[0];
     io.show(true);
     io.show(true);
+    flushImpressions();
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy.mock.calls[0][0]).toMatchObject({ coupon_id: "c1", page_type: "homepage", position: 2 });
+    expect(spy.mock.calls[0][0]).toHaveLength(1);
+    expect(spy.mock.calls[0][0][0]).toMatchObject({ coupon_id: "c1", page_type: "homepage", position: 2 });
     expect(io.disconnected).toBe(true);
   });
 

@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { api } from "@/lib/api";
 import { IMPRESSION_PAGE_TYPES, isImpressionPageType, resetImpressionDedupe, track } from "@/lib/analytics";
 import { setConsent } from "@/lib/consent";
+import { flushImpressions, resetImpressionQueue } from "@/lib/impressionQueue";
 
 /**
  * The backend (`ImpressionRequest` / `ImpressionType`) rejects unknown page types and
@@ -12,11 +13,17 @@ const base = { coupon_id: "c1", merchant_id: "m1", page_type: "homepage", positi
 
 describe("coupon impression contract with the backend", () => {
   let spy: ReturnType<typeof vi.spyOn>;
+  /** Impressions are batched; flush, then return every impression that was sent. */
+  const sent = () => {
+    flushImpressions();
+    return spy.mock.calls.flatMap((call: unknown[]) => call[0] as unknown[]);
+  };
   beforeEach(() => {
     // Consent must be granted for track() to fire
     setConsent("accepted");
     resetImpressionDedupe();
-    spy = vi.spyOn(api, "recordImpression").mockResolvedValue(undefined as never);
+    resetImpressionQueue();
+    spy = vi.spyOn(api, "recordImpressions").mockResolvedValue(202);
   });
   afterEach(() => {
     vi.restoreAllMocks();
@@ -41,8 +48,9 @@ describe("coupon impression contract with the backend", () => {
 
   it("sends a valid impression", () => {
     track("coupon_impression", base);
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy.mock.calls[0][0]).toMatchObject({
+    const items = sent();
+    expect(items).toHaveLength(1);
+    expect(items[0]).toMatchObject({
       coupon_id: "c1",
       merchant_id: "m1",
       page_type: "homepage",
@@ -53,10 +61,7 @@ describe("coupon impression contract with the backend", () => {
 
   it("accepts deals-page impressions with a 1-based position", () => {
     track("coupon_impression", { ...base, page_type: "deals", position: 1 });
-    expect(spy).toHaveBeenCalledWith(expect.objectContaining({
-      page_type: "deals",
-      position: 1,
-    }));
+    expect(sent()).toContainEqual(expect.objectContaining({ page_type: "deals", position: 1 }));
     expect(isImpressionPageType("deals")).toBe(true);
   });
 
@@ -64,30 +69,31 @@ describe("coupon impression contract with the backend", () => {
     "never sends the page type %j, which the backend would reject",
     (page_type) => {
       track("coupon_impression", { ...base, page_type });
-      expect(spy).not.toHaveBeenCalled();
+      expect(sent()).toHaveLength(0);
       expect(isImpressionPageType(page_type)).toBe(false);
     },
   );
 
   it.each([0, -1, 101, NaN])("never sends position %s (the backend requires 1 to 100)", (position) => {
     track("coupon_impression", { ...base, position });
-    expect(spy).not.toHaveBeenCalled();
+    expect(sent()).toHaveLength(0);
   });
 
   it("counts a coupon once per page view even when it appears in several rows", () => {
     track("coupon_impression", base);
     track("coupon_impression", { ...base, position: 3 });
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(sent()).toHaveLength(1);
   });
 
   it("counts the same coupon separately in different page contexts", () => {
     track("coupon_impression", base);
     track("coupon_impression", { ...base, page_type: "featured_section" });
-    expect(spy).toHaveBeenCalledTimes(2);
+    expect(sent()).toHaveLength(2);
   });
 
   it("survives a failing request without throwing", () => {
     spy.mockRejectedValue(new Error("422"));
     expect(() => track("coupon_impression", base)).not.toThrow();
+    expect(() => flushImpressions()).not.toThrow();
   });
 });

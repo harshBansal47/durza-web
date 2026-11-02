@@ -16,6 +16,8 @@ export interface SessionUser {
   name: string;
   /** Google account photo URL; falls back to initials when absent. */
   avatarUrl?: string | null;
+  /** `h••••@gmail.com`; lets the track banner say where it will write without another lookup. */
+  maskedEmail?: string | null;
 }
 
 export type SessionState =

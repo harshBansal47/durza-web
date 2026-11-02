@@ -21,7 +21,37 @@ import type { AutocompleteResult } from "@/lib/types";
 const RECENT_KEY = "durza.recent";
 const POPULAR_KEY = "durza.popular";
 const MAX_RECENT = 6;
-const DEBOUNCE_MS = 150;
+// 150ms fired a lookup between most keystrokes of a normal typing speed. 250ms waits for a
+// pause, and the abort + cache below make the remaining lookups cheap.
+const DEBOUNCE_MS = 250;
+/** Type-ahead results are cheap to keep and expensive to refetch while someone edits a query. */
+const SUGGEST_CACHE_TTL_MS = 60_000;
+const SUGGEST_CACHE_MAX = 50;
+const suggestCache = new Map<string, { at: number; groups: AutocompleteResult }>();
+
+/** Test hook: forget cached suggestions and the loaded store directory. */
+export function resetSearchCaches() {
+  suggestCache.clear();
+  directoryPromise = null;
+}
+
+function cachedSuggestions(key: string): AutocompleteResult | null {
+  const hit = suggestCache.get(key);
+  if (!hit) return null;
+  if (Date.now() - hit.at > SUGGEST_CACHE_TTL_MS) {
+    suggestCache.delete(key);
+    return null;
+  }
+  return hit.groups;
+}
+
+function rememberSuggestions(key: string, groups: AutocompleteResult) {
+  if (suggestCache.size >= SUGGEST_CACHE_MAX) {
+    const oldest = suggestCache.keys().next().value;
+    if (oldest !== undefined) suggestCache.delete(oldest);
+  }
+  suggestCache.set(key, { at: Date.now(), groups });
+}
 const MIN_QUERY_LENGTH = 2;
 
 /*
@@ -108,13 +138,26 @@ function useSuggestions(query: string) {
 
     const controller = new AbortController();
     const timer = setTimeout(async () => {
+      // Backspacing or retyping a query already looked up needs no request.
+      const key = trimmed.toLowerCase();
+      const hit = cachedSuggestions(key);
+      if (hit) {
+        setState({ query: trimmed, groups: hit, pending: false });
+        return;
+      }
       setState({ query: trimmed, groups: NO_SUGGESTIONS, pending: true });
       try {
         const result = await api.autocomplete(trimmed, {
           limit: 5,
           signal: controller.signal,
         });
-        if (!controller.signal.aborted) setState({ query: trimmed, groups: result, pending: false });
+        if (!controller.signal.aborted) {
+          // A failed lookup comes back empty; don't pin that for a minute.
+          if (result.stores.length || result.categories.length || result.products.length) {
+            rememberSuggestions(key, result);
+          }
+          setState({ query: trimmed, groups: result, pending: false });
+        }
       } catch {
         if (!controller.signal.aborted) {
           setState({ query: trimmed, groups: NO_SUGGESTIONS, pending: false });
@@ -247,7 +290,9 @@ export function HeaderSearch({ popular = [], prominent = false }: { popular?: st
   const [activeIndex, setActiveIndex] = useState(-1);
   const { recent, remember } = useRecentSearches();
   const { groups, loading } = useSuggestions(value);
-  const storeDirectory = useStoreDirectory(open);
+  // The directory (100 stores) only supplies logos for store suggestions, so wait until
+  // there are some to show. Focusing the box, or typing a query with no store match, loads nothing.
+  const storeDirectory = useStoreDirectory(open && groups.stores.length > 0);
   const boxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -463,7 +508,7 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
   const [value, setValue] = useState("");
   const { recent, remember } = useRecentSearches();
   const { groups, loading } = useSuggestions(value);
-  const storeDirectory = useStoreDirectory(isOpen);
+  const storeDirectory = useStoreDirectory(isOpen && groups.stores.length > 0);
   const inputRef = useRef<HTMLInputElement>(null);
   const popular = readPopular();
 

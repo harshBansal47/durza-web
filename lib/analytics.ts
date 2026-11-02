@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "./api";
+import { enqueueImpression } from "./impressionQueue";
 import { isAnalyticsAllowed } from "./consent";
 
 /**
@@ -55,8 +55,8 @@ export type AnalyticsEvent =
   | "engaged_time";
 
 /**
- * Single frontend event bus. Coupon impressions/clicks flow into the backend
- * monetization architecture (analytics/impression + /go redirect); everything
+ * Single frontend event bus. Coupon impressions are batched (see impressionQueue) into the
+ * backend monetization architecture (analytics/impressions); clicks go via the /go redirect; everything
  * else is fire-and-forget via sendBeacon so tracking never blocks interaction.
  */
 export function track(event: AnalyticsEvent, payload: Record<string, unknown> = {}) {
@@ -87,18 +87,16 @@ export function track(event: AnalyticsEvent, payload: Record<string, unknown> = 
       if (seenOnThisPage.has(key)) return;
       seenOnThisPage.add(key);
       if (coupon_id && merchant_id) {
-        api
-          .recordImpression({
-            coupon_id,
-            merchant_id,
-            page_type,
-            position: position1,
-            page_id: page_id as string | undefined,
-            list_id: list_id as string | undefined,
-            sponsored: Boolean(sponsored ?? false),
-            source: "web",
-          })
-          .catch(() => {});
+        enqueueImpression({
+          coupon_id,
+          merchant_id,
+          page_type,
+          position: position1,
+          page_id: page_id as string | undefined,
+          list_id: list_id as string | undefined,
+          sponsored: Boolean(sponsored ?? false),
+          source: "web",
+        });
       }
       return;
     }

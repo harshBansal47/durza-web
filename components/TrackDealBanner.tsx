@@ -79,17 +79,18 @@ export default function TrackDealBanner({ target }: { target: TrackTarget }) {
   const copy = copyFor(target);
   const [known, setKnown] = useState<{ tracking: boolean; email: string | null } | null>(null);
   const [pending, startTransition] = useTransition();
+  const maskedEmail = session.user?.maskedEmail ?? null;
 
   useEffect(() => {
     if (session.status !== "authenticated") return;
     let alive = true;
     void trackingStatusAction(target.kind, target.id).then((status) => {
-      if (alive) setKnown({ tracking: status.tracking, email: status.email });
+      if (alive) setKnown({ tracking: status.tracking, email: maskedEmail });
     });
     return () => {
       alive = false;
     };
-  }, [session.status, target.kind, target.id]);
+  }, [session.status, maskedEmail, target.kind, target.id]);
 
   /** Other buttons on the site read this device-local mirror for their first paint. */
   const mirrorLocally = useCallback(

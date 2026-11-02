@@ -16,6 +16,7 @@ import {
   type EmailOtpRequestResult,
   type TrackFlowResult,
 } from "./action-result";
+import { maskEmail } from "@/lib/maskEmail";
 
 /**
  * Server Actions for the account area.
@@ -217,17 +218,14 @@ async function setSavedItem(
 ): Promise<ActionResult> {
   try {
     const token = await requireToken();
-    const rows =
-      kind === "store" ? await api.listSavedStores(token) : await api.listSavedCoupons(token);
-    const isSaved = rows.some((row) => row.kind === kind && row.item_id === itemId);
-
-    if (shouldSave && !isSaved) {
+    // The API's save and unsave are idempotent (saving what is saved, or unsaving what is
+    // not, succeeds and changes nothing), so this states the wanted outcome directly. It used
+    // to fetch the user's whole saved list first just to decide whether to write.
+    if (shouldSave) {
       if (kind === "store") await api.saveStore(token, itemId);
       else await api.saveCoupon(token, itemId);
-    } else if (!shouldSave && isSaved) {
-      if (kind === "store") await api.unsaveStore(token, itemId);
-      else await api.unsaveCoupon(token, itemId);
-    }
+    } else if (kind === "store") await api.unsaveStore(token, itemId);
+    else await api.unsaveCoupon(token, itemId);
 
     if (kind === "store") {
       return ok(
@@ -256,13 +254,6 @@ function isTrackKind(value: unknown): value is TrackKind {
   return value === "store" || value === "coupon";
 }
 
-/** `harsh@gmail.com` -> `h••••@gmail.com`. Enough to recognise, not enough to harvest. */
-function maskEmail(email: string): string {
-  const [name = "", domain] = email.split("@");
-  if (!domain) return email;
-  return `${name.slice(0, 1)}${"\u2022".repeat(Math.min(Math.max(name.length - 1, 1), 4))}@${domain}`;
-}
-
 /**
  * Is this visitor signed in, and are they already tracking this?
  *
@@ -274,21 +265,20 @@ function maskEmail(email: string): string {
 export async function trackingStatusAction(
   kind: TrackKind,
   itemId: string,
-): Promise<{ signedIn: boolean; tracking: boolean; email: string | null }> {
+): Promise<{ signedIn: boolean; tracking: boolean }> {
   const token = await getAccessToken();
-  if (!token || !isTrackKind(kind)) return { signedIn: false, tracking: false, email: null };
+  if (!token || !isTrackKind(kind)) return { signedIn: false, tracking: false };
   try {
-    const [rows, me] = await Promise.all([
-      kind === "store" ? api.listSavedStores(token) : api.listSavedCoupons(token),
-      api.me(token),
-    ]);
+    // One backend call. The masked email the banner shows comes from `/api/session`, which
+    // has already looked the user up; asking `/auth/me` again here was the same lookup twice.
+    const rows =
+      kind === "store" ? await api.listSavedStores(token) : await api.listSavedCoupons(token);
     return {
       signedIn: true,
       tracking: rows.some((row) => row.kind === kind && row.item_id === itemId),
-      email: maskEmail(me.email),
     };
   } catch {
-    return { signedIn: false, tracking: false, email: null };
+    return { signedIn: false, tracking: false };
   }
 }
 

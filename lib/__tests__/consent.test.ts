@@ -7,6 +7,7 @@ import {
   onConsentChange,
 } from "@/lib/consent";
 import { track, resetImpressionDedupe } from "@/lib/analytics";
+import { flushImpressions, resetImpressionQueue } from "@/lib/impressionQueue";
 import { api } from "@/lib/api";
 
 /**
@@ -17,10 +18,12 @@ import { api } from "@/lib/api";
 vi.mock("@/lib/api", () => ({
   api: {
     recordImpression: vi.fn().mockResolvedValue(undefined),
+    recordImpressions: vi.fn().mockResolvedValue(202),
   },
 }));
 
-const mockRecordImpression = api.recordImpression as ReturnType<typeof vi.fn>;
+// Impressions are batched: "an impression was sent" means a batch went out carrying one.
+const mockRecordImpression = api.recordImpressions as ReturnType<typeof vi.fn>;
 
 describe("consent gating (D3)", () => {
   beforeEach(() => {
@@ -28,6 +31,7 @@ describe("consent gating (D3)", () => {
     window.sessionStorage.clear();
     vi.clearAllMocks();
     resetImpressionDedupe();
+    resetImpressionQueue();
   });
 
   afterEach(() => {
@@ -99,6 +103,7 @@ describe("consent gating (D3)", () => {
       page_type: "homepage",
       position: 1,
     });
+    flushImpressions();
     expect(mockRecordImpression).toHaveBeenCalledTimes(1);
   });
 

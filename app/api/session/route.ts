@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { maskEmail } from "@/lib/maskEmail";
 import { displayName, getSessionUser } from "@/lib/session";
 
 /**
@@ -16,7 +17,14 @@ export async function GET() {
   return NextResponse.json(
     {
       signedIn: Boolean(user),
-      user: user ? { name: displayName(user), avatarUrl: user.avatar_url ?? null } : null,
+      user: user
+        ? {
+            name: displayName(user),
+            avatarUrl: user.avatar_url ?? null,
+            // Masked, and only ever sent to the signed-in user it belongs to.
+            maskedEmail: user.email ? maskEmail(user.email) : null,
+          }
+        : null,
     },
     // Per-visitor data behind a shared cache is how one account's name leaks to
     // another. Nothing downstream may store this.

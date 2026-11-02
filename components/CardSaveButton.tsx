@@ -2,7 +2,12 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { track } from "@/lib/analytics";
-import { getSavedCouponIds, setSavedCoupon } from "@/lib/personalization";
+import {
+  claimSessionSync,
+  getSavedCouponIds,
+  releaseSessionSync,
+  setSavedCoupon,
+} from "@/lib/personalization";
 import { useSession } from "@/components/session/SessionProvider";
 import { setSavedCouponAction } from "@/app/account/actions";
 
@@ -18,20 +23,29 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  // Push a locally saved coupon to the account, once per browser session. Running it on
+  // every mount cost one server action per saved card on every page navigation. (Keyed by
+  // display name: SessionUser has no id. Good enough to tell two accounts in one tab apart.)
+  const userKey = session.user?.name ?? "";
   useEffect(() => {
     if (isSignedIn !== true || !getSavedCouponIds().includes(couponId)) return;
+    if (!claimSessionSync(userKey, "coupon", couponId)) return;
     let active = true;
     void setSavedCouponAction(couponId, true)
       .then((result) => {
-        if (active && result.error) setError(result.error);
+        if (result.error) {
+          releaseSessionSync(userKey, "coupon", couponId);
+          if (active) setError(result.error);
+        }
       })
       .catch(() => {
+        releaseSessionSync(userKey, "coupon", couponId);
         if (active) setError("Could not sync this saved deal. Please try again.");
       });
     return () => {
       active = false;
     };
-  }, [couponId, isSignedIn]);
+  }, [couponId, isSignedIn, userKey]);
 
   function toggle() {
     if (isSignedIn === false) {
