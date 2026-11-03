@@ -67,7 +67,7 @@ export async function fetchAnalyticsOverview(
   const params = new URLSearchParams({ start_date: startDate, end_date: endDate });
   const response = await clientHttp.get<AnalyticsOverview>(
     clientAppUrl(`/api/admin/analytics/overview?${params}`),
-    clientRequestConfig(signal, { cache: "no-store" }),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
   );
   return response.data;
 }
@@ -80,7 +80,10 @@ export async function fetchAnalyticsCsv(startDate: string, endDate: string): Pro
   });
   const response = await clientHttp.get<Blob>(
     clientAppUrl(`/api/admin/analytics/overview?${params}`),
-    { ...clientRequestConfig(undefined, { cache: "no-store" }), responseType: "blob" },
+    {
+      ...clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+      responseType: "blob",
+    },
   );
   return response.data;
 }
@@ -145,7 +148,7 @@ export interface IngestionRunResult {
 export async function fetchIngestionOverview(signal?: AbortSignal): Promise<IngestionOverview> {
   const response = await clientHttp.get<IngestionOverview>(
     clientAppUrl("/api/admin/ingestion/overview"),
-    clientRequestConfig(signal, { cache: "no-store" }),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
   );
   return response.data;
 }
@@ -157,7 +160,7 @@ export async function fetchIngestionRuns(
   const params = new URLSearchParams({ limit: String(limit) });
   const response = await clientHttp.get<IngestionRun[]>(
     clientAppUrl(`/api/admin/ingestion/runs?${params}`),
-    clientRequestConfig(signal, { cache: "no-store" }),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
   );
   return response.data;
 }
@@ -167,7 +170,7 @@ export async function triggerIngestion(slugs: string[] | null): Promise<Ingestio
   const response = await clientHttp.post<IngestionRunResult>(
     clientAppUrl("/api/admin/ingestion/run"),
     slugs ? { source_slugs: slugs } : {},
-    clientRequestConfig(undefined, { cache: "no-store" }),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
   );
   return response.data;
 }
