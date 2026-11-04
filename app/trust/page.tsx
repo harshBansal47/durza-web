@@ -236,7 +236,7 @@ const FEATURES = [
 
 export default function TrustPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
+    <div className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
       {/* Background */}
       <div
         aria-hidden
@@ -608,6 +608,6 @@ export default function TrustPage() {
         </section>
 
       </div>
-    </main>
+    </div>
   );
 }

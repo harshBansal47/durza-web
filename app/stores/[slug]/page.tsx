@@ -1,33 +1,58 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
-import { resilient } from "@/lib/api";
+import { lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
+
+// Opts this dynamic route into on-demand static caching. Without a generateStaticParams export
+// Next renders it on every request and ignores `revalidate` for the page itself (the response
+// goes out `private, no-store`). Returning nothing keeps builds from needing the API: each store
+// is rendered on its first request, then served from cache and refreshed every 5 minutes.
+export function generateStaticParams() {
+  return [];
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
+/**
+ * One request for everything this page needs about the store, shared by `generateMetadata`
+ * and the page. `cache()` is what makes the sharing real: `apiFetch` attaches an
+ * AbortSignal for its timeout, and Next deliberately skips fetch memoization for any request
+ * carrying one, so without this the two callers each hit the API. The payload already holds
+ * the store and every live offer (with-code and code-less buckets, which together are
+ * exhaustive) plus an exact total, so no separate store or coupon listing is needed.
+ */
+const loadStore = cache((slug: string) => lookup.getStoreDestination(slug));
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const store = await resilient.getStoreBySlug(slug).catch(() => null);
-  if (!store) return { title: "Store not found" };
+  const destination = await loadStore(slug).catch(() => null);
+  // Same test the page uses to 404, so a store the page refuses to show is never indexable.
+  // Explicit because a cached page does not get the automatic noindex a streamed 404 does.
+  if (!destination || !destination.store.is_active) {
+    return { title: "Store not found", robots: { index: false, follow: false } };
+  }
+  const store = destination.store;
 
   // The numbers below come from the same live list the page renders, so the
   // snippet never claims an offer the page cannot show. The code/deal split is
   // only stated when one request covered the whole list; otherwise the exact
   // total stands alone rather than a guessed breakdown.
-  const offers = await resilient.listCoupons({ store_id: store.id, active_only: true, limit: 100 });
-  const total = offers.total;
-  const codeOffers = offers.items.filter((coupon) => coupon.code !== null).length;
-  const countedAll = offers.items.length >= total;
+  const listed = destination.deals.length + destination.coupons.length;
+  const total = destination.offer_total ?? listed;
+  const codeOffers = destination.coupons.length;
+  const countedAll = listed >= total;
 
   const title = `${store.name} Coupons & Promo Codes${total > 0 ? `: ${total} Live Offers` : ""}`;
 
@@ -63,25 +88,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function StorePage({ params }: Props) {
   const { slug } = await params;
 
-  const store = await resilient.getStoreBySlug(slug).catch(() => null);
-  if (!store || !store.is_active) notFound();
+  const destination = await loadStore(slug);
+  if (!destination || !destination.store.is_active) notFound();
+  const store = destination.store;
 
-  const [coupons, allStores, destination] = await Promise.all([
-    resilient.listCoupons({ store_id: store.id, active_only: true, limit: 60 }).catch(() => null),
-    resilient.listStores({ limit: 100 }).catch(() => null),
-    resilient.getStoreDestination(slug),
-  ]);
-
-  // Every live offer, once. The destination payload splits offers into "deals" and
-  // "coupons"; the plain listing is the whole set. Using only the first meant any
-  // offer that fell between the two buckets was counted in the page's total
-  // ("3 offers") but never shown. De-duplicated by id because they overlap.
+  // Every live offer, once. The two buckets split on `code IS NULL`, so they are disjoint and
+  // exhaustive (a test on the API pins that); the id filter is a guard, not a repair.
   const seen = new Set<string>();
-  const items = [
-    ...(destination?.deals ?? []),
-    ...(destination?.coupons ?? []),
-    ...(coupons?.items ?? []),
-  ].filter((offer) => {
+  const items = [...destination.deals, ...destination.coupons].filter((offer) => {
     if (seen.has(offer.id)) return false;
     seen.add(offer.id);
     return true;
@@ -118,7 +132,10 @@ export default async function StorePage({ params }: Props) {
   // coupons, after everything else had finished, only to sort this list by category;
   // the listing now carries each store's offer count, so it costs nothing.)
   const notThisStore = (s: Store) => s.id !== store.id && s.is_active !== false;
-  const curated = (destination?.alternatives ?? []).filter(notThisStore);
+  const curated = destination.alternatives.filter(notThisStore);
+  // The full store list is only the fallback for a store with no curated alternatives, so
+  // it is only fetched then.
+  const allStores = curated.length > 0 ? null : await resilient.listStores({ limit: 100 });
   const related = (
     curated.length > 0
       ? curated
@@ -133,7 +150,7 @@ export default async function StorePage({ params }: Props) {
     { name: store.name, path: `/stores/${store.slug}` },
   ]);
   const faqs = [
-    ...(destination?.faqs ?? []),
+    ...destination.faqs,
     {
       question: `Are the ${store.name} codes on Durza verified?`,
       answer:
@@ -173,9 +190,9 @@ export default async function StorePage({ params }: Props) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <JsonLd data={jsonLd} />
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faqJsonLd} />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <StorePageClient
           store={store}
@@ -184,7 +201,7 @@ export default async function StorePage({ params }: Props) {
             latest: { label: "Recently added", items: byLatest },
             expiring: { label: "Ending soon", items: byExpiring },
           }}
-          stats={{ total: coupons?.total ?? items.length, verified: verifiedCount, avgRate, totalReports, latestCheck }}
+          stats={{ total: destination.offer_total ?? items.length, verified: verifiedCount, avgRate, totalReports, latestCheck }}
           relatedStores={related}
           currency={store.currency}
         />
@@ -206,7 +223,7 @@ export default async function StorePage({ params }: Props) {
             </dl>
           </section>
         )}
-        {destination?.related_content.length ? (
+        {destination.related_content.length ? (
           <section className="mt-12" aria-label={`Buying content related to ${store.name}`}>
             <div className="mb-5">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Make a confident choice</p>

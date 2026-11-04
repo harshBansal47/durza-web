@@ -11,6 +11,7 @@ import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
 import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
+import { hostnameOf, parseHttpUrl } from "@/lib/url";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { groupSimilar } from "@/lib/grouping";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
@@ -66,6 +67,8 @@ export default function StorePageClient({
   currency,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
+  const website = parseHttpUrl(store.website_url);
+  const websiteHost = hostnameOf(store.website_url);
   const hasVotes = stats.totalReports > 0;
   const accent = storeAccent(store.slug);
 
@@ -164,14 +167,14 @@ export default function StorePageClient({
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                 {stats.total} listed offers
               </span>
-              {store.website_url && (
+              {website && websiteHost && (
                 <a
-                  href={store.website_url}
+                  href={website.href}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                   className="rounded-full bg-white/20 px-3 py-1 text-white backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
                 >
-                  {new URL(store.website_url).hostname.replace(/^www\./, "")}
+                  {websiteHost}
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               )}

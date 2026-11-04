@@ -20,6 +20,7 @@ import { getHasComparisons } from "@/lib/layout-data";
 import { SessionProvider } from "@/components/session/SessionProvider";
 import "@fontsource-variable/newsreader";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -101,14 +102,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         {/* Organization + WebSite speak for the whole site, once. */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
-        />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         <QueryProvider>
           <SessionProvider>
             <ToastProvider>

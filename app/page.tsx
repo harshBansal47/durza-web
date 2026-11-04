@@ -38,6 +38,7 @@ import { RecommendedRow } from "@/components/discovery/Recommended";
 import { Reveal } from "@/components/Reveal";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -272,10 +273,7 @@ export default async function HomePage() {
 
   return (
     <div className="page-shell">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-      />
+      <JsonLd data={websiteJsonLd} />
 
       <Hero
         stats={[

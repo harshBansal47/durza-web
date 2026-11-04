@@ -1,7 +1,8 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CategoryHero from "@/components/categories/CategoryHero";
-import { resilient } from "@/lib/api";
+import { lookup, resilient } from "@/lib/api";
 import CategoryChips from "@/components/CategoryChips";
 import { CouponCardGrid } from "@/components/CouponCard";
 import EmptyState from "@/components/EmptyState";
@@ -15,6 +16,7 @@ import SortControl from "@/components/filters/SortControl";
 import { carriedParams, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { categoryLabel } from "@/lib/catalog";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -23,15 +25,14 @@ const PAGE_SIZE = 20;
 type Params = Promise<{ slug: string }>;
 type SearchParams = Promise<Record<string, string | undefined>>;
 
-async function loadCategory(slug: string) {
-  // resilient already degrades a failed lookup to null; the page turns that
-  // into a 404 rather than an error boundary.
-  return resilient.getCategoryBySlug(slug);
-}
+// `cache()` shares one lookup between generateMetadata and the page (apiFetch's AbortSignal
+// stops Next memoizing the fetch itself). Only a real 404 is null; an API failure throws
+// instead of becoming a cacheable 404 (see `lookup`).
+const loadCategory = cache((slug: string) => lookup.getCategoryBySlug(slug));
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
-  const category = await loadCategory(slug);
+  const category = await loadCategory(slug).catch(() => null);
   if (!category) return {};
 
   const label = categoryLabel(category);
@@ -107,14 +108,8 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
-      />
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={itemList} />
 
       <CategoryHero category={{ ...category, name: categoryName }} title={`${categoryName} coupons`} />
       <div className="mb-6">

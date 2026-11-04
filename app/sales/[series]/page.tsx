@@ -6,6 +6,7 @@ import type { CouponPublic } from "@/lib/types";
 
 export const revalidate = 300;
 
+
 /** "12 Mar 2026" — the shop's own format, not the browser's. */
 function formatDate(value?: string | null): string | null {
   if (!value) return null;
@@ -22,7 +23,7 @@ export default async function SaleSeriesPage({ params }: { params: { series: str
   const start = formatDate(data.start_at);
   const end = formatDate(data.end_at);
   return (
-    <main>
+    <div>
       <h1>{data.title ?? data.series}</h1>
       {data.description ? <p>{data.description}</p> : null}
       {start && end ? (
@@ -40,6 +41,6 @@ export default async function SaleSeriesPage({ params }: { params: { series: str
       ) : (
         <CouponCardGrid coupons={coupons} pageType="coupon_card" />
       )}
-    </main>
+    </div>
   );
 }

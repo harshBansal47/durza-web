@@ -102,6 +102,8 @@ export interface StoreDestination {
   faqs: (EditorialFAQ & { id: string })[];
   alternatives: Store[];
   related_content: EditorialContent[];
+  /** Every live offer, not only the (up to 100 + 100) listed. Absent on an older API. */
+  offer_total?: number;
 }
 
 export type DiscountType = "percentage" | "fixed" | "deal";

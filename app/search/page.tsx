@@ -170,7 +170,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
       : Promise.resolve({ items: [], total: 0, skip: 0, limit: 20 }),
     exploratory ? resilient.listStores({ search: query, limit: 10 }) : Promise.resolve({ items: [], total: 0, skip: 0, limit: 10 }),
     exploratory
-      ? resilient.listCategories({ limit: 200 })
+      ? resilient.listCategories({ limit: 100 })
       : Promise.resolve({ items: [], total: 0, skip: 0, limit: 200 }),
   ]);
 

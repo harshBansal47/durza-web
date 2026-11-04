@@ -17,6 +17,7 @@ import { SITE_URL } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { renderBrandText } from "@/lib/brandMentions";
 import AdSenseSlot from "./AdSenseSlot";
+import JsonLd from "@/components/JsonLd";
 
 const TYPE_LABELS: Record<EditorialType, string> = {
   guide: "Buying guide",
@@ -479,13 +480,10 @@ export default async function EditorialArticle({ content }: { content: Editorial
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: breadcrumbs }) }} />
+      <JsonLd data={articleJsonLd} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: breadcrumbs }} />
       {faqItems.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd(faqItems)) }}
-        />
+        <JsonLd data={faqPageJsonLd(faqItems)} />
       )}
       <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-soft">
         <Link href="/" className="hover:text-inkblue">Home</Link>

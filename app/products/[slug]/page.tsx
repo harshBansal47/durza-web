@@ -1,15 +1,30 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { api, resilient } from "@/lib/api";
+import { api, lookup, resilient } from "@/lib/api";
 import { formatMoney, formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
 import PageTitle from "@/components/ui/PageTitle";
 import { LogoMark } from "@/components/Logo";
 import PriceHistory from "@/components/product/PriceHistory";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
+
+// Without this export a dynamic route is rendered on every request and `revalidate` is ignored
+// for the page (it goes out `private, no-store`). Returning nothing keeps builds from needing
+// the API; pages are rendered on first request, then cached and refreshed. See stores/[slug].
+export function generateStaticParams() {
+  return [];
+}
+
+// Shared by generateMetadata and the page. `cache()` does the sharing because apiFetch's
+// AbortSignal stops Next memoizing the fetch itself. Only a real 404 is "not found"; an API
+// failure throws rather than becoming a cacheable 404 (see `lookup`).
+const loadProduct = cache((slug: string) => lookup.getProductBySlug(slug));
+const loadStore = cache((storeId: string) => resilient.getStoreById(storeId));
 
 export async function generateMetadata({
   params,
@@ -17,10 +32,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = await resilient.getProductBySlug(slug);
-  if (!product) return { title: "Product not found" };
+  const product = await loadProduct(slug).catch(() => null);
+  // Explicit: a cached page does not get the automatic noindex a streamed 404 does.
+  if (!product) return { title: "Product not found", robots: { index: false, follow: false } };
 
-  const store = await resilient.getStoreById(product.store_id);
+  const store = await loadStore(product.store_id);
   const price =
     product.current_price !== null ? formatMoney(product.current_price, product.currency) : null;
   // The price is real data from the API, and it is only mentioned when it
@@ -45,11 +61,11 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = await resilient.getProductBySlug(slug);
+  const product = await loadProduct(slug);
   if (!product) notFound();
 
   const [store, history] = await Promise.all([
-    resilient.getStoreById(product.store_id),
+    loadStore(product.store_id),
     resilient.getPriceHistory(product.id),
   ]);
 
@@ -60,28 +76,32 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       ? product.last_price_drop_pct
       : null;
 
+  // An Offer without a price is invalid structured data (Google reports it as an error on the
+  // whole Product), so the offer is only described when there is a real price to state.
+  const offerPrice = product.effective_price ?? product.current_price;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.image_url ?? undefined,
-    offers: {
-      "@type": "Offer",
-      price: product.effective_price ?? product.current_price ?? undefined,
-      priceCurrency: product.currency,
-      availability: product.in_stock
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      url: absoluteUrl(`/products/${product.slug}`),
-    },
+    ...(product.image_url ? { image: product.image_url } : {}),
+    ...(offerPrice !== null && offerPrice !== undefined
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: offerPrice,
+            priceCurrency: product.currency,
+            availability: product.in_stock
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+            url: absoluteUrl(`/products/${product.slug}`),
+          },
+        }
+      : {}),
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+      <JsonLd data={jsonLd} />
 
       <nav className="text-sm text-ink-soft">
         <Link href="/search" className="hover:text-ink hover:underline">
@@ -105,6 +125,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               alt={product.name}
               width={600}
               height={600}
+              priority
+              sizes="(min-width: 1024px) 560px, 100vw"
               className="w-full border border-ledger-line bg-paper object-contain"
             />
           ) : (
@@ -191,6 +213,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <h2 className="font-serif text-xl text-ink">Price history</h2>
         <PriceHistory points={history} currency={product.currency} currentPrice={product.current_price} />
       </section>
-    </main>
+    </div>
   );
 }

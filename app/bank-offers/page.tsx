@@ -9,6 +9,7 @@ import { BANKS, buildBankGroups, type BankOfferGroup } from "@/lib/bank-offers";
 import type { CouponPublic } from "@/lib/types";
 import { formatDiscount, successRateLabel, expiryLabel } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -202,10 +203,10 @@ export default async function BankOffersPage() {
   ]);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb).replace(/</g, "\\u003c") }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerItemListJsonLd).replace(/</g, "\\u003c") }} />
+    <div className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faqJsonLd} />
+      <JsonLd data={offerItemListJsonLd} />
 
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -447,6 +448,6 @@ export default async function BankOffersPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

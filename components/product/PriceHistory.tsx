@@ -19,8 +19,14 @@ function Change({ points, currency }: { points: PricePoint[]; currency: string }
     );
   }
 
-  const first = points[0].price;
-  const last = points[points.length - 1].price;
+  // The trend runs oldest to newest. The table below is newest-first, and this used to be
+  // handed that same array and read it as if it were oldest-first, so a price that fell was
+  // reported as a rise "since" the latest capture. Sorting here makes it independent of the
+  // caller's order.
+  const chronological = [...points].sort((a, b) => a.captured_at.localeCompare(b.captured_at));
+  const oldest = chronological[0];
+  const first = oldest.price;
+  const last = chronological[chronological.length - 1].price;
   const changePct = first > 0 ? ((last - first) / first) * 100 : 0;
   const isDown = changePct < 0;
   const isFlat = Math.abs(changePct) < 0.5;
@@ -32,7 +38,7 @@ function Change({ points, currency }: { points: PricePoint[]; currency: string }
       ) : (
         <>
           {isDown ? "Down" : "Up"} {Math.abs(changePct).toFixed(0)}% since{" "}
-          {formatDate(points[0].captured_at)} — from {formatMoney(first, currency)} to{" "}
+          {formatDate(oldest.captured_at)} — from {formatMoney(first, currency)} to{" "}
           {formatMoney(last, currency)}.
         </>
       )}

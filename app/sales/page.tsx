@@ -8,7 +8,7 @@ export default async function SalesIndexPage() {
   if (!SALE_HUBS_ENABLED) notFound();
   const series = await api.listSales();
   return (
-    <main>
+    <div>
       <h1>Sales</h1>
       {series.length === 0 ? (
         <p>No sales are running right now.</p>
@@ -21,6 +21,6 @@ export default async function SalesIndexPage() {
           ))}
         </ul>
       )}
-    </main>
+    </div>
   );
 }

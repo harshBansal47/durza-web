@@ -4,6 +4,7 @@ import PageTitle from "@/components/ui/PageTitle";
 import EmptyState from "@/components/EmptyState";
 import StoreCard from "@/components/stores/StoreCard";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -52,14 +53,8 @@ export default async function StoresIndexPage({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
-      />
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={itemList} />
       <PageTitle className="mb-4">Stores</PageTitle>
       <p className="mb-8 max-w-xl text-sm leading-relaxed text-ink-soft">
         Every store we track, with the offers we found on its own pages — not a directory of

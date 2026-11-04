@@ -114,7 +114,7 @@ export default function AdminIngestionDashboard() {
   const scheduler = overview?.scheduler;
 
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-8 text-gray-900 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 text-gray-900 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <header className="mb-7 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
           <div>
@@ -349,6 +349,6 @@ export default function AdminIngestionDashboard() {
           </div>
         ) : null}
       </div>
-    </main>
+    </div>
   );
 }

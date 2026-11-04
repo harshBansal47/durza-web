@@ -20,6 +20,7 @@ import SpotlightDeal from "@/components/deals/SpotlightDeal";
 import { parseDealFilters, resolveDealFacets, toDealQuery } from "@/lib/deal-discovery";
 import { pickSpotlightDeal } from "@/lib/deal-feed";
 import { absoluteUrl } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -155,14 +156,8 @@ export default async function DealsPage({
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-20 md:px-6 md:py-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema).replace(/</g, "\\u003c") }}
-      />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={itemListSchema} />
       {/* Phones drop the title block and start at the sticky tool row below;
           the h1 stays for structure and screen readers. */}
       <PageTitle className="sr-only md:not-sr-only">Today&apos;s verified deals</PageTitle>

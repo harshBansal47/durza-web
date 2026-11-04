@@ -36,7 +36,7 @@ export default function LegalPage({
 }) {
   const showToc = !!toc && toc.length > 0;
   return (
-    <main className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
+    <div className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
       {/* A quiet grid and a single warm glow: the same "premium, quiet
           confidence" surface as the storefront hero, toned down for reading. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -144,6 +144,6 @@ export default function LegalPage({
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

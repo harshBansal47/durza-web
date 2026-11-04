@@ -1,8 +1,8 @@
   import type { Metadata } from "next";
-  import { Suspense } from "react";
+  import { Suspense, cache } from "react";
   import Link from "next/link";
   import { notFound } from "next/navigation";
-  import { ApiError, resilient } from "@/lib/api";
+  import { lookup, resilient } from "@/lib/api";
   import CouponCodePanel from "@/components/CouponCodePanel";
   import {
     CategoryLink,
@@ -21,38 +21,38 @@
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
   import VerifiedGauge from "@/components/VerifiedGauge";
-import PageTitle from "@/components/ui/PageTitle";
+  import PageTitle from "@/components/ui/PageTitle";
   import StickyDealBar from "@/components/StickyDealBar";
-import SaveDealBanner from "@/components/SaveDealBanner";
+  import SaveDealBanner from "@/components/SaveDealBanner";
+  import JsonLd from "@/components/JsonLd";
+  import { parseHttpUrl } from "@/lib/url";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
 
   export const revalidate = 300;
 
-  async function loadCoupon(slug: string): Promise<CouponPublic | null> {
-    try {
-      return await resilient.getCouponBySlug(slug);
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 404) return null;
-      throw err;
-    }
+  // Without this export a dynamic route is rendered on every request and `revalidate` is ignored
+  // for the page (it goes out `private, no-store`). See stores/[slug] for the full note.
+  export function generateStaticParams() {
+    return [];
   }
 
-  async function loadStore(storeId: string): Promise<Store | null> {
-    try {
-      return await resilient.getStoreById(storeId);
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 404) return null;
-      throw err;
-    }
-  }
+  // One lookup shared by generateMetadata and the page (`cache()`, because apiFetch's
+  // AbortSignal stops Next memoizing the fetch itself). Only a real 404 is null: an API failure
+  // throws instead of becoming a cacheable 404 (see `lookup`). The try/catch this replaces
+  // meant the same, but `resilient` never throws, so it could not tell the two apart.
+  const loadCoupon = cache((slug: string): Promise<CouponPublic | null> => lookup.getCouponBySlug(slug));
+
+  // A missing store only costs the page its store panel, so a failed read degrades to null.
+  const loadStore = cache((storeId: string): Promise<Store | null> => resilient.getStoreById(storeId));
 
   type Params = Promise<{ slug: string }>;
 
   export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
     const { slug } = await params;
     const coupon = await loadCoupon(slug);
-    if (!coupon) return {};
+    // Explicit: a cached page does not get the automatic noindex a streamed 404 does.
+    if (!coupon) return { robots: { index: false, follow: false } };
 
     const store = await loadStore(coupon.store_id);
 
@@ -131,8 +131,8 @@ import SaveDealBanner from "@/components/SaveDealBanner";
 
     return (
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+        <JsonLd data={jsonLd} />
+        <JsonLd data={breadcrumb} />
         <RecordView storeSlug={store?.slug} couponId={coupon.id} />
         <ImpressionTracker
           couponId={coupon.id}
@@ -337,9 +337,9 @@ import SaveDealBanner from "@/components/SaveDealBanner";
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-serif text-lg text-ink">{store.name}</h3>
-                  {store.website_url && (
-                    <a href={store.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-inkblue hover:underline mt-1 inline-block">
-                      {store.website_url.replace(/^https?:\/\//, "")}
+                  {parseHttpUrl(store.website_url) && (
+                    <a href={parseHttpUrl(store.website_url)!.href} target="_blank" rel="noopener noreferrer" className="text-sm text-inkblue hover:underline mt-1 inline-block">
+                      {store.website_url!.replace(/^https?:\/\//, "")}
                     </a>
                   )}
                   {store.description && <p className="mt-2 text-sm text-ink-soft line-clamp-3">{store.description}</p>}

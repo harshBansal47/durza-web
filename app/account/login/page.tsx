@@ -61,7 +61,7 @@ export default async function LoginPage({
   }
 
   return (
-    <main className="mx-auto w-full max-w-sm px-4 py-16">
+    <div className="mx-auto w-full max-w-sm px-4 py-16">
       <PageTitle>Sign in</PageTitle>
       <p className="mt-2 text-sm text-ink-soft">
         {next
@@ -89,6 +89,6 @@ export default async function LoginPage({
           Create one
         </Link>
       </p>
-    </main>
+    </div>
   );
 }

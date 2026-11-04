@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 export default async function ComparisonsPage() {
   const comparisons = await resilient.listEditorial({ content_type: "comparison", limit: 60 });
   return (
-    <main className="page-shell">
+    <div className="page-shell">
       <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-soft"><Link href="/" className="hover:text-inkblue">Home</Link><span className="px-2" aria-hidden="true">/</span>Comparisons</nav>
       <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">Side by side</p>
       <PageTitle className="mt-2">Comparisons</PageTitle>
       <p className="mt-4 max-w-2xl text-base leading-7 text-ink-soft">See the meaningful differences in features, pricing, and trade-offs before you decide.</p>
       <div className="mt-8"><EditorialListing items={comparisons.items} /></div>
-    </main>
+    </div>
   );
 }

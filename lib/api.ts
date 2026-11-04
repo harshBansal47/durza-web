@@ -549,6 +549,30 @@ function orEmptyArray<T>(promise: Promise<T[]>): Promise<T[]> {
   return promise.catch(() => []);
 }
 
+/**
+ * Detail-page reads, where "missing" and "unknown" must not look alike.
+ *
+ * `resilient.*` turns every failure into null, which is right for a section of a page but
+ * wrong for the record the page is *about*: the caller answers null with `notFound()`, and
+ * these pages are cached for minutes, so one API hiccup became a cached 404 that crawlers
+ * saw. Here only a real 404 is null. Any other failure throws, so Next keeps serving the last
+ * good copy of the page (or shows the error boundary on a first render) and nothing wrong is
+ * cached.
+ */
+function orNotFound<T>(promise: Promise<T>): Promise<T | null> {
+  return promise.catch((error: unknown) => {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  });
+}
+
+export const lookup = {
+  getStoreDestination: (slug: string) => orNotFound(api.getStoreDestination(slug)),
+  getCategoryBySlug: (slug: string) => orNotFound(api.getCategoryBySlug(slug)),
+  getProductBySlug: (slug: string) => orNotFound(api.getProductBySlug(slug)),
+  getCouponBySlug: (slug: string) => orNotFound(api.getCouponBySlug(slug)),
+};
+
 export const resilient = {
   listCoupons: (params: CouponListParams = {}) => orEmpty(api.listCoupons(params)),
   getCouponBySlug: (slug: string) => orNull(api.getCouponBySlug(slug)),

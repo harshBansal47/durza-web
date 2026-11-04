@@ -25,7 +25,7 @@ export default async function UnsubscribePage({
   const session = await getAccessToken();
 
   return (
-    <main className="mx-auto w-full max-w-xl px-4 py-16">
+    <div className="mx-auto w-full max-w-xl px-4 py-16">
       <PageTitle>Turn off email alerts</PageTitle>
       <p className="mt-2 text-ink-soft">
         {token
@@ -50,6 +50,6 @@ export default async function UnsubscribePage({
           Fine-tune which channels you hear from
         </Link>
       </p>
-    </main>
+    </div>
   );
 }

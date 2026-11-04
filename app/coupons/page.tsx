@@ -12,6 +12,7 @@ import SortControl from "@/components/filters/SortControl";
 import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import PageTitle from "@/components/ui/PageTitle";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -76,27 +77,13 @@ export default async function CouponsPage({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbJsonLd([
+      <JsonLd data={breadcrumbJsonLd([
               { name: "Home", path: "/" },
               { name: "Coupons", path: "/coupons" },
-            ]),
-          ),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            itemListJsonLd(
+            ])} />
+      <JsonLd data={itemListJsonLd(
               coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
-            ),
-          ),
-        }}
-      />
+            )} />
       <PageTitle className="mb-4">{heading}</PageTitle>
       <div className="mb-8">
         <KeywordForm placeholder="Search coupons, brands or stores…" label="Search coupons" />
