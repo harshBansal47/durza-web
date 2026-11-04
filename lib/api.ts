@@ -1,6 +1,7 @@
 import type {
   CouponSort,
   AutocompleteResult,
+  AffiliateCampaign,
   Category,
   CouponPublic,
   DiscountType,
@@ -197,6 +198,15 @@ export interface StoreListParams {
   [key: string]: string | number | boolean | undefined;
 }
 
+export interface AffiliateCampaignListParams {
+  search?: string;
+  category?: string;
+  country?: string;
+  skip?: number;
+  limit?: number;
+  [key: string]: string | number | undefined;
+}
+
 function goQuery(src?: string, contentRef?: string): string {
   const parts: string[] = [];
   if (src) parts.push(`src=${encodeURIComponent(src)}`);
@@ -265,6 +275,15 @@ export const api = {
   /** Tracked redirect to a product's store page. The raw URL is never in API JSON. */
   productGoUrl: (productId: string, src?: string, contentRef?: string) =>
     `${API_URL}/products/${productId}/go${goQuery(src, contentRef)}`,
+
+  /** Tracked redirect for an affiliate campaign; the destination remains backend-only. */
+  vcommissionCampaignGoUrl: (campaignId: string, src?: string) =>
+    `${API_URL}/vcommission/campaigns/${encodeURIComponent(campaignId)}/go${goQuery(src)}`,
+
+  listAffiliateCampaigns: (params: AffiliateCampaignListParams = {}) =>
+    apiFetch<Paginated<AffiliateCampaign>>(`/vcommission/campaigns${qs(params)}`, {
+      revalidate: 300,
+    }),
 
   verifyCoupon: (couponId: string, worked: boolean, note?: string) =>
     apiFetch<VerifyResponse>(`/coupons/${couponId}/verify`, {
@@ -578,6 +597,8 @@ export const resilient = {
   getCouponBySlug: (slug: string) => orNull(api.getCouponBySlug(slug)),
   getCouponById: (couponId: string) => orNull(api.getCouponById(couponId)),
   listStores: (params: StoreListParams = {}) => orEmpty(api.listStores(params)),
+  listAffiliateCampaigns: (params: AffiliateCampaignListParams = {}) =>
+    orEmpty(api.listAffiliateCampaigns(params)),
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
     orEmpty(api.listAds(params)),
   getStoreBySlug: (slug: string) => orNull(api.getStoreBySlug(slug)),

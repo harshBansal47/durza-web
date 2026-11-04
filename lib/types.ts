@@ -8,6 +8,32 @@ export interface Paginated<T> {
   limit: number;
 }
 
+export interface AffiliateCampaign {
+  id: string;
+  title: string;
+  description: string | null;
+  kpi: string | null;
+  merchant_name: string;
+  store_id: string | null;
+  preview_url: string | null;
+  thumbnail_url: string | null;
+  categories: string[];
+  countries: string[];
+  conversion_model: string | null;
+  currency: string | null;
+  affiliate_payouts: unknown;
+  default_goal: unknown;
+  goals: unknown;
+  device: unknown;
+  operating_system: unknown;
+  app_name: string | null;
+  app_id: string | null;
+  is_active: boolean;
+  last_synced_at: string;
+  /** Relative API redirect path; use api.vcommissionCampaignGoUrl for links. */
+  click_url: string;
+}
+
 export interface Category {
   id: string;
   name: string;

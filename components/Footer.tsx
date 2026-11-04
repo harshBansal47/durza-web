@@ -17,6 +17,7 @@ function columns(hasComparisons: boolean) {
     { href: "/coupons", label: "Coupons" },
     { href: "/deals", label: "Today's deals" },
     { href: "/bank-offers", label: "Bank & card offers" },
+    { href: "/affiliate-campaigns", label: "Affiliate campaigns" },
     { href: "/stores", label: "Stores" },
     { href: "/categories", label: "Categories" },
     { href: "/guides", label: "Buying guides" },

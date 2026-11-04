@@ -17,6 +17,12 @@ describe("tracked outbound URLs", () => {
     expect(api.productGoUrl("p1", "product-page")).toMatch(/\/products\/p1\/go\?src=product-page$/);
   });
 
+  it("vcommissionCampaignGoUrl points at the backend campaign redirect", () => {
+    expect(api.vcommissionCampaignGoUrl("campaign-1", "campaign-catalog")).toMatch(
+      /\/vcommission\/campaigns\/campaign-1\/go\?src=campaign-catalog$/,
+    );
+  });
+
   it("encodes the source tag so it can never break out of the query string", () => {
     const url = api.goUrl("abc", "a&b=c d");
     expect(url).toContain("src=a%26b%3Dc%20d");
@@ -38,5 +44,32 @@ describe("tracked outbound URLs", () => {
     const url = new URL(request.url);
     expect(url.searchParams.getAll("store_ids")).toEqual(["s1", "s2"]);
     expect(url.searchParams.getAll("category_ids")).toEqual(["c1"]);
+  });
+
+  it("lists affiliate campaigns with the backend pagination and filter names", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ items: [], total: 0, skip: 0, limit: 20 }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await api.listAffiliateCampaigns({
+      search: "Example Shop",
+      category: "ecommerce",
+      country: "IN",
+      skip: 20,
+      limit: 20,
+    });
+
+    const request = fetchMock.mock.calls[0][0] as Request;
+    const url = new URL(request.url);
+    expect(url.pathname).toMatch(/\/vcommission\/campaigns$/);
+    expect(url.searchParams.get("search")).toBe("Example Shop");
+    expect(url.searchParams.get("category")).toBe("ecommerce");
+    expect(url.searchParams.get("country")).toBe("IN");
+    expect(url.searchParams.get("skip")).toBe("20");
+    expect(url.searchParams.get("limit")).toBe("20");
   });
 });

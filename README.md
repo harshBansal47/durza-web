@@ -123,6 +123,7 @@ self-hosted font files.
 | `components/filters/*` | Shared listing chrome — `CouponFilterPanel`, `SortControl`, `FilterChips`, `KeywordForm`, `FilterLayout` |
 | `app/page.tsx` | Homepage: live example, search, category filter, listing |
 | `app/coupons/[slug]/page.tsx` | Coupon detail: code reveal, verification, disclosure, JSON-LD |
+| `app/affiliate-campaigns/page.tsx` | Separate advertiser campaign catalogue with publisher-payout disclosure |
 | `app/products/[slug]/page.tsx` | Product detail with price history and effective price |
 | `app/stores/[slug]/page.tsx`, `app/categories/[slug]/page.tsx` | Filtered listings |
 | `app/sales/[series]/page.tsx`, `app/collections/[slug]/page.tsx` | Sale hubs and curated collections |
