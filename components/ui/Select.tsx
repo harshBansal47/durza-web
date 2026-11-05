@@ -235,10 +235,12 @@ export function Checkbox({
         onChange={(e) => onChange(e.target.checked)}
         className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-[var(--color-ink)] disabled:cursor-not-allowed"
       />
-      <label htmlFor={inputId} className="cursor-pointer text-sm leading-snug text-ink">
-        {label}
+      <div className="flex flex-col">
+        <label htmlFor={inputId} className="cursor-pointer text-sm leading-snug text-ink">
+          {label}
+        </label>
         {description && <span className="mt-0.5 block text-sm text-ink-soft">{description}</span>}
-      </label>
+      </div>
     </div>
   );
 }

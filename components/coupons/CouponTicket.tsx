@@ -152,7 +152,7 @@ export default function CouponTicket({
           {coupon.expires_at && (
             <span className="inline-flex items-center gap-1 rounded-full bg-paper-alt px-2 py-0.5 font-medium">
               <CalendarDays aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
-              {expired ? "Expired" : "Expires"} {formatDate(coupon.expires_at)}
+              Expires {formatDate(coupon.expires_at)}
             </span>
           )}
           {requirement && (

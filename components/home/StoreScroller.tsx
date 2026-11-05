@@ -40,7 +40,7 @@ export default function StoreScroller({ stores }: { stores: ScrollerStore[] }) {
                   {storeInitials(store.name)}
                 </span>
               )}
-              <span className="max-w-full truncate text-xs font-semibold text-ink">{store.name}</span>
+              <span className="sr-only">{store.name}</span>
             </Link>
           </li>
         );
