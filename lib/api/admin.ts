@@ -175,3 +175,28 @@ export async function triggerIngestion(slugs: string[] | null): Promise<Ingestio
   return response.data;
 }
 import { clientAppUrl, clientHttp, clientRequestConfig } from "@/lib/client-http";
+import type { AffiliateCampaign, Paginated } from "@/lib/types";
+
+export interface CampaignFilters {
+  search?: string;
+  category?: string;
+  country?: string;
+  skip?: number;
+  limit?: number;
+}
+
+/** Advertiser campaigns, from the admin-only catalogue. */
+export async function fetchAffiliateCampaigns(
+  filters: CampaignFilters,
+  signal?: AbortSignal,
+): Promise<Paginated<AffiliateCampaign>> {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(filters)) {
+    if (value !== undefined && value !== "") params.set(key, String(value));
+  }
+  const response = await clientHttp.get<Paginated<AffiliateCampaign>>(
+    clientAppUrl(`/api/admin/campaigns?${params}`),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}

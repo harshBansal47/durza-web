@@ -39,6 +39,12 @@ const nextConfig: NextConfig = {
   ...(isStaticExport
     ? {}
     : {
+        // A real HTTP 308, which a page-level redirect cannot give for a prerendered route.
+        // The campaigns catalogue is admin-only now (/admin/campaigns); the old public address
+        // is kept only so existing links and search results land somewhere sensible.
+        async redirects() {
+          return [{ source: "/affiliate-campaigns", destination: "/", permanent: true }];
+        },
         async headers() {
           return [
             { source: "/:path*", headers: securityHeaders },

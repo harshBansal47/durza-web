@@ -81,7 +81,6 @@ const NAV_LINKS = [
 const MORE_NAV_LINKS = [
   { href: "/guides", label: "Guides" },
   { href: "/bank-offers", label: "Bank & card offers" },
-  { href: "/affiliate-campaigns", label: "Affiliate campaigns" },
   { href: "/reviews", label: "Reviews" },
   { href: "/collections", label: "Collections" },
   { href: "/saved", label: "Saved" },

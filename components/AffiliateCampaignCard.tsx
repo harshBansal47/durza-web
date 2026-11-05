@@ -19,8 +19,11 @@ function hasPayoutDetails(value: unknown): boolean {
 
 export default function AffiliateCampaignCard({
   campaign,
+  src = "campaign-catalog",
 }: {
   campaign: AffiliateCampaign;
+  /** Click source tag. The admin view passes its own so previews are not counted as shopper clicks. */
+  src?: string;
 }) {
   const conversion = [
     campaign.conversion_model ? label(campaign.conversion_model) : null,
@@ -94,7 +97,7 @@ export default function AffiliateCampaignCard({
       ) : null}
 
       <a
-        href={api.vcommissionCampaignGoUrl(campaign.id, "campaign-catalog")}
+        href={api.vcommissionCampaignGoUrl(campaign.id, src)}
         className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-inkblue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inkblue"
       >
         View campaign <ArrowUpRight aria-hidden="true" className="h-4 w-4" />

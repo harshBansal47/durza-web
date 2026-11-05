@@ -280,11 +280,6 @@ export const api = {
   vcommissionCampaignGoUrl: (campaignId: string, src?: string) =>
     `${API_URL}/vcommission/campaigns/${encodeURIComponent(campaignId)}/go${goQuery(src)}`,
 
-  listAffiliateCampaigns: (params: AffiliateCampaignListParams = {}) =>
-    apiFetch<Paginated<AffiliateCampaign>>(`/vcommission/campaigns${qs(params)}`, {
-      revalidate: 300,
-    }),
-
   verifyCoupon: (couponId: string, worked: boolean, note?: string) =>
     apiFetch<VerifyResponse>(`/coupons/${couponId}/verify`, {
       method: "POST",
@@ -597,8 +592,6 @@ export const resilient = {
   getCouponBySlug: (slug: string) => orNull(api.getCouponBySlug(slug)),
   getCouponById: (couponId: string) => orNull(api.getCouponById(couponId)),
   listStores: (params: StoreListParams = {}) => orEmpty(api.listStores(params)),
-  listAffiliateCampaigns: (params: AffiliateCampaignListParams = {}) =>
-    orEmpty(api.listAffiliateCampaigns(params)),
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
     orEmpty(api.listAds(params)),
   getStoreBySlug: (slug: string) => orNull(api.getStoreBySlug(slug)),
