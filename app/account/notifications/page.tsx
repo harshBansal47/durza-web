@@ -4,6 +4,7 @@ import NotificationSettings from "@/components/account/NotificationSettings";
 import { requireNotificationAccount, updatePreferencesAction } from "@/app/account/actions";
 import { absoluteUrl } from "@/lib/seo";
 import TelegramChannelLink from "@/components/TelegramChannelLink";
+import WhatsAppChannelLink from "@/components/WhatsAppChannelLink";
 
 export const metadata: Metadata = {
   title: "Notification settings",
@@ -35,6 +36,7 @@ export default async function NotificationsPage() {
           Get public offer updates. Anyone can join; no Durza account is needed.
         </p>
         <TelegramChannelLink>Join Durza&apos;s public channel</TelegramChannelLink>
+        <WhatsAppChannelLink>Join Durza&apos;s WhatsApp channel</WhatsAppChannelLink>
       </div>
 
     </AccountShell>

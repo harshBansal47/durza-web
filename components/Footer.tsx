@@ -5,6 +5,7 @@ import type { Ad } from "@/lib/types";
 import Logo from "@/components/Logo";
 import AppDownloadLink from "@/components/AppDownloadLink";
 import TelegramChannelLink from "@/components/TelegramChannelLink";
+import WhatsAppChannelLink from "@/components/WhatsAppChannelLink";
 
 const PALETTE = {
   dark: "var(--color-ink-warm)",
@@ -101,8 +102,9 @@ export default function Footer({
               <p className="mt-3 text-sm text-ink-soft">
                 Save money before you buy.
               </p>
-              <div className="mt-2">
+              <div className="mt-2 space-y-1">
                 <TelegramChannelLink />
+                <WhatsAppChannelLink />
               </div>
             </div>
             {columns(hasComparisons).map((col) => (
