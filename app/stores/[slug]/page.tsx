@@ -4,7 +4,8 @@ import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
 import { lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, faqPageJsonLd, metaDescription } from "@/lib/seo";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
@@ -144,11 +145,11 @@ export default async function StorePage({ params }: Props) {
           .sort((a, b) => (b.offer_count ?? 0) - (a.offer_count ?? 0) || a.name.localeCompare(b.name))
   ).slice(0, 6);
 
-  const breadcrumb = breadcrumbJsonLd([
+  const crumbs = [
     { name: "Home", path: "/" },
     { name: "Stores", path: "/stores" },
     { name: store.name, path: `/stores/${store.slug}` },
-  ]);
+  ];
   const faqs = [
     ...destination.faqs,
     {
@@ -191,9 +192,9 @@ export default async function StorePage({ params }: Props) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <JsonLd data={breadcrumb} />
       <JsonLd data={faqJsonLd} />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+        <Breadcrumbs items={crumbs} />
         <StorePageClient
           store={store}
           tabs={{

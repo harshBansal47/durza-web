@@ -1,4 +1,5 @@
 import { cache } from "react";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CategoryHero from "@/components/categories/CategoryHero";
@@ -15,7 +16,8 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { carriedParams, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { categoryLabel } from "@/lib/catalog";
-import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
@@ -98,20 +100,28 @@ export default async function CategoryPage({
   const page = Math.floor(skip / PAGE_SIZE) + 1;
   const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
 
-  const breadcrumb = breadcrumbJsonLd([
+  const crumbs = [
     { name: "Home", path: "/" },
+    { name: "Categories", path: "/categories" },
     { name: categoryName, path: `/categories/${category.slug}` },
-  ]);
+  ];
+  // The stores that actually have offers in this view, linked to their own pages. Built from
+  // the offers listed above, so it is true for every category and never names a store with
+  // nothing here. It also gives each category page real links down to its store pages.
+  const storeById = new Map(stores.map((s) => [s.id, s]));
+  const offerStores = [...new Set(coupons.items.map((c) => c.store_id))]
+    .map((id) => storeById.get(id))
+    .filter((s): s is (typeof stores)[number] => Boolean(s));
   const itemList = itemListJsonLd(
     coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
   );
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <JsonLd data={breadcrumb} />
+      <Breadcrumbs items={crumbs} />
       <JsonLd data={itemList} />
 
-      <CategoryHero category={{ ...category, name: categoryName }} title={`${categoryName} coupons`} />
+      <CategoryHero category={{ ...category, name: categoryName }} title={`${categoryName} Coupons & Offers`} />
       <div className="mb-6">
         <CategoryChips categories={categories} activeSlug={category.slug} />
       </div>
@@ -133,10 +143,13 @@ export default async function CategoryPage({
         }
       >
         <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-            {total} coupon{total === 1 ? "" : "s"}
-            {total > 0 ? ` · page ${page} of ${pages}` : ""}
-          </p>
+          <div>
+            <h2 className="font-serif text-xl text-ink">Latest {categoryName} offers</h2>
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+              {total} coupon{total === 1 ? "" : "s"}
+              {total > 0 ? ` · page ${page} of ${pages}` : ""}
+            </p>
+          </div>
           <SortControl />
         </div>
 
@@ -174,6 +187,26 @@ export default async function CategoryPage({
           limit={PAGE_SIZE}
           total={total}
         />
+
+        {offerStores.length > 0 && (
+          <section aria-labelledby="category-stores" className="mt-12 border-t border-ledger-line pt-8">
+            <h2 id="category-stores" className="font-serif text-xl text-ink">
+              {categoryName} offers by store
+            </h2>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {offerStores.map((s) => (
+                <li key={s.id}>
+                  <Link
+                    href={`/stores/${s.slug}`}
+                    className="inline-block rounded-full border border-ledger-line px-4 py-2 text-sm text-ink hover:border-inkblue hover:text-inkblue"
+                  >
+                    {s.name} coupons
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </FilterLayout>
     </div>
   );

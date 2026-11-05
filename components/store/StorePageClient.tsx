@@ -162,11 +162,19 @@ export default function StorePageClient({
           </div>
 
           <div className="min-w-0 flex-1">
-            <PageTitle className="text-white">{store.name}</PageTitle>
+            {/* The H1 names what the page is for. "Acer" alone says nothing about coupons; the
+                query people type is "<store> coupon code", and this is the strongest on-page
+                signal for it. Built from the store's own name, so it holds for every store. */}
+            <PageTitle className="text-white">{store.name} Coupon Codes &amp; Offers</PageTitle>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                 {stats.total} listed offers
               </span>
+              {stats.latestCheck && (
+                <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
+                  Last checked <time dateTime={stats.latestCheck}>{formatDate(stats.latestCheck)}</time>
+                </span>
+              )}
               {website && websiteHost && (
                 <a
                   href={website.href}
@@ -179,7 +187,10 @@ export default function StorePageClient({
                 </a>
               )}
             </div>
-            {store.description && <p className="mt-3 max-w-prose text-sm text-white/90 sm:text-base">{store.description}</p>}
+            <p className="mt-3 max-w-prose text-sm text-white/90 sm:text-base">
+              {store.description ??
+                `${stats.total} live ${store.name} coupon codes and deals, each linked to its source page with the date it was last checked.`}
+            </p>
           </div>
 
           <div className="flex shrink-0 items-start gap-3 self-start sm:self-center">

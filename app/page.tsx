@@ -38,7 +38,6 @@ import { RecommendedRow } from "@/components/discovery/Recommended";
 import { Reveal } from "@/components/Reveal";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
-import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
@@ -251,21 +250,6 @@ export default async function HomePage() {
     ...biggestItems.map((c) => (c.discount_type === "percentage" && c.discount_value != null ? c.discount_value : 0)),
   );
 
-  const websiteJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Durza",
-    alternateName: "Durza: Coupon & Deals",
-    url: absoluteUrl("/"),
-    description:
-      "Find trusted deals, compare products, and use practical buying guides and reviews to save before you buy.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${absoluteUrl("/search")}?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  };
-
   const hasEditorial = Object.values(editorial).some((items) => items.length > 0)
     || latestComparisons.items.length > 0
     || recentReviews.items.length > 0;
@@ -273,7 +257,6 @@ export default async function HomePage() {
 
   return (
     <div className="page-shell">
-      <JsonLd data={websiteJsonLd} />
 
       <Hero
         stats={[

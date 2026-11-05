@@ -17,7 +17,8 @@
   import DisclosureNote from "@/components/DisclosureNote";
   import { daysUntil, formatDiscount } from "@/lib/format";
   import { getRequirements, requirementLabels, sourceLine } from "@/lib/requirements";
-  import { absoluteUrl, aggregateRatingJsonLd, breadcrumbJsonLd, metaDescription } from "@/lib/seo";
+  import Breadcrumbs from "@/components/Breadcrumbs";
+  import { absoluteUrl, aggregateRatingJsonLd, metaDescription } from "@/lib/seo";
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
   import VerifiedGauge from "@/components/VerifiedGauge";
@@ -115,11 +116,16 @@
       ...(rating ? { aggregateRating: rating } : {}),
     };
 
-    const breadcrumb = breadcrumbJsonLd([
+    const crumbs = [
       { name: "Home", path: "/" },
-      ...(store ? [{ name: store.name, path: `/stores/${store.slug}` }] : []),
+      ...(store
+        ? [
+            { name: "Stores", path: "/stores" },
+            { name: store.name, path: `/stores/${store.slug}` },
+          ]
+        : []),
       { name: coupon.title, path: `/coupons/${coupon.slug}` },
-    ]);
+    ];
 
     const totalReports = coupon.success_count + coupon.fail_count;
     const successRate = coupon.success_rate !== null ? Math.round(coupon.success_rate * 100) : null;
@@ -132,7 +138,7 @@
     return (
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
         <JsonLd data={jsonLd} />
-        <JsonLd data={breadcrumb} />
+        <Breadcrumbs items={crumbs} />
         <RecordView storeSlug={store?.slug} couponId={coupon.id} />
         <ImpressionTracker
           couponId={coupon.id}

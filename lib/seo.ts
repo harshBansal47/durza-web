@@ -92,6 +92,8 @@ export function websiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Durza",
+    // Lets a search engine show the longer form of the name too.
+    alternateName: "Durza: Coupon & Deals",
     url: SITE_URL,
     potentialAction: {
       "@type": "SearchAction",

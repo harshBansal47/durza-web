@@ -9,6 +9,7 @@ import { absoluteUrl } from "@/lib/seo";
 import PageTitle from "@/components/ui/PageTitle";
 import { LogoMark } from "@/components/Logo";
 import PriceHistory from "@/components/product/PriceHistory";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
@@ -102,6 +103,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
       <JsonLd data={jsonLd} />
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          ...(store
+            ? [
+                { name: "Stores", path: "/stores" },
+                { name: store.name, path: `/stores/${store.slug}` },
+              ]
+            : []),
+          { name: product.name, path: `/products/${product.slug}` },
+        ]}
+      />
 
       <nav className="text-sm text-ink-soft">
         <Link href="/search" className="hover:text-ink hover:underline">
