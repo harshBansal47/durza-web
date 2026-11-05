@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-/** Link to Durza's public WhatsApp channel. */
 export default function WhatsAppChannelLink({
   children = "Join us on WhatsApp",
 }: {
@@ -24,7 +23,3 @@ export default function WhatsAppChannelLink({
     </a>
   );
 }
-```
-
-Add to Footer.<|end|><|start|> fileList <|constrain|>xml<|message|><rfl:parameter name="path">
-/home/harsh-bansal/Downloads/Couponza/couponza-web/components/Footer.tsx
