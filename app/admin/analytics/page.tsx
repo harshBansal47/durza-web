@@ -92,8 +92,13 @@ export default function AdminAnalyticsDashboard() {
 
   useEffect(() => {
     const controller = new AbortController();
-    void fetchData(controller.signal);
-    return () => controller.abort();
+    const timeoutId = window.setTimeout(() => {
+      void fetchData(controller.signal);
+    }, 0);
+    return () => {
+      window.clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, [fetchData, reload]);
 
   const isDateRangeValid = Boolean(startDate && endDate && startDate <= endDate);

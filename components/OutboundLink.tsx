@@ -49,7 +49,7 @@ export default function OutboundLink({
     markRevealed(coupon.id);
     track("coupon_click", { coupon_id: coupon.id, src, content_ref: contentRef });
     recordCouponClick(coupon.id);
-  }, [coupon, storeName, src]);
+  }, [coupon, storeName, src, contentRef]);
 
   const href = api.goUrl(coupon.id, src, contentRef);
 

@@ -8,12 +8,12 @@ describe("EmailOtpLoginForm", () => {
   it("opens code entry without showing the generic API message", async () => {
     const user = userEvent.setup();
     const requestAction = vi.fn(
-      async (_previous: EmailOtpRequestResult, _formData: FormData): Promise<EmailOtpRequestResult> => ({
+      async (): Promise<EmailOtpRequestResult> => ({
         codeEntry: true,
       }),
     );
     const verifyAction = vi.fn(
-      async (_previous: ActionResult, _formData: FormData): Promise<ActionResult> => ({}),
+      async (): Promise<ActionResult> => ({}),
     );
 
     render(
@@ -37,12 +37,12 @@ describe("EmailOtpLoginForm", () => {
   it("stays on email entry when the request is not confirmed", async () => {
     const user = userEvent.setup();
     const requestAction = vi.fn(
-      async (_previous: EmailOtpRequestResult, _formData: FormData): Promise<EmailOtpRequestResult> => ({
+      async (): Promise<EmailOtpRequestResult> => ({
         error: "We couldn't confirm the request yet. Please try again.",
       }),
     );
     const verifyAction = vi.fn(
-      async (_previous: ActionResult, _formData: FormData): Promise<ActionResult> => ({}),
+      async (): Promise<ActionResult> => ({}),
     );
 
     render(<EmailOtpLoginForm requestAction={requestAction} verifyAction={verifyAction} />);
@@ -61,12 +61,12 @@ describe("EmailOtpLoginForm", () => {
   it("stays on email entry for an invalid address", async () => {
     const user = userEvent.setup();
     const requestAction = vi.fn(
-      async (_previous: EmailOtpRequestResult, _formData: FormData): Promise<EmailOtpRequestResult> => ({
+      async (): Promise<EmailOtpRequestResult> => ({
         error: "Enter a valid email address.",
       }),
     );
     const verifyAction = vi.fn(
-      async (_previous: ActionResult, _formData: FormData): Promise<ActionResult> => ({}),
+      async (): Promise<ActionResult> => ({}),
     );
 
     render(<EmailOtpLoginForm requestAction={requestAction} verifyAction={verifyAction} />);

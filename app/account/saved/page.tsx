@@ -94,7 +94,6 @@ export default async function SavedPage() {
                     storeName={storeById.get(coupon.store_id)?.name}
                     discount={formatDiscount(coupon)}
                     expiry={coupon.expires_at ? expiryLabel(coupon.expires_at) : null}
-                    initiallySaved
                     action={toggleSavedCoupon}
                   />
                 ))}

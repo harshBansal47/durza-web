@@ -76,8 +76,13 @@ export default function AdminIngestionDashboard() {
 
   useEffect(() => {
     const controller = new AbortController();
-    void load(controller.signal);
-    return () => controller.abort();
+    const timeoutId = window.setTimeout(() => {
+      void load(controller.signal);
+    }, 0);
+    return () => {
+      window.clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, [load]);
 
   const anyRunning = Boolean(overview?.sources.some((s) => s.latest_run_status === "running"));

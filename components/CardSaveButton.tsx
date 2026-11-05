@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { track } from "@/lib/analytics";
 import {
   claimSessionSync,
@@ -13,6 +14,7 @@ import { setSavedCouponAction } from "@/app/account/actions";
 
 /** Save requires a signed-in account: anonymous saves can't sync to a profile. */
 export function CardSaveButton({ couponId }: { couponId: string }) {
+  const router = useRouter();
   // Shared with the header; null means the check is still in flight, and the
   // button stays inert until it lands (see `disabled` below).
   const { session } = useSession();
@@ -50,7 +52,7 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
   function toggle() {
     if (isSignedIn === false) {
       const next = encodeURIComponent(window.location.pathname + window.location.search);
-      window.location.assign(`/account/login?next=${next}`);
+      router.push(`/account/login?next=${next}`);
       return;
     }
     if (isSignedIn !== true || isPending) return;

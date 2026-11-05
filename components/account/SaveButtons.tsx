@@ -142,7 +142,6 @@ export function SavedCouponRow({
   storeName,
   discount,
   expiry,
-  initiallySaved,
   action,
 }: {
   coupon: { id: string; title: string; slug: string; code: string | null };
@@ -151,7 +150,6 @@ export function SavedCouponRow({
   discount?: string;
   /** "Expires in 3 days" / "Expired", or null for an evergreen code. */
   expiry?: string | null;
-  initiallySaved: boolean;
   action: (couponId: string, currentlySaved: boolean) => Promise<ToggleResult>;
 }) {
   const [removed, setRemoved] = useState(false);

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  Check,
   Clock,
   Compass,
   Infinity as InfinityIcon,
@@ -35,7 +34,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
 import { RecommendedRow } from "@/components/discovery/Recommended";
-import { Reveal } from "@/components/Reveal";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 

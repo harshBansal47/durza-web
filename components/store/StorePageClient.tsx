@@ -10,7 +10,6 @@ import SaveDealBanner from "@/components/SaveDealBanner";
 import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
-import { DEFAULT_DISCLOSURE } from "@/lib/disclosure";
 import { hostnameOf, parseHttpUrl } from "@/lib/url";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { groupSimilar } from "@/lib/grouping";

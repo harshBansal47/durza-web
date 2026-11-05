@@ -66,7 +66,10 @@ export function EmailOtpLoginForm({
   const [verifyState, verifyActionState] = useActionState(verifyAction, EMPTY);
 
   useEffect(() => {
-    if (requestState.codeEntry) setStep("code");
+    if (requestState.codeEntry) {
+      const timeoutId = window.setTimeout(() => setStep("code"), 0);
+      return () => window.clearTimeout(timeoutId);
+    }
   }, [requestState]);
 
   const googleHref = `/api/auth/start/google${next ? `?next=${encodeURIComponent(next)}` : ""}`;
