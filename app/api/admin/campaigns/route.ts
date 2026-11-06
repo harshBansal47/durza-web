@@ -4,7 +4,7 @@ import { forwardToAdminApi } from "@/lib/admin-proxy";
 export const dynamic = "force-dynamic";
 
 /** The only query parameters the campaigns API understands; anything else is dropped. */
-const FILTERS = ["search", "category", "country", "skip", "limit"] as const;
+const FILTERS = ["search", "category", "country", "needs_review", "skip", "limit"] as const;
 
 export async function GET(request: NextRequest) {
   const query = new URLSearchParams();

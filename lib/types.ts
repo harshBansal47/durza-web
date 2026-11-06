@@ -32,6 +32,10 @@ export interface AffiliateCampaign {
   last_synced_at: string;
   /** Relative API redirect path; use api.vcommissionCampaignGoUrl for links. */
   click_url: string;
+  /** Parsed advertiser terms (admin-only; read it with `readTerms`, never directly). */
+  terms?: unknown;
+  /** True when a person should read the terms before we promote this campaign. */
+  needs_review?: boolean;
 }
 
 export interface Category {

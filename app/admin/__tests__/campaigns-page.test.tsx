@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const fetchCampaigns = vi.fn();
@@ -57,5 +58,16 @@ describe("admin campaigns page", () => {
     expect(await screen.findByRole("alert")).toBeTruthy();
     expect(screen.getByRole("alert").textContent).toMatch(message);
     expect(screen.queryByText("Example Shop")).toBeNull();
+  });
+
+  it("filters to the review queue", async () => {
+    fetchCampaigns.mockResolvedValue({ items: [], total: 0, skip: 0, limit: 20 });
+    render(<AdminCampaignsPage />);
+    await screen.findByText(/no campaigns match/i);
+    expect(fetchCampaigns.mock.calls.at(-1)![0].needs_review).toBeUndefined();
+
+    await userEvent.click(screen.getByRole("checkbox", { name: /needs review only/i }));
+
+    await waitFor(() => expect(fetchCampaigns.mock.calls.at(-1)![0].needs_review).toBe(true));
   });
 });

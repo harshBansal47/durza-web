@@ -14,7 +14,7 @@ describe("admin campaigns route", () => {
 
   it("forwards only the filters the API understands, to the admin-only endpoint", async () => {
     const request = new NextRequest(
-      "http://localhost/api/admin/campaigns?search=shop&category=fashion&country=IN&skip=20&limit=20&evil=1&token=x",
+      "http://localhost/api/admin/campaigns?search=shop&category=fashion&country=IN&needs_review=true&skip=20&limit=20&evil=1&token=x",
     );
     await GET(request);
 
@@ -25,6 +25,7 @@ describe("admin campaigns route", () => {
       search: "shop",
       category: "fashion",
       country: "IN",
+      needs_review: "true",
       skip: "20",
       limit: "20",
     });

@@ -21,6 +21,7 @@ export default function AdminCampaignsPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
+  const [needsReview, setNeedsReview] = useState(false);
   const [skip, setSkip] = useState(0);
   const [result, setResult] = useState<{
     key: string;
@@ -31,7 +32,7 @@ export default function AdminCampaignsPage() {
 
   // "Loading" is derived, not stored: a result belongs to the filters it was fetched for, so
   // when the filters change the stored result is stale until the new request lands.
-  const key = JSON.stringify([search, category, country, skip]);
+  const key = JSON.stringify([search, category, country, needsReview, skip]);
   const loading = result?.key !== key;
   const items = result && !loading ? result.items : [];
   const total = result && !loading ? result.total : 0;
@@ -40,7 +41,14 @@ export default function AdminCampaignsPage() {
   useEffect(() => {
     const controller = new AbortController();
     fetchAffiliateCampaigns(
-      { search, category, country: country.toUpperCase(), skip, limit: PAGE_SIZE },
+      {
+        search,
+        category,
+        country: country.toUpperCase(),
+        needs_review: needsReview ? true : undefined,
+        skip,
+        limit: PAGE_SIZE,
+      },
       controller.signal,
     )
       .then((page) => setResult({ key, items: page.items, total: page.total, error: null }))
@@ -49,7 +57,7 @@ export default function AdminCampaignsPage() {
         setResult({ key, items: [], total: 0, error: describeError(e) });
       });
     return () => controller.abort();
-  }, [key, search, category, country, skip]);
+  }, [key, search, category, country, needsReview, skip]);
 
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const page = Math.floor(skip / PAGE_SIZE) + 1;
@@ -98,6 +106,19 @@ export default function AdminCampaignsPage() {
           />
         </label>
       </div>
+
+      <label className="mt-4 flex items-center gap-2 text-sm text-ink">
+        <input
+          type="checkbox"
+          checked={needsReview}
+          onChange={(e) => {
+            setNeedsReview(e.target.checked);
+            setSkip(0);
+          }}
+        />
+        Needs review only
+        <span className="text-ink-soft">(terms we could not fully establish, or that affect which codes pay)</span>
+      </label>
 
       <p className="mt-6 font-mono text-[11px] uppercase tracking-widest text-ink-soft" aria-live="polite">
         {loading ? "Loading…" : `${total} campaign${total === 1 ? "" : "s"} · page ${page} of ${pages}`}

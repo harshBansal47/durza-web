@@ -181,6 +181,8 @@ export interface CampaignFilters {
   search?: string;
   category?: string;
   country?: string;
+  /** true = only campaigns a person should read before we promote them. */
+  needs_review?: boolean;
   skip?: number;
   limit?: number;
 }
