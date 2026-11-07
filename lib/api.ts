@@ -344,6 +344,9 @@ export const api = {
       revalidate: 300,
     }),
 
+  sendTelegram: (couponId: string) =>
+    apiFetch<{ message_id: number }>(`/admin/telegram/send`, { method: "POST", body: JSON.stringify({ coupon_id: couponId }), cache: "no-store" }),
+
   listEditorial: (
     params: { content_type?: EditorialType; skip?: number; limit?: number } = {},
   ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: 300 }),

@@ -7,6 +7,7 @@ const ADMIN_LINKS = [
   { href: "/admin/analytics", label: "Analytics" },
   { href: "/admin/campaigns", label: "Campaigns" },
   { href: "/admin/whatsapp-publisher", label: "WhatsApp Publisher" },
+  { href: "/admin/telegram-publisher", label: "Telegram Publisher" },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {

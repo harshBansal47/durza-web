@@ -5,6 +5,7 @@ const ADMIN_PAGES = [
   { href: "/admin/analytics", title: "Analytics", description: "Traffic, coupons, and revenue stats." },
   { href: "/admin/campaigns", title: "Campaigns", description: "Manage affiliate campaigns." },
   { href: "/admin/whatsapp-publisher", title: "WhatsApp Publisher", description: "Publish offers to WhatsApp." },
+  { href: "/admin/telegram-publisher", title: "Telegram Publisher", description: "Approve and send offers to Telegram." },
 ];
 
 export default function AdminHomePage() {
