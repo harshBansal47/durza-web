@@ -74,8 +74,8 @@ export default async function CategoryPage({
   const categoryName = categoryLabel(category);
 
   const [storesPage, categoriesPage] = await Promise.all([
-    resilient.listStores({ limit: 100 }),
-    resilient.listCategories({ limit: 100 }),
+    resilient.listStores({ limit: 50 }),
+    resilient.listCategories({ limit: 50 }),
   ]);
   const stores = storesPage.items;
   const categories = categoriesPage.items;
