@@ -129,8 +129,8 @@ export default function CouponCodePanel({
           {coupon.code
             ? revealed
               ? `${storeName || "The store"} opened in a new tab. Paste your code at checkout, then tell us if it worked.`
-              : `Copying the code opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy.`
-            : `Opens ${storeName || "the store"} in a new tab. We may earn a commission if you buy. Come back and tell us if it worked.`}
+              : `Copying the code opens ${storeName || "the store"} in a new tab.`
+            : `Opens ${storeName || "the store"} in a new tab. Come back and tell us if it worked.`}
         </p>
         {requirement && coupon.code && (
           <p className="mt-1 text-center text-[13px] text-ink-soft">{requirement}</p>
