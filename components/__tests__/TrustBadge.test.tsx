@@ -16,6 +16,6 @@ describe("TrustBadge", () => {
 
   it("shows no-votes copy when there is no data", () => {
     render(<TrustBadge successRate={null} reports={0} checkedDate="20 Oct 2026" />);
-    expect(screen.getByText(/No votes yet/)).toBeInTheDocument();
+    expect(screen.getByText(/Fresh — be the first to try/)).toBeInTheDocument();
   });
 });

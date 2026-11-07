@@ -20,7 +20,7 @@ export function trustLevel(
 export function trustCopy(level: TrustLevel, reports: number): string {
   if (level === "verified") return `Verified working by ${reports} Durza users recently`;
   if (level === "low-data") return `No votes yet from enough shoppers`;
-  return "No votes yet";
+  return "Fresh — be the first to try";
 }
 
 export function expiryTone(expiresAt: string | null, now: Date = new Date()): ExpiryTone {

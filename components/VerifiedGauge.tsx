@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Sparkles } from "lucide-react";
 
 interface VerifiedGaugeProps {
   /** 0 to 1, or null when nobody has reported yet. */
@@ -94,7 +95,10 @@ export default function VerifiedGauge({ rate, reports, size = 112, tone = "dark"
         className={`absolute inset-0 flex flex-col items-center justify-center text-center ${tone === "light" ? "text-white" : "text-ink"}`}
       >
         {target === null ? (
-          <span className="px-3 text-caption font-semibold leading-tight opacity-80">No votes yet</span>
+          <span className="flex flex-col items-center gap-1 px-3 text-caption font-semibold leading-tight opacity-80">
+            <Sparkles className="h-4 w-4 animate-pulse" aria-hidden="true" />
+            Fresh — try it first
+          </span>
         ) : (
           <>
             <span className="font-serif text-title font-medium leading-none">{shown}%</span>
