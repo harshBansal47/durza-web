@@ -26,6 +26,7 @@
   import StickyDealBar from "@/components/StickyDealBar";
   import SaveDealBanner from "@/components/SaveDealBanner";
   import JsonLd from "@/components/JsonLd";
+  import { GO_REL, storeGoHref } from "@/lib/go";
   import { parseHttpUrl } from "@/lib/url";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
@@ -344,7 +345,7 @@
                 <div className="flex-1 min-w-0">
                   <h3 className="font-serif text-lg text-ink">{store.name}</h3>
                   {parseHttpUrl(store.website_url) && (
-                    <a href={parseHttpUrl(store.website_url)!.href} target="_blank" rel="noopener noreferrer" className="text-sm text-inkblue hover:underline mt-1 inline-block">
+                    <a href={storeGoHref(store.slug, "coupon-page")} target="_blank" rel={GO_REL} className="text-sm text-inkblue hover:underline mt-1 inline-block">
                       {store.website_url!.replace(/^https?:\/\//, "")}
                     </a>
                   )}

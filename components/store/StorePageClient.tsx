@@ -11,7 +11,9 @@ import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
 import { hostnameOf, parseHttpUrl } from "@/lib/url";
+import { GO_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
+import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic, Store } from "@/lib/types";
@@ -176,9 +178,9 @@ export default function StorePageClient({
               )}
               {website && websiteHost && (
                 <a
-                  href={website.href}
+                  href={storeGoHref(store.slug, "store-page")}
                   target="_blank"
-                  rel="noopener noreferrer nofollow"
+                  rel={GO_REL}
                   className="rounded-full bg-white/20 px-3 py-1 text-white backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
                 >
                   {websiteHost}
@@ -192,7 +194,26 @@ export default function StorePageClient({
             </p>
           </div>
 
-          <div className="flex shrink-0 items-start gap-3 self-start sm:self-center">
+          <div className="flex shrink-0 flex-col items-start gap-2 self-start sm:items-end sm:self-center">
+            {website && (
+              <>
+                <a
+                  href={storeGoHref(store.slug, "store-page")}
+                  target="_blank"
+                  rel={GO_REL}
+                  className="btn btn-cta shrink-0"
+                >
+                  Go to {store.name}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+                <p className="max-w-[16rem] text-xs text-white/80 sm:text-right">
+                  {GO_DISCLOSURE}{" "}
+                  <Link href="/affiliate-disclosure" className="underline">
+                    How we make money
+                  </Link>
+                </p>
+              </>
+            )}
             <button
               type="button"
               onClick={share}
@@ -238,10 +259,36 @@ export default function StorePageClient({
           <ClientTabs tabs={visibleTabs} />
         </>
       ) : (
-        <p className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-4 py-10 text-center text-ink-soft">
-          No active offers for {store.name} right now. We only list what we can source from the
-          store&apos;s own pages, so this page stays empty rather than showing dead offers.
-        </p>
+        <section
+          aria-labelledby="no-offers"
+          className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-5 py-10 text-center"
+        >
+          <h2 id="no-offers" className="font-serif text-xl font-extrabold text-ink">
+            No active offers for {store.name} right now
+          </h2>
+          <p className="mx-auto mt-2 max-w-prose text-ink-soft">
+            We only list what we can source from the store&apos;s own pages, so this page stays
+            empty rather than showing dead offers. If a code appears, it will show up here with the
+            date we last checked it.
+          </p>
+          {website && (
+            <>
+              <p className="mx-auto mt-3 max-w-prose text-ink-soft">
+                You can still go to {store.name} through Durza. We have no discount to promise, so
+                compare the price before you buy.
+              </p>
+              <a
+                href={storeGoHref(store.slug, "store-page")}
+                target="_blank"
+                rel={GO_REL}
+                className="btn btn-cta mt-4 inline-block"
+              >
+                Shop {store.name} via Durza
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </>
+          )}
+        </section>
       )}
 
       <SaveDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />

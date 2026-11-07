@@ -77,9 +77,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const canonical = `/stores/${store.slug}`;
+  // A store with no offers and nothing written about it is a page with nothing to say: keep it
+  // out of search results until it has something real, rather than offering Google thin pages.
+  // `follow` stays on so its links still count. It reappears in the index once an offer or a
+  // description exists (pages refresh every five minutes).
+  const thin = total === 0 && !store.description?.trim();
   return {
     title,
     description,
+    ...(thin ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical },
     openGraph: { title, description, url: canonical, type: "website" },
     twitter: { card: "summary_large_image", title, description },

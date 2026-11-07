@@ -50,6 +50,11 @@ function serverApiUrl(): string {
   return process.env.API_INTERNAL_URL?.trim() || API_URL;
 }
 
+/** The API address for server-side code outside this module (route handlers). */
+export function getServerApiUrl(): string {
+  return serverApiUrl();
+}
+
 type FetchOptions = RequestInit & {
   /** Next.js data-cache revalidate window, in seconds. Omit to opt out of caching. */
   revalidate?: number;

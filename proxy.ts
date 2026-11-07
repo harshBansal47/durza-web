@@ -89,7 +89,8 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Never run on the API itself, static assets, image optimisation or the
-  // service worker — only on real page navigations.
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sw.js).*)"],
+  // Never run on the API itself, the /go redirects (a redirect needs no session work and
+  // should be as fast as possible), static assets, image optimisation or the service worker:
+  // only on real page navigations.
+  matcher: ["/((?!api|go/|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sw.js).*)"],
 };
