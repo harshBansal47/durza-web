@@ -11,7 +11,6 @@ import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
 import { hostnameOf, parseHttpUrl } from "@/lib/url";
-import { GO_DISCLOSURE } from "@/lib/disclosure";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
@@ -206,12 +205,6 @@ export default function StorePageClient({
                   Go to {store.name}
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
-                <p className="max-w-[16rem] text-xs text-white/80 sm:text-right">
-                  {GO_DISCLOSURE}{" "}
-                  <Link href="/affiliate-disclosure" className="underline">
-                    How we make money
-                  </Link>
-                </p>
               </>
             )}
             <button
