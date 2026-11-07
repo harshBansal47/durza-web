@@ -140,7 +140,7 @@ export function CouponCard({
 
         <div className="flex flex-1 flex-col gap-1.5 px-4 pb-2 pt-1.5">
           <div className="min-w-0">
-            <h3 className="line-clamp-2 min-h-[2.25rem] font-sans text-[15px] font-semibold leading-[1.125rem] text-ink">
+            <h3 className="line-clamp-2 min-h-[2.25rem] font-sans text-[15px] font-semibold leading-[1.125rem] text-ink" title={coupon.title}>
               <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
                 {coupon.title}
               </Link>
