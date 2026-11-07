@@ -142,7 +142,7 @@ export default function SaveDealBanner({ target }: { target: SaveTarget }) {
 
   if (known?.saved) {
     return (
-      <section id="save-deal" aria-live="polite" className="scroll-mt-24 rounded-xl border border-verified/40 bg-verified-soft p-5">
+      <section id="save-deal-saved" aria-live="polite" className="scroll-mt-24 rounded-xl border border-verified/40 bg-verified-soft p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
             <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper-raised text-verified">
