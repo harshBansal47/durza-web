@@ -1,3 +1,4 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import { resilient } from "@/lib/api";
 import PageTitle from "@/components/ui/PageTitle";
@@ -8,10 +9,13 @@ import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
 
+const PAGE_SIZE = 24;
+const loadStores = cache(() => resilient.listStores({ limit: PAGE_SIZE }));
+
 export async function generateMetadata(): Promise<Metadata> {
-  const stores = await resilient.listStores({ limit: 3 });
+  const stores = await loadStores();
   const total = stores.total;
-  const examples = stores.items.map((store) => store.name).join(", ");
+  const examples = stores.items.slice(0, 3).map((store) => store.name).join(", ");
   const description =
     total > 0
       ? `Browse ${total} stores on Durza${examples ? `, including ${examples}` : ""} — every coupon and deal shows the store page it came from and when it was last checked.`
@@ -32,8 +36,12 @@ export default async function StoresIndexPage({
 }: {
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
-  const { q } = await searchParams;
-  const { items } = await resilient.listStores({ search: q, limit: 100 });
+  const { q, page: pageParam } = await searchParams;
+  const page = Math.max(1, Number(pageParam) || 1);
+  const skip = (page - 1) * PAGE_SIZE;
+  const { items, total } = (q || page > 1)
+    ? await resilient.listStores({ search: q, limit: PAGE_SIZE, skip })
+    : await loadStores();
 
   const groups = new Map<string, typeof items>();
   for (const store of items) {
@@ -110,6 +118,30 @@ export default async function StoresIndexPage({
             </section>
           ))}
         </div>
+      )}
+
+      {Math.ceil(total / PAGE_SIZE) > 1 && (
+        <nav className="mt-12 flex items-center justify-center gap-2" aria-label="Pagination">
+          {page > 1 && (
+            <a
+              href={`/stores?${new URLSearchParams({ ...(q ? { q } : {}), page: String(page - 1) }).toString()}`}
+              className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:border-inkblue hover:text-inkblue"
+            >
+              Previous
+            </a>
+          )}
+          <span className="px-3 text-sm text-ink-soft">
+            Page {page} of {Math.ceil(total / PAGE_SIZE)}
+          </span>
+          {page < Math.ceil(total / PAGE_SIZE) && (
+            <a
+              href={`/stores?${new URLSearchParams({ ...(q ? { q } : {}), page: String(page + 1) }).toString()}`}
+              className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:border-inkblue hover:text-inkblue"
+            >
+              Next
+            </a>
+          )}
+        </nav>
       )}
     </div>
   );
