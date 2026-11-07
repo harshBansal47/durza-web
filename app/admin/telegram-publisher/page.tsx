@@ -8,8 +8,10 @@ import type { CouponPublic } from "@/lib/types";
 function buildMessage(coupon: CouponPublic): string {
   return [
     `🛍 ${coupon.title}`,
-    coupon.code ? `🎟 Code: ${coupon.code}` : "✨ Deal — no code needed",
-    `🔗 https://durza.in/coupons/${coupon.slug}`,
+    coupon.code ? `🎟 Promo Code: ||${coupon.code}||` : "✨ Deal — no code needed",
+    `🔗 Claim Offer: https://durza.in/coupons/${coupon.slug}`,
+    "",
+    "Visit Durza for more details and exclusive deals.",
   ].join("\n");
 }
 

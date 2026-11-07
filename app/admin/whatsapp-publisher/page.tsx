@@ -13,18 +13,17 @@ function buildMessage(coupon: CouponPublic): string {
         ? `🏷️ Get ₹${coupon.discount_value} OFF`
         : "🏷️ Special deal";
   return [
-    "🔥 HOT DEAL ALERT 🔥",
+    "🛍 Durza Verified Offer",
     "",
-    `🎧 ${coupon.title}`,
+    `🔥 ${coupon.title}`,
     "",
     discount,
+    coupon.code ? `🎟 Promo Code: ${coupon.code}` : "✨ Deal — no code needed",
     "",
-    "🛒 Grab Deal:",
+    "🛒 Claim Offer:",
     `https://durza.in/coupons/${coupon.slug}`,
     "",
-    "⚡ Verified by Durza",
-    "",
-    "Join Durza Coupons India for more deals!",
+    "Visit Durza for more details and exclusive deals.",
   ].join("\n");
 }
 
