@@ -120,6 +120,43 @@ describe("sitemap shards (D1)", () => {
     expect(limits.filter((limit) => limit === BACKEND_MAX_LIMIT).length).toBe(3);
   });
 
+  it("leaves out a store with no offers and nothing written about it", async () => {
+    listCoupons.mockResolvedValue(emptyPage);
+    const store = (slug: string, offer_count: number | null, description: string | null) => ({
+      id: slug,
+      name: slug,
+      slug,
+      offer_count,
+      description,
+      logo_url: null,
+      website_url: null,
+      pricing_summary: null,
+      pricing_checked_at: null,
+      is_active: true,
+    });
+    listStores.mockResolvedValue({
+      items: [
+        store("has-offers", 3, null),
+        store("has-description", 0, "Acer makes laptops."),
+        store("blank-description", 0, "   "),
+        store("nothing", 0, null),
+        store("unknown-count", null, null),
+      ] as never,
+      total: 5,
+      skip: 0,
+      limit: 100,
+    });
+
+    const body = await (await shardRequest("stores-0")).text();
+
+    expect(body).toContain("/stores/has-offers");
+    expect(body).toContain("/stores/has-description");
+    // the page marks these noindex, so submitting them would be a Search Console error
+    expect(body).not.toContain("/stores/blank-description");
+    expect(body).not.toContain("/stores/nothing");
+    expect(body).not.toContain("/stores/unknown-count");
+  });
+
   it("store and category shards contain URLs", async () => {
     listCoupons.mockResolvedValue(emptyPage);
     listStores.mockResolvedValue({
@@ -128,6 +165,7 @@ describe("sitemap shards (D1)", () => {
           id: "s1",
           name: "Example Store",
           slug: "example-store",
+          offer_count: 2,
           logo_url: null,
           website_url: null,
           description: null,

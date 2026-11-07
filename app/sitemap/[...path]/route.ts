@@ -9,6 +9,7 @@ import {
   BACKEND_MAX_LIMIT,
   type SitemapId,
 } from "@/lib/sitemap-groups";
+import { isIndexableStore } from "@/lib/store-indexing";
 import type { CouponPublic, EditorialContent } from "@/lib/types";
 import { editorialPath } from "@/lib/editorial-path";
 
@@ -102,11 +103,14 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       skip,
       SITEMAP_CHUNK_SIZE,
     );
-    return stores.map((store) => ({
-      url: `${SITE_URL}/stores/${store.slug}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    }));
+    // Only stores the page itself would index: see lib/store-indexing.ts.
+    return stores
+      .filter((store) => isIndexableStore(store.offer_count, store.description))
+      .map((store) => ({
+        url: `${SITE_URL}/stores/${store.slug}`,
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+      }));
   }
   if (kind === "sales") {
     const series = await api.listSales();

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { isIndexableStore } from "@/lib/store-indexing";
 import { faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
@@ -81,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // out of search results until it has something real, rather than offering Google thin pages.
   // `follow` stays on so its links still count. It reappears in the index once an offer or a
   // description exists (pages refresh every five minutes).
-  const thin = total === 0 && !store.description?.trim();
+  const thin = !isIndexableStore(total, store.description);
   return {
     title,
     description,
