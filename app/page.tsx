@@ -308,21 +308,22 @@ export default async function HomePage() {
             </section>
           )}
 
-          {topPicks.length > 0 && (
-            <section className="mt-10" aria-labelledby="top-picks-heading">
-              <SectionTitle hint="handpicked from live offers" icon={TrendingUp} action={{ href: "/deals", label: "Browse all deals" }}>
-                <span id="top-picks-heading">Today&apos;s top picks</span>
-              </SectionTitle>
-              <CouponCardGrid coupons={topPicks} stores={cardStores} variant="featured" className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" pageType="homepage" />
-            </section>
-          )}
-
           {stores.items.length > 0 && (
             <section className="section-panel mt-10 p-5 sm:p-6" aria-labelledby="stores-heading">
               <SectionTitle hint={`${stores.total} tracked`} icon={Store}>
                 <span id="stores-heading">Stores we track</span>
               </SectionTitle>
               <StoreScroller stores={stores.items.slice(0, 8)} />
+            </section>
+          )}
+
+
+          {topPicks.length > 0 && (
+            <section className="mt-10" aria-labelledby="top-picks-heading">
+              <SectionTitle hint="handpicked from live offers" icon={TrendingUp} action={{ href: "/deals", label: "Browse all deals" }}>
+                <span id="top-picks-heading">Today&apos;s top picks</span>
+              </SectionTitle>
+              <CouponCardGrid coupons={topPicks} stores={cardStores} variant="featured" className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" pageType="homepage" />
             </section>
           )}
 
