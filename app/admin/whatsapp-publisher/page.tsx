@@ -5,7 +5,7 @@ import { Copy, RefreshCw } from "lucide-react";
 import { api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
 
-function buildMessage(coupon: CouponPublic): string {
+function buildMessage(coupon: CouponPublic, title?: string): string {
   const discount =
     coupon.discount_type === "percentage" && coupon.discount_value != null
       ? `🏷️ Get ${coupon.discount_value}% OFF`
@@ -15,15 +15,16 @@ function buildMessage(coupon: CouponPublic): string {
   return [
     "🛍 Durza Verified Offer",
     "",
-    `🔥 ${coupon.title}`,
+    `🔥 ${title ?? coupon.title}`,
     "",
     discount,
-    coupon.code ? `🎟 Promo Code: ${coupon.code}` : "✨ Deal — no code needed",
+    coupon.code ? "🎟 Promo code available on Durza" : "✨ Deal — no code needed",
     "",
     "🛒 Claim Offer:",
     `https://durza.in/coupons/${coupon.slug}`,
     "",
     "Visit Durza for more details and exclusive deals.",
+    "Click the below link to claim offer.",
   ].join("\n");
 }
 
@@ -32,6 +33,7 @@ export default function WhatsAppPublisherPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [titles, setTitles] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -51,7 +53,7 @@ export default function WhatsAppPublisherPage() {
   }, [load]);
 
   async function copy(coupon: CouponPublic) {
-    await navigator.clipboard.writeText(buildMessage(coupon));
+    await navigator.clipboard.writeText(buildMessage(coupon, titles[coupon.id]));
     setCopiedId(coupon.id);
     window.setTimeout(() => setCopiedId(null), 2000);
   }
@@ -84,6 +86,13 @@ export default function WhatsAppPublisherPage() {
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <div>
                     <p className="font-medium">{coupon.title}</p>
+                    <input
+                      type="text"
+                      value={titles[coupon.id] ?? coupon.title}
+                      onChange={(e) => setTitles((prev) => ({ ...prev, [coupon.id]: e.target.value }))}
+                      className="mt-2 w-full rounded-lg border border-black/10 px-3 py-2 text-sm"
+                      placeholder="Edit WhatsApp title"
+                    />
                     <p className="text-xs text-gray-500">{coupon.slug}</p>
                   </div>
                   <button
@@ -95,7 +104,7 @@ export default function WhatsAppPublisherPage() {
                     {copiedId === coupon.id ? "Copied" : "Copy message"}
                   </button>
                 </div>
-                <pre className="whitespace-pre-wrap rounded-lg bg-gray-50 p-3 text-sm text-gray-800">{buildMessage(coupon)}</pre>
+                <pre className="whitespace-pre-wrap rounded-lg bg-gray-50 p-3 text-sm text-gray-800">{buildMessage(coupon, titles[coupon.id])}</pre>
               </div>
             ))}
           </div>
