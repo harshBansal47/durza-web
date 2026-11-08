@@ -203,10 +203,10 @@ export async function fetchAffiliateCampaigns(
   return response.data;
 }
 
-export async function sendTelegram(couponId: string): Promise<{ message_id: number }> {
+export async function sendTelegram(couponId: string, title?: string): Promise<{ message_id: number }> {
   const response = await clientHttp.post<{ message_id: number }>(
     clientAppUrl("/api/admin/telegram/send"),
-    { coupon_id: couponId },
+    { coupon_id: couponId, title },
     clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
   );
   return response.data;

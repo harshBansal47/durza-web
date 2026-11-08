@@ -6,9 +6,9 @@ import { api } from "@/lib/api";
 import { sendTelegram } from "@/lib/api/admin";
 import type { CouponPublic } from "@/lib/types";
 
-function buildMessage(coupon: CouponPublic): string {
+function buildMessage(coupon: CouponPublic, title?: string): string {
   return [
-    `🛍 ${coupon.title}`,
+    `🛍 ${title ?? coupon.title}`,
     coupon.code ? `🎟 Promo Code: ||${coupon.code}||` : "✨ Deal — no code needed",
     `🔗 Claim Offer: https://durza.in/coupons/${coupon.slug}`,
     "",
@@ -22,6 +22,7 @@ export default function TelegramPublisherPage() {
   const [error, setError] = useState<string | null>(null);
   const [sendingId, setSendingId] = useState<string | null>(null);
   const [sentIds, setSentIds] = useState<Set<string>>(new Set());
+  const [titles, setTitles] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -43,7 +44,7 @@ export default function TelegramPublisherPage() {
   async function send(coupon: CouponPublic) {
     setSendingId(coupon.id);
     try {
-      await sendTelegram(coupon.id);
+      await sendTelegram(coupon.id, titles[coupon.id] ?? coupon.title);
       setSentIds((prev) => new Set(prev).add(coupon.id));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Send failed.");
@@ -80,7 +81,14 @@ export default function TelegramPublisherPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <h2 className="font-semibold text-gray-900">{coupon.title}</h2>
-                    <pre className="mt-2 whitespace-pre-wrap rounded-lg bg-gray-50 p-3 text-xs text-gray-700">{buildMessage(coupon)}</pre>
+                    <input
+                      type="text"
+                      value={titles[coupon.id] ?? coupon.title}
+                      onChange={(e) => setTitles((prev) => ({ ...prev, [coupon.id]: e.target.value }))}
+                      className="mt-2 w-full rounded-lg border border-black/10 px-3 py-2 text-sm"
+                      placeholder="Edit Telegram title"
+                    />
+                    <pre className="mt-2 whitespace-pre-wrap rounded-lg bg-gray-50 p-3 text-xs text-gray-700">{buildMessage(coupon, titles[coupon.id])}</pre>
                   </div>
                   <button
                     type="button"
