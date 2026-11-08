@@ -39,6 +39,14 @@ export default async function AccountOverviewPage() {
       counts={{ "/account/saved": storeCount + couponCount }}
     >
       <h2 className="font-serif text-xl text-ink">Overview</h2>
+
+      {user.role === "admin" && (
+        <div className="mt-4">
+          <Link href="/admin" className="inline-flex items-center gap-2 rounded-full border border-ledger-line bg-paper-raised px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue">
+            Admin dashboard →
+          </Link>
+        </div>
+      )}
       <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-inkblue/20 bg-inkblue/5 px-3 py-1.5 text-sm font-medium text-inkblue">
         Smart shopper badge: savings estimate coming soon
       </div>
