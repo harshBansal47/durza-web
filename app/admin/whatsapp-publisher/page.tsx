@@ -18,7 +18,7 @@ function buildMessage(coupon: CouponPublic, title?: string): string {
     `🔥 ${title ?? coupon.title}`,
     "",
     discount,
-    coupon.code ? "🎟 Promo code available on Durza" : "✨ Deal — no code needed",
+    coupon.code ? `🎟 Promo Code: ${coupon.code.slice(0,6)}****` : "✨ Deal — no code needed",
     "",
     "🛒 Claim Offer:",
     `https://durza.in/coupons/${coupon.slug}`,
@@ -31,16 +31,19 @@ function buildMessage(coupon: CouponPublic, title?: string): string {
 export default function WhatsAppPublisherPage() {
   const [coupons, setCoupons] = useState<CouponPublic[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [titles, setTitles] = useState<Record<string, string>>({});
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (p: number = page) => {
     setLoading(true);
     setError(null);
     try {
-      const result = await api.listCoupons({ active_only: true, sort: "newest", limit: 20 });
+      const result = await api.listCoupons({ active_only: true, sort: "newest", limit: 20, skip: (p - 1) * 20 });
       setCoupons(result.items);
+      setTotal(result.total);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not load deals.");
     } finally {
@@ -49,7 +52,7 @@ export default function WhatsAppPublisherPage() {
   }, []);
 
   useEffect(() => {
-    void load();
+    void load(1);
   }, [load]);
 
   async function copy(coupon: CouponPublic) {
@@ -69,7 +72,7 @@ export default function WhatsAppPublisherPage() {
           </div>
           <button
             type="button"
-            onClick={() => void load()}
+            onClick={() => void load(page)}
             className="inline-flex h-10 items-center gap-2 rounded-lg border border-black/10 bg-white px-3 text-sm font-medium hover:bg-gray-50"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
@@ -109,6 +112,29 @@ export default function WhatsAppPublisherPage() {
             ))}
           </div>
         )}
+      {Math.ceil(total / 20) > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-2">
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => { const np = page - 1; setPage(np); void load(np); }}
+            className="rounded-lg border border-black/10 bg-white px-3 py-2 text-sm disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-600">
+            Page {page} of {Math.ceil(total / 20)}
+          </span>
+          <button
+            type="button"
+            disabled={page >= Math.ceil(total / 20)}
+            onClick={() => { const np = page + 1; setPage(np); void load(np); }}
+            className="rounded-lg border border-black/10 bg-white px-3 py-2 text-sm disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
       </div>
     </div>
   );
