@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Send, RefreshCw } from "lucide-react";
 import { api } from "@/lib/api";
+import { sendTelegram } from "@/lib/api/admin";
 import type { CouponPublic } from "@/lib/types";
 
 function buildMessage(coupon: CouponPublic): string {
@@ -42,7 +43,7 @@ export default function TelegramPublisherPage() {
   async function send(coupon: CouponPublic) {
     setSendingId(coupon.id);
     try {
-      await api.sendTelegram(coupon.id);
+      await sendTelegram(coupon.id);
       setSentIds((prev) => new Set(prev).add(coupon.id));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Send failed.");
