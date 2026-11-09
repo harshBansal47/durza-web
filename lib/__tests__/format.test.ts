@@ -71,7 +71,7 @@ describe("formatDiscount", () => {
 
   it("uses a neutral visual heading when no discount amount is available", () => {
     expect(formatDiscountHeading(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "Special Offer",
+      "Deal",
     );
   });
 });

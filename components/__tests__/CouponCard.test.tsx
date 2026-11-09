@@ -128,11 +128,11 @@ describe("CouponCard", () => {
   it("uses a clear heading when the coupon has no stated discount amount", () => {
     render(
       <CouponCard
-        coupon={makeCoupon({ discount_type: "deal", discount_value: null })}
+        coupon={makeCoupon({ title: "Special headphones offer", discount_type: "deal", discount_value: null })}
         store={store}
       />,
     );
-    expect(screen.getByText("Special Offer")).toBeInTheDocument();
+    expect(screen.getByText("Deal")).toBeInTheDocument();
   });
 
   it("clamps long offer titles and descriptions while keeping title text accessible", () => {

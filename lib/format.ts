@@ -45,7 +45,15 @@ export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
 /** A visual fallback for offer cards when the source supplies no amount. */
 export function formatDiscountHeading(coupon: CouponPublic, currency = "INR"): string {
   const discount = formatDiscount(coupon, currency);
-  return discount === "Deal" ? "Special Offer" : discount;
+  if (discount !== "Deal") return discount;
+  // Best-effort metric extraction from the title for deals that carry a
+  // discount in their wording but no structured discount value.
+  const title = coupon.title ?? "";
+  const pct = title.match(/(up to\s+)?(\d+(?:\.\d+)?)\s*%\s*off/i);
+  if (pct) return `${pct[1] ? "Up to " : ""}${pct[2]}% off`;
+  const flat = title.match(/flat\s*(?:₹|rs\.?\s*)([\d,]+)/i);
+  if (flat) return `Flat ₹${flat[1]} off`;
+  return "Deal";
 }
 
 /**
