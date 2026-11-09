@@ -146,7 +146,7 @@ export function CouponCard({
               </Link>
             </h3>
             {coupon.description && (
-              <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
+              <p className="mt-1 line-clamp-2 text-sm font-medium leading-5 text-ink">
                 {coupon.description}
               </p>
             )}
