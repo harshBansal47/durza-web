@@ -18,8 +18,21 @@ const store = (overrides: Partial<Store> = {}): Store =>
 
 const stats = { total: 0, verified: 0, avgRate: 0, totalReports: 0, latestCheck: null };
 
-function renderStore(s: Store, tabs = {}) {
-  return render(<StorePageClient store={s} tabs={tabs} stats={stats} relatedStores={[]} currency="INR" />);
+function renderStore(
+  s: Store,
+  tabs = {},
+  pagination = { page: 1, totalPages: 1 },
+) {
+  return render(
+    <StorePageClient
+      store={s}
+      tabs={tabs}
+      stats={stats}
+      relatedStores={[]}
+      currency="INR"
+      pagination={pagination}
+    />,
+  );
 }
 
 const goLinks = () =>
@@ -86,5 +99,17 @@ describe("a store with no offers", () => {
     renderStore(store({ website_url: null }));
     expect(screen.queryByRole("link", { name: /via durza/i })).toBeNull();
     expect(screen.getByRole("heading", { name: /no active offers/i })).toBeTruthy();
+  });
+
+  it("shows pagination immediately after the offers section", () => {
+    renderStore(store(), {}, { page: 2, totalPages: 5 });
+
+    const pagination = screen.getByRole("navigation", { name: "Pagination" });
+    const proof = screen.getByRole("heading", { name: "What backs these offers" });
+
+    expect(screen.getByText("Page 2 of 5")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Previous" }).getAttribute("href")).toBe("/stores/acer?page=1");
+    expect(screen.getByRole("link", { name: "Next" }).getAttribute("href")).toBe("/stores/acer?page=3");
+    expect(pagination.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

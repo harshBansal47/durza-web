@@ -1,6 +1,5 @@
 import { cache } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
 import { lookup, resilient } from "@/lib/api";
@@ -108,6 +107,7 @@ export default async function StorePage({ params, searchParams }: Props) {
     seen.add(offer.id);
     return true;
   });
+  const totalPages = Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE);
 
   // Sort orders are chosen to put evidence first, not popularity.
   const byBest = [...items].sort(
@@ -212,6 +212,7 @@ export default async function StorePage({ params, searchParams }: Props) {
           stats={{ total: destination.offer_total ?? items.length, verified: verifiedCount, avgRate, totalReports, latestCheck }}
           relatedStores={related}
           currency={store.currency}
+          pagination={{ page, totalPages }}
         />
         {store.pricing_summary && Object.keys(store.pricing_summary).length > 0 && (
           <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-6" aria-labelledby="pricing-heading">
@@ -231,24 +232,6 @@ export default async function StorePage({ params, searchParams }: Props) {
             </dl>
           </section>
         )}
-        {Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE) > 1 && (
-          <nav className="mt-8 flex items-center justify-center gap-2" aria-label="Pagination">
-            {page > 1 && (
-              <Link href={`/stores/${store.slug}?page=${page - 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
-                Previous
-              </Link>
-            )}
-            <span className="px-3 text-sm text-ink-soft">
-              Page {page} of {Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE)}
-            </span>
-            {page < Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE) && (
-              <Link href={`/stores/${store.slug}?page=${page + 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
-                Next
-              </Link>
-            )}
-          </nav>
-        )}
-
         {destination.related_content.length ? (
           <section className="mt-12" aria-label={`Buying content related to ${store.name}`}>
             <div className="mb-5">

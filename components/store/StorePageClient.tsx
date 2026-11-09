@@ -32,6 +32,7 @@ interface StorePageClientProps {
   relatedStores: Store[];
   /** ISO 4217 code; falls back to INR when the store has no currency set. */
   currency: string | null;
+  pagination: { page: number; totalPages: number };
 }
 
 function StoreMark({ store, size = 64 }: { store: Store; size?: number }) {
@@ -65,6 +66,7 @@ export default function StorePageClient({
   stats,
   relatedStores,
   currency,
+  pagination,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
   const website = parseHttpUrl(store.website_url);
@@ -282,6 +284,24 @@ export default function StorePageClient({
             </>
           )}
         </section>
+      )}
+
+      {pagination.totalPages > 1 && (
+        <nav className="flex items-center justify-center gap-2" aria-label="Pagination">
+          {pagination.page > 1 && (
+            <Link href={`/stores/${store.slug}?page=${pagination.page - 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+              Previous
+            </Link>
+          )}
+          <span className="px-3 text-sm text-ink-soft">
+            Page {pagination.page} of {pagination.totalPages}
+          </span>
+          {pagination.page < pagination.totalPages && (
+            <Link href={`/stores/${store.slug}?page=${pagination.page + 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+              Next
+            </Link>
+          )}
+        </nav>
       )}
 
       <SaveDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />
