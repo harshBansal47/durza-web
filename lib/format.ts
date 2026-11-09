@@ -39,7 +39,7 @@ export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
     const core = `${formatMoney(coupon.discount_value, currency)} off`;
     return variable ? `Up to ${core}` : core;
   }
-  return "Deal";
+  return "";
 }
 
 /** A visual fallback for offer cards when the source supplies no amount. */

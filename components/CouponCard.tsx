@@ -134,16 +134,18 @@ export function CouponCard({
         {/* Discount is the visual hero */}
         <div className="flex items-start justify-between gap-3 px-4 pt-2">
           <div className="min-w-0 flex-1">
-            <p
-              className={`savings-figure truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} font-extrabold`}
-              title={discountHeading}
-            >
-              {featured ? (
-                <span className="marker">{discountHeading}</span>
-              ) : (
-                discountHeading
-              )}
-            </p>
+            {discountHeading && (
+              <p
+                className={`savings-figure truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} font-extrabold`}
+                title={discountHeading}
+              >
+                {featured ? (
+                  <span className="marker">{discountHeading}</span>
+                ) : (
+                  discountHeading
+                )}
+              </p>
+            )}
             <div className="mt-0">
               {store ? <StoreLine store={store} /> : null}
             </div>

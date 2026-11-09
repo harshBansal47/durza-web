@@ -132,7 +132,7 @@ describe("CouponCard", () => {
         store={store}
       />,
     );
-    expect(screen.getByText("Deal")).toBeInTheDocument();
+    expect(screen.queryByText("Deal")).not.toBeInTheDocument();
   });
 
   it("clamps long offer titles and descriptions while keeping title text accessible", () => {

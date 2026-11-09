@@ -59,19 +59,19 @@ describe("formatDiscount", () => {
 
   it("falls back to 'Deal' for a deal with no discount_value", () => {
     expect(formatDiscount(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "Deal",
+      "",
     );
   });
 
   it("falls back to 'Deal' when discount_value is missing even for percentage/fixed", () => {
     expect(formatDiscount(makeCoupon({ discount_type: "percentage", discount_value: null }))).toBe(
-      "Deal",
+      "",
     );
   });
 
   it("uses a neutral visual heading when no discount amount is available", () => {
     expect(formatDiscountHeading(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "Deal",
+      "",
     );
   });
 });
