@@ -116,7 +116,8 @@ export function CouponCard({
      /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Finance" :
      /echo|fire tv|kindle|router|mouse|earbud|speaker|tv|laptop|phone/i.test(coupon.title) ? "Electronics" :
      /chair|bed sheet|towel|cookware|cleaner|battery|cable|chopper|bulb/i.test(coupon.title) ? "Home & Kitchen" :
-     /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" : null);
+     /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" :
+     "Amazon");
 
   const priceMatch = (coupon.title + " " + (coupon.description ?? "")).match(/(?:Flat\s*)?₹\s*([\d,]+)/i);
   const mrpMatch = (coupon.title + " " + (coupon.description ?? "")).match(/MRP\s*₹?\s*([\d,]+)/i);
