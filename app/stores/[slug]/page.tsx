@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const codeOffers = destination.coupons.length;
   const countedAll = listed >= total;
 
-  const title = `${store.name} Coupons & Promo Codes${total > 0 ? `: ${total} Live Offers` : ""}`;
+  const title = `${store.name} Coupons & Offers${total > 0 ? `: ${total} Live Offers` : ""} | Durza`;
 
   let description: string;
   if (total === 0) {

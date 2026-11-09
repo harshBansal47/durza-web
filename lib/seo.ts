@@ -77,7 +77,7 @@ export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Durza",
+    name: "Durza Coupons India",
     url: SITE_URL,
     logo: absoluteUrl("/logo.png"),
   };
@@ -91,9 +91,9 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Durza",
+    name: "Durza Coupons India",
     // Lets a search engine show the longer form of the name too.
-    alternateName: "Durza: Coupon & Deals",
+    alternateName: ["Durza", "Durza.in"],
     url: SITE_URL,
     potentialAction: {
       "@type": "SearchAction",

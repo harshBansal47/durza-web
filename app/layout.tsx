@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: "Durza",
+    siteName: "Durza Coupons India",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
