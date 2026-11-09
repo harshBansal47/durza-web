@@ -168,6 +168,7 @@ export interface CouponPublic {
   category_id: string;
   expires_at: string | null;
   is_active: boolean;
+  is_indexable?: boolean;
   views_count: number;
   clicks_count: number;
   success_count: number;

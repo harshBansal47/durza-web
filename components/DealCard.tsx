@@ -62,6 +62,7 @@ export default function DealCard({
                 alt=""
                 width={32}
                 height={32}
+                sizes="32px"
                 className="h-8 w-8 shrink-0 rounded-full border border-ledger-line bg-paper object-contain"
               />
             ) : (

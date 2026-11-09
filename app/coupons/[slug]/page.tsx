@@ -55,6 +55,7 @@
     const coupon = await loadCoupon(slug);
     // Explicit: a cached page does not get the automatic noindex a streamed 404 does.
     if (!coupon) return { robots: { index: false, follow: false } };
+    if (coupon.is_indexable === false) return { robots: { index: false, follow: true } };
 
     const store = await loadStore(coupon.store_id);
 
