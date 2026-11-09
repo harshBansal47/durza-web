@@ -110,6 +110,14 @@ export function CouponCard({
         ? "Free ship"
         : formatDiscountHeading(coupon, currency);
 
+  const inferredBadge =
+    badge ??
+    (/prime/i.test(coupon.title) ? "Prime" :
+     /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Finance" :
+     /echo|fire tv|kindle|router|mouse|earbud|speaker|tv|laptop|phone/i.test(coupon.title) ? "Electronics" :
+     /chair|bed sheet|towel|cookware|cleaner|battery|cable|chopper|bulb/i.test(coupon.title) ? "Home & Kitchen" :
+     /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" : null);
+
   return (
     <div className={`ticket-wrap h-full ${expired ? "opacity-70" : ""} ${className}`}>
       <CardImpressions couponId={coupon.id} merchantId={coupon.store_id} pageType={pageType} position={position} />
@@ -153,9 +161,9 @@ export function CouponCard({
           </div>
 
           <div className="relative z-10 flex min-h-5 flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-soft">
-            {badge && (
-              <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-white">
-                {badge}
+            {inferredBadge && (
+              <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">
+                {inferredBadge}
               </span>
             )}
             {!expired && reports > 0 && (
