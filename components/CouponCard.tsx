@@ -118,6 +118,11 @@ export function CouponCard({
      /chair|bed sheet|towel|cookware|cleaner|battery|cable|chopper|bulb/i.test(coupon.title) ? "Home & Kitchen" :
      /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" : null);
 
+  const priceMatch = (coupon.title + " " + (coupon.description ?? "")).match(/(?:Flat\s*)?₹\s*([\d,]+)/i);
+  const mrpMatch = (coupon.title + " " + (coupon.description ?? "")).match(/MRP\s*₹?\s*([\d,]+)/i);
+  const dealPrice = priceMatch ? priceMatch[1] : null;
+  const mrpPrice = mrpMatch && mrpMatch[1] !== dealPrice ? mrpMatch[1] : null;
+
   return (
     <div className={`ticket-wrap h-full ${expired ? "opacity-70" : ""} ${className}`}>
       <CardImpressions couponId={coupon.id} merchantId={coupon.store_id} pageType={pageType} position={position} />
@@ -153,8 +158,19 @@ export function CouponCard({
                 {coupon.title}
               </Link>
             </h3>
+            {dealPrice && (
+              <div className="mt-1 flex items-baseline gap-2">
+                <span className="text-lg font-extrabold text-ink">₹{dealPrice}</span>
+                {mrpPrice && <span className="text-sm text-ink-soft line-through">₹{mrpPrice}</span>}
+                {mrpPrice && dealPrice && (
+                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
+                    Save ₹{(parseInt(mrpPrice.replace(/,/g, ""), 10) - parseInt(dealPrice.replace(/,/g, ""), 10)).toLocaleString("en-IN")}
+                  </span>
+                )}
+              </div>
+            )}
             {coupon.description && (
-              <p className="mt-1 line-clamp-2 text-sm font-medium leading-5 text-ink">
+              <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
                 {coupon.description}
               </p>
             )}
