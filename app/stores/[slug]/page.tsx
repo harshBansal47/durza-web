@@ -149,7 +149,7 @@ export default async function StorePage({ params, searchParams }: Props) {
   const curated = destination.alternatives.filter(notThisStore);
   // The full store list is only the fallback for a store with no curated alternatives, so
   // it is only fetched then.
-  const allStores = curated.length > 0 ? null : await resilient.listStores({ limit: 100 });
+  const allStores = curated.length > 0 ? null : await resilient.listStores({ limit: 20 });
   const related = (
     curated.length > 0
       ? curated
