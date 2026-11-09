@@ -274,7 +274,10 @@ export function CouponCard({
             aria-disabled={expired}
             className={`btn relative z-10 w-full justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-cta"}`}
           >
-            {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "View code" : "Get deal")}
+            {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "View code" :
+              /free trial|trial/i.test(coupon.title) ? "Start Free Trial" :
+              /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Activate Offer" :
+              "Buy on Amazon")}
           </Link>
         </div>
       </article>
