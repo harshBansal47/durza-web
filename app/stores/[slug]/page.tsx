@@ -14,20 +14,13 @@ import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 300;
+// Pagination reads request-time searchParams, so the page itself cannot be ISR-cached.
+// The API reads remain cached independently by apiFetch.
 const PAGE_SIZE = 20;
-
-// Opts this dynamic route into on-demand static caching. Without a generateStaticParams export
-// Next renders it on every request and ignores `revalidate` for the page itself (the response
-// goes out `private, no-store`). Returning nothing keeps builds from needing the API: each store
-// is rendered on its first request, then served from cache and refreshed every 5 minutes.
-export function generateStaticParams() {
-  return [];
-}
 
 interface Props {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<Record<string, string | undefined>>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 /**
@@ -44,7 +37,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const destination = await loadStore(slug, 0).catch(() => null);
   // Same test the page uses to 404, so a store the page refuses to show is never indexable.
-  // Explicit because a cached page does not get the automatic noindex a streamed 404 does.
   if (!destination || !destination.store.is_active) {
     return { title: "Store not found", robots: { index: false, follow: false } };
   }
@@ -99,7 +91,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function StorePage({ params, searchParams }: Props) {
   const { slug } = await params;
   const sp = await searchParams;
-  const page = Math.max(1, Number(sp.page) || 1);
+  const pageParam = Array.isArray(sp.page) ? sp.page[0] : sp.page;
+  const requestedPage = Number(pageParam);
+  const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
   const skip = (page - 1) * PAGE_SIZE;
 
   const destination = await loadStore(slug, skip);
