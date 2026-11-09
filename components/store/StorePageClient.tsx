@@ -84,7 +84,7 @@ export default function StorePageClient({
           content: (
             <div className="grid gap-4 sm:grid-cols-2">
               {groupSimilar(tab.items)
-                .slice(0, 12)
+                .slice(0, 50)
                 .map((entry) =>
                   entry.kind === "group" ? (
                     <CouponGroupCard
