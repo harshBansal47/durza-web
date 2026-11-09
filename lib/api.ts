@@ -339,10 +339,15 @@ export const api = {
   getStoreBySlug: (slug: string) =>
     apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
-  getStoreDestination: (slug: string) =>
-    apiFetch<StoreDestination>(`/stores/by-slug/${encodeURIComponent(slug)}/destination`, {
+  getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => {
+    const qs = new URLSearchParams();
+    if (params?.skip) qs.set("skip", String(params.skip));
+    if (params?.limit) qs.set("limit", String(params.limit));
+    const q = qs.toString();
+    return apiFetch<StoreDestination>(`/stores/by-slug/${encodeURIComponent(slug)}/destination${q ? `?${q}` : ""}`, {
       revalidate: 300,
-    }),
+    });
+  },
 
 
   listEditorial: (
@@ -587,7 +592,7 @@ function orNotFound<T>(promise: Promise<T>): Promise<T | null> {
 }
 
 export const lookup = {
-  getStoreDestination: (slug: string) => orNotFound(api.getStoreDestination(slug)),
+  getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => orNotFound(api.getStoreDestination(slug, params)),
   getCategoryBySlug: (slug: string) => orNotFound(api.getCategoryBySlug(slug)),
   getProductBySlug: (slug: string) => orNotFound(api.getProductBySlug(slug)),
   getCouponBySlug: (slug: string) => orNotFound(api.getCouponBySlug(slug)),
@@ -601,7 +606,7 @@ export const resilient = {
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
     orEmpty(api.listAds(params)),
   getStoreBySlug: (slug: string) => orNull(api.getStoreBySlug(slug)),
-  getStoreDestination: (slug: string) => orNull(api.getStoreDestination(slug)),
+  getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => orNull(api.getStoreDestination(slug, params)),
   getStoreById: (storeId: string) => orNull(api.getStoreById(storeId)),
   listMarkets: () => orEmptyArray(api.listMarkets()),
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number } = {}) =>

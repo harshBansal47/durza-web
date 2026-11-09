@@ -1,5 +1,6 @@
 import { cache } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
 import { lookup, resilient } from "@/lib/api";
@@ -14,6 +15,7 @@ import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
+const PAGE_SIZE = 20;
 
 // Opts this dynamic route into on-demand static caching. Without a generateStaticParams export
 // Next renders it on every request and ignores `revalidate` for the page itself (the response
@@ -25,6 +27,7 @@ export function generateStaticParams() {
 
 interface Props {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string | undefined>>;
 }
 
 /**
@@ -35,11 +38,11 @@ interface Props {
  * the store and every live offer (with-code and code-less buckets, which together are
  * exhaustive) plus an exact total, so no separate store or coupon listing is needed.
  */
-const loadStore = cache((slug: string) => lookup.getStoreDestination(slug));
+const loadStore = cache((slug: string, skip: number = 0) => lookup.getStoreDestination(slug, { skip, limit: PAGE_SIZE }));
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const destination = await loadStore(slug).catch(() => null);
+  const destination = await loadStore(slug, 0).catch(() => null);
   // Same test the page uses to 404, so a store the page refuses to show is never indexable.
   // Explicit because a cached page does not get the automatic noindex a streamed 404 does.
   if (!destination || !destination.store.is_active) {
@@ -93,10 +96,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function StorePage({ params }: Props) {
+export default async function StorePage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const page = Math.max(1, Number(sp.page) || 1);
+  const skip = (page - 1) * PAGE_SIZE;
 
-  const destination = await loadStore(slug);
+  const destination = await loadStore(slug, skip);
   if (!destination || !destination.store.is_active) notFound();
   const store = destination.store;
 
@@ -231,6 +237,24 @@ export default async function StorePage({ params }: Props) {
             </dl>
           </section>
         )}
+        {Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE) > 1 && (
+          <nav className="mt-8 flex items-center justify-center gap-2" aria-label="Pagination">
+            {page > 1 && (
+              <Link href={`/stores/${store.slug}?page=${page - 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+                Previous
+              </Link>
+            )}
+            <span className="px-3 text-sm text-ink-soft">
+              Page {page} of {Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE)}
+            </span>
+            {page < Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE) && (
+              <Link href={`/stores/${store.slug}?page=${page + 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+                Next
+              </Link>
+            )}
+          </nav>
+        )}
+
         {destination.related_content.length ? (
           <section className="mt-12" aria-label={`Buying content related to ${store.name}`}>
             <div className="mb-5">

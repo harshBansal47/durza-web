@@ -21,7 +21,7 @@ const destination = (store: Record<string, unknown>, offers: number) => ({
 
 const meta = (dest: unknown) => {
   getStoreDestination.mockResolvedValue(dest);
-  return generateMetadata({ params: Promise.resolve({ slug: "acer" }) });
+  return generateMetadata({ params: Promise.resolve({ slug: "acer" }), searchParams: Promise.resolve({}) });
 };
 
 beforeEach(() => getStoreDestination.mockReset());
