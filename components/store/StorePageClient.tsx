@@ -107,7 +107,9 @@ export default function StorePageClient({
                         website_url: store.website_url,
                         currency: code,
                       }}
+                      layout="store"
                       variant={id === "expiring" ? "expiring-soon" : "coupon"}
+                      ctaLabel={entry.coupon.code ? "View code" : "View deal"}
                     />
                   ),
                 )}

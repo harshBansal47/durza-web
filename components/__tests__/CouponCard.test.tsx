@@ -63,6 +63,26 @@ describe("CouponCard", () => {
     expect(screen.getByRole("link", { name: /Amazon/ })).toHaveAttribute("href", "/stores/amazon");
   });
 
+  it("uses a wide store layout with only source-check data that exists", () => {
+    const { container } = render(
+      <CouponCard
+        coupon={makeCoupon({
+          last_checked_at: "2026-03-15T00:00:00Z",
+          restrictions: { checked_on: "2026-03-15" },
+        })}
+        store={store}
+        layout="store"
+        ctaLabel="View deal"
+      />,
+    );
+
+    expect(container.querySelector(".ticket-wrap")).toHaveClass("sm:col-span-2");
+    expect(container.querySelector("article")).toHaveClass("sm:flex-row");
+    expect(screen.getByText("✓ Checked 15 Mar 2026")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View deal" })).toBeInTheDocument();
+    expect(screen.queryByText(/reviews/i)).not.toBeInTheDocument();
+  });
+
   it("masks the code and points to the reveal on the offer page", () => {
     render(<CouponCard coupon={makeCoupon()} store={store} />);
     expect(screen.getByText("SAV•••")).toBeInTheDocument();

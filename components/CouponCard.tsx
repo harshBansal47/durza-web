@@ -33,6 +33,7 @@ interface CouponCardProps {
   coupon: CouponPublic;
   store?: CouponCardStore;
   variant?: CouponCardVariant;
+  layout?: "grid" | "store";
   price?: { previous: number; current: number; productName?: string; productSlug?: string; currency?: string };
   minOrderValue?: number;
   regions?: string[];
@@ -79,6 +80,7 @@ export function CouponCard({
   coupon,
   store,
   variant = "coupon",
+  layout = "grid",
   price,
   minOrderValue,
   regions,
@@ -101,6 +103,7 @@ export function CouponCard({
   const rate = successRateLabel(coupon);
   const reports = totalReports(coupon);
   const featured = resolved === "featured";
+  const storeLayout = layout === "store";
   const source = sourceLine(coupon);
   const requirement = cardRequirementLine(coupon);
   const discountHeading =
@@ -117,7 +120,7 @@ export function CouponCard({
      /echo|fire tv|kindle|router|mouse|earbud|speaker|tv|laptop|phone/i.test(coupon.title) ? "Electronics" :
      /chair|bed sheet|towel|cookware|cleaner|battery|cable|chopper|bulb/i.test(coupon.title) ? "Home & Kitchen" :
      /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" :
-     "Amazon");
+     store?.name ?? "Amazon");
 
   const priceMatch = (coupon.title + " " + (coupon.description ?? "")).match(/(?:Flat\s*)?₹\s*([\d,]+)/i);
   const mrpMatch = (coupon.title + " " + (coupon.description ?? "")).match(/MRP\s*₹?\s*([\d,]+)/i);
@@ -125,19 +128,31 @@ export function CouponCard({
   const mrpPrice = mrpMatch && mrpMatch[1] !== dealPrice ? mrpMatch[1] : null;
 
   return (
-    <div className={`ticket-wrap h-full ${expired ? "opacity-70" : ""} ${className}`}>
+    <div className={`ticket-wrap h-full ${storeLayout ? "sm:col-span-2" : ""} ${expired ? "opacity-70" : ""} ${className}`}>
       <CardImpressions couponId={coupon.id} merchantId={coupon.store_id} pageType={pageType} position={position} />
       <article
-        className={`ticket flex h-full flex-col overflow-hidden rounded-xl border bg-paper-raised shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+        className={`ticket flex h-full flex-col overflow-hidden border bg-paper-raised shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+          storeLayout ? "rounded-2xl sm:flex-row" : "rounded-xl"
+        } ${
           resolved === "expiring-soon" && !expired ? "border-rust/40" : "border-ledger-line"
         } ${featured ? "ring-1 ring-accent-soft" : ""}`}
       >
         {/* Discount is the visual hero */}
-        <div className="flex items-start justify-between gap-3 px-4 pt-2">
+        <div
+          className={`flex items-start justify-between gap-3 px-4 pt-2 ${
+            storeLayout
+              ? "sm:w-48 sm:shrink-0 sm:flex-col sm:gap-4 sm:border-r sm:border-ledger-line sm:bg-paper-alt sm:p-4"
+              : ""
+          }`}
+        >
           <div className="min-w-0 flex-1">
             {discountHeading && (
               <p
-                className={`savings-figure truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} font-extrabold`}
+                className={`savings-figure ${
+                  storeLayout
+                    ? "line-clamp-2 text-lg sm:text-2xl"
+                    : `truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"}`
+                } font-extrabold`}
                 title={discountHeading}
               >
                 {featured ? (
@@ -151,10 +166,16 @@ export function CouponCard({
               {store ? <StoreLine store={store} /> : null}
             </div>
           </div>
-          <CardSaveButton couponId={coupon.id} />
+          <div className={storeLayout ? "sm:self-end" : ""}>
+            <CardSaveButton couponId={coupon.id} />
+          </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-1.5 px-4 pb-2 pt-1.5">
+        <div
+          className={`flex flex-1 flex-col gap-1.5 px-4 pb-2 pt-1.5 ${
+            storeLayout ? "gap-3 pb-4 pt-3 sm:justify-center sm:px-6 sm:py-5" : ""
+          }`}
+        >
           <div className="min-w-0">
             <h3 className="line-clamp-2 min-h-[2.25rem] font-sans text-[15px] font-semibold leading-[1.125rem] text-ink" title={coupon.title}>
               <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
@@ -199,10 +220,14 @@ export function CouponCard({
               <>
                 {source.checkedDate ? (
                   <span
-                    className="font-mono text-[11px] text-ink-soft"
+                    className={
+                      storeLayout
+                        ? "inline-flex items-center rounded-full bg-green-100 px-2.5 py-1 text-[11px] font-medium text-green-800"
+                        : "font-mono text-[11px] text-ink-soft"
+                    }
                     title={source.text}
                   >
-                    Checked {source.checkedDate}
+                    {storeLayout ? "✓ " : ""}Checked {source.checkedDate}
                   </span>
                 ) : (
                   <span className="truncate">{source.text}</span>
