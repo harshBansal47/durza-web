@@ -144,6 +144,16 @@ export default function StorePageClient({
         className="dark-surface relative overflow-hidden rounded-[26px] bg-[var(--color-navy)] text-white shadow-[var(--shadow-overlay)]"
         style={{ backgroundImage: "linear-gradient(120deg, var(--color-navy), var(--color-navy-deep))" }}
       >
+        {store.hero_image_url && (
+          <Image
+            src={store.hero_image_url}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 1200px"
+            className="object-cover opacity-30"
+            priority
+          />
+        )}
         {/* The store's own accent colour, sampled from its icon — decorative only. */}
         {accent && (
           <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: accent }} />

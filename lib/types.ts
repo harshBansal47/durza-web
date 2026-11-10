@@ -54,6 +54,7 @@ export interface Store {
   /** Live offers right now. Present on store listings; absent elsewhere. */
   offer_count?: number | null;
   logo_url: string | null;
+  hero_image_url?: string | null;
   website_url: string | null;
   description: string | null;
   pricing_summary: Record<string, unknown> | null;
