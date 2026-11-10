@@ -16,6 +16,7 @@ import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic, Store } from "@/lib/types";
+import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 
 interface StorePageClientProps {
   store: Store;
@@ -33,6 +34,8 @@ interface StorePageClientProps {
   /** ISO 4217 code; falls back to INR when the store has no currency set. */
   currency: string | null;
   pagination: { page: number; totalPages: number };
+  productCollections?: StoreProductCollection[];
+  productCategoriesLoadFailed?: boolean;
 }
 
 function StoreMark({ store, size = 64 }: { store: Store; size?: number }) {
@@ -67,6 +70,8 @@ export default function StorePageClient({
   relatedStores,
   currency,
   pagination,
+  productCollections = [],
+  productCategoriesLoadFailed = false,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
   const website = parseHttpUrl(store.website_url);
@@ -176,13 +181,11 @@ export default function StorePageClient({
           </div>
 
           <div className="min-w-0 flex-1">
-            {/* The H1 names what the page is for. "Acer" alone says nothing about coupons; the
-                query people type is "<store> coupon code", and this is the strongest on-page
-                signal for it. Built from the store's own name, so it holds for every store. */}
-            <PageTitle className="text-white">{store.name} Coupon Codes &amp; Offers</PageTitle>
+            {/* Name the merchant and both shopping paths in the page's primary heading. */}
+            <PageTitle className="text-white">{store.name} Products, Coupons &amp; Offers</PageTitle>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
-                {stats.total} listed offers
+                {stats.total} coupon offers
               </span>
               {stats.latestCheck && (
                 <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
@@ -229,74 +232,92 @@ export default function StorePageClient({
             >
               {copied ? "Link copied" : "Share"}
             </button>
+            {website && (
+              <p className="max-w-52 text-xs leading-relaxed text-white/75 sm:text-right">
+                We may earn a commission when you shop via Durza links. It never changes the price
+                you pay.{" "}
+                <Link href="/affiliate-disclosure" className="underline underline-offset-2">
+                  How we make money
+                </Link>
+              </p>
+            )}
           </div>
         </div>
       </header>
 
       <section className="rounded-lg border border-ledger-line bg-paper-alt px-4 py-2.5 text-sm">
         <p className="text-ink-soft">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Shop with confidence! All our offers are personally checked and verified from our side to avail working discount.</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Coupon codes and deals are checked against the store&apos;s source pages; each offer shows its latest check date.</span>
          
           {/* {store.commission_disclosure ?? DEFAULT_DISCLOSURE} */}
         </p>
       </section>
 
-      {visibleTabs.length > 0 ? (
-        <>
-          {/* Keeps the h1 → h2 → h3 order intact for every code card below. */}
-          <h2 className="sr-only">Offers from {store.name}</h2>
-          {tabs.best && tabs.best.items.length > 0 && (
-            <Link
-              href={`/coupons/${tabs.best.items[0].slug}`}
-              className="lift mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-sun bg-sun-soft px-5 py-4"
-              aria-label={`Best current offer: ${tabs.best.items[0].title}`}
-            >
-              <span className="font-mono text-[11px] uppercase tracking-widest text-ink-soft">
-                {hasVotes ? "Best right now" : "Top offer"}
-              </span>
-              <span className="savings-figure text-2xl">{formatDiscount(tabs.best.items[0], code)}</span>
-              <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">
-                {tabs.best.items[0].title}
-              </span>
-              <span className="btn btn-cta shrink-0">
-              View offer
-            </span>
-            </Link>
-          )}
-          <ClientTabs tabs={visibleTabs} />
-        </>
-      ) : (
-        <section
-          aria-labelledby="no-offers"
-          className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-5 py-10 text-center"
-        >
-          <h2 id="no-offers" className="font-serif text-xl font-extrabold text-ink">
-            No active offers for {store.name} right now
-          </h2>
-          <p className="mx-auto mt-2 max-w-prose text-ink-soft">
-            We only list what we can source from the store&apos;s own pages, so this page stays
-            empty rather than showing dead offers. If a code appears, it will show up here with the
-            date we last checked it.
-          </p>
-          {website && (
-            <>
-              <p className="mx-auto mt-3 max-w-prose text-ink-soft">
-                You can still go to {store.name} through Durza. We have no discount to promise, so
-                compare the price before you buy.
-              </p>
-              <a
-                href={storeGoHref(store.slug, "store-page")}
-                target="_blank"
-                rel={GO_REL}
-                className="btn btn-cta mt-4 inline-block"
+      <Storefront
+        store={store}
+        collections={productCollections}
+        categoriesLoadFailed={productCategoriesLoadFailed}
+      />
+
+      <section aria-labelledby="store-coupons-heading">
+        <h2 id="store-coupons-heading" className="mb-5 font-serif text-2xl font-extrabold text-ink">
+          Coupons &amp; promotional offers
+        </h2>
+        {visibleTabs.length > 0 ? (
+          <>
+            {/* Keeps the h1 → h2 → h3 order intact for every code card below. */}
+            <h2 className="sr-only">Offers from {store.name}</h2>
+            {tabs.best && tabs.best.items.length > 0 && (
+              <Link
+                href={`/coupons/${tabs.best.items[0].slug}`}
+                className="lift mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-sun bg-sun-soft px-5 py-4"
+                aria-label={`Best current offer: ${tabs.best.items[0].title}`}
               >
-                Shop {store.name} via Durza
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </>
-          )}
-        </section>
-      )}
+                <span className="font-mono text-[11px] uppercase tracking-widest text-ink-soft">
+                  {hasVotes ? "Best right now" : "Top offer"}
+                </span>
+                <span className="savings-figure text-2xl">{formatDiscount(tabs.best.items[0], code)}</span>
+                <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">
+                  {tabs.best.items[0].title}
+                </span>
+                <span className="btn btn-cta shrink-0">View offer</span>
+              </Link>
+            )}
+            <ClientTabs tabs={visibleTabs} />
+          </>
+        ) : (
+          <section
+            aria-labelledby="no-offers"
+            className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-5 py-10 text-center"
+          >
+            <h2 id="no-offers" className="font-serif text-xl font-extrabold text-ink">
+              No active offers for {store.name} right now
+            </h2>
+            <p className="mx-auto mt-2 max-w-prose text-ink-soft">
+              We only list what we can source from the store&apos;s own pages, so this page stays
+              empty rather than showing dead offers. If a code appears, it will show up here with the
+              date we last checked it.
+            </p>
+            {website && (
+              <>
+                <p className="mx-auto mt-3 max-w-prose text-ink-soft">
+                  You can still go to {store.name} through Durza. We have no discount to promise, so
+                  compare the price before you buy.
+                </p>
+                <a
+                  href={storeGoHref(store.slug, "store-page")}
+                  target="_blank"
+                  rel={GO_REL}
+                  className="btn btn-cta mt-4 inline-block"
+                >
+                  Shop {store.name} via Durza
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </>
+            )}
+          </section>
+        )}
+      </section>
 
       {pagination.totalPages > 1 && (
         <nav className="flex items-center justify-center gap-2" aria-label="Pagination">

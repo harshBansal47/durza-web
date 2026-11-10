@@ -224,6 +224,13 @@ export interface Product {
   effective_price: number | null;
 }
 
+export interface ProductCategory {
+  id: string;
+  name: string;
+  slug: string;
+  product_count: number;
+}
+
 export interface PricePoint {
   id: string;
   product_id: string;

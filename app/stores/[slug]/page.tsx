@@ -2,7 +2,7 @@ import { cache } from "react";
 import type { Metadata } from "next";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
-import { lookup, resilient } from "@/lib/api";
+import { api, lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { isIndexableStore } from "@/lib/store-indexing";
@@ -12,6 +12,7 @@ import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import JsonLd from "@/components/JsonLd";
+import type { StoreProductCollection } from "@/components/store/Storefront";
 
 // Pagination reads request-time searchParams, so the page itself cannot be ISR-cached.
 // The API reads remain cached independently by apiFetch.
@@ -31,6 +32,39 @@ interface Props {
  * exhaustive) plus an exact total, so no separate store or coupon listing is needed.
  */
 const loadStore = cache((slug: string, skip: number = 0) => lookup.getStoreDestination(slug, { skip, limit: PAGE_SIZE }));
+
+async function loadProductCollections(storeId: string): Promise<{
+  collections: StoreProductCollection[];
+  categoriesLoadFailed: boolean;
+}> {
+  let categories;
+  try {
+    categories = await api.listProductCategories(storeId);
+  } catch (error) {
+    console.error(`Unable to load product categories for store ${storeId}`, error);
+    return { collections: [], categoriesLoadFailed: true };
+  }
+
+  const collections = await Promise.all(
+    categories.map(async (category): Promise<StoreProductCollection> => {
+      try {
+        const result = await api.listProducts({
+          store_id: storeId,
+          category_id: category.id,
+          limit: 8,
+        });
+        return {
+          category: { ...category, product_count: result.total },
+          products: result.items,
+        };
+      } catch (error) {
+        console.error(`Unable to load products for category ${category.id}`, error);
+        return { category, products: [], initialLoadFailed: true };
+      }
+    }),
+  );
+  return { collections, categoriesLoadFailed: false };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -98,6 +132,7 @@ export default async function StorePage({ params, searchParams }: Props) {
   const destination = await loadStore(slug, skip);
   if (!destination || !destination.store.is_active) notFound();
   const store = destination.store;
+  const storefront = await loadProductCollections(store.id);
 
   // Every live offer, once. The two buckets split on `code IS NULL`, so they are disjoint and
   // exhaustive (a test on the API pins that); the id filter is a guard, not a repair.
@@ -203,7 +238,10 @@ export default async function StorePage({ params, searchParams }: Props) {
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <Breadcrumbs items={crumbs} />
         <StorePageClient
+          key={store.id}
           store={store}
+          productCollections={storefront.collections}
+          productCategoriesLoadFailed={storefront.categoriesLoadFailed}
           tabs={{
             best: { label: totalReports > 0 ? "Best confirmed" : "Top offers", items: byBest },
             latest: { label: "Recently added", items: byLatest },

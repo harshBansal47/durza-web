@@ -15,6 +15,7 @@ import type {
   AdPosition,
   PricePoint,
   Product,
+  ProductCategory,
   SavedItem,
   Store,
   StoreDestination,
@@ -382,6 +383,9 @@ export const api = {
     apiFetch<Category>(`/categories/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
   getPageBySlug: (slug: string) => apiFetch<CmsPage>(`/pages/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+
+  listProductCategories: (store_id: string) =>
+    apiFetch<ProductCategory[]>(`/products/categories${qs({ store_id })}`, { revalidate: 300 }),
 
   listProducts: (
     params: { search?: string; store_id?: string; category_id?: string; skip?: number; limit?: number } = {},
