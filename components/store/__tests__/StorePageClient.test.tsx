@@ -21,13 +21,19 @@ const stats = { total: 0, verified: 0, avgRate: 0, totalReports: 0, latestCheck:
 function renderStore(
   s: Store,
   tabs = {},
-  pagination = { page: 1, totalPages: 1 },
+  pagination: {
+    page: number;
+    totalPages: number;
+    rangeStart?: number;
+    rangeEnd?: number;
+  } = { page: 1, totalPages: 1 },
+  pageStats = stats,
 ) {
   return render(
     <StorePageClient
       store={s}
       tabs={tabs}
-      stats={stats}
+      stats={pageStats}
       relatedStores={[]}
       currency="INR"
       pagination={pagination}
@@ -111,5 +117,23 @@ describe("a store with no offers", () => {
     expect(screen.getByRole("link", { name: "Previous" }).getAttribute("href")).toBe("/stores/acer?page=1");
     expect(screen.getByRole("link", { name: "Next" }).getAttribute("href")).toBe("/stores/acer?page=3");
     expect(pagination.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("shows the current range and a compact page window for a 1,000-offer store", () => {
+    renderStore(
+      store(),
+      {},
+      { page: 25, totalPages: 50, rangeStart: 481, rangeEnd: 500 },
+      { total: 1000, verified: 0, avgRate: 0, totalReports: 0, latestCheck: null },
+    );
+
+    expect(screen.getByText("Showing 481–500 of 1000 offers")).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Pagination" }).textContent).toContain("Page 25 of 50");
+    expect(screen.getByRole("link", { name: "Page 1" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Page 24" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Page 25" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Page 26" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Page 50" })).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "Page 2" })).toBeNull();
   });
 });

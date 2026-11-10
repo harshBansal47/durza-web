@@ -64,6 +64,7 @@ export default function Storefront({
 }: StorefrontProps) {
   const [collections, setCollections] = useState(initialCollections);
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const [loading, setLoading] = useState<Record<string, boolean>>({});
   const [loadErrors, setLoadErrors] = useState<Record<string, boolean>>({});
 
@@ -88,6 +89,7 @@ export default function Storefront({
       .sort((a, b) => (b.product.last_price_drop_pct ?? 0) - (a.product.last_price_drop_pct ?? 0))
       .slice(0, 4);
   }, [collections]);
+  const categoryTiles = showAllCategories ? collections : collections.slice(0, 8);
 
   async function loadMore(collection: StoreProductCollection) {
     const { category } = collection;
@@ -181,10 +183,20 @@ export default function Storefront({
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {collections.map((collection) => (
+              {categoryTiles.map((collection) => (
                 <CategoryTile key={collection.category.id} collection={collection} />
               ))}
             </div>
+            {collections.length > 8 && (
+              <button
+                type="button"
+                aria-expanded={showAllCategories}
+                onClick={() => setShowAllCategories((shown) => !shown)}
+                className="mt-4 min-h-11 rounded-full px-3 text-sm font-semibold text-inkblue underline-offset-4 hover:underline"
+              >
+                {showAllCategories ? "Show fewer categories" : `View all ${collections.length} categories`}
+              </button>
+            )}
           </section>
 
           {featured.length > 0 && (

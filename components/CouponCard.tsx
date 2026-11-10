@@ -33,7 +33,7 @@ interface CouponCardProps {
   coupon: CouponPublic;
   store?: CouponCardStore;
   variant?: CouponCardVariant;
-  layout?: "grid" | "store";
+  layout?: "grid" | "store" | "store-grid";
   price?: { previous: number; current: number; productName?: string; productSlug?: string; currency?: string };
   minOrderValue?: number;
   regions?: string[];
@@ -104,6 +104,7 @@ export function CouponCard({
   const reports = totalReports(coupon);
   const featured = resolved === "featured";
   const storeLayout = layout === "store";
+  const storeGridLayout = layout === "store-grid";
   const source = sourceLine(coupon);
   const requirement = cardRequirementLine(coupon);
   const productImage = typeof (coupon.restrictions as any)?.image_url === "string" ? (coupon.restrictions as any).image_url : null;
@@ -173,7 +174,7 @@ export function CouponCard({
               </p>
             )}
             <div className="mt-0">
-              {store ? <StoreLine store={store} /> : null}
+              {store && !storeGridLayout ? <StoreLine store={store} /> : null}
             </div>
           </div>
           <div className={storeLayout ? "sm:self-end" : ""}>
@@ -187,8 +188,8 @@ export function CouponCard({
           }`}
         >
           {productImage && (
-            <div className="mb-2 overflow-hidden rounded-lg">
-              <Image src={productImage} alt={coupon.title} width={400} height={200} className="h-32 w-full object-contain bg-paper" />
+            <div className={`mb-2 overflow-hidden rounded-lg ${storeGridLayout ? "h-24" : ""}`}>
+              <Image src={productImage} alt={coupon.title} width={400} height={200} className={`${storeGridLayout ? "h-full" : "h-32"} w-full bg-paper object-contain`} />
             </div>
           )}
           <div className="min-w-0">

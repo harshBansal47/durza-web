@@ -33,7 +33,12 @@ interface StorePageClientProps {
   relatedStores: Store[];
   /** ISO 4217 code; falls back to INR when the store has no currency set. */
   currency: string | null;
-  pagination: { page: number; totalPages: number };
+  pagination: {
+    page: number;
+    totalPages: number;
+    rangeStart?: number;
+    rangeEnd?: number;
+  };
   productCollections?: StoreProductCollection[];
   productCategoriesLoadFailed?: boolean;
 }
@@ -78,6 +83,13 @@ export default function StorePageClient({
   const websiteHost = hostnameOf(store.website_url);
   const hasVotes = stats.totalReports > 0;
   const accent = storeAccent(store.slug);
+  const productCount = productCollections.reduce(
+    (total, collection) => total + collection.category.product_count,
+    0,
+  );
+  const pageNumbers = [...new Set([1, pagination.page - 1, pagination.page, pagination.page + 1, pagination.totalPages])]
+    .filter((page) => page >= 1 && page <= pagination.totalPages)
+    .sort((a, b) => a - b);
 
   // A tab with nothing in it is noise — only offer tabs that have coupons.
   const visibleTabs = useMemo(
@@ -87,9 +99,8 @@ export default function StorePageClient({
         .map(([id, tab]) => ({
           id,
           label: tab.label,
-          count: tab.items.length,
           content: (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {groupSimilar(tab.items)
                 .slice(0, 100)
                 .map((entry) =>
@@ -112,7 +123,7 @@ export default function StorePageClient({
                         website_url: store.website_url,
                         currency: code,
                       }}
-                      layout="store"
+                      layout="store-grid"
                       variant={id === "expiring" ? "expiring-soon" : "coupon"}
                       ctaLabel={entry.coupon.code ? "View code" : "View deal"}
                     />
@@ -187,6 +198,11 @@ export default function StorePageClient({
               <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                 {stats.total} coupon offers
               </span>
+              {productCount > 0 && (
+                <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
+                  {productCount} products · {productCollections.length} categories
+                </span>
+              )}
               {stats.latestCheck && (
                 <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
                   Last checked <time dateTime={stats.latestCheck}>{formatDate(stats.latestCheck)}</time>
@@ -260,9 +276,23 @@ export default function StorePageClient({
       />
 
       <section aria-labelledby="store-coupons-heading">
-        <h2 id="store-coupons-heading" className="mb-5 font-serif text-2xl font-extrabold text-ink">
-          Coupons &amp; promotional offers
-        </h2>
+        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Save on your order</p>
+            <h2 id="store-coupons-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">
+              Coupons &amp; promotional offers
+            </h2>
+          </div>
+          <p className="text-sm text-ink-soft">
+            {stats.total} {stats.total === 1 ? "offer" : "offers"}
+          </p>
+        </div>
+        {stats.total > 0 && (
+          <p className="mb-3 text-xs text-ink-soft" aria-live="polite">
+            Showing {pagination.rangeStart ?? (pagination.page - 1) * 20 + 1}–
+            {pagination.rangeEnd ?? Math.min(pagination.page * 20, stats.total)} of {stats.total} offers
+          </p>
+        )}
         {visibleTabs.length > 0 ? (
           <>
             {/* Keeps the h1 → h2 → h3 order intact for every code card below. */}
@@ -320,20 +350,51 @@ export default function StorePageClient({
       </section>
 
       {pagination.totalPages > 1 && (
-        <nav className="flex items-center justify-center gap-2" aria-label="Pagination">
+        <nav
+          className="flex flex-wrap items-center justify-center gap-1.5"
+          aria-label="Pagination"
+        >
           {pagination.page > 1 && (
-            <Link href={`/stores/${store.slug}?page=${pagination.page - 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+            <Link
+              href={`/stores/${store.slug}?page=${pagination.page - 1}`}
+              className="flex min-h-11 items-center rounded-full border border-ledger-line px-4 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue"
+            >
               Previous
             </Link>
           )}
-          <span className="px-3 text-sm text-ink-soft">
-            Page {pagination.page} of {pagination.totalPages}
-          </span>
+          {pageNumbers.map((page, index) => {
+            const previous = pageNumbers[index - 1];
+            return (
+              <span key={page} className="contents">
+                {previous !== undefined && page - previous > 1 && (
+                  <span aria-hidden="true" className="px-1 text-ink-soft">…</span>
+                )}
+                <Link
+                  href={`/stores/${store.slug}?page=${page}`}
+                  aria-label={`Page ${page}`}
+                  aria-current={page === pagination.page ? "page" : undefined}
+                  className={`flex min-h-11 min-w-11 items-center justify-center rounded-full border px-3 text-sm font-medium ${
+                    page === pagination.page
+                      ? "border-ink bg-ink text-white"
+                      : "border-ledger-line text-ink-soft hover:border-inkblue hover:text-inkblue"
+                  }`}
+                >
+                  {page}
+                </Link>
+              </span>
+            );
+          })}
           {pagination.page < pagination.totalPages && (
-            <Link href={`/stores/${store.slug}?page=${pagination.page + 1}`} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+            <Link
+              href={`/stores/${store.slug}?page=${pagination.page + 1}`}
+              className="flex min-h-11 items-center rounded-full border border-ledger-line px-4 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue"
+            >
               Next
             </Link>
           )}
+          <span className="sr-only">
+            Page {pagination.page} of {pagination.totalPages}
+          </span>
         </nav>
       )}
 

@@ -250,7 +250,12 @@ export default async function StorePage({ params, searchParams }: Props) {
           stats={{ total: destination.offer_total ?? items.length, verified: verifiedCount, avgRate, totalReports, latestCheck }}
           relatedStores={related}
           currency={store.currency}
-          pagination={{ page, totalPages }}
+          pagination={{
+            page,
+            totalPages,
+            rangeStart: items.length > 0 ? skip + 1 : 0,
+            rangeEnd: skip + items.length,
+          }}
         />
         {store.pricing_summary && Object.keys(store.pricing_summary).length > 0 && (
           <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-6" aria-labelledby="pricing-heading">
