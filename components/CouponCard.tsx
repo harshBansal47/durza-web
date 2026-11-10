@@ -114,14 +114,16 @@ export function CouponCard({
         ? "Free ship"
         : formatDiscountHeading(coupon, currency);
 
+  const restrictionBadge = typeof (coupon.restrictions as any)?.badge === "string" ? (coupon.restrictions as any).badge : null;
   const inferredBadge =
     badge ??
+    restrictionBadge ??
     (/prime/i.test(coupon.title) ? "Prime" :
      /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Finance" :
      /echo|fire tv|kindle|router|mouse|earbud|speaker|tv|laptop|phone/i.test(coupon.title) ? "Electronics" :
      /chair|bed sheet|towel|cookware|cleaner|battery|cable|chopper|bulb/i.test(coupon.title) ? "Home & Kitchen" :
      /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" :
-     store?.name ?? "Amazon");
+     /sneaker|boot|running|loafer|sandal|formal|backpack/i.test(coupon.title) ? "Footwear & Bags" : null);
 
   const priceMatch = (coupon.title + " " + (coupon.description ?? "")).match(/(?:Flat\s*)?₹\s*([\d,]+)/i);
   const mrpMatch = (coupon.title + " " + (coupon.description ?? "")).match(/MRP\s*₹?\s*([\d,]+)/i);
