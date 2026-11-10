@@ -15,7 +15,7 @@ export default function FirstCryStorePage() {
           <h1 className="text-3xl font-bold">FirstCry Coupons & Offers</h1>
           <p className="mt-2 text-sm opacity-90">Verified deals on baby products, gear, and more.</p>
           <div className="mt-4 flex gap-3">
-            <Link href="/stores/firstcry/go" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
+            <Link href="https://track.vcommission.com/click?campaign_id=10081&pub_id=133499&sub1=store_hub&url=https://www.firstcry.com" target="_blank" rel="nofollow sponsored noopener" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
               Go to store
             </Link>
           </div>

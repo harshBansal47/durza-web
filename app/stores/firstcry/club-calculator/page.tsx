@@ -32,7 +32,7 @@ export default function ClubCalculatorPage() {
           {net > 0 ? `You save ₹${net.toLocaleString("en-IN")} net.` : "Not worth it yet."}
         </p>
         {net > 0 && (
-          <a href="https://www.firstcry.com/club?tag=durza" target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+          <a href="https://track.vcommission.com/click?campaign_id=10081&pub_id=133499&sub1=club_calc&url=https://www.firstcry.com/club" target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
             Join FirstCry Club
           </a>
         )}
