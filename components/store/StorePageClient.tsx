@@ -300,17 +300,17 @@ export default function StorePageClient({
             {tabs.best && tabs.best.items.length > 0 && (
               <Link
                 href={`/coupons/${tabs.best.items[0].slug}`}
-                className="lift mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-sun bg-sun-soft px-5 py-4"
+                className="lift mb-6 flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl border border-ledger-line bg-white px-5 py-4 shadow-sm"
                 aria-label={`Best current offer: ${tabs.best.items[0].title}`}
               >
-                <span className="font-mono text-[11px] uppercase tracking-widest text-ink-soft">
+                <span className="rounded-full bg-orange-50 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-orange-800">
                   {hasVotes ? "Best right now" : "Top offer"}
                 </span>
-                <span className="savings-figure text-2xl">{formatDiscount(tabs.best.items[0], code)}</span>
-                <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">
+                <span className="savings-figure text-2xl font-extrabold text-orange-700">{formatDiscount(tabs.best.items[0], code)}</span>
+                <span className="min-w-0 flex-1 text-sm font-semibold text-ink sm:truncate">
                   {tabs.best.items[0].title}
                 </span>
-                <span className="btn btn-cta shrink-0">View offer</span>
+                <span className="btn btn-cta shrink-0">View offer <span aria-hidden="true">→</span></span>
               </Link>
             )}
             <ClientTabs tabs={visibleTabs} />

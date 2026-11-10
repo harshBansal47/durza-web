@@ -168,9 +168,24 @@ export default function Storefront({
           Product categories couldn&apos;t be loaded right now. Please refresh the page to try again.
         </p>
       ) : collections.length === 0 ? (
-        <p role="status" className="rounded-2xl border border-ledger-line bg-paper-alt p-5 text-sm text-ink-soft">
-          No products are listed for {store.name} yet. The store&apos;s offers are available below.
-        </p>
+        <div
+          role="status"
+          className="rounded-2xl border border-ledger-line bg-paper-alt p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"
+        >
+          <div>
+            <p className="font-semibold text-ink">The product collection is not available yet.</p>
+            <p className="mt-1 text-sm text-ink-soft">
+              {store.name}&apos;s products haven&apos;t been synced into Durza. Its coupons and offers are available
+              below.
+            </p>
+          </div>
+          <a
+            href="/admin/ingestion"
+            className="mt-4 inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-white px-4 text-sm font-semibold text-ink transition-colors hover:border-inkblue hover:text-inkblue sm:mt-0"
+          >
+            Open product sync controls
+          </a>
+        </div>
       ) : (
         <>
           <section aria-labelledby="shop-categories-heading">

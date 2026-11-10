@@ -139,22 +139,43 @@ export function CouponCard({
   const mrpPrice = mrpMatch && mrpMatch[1] !== extractedDealPrice ? mrpMatch[1] : null;
 
   return (
-    <div className={`ticket-wrap h-full ${storeLayout ? "sm:col-span-2" : ""} ${expired ? "opacity-70" : ""} ${className}`}>
+    <div
+      className={`${storeGridLayout ? "h-full" : "ticket-wrap h-full"} ${storeLayout ? "sm:col-span-2" : ""} ${expired ? "opacity-70" : ""} ${className}`}
+    >
       <CardImpressions couponId={coupon.id} merchantId={coupon.store_id} pageType={pageType} position={position} />
       <article
-        className={`ticket flex h-full flex-col overflow-hidden border bg-paper-raised shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
-          storeLayout ? "rounded-2xl sm:flex-row" : "rounded-xl"
-        } ${
-          resolved === "expiring-soon" && !expired ? "border-rust/40" : "border-ledger-line"
-        } ${featured ? "ring-1 ring-accent-soft" : ""}`}
+        className={
+          storeGridLayout
+            ? `relative h-full overflow-hidden rounded-2xl border bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
+                productImage
+                  ? "grid grid-cols-[7rem_minmax(0,1fr)] sm:grid-cols-[10rem_minmax(0,1fr)]"
+                  : "flex flex-col"
+              } ${resolved === "expiring-soon" && !expired ? "border-rust/40" : "border-ledger-line"}`
+            : `ticket flex h-full flex-col overflow-hidden border bg-paper-raised shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                storeLayout ? "rounded-2xl sm:flex-row" : "rounded-xl"
+              } ${
+                resolved === "expiring-soon" && !expired ? "border-rust/40" : "border-ledger-line"
+              } ${featured ? "ring-1 ring-accent-soft" : ""}`
+        }
       >
+        {storeGridLayout && productImage ? (
+          <div className="relative row-span-2 min-h-48 overflow-hidden border-r border-ledger-line bg-paper-alt sm:min-h-56">
+            <Image
+              src={productImage}
+              alt=""
+              fill
+              sizes="(max-width: 639px) 112px, 160px"
+              className="object-contain p-2"
+            />
+          </div>
+        ) : null}
         {/* Discount is the visual hero */}
         <div
           className={`flex items-start justify-between gap-3 px-4 pt-2 ${
             storeLayout
               ? "sm:w-48 sm:shrink-0 sm:flex-col sm:gap-4 sm:border-r sm:border-ledger-line sm:bg-paper-alt sm:p-4"
               : ""
-          }`}
+          } ${storeGridLayout && productImage ? "col-start-2 row-start-1 px-3 pt-3 sm:px-4" : ""}`}
         >
           <div className="min-w-0 flex-1">
             {discountHeading && (
@@ -162,7 +183,9 @@ export function CouponCard({
                 className={`savings-figure ${
                   storeLayout
                     ? "line-clamp-2 text-lg sm:text-2xl"
-                    : `truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"}`
+                    : storeGridLayout
+                      ? "line-clamp-2 text-xl text-orange-700"
+                      : `truncate ${featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"}`
                 } font-extrabold`}
                 title={discountHeading}
               >
@@ -177,7 +200,7 @@ export function CouponCard({
               {store && !storeGridLayout ? <StoreLine store={store} /> : null}
             </div>
           </div>
-          <div className={storeLayout ? "sm:self-end" : ""}>
+          <div className={storeLayout ? "sm:self-end" : storeGridLayout ? "relative z-20" : ""}>
             <CardSaveButton couponId={coupon.id} />
           </div>
         </div>
@@ -185,11 +208,17 @@ export function CouponCard({
         <div
           className={`flex flex-1 flex-col gap-1.5 px-4 pb-2 pt-1.5 ${
             storeLayout ? "gap-3 pb-4 pt-3 sm:justify-center sm:px-6 sm:py-5" : ""
-          }`}
+          } ${storeGridLayout ? `gap-2 ${productImage ? "col-start-2 row-start-2" : ""} px-3 pb-3 pt-1 sm:px-4 sm:pb-4` : ""}`}
         >
-          {productImage && (
-            <div className={`mb-2 overflow-hidden rounded-lg ${storeGridLayout ? "h-24" : ""}`}>
-              <Image src={productImage} alt={coupon.title} width={400} height={200} className={`${storeGridLayout ? "h-full" : "h-32"} w-full bg-paper object-contain`} />
+          {productImage && !storeGridLayout && (
+            <div className="mb-2 overflow-hidden rounded-lg">
+              <Image
+                src={productImage}
+                alt={coupon.title}
+                width={400}
+                height={200}
+                className="h-32 w-full bg-paper object-contain"
+              />
             </div>
           )}
           <div className="min-w-0">

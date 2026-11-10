@@ -83,6 +83,30 @@ describe("CouponCard", () => {
     expect(screen.queryByText(/reviews/i)).not.toBeInTheDocument();
   });
 
+  it("uses a portrait-image-first layout for product offers on store pages", () => {
+    const { container } = render(
+      <CouponCard
+        coupon={makeCoupon({
+          restrictions: {
+            image_url: "https://cdn.example.com/product.jpg",
+            deal_price: "₹1,499",
+            original_mrp: "₹3,499",
+          },
+        })}
+        layout="store-grid"
+      />,
+    );
+
+    expect(container.querySelector("article")).toHaveClass(
+      "grid-cols-[7rem_minmax(0,1fr)]",
+      "sm:grid-cols-[10rem_minmax(0,1fr)]",
+    );
+    expect(container.querySelector("img")).toHaveClass("object-contain");
+    expect(screen.getByText("₹1,499")).toBeInTheDocument();
+    expect(screen.getByText("₹3,499")).toHaveClass("line-through");
+    expect(container.querySelector(".ticket")).toBeNull();
+  });
+
   it("masks the code and points to the reveal on the offer page", () => {
     render(<CouponCard coupon={makeCoupon()} store={store} />);
     expect(screen.getByText("SAV•••")).toBeInTheDocument();
