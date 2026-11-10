@@ -7,9 +7,12 @@ import { EmptyState, MetricCard, Panel } from "@/components/admin/DashboardCards
 import {
   fetchIngestionOverview,
   fetchIngestionRuns,
+  fetchShopifyProductSyncStatus,
   triggerIngestion,
+  triggerShopifyProductSync,
   type IngestionOverview,
   type IngestionRun,
+  type ShopifyProductSyncStatus,
 } from "@/lib/api/admin";
 
 const POLL_MS = 4000;
@@ -50,21 +53,25 @@ function RunBadge({ status }: { status: string | null }) {
 export default function AdminIngestionDashboard() {
   const [overview, setOverview] = useState<IngestionOverview | null>(null);
   const [runs, setRuns] = useState<IngestionRun[]>([]);
+  const [shopifyStatus, setShopifyStatus] = useState<ShopifyProductSyncStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState<string | null>(null);
+  const [syncingShopify, setSyncingShopify] = useState(false);
   const [awaiting, setAwaiting] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
 
   const load = useCallback(async (signal?: AbortSignal) => {
     try {
-      const [nextOverview, nextRuns] = await Promise.all([
+      const [nextOverview, nextRuns, nextShopifyStatus] = await Promise.all([
         fetchIngestionOverview(signal),
         fetchIngestionRuns(20, signal),
+        fetchShopifyProductSyncStatus(signal),
       ]);
       setOverview(nextOverview);
       setRuns(nextRuns);
+      setShopifyStatus(nextShopifyStatus);
       setError(null);
     } catch (cause) {
       if (signal?.aborted) return;
@@ -86,7 +93,8 @@ export default function AdminIngestionDashboard() {
   }, [load]);
 
   const anyRunning = Boolean(overview?.sources.some((s) => s.latest_run_status === "running"));
-  const polling = awaiting || anyRunning;
+  const shopifyRunning = shopifyStatus?.last_run_status === "running";
+  const polling = awaiting || anyRunning || shopifyRunning;
 
   useEffect(() => {
     if (!polling) return;
@@ -113,6 +121,22 @@ export default function AdminIngestionDashboard() {
       setActionError(cause instanceof Error ? cause.message : "Could not start ingestion.");
     } finally {
       setStarting(null);
+    }
+  };
+
+  const syncShopify = async () => {
+    setNotice(null);
+    setActionError(null);
+    setSyncingShopify(true);
+    try {
+      const result = await triggerShopifyProductSync();
+      setNotice(result.detail);
+      await load();
+    } catch (cause) {
+      setActionError(cause instanceof Error ? cause.message : "Could not sync Shopify products.");
+      await load();
+    } finally {
+      setSyncingShopify(false);
     }
   };
 
@@ -159,6 +183,20 @@ export default function AdminIngestionDashboard() {
                 {starting === "all" ? "Starting…" : "Ingest all enabled"}
               </button>
             ) : null}
+            {isAdmin ? (
+              <button
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-gray-900 px-4 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
+                disabled={syncingShopify || shopifyRunning}
+                onClick={() => void syncShopify()}
+                type="button"
+              >
+                <RefreshCw
+                  aria-hidden="true"
+                  className={`h-4 w-4 ${syncingShopify || shopifyRunning ? "animate-spin" : ""}`}
+                />
+                {syncingShopify || shopifyRunning ? "Syncing Shopify…" : "Sync Shopify products"}
+              </button>
+            ) : null}
           </div>
         </header>
 
@@ -202,6 +240,51 @@ export default function AdminIngestionDashboard() {
 
         {overview && scheduler ? (
           <div aria-busy={loading}>
+            {shopifyStatus ? (
+              <section aria-label="Shopify product sync" className="mb-8">
+                <Panel
+                  title="Shopify product sync"
+                  detail="Import the configured store’s Shopify catalog into Durza’s tracked product catalog."
+                >
+                  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <MetricCard
+                      title="Automatic sync"
+                      value={shopifyStatus.scheduled ? `Every ${shopifyStatus.interval_hours}h` : "Manual only"}
+                      detail={
+                        shopifyStatus.scheduled
+                          ? "Configured by the server scheduler."
+                          : shopifyStatus.scheduler_enabled
+                            ? "Shopify sync is excluded by the server job allowlist."
+                            : "The server scheduler is disabled."
+                      }
+                    />
+                    <MetricCard
+                      title="Latest result"
+                      value={shopifyStatus.last_run_status ?? "No runs"}
+                      detail={formatWhen(shopifyStatus.last_run_started_at)}
+                    />
+                    <MetricCard
+                      title="Latest run duration"
+                      value={formatDuration(shopifyStatus.last_run_duration_ms)}
+                      detail={
+                        shopifyStatus.last_run_finished_at
+                          ? `Finished ${formatWhen(shopifyStatus.last_run_finished_at)}`
+                          : "No completed run"
+                      }
+                    />
+                    <div className="sm:col-span-2 xl:col-span-1">
+                      <p className="text-sm font-medium text-gray-700">Run details</p>
+                      <p className="mt-1 break-words text-sm text-gray-500">
+                        {shopifyStatus.last_run_detail ?? "No Shopify sync has run yet."}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-xs text-gray-500">
+                    This button runs an immediate sync. Recurring sync is controlled by deployment settings.
+                  </p>
+                </Panel>
+              </section>
+            ) : null}
             <section aria-label="Scheduling" className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               <MetricCard
                 title="Scheduled ingestion"
