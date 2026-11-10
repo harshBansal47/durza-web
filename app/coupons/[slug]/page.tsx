@@ -28,6 +28,8 @@
   import JsonLd from "@/components/JsonLd";
   import { GO_REL, storeGoHref } from "@/lib/go";
   import { parseHttpUrl } from "@/lib/url";
+  import { htmlToText } from "@/lib/htmlText";
+  import { getCouponDealDetails } from "@/lib/couponDealDetails";
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
 
@@ -100,6 +102,7 @@
     const store = await loadStore(coupon.store_id);
 
     const storeLogo = storeLogoUrl(store);
+    const description = htmlToText(coupon.description);
 
     // schema.org structured data
     const rating = aggregateRatingJsonLd(coupon.success_count, coupon.fail_count);
@@ -107,7 +110,7 @@
       "@context": "https://schema.org",
       "@type": "Offer",
       name: coupon.title,
-      description: coupon.description ?? undefined,
+      description: description || undefined,
       url: absoluteUrl(`/coupons/${coupon.slug}`),
       availability: coupon.is_active ? "https://schema.org/InStock" : "https://schema.org/Discontinued",
       ...(coupon.expires_at ? { validThrough: coupon.expires_at } : {}),
@@ -136,6 +139,7 @@
     const requirements = requirementLabels(coupon);
     const source = sourceLine(coupon);
     const fullTerms = getRequirements(coupon).terms;
+    const dealDetails = getCouponDealDetails(coupon.restrictions);
 
     return (
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
@@ -237,6 +241,75 @@
           <VerificationHistorySection couponId={coupon.id} />
         </Suspense>
 
+        {dealDetails && (
+          <section className="mb-8 overflow-hidden rounded-[22px] border border-ledger-line bg-white shadow-[var(--shadow-hairline)]">
+            <div className="flex flex-col sm:flex-row">
+              {dealDetails.imageUrl && (
+                <div className="relative aspect-[3/4] w-full shrink-0 bg-paper-alt sm:aspect-auto sm:min-h-[280px] sm:w-2/5">
+                  <Image
+                    src={dealDetails.imageUrl}
+                    alt={dealDetails.title ?? coupon.title}
+                    fill
+                    sizes="(max-width: 639px) 100vw, 40vw"
+                    className="object-contain p-4"
+                  />
+                </div>
+              )}
+              <div className="flex min-w-0 flex-1 flex-col justify-center p-5 sm:p-7">
+                <div className="flex flex-wrap gap-2">
+                  {dealDetails.badge && (
+                    <span className="rounded-full bg-paper-alt px-3 py-1 text-xs font-semibold text-ink">
+                      {dealDetails.badge}
+                    </span>
+                  )}
+                  {dealDetails.discount && (
+                    <span className="rounded-full bg-rust-soft px-3 py-1 text-xs font-bold text-rust">
+                      {dealDetails.discount}
+                    </span>
+                  )}
+                </div>
+                <h2 className="mt-3 font-serif text-xl font-bold text-ink">
+                  {dealDetails.title ?? coupon.title}
+                </h2>
+                {dealDetails.category && (
+                  <p className="mt-1 text-sm text-ink-soft">{dealDetails.category}</p>
+                )}
+                {(dealDetails.dealPrice || dealDetails.originalPrice || dealDetails.savings) && (
+                  <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    {dealDetails.dealPrice && (
+                      <span className="font-mono text-2xl font-bold text-ink">
+                        {dealDetails.dealPrice}
+                      </span>
+                    )}
+                    {dealDetails.originalPrice && (
+                      <span className="font-mono text-sm text-ink-soft line-through">
+                        {dealDetails.originalPrice}
+                      </span>
+                    )}
+                    {dealDetails.savings && (
+                      <span className="text-sm font-semibold text-verified-ink">
+                        {dealDetails.savings}
+                      </span>
+                    )}
+                  </div>
+                )}
+                {(dealDetails.rating || dealDetails.reviewCount) && (
+                  <p className="mt-3 text-sm text-ink-soft">
+                    {dealDetails.rating && <span>★ {dealDetails.rating}</span>}
+                    {dealDetails.rating && dealDetails.reviewCount && " · "}
+                    {dealDetails.reviewCount && `${dealDetails.reviewCount} reviews`}
+                  </p>
+                )}
+                {dealDetails.checkedDate && (
+                  <p className="mt-3 text-xs text-ink-soft">
+                    Last checked {dealDetails.checkedDate}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* How to get it / Requirements — the store's own stated conditions,
             never a blanket "applies at checkout". */}
         <section className="mb-8">
@@ -286,11 +359,11 @@
         </section>
 
         {/* Description / Restrictions */}
-        {coupon.description && (
+        {description && (
           <section className="mb-8">
             <h2 className="font-serif text-2xl font-extrabold text-ink mb-3">Details & Restrictions</h2>
             <div className="prose prose-ink max-w-none text-sm text-ink-soft leading-relaxed">
-              {coupon.description.split("\n").map((para, i) => (
+              {description.split("\n").map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
             </div>

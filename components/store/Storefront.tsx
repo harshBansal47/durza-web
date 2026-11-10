@@ -207,7 +207,7 @@ export default function Storefront({
                   Trending deals
                 </h3>
               </div>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 2xl:grid-cols-4">
                 {featured.map(({ product, categoryName }) => (
                   <ProductCard key={product.id} product={product} categoryName={categoryName} />
                 ))}
@@ -253,7 +253,7 @@ export default function Storefront({
                   </div>
 
                   {products.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 2xl:grid-cols-4">
                       {(isExpanded ? products : products.slice(0, INITIAL_PRODUCTS_PER_CATEGORY)).map(
                         (product) => (
                           <ProductCard key={product.id} product={product} categoryName={category.name} />

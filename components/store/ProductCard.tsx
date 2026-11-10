@@ -53,17 +53,17 @@ export default function ProductCard({
   const badge = presentation?.promotionalBadge?.trim() || (hasPriceDrop ? "Price drop" : null);
 
   return (
-    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white shadow-[var(--shadow-hairline)] transition-shadow duration-200 hover:shadow-[var(--shadow-raised)]">
-      <div className="relative block aspect-square overflow-hidden bg-paper-alt">
+    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white shadow-[var(--shadow-hairline)] transition-shadow duration-200 hover:shadow-[var(--shadow-raised)] sm:flex-row">
+      <div className="relative aspect-[3/4] overflow-hidden bg-paper-alt sm:aspect-auto sm:min-h-[240px] sm:w-[34%] sm:shrink-0">
         {product.image_url && !imageFailed ? (
           <Image
             src={product.image_url}
             alt={product.name}
             fill
-            sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
+            sizes="(max-width: 639px) 50vw, (max-width: 1023px) 34vw, 12vw"
             loading="lazy"
             onError={() => setImageFailed(true)}
-            className="object-contain p-3 transition-transform duration-200 group-hover:scale-[1.03]"
+            className="object-contain p-2 transition-transform duration-200 group-hover:scale-[1.03] sm:p-3"
           />
         ) : (
           <span className="flex h-full flex-col items-center justify-center gap-2 text-ink-soft">
@@ -83,7 +83,7 @@ export default function ProductCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-3 sm:p-4">
+      <div className="flex min-w-0 flex-1 flex-col p-3 sm:p-4">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-soft">{categoryName}</p>
         <h3 className="mt-1 line-clamp-2 min-h-[2.75rem] text-sm font-medium leading-5 text-ink">
           {product.name}

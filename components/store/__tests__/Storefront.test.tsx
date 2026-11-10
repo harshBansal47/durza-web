@@ -107,7 +107,15 @@ describe("store product storefront", () => {
     expect(container.querySelector('[aria-label="Example Shop product categories"]')?.className).toContain(
       "overflow-x-auto",
     );
-    expect(container.querySelector(".grid-cols-2.sm\\:grid-cols-3.lg\\:grid-cols-4")).toBeTruthy();
+    const productGrid = Array.from(container.querySelectorAll("div")).find(
+      (element) =>
+        element.classList.contains("grid-cols-2") &&
+        element.classList.contains("lg:grid-cols-3") &&
+        element.classList.contains("2xl:grid-cols-4"),
+    );
+    expect(productGrid).toBeTruthy();
+    expect(container.querySelector("article")?.className).toContain("sm:flex-row");
+    expect(container.querySelector("article > div")?.classList.contains("aspect-[3/4]")).toBe(true);
   });
 
   it("keeps configured category order and renders empty categories without fabricated products", () => {

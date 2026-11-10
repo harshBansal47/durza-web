@@ -1,5 +1,6 @@
 import type { CouponPublic } from "./types";
 import { formatDate } from "./format";
+import { htmlToText } from "./htmlText";
 
 /**
  * Per-offer requirements extracted from what the store itself stated.
@@ -55,7 +56,8 @@ export interface OfferRequirements {
 }
 
 function text(value: unknown): string | null {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
+  if (typeof value !== "string") return null;
+  return htmlToText(value) || null;
 }
 
 function detect<T extends { label: string; pattern: RegExp }>(rules: T[], haystack: string): string[] {
