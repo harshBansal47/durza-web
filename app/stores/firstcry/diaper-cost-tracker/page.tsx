@@ -52,7 +52,7 @@ export default function DiaperCostTrackerPage() {
           </tbody>
         </table>
       </div>
-      <a href="https://www.firstcry.com/diapers?tag=durza" target="_blank" rel="noopener sponsored" className="inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+      <a href="https://www.firstcry.com/diapers?tag=durza" target="_blank" rel="nofollow sponsored noopener" className="inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
         Buy Bulk Pack on FirstCry
       </a>
     </div>
