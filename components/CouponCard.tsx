@@ -106,6 +106,7 @@ export function CouponCard({
   const storeLayout = layout === "store";
   const source = sourceLine(coupon);
   const requirement = cardRequirementLine(coupon);
+  const productImage = typeof (coupon.restrictions as any)?.image_url === "string" ? (coupon.restrictions as any).image_url : null;
   const discountHeading =
     resolved === "price-drop"
       ? "Price ↓"
@@ -176,6 +177,11 @@ export function CouponCard({
             storeLayout ? "gap-3 pb-4 pt-3 sm:justify-center sm:px-6 sm:py-5" : ""
           }`}
         >
+          {productImage && (
+            <div className="mb-2 overflow-hidden rounded-lg">
+              <Image src={productImage} alt={coupon.title} width={400} height={200} className="h-32 w-full object-cover" />
+            </div>
+          )}
           <div className="min-w-0">
             <h3 className="line-clamp-2 min-h-[2.25rem] font-sans text-[15px] font-semibold leading-[1.125rem] text-ink" title={coupon.title}>
               <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
