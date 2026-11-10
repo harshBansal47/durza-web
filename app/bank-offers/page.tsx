@@ -435,16 +435,6 @@ export default async function BankOffersPage() {
                 ))}
               </dl>
             </section>
-
-            <p className="mt-10 border-t border-ledger-line pt-5 text-xs leading-5 text-ink-soft">
-              Bank offers are set by the banks and stores, not by Durza, and can change or end at
-              any time. We may earn a commission when you shop through links on this page; it does
-              not change the price you pay. See our{" "}
-              <Link href="/affiliate-disclosure" className="text-inkblue underline underline-offset-2">
-                affiliate disclosure
-              </Link>
-              .
-            </p>
           </div>
         </section>
       </div>

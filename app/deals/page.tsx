@@ -288,10 +288,6 @@ export default async function DealsPage({
           </Link>
         </p>
       </FilterLayout>
-      <p className="mt-6 text-center text-xs text-ink-soft">
-        We may earn a commission when you shop through links on this page. It
-        does not change the price you pay.
-      </p>
     </div>
   );
 }

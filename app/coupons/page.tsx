@@ -24,10 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const offers = await resilient.listCoupons({ active_only: true, limit: 1 });
   const total = offers.total;
   const title = total > 0 ? `Coupons & Promo Codes: ${total} Live Offers` : "Coupons & Promo Codes";
-  const description =
-    total > 0
-      ? `Browse ${total} live coupon codes and deals on Durza — each offer shows the store page it came from and when it was last checked.`
-      : "Coupon codes and deals, each sourced from the store's own page with the date it was last checked.";
+  const description =""
   const canonical = absoluteUrl("/coupons");
   return {
     title,

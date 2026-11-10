@@ -248,15 +248,6 @@ export default function StorePageClient({
             >
               {copied ? "Link copied" : "Share"}
             </button>
-            {website && (
-              <p className="max-w-52 text-xs leading-relaxed text-white/75 sm:text-right">
-                We may earn a commission when you shop via Durza links. It never changes the price
-                you pay.{" "}
-                <Link href="/affiliate-disclosure" className="underline underline-offset-2">
-                  How we make money
-                </Link>
-              </p>
-            )}
           </div>
         </div>
       </header>
