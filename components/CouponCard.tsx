@@ -107,6 +107,13 @@ export function CouponCard({
   const source = sourceLine(coupon);
   const requirement = cardRequirementLine(coupon);
   const productImage = typeof (coupon.restrictions as any)?.image_url === "string" ? (coupon.restrictions as any).image_url : null;
+  const r = (coupon.restrictions as any) ?? {};
+  const dealPrice = typeof r.deal_price === "string" ? r.deal_price : null;
+  const originalMrp = typeof r.original_mrp === "string" ? r.original_mrp : null;
+  const savings = typeof r.savings === "string" ? r.savings : null;
+  const rating = typeof r.rating === "string" ? r.rating : null;
+  const reviewsCount = typeof r.reviews_count === "string" ? r.reviews_count : null;
+  const ctaText = typeof r.cta_text === "string" ? r.cta_text : null;
   const discountHeading =
     resolved === "price-drop"
       ? "Price ↓"
@@ -127,8 +134,8 @@ export function CouponCard({
 
   const priceMatch = (coupon.title + " " + (coupon.description ?? "")).match(/(?:Flat\s*)?₹\s*([\d,]+)/i);
   const mrpMatch = (coupon.title + " " + (coupon.description ?? "")).match(/MRP\s*₹?\s*([\d,]+)/i);
-  const dealPrice = priceMatch ? priceMatch[1] : null;
-  const mrpPrice = mrpMatch && mrpMatch[1] !== dealPrice ? mrpMatch[1] : null;
+  const extractedDealPrice = priceMatch ? priceMatch[1] : null;
+  const mrpPrice = mrpMatch && mrpMatch[1] !== extractedDealPrice ? mrpMatch[1] : null;
 
   return (
     <div className={`ticket-wrap h-full ${storeLayout ? "sm:col-span-2" : ""} ${expired ? "opacity-70" : ""} ${className}`}>
@@ -192,19 +199,18 @@ export function CouponCard({
             </h3>
             {dealPrice && (
               <div className="mt-1 flex items-baseline gap-2">
-                <span className="text-lg font-extrabold text-ink">₹{dealPrice}</span>
-                {mrpPrice && <span className="text-sm text-ink-soft line-through">₹{mrpPrice}</span>}
-                {mrpPrice && dealPrice && (
-                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
-                    Save ₹{(parseInt(mrpPrice.replace(/,/g, ""), 10) - parseInt(dealPrice.replace(/,/g, ""), 10)).toLocaleString("en-IN")}
-                  </span>
-                )}
+                <span className="text-lg font-extrabold text-ink">{dealPrice}</span>
+                {originalMrp && <span className="text-sm text-ink-soft line-through">{originalMrp}</span>}
+                {savings && <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">{savings}</span>}
               </div>
             )}
             {coupon.description && (
               <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
                 {coupon.description}
               </p>
+            )}
+            {rating && (
+              <p className="mt-1 text-xs text-ink-soft">★ {rating} {reviewsCount ? `(${reviewsCount} reviews)` : ""}</p>
             )}
           </div>
 
@@ -326,7 +332,7 @@ export function CouponCard({
             aria-disabled={expired}
             className={`btn relative z-10 w-full justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-cta"}`}
           >
-            {ctaLabel ?? (expired ? "No longer valid" : coupon.code ? "View code" :
+            {ctaLabel ?? ctaText ?? (expired ? "No longer valid" : coupon.code ? "View code" :
               /free trial|trial/i.test(coupon.title) ? "Start Free Trial" :
               /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Activate Offer" :
               "Buy on Amazon")}
