@@ -188,7 +188,7 @@ export function CouponCard({
         >
           {productImage && (
             <div className="mb-2 overflow-hidden rounded-lg">
-              <Image src={productImage} alt={coupon.title} width={400} height={200} className="h-32 w-full object-cover" />
+              <Image src={productImage} alt={coupon.title} width={400} height={200} className="h-32 w-full object-contain bg-paper" />
             </div>
           )}
           <div className="min-w-0">
