@@ -29,23 +29,25 @@ export default function StoreCard({ store }: { store: Store }) {
       {accent && (
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1" style={{ backgroundColor: accent }} />
       )}
-      {logo ? (
+      <span className="relative flex h-12 w-12 shrink-0 items-center justify-center">
+        <span
+          aria-hidden="true"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-base text-ink-soft"
+        >
+          {storeInitials(store.name)}
+        </span>
+        {logo ? (
         <Image
           src={logo}
           alt=""
           width={48}
           height={48}
-          className="h-12 w-12 shrink-0 rounded-full border border-ledger-line bg-white object-contain"
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          className="absolute inset-0 h-12 w-12 rounded-full border border-ledger-line bg-white object-contain"
           style={accent ? { boxShadow: `0 0 0 3px ${accent}26` } : undefined}
         />
-      ) : (
-        <span
-          aria-hidden="true"
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-base text-ink-soft"
-        >
-          {storeInitials(store.name)}
-        </span>
-      )}
+      ) : null}
+      </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[15px] font-semibold text-ink">{store.name}</span>
         <span className="block truncate text-xs text-ink-soft">
