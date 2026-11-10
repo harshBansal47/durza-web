@@ -150,7 +150,7 @@ export default function StorePageClient({
             alt=""
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
-            className="object-cover opacity-30"
+            className="object-contain object-center opacity-25"
             priority
           />
         )}
