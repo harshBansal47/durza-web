@@ -111,12 +111,10 @@ describe("a store with no offers", () => {
     renderStore(store(), {}, { page: 2, totalPages: 5 });
 
     const pagination = screen.getByRole("navigation", { name: "Pagination" });
-    const proof = screen.getByRole("heading", { name: "What backs these offers" });
 
     expect(screen.getByText("Page 2 of 5")).toBeTruthy();
     expect(screen.getByRole("link", { name: "Previous" }).getAttribute("href")).toBe("/stores/acer?page=1");
     expect(screen.getByRole("link", { name: "Next" }).getAttribute("href")).toBe("/stores/acer?page=3");
-    expect(pagination.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("shows the current range and a compact page window for a 1,000-offer store", () => {

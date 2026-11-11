@@ -110,7 +110,7 @@ export default function StorePageClient({
   const visibleTabs = useMemo(
     () =>
       Object.entries(filteredTabs)
-        .filter(([, tab]) => tab.items.length > 0)
+        .filter(([, tab]) => tab && tab.items && tab.items.length > 0)
         .map(([id, tab]) => ({
           id,
           label: tab.label,
@@ -416,74 +416,18 @@ export default function StorePageClient({
         </nav>
       )}
 
+      {website && (
+        <p className="text-xs text-ink-soft">
+          We may earn a commission from some links.{" "}
+          <Link href="/affiliate-disclosure" className="text-inkblue underline-offset-2 hover:underline">
+            Here is how we make money
+          </Link>
+          . It never changes the price you pay.
+        </p>
+      )}
+
       <SaveDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />
 
-      <section aria-labelledby="proof">
-        <h2 id="proof" className="font-serif text-2xl font-extrabold text-ink">
-          What backs these offers
-        </h2>
-        <dl className={`mt-4 grid gap-4 ${hasVotes ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}>
-          {hasVotes ? (
-            <>
-              <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
-                <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-                  Confirmed codes
-                </dt>
-                <dd className="mt-1 font-serif text-3xl font-extrabold text-ink">{stats.verified}</dd>
-                <p className="mt-1 text-xs text-ink-soft">of {stats.total} listed</p>
-              </div>
-              <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
-                <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-                  Average success
-                </dt>
-                <dd className="mt-1 font-serif text-3xl font-extrabold text-ink">
-                  {Math.round(stats.avgRate * 100)}%
-                </dd>
-                <p className="mt-1 text-xs text-ink-soft">
-                  across {stats.totalReports} shopper {stats.totalReports === 1 ? "report" : "reports"}
-                </p>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
-                <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-                  Offers listed
-                </dt>
-                <dd className="mt-1 font-serif text-3xl font-extrabold text-ink">{stats.total}</dd>
-                <p className="mt-1 text-xs text-ink-soft">each with a source and check date</p>
-              </div>
-              <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
-                <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-                  Source checked
-                </dt>
-                <dd className="mt-1 font-serif text-2xl font-extrabold text-ink">
-                  {stats.latestCheck ? formatDate(stats.latestCheck) : "—"}
-                </dd>
-                <p className="mt-1 text-xs text-ink-soft">on the store&apos;s own pages</p>
-              </div>
-              <div className="lift rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)]">
-                <dt className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-                  Shopper votes
-                </dt>
-                <dd className="mt-1 font-serif text-2xl font-extrabold text-ink">No votes yet</dd>
-                <p className="mt-1 text-xs text-ink-soft">
-                  be the first — vote on any offer below
-                </p>
-              </div>
-            </>
-          )}
-        </dl>
-        <p className="mt-3 text-sm text-ink-soft">
-          {hasVotes
-            ? "One person saying a code worked is not evidence. Every vote on Durza is timestamped and counted —"
-            : "No code here has been reported tested yet. Offers are read from the store's own pages and timestamped with a source check date —"}{" "}
-          <Link href="/trust" className="text-inkblue underline-offset-2 hover:underline">
-            here is how the counting works
-          </Link>
-          .
-        </p>
-      </section>
 
       {!expanded && Object.values(tabs).reduce((n, t) => n + t.items.length, 0) > 6 && (
         <button type="button" onClick={() => setExpanded(true)} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
