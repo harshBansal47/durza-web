@@ -128,17 +128,6 @@ export default function Storefront({
 
   return (
     <section id="products" className="scroll-mt-24 space-y-10 sm:space-y-14" aria-labelledby="products-heading">
-      <header className="border-b border-ledger-line pb-5">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-inkblue">
-          Discover the collection
-        </p>
-        <h2 id="products-heading" className="mt-2 font-serif text-3xl font-extrabold text-ink sm:text-4xl">
-          Shop {store.name}
-        </h2>
-        <p className="mt-2 max-w-2xl text-sm text-ink-soft sm:text-base">
-          Explore products and current prices across the store&apos;s categories.
-        </p>
-      </header>
 
       {!categoriesLoadFailed && collections.length > 0 && (
         <nav
