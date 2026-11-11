@@ -97,7 +97,7 @@ describe("store product storefront", () => {
   it("keeps an empty storefront honest without inventing categories or products", () => {
     render(<Storefront store={store} collections={[]} />);
 
-    expect(screen.getByRole("status").textContent).toMatch(/product collection is not available/i);
+    expect(screen.queryByRole("status")).toBeNull();
     expect(screen.queryByRole("navigation", { name: /product categories/i })).toBeNull();
   });
 
