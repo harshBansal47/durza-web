@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Kama Ayurveda Coupons, Kumkumadi & Bringadi Deals";
 const description = "Verified Kama Ayurveda promo codes, KAMA10 10% off and best luxury deals on Kumkumadi night serum, Bringadi oil and rose water.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="kama-ayurveda" />
     </>
   );
 }

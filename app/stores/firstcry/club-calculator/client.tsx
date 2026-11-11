@@ -1,5 +1,8 @@
 "use client";
 
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("firstcry", url, sub);
+
 import { useState } from "react";
 
 export default function ClubCalculatorPage() {
@@ -32,11 +35,17 @@ export default function ClubCalculatorPage() {
           {net > 0 ? `You save ₹${net.toLocaleString("en-IN")} net.` : "Not worth it yet."}
         </p>
         {net > 0 && (
-          <a href="https://track.vcommission.com/click?campaign_id=10081&pub_id=133499&sub1=club_calc&url=https://www.firstcry.com/club" target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+          <a href={link("https://www.firstcry.com/club", "club_calc")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
             Join FirstCry Club
           </a>
         )}
       </div>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold text-ink">FAQ</h2>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What does the FirstCry Club break-even assume?</summary><p className="mt-2 text-sm text-ink-soft">It compares your monthly spend against the membership fee using a 7% member discount plus ₹100 per month in perks — actual savings vary by category.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Is the 12-month FirstCry Club worth it?</summary><p className="mt-2 text-sm text-ink-soft">If your monthly FirstCry spend stays above roughly ₹2,500, the 12-month plan pays for itself quickly; the tool above shows your exact break-even.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Can I cancel FirstCry Club auto-renewal?</summary><p className="mt-2 text-sm text-ink-soft">Yes — turn off auto-renew anytime from your FirstCry account settings before the next billing date.</p></details>
+      </section>
     </div>
   );
 }

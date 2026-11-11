@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Havells Coupons, Home Appliances & Electricals Deals";
 const description = "Verified Havells promo codes, HAVELLS500 flat ₹500 off above ₹4,999 and best deals on fans, appliances and electricals.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="havells" />
     </>
   );
 }

@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Hira Fragrance Coupons, Extrait de Parfum & Attar Deals";
 const description = "Verified Hira Fragrance promo codes and best deals on Extrait de Parfum, Oud and alcohol-free attars. Free shipping ₹599+.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="hirafragrance" />
     </>
   );
 }

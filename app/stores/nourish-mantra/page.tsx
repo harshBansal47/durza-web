@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import NourishMantraClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Nourish Mantra Coupons, Urban Rani & Clean Skincare Deals";
 const description = "Verified Nourish Mantra promo codes, GLOW20 20% off, and best deals on 100% vegan Urban Rani Youth Serum, Cosmic Sutra Eye Gel, and Redensyl serums.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <NourishMantraClient />
+      <RelatedGuides slug="nourish-mantra" />
     </>
   );
 }

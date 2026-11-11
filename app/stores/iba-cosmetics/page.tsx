@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Iba Cosmetics Coupons, Halal Makeup & Wudhu Nail Deals";
 const description = "Verified Iba Cosmetics codes, IBA15 extra 15% off and best deals on Halal lipsticks, Wudhu-friendly nail polish and vegan skincare.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="iba-cosmetics" />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10351&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("moglix", url, sub);
 const OFFERS = [
   { code: "MOGLIX100", badge: "SITEWIDE INSTANT", title: "Flat ₹100 OFF on Orders Above ₹1,499", desc: "Valid on Bosch/Black+Decker drills, pressure washers and hand tool kits.", url: "https://www.moglix.com", sub: "moglix100" },
   { code: "TOOLS250", badge: "WORKSHOP SAVER", title: "Flat ₹250 OFF on Orders Above ₹3,499", desc: "Best for angle grinders, welding machines and commercial safety orders.", url: "https://www.moglix.com", sub: "tools250" },

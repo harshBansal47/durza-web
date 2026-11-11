@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import MiltonClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Milton Coupons, Thermosteel Flask & Electric Tiffin Deals";
 const description = "Verified Milton.in promo codes, MILTON10 extra 10% off and best deals on 24-hour Thermosteel flasks, electric lunch boxes and copper bottles.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <MiltonClient />
+      <RelatedGuides slug="milton" />
     </>
   );
 }

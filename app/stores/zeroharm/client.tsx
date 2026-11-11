@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10514&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("zeroharm", url, sub);
 const OFFERS = [
   { code: "ZERO15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on All Nano-Nutraceuticals", desc: "Valid on Plant B12, Vegan Omega-3, Narie PCOS and Liver Detox.", url: "https://www.zeroharm.in/collections/all-products", sub: "zero15" },
   { code: "NANO25", badge: "COURSE SAVER", title: "Flat 25% OFF on 90-Day Wellness Courses", desc: "Maximum savings on 3-bottle clinical regimens with sustained results.", url: "https://www.zeroharm.in/collections/combos", sub: "nano25" },

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13740&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("hirafragrance", url, sub);
 const OFFERS = [
   { code: "HIRA10", badge: "WELCOME DISCOUNT", title: "Extra 10% OFF Sitewide", desc: "Valid on all Extrait de Parfum bottles and Attar roll-ons.", url: "https://hirafragrance.com/collections/all", sub: "hira10" },
   { code: "OUD20", badge: "ROYAL COLLECTION", title: "Flat 20% OFF on Luxury Oud & Amber Regimens", desc: "Applies on royal oriental concentrates and premium gift box sets.", url: "https://hirafragrance.com/collections/oud-collection", sub: "oud20" },

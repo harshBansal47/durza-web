@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TrueBasicsClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "TrueBasics Coupons, Triple Strength Omega-3 & KSM-66 Deals";
 const description = "Verified TrueBasics promo codes, 20% off code CLINICAL20, and best deals on Triple Strength Omega-3, KSM-66 Ashwagandha and clinical multivitamins.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <TrueBasicsClient />
+      <RelatedGuides slug="truebasics" />
     </>
   );
 }

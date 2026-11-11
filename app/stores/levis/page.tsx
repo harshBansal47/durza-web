@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import LevisClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Levi's India Coupons, 511 & 501 Jeans Deals & Sale Offers";
 const description = "Verified Levi.in promo codes, ₹1,000 off code LEVIS1000, and best deals on 511 Slim, 512 Taper and 501 Original jeans.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <LevisClient />
+      <RelatedGuides slug="levis" />
     </>
   );
 }

@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "HK Vitals Coupons, Fish Oil & Vitamin Deals";
 const description = "Verified HK Vitals promo codes, HKV10 offers and best deals on omega-3 fish oil, multivitamins and calcium. Free delivery ₹499+.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="hkvitals" />
     </>
   );
 }

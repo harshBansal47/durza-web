@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import LavieWorldClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Lavie World Coupons, Handbags, Totes & Sling Deals";
 const description = "Verified Lavie World promo codes, extra 10% off code LAVIE10, and up to 65% off on office totes, satchel bags, slings, and bridal clutches.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <LavieWorldClient />
+      <RelatedGuides slug="lavie-world" />
     </>
   );
 }

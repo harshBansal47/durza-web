@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=12957&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("dot-and-key", url, sub);
 
 const OFFERS = [
   { code: "DOTB2G2", badge: "FLAGSHIP SALE", title: "Buy 2, Get 2 FREE Sitewide", desc: "Add any 4 products; lowest 2 discounted 100%.", url: "https://www.dotandkey.com/collections/all-products", sub: "dotb2g2" },

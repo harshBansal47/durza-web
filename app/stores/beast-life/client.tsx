@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13808&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("beast-life", url, sub);
 
 const OFFERS = [
   { code: "BEAST10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Performance Nutrition", desc: "Valid across Whey Protein, Creatine, and Pre-Workouts.", url: "https://beastlife.in/collections/all-products", sub: "beast10" },
@@ -33,7 +31,7 @@ export default function BeastLifeStorePage() {
       <section className="rounded-2xl bg-gradient-to-r from-red-600 to-orange-500 text-white p-8">
         <h1 className="text-3xl font-bold">Beast Life</h1>
         <p className="mt-2 text-sm font-medium text-white">Fuel the Beast Within • 100% Transparent Sports Nutrition & Heavy Lifts</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Lifter's Stacking Hack: Up to 38% Off Base Price + Extra 10% with BEAST10 + Extra 5% Instant Discount on UPI Checkout.</p>
+        <p className="mt-1 text-xs font-semibold text-white/90">Lifter&apos;s Stacking Hack: Up to 38% Off Base Price + Extra 10% with BEAST10 + Extra 5% Instant Discount on UPI Checkout.</p>
       </section>
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">

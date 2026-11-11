@@ -41,7 +41,9 @@ export default function TelegramPublisherPage() {
   }, []);
 
   useEffect(() => {
-    void load(1);
+    // Deferred so state updates happen after mount, not inside the effect body.
+    const id = setTimeout(() => void load(1), 0);
+    return () => clearTimeout(id);
   }, [load]);
 
   async function send(coupon: CouponPublic) {

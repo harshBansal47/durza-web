@@ -108,8 +108,8 @@ export function CouponCard({
   const storeGridLayout = layout === "store-grid";
   const source = sourceLine(coupon);
   const requirement = cardRequirementLine(coupon);
-  const productImage = typeof (coupon.restrictions as any)?.image_url === "string" ? (coupon.restrictions as any).image_url : null;
-  const r = (coupon.restrictions as any) ?? {};
+  const productImage = typeof coupon.restrictions?.image_url === "string" ? coupon.restrictions.image_url : null;
+  const r: Record<string, unknown> = coupon.restrictions ?? {};
   const dealPrice = typeof r.deal_price === "string" ? r.deal_price : null;
   const originalMrp = typeof r.original_mrp === "string" ? r.original_mrp : null;
   const savings = typeof r.savings === "string" ? r.savings : null;
@@ -123,7 +123,7 @@ export function CouponCard({
         ? "Free ship"
         : formatDiscountHeading(coupon, currency);
 
-  const restrictionBadge = typeof (coupon.restrictions as any)?.badge === "string" ? (coupon.restrictions as any).badge : null;
+  const restrictionBadge = typeof coupon.restrictions?.badge === "string" ? coupon.restrictions.badge : null;
   const inferredBadge =
     badge ??
     restrictionBadge ??

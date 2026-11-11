@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import SironaClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Sirona Hygiene Coupons, Menstrual Cup & PeeBuddy Deals";
 const description = "Verified Sirona Hygiene promo codes, 15% off code SIRONA15, and best deals on FDA-approved menstrual cups, heat patches and PeeBuddy devices.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <SironaClient />
+      <RelatedGuides slug="sirona" />
     </>
   );
 }

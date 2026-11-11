@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=11875&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("nilkamalfurniture", url, sub);
 const OFFERS = [
   { code: "NILKAMAL500", badge: "FURNITURE SAVER", title: "Flat ₹500 OFF on Orders Above ₹4,999", desc: "Valid across ergonomic office chairs, plastic outdoor sets and study desks.", url: "https://www.nilkamalfurniture.com/collections/best-sellers", sub: "nilkamal500" },
   { code: "BEDROOM1000", badge: "WARDROBE SPECIAL", title: "Flat ₹1,000 OFF on Orders Above ₹9,999", desc: "Applies on engineered wood beds, 3-door wardrobes and Sleep mattresses.", url: "https://www.nilkamalfurniture.com/collections/bedroom", sub: "bedroom1000" },

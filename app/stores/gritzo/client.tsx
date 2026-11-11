@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13113&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("gritzo", url, sub);
 
 const OFFERS = [
   { code: "SUPER10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All SuperMilk Tubs", desc: "Valid on all age-specific personalized jars and trial packs.", url: "https://gritzo.com", sub: "super10" },

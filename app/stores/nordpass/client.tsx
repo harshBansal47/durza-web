@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10181&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("nordpass", url, sub);
 const OFFERS = [
   { code: "NORDPASS50", badge: "2-YEAR DEAL", title: "Up to 50% OFF + 3 Extra Months Free on 2-Year Plans", desc: "Valid on Premium Individual and Family 2-year subscriptions.", url: "https://nordpass.com/pricing/", sub: "nordpass50" },
   { code: "FAMILYPRO", badge: "FAMILY BUNDLE", title: "Save up to 53% on NordPass Family (6 Private Vaults)", desc: "Six individual encrypted vaults under one master billing plan.", url: "https://nordpass.com/family-password-manager/", sub: "familypro" },

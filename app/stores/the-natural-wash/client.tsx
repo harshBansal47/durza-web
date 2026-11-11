@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=12839&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("the-natural-wash", url, sub);
 const OFFERS = [
   { code: "TNW15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on All Natural Care", desc: "Valid on Beetroot balm, Potato wax, rose water and hair cleansers.", url: "https://www.thenaturalwash.com/collections/best-sellers", sub: "tnw15" },
   { code: "B2G1", badge: "BUNDLE PERK", title: "Buy 2, Get 1 FREE on Lip & Skin Essentials", desc: "Add any 3 items; the lowest priced applies at ₹0 automatically.", url: "https://www.thenaturalwash.com/collections/lip-care", sub: "b2g1" },

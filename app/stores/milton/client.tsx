@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=12749&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("milton", url, sub);
 const OFFERS = [
   { code: "MILTON10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on Thermosteel Flasks & Tiffins", desc: "Stacks on top of existing discounts across Flip Lid flasks and casseroles.", url: "https://www.milton.in/collections/bestsellers", sub: "milton10" },
   { code: "OFFICE15", badge: "WORKDAY BUNDLE", title: "Flat 15% OFF on Office Lunch & Bottle Combos", desc: "Applies when bundling insulated lunch boxes with office flasks.", url: "https://www.milton.in/collections/lunch-boxes", sub: "office15" },

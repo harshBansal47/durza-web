@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13749&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("boldfit", url, sub);
 
 const OFFERS = [
   { code: "SAVE100", badge: "TIER DISCOUNT", title: "Flat ₹100 OFF + Free Gym Socks", desc: "Valid on cart values of ₹1,899 and above.", url: "https://boldfit.com/collections/best-sellers", sub: "save100" },
@@ -34,7 +32,7 @@ export default function BoldfitStorePage() {
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-orange-600 to-red-500 text-white p-8">
         <h1 className="text-3xl font-bold">Boldfit</h1>
-        <p className="mt-2 text-sm font-medium text-white">India's Leading Fitness Gear, Gym Accessories & Recovery Essentials</p>
+        <p className="mt-2 text-sm font-medium text-white">India&apos;s Leading Fitness Gear, Gym Accessories & Recovery Essentials</p>
         <p className="mt-1 text-xs font-semibold text-white/90">Verified Offers: Extra ₹250 Off with SAVE250 + Free Delivery Above ₹800</p>
       </section>
 

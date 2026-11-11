@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TheBearHouseClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "The Bear House Coupons, Linen Shirts & Chinos Deals";
 const description = "Verified The Bear House promo codes, ₹500 off code BUNDLE500, and best deals on 100% pure linen shirts, textured oxfords and chinos.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <TheBearHouseClient />
+      <RelatedGuides slug="the-bear-house" />
     </>
   );
 }

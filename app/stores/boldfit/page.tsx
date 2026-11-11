@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Boldfit Coupons, Gym Equipment & Supplement Deals";
 const description = "Verified Boldfit promo codes and best deals on home gym equipment, resistance bands and protein supplements. Free delivery above ₹800.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="boldfit" />
     </>
   );
 }

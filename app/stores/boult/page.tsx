@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Boult Coupons, Gaming Earbuds & Smartwatch Deals";
 const description = "Verified Boult promo codes, BOULT100 flat ₹100 off and best deals on gaming earbuds, neckbands and smartwatches at goboult.co.in.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="boult" />
     </>
   );
 }

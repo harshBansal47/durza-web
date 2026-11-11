@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13524&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("lavie-world", url, sub);
 const OFFERS = [
   { code: "LAVIE10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Handbags & Slings", desc: "Stacks on top of existing markdowns across totes, satchels, and wallets.", url: "https://www.lavieworld.com/collections/bestsellers", sub: "lavie10" },
   { code: "STYLE200", badge: "CART SAVER", title: "Flat ₹200 OFF on Orders Above ₹1,499", desc: "Ideal when pairing an everyday work tote with a matching wallet.", url: "https://www.lavieworld.com/collections/handbags", sub: "style200" },

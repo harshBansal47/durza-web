@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10111&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("hkvitals", url, sub);
 const OFFERS = [
   { code: "HKV10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Daily Supplements", desc: "Valid across Multivitamins, Omega-3 Fish Oil, Biotin, and Collagen.", url: "https://www.hkvitals.com", sub: "hkv10" },
   { code: "VITAL20", badge: "COMBO SAVER", title: "Flat 20% OFF on 2-Month & 3-Month Value Packs", desc: "Maximum savings on monthly health replenishment routines.", url: "https://www.hkvitals.com", sub: "vital20" },

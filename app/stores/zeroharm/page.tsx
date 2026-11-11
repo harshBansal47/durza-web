@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import ZeroHarmClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "ZeroHarm Coupons, Plant Vitamin B12 & Narie PCOS Deals";
 const description = "Verified ZeroHarm promo codes, ZERO15 15% off and best deals on nano-formulated Plant Vitamin B12, Vegan D3+K2, Liver Detox and Narie PCOS care.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <ZeroHarmClient />
+      <RelatedGuides slug="zeroharm" />
     </>
   );
 }

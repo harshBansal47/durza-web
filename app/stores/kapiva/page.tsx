@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Kapiva Coupons, Himalayan Shilajit & Herbal Juice Deals";
 const description = "Verified Kapiva promo codes, KAPIVA10 extra 10% off and best deals on Himalayan Shilajit resin, Dia Free Juice and Get Slim.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="kapiva" />
     </>
   );
 }

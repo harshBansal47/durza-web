@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=10782&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("guvi", url, sub);
 
 const OFFERS = [
   { code: "GUVI10", badge: "STUDENT DISCOUNT", title: "Extra 10% OFF on Self-Paced Tech Courses", desc: "Valid on all individual programming languages and Web Dev courses.", url: "https://www.guvi.in/courses", sub: "guvi10" },
@@ -127,7 +125,7 @@ export default function GuviStorePage() {
         </details>
         <details className="rounded-xl border border-ledger-line bg-white p-4">
           <summary className="font-medium text-ink">Can I learn complex programming in Hindi or Tamil on GUVI?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. GUVI's primary innovation is vernacular teaching. You can learn Python, Java, Data Science, and Full Stack development in your native mother tongue without language barrier obstacles, while all coding syntax remains standard English.</p>
+          <p className="mt-2 text-sm text-ink-soft">Yes. GUVI&apos;s primary innovation is vernacular teaching. You can learn Python, Java, Data Science, and Full Stack development in your native mother tongue without language barrier obstacles, while all coding syntax remains standard English.</p>
         </details>
         <details className="rounded-xl border border-ledger-line bg-white p-4">
           <summary className="font-medium text-ink">How do I apply the GUVI10 promo code?</summary>

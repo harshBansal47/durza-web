@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13462&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("the-bear-house", url, sub);
 const OFFERS = [
   { code: "BEAR10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Shirts & Polos", desc: "Valid on textured button-downs, knitted polos and chinos.", url: "https://thebearhouse.com/collections/shirts", sub: "bear10" },
   { code: "BUNDLE500", badge: "WARDROBE SAVER", title: "Flat ₹500 OFF on Orders Above ₹2,999", desc: "Best value on 2 shirts or a shirt paired with chinos.", url: "https://thebearhouse.com/collections/best-sellers", sub: "bundle500" },

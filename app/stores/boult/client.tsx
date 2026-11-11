@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=10323&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("boult", url, sub);
 
 const OFFERS = [
   { code: "BOULT100", badge: "SITEWIDE INSTANT", title: "Flat ₹100 OFF on Orders Above ₹999", desc: "Valid on all trending wireless earbuds, neckbands, and smartwatches.", url: "https://www.goboult.co.in/collections/best-sellers", sub: "boult100" },
@@ -119,7 +117,7 @@ export default function BoultStorePage() {
         </details>
         <details className="rounded-xl border border-ledger-line bg-white p-4">
           <summary className="font-medium text-ink">Do Boult products purchased via these deals come with brand warranty?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. All purchases made through official store links on goboult.co.in include Boult's official 1-year replacement warranty, which you can register on their website using your invoice.</p>
+          <p className="mt-2 text-sm text-ink-soft">Yes. All purchases made through official store links on goboult.co.in include Boult&apos;s official 1-year replacement warranty, which you can register on their website using your invoice.</p>
         </details>
       </section>
     </div>

@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import MoglixClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Moglix Coupons, Power Tools & Pressure Washer Deals";
 const description = "Verified Moglix promo codes, ₹250 off code TOOLS250, and best deals on Bosch drill kits, high-pressure car washers, safety shoes and GST-invoice supplies.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <MoglixClient />
+      <RelatedGuides slug="moglix" />
     </>
   );
 }

@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Beast Life Coupons, Whey Protein & Creatine Deals";
 const description = "Verified Beast Life promo codes, BEAST10 offers and best deals on whey protein, creatine and pre-workout from beastlife.in. Free delivery ₹999+.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="beast-life" />
     </>
   );
 }

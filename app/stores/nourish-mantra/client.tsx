@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=12144&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("nourish-mantra", url, sub);
 const OFFERS = [
   { code: "MANTRA15", badge: "SITEWIDE EXTRA", title: "Flat 15% OFF on Clean Skincare & Serums", desc: "Valid on Urban Rani Youth Serum, Cosmic Sutra Eye Gel and cleansers.", url: "https://nourishmantra.in/collections/all-products", sub: "mantra15" },
   { code: "GLOW20", badge: "REGIMEN SAVER", title: "Flat 20% OFF on Orders Above ₹1,499", desc: "Applies across skincare duos, anti-aging kits and hair regimens.", url: "https://nourishmantra.in/collections/combos", sub: "glow20" },

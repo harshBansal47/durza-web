@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=11501&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("levis", url, sub);
 const OFFERS = [
   { code: "LEVIS500", badge: "DENIM SAVER", title: "Flat ₹500 OFF on Orders Above ₹3,499", desc: "Valid across men's and women's jeans, trucker jackets and shirts.", url: "https://www.levi.in/men/clothing/jeans", sub: "levis500" },
   { code: "LEVIS1000", badge: "WARDROBE BUNDLE", title: "Flat ₹1,000 OFF on Cart Value Above ₹5,999", desc: "Best value on 2 pairs of jeans or denim plus a Trucker Jacket.", url: "https://www.levi.in/sale", sub: "levis1000" },

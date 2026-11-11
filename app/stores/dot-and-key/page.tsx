@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Dot & Key Coupons, Skincare & Sunscreen Deals";
 const description = "Verified Dot & Key promo codes, DOTB2G2 buy 2 get 2 free and best deals on sunscreens, serums and skincare from dotandkey.com.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="dot-and-key" />
     </>
   );
 }

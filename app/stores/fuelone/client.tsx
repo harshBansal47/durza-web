@@ -77,6 +77,12 @@ export default function FuelOneStorePage() {
           </div>
         ))}
       </div>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold text-ink">FAQ</h2>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How are Fuel One prices on Durza verified?</summary><p className="mt-2 text-sm text-ink-soft">Prices and MRP reflect the official fuelone.in listing at the time of page update — supplement and creatine prices shift with promotions.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Are Fuel One supplements FSSAI certified?</summary><p className="mt-2 text-sm text-ink-soft">Yes. Fuel One sells FSSAI-licensed sports nutrition directly from its official warehouse with batch and best-before details on every pack.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Does Fuel One offer free delivery?</summary><p className="mt-2 text-sm text-ink-soft">Free delivery is available on eligible orders on the official site; the cart page at checkout shows the current threshold.</p></details>
+      </section>
     </div>
   );
 }

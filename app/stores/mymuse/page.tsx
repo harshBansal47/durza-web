@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import MyMuseClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "MyMuse Coupons, Couple Kits & Intimate Wellness Deals";
 const description = "Verified MyMuse.in promo codes, MUSE10 extra 10% off and discreet deals on couple kits, waterproof massagers and natural lubricants.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <MyMuseClient />
+      <RelatedGuides slug="mymuse" />
     </>
   );
 }

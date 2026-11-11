@@ -52,6 +52,12 @@ export default function BabyGearFinderPage() {
           </tbody>
         </table>
       </div>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold text-ink">FAQ</h2>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What matters most in a stroller for Indian roads?</summary><p className="mt-2 text-sm text-ink-soft">Ground clearance over 4 inches, lockable 360° swivel wheels, a one-hand fold and weight under 7kg, plus a 5-point harness.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Is the Chicco KeyFit 30 compatible with Indian car seat belts?</summary><p className="mt-2 text-sm text-ink-soft">Yes — it installs with standard 3-point seat belts found in most Indian cars; verify belt-path routing in your car handbook first.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Should I buy a car seat or stroller first?</summary><p className="mt-2 text-sm text-ink-soft">Buy the car seat before the first trip home from the hospital; a stroller can wait until the baby outgrows the carrier around 6 months.</p></details>
+      </section>
     </div>
   );
 }

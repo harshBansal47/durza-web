@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=12939&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("iba-cosmetics", url, sub);
 const OFFERS = [
   { code: "IBA15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on All Clean Beauty", desc: "Valid on all breathable nail colors, transferproof matte lipsticks, and Halal skincare.", url: "https://ibacosmetics.com/collections/all-products", sub: "iba15" },
   { code: "B2G1", badge: "LIP & NAIL DEAL", title: "Buy 2, Get 1 FREE on Breathable Nail Enamels", desc: "Add any 3 breathable nail colors; the 3rd bottle is free.", url: "https://ibacosmetics.com/collections/breathable-nail-color", sub: "b2g1" },

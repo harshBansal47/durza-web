@@ -1,5 +1,8 @@
 "use client";
 
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("firstcry", url, sub);
+
 import { useState } from "react";
 
 const DIAPERS = [
@@ -52,9 +55,15 @@ export default function DiaperCostTrackerPage() {
           </tbody>
         </table>
       </div>
-      <a href="https://track.vcommission.com/click?campaign_id=10081&pub_id=133499&sub1=diaper_tracker&url=https://www.firstcry.com/diapers" target="_blank" rel="nofollow sponsored noopener" className="inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+      <a href={link("https://www.firstcry.com/diapers", "diaper_tracker")} target="_blank" rel="nofollow sponsored noopener" className="inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
         Buy Bulk Pack on FirstCry
       </a>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold text-ink">FAQ</h2>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How is cost-per-pant calculated?</summary><p className="mt-2 text-sm text-ink-soft">Pack price divided by pant count — larger packs almost always win per pant despite the higher upfront cost.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Which diaper size fits my baby?</summary><p className="mt-2 text-sm text-ink-soft">S suits under 7kg, M fits 6–11kg, L fits 9–14kg and XL fits 12–17kg; always confirm the weight table on the pack before bulk buying.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Why do XL packs show better value?</summary><p className="mt-2 text-sm text-ink-soft">Fixed manufacturing cost spreads over more pants, and FirstCry bulk-pack discounts compound the saving.</p></details>
+      </section>
     </div>
   );
 }

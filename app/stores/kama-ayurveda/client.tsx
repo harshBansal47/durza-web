@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10125&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("kama-ayurveda", url, sub);
 const OFFERS = [
   { code: "KAMA10", badge: "WELCOME LUXURY", title: "Flat 10% OFF on First Ayurvedic Order", desc: "Valid on Kumkumadi, Bringadi, and Pure Rose Water.", url: "https://www.kamaayurveda.com", sub: "kama10" },
   { code: "GLOWGIFT", badge: "GIFT WITH PURCHASE", title: "Complimentary Kumkumadi Scrub (Mini) Above ₹2,999", desc: "Unlocked automatically in basket.", url: "https://www.kamaayurveda.com", sub: "glowgift" },

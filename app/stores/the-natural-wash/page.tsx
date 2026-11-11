@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TheNaturalWashClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "The Natural Wash Coupons, Beetroot Lip Balm & Potato Wax Deals";
 const description = "Verified The Natural Wash promo codes, 15% off code TNW15, and best deals on Beetroot lip balm, Potato wax blemish corrector and herbal hair care.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <TheNaturalWashClient />
+      <RelatedGuides slug="the-natural-wash" />
     </>
   );
 }

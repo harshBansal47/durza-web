@@ -2,12 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13375&pub_id=133499";
-
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
-
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("brillare", url, sub);
 const OFFERS = [
   { code: "FLAT20", badge: "BUNDLE SAVER", title: "Buy Any 2 Products & Get Flat 20% OFF", desc: "Add any 2 items. Plus extra 5% off on prepaid checkout.", url: "https://www.brillare.co.in/collections/bundle-offer", sub: "flat20" },
   { code: "B2G1", badge: "BESTSELLER DEAL", title: "Buy 2, Get 1 FREE on Select Regimens", desc: "Add 3 products; lowest-priced discounted 100%.", url: "https://www.brillare.co.in/collections/bestsellers", sub: "b2g1" },

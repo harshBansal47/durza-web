@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=12859&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("indus-valley", url, sub);
 
 const OFFERS = [
   { code: "FIRST10", badge: "NEW USER", title: "Flat 10% OFF on First Order", desc: "Valid across entire botanical hair color, organic indigo, and skincare range.", url: "https://www.buyindusvalley.in", sub: "first10" },

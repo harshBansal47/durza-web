@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13860&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("life-changing-astro", url, sub);
 const OFFERS = [
   { code: "ASTRO15", badge: "CONSULTATION DEAL", title: "Flat 15% OFF on 1-on-1 Vedic Kundli Consultations", desc: "Valid on career, finance, marriage compatibility and Dasha sessions.", url: "https://lifechangingastro.com", sub: "astro15" },
   { code: "GEM10", badge: "CERTIFIED STONES", title: "Extra 10% OFF on Lab-Certified Natural Gemstones", desc: "Applies on Pukhraj, Neelam, Emerald and Ruby stones.", url: "https://lifechangingastro.com/gemstones", sub: "gem10" },

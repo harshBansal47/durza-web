@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13441&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("sirona", url, sub);
 const OFFERS = [
   { code: "SIRONA15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on Menstrual & Intimate Care", desc: "Valid across menstrual cups, heat patches and rash-free pads.", url: "https://www.thesirona.com/collections/best-sellers", sub: "sirona15" },
   { code: "CUPFREE", badge: "FLAGSHIP DEAL", title: "Up to 30% OFF on Menstrual Cup + Sterilizer Kits", desc: "Complete reusable kits lasting up to 10 years.", url: "https://www.thesirona.com/collections/menstrual-cup", sub: "cupfree" },

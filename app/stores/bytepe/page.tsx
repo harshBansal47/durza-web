@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "BytePe Coupons, Bill Payment Cashback Deals";
 const description = "Verified BytePe cashback codes, FIRSTBILL offers and best deals on BBPS bill payments, recharges and instant digital gift vouchers.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="bytepe" />
     </>
   );
 }

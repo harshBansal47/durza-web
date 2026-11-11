@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "HealthKart Coupons, Protein & Supplement Deals";
 const description = "Verified HealthKart promo codes, HK Cash and best deals on protein, vitamins and mass gainers with free shipping above ₹499.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="healthkart" />
     </>
   );
 }

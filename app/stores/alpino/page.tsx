@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Alpino Coupons, Peanut Butter & Protein Deals";
 const description = "Verified Alpino promo codes and best deals on all-natural peanut butter, high-protein oats and healthy snacks with free delivery above ₹499.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="alpino" />
     </>
   );
 }

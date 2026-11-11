@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import NilkamalFurnitureClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Nilkamal Furniture Coupons, Office Chair & Wardrobe Deals";
 const description = "Verified Nilkamal Furniture promo codes, ₹1,000 off code BEDROOM1000, and best deals on ergonomic chairs, wardrobes and beds.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <NilkamalFurnitureClient />
+      <RelatedGuides slug="nilkamalfurniture" />
     </>
   );
 }

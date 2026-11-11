@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import WonderchefClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Wonderchef Coupons, Nutri-Blend & Granite Cookware Deals";
 const description = "Verified Wonderchef codes, CHEF10 extra 10% off, best deals on Nutri-Blend grinders, PFOA-free granite cookware and Regalia coffee makers.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <WonderchefClient />
+      <RelatedGuides slug="wonderchef" />
     </>
   );
 }

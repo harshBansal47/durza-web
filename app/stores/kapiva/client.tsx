@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10126&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("kapiva", url, sub);
 const OFFERS = [
   { code: "KAPIVA10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Ayurvedic Juices & Resin", desc: "Valid on Shilajit, Dia Free Juice, and herbal wellness combos.", url: "https://kapiva.in", sub: "kapiva10" },
   { code: "STAMINA15", badge: "POWER VALUE", title: "Flat 15% OFF on Shilajit & Stamina Combos", desc: "Applies when bundling Shilajit with Ashwagandha or Safed Musli.", url: "https://kapiva.in", sub: "stamina15" },

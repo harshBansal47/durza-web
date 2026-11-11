@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TheManCompanyClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "The Man Company Coupons, Beard Growth & Blanc Perfume Deals";
 const description = "Verified The Man Company promo codes, 15% off code TMC15, and best deals on Derma Roller beard kits, Blanc EDP, and charcoal face care.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <TheManCompanyClient />
+      <RelatedGuides slug="the-man-company" />
     </>
   );
 }

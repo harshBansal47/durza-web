@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13307&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("havells", url, sub);
 const OFFERS = [
   { code: "HAVELLS500", badge: "APPLIANCE SPECIAL", title: "Flat ₹500 OFF on Orders Above ₹4,999", desc: "Valid on BLDC ceiling fans, kitchen fryers, and storage geysers.", url: "https://www.havells.com/en/consumer.html", sub: "havells500" },
   { code: "SMART10", badge: "KITCHEN & GROOMING", title: "Extra 10% OFF on Small Domestic Appliances", desc: "Applies across air fryers, induction cooktops, sandwich makers, and grooming kits.", url: "https://www.havells.com/en/consumer/small-domestic-appliances.html", sub: "smart10" },

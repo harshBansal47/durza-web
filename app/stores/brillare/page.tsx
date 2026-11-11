@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Brillare Coupons, Oil Shots & Hair Care Deals";
 const description = "Verified Brillare promo codes, FLAT20 offers and best deals on oil shots and hair care with free delivery on orders above ₹499.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="brillare" />
     </>
   );
 }

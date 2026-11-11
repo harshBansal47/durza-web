@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10109&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("healthkart", url, sub);
 const OFFERS = [
   { code: "HKOFFER", badge: "SITEWIDE EXTRA", title: "Extra 7% to 10% OFF on Top Nutrition Brands", desc: "Valid on MuscleBlaze, Optimum Nutrition (ON), Isopure, and HK Vitals.", url: "https://www.healthkart.com", sub: "hkoffer" },
   { code: "WHEY300", badge: "PROTEIN SAVER", title: "Flat ₹300 OFF on 2 kg & 4 kg Protein Tubs", desc: "Applies directly on Biozyme Whey, Raw Whey, and Gold Standard Whey bulk jars.", url: "https://www.healthkart.com", sub: "whey300" },
@@ -22,7 +22,7 @@ export default function HealthKartPage() {
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-green-600 to-emerald-500 text-white p-8">
         <h1 className="text-3xl font-bold">HealthKart</h1>
-        <p className="mt-2 text-sm font-medium text-white">India's #1 Authentic Supplement Store • Zero Fake Supplements Guaranteed</p>
+        <p className="mt-2 text-sm font-medium text-white">India&apos;s #1 Authentic Supplement Store • Zero Fake Supplements Guaranteed</p>
         <p className="mt-1 text-xs font-semibold text-white/90">Direct Brand Sourcing with Scratch-to-Verify Security Codes • Free Delivery Above ₹499</p>
       </section>
       <div className="rounded-2xl border border-ledger-line bg-white p-6">

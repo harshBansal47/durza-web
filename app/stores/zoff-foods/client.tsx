@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=13859&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("zoff-foods", url, sub);
 const OFFERS = [
   { code: "ZOFF10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Spices & Pantry Combos", desc: "Valid on Cool-Ground Haldi, Kashmiri Mirchi and kitchen essential boxes.", url: "https://zofffoods.com/collections/all-products", sub: "zoff10" },
   { code: "PANTRY20", badge: "MONTHLY RESTOCK", title: "Flat 20% OFF on Monthly Kitchen Masala Boxes", desc: "Maximum savings on 6-spice or 10-spice family combo packs.", url: "https://zofffoods.com/collections/combos", sub: "pantry20" },

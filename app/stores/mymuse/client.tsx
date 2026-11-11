@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10666&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("mymuse", url, sub);
 const OFFERS = [
   { code: "MUSE10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Intimate Wellness & Kits", desc: "Valid across massage oils, water-based gels, massagers and couple boxes.", url: "https://mymuse.in/collections/bestsellers", sub: "muse10" },
   { code: "BUNDLE20", badge: "COUPLE SET SAVER", title: "Up to 20% OFF on Curated Couple & Starter Kits", desc: "Maximum savings when bundling essentials with massage oils and care.", url: "https://mymuse.in/collections/kits-combos", sub: "bundle20" },

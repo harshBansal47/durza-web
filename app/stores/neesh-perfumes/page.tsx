@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import NeeshPerfumesClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Neesh Perfumes Coupons, Glaze Extrait & Luxury Attar Deals";
 const description = "Verified Neesh Perfumes promo codes, NEESH10 extra 10% off, and best deals on Glaze Extrait de Parfum, Milky Way and high-sillage attars.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <NeeshPerfumesClient />
+      <RelatedGuides slug="neesh-perfumes" />
     </>
   );
 }

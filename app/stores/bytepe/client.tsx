@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13363&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("bytepe", url, sub);
 
 const OFFERS = [
   { code: "FIRSTBILL", badge: "WELCOME CASHBACK", title: "Flat ₹50 Cashback on First Electricity or Gas Bill", desc: "Valid on first utility bill payment of ₹500 or more via BBPS.", url: "https://bytepe.com/bill-payment", sub: "firstbill" },

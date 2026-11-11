@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Gritzo Coupons, SuperMilk & Kids Nutrition Deals";
 const description = "Verified Gritzo promo codes, SUPER10 extra 10% off and best deals on SuperMilk protein drinks and growth nutrition for kids.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="gritzo" />
     </>
   );
 }

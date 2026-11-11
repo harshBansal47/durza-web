@@ -16,6 +16,20 @@ import { editorialPath } from "@/lib/editorial-path";
 export const revalidate = 3600;
 
 /**
+ * Custom-built brand store pages (app/stores/<slug>/page.tsx). They carry unique
+ * matchers/calculators and full FAQ blocks, so they outrank the generic template.
+ */
+const CUSTOM_STORE_SLUGS = new Set([
+  "alpino", "beast-life", "boldfit", "boult", "brillare", "bytepe", "dot-and-key",
+  "firstcry", "fitspire", "fuelone", "gritzo", "guvi", "havells", "healthkart",
+  "hirafragrance", "hkvitals", "iba-cosmetics", "igp", "indus-valley",
+  "kama-ayurveda", "kapiva", "lavie-world", "levis", "life-changing-astro",
+  "milton", "moglix", "mymuse", "neesh-perfumes", "nilkamalfurniture", "nordpass",
+  "nourish-mantra", "sirona", "the-bear-house", "the-man-company",
+  "the-natural-wash", "truebasics", "wonderchef", "zeroharm", "zoff-foods",
+]);
+
+/**
  * A coupon with many recent, mostly-positive reports is more likely to still
  * be valid than one with none — so it's worth a crawler's attention sooner.
  * Unverified coupons still get a reasonable baseline priority; this nudges,
@@ -110,11 +124,18 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
     // Only stores the page itself would index: see lib/store-indexing.ts.
     return stores
       .filter((store) => isIndexableStore(store.offer_count, store.description))
-      .map((store) => ({
-        url: `${SITE_URL}/stores/${store.slug}`,
-        changeFrequency: "weekly" as const,
-        priority: 0.6,
-      }));
+      .map((store) => {
+        const custom = CUSTOM_STORE_SLUGS.has(store.slug);
+        const parsed = store.created_at ? new Date(store.created_at) : null;
+        return {
+          url: `${SITE_URL}/stores/${store.slug}`,
+          lastModified: parsed && !Number.isNaN(parsed.getTime()) ? parsed : undefined,
+          changeFrequency: "weekly" as const,
+          // Custom-built brand pages carry unique tools and FAQs; give them the
+          // same weight as the editorial pages in /sitemap/guides.xml.
+          priority: custom ? 0.8 : 0.6,
+        };
+      });
   }
   if (kind === "sales") {
     const series = await api.listSales();

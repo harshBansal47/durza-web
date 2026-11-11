@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Fitspire Coupons, Collagen & Weight Care Deals";
 const description = "Verified Fitspire promo codes, FIT10 and FIT20 offers and best deals on plant-based collagen and apple cider vinegar.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="fitspire" />
     </>
   );
 }

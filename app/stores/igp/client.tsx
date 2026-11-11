@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=11874&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("igp", url, sub);
 const OFFERS = [
   { code: "IGP10", badge: "SITEWIDE EXTRA", title: "Flat 10% OFF on All Gifts & Hampers", desc: "Valid on personalized gifts, gourmet hampers, plants, and fresh floral bouquets.", url: "https://www.igp.com", sub: "igp10" },
   { code: "CAKE15", badge: "CELEBRATION DEAL", title: "Flat 15% OFF on Fresh Bakery Cakes & Combos", desc: "Applies across designer cakes, photo cakes, and flowers + cake combos.", url: "https://www.igp.com/cakes", sub: "cake15" },
@@ -25,7 +25,7 @@ export default function IgpPage() {
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-pink-600 to-rose-400 text-white p-8">
         <h1 className="text-3xl font-bold">IGP.com</h1>
-        <p className="mt-2 text-sm font-medium text-white">India's Largest Online Gifting Destination • Delivered with Emotion</p>
+        <p className="mt-2 text-sm font-medium text-white">India&apos;s Largest Online Gifting Destination • Delivered with Emotion</p>
         <p className="mt-1 text-xs font-semibold text-white/90">Same-Day Delivery & Midnight Slot Availability across 400+ Cities • Free Delivery on Standard Gifts</p>
       </section>
       <div className="rounded-2xl border border-ledger-line bg-white p-6">

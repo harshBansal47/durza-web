@@ -89,7 +89,7 @@ export default function StorePageClient({
   const filteredTabs = useMemo(() => {
     const match = (item: (typeof tabs.best.items)[number]) => {
       if (filter === "all") return true;
-      if (filter === "under500") return (item as any).deal_price ? parseInt(String((item as any).deal_price).replace(/[^\d]/g, ""), 10) < 500 : false;
+      if (filter === "under500") { const price = item.restrictions?.deal_price; return typeof price === "string" ? parseInt(price.replace(/[^\d]/g, ""), 10) < 500 : false; }
       return true;
     };
     return {

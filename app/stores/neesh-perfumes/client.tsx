@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10175&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("neesh-perfumes", url, sub);
 const OFFERS = [
   { code: "NEESH10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Extrait de Parfum", desc: "Valid on 50ml and 100ml luxury bottles including Glaze and Milky Way.", url: "https://neeshperfumes.com/collections/bestsellers", sub: "neesh10" },
   { code: "LUXE20", badge: "BOTTLE BUNDLE", title: "Flat 20% OFF on Luxury Gift Boxes & Combos", desc: "Applies when purchasing signature duo boxes or layering sets.", url: "https://neeshperfumes.com", sub: "luxe20" },

@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13512&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("alpino", url, sub);
 
 const OFFERS = [
   { code: "ALPINO10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Peanut Butters & Oats", desc: "Valid on all 1kg, 2.5kg value tubs, high-protein muesli, and chocolate spreads.", url: "https://alpino.store/collections/all", sub: "alpino10" },

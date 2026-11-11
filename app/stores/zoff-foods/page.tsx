@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import ZoffFoodsClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "ZOFF Foods Coupons, Cool-Ground Spices & Masala Combo Deals";
 const description = "Verified ZOFF Foods promo codes, PANTRY20 20% off and best deals on Cool-Ground Haldi, Kashmiri Mirchi, Garam Masala combos and pure whole spices.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <ZoffFoodsClient />
+      <RelatedGuides slug="zoff-foods" />
     </>
   );
 }

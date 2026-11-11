@@ -1,5 +1,8 @@
 "use client";
 
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("firstcry", url, sub);
+
 import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
@@ -19,7 +22,7 @@ export default function FirstCryStorePage() {
           <h1 className="text-3xl font-bold">FirstCry Coupons & Offers</h1>
           <p className="mt-2 text-sm opacity-90">Verified deals on baby products, gear, and more.</p>
           <div className="mt-4 flex gap-3">
-            <Link href="https://track.vcommission.com/click?campaign_id=10081&pub_id=133499&sub1=store_hub&url=https://www.firstcry.com" target="_blank" rel="nofollow sponsored noopener" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
+            <Link href={link("https://www.firstcry.com", "store_hub")} target="_blank" rel="nofollow sponsored noopener" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
               Go to store
             </Link>
           </div>
@@ -70,7 +73,13 @@ export default function FirstCryStorePage() {
       {/* SEO editorial */}
       <section className="prose max-w-none">
         <h2>FirstCry Coupons & Offers</h2>
-        <p>Find verified FirstCry discount codes, Club member savings, and baby gear deals. Each offer is checked against the store's source pages.</p>
+        <p>Find verified FirstCry discount codes, Club member savings, and baby gear deals. Each offer is checked against the store&apos;s source pages.</p>
+      </section>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold text-ink">FAQ</h2>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Are FirstCry coupons on Durza verified?</summary><p className="mt-2 text-sm text-ink-soft">Deals listed here are refreshed from firstcry.com campaign pages; codes apply at checkout on the official site.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does the FirstCry Club calculator estimate savings?</summary><p className="mt-2 text-sm text-ink-soft">It models member pricing plus coupon stacking against the ₹499 or ₹999 fee using your monthly spend — actual savings vary by category.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the return policy on baby gear?</summary><p className="mt-2 text-sm text-ink-soft">Most baby gear is returnable within 7 days of delivery in original condition; check the individual product page for eligibility.</p></details>
       </section>
     </div>
   );

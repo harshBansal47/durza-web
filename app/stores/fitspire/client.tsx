@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-const TRACK = "https://track.vcommission.com/click?campaign_id=13768&pub_id=133499";
-function link(url: string, subId: string) {
-  return `${TRACK}&sub1=${subId}&url=${encodeURIComponent(url)}`;
-}
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("fitspire", url, sub);
 
 const OFFERS = [
   { code: "FIT10", badge: "STACKABLE CODE", title: "Extra 10% OFF Sitewide", desc: "Stacks on catalog markdowns across plant protein, peanut butter, and gummies.", url: "https://fitspire.online/collections/all-products", sub: "fit10" },
@@ -44,7 +42,7 @@ export default function FitspireStorePage() {
       </section>
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Smart Shopper's Stacking Calculator</h2>
+        <h2 className="text-xl font-bold text-ink">Smart Shopper&apos;s Stacking Calculator</h2>
         <label className="mt-4 block text-sm font-medium text-ink">
           Cart total: ₹{cartTotal.toLocaleString("en-IN")}
           <input type="range" min={500} max={5000} step={100} value={cartTotal} onChange={(e) => setCartTotal(Number(e.target.value))} className="mt-2 w-full" />
@@ -114,7 +112,7 @@ export default function FitspireStorePage() {
         </details>
         <details className="rounded-xl border border-ledger-line bg-white p-4">
           <summary className="font-medium text-ink">Is Fitspire Collagen sourced from animals or fish?</summary>
-          <p className="mt-2 text-sm text-ink-soft">No. Fitspire collagen is 100% plant-based, using natural plant extracts like Sesbania Agati, Acerola Cherry, and Bamboo Shoot that stimulate the body's natural collagen synthesis without marine or bovine derivatives.</p>
+          <p className="mt-2 text-sm text-ink-soft">No. Fitspire collagen is 100% plant-based, using natural plant extracts like Sesbania Agati, Acerola Cherry, and Bamboo Shoot that stimulate the body&apos;s natural collagen synthesis without marine or bovine derivatives.</p>
         </details>
         <details className="rounded-xl border border-ledger-line bg-white p-4">
           <summary className="font-medium text-ink">What is the easiest cart-filler to hit the ₹499 free shipping mark?</summary>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=12979&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("wonderchef", url, sub);
 const OFFERS = [
   { code: "CHEF10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on Nutri-Blends & Cookware", desc: "Stacks on top of existing markdowns across mixers, pans and coffee makers.", url: "https://www.wonderchef.com/collections/bestsellers", sub: "chef10" },
   { code: "KITCHEN500", badge: "APPLIANCE SAVER", title: "Flat ₹500 OFF on Orders Above ₹3,999", desc: "Best for granite cookware sets, Regalia espresso and cold-press juicers.", url: "https://www.wonderchef.com/collections/kitchen-appliances", sub: "kitchen500" },

@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Indus Valley Coupons, Hair Colour & Herbal Dye Deals";
 const description = "Verified Indus Valley promo codes, FIRST10 offers and best deals on ammonia-free herbal hair colour with free delivery above ₹299.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient />
+      <RelatedGuides slug="indus-valley" />
     </>
   );
 }

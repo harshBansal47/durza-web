@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10255&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("truebasics", url, sub);
 const OFFERS = [
   { code: "TRUE10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on Clinical Supplements", desc: "Valid on Triple Strength Omega-3, KSM-66 and Multivitamins.", url: "https://www.truebasics.com", sub: "true10" },
   { code: "CLINICAL20", badge: "HEALTH REGIMEN", title: "Flat 20% OFF on 60-Day & 90-Day Regimen Bundles", desc: "Maximum savings on monthly heart, brain, joint and stress packs.", url: "https://www.truebasics.com", sub: "clinical20" },

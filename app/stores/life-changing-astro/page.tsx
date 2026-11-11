@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import LifeChangingAstroClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "Life Changing Astro Coupons, Kundli Consultation & Gemstone Deals";
 const description = "Verified Life Changing Astro codes, ASTRO15 15% off and best deals on 1-on-1 Vedic consultations and lab-certified gemstones.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <LifeChangingAstroClient />
+      <RelatedGuides slug="life-changing-astro" />
     </>
   );
 }

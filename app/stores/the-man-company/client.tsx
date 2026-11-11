@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const TRACK = "https://track.vcommission.com/click?campaign_id=10248&pub_id=133499";
-function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
+import { getAffiliateLink } from "@/lib/affiliate";
+const link = (url: string, sub: string): string => getAffiliateLink("the-man-company", url, sub);
 const OFFERS = [
   { code: "TMC15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on All Grooming & Perfumes", desc: "Valid across Almond & Thyme beard oils, Blanc EDP and charcoal washes.", url: "https://www.themancompany.com/collections/best-sellers", sub: "tmc15" },
   { code: "BEARD20", badge: "GROWTH SAVER", title: "Flat 20% OFF on Complete Beard Kits", desc: "Applies when purchasing Derma Roller + Beard Growth Oil combos.", url: "https://www.themancompany.com/collections/beard-care", sub: "beard20" },

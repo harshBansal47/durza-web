@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import NordPassClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 
 const title = "NordPass Coupons, Password Manager Deals & Free Trial";
 const description = "Verified NordPass promo codes, up to 50% off on 2-year plans, and best deals on encrypted zero-knowledge password management and family suites.";
@@ -34,6 +35,7 @@ export default function Page() {
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <NordPassClient />
+      <RelatedGuides slug="nordpass" />
     </>
   );
 }
