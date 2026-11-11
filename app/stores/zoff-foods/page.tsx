@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import ZoffFoodsClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "ZOFF Foods Coupons, Cool-Ground Spices & Masala Combo Deals";
 const description = "Verified ZOFF Foods promo codes, PANTRY20 20% off and best deals on Cool-Ground Haldi, Kashmiri Mirchi, Garam Masala combos and pure whole spices.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the free shipping threshold?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — the Essential Kitchen Masala Combo alone qualifies." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("zoff-foods", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <ZoffFoodsClient />
+      <ZoffFoodsClient offers={offers} products={products} />
       <RelatedGuides slug="zoff-foods" />
     </>
   );

@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import LavieWorldClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Lavie World Coupons, Handbags, Totes & Sling Deals";
 const description = "Verified Lavie World promo codes, extra 10% off code LAVIE10, and up to 65% off on office totes, satchel bags, slings, and bridal clutches.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "Can I stack LAVIE10 with the 5% UPI discount?", answer: "Yes. Apply LAVIE10 at checkout first, then pay via UPI or card for an extra 5% instant discount on the remaining balance." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("lavie-world", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <LavieWorldClient />
+      <LavieWorldClient offers={offers} products={products} />
       <RelatedGuides slug="lavie-world" />
     </>
   );

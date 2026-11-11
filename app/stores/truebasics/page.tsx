@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TrueBasicsClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "TrueBasics Coupons, Triple Strength Omega-3 & KSM-66 Deals";
 const description = "Verified TrueBasics promo codes, 20% off code CLINICAL20, and best deals on Triple Strength Omega-3, KSM-66 Ashwagandha and clinical multivitamins.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How do I qualify for free delivery?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — a single bottle of KSM-66 Ashwagandha already qualifies." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("truebasics", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <TrueBasicsClient />
+      <TrueBasicsClient offers={offers} products={products} />
       <RelatedGuides slug="truebasics" />
     </>
   );

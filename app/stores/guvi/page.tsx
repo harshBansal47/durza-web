@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "GUVI Coupons, Coding Courses & Certification Deals";
 const description = "Verified GUVI promo codes, GUVI10 instant 10% off and best deals on Python, Full Stack and Data Science courses.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How do I apply the GUVI10 promo code?", answer: "Select your desired self-paced course or bundle on guvi.in, proceed to the checkout payment page, and enter coupon code GUVI10 to receive an instant 10% deduction." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("guvi", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient />
+      <StoreClient offers={offers} products={products} />
       <RelatedGuides slug="guvi" />
     </>
   );

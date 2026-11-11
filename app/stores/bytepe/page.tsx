@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "BytePe Coupons, Bill Payment Cashback Deals";
 const description = "Verified BytePe cashback codes, FIRSTBILL offers and best deals on BBPS bill payments, recharges and instant digital gift vouchers.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How fast do brand digital gift vouchers get delivered?", answer: "Gift vouchers purchased on BytePe are delivered instantly via SMS and email within seconds of transaction confirmation, ready to redeem on Amazon, Flipkart, or food delivery apps." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("bytepe", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient />
+      <StoreClient offers={offers} products={products} />
       <RelatedGuides slug="bytepe" />
     </>
   );

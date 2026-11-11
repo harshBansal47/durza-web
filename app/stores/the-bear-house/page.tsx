@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TheBearHouseClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "The Bear House Coupons, Linen Shirts & Chinos Deals";
 const description = "Verified The Bear House promo codes, ₹500 off code BUNDLE500, and best deals on 100% pure linen shirts, textured oxfords and chinos.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How does the 7-day exchange process work?", answer: "Initiate a size exchange within 7 days of delivery from your account or support. The reverse pickup is free, and the replacement ships after the courier collects the original pair." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("the-bear-house", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <TheBearHouseClient />
+      <TheBearHouseClient offers={offers} products={products} />
       <RelatedGuides slug="the-bear-house" />
     </>
   );

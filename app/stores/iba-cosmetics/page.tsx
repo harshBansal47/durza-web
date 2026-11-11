@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Iba Cosmetics Coupons, Halal Makeup & Wudhu Nail Deals";
 const description = "Verified Iba Cosmetics codes, IBA15 extra 15% off and best deals on Halal lipsticks, Wudhu-friendly nail polish and vegan skincare.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the minimum order threshold for free delivery?", answer: "Free doorstep delivery across all PIN codes in India for orders totaling ₹499 or more." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("iba-cosmetics", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient />
+      <StoreClient offers={offers} products={products} />
       <RelatedGuides slug="iba-cosmetics" />
     </>
   );

@@ -1,28 +1,22 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("nilkamalfurniture", url, sub);
-const OFFERS = [
-  { code: "NILKAMAL500", badge: "FURNITURE SAVER", title: "Flat ₹500 OFF on Orders Above ₹4,999", desc: "Valid across ergonomic office chairs, plastic outdoor sets and study desks.", url: "https://www.nilkamalfurniture.com/collections/best-sellers", sub: "nilkamal500" },
-  { code: "BEDROOM1000", badge: "WARDROBE SPECIAL", title: "Flat ₹1,000 OFF on Orders Above ₹9,999", desc: "Applies on engineered wood beds, 3-door wardrobes and Sleep mattresses.", url: "https://www.nilkamalfurniture.com/collections/bedroom", sub: "bedroom1000" },
-  { code: "PREPAID5", badge: "INSTANT UPI", title: "Extra 5% Instant OFF on Prepaid Checkout", desc: "Instant deduction at the payment gateway. Stacks with coupon codes.", url: "https://www.nilkamalfurniture.com", sub: "prepaid5" },
-  { code: "FREESHIP", badge: "ZERO DELIVERY FEE", title: "Free Delivery & Free Assembly on Big Furniture", desc: "No freight or carpenter charges on wardrobes, beds and tables.", url: "https://www.nilkamalfurniture.com", sub: "freeship" },
-];
-const CONCERNS = ["Ergonomic WFH Chairs", "Wardrobes & Storage", "Living Room & Outdoor Sets", "Beds & Mattresses"];
-const PRODUCTS = [
-  { concern: "Ergonomic WFH Chairs", name: "Nilkamal Optima High Back Ergonomic Mesh Office Chair", specs: "Adjustable Lumbar • Breathable Mesh • Chrome Base • 120kg Capacity", price: "₹5,499", mrp: "₹9,999", url: "https://www.nilkamalfurniture.com/collections/office-chairs", sub: "optima_office_chair" },
-  { concern: "Wardrobes & Storage", name: "Nilkamal Freedom Mini Medium Plastic Storage Cabinet", specs: "Corrosion & Termite-Proof Polymer • Adjustable Shelves", price: "₹3,799", mrp: "₹5,499", url: "https://www.nilkamalfurniture.com/collections/plastic-cabinets", sub: "freedom_cabinet" },
-  { concern: "Wardrobes & Storage", name: "Nilkamal Engineered Wood 3-Door Wardrobe with Mirror", specs: "Particle Board • Hanging Rod + Shelves + Lockable Drawer", price: "₹10,999", mrp: "₹17,999", url: "https://www.nilkamalfurniture.com/collections/wardrobes", sub: "3door_wardrobe" },
-  { concern: "Living Room & Outdoor Sets", name: "Nilkamal Premium Plastic Dining / Garden Chairs (Set of 4)", specs: "Virgin Polypropylene • Weather-Resistant • Stackable", price: "₹3,299", mrp: "₹4,999", url: "https://www.nilkamalfurniture.com/collections/plastic-chairs", sub: "plastic_chairs_set" },
-];
 const CONFIDENCE = [
   { title: "Mesh Breathability", detail: "Aerated mesh backs prevent back sweating during long Indian summers — the single biggest complaint with leatherette chairs." },
   { title: "Free Assembly Service", detail: "Wardrobes, beds and large tables include complimentary professional carpenter assembly in covered cities — no flatpack headaches." },
   { title: "Dual Coupon Stacking", detail: "Base sale discount + NILKAMAL500 (above ₹4,999) + 5% instant UPI deduction stack together at checkout." },
 ];
-export default function NilkamalFurnitureClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function NilkamalFurnitureClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-amber-900 to-amber-700 text-white p-8">
@@ -45,13 +39,13 @@ export default function NilkamalFurnitureClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Nilkamal</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Nilkamal</a>
           </div>
         ))}
       </div>
@@ -59,7 +53,7 @@ export default function NilkamalFurnitureClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Room Utility &amp; Ergonomic Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -69,7 +63,7 @@ export default function NilkamalFurnitureClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on Nilkamal</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on Nilkamal</a>
             </div>
           ))}
         </div>

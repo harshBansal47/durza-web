@@ -3,30 +3,19 @@
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("fitspire", url, sub);
 
-const OFFERS = [
-  { code: "FIT10", badge: "STACKABLE CODE", title: "Extra 10% OFF Sitewide", desc: "Stacks on catalog markdowns across plant protein, peanut butter, and gummies.", url: "https://fitspire.online/collections/all-products", sub: "fit10" },
-  { code: "FIT20", badge: "HIGH BASKET SAVER", title: "Flat 20% OFF on Orders Above ₹1,499", desc: "Best for stocking up on 2-month packs.", url: "https://fitspire.online/collections/best-sellers", sub: "fit20" },
-  { code: "B2G1", badge: "BUNDLE PERK", title: "Buy 2, Get 1 FREE on Functional Gummies", desc: "Add 3 gummy tubs; 1 tub applies at zero cost.", url: "https://fitspire.online/collections/gummies", sub: "b2g1" },
-  { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Delivery Above ₹499", desc: "Automatically waived shipping fee above ₹499.", url: "https://fitspire.online", sub: "freeship" },
-];
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
 
-const CONCERNS = ["Plant Protein & Energy", "Daily Multivitamins & Immunity", "Hair, Skin & Vegan Collagen", "Healthy Snacking & Spreads"];
-
-const PRODUCTS = [
-  { concern: "Plant Protein & Energy", name: "100% Plant Protein Powder (Pea & Brown Rice)", specs: "1 kg • 20g Clean Protein/Scoop", price: "₹2,099", mrp: "₹2,999", url: "https://fitspire.online/products/plant-protein", sub: "plant_protein" },
-  { concern: "Daily Multivitamins & Immunity", name: "Men's / Women's Vitality Multivitamin", specs: "60 Vegan Tablets", price: "₹649", mrp: "₹999", url: "https://fitspire.online/products/daily-multivitamin", sub: "multivitamin" },
-  { concern: "Daily Multivitamins & Immunity", name: "Fit Collagen Effervescent Fizzy Tabs", specs: "20 Tablets • Orange Flavor", price: "₹499", mrp: "₹799", url: "https://fitspire.online/products/collagen-effervescent", sub: "collagen_tabs" },
-  { concern: "Hair, Skin & Vegan Collagen", name: "Plant-Based Biotin Hair Growth Gummies", specs: "30 Pectin Gummies", price: "₹549", mrp: "₹899", url: "https://fitspire.online/products/biotin-gummies", sub: "biotin_gummies" },
-  { concern: "Hair, Skin & Vegan Collagen", name: "Vegan Collagen Plant Builder Powder", specs: "200g Tub", price: "₹899", mrp: "₹1,499", url: "https://fitspire.online/products/vegan-collagen", sub: "vegan_collagen" },
-  { concern: "Healthy Snacking & Spreads", name: "All-Natural High Protein Peanut Butter", specs: "1 kg Tub", price: "₹449", mrp: "₹699", url: "https://fitspire.online/products/peanut-butter", sub: "peanut_butter" },
-];
-
-export default function FitspireStorePage() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+export default function FitspireStorePage({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cartTotal, setCartTotal] = useState(2000);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
 
   const fit20 = Math.round(cartTotal * 0.20);
   const prepaid = Math.round((cartTotal - fit20) * 0.05);
@@ -60,13 +49,13 @@ export default function FitspireStorePage() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.code.toLowerCase())} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
               Redeem on Fitspire
             </a>
           </div>
@@ -76,7 +65,7 @@ export default function FitspireStorePage() {
       <div>
         <h2 className="text-xl font-bold text-ink">Plant-Wellness Lifestyle Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button
               key={c}
               type="button"
@@ -96,7 +85,7 @@ export default function FitspireStorePage() {
                 <span className="text-lg font-bold text-ink">{p.price}</span>
                 <span className="text-sm text-ink-soft line-through">{p.mrp}</span>
               </div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
                 Get Deal on Fitspire
               </a>
             </div>

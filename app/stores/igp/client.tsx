@@ -1,26 +1,18 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("igp", url, sub);
-const OFFERS = [
-  { code: "IGP10", badge: "SITEWIDE EXTRA", title: "Flat 10% OFF on All Gifts & Hampers", desc: "Valid on personalized gifts, gourmet hampers, plants, and fresh floral bouquets.", url: "https://www.igp.com", sub: "igp10" },
-  { code: "CAKE15", badge: "CELEBRATION DEAL", title: "Flat 15% OFF on Fresh Bakery Cakes & Combos", desc: "Applies across designer cakes, photo cakes, and flowers + cake combos.", url: "https://www.igp.com/cakes", sub: "cake15" },
-  { code: "PHOTO20", badge: "PERSONALIZED SPECIAL", title: "Up to 20% OFF on Custom Keepsakes", desc: "Instant markdown on personalized LED lamps, 3D crystals, caricature frames.", url: "https://www.igp.com/personalized-gifts", sub: "photo20" },
-  { code: "FREESHIP", badge: "STANDARD DELIVERY", title: "Free Standard Delivery on Non-Perishable Gifts", desc: "Zero standard shipping fees on curated gifts and decor.", url: "https://www.igp.com", sub: "freeship" },
-];
-const CONCERNS = ["Personalized Keepsakes", "Fresh Flowers & Midnight Cakes", "Gourmet Hampers & Chocolates", "Lucky Plants & Home Decor"];
-const PRODUCTS = [
-  { concern: "Personalized Keepsakes", name: "Personalized Rotating Crystal LED Lamp", specs: "Custom Photo Engraving with LED Base", price: "₹995", mrp: "₹1,499", url: "https://www.igp.com", sub: "crystal_led_lamp" },
-  { concern: "Personalized Keepsakes", name: "Customized Wooden Wall Caricature Photo Frame", specs: "High-Density MDF Wooden Cutout", price: "₹645", mrp: "₹899", url: "https://www.igp.com", sub: "wooden_caricature" },
-  { concern: "Fresh Flowers & Midnight Cakes", name: "Classic Dutch Truffle Chocolate Cake (500g)", specs: "100% Eggless Bakery Fresh Cake", price: "₹599", mrp: "₹799", url: "https://www.igp.com", sub: "chocolate_cake" },
-  { concern: "Fresh Flowers & Midnight Cakes", name: "Velvet Red Roses & Ferrero Rocher Bouquet", specs: "10 Fresh Red Roses + 4 Ferrero Rocher", price: "₹899", mrp: "₹1,249", url: "https://www.igp.com", sub: "roses_ferrero_combo" },
-  { concern: "Gourmet Hampers & Chocolates", name: "Artisanal Dry Fruits & Belgian Chocolate Festive Box", specs: "Roasted Almonds, Cashews + Pralines", price: "₹1,199", mrp: "₹1,699", url: "https://www.igp.com", sub: "gourmet_hamper" },
-  { concern: "Lucky Plants & Home Decor", name: "2-Layer Lucky Bamboo Plant in Self-Watering Glass Pot", specs: "Air-Purifying Indoor Plant", price: "₹499", mrp: "₹699", url: "https://www.igp.com", sub: "lucky_bamboo" },
-];
-export default function IgpPage() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function IgpPage({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [slot, setSlot] = useState("midnight");
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-pink-600 to-rose-400 text-white p-8">
@@ -43,20 +35,20 @@ export default function IgpPage() {
         <a href={link("https://www.igp.com", "delivery_advisor")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Check Delivery Slots on IGP</a>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on IGP</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on IGP</a>
           </div>
         ))}
       </div>
       <div>
         <h2 className="text-xl font-bold text-ink">Occasion & Gift Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -66,7 +58,7 @@ export default function IgpPage() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Send Gift via IGP</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Send Gift via IGP</a>
             </div>
           ))}
         </div>

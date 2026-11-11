@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Indus Valley Coupons, Hair Colour & Herbal Dye Deals";
 const description = "Verified Indus Valley promo codes, FIRST10 offers and best deals on ammonia-free herbal hair colour with free delivery above ₹299.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "Can the FIRST10 coupon code be used on bundles and kits?", answer: "Yes, FIRST10 stacks on already-discounted combos and individual items for first-time shoppers." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("indus-valley", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient />
+      <StoreClient offers={offers} products={products} />
       <RelatedGuides slug="indus-valley" />
     </>
   );

@@ -1,28 +1,22 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("moglix", url, sub);
-const OFFERS = [
-  { code: "MOGLIX100", badge: "SITEWIDE INSTANT", title: "Flat ₹100 OFF on Orders Above ₹1,499", desc: "Valid on Bosch/Black+Decker drills, pressure washers and hand tool kits.", url: "https://www.moglix.com", sub: "moglix100" },
-  { code: "TOOLS250", badge: "WORKSHOP SAVER", title: "Flat ₹250 OFF on Orders Above ₹3,499", desc: "Best for angle grinders, welding machines and commercial safety orders.", url: "https://www.moglix.com", sub: "tools250" },
-  { code: "PREPAID5", badge: "EXTRA UPI", title: "Extra 5% Instant OFF on Prepaid Checkout", desc: "Instant deduction on UPI, NetBanking and Cards. Stacks with coupons.", url: "https://www.moglix.com", sub: "prepaid5" },
-  { code: "GSTSAVE", badge: "BUSINESS PERK", title: "Save up to 28% Extra via GST Input Tax Credit", desc: "Enter your GSTIN at checkout for a fully compliant tax invoice.", url: "https://www.moglix.com", sub: "gstsave" },
-];
-const CONCERNS = ["Home DIY & Power Drills", "Car & Bike Pressure Washers", "Safety Shoes & PPE", "Smart Security & Electricals"];
-const PRODUCTS = [
-  { concern: "Home DIY & Power Drills", name: "Bosch GSB 500W RE 13mm Impact Drill Kit with 100 Accessories", specs: "500W Copper Motor • Variable Speed + Reverse • Full Home Kit", price: "₹2,699", mrp: "₹4,999", url: "https://www.moglix.com", sub: "bosch_drill_kit" },
-  { concern: "Car & Bike Pressure Washers", name: "High-Pressure Car & Bike Washer (1800W, 135 Bar)", specs: "Auto-Stop Induction Motor • 8m Hose + Foam Cannon + Adjustable Nozzle", price: "₹4,299", mrp: "₹7,999", url: "https://www.moglix.com", sub: "pressure_washer" },
-  { concern: "Safety Shoes & PPE", name: "Allen Cooper Steel Toe ISI Certified Industrial Safety Shoes", specs: "200J Steel Toe • Oil & Acid Resistant PU Sole • Breathable Mesh", price: "₹999", mrp: "₹2,199", url: "https://www.moglix.com", sub: "safety_shoes" },
-  { concern: "Smart Security & Electricals", name: "CP Plus 3MP Full HD Wi-Fi Pan-Tilt Smart Home CCTV Camera", specs: "360° Coverage • Night Vision • Two-Way Audio • Motion Tracking", price: "₹1,499", mrp: "₹3,299", url: "https://www.moglix.com", sub: "wifi_cctv" },
-];
 const BUYERS = [
   { id: "retail", label: "Retail Buyer (Home DIY)", lines: [["High-Pressure Washer", "₹4,299"], ["TOOLS250 coupon", "− ₹250"], ["Effective price", "₹4,049"]], note: "Plus extra 5% instant off on prepaid UPI/card checkout." },
   { id: "gst", label: "GST Registered Business", lines: [["High-Pressure Washer", "₹4,299"], ["TOOLS250 coupon", "− ₹250"], ["18% GST Input Tax Credit", "~ − ₹619"], ["Effective net cost", "~ ₹3,430"]], note: "Claim back the GST component as Input Tax Credit in your next GST return — enter your GSTIN at checkout." },
 ];
-export default function MoglixClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function MoglixClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [buyer, setBuyer] = useState(BUYERS[0]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-amber-700 to-yellow-600 text-white p-8">
@@ -52,13 +46,13 @@ export default function MoglixClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Moglix</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Moglix</a>
           </div>
         ))}
       </div>
@@ -66,7 +60,7 @@ export default function MoglixClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Home DIY &amp; Industrial Equipment Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -76,7 +70,7 @@ export default function MoglixClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on Moglix</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on Moglix</a>
             </div>
           ))}
         </div>

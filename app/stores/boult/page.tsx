@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Boult Coupons, Gaming Earbuds & Smartwatch Deals";
 const description = "Verified Boult promo codes, BOULT100 flat ₹100 off and best deals on gaming earbuds, neckbands and smartwatches at goboult.co.in.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "Do Boult products purchased via these deals come with brand warranty?", answer: "Yes. All purchases made through official store links on goboult.co.in include Boult's official 1-year replacement warranty, which you can register on their website using your invoice." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("boult", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient />
+      <StoreClient offers={offers} products={products} />
       <RelatedGuides slug="boult" />
     </>
   );

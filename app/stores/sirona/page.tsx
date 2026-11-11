@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import SironaClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Sirona Hygiene Coupons, Menstrual Cup & PeeBuddy Deals";
 const description = "Verified Sirona Hygiene promo codes, 15% off code SIRONA15, and best deals on FDA-approved menstrual cups, heat patches and PeeBuddy devices.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What are the free delivery terms?", answer: "Free express delivery across India on all orders of ₹399 or more — a single PeeBuddy pack or heat patches cross the threshold." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("sirona", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <SironaClient />
+      <SironaClient offers={offers} products={products} />
       <RelatedGuides slug="sirona" />
     </>
   );

@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TheNaturalWashClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "The Natural Wash Coupons, Beetroot Lip Balm & Potato Wax Deals";
 const description = "Verified The Natural Wash promo codes, 15% off code TNW15, and best deals on Beetroot lip balm, Potato wax blemish corrector and herbal hair care.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the shipping policy?", answer: "Free doorstep delivery across India on all orders of ₹450 or more; a small flat shipping fee applies below ₹450." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("the-natural-wash", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <TheNaturalWashClient />
+      <TheNaturalWashClient offers={offers} products={products} />
       <RelatedGuides slug="the-natural-wash" />
     </>
   );

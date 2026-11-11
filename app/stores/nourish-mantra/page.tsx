@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import NourishMantraClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Nourish Mantra Coupons, Urban Rani & Clean Skincare Deals";
 const description = "Verified Nourish Mantra promo codes, GLOW20 20% off, and best deals on 100% vegan Urban Rani Youth Serum, Cosmic Sutra Eye Gel, and Redensyl serums.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the minimum order threshold for free delivery on Nourish Mantra?", answer: "Nourish Mantra provides free doorstep delivery across India on all orders of ₹499 or more. A single under-eye gel or serum immediately unlocks free shipping." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("nourish-mantra", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <NourishMantraClient />
+      <NourishMantraClient offers={offers} products={products} />
       <RelatedGuides slug="nourish-mantra" />
     </>
   );

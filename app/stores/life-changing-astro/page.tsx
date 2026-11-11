@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import LifeChangingAstroClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Life Changing Astro Coupons, Kundli Consultation & Gemstone Deals";
 const description = "Verified Life Changing Astro codes, ASTRO15 15% off and best deals on 1-on-1 Vedic consultations and lab-certified gemstones.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the difference between Nepali and Indonesian Rudraksha?", answer: "Nepali Rudraksha beads grow in the Himalayas with intact internal chambers verified by X-ray; Indonesian beads are larger but hold a single central seed. Nepali beads are preferred for remedial use." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("life-changing-astro", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <LifeChangingAstroClient />
+      <LifeChangingAstroClient offers={offers} products={products} />
       <RelatedGuides slug="life-changing-astro" />
     </>
   );

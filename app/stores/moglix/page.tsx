@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import MoglixClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Moglix Coupons, Power Tools & Pressure Washer Deals";
 const description = "Verified Moglix promo codes, ₹250 off code TOOLS250, and best deals on Bosch drill kits, high-pressure car washers, safety shoes and GST-invoice supplies.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How does bulk quote pricing work?", answer: "Add items to your cart, choose the bulk/quote option, and the Moglix B2B team sends volume-based pricing with delivery timelines — ideal for workshops, contractors and facility managers." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("moglix", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <MoglixClient />
+      <MoglixClient offers={offers} products={products} />
       <RelatedGuides slug="moglix" />
     </>
   );

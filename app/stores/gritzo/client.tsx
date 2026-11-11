@@ -3,28 +3,18 @@
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("gritzo", url, sub);
 
-const OFFERS = [
-  { code: "SUPER10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All SuperMilk Tubs", desc: "Valid on all age-specific personalized jars and trial packs.", url: "https://gritzo.com", sub: "super10" },
-  { code: "GROWTH20", badge: "BULK SAVER", title: "Flat 20% OFF on 2 kg Value Jars", desc: "Best value for restocking monthly routines.", url: "https://gritzo.com", sub: "growth20" },
-  { code: "HEALTHYBOX", badge: "COMBO DEAL", title: "Extra ₹200 OFF on Nutrition Combos", desc: "Applies when bundling SuperMilk with Vitamin Gummies.", url: "https://gritzo.com", sub: "healthybox" },
-  { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Doorstep Shipping Above ₹499", desc: "Free delivery on orders above ₹499.", url: "https://gritzo.com", sub: "freeship" },
-];
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
 
-const STAGES = ["Early Years (4–7 Years)", "Growing Kids (8–12 Years)", "Teen Boys (13+ Years)", "Teen Girls (13+ Years)"];
-
-const PRODUCTS = [
-  { stage: "Early Years (4–7 Years)", name: "SuperMilk Height+ for Young Kids (4–7y)", specs: "400g Jar • Natural Chocolate", price: "₹649", mrp: "₹799", url: "https://gritzo.com", sub: "supermilk_4_7y" },
-  { stage: "Growing Kids (8–12 Years)", name: "SuperMilk Height+ for Active Kids (8–12y)", specs: "1 kg Value Pack • Double Chocolate", price: "₹1,499", mrp: "₹1,899", url: "https://gritzo.com", sub: "supermilk_8_12y" },
-  { stage: "Teen Boys (13+ Years)", name: "SuperMilk Genius & Athletic Recovery for Teen Boys", specs: "1 kg Jar • High Performance", price: "₹1,699", mrp: "₹2,199", url: "https://gritzo.com", sub: "teen_boys_supermilk" },
-  { stage: "Teen Girls (13+ Years)", name: "SuperMilk Growth & Hormonal Balance for Teen Girls", specs: "1 kg Jar • Cocoa Flavor", price: "₹1,699", mrp: "₹2,199", url: "https://gritzo.com", sub: "teen_girls_supermilk" },
-  { stage: "Growing Kids (8–12 Years)", name: "Gritzo Daily Immune & Multivitamin Gummies", specs: "30 Fruit Pectin Gummies", price: "₹399", mrp: "₹499", url: "https://gritzo.com", sub: "kids_gummies" },
-];
-
-export default function GritzoStorePage() {
-  const [stage, setStage] = useState(STAGES[0]);
-  const filtered = PRODUCTS.filter((p) => p.stage === stage);
+export default function GritzoStorePage({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [stage, setStage] = useState(tabs[0] ?? "");
+  const filtered = products.filter((p) => p.tab === stage);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
@@ -35,13 +25,13 @@ export default function GritzoStorePage() {
       </section>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
               Redeem on Gritzo
             </a>
           </div>
@@ -51,7 +41,7 @@ export default function GritzoStorePage() {
       <div>
         <h2 className="text-xl font-bold text-ink">Age & Gender SuperMilk Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {STAGES.map((s) => (
+          {tabs.map((s) => (
             <button
               key={s}
               type="button"
@@ -71,7 +61,7 @@ export default function GritzoStorePage() {
                 <span className="text-lg font-bold text-ink">{p.price}</span>
                 <span className="text-sm text-ink-soft line-through">{p.mrp}</span>
               </div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
                 Get Deal on Gritzo
               </a>
             </div>

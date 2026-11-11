@@ -1,29 +1,23 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("the-natural-wash", url, sub);
-const OFFERS = [
-  { code: "TNW15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on All Natural Care", desc: "Valid on Beetroot balm, Potato wax, rose water and hair cleansers.", url: "https://www.thenaturalwash.com/collections/best-sellers", sub: "tnw15" },
-  { code: "B2G1", badge: "BUNDLE PERK", title: "Buy 2, Get 1 FREE on Lip & Skin Essentials", desc: "Add any 3 items; the lowest priced applies at ₹0 automatically.", url: "https://www.thenaturalwash.com/collections/lip-care", sub: "b2g1" },
-  { code: "PREPAID5", badge: "INSTANT UPI", title: "Extra 5% Instant Discount on Prepaid Checkout", desc: "Instant payment gateway markdown on UPI and Card orders.", url: "https://www.thenaturalwash.com", sub: "prepaid5" },
-  { code: "FREESHIP", badge: "DELIVERY PERK", title: "Free Nationwide Shipping Above ₹450", desc: "Doorstep delivery fee waived on orders above ₹450.", url: "https://www.thenaturalwash.com", sub: "freeship" },
-];
-const CONCERNS = ["Beetroot Lip & Cheek Glow", "Potato Dark Spot Care", "Pure Steam-Distilled Mists", "Onion & Herbal Hair Care"];
-const PRODUCTS = [
-  { concern: "Beetroot Lip & Cheek Glow", name: "TNW Beetroot Tinted Lip Balm with Shea Butter", specs: "5g Herbal Bullet • Pure Beetroot, Cocoa Butter & Olive Oil", price: "₹220", mrp: "₹260", url: "https://www.thenaturalwash.com/products/beetroot-lip-balm", sub: "beetroot_balm" },
-  { concern: "Potato Dark Spot Care", name: "TNW Potato Wax Face Pack & Blemish Corrector", specs: "100g Jar • Raw Potato Starch, Papaya Enzymes & Multani Mitti", price: "₹380", mrp: "₹450", url: "https://www.thenaturalwash.com/products/potato-wax", sub: "potato_wax" },
-  { concern: "Pure Steam-Distilled Mists", name: "TNW Steam-Distilled Rose Water Spray (200ml)", specs: "100% Pure Kannauj Rose Distillate • Zero Alcohol", price: "₹299", mrp: "₹390", url: "https://www.thenaturalwash.com/products/pure-rose-water", sub: "rose_water" },
-  { concern: "Onion & Herbal Hair Care", name: "TNW Black Seed Onion Hair Oil with Jojoba", specs: "200ml • Red Onion Extract + Kalonji Oil + Castor Oil", price: "₹425", mrp: "₹550", url: "https://www.thenaturalwash.com/products/onion-hair-oil", sub: "onion_oil" },
-];
 const CART_FILLERS = [
   { id: "potato", label: "Potato Wax (₹380)", amount: 380 },
   { id: "beetroot", label: "Beetroot Lip Balm (₹220)", amount: 220 },
   { id: "rose", label: "Rose Water (₹299)", amount: 299 },
 ];
-export default function TheNaturalWashClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function TheNaturalWashClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cart, setCart] = useState<string[]>(["potato"]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
   const subtotal = CART_FILLERS.filter((c) => cart.includes(c.id)).reduce((s, c) => s + c.amount, 0);
   const tnw15 = Math.round(subtotal * 0.15);
   const freeShip = subtotal >= 450;
@@ -52,13 +46,13 @@ export default function TheNaturalWashClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on TNW</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on TNW</a>
           </div>
         ))}
       </div>
@@ -66,7 +60,7 @@ export default function TheNaturalWashClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Kitchen-Active Ayurvedic Beauty Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -76,7 +70,7 @@ export default function TheNaturalWashClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on TNW</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on TNW</a>
             </div>
           ))}
         </div>

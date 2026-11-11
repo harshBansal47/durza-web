@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import MyMuseClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "MyMuse Coupons, Couple Kits & Intimate Wellness Deals";
 const description = "Verified MyMuse.in promo codes, MUSE10 extra 10% off and discreet deals on couple kits, waterproof massagers and natural lubricants.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How does the 1-year warranty replacement work?", answer: "MyMuse offers a 1-year replacement warranty on massagers and electronic products. Reach out to support with your order ID and a short video/photo of the defect, and a replacement ships after verification." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("mymuse", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <MyMuseClient />
+      <MyMuseClient offers={offers} products={products} />
       <RelatedGuides slug="mymuse" />
     </>
   );

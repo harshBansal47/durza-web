@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import WonderchefClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Wonderchef Coupons, Nutri-Blend & Granite Cookware Deals";
 const description = "Verified Wonderchef codes, CHEF10 extra 10% off, best deals on Nutri-Blend grinders, PFOA-free granite cookware and Regalia coffee makers.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How do I claim the warranty?", answer: "Register your appliance or cookware on wonderchef.com with the invoice to activate the 2-year on-site / replacement warranty, then raise a service request through support." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("wonderchef", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <WonderchefClient />
+      <WonderchefClient offers={offers} products={products} />
       <RelatedGuides slug="wonderchef" />
     </>
   );

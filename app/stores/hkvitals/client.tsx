@@ -1,24 +1,17 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("hkvitals", url, sub);
-const OFFERS = [
-  { code: "HKV10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Daily Supplements", desc: "Valid across Multivitamins, Omega-3 Fish Oil, Biotin, and Collagen.", url: "https://www.hkvitals.com", sub: "hkv10" },
-  { code: "VITAL20", badge: "COMBO SAVER", title: "Flat 20% OFF on 2-Month & 3-Month Value Packs", desc: "Maximum savings on monthly health replenishment routines.", url: "https://www.hkvitals.com", sub: "vital20" },
-  { code: "EXTRA5", badge: "PREPAID COMBO", title: "Extra 5% Instant OFF on UPI / Prepaid", desc: "Applies automatically at checkout on UPI and card payments.", url: "https://www.hkvitals.com", sub: "extra5" },
-  { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Nationwide Shipping Above ₹499", desc: "Standard shipping fee waived above ₹499.", url: "https://www.hkvitals.com", sub: "freeship" },
-];
-const CONCERNS = ["Hair & Skin Health", "Heart & Omega-3", "Energy & Multivitamins", "Bone & Joint Mobility"];
-const PRODUCTS = [
-  { concern: "Hair & Skin Health", name: "HK Vitals Biotin (10,000 mcg)", specs: "60 Tablets", price: "₹399", mrp: "₹599", url: "https://www.hkvitals.com", sub: "biotin_tabs" },
-  { concern: "Hair & Skin Health", name: "HK Vitals Skin Radiance Marine Collagen Powder", specs: "200g Tub (Orange Flavor)", price: "₹999", mrp: "₹1,499", url: "https://www.hkvitals.com", sub: "collagen_powder" },
-  { concern: "Heart & Omega-3", name: "HK Vitals Fish Oil (1000mg)", specs: "60 Softgels", price: "₹549", mrp: "₹799", url: "https://www.hkvitals.com", sub: "fish_oil" },
-  { concern: "Energy & Multivitamins", name: "HK Vitals Multivitamin with Ginseng", specs: "60 Tablets", price: "₹499", mrp: "₹699", url: "https://www.hkvitals.com", sub: "multivitamin" },
-  { concern: "Bone & Joint Mobility", name: "HK Vitals Calcium + Magnesium + Zinc + Vitamin D3", specs: "60 Tablets", price: "₹349", mrp: "₹499", url: "https://www.hkvitals.com", sub: "calcium_tabs" },
-];
-export default function HkVitalsPage() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function HkVitalsPage({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-500 text-white p-8">
@@ -31,20 +24,20 @@ export default function HkVitalsPage() {
         <p className="mt-2 text-sm text-ink-soft">HK Vitals Multivitamin costs ₹499 for 60 days = Just ~₹8.30/day for complete 100% RDA micronutrient coverage.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on HK Vitals</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on HK Vitals</a>
           </div>
         ))}
       </div>
       <div>
         <h2 className="text-xl font-bold text-ink">Nutrition Deficiency & Goal Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -54,7 +47,7 @@ export default function HkVitalsPage() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on HK Vitals</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on HK Vitals</a>
             </div>
           ))}
         </div>

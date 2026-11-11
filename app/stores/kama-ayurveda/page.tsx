@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Kama Ayurveda Coupons, Kumkumadi & Bringadi Deals";
 const description = "Verified Kama Ayurveda promo codes, KAMA10 10% off and best luxury deals on Kumkumadi night serum, Bringadi oil and rose water.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the minimum threshold for free shipping?", answer: "Free express delivery on all domestic orders totaling ₹1,499 or more." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("kama-ayurveda", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient />
+      <StoreClient offers={offers} products={products} />
       <RelatedGuides slug="kama-ayurveda" />
     </>
   );

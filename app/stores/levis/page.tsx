@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import LevisClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Levi's India Coupons, 511 & 501 Jeans Deals & Sale Offers";
 const description = "Verified Levi.in promo codes, ₹1,000 off code LEVIS1000, and best deals on 511 Slim, 512 Taper and 501 Original jeans.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "Can LEVIS1000 be applied on sale items?", answer: "Yes, LEVIS1000 applies on cart value above ₹5,999 including sale items, and LEVIS500 kicks in above ₹3,499. Enter the code at the payment step before paying." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("levis", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <LevisClient />
+      <LevisClient offers={offers} products={products} />
       <RelatedGuides slug="levis" />
     </>
   );

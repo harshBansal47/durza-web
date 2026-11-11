@@ -1,28 +1,22 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("wonderchef", url, sub);
-const OFFERS = [
-  { code: "CHEF10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on Nutri-Blends & Cookware", desc: "Stacks on top of existing markdowns across mixers, pans and coffee makers.", url: "https://www.wonderchef.com/collections/bestsellers", sub: "chef10" },
-  { code: "KITCHEN500", badge: "APPLIANCE SAVER", title: "Flat ₹500 OFF on Orders Above ₹3,999", desc: "Best for granite cookware sets, Regalia espresso and cold-press juicers.", url: "https://www.wonderchef.com/collections/kitchen-appliances", sub: "kitchen500" },
-  { code: "PREPAID5", badge: "INSTANT UPI", title: "Extra 5% Instant OFF on Prepaid Checkout", desc: "Instant payment gateway deduction on UPI and Card orders.", url: "https://www.wonderchef.com", sub: "prepaid5" },
-  { code: "FREESHIP", badge: "DELIVERY PERK", title: "Free Nationwide Shipping Above ₹999", desc: "Zero delivery charges across India on orders above ₹999.", url: "https://www.wonderchef.com", sub: "freeship" },
-];
-const CONCERNS = ["Nutri-Blend & Mixers", "PFOA-Free Granite Cookware", "Regalia Coffee & Espresso", "Cold-Press Juicers & OTG"];
-const PRODUCTS = [
-  { concern: "Nutri-Blend & Mixers", name: "Wonderchef Nutri-Blend Complete Kitchen Machine (400W / 500W)", specs: "22,000 RPM Copper Motor • 3 Unbreakable Jars + Chopper + Juicer", price: "₹2,799", mrp: "₹5,500", url: "https://www.wonderchef.com/collections/nutri-blend", sub: "nutri_blend" },
-  { concern: "PFOA-Free Granite Cookware", name: "Wonderchef Granite Non-Stick 4-Piece Cookware Set", specs: "Dosa Tawa + Fry Pan + Wok with Lid • 5-Layer PFOA Free • Induction & Gas", price: "₹3,299", mrp: "₹6,500", url: "https://www.wonderchef.com/collections/cookware-sets", sub: "granite_cookware_set" },
-  { concern: "Regalia Coffee & Espresso", name: "Wonderchef Regalia Espresso & Cappuccino Coffee Maker (15 Bar)", specs: "15-Bar Italian Pump • Steam Milk Frother • Die-Cast Boiler", price: "₹7,999", mrp: "₹14,000", url: "https://www.wonderchef.com/collections/coffee-makers", sub: "regalia_espresso" },
-  { concern: "Cold-Press Juicers & OTG", name: "Wonderchef Nutri-Pot Electric Pressure Cooker (6 Litre)", specs: "18-in-1 Micro-Computer Presets • One-Touch Biryani, Dal, Yogurt", price: "₹5,499", mrp: "₹9,500", url: "https://www.wonderchef.com/collections/nutri-pot", sub: "nutri_pot" },
-];
 const ADVISOR = [
   { title: "100% PFOA & Lead-Free", detail: "Wonderchef Granite coatings use non-toxic mineral layers safe for high-heat Indian tadka — no leaching, no flaking fumes." },
   { title: "Induction + Gas Dual Base", detail: "All granite pans carry a magnetic stainless steel base plate, fully compatible with both induction cooktops and gas stoves." },
   { title: "Stacking Formula", detail: "Catalog 49% off + code CHEF10 (extra 10%) + 5% instant UPI deduction = maximum savings on chef-curated kitchenware." },
 ];
-export default function WonderchefClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function WonderchefClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-red-950 to-orange-800 text-white p-8">
@@ -45,13 +39,13 @@ export default function WonderchefClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Wonderchef</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Wonderchef</a>
           </div>
         ))}
       </div>
@@ -59,7 +53,7 @@ export default function WonderchefClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Kitchen Appliance &amp; Cookware Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -69,7 +63,7 @@ export default function WonderchefClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on Wonderchef</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on Wonderchef</a>
             </div>
           ))}
         </div>

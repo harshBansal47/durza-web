@@ -1,25 +1,19 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("the-bear-house", url, sub);
-const OFFERS = [
-  { code: "BEAR10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Shirts & Polos", desc: "Valid on textured button-downs, knitted polos and chinos.", url: "https://thebearhouse.com/collections/shirts", sub: "bear10" },
-  { code: "BUNDLE500", badge: "WARDROBE SAVER", title: "Flat ₹500 OFF on Orders Above ₹2,999", desc: "Best value on 2 shirts or a shirt paired with chinos.", url: "https://thebearhouse.com/collections/best-sellers", sub: "bundle500" },
-  { code: "EXTRA5", badge: "PREPAID COMBO", title: "Extra 5% Instant OFF on UPI / Cards", desc: "Instant payment deduction on prepaid orders. Stacks with codes.", url: "https://thebearhouse.com", sub: "extra5" },
-  { code: "FREESHIP", badge: "DELIVERY PERK", title: "Free Nationwide Shipping Above ₹999", desc: "Zero delivery fees across India on orders above ₹999.", url: "https://thebearhouse.com", sub: "freeship" },
-];
-const CONCERNS = ["100% Pure Linen Shirts", "Textured Oxford Cotton", "Knitted Smart Polos", "Stretch Casual Chinos"];
-const PRODUCTS = [
-  { concern: "100% Pure Linen Shirts", name: "The Bear House 100% Pure Linen Casual Shirt", specs: "Breathable French/European Flax Linen • Regular Slim Fit • Mandarin & Spread Collar", price: "₹1,799", mrp: "₹2,999", url: "https://thebearhouse.com/collections/linen-shirts", sub: "linen_shirt" },
-  { concern: "Textured Oxford Cotton", name: "Classic Heavy Textured Oxford Button-Down Shirt", specs: "100% Combed Cotton • Structured Weave + Bear Embroidery • Tailored Fit", price: "₹1,399", mrp: "₹2,499", url: "https://thebearhouse.com/collections/oxford-shirts", sub: "oxford_shirt" },
-  { concern: "Knitted Smart Polos", name: "Textured Ribbed Knit Polo T-Shirt", specs: "Cotton-Modal Blend • Self-Ribbed Collar & Cuffs • Smart Casual Fit", price: "₹1,099", mrp: "₹1,999", url: "https://thebearhouse.com/collections/polos", sub: "knitted_polo" },
-  { concern: "Stretch Casual Chinos", name: "Flexi-Waist Stretch Cotton Casual Chinos", specs: "98% Cotton, 2% Elastane • Clean Flat-Front Ankle-Length Cut", price: "₹1,699", mrp: "₹2,799", url: "https://thebearhouse.com/collections/chinos", sub: "stretch_chinos" },
-];
 const BUNDLE = { shirt: 1399, chino: 1699, code: 500, upiRate: 0.05 };
-export default function TheBearHouseClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function TheBearHouseClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [qty, setQty] = useState({ shirt: true, chino: true });
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
   const subtotal = (qty.shirt ? BUNDLE.shirt : 0) + (qty.chino ? BUNDLE.chino : 0);
   const bundleOff = subtotal >= 2999 ? BUNDLE.code : 0;
   const upiOff = Math.round((subtotal - bundleOff) * BUNDLE.upiRate);
@@ -49,13 +43,13 @@ export default function TheBearHouseClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on The Bear House</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on The Bear House</a>
           </div>
         ))}
       </div>
@@ -63,7 +57,7 @@ export default function TheBearHouseClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Menswear Fabric &amp; Occasion Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -73,7 +67,7 @@ export default function TheBearHouseClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on The Bear House</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on The Bear House</a>
             </div>
           ))}
         </div>

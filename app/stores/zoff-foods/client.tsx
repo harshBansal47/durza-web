@@ -1,21 +1,8 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("zoff-foods", url, sub);
-const OFFERS = [
-  { code: "ZOFF10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Spices & Pantry Combos", desc: "Valid on Cool-Ground Haldi, Kashmiri Mirchi and kitchen essential boxes.", url: "https://zofffoods.com/collections/all-products", sub: "zoff10" },
-  { code: "PANTRY20", badge: "MONTHLY RESTOCK", title: "Flat 20% OFF on Monthly Kitchen Masala Boxes", desc: "Maximum savings on 6-spice or 10-spice family combo packs.", url: "https://zofffoods.com/collections/combos", sub: "pantry20" },
-  { code: "PREPAID5", badge: "INSTANT UPI", title: "Extra 5% Instant OFF on Prepaid Checkout", desc: "Instant payment gateway deduction on UPI and Cards.", url: "https://zofffoods.com", sub: "prepaid5" },
-  { code: "FREESHIP", badge: "DELIVERY PERK", title: "Free Nationwide Shipping Above ₹499", desc: "Zero delivery charges across India on orders above ₹499.", url: "https://zofffoods.com", sub: "freeship" },
-];
-const CONCERNS = ["Monthly Kitchen Essential Combos", "Everyday Core Spices", "Chef Signature Blends", "Whole Spices & Dry Fruits"];
-const PRODUCTS = [
-  { concern: "Monthly Kitchen Essential Combos", name: "ZOFF Essential Everyday Kitchen Masala Combo (Pack of 5)", specs: "Haldi 200g + Kashmiri Mirchi 200g + Dhaniya 200g + Jeera 100g + Garam Masala 100g", price: "₹499", mrp: "₹675", url: "https://zofffoods.com/collections/combos", sub: "essential_masala_combo" },
-  { concern: "Everyday Core Spices", name: "ZOFF High-Curcumin Salem Turmeric (Haldi) Powder (500g)", specs: "3.5%+ Natural Curcumin • Cool-Ground at Sub-Zero Temps • Zip-Lock", price: "₹185", mrp: "₹240", url: "https://zofffoods.com/collections/powdered-spices", sub: "salem_haldi" },
-  { concern: "Everyday Core Spices", name: "ZOFF Pure Kashmiri Lal Mirch Powder (500g)", specs: "Vibrant Natural Crimson • Mild Heat & Rich Aroma • 100% Stemless Pods", price: "₹325", mrp: "₹420", url: "https://zofffoods.com/collections/powdered-spices", sub: "kashmiri_mirchi" },
-  { concern: "Chef Signature Blends", name: "ZOFF Shahi Garam Masala & Kitchen King Combo", specs: "2 x 100g • Whole Roasted Cloves, Cardamom, Mace & Nutmeg Ground Cold", price: "₹210", mrp: "₹270", url: "https://zofffoods.com/collections/blended-spices", sub: "garam_masala_combo" },
-  { concern: "Whole Spices & Dry Fruits", name: "ZOFF California Almonds & Whole Green Cardamom Combo", specs: "500g Nonpareil Almonds + 50g Bold 8mm Green Elaichi • Vacuum-Sealed", price: "₹599", mrp: "₹799", url: "https://zofffoods.com/collections/whole-spices", sub: "almonds_cardamom" },
-];
 const RESTOCK_ITEMS = [
   { id: "masala", label: "Essential Masala Combo (₹499)", amount: 499 },
   { id: "almonds", label: "Almonds & Cardamom Combo (₹599)", amount: 599 },
@@ -24,11 +11,17 @@ const GRINDING = [
   { id: "traditional", label: "Traditional Chakki / Hammer Mills", points: ["Generates up to 95°C heat during grinding", "Volatile essential oils burn off — dull, bitter spices", "Preservative-free powders go stale within months", "Color fades; curcumin and capsaicin degrade"] },
   { id: "coolgrind", label: "ZOFF Cool-Grinding Tech", points: ["Spices ground at sub-zero temperatures", "Locks in up to 95% of natural essential oils", "Vibrant natural color without artificial dyes", "Medicinal curcumin and capsaicin stay potent"] },
 ];
-export default function ZoffFoodsClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function ZoffFoodsClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(GRINDING[1]);
   const [restock, setRestock] = useState<string[]>(["masala", "almonds"]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
   const subtotal = RESTOCK_ITEMS.filter((r) => restock.includes(r.id)).reduce((s, r) => s + r.amount, 0);
   const pantry20 = Math.round(subtotal * 0.2);
   const upi = Math.round((subtotal - pantry20) * 0.05);
@@ -72,13 +65,13 @@ export default function ZoffFoodsClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on ZOFF</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on ZOFF</a>
           </div>
         ))}
       </div>
@@ -86,7 +79,7 @@ export default function ZoffFoodsClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Cool-Ground Spice &amp; Pantry Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -96,7 +89,7 @@ export default function ZoffFoodsClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on ZOFF</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on ZOFF</a>
             </div>
           ))}
         </div>

@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import MiltonClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Milton Coupons, Thermosteel Flask & Electric Tiffin Deals";
 const description = "Verified Milton.in promo codes, MILTON10 extra 10% off and best deals on 24-hour Thermosteel flasks, electric lunch boxes and copper bottles.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What does the 1-year manufacturer warranty cover?", answer: "One year on vacuum insulation performance and electrical heating elements (Futuron). Register your product on milton.in with the invoice to claim repairs or replacement." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("milton", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <MiltonClient />
+      <MiltonClient offers={offers} products={products} />
       <RelatedGuides slug="milton" />
     </>
   );

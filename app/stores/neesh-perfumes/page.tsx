@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import NeeshPerfumesClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Neesh Perfumes Coupons, Glaze Extrait & Luxury Attar Deals";
 const description = "Verified Neesh Perfumes promo codes, NEESH10 extra 10% off, and best deals on Glaze Extrait de Parfum, Milky Way and high-sillage attars.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "How do I apply NEESH10?", answer: "Add your chosen bottles or discovery set to the cart on neeshperfumes.com, enter NEESH10 at checkout for an extra 10% off — no minimum order value, stackable with sale prices." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("neesh-perfumes", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <NeeshPerfumesClient />
+      <NeeshPerfumesClient offers={offers} products={products} />
       <RelatedGuides slug="neesh-perfumes" />
     </>
   );

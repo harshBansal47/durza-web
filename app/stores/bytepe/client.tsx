@@ -3,29 +3,18 @@
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("bytepe", url, sub);
 
-const OFFERS = [
-  { code: "FIRSTBILL", badge: "WELCOME CASHBACK", title: "Flat ₹50 Cashback on First Electricity or Gas Bill", desc: "Valid on first utility bill payment of ₹500 or more via BBPS.", url: "https://bytepe.com/bill-payment", sub: "firstbill" },
-  { code: "RECHARGE10", badge: "DAILY SAVER", title: "Up to 5% Instant Discount on Mobile & DTH Recharges", desc: "Applies across Airtel, Jio, and Vi prepaid plans.", url: "https://bytepe.com/recharge", sub: "recharge10" },
-  { code: "FASTAG25", badge: "TRAVEL REWARD", title: "Flat ₹25 Cashback on National Fastag Recharges", desc: "Instant wallet credit on NHAI Fastag top-ups of ₹1,000 or more.", url: "https://bytepe.com/fastag", sub: "fastag25" },
-  { code: "VOUCHER5", badge: "DIGITAL CARDS", title: "Flat 2% to 8% OFF on Top Brand Vouchers", desc: "Instant e-gift card codes for Amazon, Flipkart, Swiggy, and Zomato.", url: "https://bytepe.com", sub: "voucher5" },
-];
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
 
-const CONCERNS = ["Utility & Electricity Bills", "Mobile & Fastag Recharges", "Brand Gift Cards & Vouchers", "Merchant QR & Soundbox"];
-
-const PRODUCTS = [
-  { concern: "Utility & Electricity Bills", name: "State Electricity Board (BBPS) Bill Payment", specs: "70+ State Power Boards across India", price: "Up to ₹50 Cashback", url: "https://bytepe.com/electricity", sub: "electricity_bill" },
-  { concern: "Utility & Electricity Bills", name: "Piped Gas (PNG) & Water Bill Clearance", specs: "IGL, MGL, Adani Gas & Municipal Water Boards", price: "Flat ₹30 on orders > ₹800", url: "https://bytepe.com/gas-water", sub: "gas_water_bill" },
-  { concern: "Mobile & Fastag Recharges", name: "Jio / Airtel / Vi Unlimited Prepaid Recharge", specs: "28-Day, 84-Day & Annual 5G Data Packs", price: "3% - 5% Instant Discount", url: "https://bytepe.com/mobile-recharge", sub: "mobile_recharge" },
-  { concern: "Mobile & Fastag Recharges", name: "NETC National Fastag Instant Top-Up", specs: "Instant toll tag activation", price: "Flat ₹25 with code FASTAG25", url: "https://bytepe.com/fastag", sub: "fastag_recharge" },
-  { concern: "Brand Gift Cards & Vouchers", name: "Instant E-Gift Cards (Amazon, Flipkart, Swiggy)", specs: "Instant digital code delivery", price: "Save 2% to 6%", url: "https://bytepe.com", sub: "gift_cards" },
-  { concern: "Merchant QR & Soundbox", name: "BytePe Smart All-in-One UPI QR & Audio Soundbox", specs: "Instant audio payment notification", price: "Special merchant fee waiver", url: "https://bytepe.com", sub: "merchant_soundbox" },
-];
-
-export default function BytePeStorePage() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+export default function BytePeStorePage({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
+  const filtered = products.filter((p) => p.tab === concern);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
@@ -48,13 +37,13 @@ export default function BytePeStorePage() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
               Activate on BytePe
             </a>
           </div>
@@ -64,7 +53,7 @@ export default function BytePeStorePage() {
       <div>
         <h2 className="text-xl font-bold text-ink">Payment Service & Cashback Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button
               key={c}
               type="button"
@@ -81,7 +70,7 @@ export default function BytePeStorePage() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <p className="mt-1 text-xs text-ink-soft">{p.price}</p>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
                 Pay & Earn Cashback on BytePe
               </a>
             </div>

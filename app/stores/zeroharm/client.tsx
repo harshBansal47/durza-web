@@ -1,29 +1,22 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("zeroharm", url, sub);
-const OFFERS = [
-  { code: "ZERO15", badge: "SITEWIDE EXTRA", title: "Extra 15% OFF on All Nano-Nutraceuticals", desc: "Valid on Plant B12, Vegan Omega-3, Narie PCOS and Liver Detox.", url: "https://www.zeroharm.in/collections/all-products", sub: "zero15" },
-  { code: "NANO25", badge: "COURSE SAVER", title: "Flat 25% OFF on 90-Day Wellness Courses", desc: "Maximum savings on 3-bottle clinical regimens with sustained results.", url: "https://www.zeroharm.in/collections/combos", sub: "nano25" },
-  { code: "PREPAID5", badge: "INSTANT UPI", title: "Extra 5% Instant OFF on Prepaid Checkout", desc: "Instant payment gateway markdown on UPI and Cards.", url: "https://www.zeroharm.in", sub: "prepaid5" },
-  { code: "FREESHIP", badge: "DELIVERY PERK", title: "Free Nationwide Shipping Above ₹499", desc: "Zero delivery charges across India on orders above ₹499.", url: "https://www.zeroharm.in", sub: "freeship" },
-];
-const CONCERNS = ["Essential Plant Vitamins (B12 & D3)", "Women's Hormone & PCOS (Narie)", "Liver, Gut & Sugar Care", "Stamina & Sleep Recovery"];
-const PRODUCTS = [
-  { concern: "Essential Plant Vitamins (B12 & D3)", name: "ZeroHarm Whole Food Plant-Based Vitamin B12 (60 Tablets)", specs: "Methylcobalamin from Spirulina & Chlorella • Nano-Formulated", price: "₹599", mrp: "₹799", url: "https://www.zeroharm.in/products/plant-based-vitamin-b12", sub: "plant_b12" },
-  { concern: "Essential Plant Vitamins (B12 & D3)", name: "ZeroHarm Vegan Vitamin D3 + K2 (Lichen Sourced)", specs: "60 Tablets • Plant Lichen D3 + Menaquinone-7 • Bone Density", price: "₹649", mrp: "₹899", url: "https://www.zeroharm.in/products/vitamin-d3-k2", sub: "vegan_d3_k2" },
-  { concern: "Women's Hormone & PCOS (Narie)", name: "ZeroHarm Narie Hormone Balance & PCOS Care Tablets", specs: "60 Tablets • Shatavari, Chasteberry, Ashoka & Gokshura", price: "₹749", mrp: "₹999", url: "https://www.zeroharm.in/products/narie-hormone-balance", sub: "narie_pcos" },
-  { concern: "Liver, Gut & Sugar Care", name: "ZeroHarm Holistic Liver Detox with Milk Thistle & Dandelion", specs: "60 Tablets • 80% Silymarin Nano-Extract • Flushes Toxins", price: "₹699", mrp: "₹949", url: "https://www.zeroharm.in/products/liver-detox", sub: "liver_detox" },
-  { concern: "Stamina & Sleep Recovery", name: "ZeroHarm Back To Teens Natural Stamina & Testosterone Booster", specs: "60 Tablets • Safed Musli, Ashwagandha & Shilajit Nano-Extract", price: "₹849", mrp: "₹1,199", url: "https://www.zeroharm.in/products/back-to-teens", sub: "back_to_teens" },
-];
 const TECH = [
   { id: "standard", label: "Standard Supplements", points: ["High-heat chemical extraction destroys phytonutrients", "Harsh stomach acid blocks up to 80% of absorption", "Large 1000mg tablets just to compensate for loss", "Bulk dosage increases side-effect risk"] },
   { id: "nano", label: "ZeroHarm Nano-Tech", points: ["Water-based extraction preserves live phytonutrients", "Microscopic lipid spheres bypass stomach acid entirely", "Absorbed directly in the small intestine for 5–10× uptake", "Smaller clean dosages with zero heavy metals or synthetics"] },
 ];
-export default function ZeroHarmClient() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function ZeroHarmClient({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(TECH[1]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-violet-950 to-purple-800 text-white p-8">
@@ -48,13 +41,13 @@ export default function ZeroHarmClient() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on ZeroHarm</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on ZeroHarm</a>
           </div>
         ))}
       </div>
@@ -62,7 +55,7 @@ export default function ZeroHarmClient() {
       <div>
         <h2 className="text-xl font-bold text-ink">Nano-Nutrition &amp; Clinical Concern Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -72,7 +65,7 @@ export default function ZeroHarmClient() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on ZeroHarm</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on ZeroHarm</a>
             </div>
           ))}
         </div>

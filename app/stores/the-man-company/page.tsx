@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import TheManCompanyClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "The Man Company Coupons, Beard Growth & Blanc Perfume Deals";
 const description = "Verified The Man Company promo codes, 15% off code TMC15, and best deals on Derma Roller beard kits, Blanc EDP, and charcoal face care.";
@@ -23,7 +25,12 @@ const FAQS = [
   { question: "What is the minimum order for free shipping?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — the Beard Growth Oil alone is enough to qualify." },
 ];
 
-export default function Page() {
+export const revalidate = 300;
+
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("the-man-company", { skip: 0, limit: 50 });
+  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   return (
     <>
       <Breadcrumbs
@@ -34,7 +41,7 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <TheManCompanyClient />
+      <TheManCompanyClient offers={offers} products={products} />
       <RelatedGuides slug="the-man-company" />
     </>
   );

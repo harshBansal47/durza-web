@@ -1,24 +1,17 @@
 "use client";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 const link = (url: string, sub: string): string => getAffiliateLink("kama-ayurveda", url, sub);
-const OFFERS = [
-  { code: "KAMA10", badge: "WELCOME LUXURY", title: "Flat 10% OFF on First Ayurvedic Order", desc: "Valid on Kumkumadi, Bringadi, and Pure Rose Water.", url: "https://www.kamaayurveda.com", sub: "kama10" },
-  { code: "GLOWGIFT", badge: "GIFT WITH PURCHASE", title: "Complimentary Kumkumadi Scrub (Mini) Above ₹2,999", desc: "Unlocked automatically in basket.", url: "https://www.kamaayurveda.com", sub: "glowgift" },
-  { code: "RITUAL15", badge: "REGIME SAVER", title: "Flat 15% OFF on Curated Gift Boxes & Regimes", desc: "Applies across bridal trousseau sets and festive boxes.", url: "https://www.kamaayurveda.com", sub: "ritual15" },
-  { code: "FREESHIP", badge: "COMPLIMENTARY TRANSIT", title: "Free Doorstep Express Delivery Above ₹1,499", desc: "Transit fee waived automatically.", url: "https://www.kamaayurveda.com", sub: "freeship" },
-];
-const CONCERNS = ["Kumkumadi Skin Radiance", "Bringadi Intensive Hair Therapy", "Pure Floral Mists & Toners", "Rejuvenating Body & Spa"];
-const PRODUCTS = [
-  { concern: "Kumkumadi Skin Radiance", name: "Kumkumadi Miraculous Beauty Ayurvedic Night Serum (12ml)", specs: "Kashmiri Saffron & Lotus Extracts", price: "₹3,195", mrp: "₹3,195", url: "https://www.kamaayurveda.com", sub: "kumkumadi_fluid" },
-  { concern: "Kumkumadi Skin Radiance", name: "Kumkumadi Brightening Cleansing Oil (100ml)", specs: "Ayurvedic Make-Up Remover & Lipid Replenisher", price: "₹1,695", mrp: "₹1,695", url: "https://www.kamaayurveda.com", sub: "kumkumadi_cleanser" },
-  { concern: "Bringadi Intensive Hair Therapy", name: "Bringadi Intensive Hair Treatment Oil (100ml)", specs: "Bhringraj, Amla, Indigo & Sesame Oil", price: "₹1,250", mrp: "₹1,250", url: "https://www.kamaayurveda.com", sub: "bringadi_oil" },
-  { concern: "Bringadi Intensive Hair Therapy", name: "Bringadi Hair Cleanser (200ml)", specs: "Sulphate & Paraben-Free", price: "₹1,495", mrp: "₹1,495", url: "https://www.kamaayurveda.com", sub: "bringadi_cleanser" },
-  { concern: "Pure Floral Mists & Toners", name: "Pure Rose Water Mist (200ml)", specs: "Steam-Distilled Kannauj Rose, Zero Alcohol", price: "₹1,450", mrp: "₹1,450", url: "https://www.kamaayurveda.com", sub: "pure_rose_water" },
-];
-export default function KamaAyurvedaPage() {
-  const [concern, setConcern] = useState(CONCERNS[0]);
-  const filtered = PRODUCTS.filter((p) => p.concern === concern);
+interface Props {
+  offers: StoreOfferCard[];
+  products: StoreProductCard[];
+}
+
+export default function KamaAyurvedaPage({ offers, products }: Props) {
+  const tabs = Array.from(new Set(products.map((p) => p.tab)));
+  const [concern, setConcern] = useState(tabs[0] ?? "");
+  const filtered = products.filter((p) => p.tab === concern);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-rose-700 to-pink-500 text-white p-8">
@@ -36,20 +29,20 @@ export default function KamaAyurvedaPage() {
         <a href={link("https://www.kamaayurveda.com", "luxury_box")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Build My Luxury Box</a>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {OFFERS.map((o) => (
+        {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
             <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
             <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.desc}</p>
+            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
             <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.url, o.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Experience on Kama Ayurveda</a>
+            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Experience on Kama Ayurveda</a>
           </div>
         ))}
       </div>
       <div>
         <h2 className="text-xl font-bold text-ink">Ayurvedic Treatment & Ritual Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CONCERNS.map((c) => (
+          {tabs.map((c) => (
             <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
           ))}
         </div>
@@ -59,7 +52,7 @@ export default function KamaAyurvedaPage() {
               <h3 className="font-semibold text-ink">{p.name}</h3>
               <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
               <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.url, p.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Explore Ritual</a>
+              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Explore Ritual</a>
             </div>
           ))}
         </div>
