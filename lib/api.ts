@@ -376,7 +376,7 @@ export const api = {
   /** ISO 3166-1 alpha-2 codes Durza currently serves. */
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
 
-  listCategories: (params: { parent_id?: string; limit?: number; skip?: number } = {}) =>
+  listCategories: (params: { parent_id?: string; limit?: number; skip?: number; live_only?: boolean } = {}) =>
     apiFetch<Paginated<Category>>(`/categories${qs(params)}`, { revalidate: 300 }),
 
   getCategoryBySlug: (slug: string) =>
@@ -613,7 +613,7 @@ export const resilient = {
   getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => orNull(api.getStoreDestination(slug, params)),
   getStoreById: (storeId: string) => orNull(api.getStoreById(storeId)),
   listMarkets: () => orEmptyArray(api.listMarkets()),
-  listCategories: (params: { parent_id?: string; limit?: number; skip?: number } = {}) =>
+  listCategories: (params: { parent_id?: string; limit?: number; skip?: number; live_only?: boolean } = {}) =>
     orEmpty(api.listCategories(params)),
   getCategoryBySlug: (slug: string) => orNull(api.getCategoryBySlug(slug)),
   listProducts: (

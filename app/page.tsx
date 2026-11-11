@@ -113,7 +113,7 @@ export default async function HomePage() {
   ] = await Promise.all([
     safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>),
     safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>),
-    safe(api.listCategories({ limit: 24 }), emptyPage as Paginated<never>),
+    safe(api.listCategories({ limit: 24, live_only: true }), emptyPage as Paginated<never>),
     safe(api.listCoupons({ active_only: true, sort: "top_rated", limit: 8 }), emptyPage as Paginated<CouponPublic>),
     safe(
       api.listCoupons({ active_only: true, sort: "ending_soon", expires_within_days: 7, limit: 8 }),
