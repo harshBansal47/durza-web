@@ -101,7 +101,7 @@ export default function StorePageClient({
           id,
           label: tab.label,
           content: (
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2">
               {groupSimilar(tab.items)
                 .slice(0, expanded ? 100 : 6)
                 .map((entry) =>
