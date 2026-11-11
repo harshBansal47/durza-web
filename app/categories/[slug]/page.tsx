@@ -84,12 +84,13 @@ export default async function CategoryPage({
   // /categories/fashion?category=electronics would show electronics under a
   // "fashion" heading. Every other filter still applies within this category.
   const resolved = resolveIds({ ...filters, category: "" }, stores, categories);
-  const coupons = await resilient.listCoupons(
-    toCouponQuery({ ...filters, category: "" }, { ...resolved, category_id: category.id }, {
+  const coupons = await resilient.listCoupons({
+    ...toCouponQuery({ ...filters, category: "" }, { ...resolved, category_id: category.id }, {
       skip,
       limit: PAGE_SIZE,
     }),
-  );
+    has_code: undefined,
+  });
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   // The category comes from the path, so a stray `?category=` must not ride
