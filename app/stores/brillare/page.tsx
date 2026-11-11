@@ -36,8 +36,8 @@ export default function BrillareStorePage() {
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white p-8">
         <h1 className="text-3xl font-bold">Brillare Science</h1>
-        <p className="mt-2 text-sm opacity-90">100% Vegan, Zero-Dilution Natural Hair & Skin Formulations</p>
-        <p className="mt-1 text-xs opacity-80">Verified Offers: Buy 2 Get 20% Off + Free Shipping Above ₹499</p>
+        <p className="mt-2 text-sm font-medium text-white">100% Vegan, Zero-Dilution Natural Hair & Skin Formulations</p>
+        <p className="mt-1 text-xs font-semibold text-white/90">Verified Offers: Buy 2 Get 20% Off + Free Shipping Above ₹499</p>
       </section>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
