@@ -125,7 +125,7 @@ export default function StorePageClient({
                         currency: code,
                       }}
                       layout="store-grid"
-                      variant={id === "expiring" ? "expiring-soon" : "coupon"}
+                      variant={entry.coupon.id === tabs.best?.items[0]?.id ? "featured" : id === "expiring" ? "expiring-soon" : "coupon"}
                       ctaHref={`/coupons/${entry.coupon.slug}/go`}
                       ctaLabel={entry.coupon.code ? "View code" : "View deal"}
                     />
