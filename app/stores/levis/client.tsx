@@ -10,15 +10,15 @@ const OFFERS = [
 ];
 const CONCERNS = ["Men's Iconic Fits (501 / 511 / 512)", "Women's High-Rise & Straight", "Trucker Jackets & Shirts", "Essentials & Graphic Tees"];
 const PRODUCTS = [
-  { concern: "Men's Iconic Fits (501 / 511 / 512)", name: "Levi's 511™ Slim Fit Stretch Jeans", specs: "Below Waist • Slim Through Thigh & Leg • 99% Cotton, 1% Elastane", price: "₹2,599", mrp: "₹3,999", url: "https://www.levi.in/men/clothing/jeans/slim", sub: "levis_511_slim" },
-  { concern: "Men's Iconic Fits (501 / 511 / 512)", name: "Levi's 512™ Slim Taper Fit Jeans", specs: "Roomy Thigh, Tailored Narrow Ankle • Modern Athletic Cut", price: "₹2,799", mrp: "₹4,299", url: "https://www.levi.in/men/clothing/jeans/slim-taper", sub: "levis_512_taper" },
-  { concern: "Men's Iconic Fits (501 / 511 / 512)", name: "Levi's 501® Original Straight Button-Fly Jeans", specs: "100% Heavyweight Non-Stretch Cotton • Classic Straight Leg", price: "₹3,599", mrp: "₹4,999", url: "https://www.levi.in/men/clothing/jeans/straight", sub: "levis_501_original" },
+  { concern: "Men's Iconic Fits (501 / 511 / 512)", name: "Levi's 511™ Slim Fit Stretch Jeans", specs: "Below Waist • Slim Through Thigh & Leg • 99% Cotton, 1% Elastane", price: "₹2,599", mrp: "₹3,999", url: "https://www.levi.in", sub: "levis_511_slim" },
+  { concern: "Men's Iconic Fits (501 / 511 / 512)", name: "Levi's 512™ Slim Taper Fit Jeans", specs: "Roomy Thigh, Tailored Narrow Ankle • Modern Athletic Cut", price: "₹2,799", mrp: "₹4,299", url: "https://www.levi.in-taper", sub: "levis_512_taper" },
+  { concern: "Men's Iconic Fits (501 / 511 / 512)", name: "Levi's 501® Original Straight Button-Fly Jeans", specs: "100% Heavyweight Non-Stretch Cotton • Classic Straight Leg", price: "₹3,599", mrp: "₹4,999", url: "https://www.levi.in", sub: "levis_501_original" },
   { concern: "Women's High-Rise & Straight", name: "Levi's Women's 721 High-Rise Skinny / Ribcage Straight", specs: "10-Inch High Rise • Sculpting Stretch Fabric", price: "₹2,499", mrp: "₹3,899", url: "https://www.levi.in/women/clothing/jeans", sub: "womens_high_rise" },
   { concern: "Trucker Jackets & Shirts", name: "Levi's Original Trucker Jacket", specs: "Iconic Type III Design • Durable Denim • Regular Fit", price: "₹3,999", mrp: "₹5,499", url: "https://www.levi.in/men/clothing/jackets", sub: "trucker_jacket" },
-  { concern: "Essentials & Graphic Tees", name: "Levi's Batwing Logo Pure Cotton Crewneck T-Shirt", specs: "180 GSM Combed Ring-Spun Cotton • Regular Fit", price: "₹999", mrp: "₹1,499", url: "https://www.levi.in/men/clothing/t-shirts", sub: "batwing_tee" },
+  { concern: "Essentials & Graphic Tees", name: "Levi's Batwing Logo Pure Cotton Crewneck T-Shirt", specs: "180 GSM Combed Ring-Spun Cotton • Regular Fit", price: "₹999", mrp: "₹1,499", url: "https://www.levi.in", sub: "batwing_tee" },
 ];
 const CARTS = [
-  { id: "solo", label: "1 × 511™ Jeans (₹2,599)", total: "₹2,599", outcome: "No flat coupon unlocked — add the Batwing Tee to cross ₹3,499.", sub: "cart_solo", url: "https://www.levi.in/men/clothing/jeans/slim" },
+  { id: "solo", label: "1 × 511™ Jeans (₹2,599)", total: "₹2,599", outcome: "No flat coupon unlocked — add the Batwing Tee to cross ₹3,499.", sub: "cart_solo", url: "https://www.levi.in" },
   { id: "plus_tee", label: "511™ Jeans + Batwing Tee", total: "₹3,598", outcome: "Unlocks LEVIS500 — effectively ₹499 for the ₹1,499 tee.", sub: "cart_plus_tee", url: "https://www.levi.in/sale" },
   { id: "bundle", label: "501® + Trucker Jacket (₹7,598)", total: "₹7,598", outcome: "Unlocks LEVIS1000 — flat ₹1,000 off the whole wardrobe.", sub: "cart_bundle", url: "https://www.levi.in/sale" },
 ];

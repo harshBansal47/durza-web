@@ -19,7 +19,7 @@ const CONCERNS = ["Muscle Building & Whey", "Explosive Strength & Creatine", "Hi
 const PRODUCTS = [
   { concern: "Muscle Building & Whey", name: "Beast Life 100% Pure Whey Protein Concentrate", specs: "1 kg • 24g Protein per Scoop", price: "₹2,399", mrp: "₹3,199", url: "https://beastlife.in/products/whey-protein-concentrate", sub: "whey_concentrate" },
   { concern: "Muscle Building & Whey", name: "Beast Life 100% Whey Protein Isolate", specs: "1 kg • 27g Ultra-Pure Isolate", price: "₹3,199", mrp: "₹4,299", url: "https://beastlife.in/products/whey-protein-isolate", sub: "whey_isolate" },
-  { concern: "Explosive Strength & Creatine", name: "Beast Life 100% Micronized Creatine Monohydrate", specs: "250g (83 Servings) • 3g per Scoop", price: "₹799", mrp: "₹1,299", url: "https://beastlife.in/products/creatine-monohydrate", sub: "creatine_mono" },
+  { concern: "Explosive Strength & Creatine", name: "Beast Life 100% Micronized Creatine Monohydrate", specs: "250g (83 Servings) • 3g per Scoop", price: "₹799", mrp: "₹1,299", url: "https://beastlife.in", sub: "creatine_mono" },
   { concern: "High-Energy Pre-Workout", name: "Beast Life High-Stim Pre-Workout Powder", specs: "300mg Caffeine + Beta-Alanine", price: "₹1,499", mrp: "₹2,299", url: "https://beastlife.in/products/pre-workout", sub: "pre_workout" },
   { concern: "Intra-Workout & Recovery", name: "Beast Life Essential EAAs + Hydration Electrolytes", specs: "300g (30 Servings)", price: "₹1,199", mrp: "₹1,799", url: "https://beastlife.in/products/eaas-recovery", sub: "eaas_recovery" },
 ];

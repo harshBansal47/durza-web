@@ -3,17 +3,17 @@ import { useState } from "react";
 const TRACK = "https://track.vcommission.com/click?campaign_id=10109&pub_id=133499";
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
-  { code: "HKOFFER", badge: "SITEWIDE EXTRA", title: "Extra 7% to 10% OFF on Top Nutrition Brands", desc: "Valid on MuscleBlaze, Optimum Nutrition (ON), Isopure, and HK Vitals.", url: "https://www.healthkart.com/all-products", sub: "hkoffer" },
-  { code: "WHEY300", badge: "PROTEIN SAVER", title: "Flat ₹300 OFF on 2 kg & 4 kg Protein Tubs", desc: "Applies directly on Biozyme Whey, Raw Whey, and Gold Standard Whey bulk jars.", url: "https://www.healthkart.com/proteins", sub: "whey300" },
+  { code: "HKOFFER", badge: "SITEWIDE EXTRA", title: "Extra 7% to 10% OFF on Top Nutrition Brands", desc: "Valid on MuscleBlaze, Optimum Nutrition (ON), Isopure, and HK Vitals.", url: "https://www.healthkart.com", sub: "hkoffer" },
+  { code: "WHEY300", badge: "PROTEIN SAVER", title: "Flat ₹300 OFF on 2 kg & 4 kg Protein Tubs", desc: "Applies directly on Biozyme Whey, Raw Whey, and Gold Standard Whey bulk jars.", url: "https://www.healthkart.com", sub: "whey300" },
   { code: "PREPAID5", badge: "EXTRA INSTANT", title: "Extra 5% Instant Discount on UPI Checkout", desc: "Instant payment gateway reduction on all prepaid orders.", url: "https://www.healthkart.com", sub: "prepaid5" },
   { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Doorstep Shipping Above ₹499", desc: "Standard delivery fee waived automatically across India.", url: "https://www.healthkart.com", sub: "freeship" },
 ];
 const CONCERNS = ["Certified Biozyme Whey (MuscleBlaze)", "International Whey (Optimum Nutrition)", "Mass Gainers & Bulking", "Pure Creatine & Pre-Workout"];
 const PRODUCTS = [
-  { concern: "Certified Biozyme Whey (MuscleBlaze)", name: "MuscleBlaze Biozyme Performance Whey (2 kg)", specs: "25g Protein/Scoop", price: "₹4,499", mrp: "₹5,499", url: "https://www.healthkart.com/sv/muscleblaze-biozyme-performance-whey/SP-88383", sub: "mb_biozyme_2kg" },
-  { concern: "International Whey (Optimum Nutrition)", name: "Optimum Nutrition (ON) Gold Standard 100% Whey (2 lbs)", specs: "24g Blended Protein", price: "₹3,199", mrp: "₹3,899", url: "https://www.healthkart.com/sv/optimum-nutrition-on-gold-standard-100-whey/SP-77", sub: "on_gold_standard" },
-  { concern: "Pure Creatine & Pre-Workout", name: "MuscleBlaze CreAMP Creatine Monohydrate (250g)", specs: "CreAbsorb™ Tech", price: "₹899", mrp: "₹1,299", url: "https://www.healthkart.com/sv/muscleblaze-creamp/SP-97305", sub: "creamp_creatine" },
-  { concern: "Mass Gainers & Bulking", name: "MuscleBlaze Super Gainer XXL (3 kg)", specs: "1125 Calories + 45g Protein", price: "₹2,799", mrp: "₹3,699", url: "https://www.healthkart.com/sv/muscleblaze-super-gainer-xxl/SP-33758", sub: "super_gainer_xxl" },
+  { concern: "Certified Biozyme Whey (MuscleBlaze)", name: "MuscleBlaze Biozyme Performance Whey (2 kg)", specs: "25g Protein/Scoop", price: "₹4,499", mrp: "₹5,499", url: "https://www.healthkart.com", sub: "mb_biozyme_2kg" },
+  { concern: "International Whey (Optimum Nutrition)", name: "Optimum Nutrition (ON) Gold Standard 100% Whey (2 lbs)", specs: "24g Blended Protein", price: "₹3,199", mrp: "₹3,899", url: "https://www.healthkart.com", sub: "on_gold_standard" },
+  { concern: "Pure Creatine & Pre-Workout", name: "MuscleBlaze CreAMP Creatine Monohydrate (250g)", specs: "CreAbsorb™ Tech", price: "₹899", mrp: "₹1,299", url: "https://www.healthkart.com", sub: "creamp_creatine" },
+  { concern: "Mass Gainers & Bulking", name: "MuscleBlaze Super Gainer XXL (3 kg)", specs: "1125 Calories + 45g Protein", price: "₹2,799", mrp: "₹3,699", url: "https://www.healthkart.com", sub: "super_gainer_xxl" },
 ];
 export default function HealthKartPage() {
   const [concern, setConcern] = useState(CONCERNS[0]);

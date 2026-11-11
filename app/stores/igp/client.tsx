@@ -3,19 +3,19 @@ import { useState } from "react";
 const TRACK = "https://track.vcommission.com/click?campaign_id=11874&pub_id=133499";
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
-  { code: "IGP10", badge: "SITEWIDE EXTRA", title: "Flat 10% OFF on All Gifts & Hampers", desc: "Valid on personalized gifts, gourmet hampers, plants, and fresh floral bouquets.", url: "https://www.igp.com/all-gifts", sub: "igp10" },
+  { code: "IGP10", badge: "SITEWIDE EXTRA", title: "Flat 10% OFF on All Gifts & Hampers", desc: "Valid on personalized gifts, gourmet hampers, plants, and fresh floral bouquets.", url: "https://www.igp.com", sub: "igp10" },
   { code: "CAKE15", badge: "CELEBRATION DEAL", title: "Flat 15% OFF on Fresh Bakery Cakes & Combos", desc: "Applies across designer cakes, photo cakes, and flowers + cake combos.", url: "https://www.igp.com/cakes", sub: "cake15" },
   { code: "PHOTO20", badge: "PERSONALIZED SPECIAL", title: "Up to 20% OFF on Custom Keepsakes", desc: "Instant markdown on personalized LED lamps, 3D crystals, caricature frames.", url: "https://www.igp.com/personalized-gifts", sub: "photo20" },
   { code: "FREESHIP", badge: "STANDARD DELIVERY", title: "Free Standard Delivery on Non-Perishable Gifts", desc: "Zero standard shipping fees on curated gifts and decor.", url: "https://www.igp.com", sub: "freeship" },
 ];
 const CONCERNS = ["Personalized Keepsakes", "Fresh Flowers & Midnight Cakes", "Gourmet Hampers & Chocolates", "Lucky Plants & Home Decor"];
 const PRODUCTS = [
-  { concern: "Personalized Keepsakes", name: "Personalized Rotating Crystal LED Lamp", specs: "Custom Photo Engraving with LED Base", price: "₹995", mrp: "₹1,499", url: "https://www.igp.com/p-personalized-rotating-crystal-led-lamp-114512", sub: "crystal_led_lamp" },
-  { concern: "Personalized Keepsakes", name: "Customized Wooden Wall Caricature Photo Frame", specs: "High-Density MDF Wooden Cutout", price: "₹645", mrp: "₹899", url: "https://www.igp.com/p-personalized-couple-caricature-wooden-frame-142311", sub: "wooden_caricature" },
-  { concern: "Fresh Flowers & Midnight Cakes", name: "Classic Dutch Truffle Chocolate Cake (500g)", specs: "100% Eggless Bakery Fresh Cake", price: "₹599", mrp: "₹799", url: "https://www.igp.com/p-dutch-truffle-cake-half-kg-eggless-109012", sub: "chocolate_cake" },
-  { concern: "Fresh Flowers & Midnight Cakes", name: "Velvet Red Roses & Ferrero Rocher Bouquet", specs: "10 Fresh Red Roses + 4 Ferrero Rocher", price: "₹899", mrp: "₹1,249", url: "https://www.igp.com/p-roses-and-ferrero-combo-112045", sub: "roses_ferrero_combo" },
-  { concern: "Gourmet Hampers & Chocolates", name: "Artisanal Dry Fruits & Belgian Chocolate Festive Box", specs: "Roasted Almonds, Cashews + Pralines", price: "₹1,199", mrp: "₹1,699", url: "https://www.igp.com/p-festive-dry-fruits-gourmet-box-123490", sub: "gourmet_hamper" },
-  { concern: "Lucky Plants & Home Decor", name: "2-Layer Lucky Bamboo Plant in Self-Watering Glass Pot", specs: "Air-Purifying Indoor Plant", price: "₹499", mrp: "₹699", url: "https://www.igp.com/p-two-layer-lucky-bamboo-plant-in-glass-vase-102941", sub: "lucky_bamboo" },
+  { concern: "Personalized Keepsakes", name: "Personalized Rotating Crystal LED Lamp", specs: "Custom Photo Engraving with LED Base", price: "₹995", mrp: "₹1,499", url: "https://www.igp.com", sub: "crystal_led_lamp" },
+  { concern: "Personalized Keepsakes", name: "Customized Wooden Wall Caricature Photo Frame", specs: "High-Density MDF Wooden Cutout", price: "₹645", mrp: "₹899", url: "https://www.igp.com", sub: "wooden_caricature" },
+  { concern: "Fresh Flowers & Midnight Cakes", name: "Classic Dutch Truffle Chocolate Cake (500g)", specs: "100% Eggless Bakery Fresh Cake", price: "₹599", mrp: "₹799", url: "https://www.igp.com", sub: "chocolate_cake" },
+  { concern: "Fresh Flowers & Midnight Cakes", name: "Velvet Red Roses & Ferrero Rocher Bouquet", specs: "10 Fresh Red Roses + 4 Ferrero Rocher", price: "₹899", mrp: "₹1,249", url: "https://www.igp.com", sub: "roses_ferrero_combo" },
+  { concern: "Gourmet Hampers & Chocolates", name: "Artisanal Dry Fruits & Belgian Chocolate Festive Box", specs: "Roasted Almonds, Cashews + Pralines", price: "₹1,199", mrp: "₹1,699", url: "https://www.igp.com", sub: "gourmet_hamper" },
+  { concern: "Lucky Plants & Home Decor", name: "2-Layer Lucky Bamboo Plant in Self-Watering Glass Pot", specs: "Air-Purifying Indoor Plant", price: "₹499", mrp: "₹699", url: "https://www.igp.com", sub: "lucky_bamboo" },
 ];
 export default function IgpPage() {
   const [concern, setConcern] = useState(CONCERNS[0]);

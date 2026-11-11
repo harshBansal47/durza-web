@@ -8,20 +8,20 @@ function link(url: string, subId: string) {
 }
 
 const OFFERS = [
-  { code: "SUPER10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All SuperMilk Tubs", desc: "Valid on all age-specific personalized jars and trial packs.", url: "https://gritzo.com/collections/supermilk", sub: "super10" },
-  { code: "GROWTH20", badge: "BULK SAVER", title: "Flat 20% OFF on 2 kg Value Jars", desc: "Best value for restocking monthly routines.", url: "https://gritzo.com/collections/value-packs", sub: "growth20" },
-  { code: "HEALTHYBOX", badge: "COMBO DEAL", title: "Extra ₹200 OFF on Nutrition Combos", desc: "Applies when bundling SuperMilk with Vitamin Gummies.", url: "https://gritzo.com/collections/combos", sub: "healthybox" },
+  { code: "SUPER10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All SuperMilk Tubs", desc: "Valid on all age-specific personalized jars and trial packs.", url: "https://gritzo.com", sub: "super10" },
+  { code: "GROWTH20", badge: "BULK SAVER", title: "Flat 20% OFF on 2 kg Value Jars", desc: "Best value for restocking monthly routines.", url: "https://gritzo.com", sub: "growth20" },
+  { code: "HEALTHYBOX", badge: "COMBO DEAL", title: "Extra ₹200 OFF on Nutrition Combos", desc: "Applies when bundling SuperMilk with Vitamin Gummies.", url: "https://gritzo.com", sub: "healthybox" },
   { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Doorstep Shipping Above ₹499", desc: "Free delivery on orders above ₹499.", url: "https://gritzo.com", sub: "freeship" },
 ];
 
 const STAGES = ["Early Years (4–7 Years)", "Growing Kids (8–12 Years)", "Teen Boys (13+ Years)", "Teen Girls (13+ Years)"];
 
 const PRODUCTS = [
-  { stage: "Early Years (4–7 Years)", name: "SuperMilk Height+ for Young Kids (4–7y)", specs: "400g Jar • Natural Chocolate", price: "₹649", mrp: "₹799", url: "https://gritzo.com/products/supermilk-height-4-7y", sub: "supermilk_4_7y" },
-  { stage: "Growing Kids (8–12 Years)", name: "SuperMilk Height+ for Active Kids (8–12y)", specs: "1 kg Value Pack • Double Chocolate", price: "₹1,499", mrp: "₹1,899", url: "https://gritzo.com/products/supermilk-height-8-12y", sub: "supermilk_8_12y" },
-  { stage: "Teen Boys (13+ Years)", name: "SuperMilk Genius & Athletic Recovery for Teen Boys", specs: "1 kg Jar • High Performance", price: "₹1,699", mrp: "₹2,199", url: "https://gritzo.com/products/supermilk-teen-boys", sub: "teen_boys_supermilk" },
-  { stage: "Teen Girls (13+ Years)", name: "SuperMilk Growth & Hormonal Balance for Teen Girls", specs: "1 kg Jar • Cocoa Flavor", price: "₹1,699", mrp: "₹2,199", url: "https://gritzo.com/products/supermilk-teen-girls", sub: "teen_girls_supermilk" },
-  { stage: "Growing Kids (8–12 Years)", name: "Gritzo Daily Immune & Multivitamin Gummies", specs: "30 Fruit Pectin Gummies", price: "₹399", mrp: "₹499", url: "https://gritzo.com/products/kids-multivitamin-gummies", sub: "kids_gummies" },
+  { stage: "Early Years (4–7 Years)", name: "SuperMilk Height+ for Young Kids (4–7y)", specs: "400g Jar • Natural Chocolate", price: "₹649", mrp: "₹799", url: "https://gritzo.com", sub: "supermilk_4_7y" },
+  { stage: "Growing Kids (8–12 Years)", name: "SuperMilk Height+ for Active Kids (8–12y)", specs: "1 kg Value Pack • Double Chocolate", price: "₹1,499", mrp: "₹1,899", url: "https://gritzo.com", sub: "supermilk_8_12y" },
+  { stage: "Teen Boys (13+ Years)", name: "SuperMilk Genius & Athletic Recovery for Teen Boys", specs: "1 kg Jar • High Performance", price: "₹1,699", mrp: "₹2,199", url: "https://gritzo.com", sub: "teen_boys_supermilk" },
+  { stage: "Teen Girls (13+ Years)", name: "SuperMilk Growth & Hormonal Balance for Teen Girls", specs: "1 kg Jar • Cocoa Flavor", price: "₹1,699", mrp: "₹2,199", url: "https://gritzo.com", sub: "teen_girls_supermilk" },
+  { stage: "Growing Kids (8–12 Years)", name: "Gritzo Daily Immune & Multivitamin Gummies", specs: "30 Fruit Pectin Gummies", price: "₹399", mrp: "₹499", url: "https://gritzo.com", sub: "kids_gummies" },
 ];
 
 export default function GritzoStorePage() {

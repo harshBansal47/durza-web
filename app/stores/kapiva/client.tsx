@@ -3,18 +3,18 @@ import { useState } from "react";
 const TRACK = "https://track.vcommission.com/click?campaign_id=10126&pub_id=133499";
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
-  { code: "KAPIVA10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Ayurvedic Juices & Resin", desc: "Valid on Shilajit, Dia Free Juice, and herbal wellness combos.", url: "https://kapiva.in/collections/all", sub: "kapiva10" },
-  { code: "STAMINA15", badge: "POWER VALUE", title: "Flat 15% OFF on Shilajit & Stamina Combos", desc: "Applies when bundling Shilajit with Ashwagandha or Safed Musli.", url: "https://kapiva.in/collections/mens-health", sub: "stamina15" },
+  { code: "KAPIVA10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Ayurvedic Juices & Resin", desc: "Valid on Shilajit, Dia Free Juice, and herbal wellness combos.", url: "https://kapiva.in", sub: "kapiva10" },
+  { code: "STAMINA15", badge: "POWER VALUE", title: "Flat 15% OFF on Shilajit & Stamina Combos", desc: "Applies when bundling Shilajit with Ashwagandha or Safed Musli.", url: "https://kapiva.in", sub: "stamina15" },
   { code: "EXTRA5", badge: "PREPAID COMBO", title: "Extra 5% Instant OFF on UPI / Cards", desc: "Instant payment gateway deduction on prepaid orders.", url: "https://kapiva.in", sub: "extra5" },
   { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Nationwide Shipping Above ₹499", desc: "Standard delivery fee waived above ₹499.", url: "https://kapiva.in", sub: "freeship" },
 ];
 const CONCERNS = ["Vitality & Shilajit Resin", "Blood Sugar & Metabolic Care", "Daily Detox & Skin Juices", "Weight Care & Digestion"];
 const PRODUCTS = [
-  { concern: "Vitality & Shilajit Resin", name: "Kapiva Pure Himalayan Shilajit Resin (20g)", specs: ">60% Fulvic Acid • Lab Certified", price: "₹1,099", mrp: "₹1,499", url: "https://kapiva.in/products/himalayan-shilajit-resin-20g", sub: "shilajit_resin" },
-  { concern: "Vitality & Shilajit Resin", name: "Kapiva Shilajit Gold Resin with 24K Gold (20g)", specs: "Swarna Bhasma, Gokshura, Ashwagandha", price: "₹1,499", mrp: "₹1,999", url: "https://kapiva.in/products/shilajit-gold-resin-20g", sub: "shilajit_gold" },
-  { concern: "Blood Sugar & Metabolic Care", name: "Kapiva Dia Free Juice (1 Litre)", specs: "Karela, Jamun, Amla, Gudmar & Methi", price: "₹549", mrp: "₹649", url: "https://kapiva.in/products/dia-free-juice-1l", sub: "dia_free_juice" },
-  { concern: "Daily Detox & Skin Juices", name: "Kapiva Skin Foods Glow Mix (30 Sachets)", specs: "Plant-Based Glutathione Booster", price: "₹899", mrp: "₹1,199", url: "https://kapiva.in/products/skin-foods-glow-mix-30-sachets", sub: "glow_mix" },
-  { concern: "Weight Care & Digestion", name: "Kapiva Get Slim Juice (1 Litre)", specs: "San Beej, Erandmool, Daruharidra & Amla", price: "₹549", mrp: "₹649", url: "https://kapiva.in/products/get-slim-juice-1l", sub: "get_slim_juice" },
+  { concern: "Vitality & Shilajit Resin", name: "Kapiva Pure Himalayan Shilajit Resin (20g)", specs: ">60% Fulvic Acid • Lab Certified", price: "₹1,099", mrp: "₹1,499", url: "https://kapiva.in", sub: "shilajit_resin" },
+  { concern: "Vitality & Shilajit Resin", name: "Kapiva Shilajit Gold Resin with 24K Gold (20g)", specs: "Swarna Bhasma, Gokshura, Ashwagandha", price: "₹1,499", mrp: "₹1,999", url: "https://kapiva.in", sub: "shilajit_gold" },
+  { concern: "Blood Sugar & Metabolic Care", name: "Kapiva Dia Free Juice (1 Litre)", specs: "Karela, Jamun, Amla, Gudmar & Methi", price: "₹549", mrp: "₹649", url: "https://kapiva.in", sub: "dia_free_juice" },
+  { concern: "Daily Detox & Skin Juices", name: "Kapiva Skin Foods Glow Mix (30 Sachets)", specs: "Plant-Based Glutathione Booster", price: "₹899", mrp: "₹1,199", url: "https://kapiva.in", sub: "glow_mix" },
+  { concern: "Weight Care & Digestion", name: "Kapiva Get Slim Juice (1 Litre)", specs: "San Beej, Erandmool, Daruharidra & Amla", price: "₹549", mrp: "₹649", url: "https://kapiva.in", sub: "get_slim_juice" },
 ];
 export default function KapivaPage() {
   const [concern, setConcern] = useState(CONCERNS[0]);
@@ -30,7 +30,7 @@ export default function KapivaPage() {
         <h2 className="text-xl font-bold text-ink">Cost-Per-Day Habit Calculator</h2>
         <p className="mt-2 text-sm text-ink-soft">Kapiva Himalayan Shilajit (20g @ ₹1,099) gives 60 servings = Just ~₹18/day for pure cellular energy & endurance.</p>
         <p className="mt-2 text-sm text-ink-soft">Combine 1 Shilajit Resin (₹1,099) + 1 Dia Free Juice (₹549) = ₹1,648. Unlock Free Shipping + Flat 15% with STAMINA15 + 5% UPI savings.</p>
-        <a href={link("https://kapiva.in/collections/all", "health_routine")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Start My Health Routine</a>
+        <a href={link("https://kapiva.in", "health_routine")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Start My Health Routine</a>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {OFFERS.map((o) => (

@@ -3,18 +3,18 @@ import { useState } from "react";
 const TRACK = "https://track.vcommission.com/click?campaign_id=10111&pub_id=133499";
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
-  { code: "HKV10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Daily Supplements", desc: "Valid across Multivitamins, Omega-3 Fish Oil, Biotin, and Collagen.", url: "https://www.hkvitals.com/collections/all-products", sub: "hkv10" },
-  { code: "VITAL20", badge: "COMBO SAVER", title: "Flat 20% OFF on 2-Month & 3-Month Value Packs", desc: "Maximum savings on monthly health replenishment routines.", url: "https://www.hkvitals.com/collections/combos", sub: "vital20" },
+  { code: "HKV10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Daily Supplements", desc: "Valid across Multivitamins, Omega-3 Fish Oil, Biotin, and Collagen.", url: "https://www.hkvitals.com", sub: "hkv10" },
+  { code: "VITAL20", badge: "COMBO SAVER", title: "Flat 20% OFF on 2-Month & 3-Month Value Packs", desc: "Maximum savings on monthly health replenishment routines.", url: "https://www.hkvitals.com", sub: "vital20" },
   { code: "EXTRA5", badge: "PREPAID COMBO", title: "Extra 5% Instant OFF on UPI / Prepaid", desc: "Applies automatically at checkout on UPI and card payments.", url: "https://www.hkvitals.com", sub: "extra5" },
   { code: "FREESHIP", badge: "SHIPPING PERK", title: "Free Nationwide Shipping Above ₹499", desc: "Standard shipping fee waived above ₹499.", url: "https://www.hkvitals.com", sub: "freeship" },
 ];
 const CONCERNS = ["Hair & Skin Health", "Heart & Omega-3", "Energy & Multivitamins", "Bone & Joint Mobility"];
 const PRODUCTS = [
-  { concern: "Hair & Skin Health", name: "HK Vitals Biotin (10,000 mcg)", specs: "60 Tablets", price: "₹399", mrp: "₹599", url: "https://www.hkvitals.com/products/biotin-tablets", sub: "biotin_tabs" },
-  { concern: "Hair & Skin Health", name: "HK Vitals Skin Radiance Marine Collagen Powder", specs: "200g Tub (Orange Flavor)", price: "₹999", mrp: "₹1,499", url: "https://www.hkvitals.com/products/collagen", sub: "collagen_powder" },
-  { concern: "Heart & Omega-3", name: "HK Vitals Fish Oil (1000mg)", specs: "60 Softgels", price: "₹549", mrp: "₹799", url: "https://www.hkvitals.com/products/fish-oil", sub: "fish_oil" },
-  { concern: "Energy & Multivitamins", name: "HK Vitals Multivitamin with Ginseng", specs: "60 Tablets", price: "₹499", mrp: "₹699", url: "https://www.hkvitals.com/products/multivitamin", sub: "multivitamin" },
-  { concern: "Bone & Joint Mobility", name: "HK Vitals Calcium + Magnesium + Zinc + Vitamin D3", specs: "60 Tablets", price: "₹349", mrp: "₹499", url: "https://www.hkvitals.com/products/calcium-tablets", sub: "calcium_tabs" },
+  { concern: "Hair & Skin Health", name: "HK Vitals Biotin (10,000 mcg)", specs: "60 Tablets", price: "₹399", mrp: "₹599", url: "https://www.hkvitals.com", sub: "biotin_tabs" },
+  { concern: "Hair & Skin Health", name: "HK Vitals Skin Radiance Marine Collagen Powder", specs: "200g Tub (Orange Flavor)", price: "₹999", mrp: "₹1,499", url: "https://www.hkvitals.com", sub: "collagen_powder" },
+  { concern: "Heart & Omega-3", name: "HK Vitals Fish Oil (1000mg)", specs: "60 Softgels", price: "₹549", mrp: "₹799", url: "https://www.hkvitals.com", sub: "fish_oil" },
+  { concern: "Energy & Multivitamins", name: "HK Vitals Multivitamin with Ginseng", specs: "60 Tablets", price: "₹499", mrp: "₹699", url: "https://www.hkvitals.com", sub: "multivitamin" },
+  { concern: "Bone & Joint Mobility", name: "HK Vitals Calcium + Magnesium + Zinc + Vitamin D3", specs: "60 Tablets", price: "₹349", mrp: "₹499", url: "https://www.hkvitals.com", sub: "calcium_tabs" },
 ];
 export default function HkVitalsPage() {
   const [concern, setConcern] = useState(CONCERNS[0]);

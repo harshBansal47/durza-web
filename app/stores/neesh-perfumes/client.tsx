@@ -4,7 +4,7 @@ const TRACK = "https://track.vcommission.com/click?campaign_id=10175&pub_id=1334
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
   { code: "NEESH10", badge: "SITEWIDE EXTRA", title: "Extra 10% OFF on All Extrait de Parfum", desc: "Valid on 50ml and 100ml luxury bottles including Glaze and Milky Way.", url: "https://neeshperfumes.com/collections/bestsellers", sub: "neesh10" },
-  { code: "LUXE20", badge: "BOTTLE BUNDLE", title: "Flat 20% OFF on Luxury Gift Boxes & Combos", desc: "Applies when purchasing signature duo boxes or layering sets.", url: "https://neeshperfumes.com/collections/gift-sets", sub: "luxe20" },
+  { code: "LUXE20", badge: "BOTTLE BUNDLE", title: "Flat 20% OFF on Luxury Gift Boxes & Combos", desc: "Applies when purchasing signature duo boxes or layering sets.", url: "https://neeshperfumes.com", sub: "luxe20" },
   { code: "DISCOVERY", badge: "TEST FIRST", title: "Flat ₹300 OFF on Scent Discovery Sets", desc: "Sample 5 mini sprays with full credit toward your future full bottle.", url: "https://neeshperfumes.com/collections/discovery-sets", sub: "discovery" },
   { code: "FREESHIP", badge: "INSURED TRANSIT", title: "Free Nationwide Insured Delivery Above ₹999", desc: "Shock-resistant luxury box packaging shipped free above ₹999.", url: "https://neeshperfumes.com", sub: "freeship" },
 ];

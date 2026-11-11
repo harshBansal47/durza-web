@@ -3,18 +3,18 @@ import { useState } from "react";
 const TRACK = "https://track.vcommission.com/click?campaign_id=10125&pub_id=133499";
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
-  { code: "KAMA10", badge: "WELCOME LUXURY", title: "Flat 10% OFF on First Ayurvedic Order", desc: "Valid on Kumkumadi, Bringadi, and Pure Rose Water.", url: "https://www.kamaayurveda.com/collections/best-sellers", sub: "kama10" },
-  { code: "GLOWGIFT", badge: "GIFT WITH PURCHASE", title: "Complimentary Kumkumadi Scrub (Mini) Above ₹2,999", desc: "Unlocked automatically in basket.", url: "https://www.kamaayurveda.com/collections/face", sub: "glowgift" },
-  { code: "RITUAL15", badge: "REGIME SAVER", title: "Flat 15% OFF on Curated Gift Boxes & Regimes", desc: "Applies across bridal trousseau sets and festive boxes.", url: "https://www.kamaayurveda.com/collections/gifting", sub: "ritual15" },
+  { code: "KAMA10", badge: "WELCOME LUXURY", title: "Flat 10% OFF on First Ayurvedic Order", desc: "Valid on Kumkumadi, Bringadi, and Pure Rose Water.", url: "https://www.kamaayurveda.com", sub: "kama10" },
+  { code: "GLOWGIFT", badge: "GIFT WITH PURCHASE", title: "Complimentary Kumkumadi Scrub (Mini) Above ₹2,999", desc: "Unlocked automatically in basket.", url: "https://www.kamaayurveda.com", sub: "glowgift" },
+  { code: "RITUAL15", badge: "REGIME SAVER", title: "Flat 15% OFF on Curated Gift Boxes & Regimes", desc: "Applies across bridal trousseau sets and festive boxes.", url: "https://www.kamaayurveda.com", sub: "ritual15" },
   { code: "FREESHIP", badge: "COMPLIMENTARY TRANSIT", title: "Free Doorstep Express Delivery Above ₹1,499", desc: "Transit fee waived automatically.", url: "https://www.kamaayurveda.com", sub: "freeship" },
 ];
 const CONCERNS = ["Kumkumadi Skin Radiance", "Bringadi Intensive Hair Therapy", "Pure Floral Mists & Toners", "Rejuvenating Body & Spa"];
 const PRODUCTS = [
-  { concern: "Kumkumadi Skin Radiance", name: "Kumkumadi Miraculous Beauty Ayurvedic Night Serum (12ml)", specs: "Kashmiri Saffron & Lotus Extracts", price: "₹3,195", mrp: "₹3,195", url: "https://www.kamaayurveda.com/products/kumkumadi-miraculous-beauty-fluid", sub: "kumkumadi_fluid" },
-  { concern: "Kumkumadi Skin Radiance", name: "Kumkumadi Brightening Cleansing Oil (100ml)", specs: "Ayurvedic Make-Up Remover & Lipid Replenisher", price: "₹1,695", mrp: "₹1,695", url: "https://www.kamaayurveda.com/products/kumkumadi-cleansing-oil", sub: "kumkumadi_cleanser" },
-  { concern: "Bringadi Intensive Hair Therapy", name: "Bringadi Intensive Hair Treatment Oil (100ml)", specs: "Bhringraj, Amla, Indigo & Sesame Oil", price: "₹1,250", mrp: "₹1,250", url: "https://www.kamaayurveda.com/products/bringadi-intensive-hair-treatment-oil", sub: "bringadi_oil" },
-  { concern: "Bringadi Intensive Hair Therapy", name: "Bringadi Hair Cleanser (200ml)", specs: "Sulphate & Paraben-Free", price: "₹1,495", mrp: "₹1,495", url: "https://www.kamaayurveda.com/products/bringadi-hair-cleanser", sub: "bringadi_cleanser" },
-  { concern: "Pure Floral Mists & Toners", name: "Pure Rose Water Mist (200ml)", specs: "Steam-Distilled Kannauj Rose, Zero Alcohol", price: "₹1,450", mrp: "₹1,450", url: "https://www.kamaayurveda.com/products/pure-rose-water", sub: "pure_rose_water" },
+  { concern: "Kumkumadi Skin Radiance", name: "Kumkumadi Miraculous Beauty Ayurvedic Night Serum (12ml)", specs: "Kashmiri Saffron & Lotus Extracts", price: "₹3,195", mrp: "₹3,195", url: "https://www.kamaayurveda.com", sub: "kumkumadi_fluid" },
+  { concern: "Kumkumadi Skin Radiance", name: "Kumkumadi Brightening Cleansing Oil (100ml)", specs: "Ayurvedic Make-Up Remover & Lipid Replenisher", price: "₹1,695", mrp: "₹1,695", url: "https://www.kamaayurveda.com", sub: "kumkumadi_cleanser" },
+  { concern: "Bringadi Intensive Hair Therapy", name: "Bringadi Intensive Hair Treatment Oil (100ml)", specs: "Bhringraj, Amla, Indigo & Sesame Oil", price: "₹1,250", mrp: "₹1,250", url: "https://www.kamaayurveda.com", sub: "bringadi_oil" },
+  { concern: "Bringadi Intensive Hair Therapy", name: "Bringadi Hair Cleanser (200ml)", specs: "Sulphate & Paraben-Free", price: "₹1,495", mrp: "₹1,495", url: "https://www.kamaayurveda.com", sub: "bringadi_cleanser" },
+  { concern: "Pure Floral Mists & Toners", name: "Pure Rose Water Mist (200ml)", specs: "Steam-Distilled Kannauj Rose, Zero Alcohol", price: "₹1,450", mrp: "₹1,450", url: "https://www.kamaayurveda.com", sub: "pure_rose_water" },
 ];
 export default function KamaAyurvedaPage() {
   const [concern, setConcern] = useState(CONCERNS[0]);
@@ -33,7 +33,7 @@ export default function KamaAyurvedaPage() {
           <li>Level 2 (Above ₹1,499): 100% Free Doorstep Delivery.</li>
           <li>Level 3 (Above ₹2,999): Unlock Complimentary Deluxe Gift (Kumkumadi Mini Scrub/Cream).</li>
         </ul>
-        <a href={link("https://www.kamaayurveda.com/collections/best-sellers", "luxury_box")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Build My Luxury Box</a>
+        <a href={link("https://www.kamaayurveda.com", "luxury_box")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Build My Luxury Box</a>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {OFFERS.map((o) => (

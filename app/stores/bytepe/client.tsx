@@ -8,21 +8,21 @@ function link(url: string, subId: string) {
 }
 
 const OFFERS = [
-  { code: "FIRSTBILL", badge: "WELCOME CASHBACK", title: "Flat ₹50 Cashback on First Electricity or Gas Bill", desc: "Valid on first utility bill payment of ₹500 or more via BBPS.", url: "https://bytepe.com/services/bill-payment", sub: "firstbill" },
-  { code: "RECHARGE10", badge: "DAILY SAVER", title: "Up to 5% Instant Discount on Mobile & DTH Recharges", desc: "Applies across Airtel, Jio, and Vi prepaid plans.", url: "https://bytepe.com/services/recharge", sub: "recharge10" },
-  { code: "FASTAG25", badge: "TRAVEL REWARD", title: "Flat ₹25 Cashback on National Fastag Recharges", desc: "Instant wallet credit on NHAI Fastag top-ups of ₹1,000 or more.", url: "https://bytepe.com/services/fastag", sub: "fastag25" },
-  { code: "VOUCHER5", badge: "DIGITAL CARDS", title: "Flat 2% to 8% OFF on Top Brand Vouchers", desc: "Instant e-gift card codes for Amazon, Flipkart, Swiggy, and Zomato.", url: "https://bytepe.com/gift-cards", sub: "voucher5" },
+  { code: "FIRSTBILL", badge: "WELCOME CASHBACK", title: "Flat ₹50 Cashback on First Electricity or Gas Bill", desc: "Valid on first utility bill payment of ₹500 or more via BBPS.", url: "https://bytepe.com/bill-payment", sub: "firstbill" },
+  { code: "RECHARGE10", badge: "DAILY SAVER", title: "Up to 5% Instant Discount on Mobile & DTH Recharges", desc: "Applies across Airtel, Jio, and Vi prepaid plans.", url: "https://bytepe.com/recharge", sub: "recharge10" },
+  { code: "FASTAG25", badge: "TRAVEL REWARD", title: "Flat ₹25 Cashback on National Fastag Recharges", desc: "Instant wallet credit on NHAI Fastag top-ups of ₹1,000 or more.", url: "https://bytepe.com/fastag", sub: "fastag25" },
+  { code: "VOUCHER5", badge: "DIGITAL CARDS", title: "Flat 2% to 8% OFF on Top Brand Vouchers", desc: "Instant e-gift card codes for Amazon, Flipkart, Swiggy, and Zomato.", url: "https://bytepe.com", sub: "voucher5" },
 ];
 
 const CONCERNS = ["Utility & Electricity Bills", "Mobile & Fastag Recharges", "Brand Gift Cards & Vouchers", "Merchant QR & Soundbox"];
 
 const PRODUCTS = [
-  { concern: "Utility & Electricity Bills", name: "State Electricity Board (BBPS) Bill Payment", specs: "70+ State Power Boards across India", price: "Up to ₹50 Cashback", url: "https://bytepe.com/services/electricity", sub: "electricity_bill" },
-  { concern: "Utility & Electricity Bills", name: "Piped Gas (PNG) & Water Bill Clearance", specs: "IGL, MGL, Adani Gas & Municipal Water Boards", price: "Flat ₹30 on orders > ₹800", url: "https://bytepe.com/services/gas-water", sub: "gas_water_bill" },
-  { concern: "Mobile & Fastag Recharges", name: "Jio / Airtel / Vi Unlimited Prepaid Recharge", specs: "28-Day, 84-Day & Annual 5G Data Packs", price: "3% - 5% Instant Discount", url: "https://bytepe.com/services/mobile-recharge", sub: "mobile_recharge" },
-  { concern: "Mobile & Fastag Recharges", name: "NETC National Fastag Instant Top-Up", specs: "Instant toll tag activation", price: "Flat ₹25 with code FASTAG25", url: "https://bytepe.com/services/fastag", sub: "fastag_recharge" },
-  { concern: "Brand Gift Cards & Vouchers", name: "Instant E-Gift Cards (Amazon, Flipkart, Swiggy)", specs: "Instant digital code delivery", price: "Save 2% to 6%", url: "https://bytepe.com/gift-cards", sub: "gift_cards" },
-  { concern: "Merchant QR & Soundbox", name: "BytePe Smart All-in-One UPI QR & Audio Soundbox", specs: "Instant audio payment notification", price: "Special merchant fee waiver", url: "https://bytepe.com/merchant", sub: "merchant_soundbox" },
+  { concern: "Utility & Electricity Bills", name: "State Electricity Board (BBPS) Bill Payment", specs: "70+ State Power Boards across India", price: "Up to ₹50 Cashback", url: "https://bytepe.com/electricity", sub: "electricity_bill" },
+  { concern: "Utility & Electricity Bills", name: "Piped Gas (PNG) & Water Bill Clearance", specs: "IGL, MGL, Adani Gas & Municipal Water Boards", price: "Flat ₹30 on orders > ₹800", url: "https://bytepe.com/gas-water", sub: "gas_water_bill" },
+  { concern: "Mobile & Fastag Recharges", name: "Jio / Airtel / Vi Unlimited Prepaid Recharge", specs: "28-Day, 84-Day & Annual 5G Data Packs", price: "3% - 5% Instant Discount", url: "https://bytepe.com/mobile-recharge", sub: "mobile_recharge" },
+  { concern: "Mobile & Fastag Recharges", name: "NETC National Fastag Instant Top-Up", specs: "Instant toll tag activation", price: "Flat ₹25 with code FASTAG25", url: "https://bytepe.com/fastag", sub: "fastag_recharge" },
+  { concern: "Brand Gift Cards & Vouchers", name: "Instant E-Gift Cards (Amazon, Flipkart, Swiggy)", specs: "Instant digital code delivery", price: "Save 2% to 6%", url: "https://bytepe.com", sub: "gift_cards" },
+  { concern: "Merchant QR & Soundbox", name: "BytePe Smart All-in-One UPI QR & Audio Soundbox", specs: "Instant audio payment notification", price: "Special merchant fee waiver", url: "https://bytepe.com", sub: "merchant_soundbox" },
 ];
 
 export default function BytePeStorePage() {
@@ -44,7 +44,7 @@ export default function BytePeStorePage() {
           <p>BytePe Charges: ₹0 Platform Fee + Gives up to 5% instant cashback with code RECHARGE10.</p>
           <p>Net Saving Highlight: Save ₹150–₹300/year just by eliminating convenience fees on everyday utility bills.</p>
         </div>
-        <a href={link("https://bytepe.com/services", "fee_calculator")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+        <a href={link("https://bytepe.com", "fee_calculator")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
           Calculate My Bill Savings on BytePe
         </a>
       </div>

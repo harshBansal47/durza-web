@@ -12,7 +12,7 @@ const CONCERNS = ["Breathable Wudhu-Friendly Nails", "Halal Transferproof Lipsti
 const PRODUCTS = [
   { concern: "Breathable Wudhu-Friendly Nails", name: "Iba Breathable Nail Color", specs: "9ml Bottle • Water & Oxygen Permeable", price: "₹249", mrp: "₹299", url: "https://ibacosmetics.com/products/iba-breathable-nail-color", sub: "breathable_nail" },
   { concern: "Halal Transferproof Lipsticks", name: "Iba Maxx Matte Liquid Lipstick", specs: "6ml Wand • 12H Matte Finish", price: "₹399", mrp: "₹499", url: "https://ibacosmetics.com/products/iba-maxx-matte-liquid-lipstick", sub: "matte_lipstick" },
-  { concern: "Pure Skincare & Sunscreens", name: "Iba Invisible Sunscreen SPF 50 PA++++", specs: "50g Ultra-Light Gel", price: "₹449", mrp: "₹499", url: "https://ibacosmetics.com/products/invisible-sunscreen-spf-50", sub: "iba_sunscreen" },
+  { concern: "Pure Skincare & Sunscreens", name: "Iba Invisible Sunscreen SPF 50 PA++++", specs: "50g Ultra-Light Gel", price: "₹449", mrp: "₹499", url: "https://ibacosmetics.com", sub: "iba_sunscreen" },
   { concern: "Halal Transferproof Lipsticks", name: "Iba Pure Lips Moisture Rich Lipstick", specs: "3.8g Creamy Bullet", price: "₹225", mrp: "₹260", url: "https://ibacosmetics.com/products/moisture-rich-lipstick", sub: "moisture_lipstick" },
   { concern: "Alcohol-Free Attars & Perfumes", name: "Iba Pure Perfume Roller Ball", specs: "10ml Roll-On • Non-Alcoholic", price: "₹295", mrp: "₹350", url: "https://ibacosmetics.com/products/pure-perfume-roller", sub: "pure_perfume" },
 ];

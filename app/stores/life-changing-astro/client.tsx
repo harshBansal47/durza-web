@@ -3,18 +3,18 @@ import { useState } from "react";
 const TRACK = "https://track.vcommission.com/click?campaign_id=13860&pub_id=133499";
 function link(url: string, sub: string) { return `${TRACK}&sub1=${sub}&url=${encodeURIComponent(url)}`; }
 const OFFERS = [
-  { code: "ASTRO15", badge: "CONSULTATION DEAL", title: "Flat 15% OFF on 1-on-1 Vedic Kundli Consultations", desc: "Valid on career, finance, marriage compatibility and Dasha sessions.", url: "https://lifechangingastro.com/consultations", sub: "astro15" },
+  { code: "ASTRO15", badge: "CONSULTATION DEAL", title: "Flat 15% OFF on 1-on-1 Vedic Kundli Consultations", desc: "Valid on career, finance, marriage compatibility and Dasha sessions.", url: "https://lifechangingastro.com", sub: "astro15" },
   { code: "GEM10", badge: "CERTIFIED STONES", title: "Extra 10% OFF on Lab-Certified Natural Gemstones", desc: "Applies on Pukhraj, Neelam, Emerald and Ruby stones.", url: "https://lifechangingastro.com/gemstones", sub: "gem10" },
   { code: "RUDRA20", badge: "SPIRITUAL REMEDY", title: "Flat 20% OFF on Original Nepali Rudraksha & Yantras", desc: "X-ray verified beads energized via Vedic Pran Pratishtha.", url: "https://lifechangingastro.com/rudraksha", sub: "rudra20" },
   { code: "FREESHIP", badge: "INSURED TRANSIT", title: "Free Insured Doorstep Shipping Across India", desc: "Tamper-proof insured packaging included at zero extra cost.", url: "https://lifechangingastro.com", sub: "freeship" },
 ];
 const CONCERNS = ["1-on-1 Kundli Consultations", "Lab-Certified Gemstones", "Original Nepali Rudraksha", "Energized Vastu & Yantras"];
 const PRODUCTS = [
-  { concern: "1-on-1 Kundli Consultations", name: "Comprehensive Career, Finance & Dasha Analysis (30 Mins)", specs: "Live Video/Audio Session + Custom PDF Report", price: "₹1,199", mrp: "₹1,999", url: "https://lifechangingastro.com/consultations/career-finance", sub: "career_consultation" },
-  { concern: "1-on-1 Kundli Consultations", name: "Marriage & Kundli Milan Compatibility Consultation", specs: "Ashtakoota Guna Matching + Mangal Dosha Assessment", price: "₹999", mrp: "₹1,599", url: "https://lifechangingastro.com/consultations/marriage-matching", sub: "marriage_consultation" },
-  { concern: "Lab-Certified Gemstones", name: "Natural Ceylon Yellow Sapphire (Pukhraj) — Unheated", specs: "100% Natural with ISO Lab Certificate", price: "₹4,999", mrp: "₹6,999", url: "https://lifechangingastro.com/gemstones/yellow-sapphire", sub: "pukhraj_stone" },
-  { concern: "Original Nepali Rudraksha", name: "5 Mukhi & 7 Mukhi Energized Nepali Rudraksha Pendant", specs: "X-Ray Verified Compartments • Energized Before Dispatch", price: "₹1,299", mrp: "₹1,899", url: "https://lifechangingastro.com/rudraksha/nepali-rudraksha", sub: "nepali_rudraksha" },
-  { concern: "Energized Vastu & Yantras", name: "Gold-Plated Copper Shree Yantra (Vastu & Abundance)", specs: "Sacred Geometry • Energized on Auspicious Muhurat", price: "₹899", mrp: "₹1,399", url: "https://lifechangingastro.com/yantras/shree-yantra", sub: "shree_yantra" },
+  { concern: "1-on-1 Kundli Consultations", name: "Comprehensive Career, Finance & Dasha Analysis (30 Mins)", specs: "Live Video/Audio Session + Custom PDF Report", price: "₹1,199", mrp: "₹1,999", url: "https://lifechangingastro.com/career-finance", sub: "career_consultation" },
+  { concern: "1-on-1 Kundli Consultations", name: "Marriage & Kundli Milan Compatibility Consultation", specs: "Ashtakoota Guna Matching + Mangal Dosha Assessment", price: "₹999", mrp: "₹1,599", url: "https://lifechangingastro.com/marriage-matching", sub: "marriage_consultation" },
+  { concern: "Lab-Certified Gemstones", name: "Natural Ceylon Yellow Sapphire (Pukhraj) — Unheated", specs: "100% Natural with ISO Lab Certificate", price: "₹4,999", mrp: "₹6,999", url: "https://lifechangingastro.com", sub: "pukhraj_stone" },
+  { concern: "Original Nepali Rudraksha", name: "5 Mukhi & 7 Mukhi Energized Nepali Rudraksha Pendant", specs: "X-Ray Verified Compartments • Energized Before Dispatch", price: "₹1,299", mrp: "₹1,899", url: "https://lifechangingastro.com", sub: "nepali_rudraksha" },
+  { concern: "Energized Vastu & Yantras", name: "Gold-Plated Copper Shree Yantra (Vastu & Abundance)", specs: "Sacred Geometry • Energized on Auspicious Muhurat", price: "₹899", mrp: "₹1,399", url: "https://lifechangingastro.com", sub: "shree_yantra" },
 ];
 const CHECKLIST = [
   { title: "Lab Verification", detail: "Every gemstone includes an independent gemological lab certificate verifying natural origin — no glass-filled or synthetic stones." },
@@ -42,7 +42,7 @@ export default function LifeChangingAstroClient() {
             </li>
           ))}
         </ol>
-        <a href={link("https://lifechangingastro.com/consultations", "confidence_checklist")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Book a Verified Consultation</a>
+        <a href={link("https://lifechangingastro.com", "confidence_checklist")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Book a Verified Consultation</a>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
