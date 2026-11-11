@@ -425,7 +425,7 @@
                   )}
                   {store.description && <p className="mt-2 text-sm text-ink-soft line-clamp-3">{store.description}</p>}
                   <Link href={`/stores/${store.slug}`} className="mt-2 inline-block text-sm font-medium text-inkblue hover:underline">
-                    All {store.name} deals →
+                    Know all {store.name} deals →
                   </Link>
                 </div>
               </div>
@@ -465,7 +465,7 @@
         <nav className="mb-8 flex flex-wrap gap-2" aria-label="Keep exploring">
           {store && (
             <Link href={`/stores/${store.slug}`} className="btn btn-outline">
-              All {store.name} deals
+              Know all {store.name} deals
             </Link>
           )}
           <Suspense fallback={null}>

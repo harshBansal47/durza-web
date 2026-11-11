@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "@/lib/api";
+import type { CouponPublic } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function FirstCryStorePage() {
   const [mode, setMode] = useState<"all" | "club">("all");
+  const [coupons, setCoupons] = useState<CouponPublic[]>([]);
+  useEffect(() => { api.listCoupons({ store_id: "3d447d84-9703-41b9-8f03-93e7f6c42a62", active_only: true, limit: 50 }).then((r) => setCoupons(r.items)).catch(() => {}); }, []);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
@@ -50,9 +54,17 @@ export default function FirstCryStorePage() {
         ))}
       </div>
 
-      {/* Placeholder deals */}
-      <div className="rounded-2xl border border-ledger-line bg-white p-6 text-center text-ink-soft">
-        <p>FirstCry deals will appear here. Add coupons via the admin panel.</p>
+      {/* Deals */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        {coupons.map((c) => (
+          <div key={c.id} className="rounded-2xl border border-ledger-line bg-white p-4">
+            <h3 className="font-semibold text-ink">{c.title}</h3>
+            {c.code && <p className="mt-1 text-sm text-ink-soft">Code: {c.code}</p>}
+            <Link href={`/coupons/${c.slug}`} className="mt-2 inline-block text-sm font-medium text-inkblue hover:underline">
+              View deal →
+            </Link>
+          </div>
+        ))}
       </div>
 
       {/* SEO editorial */}

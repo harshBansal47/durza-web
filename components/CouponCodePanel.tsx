@@ -142,7 +142,7 @@ export default function CouponCodePanel({
             href={`/stores/${storeSlug}`}
             className="btn btn-outline mt-4 w-full justify-center gap-1.5 py-2.5 text-sm"
           >
-            All {storeName} deals
+            Know all {storeName} deals
             <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
           </Link>
         )}
