@@ -227,21 +227,23 @@ export function CouponCard({
                 {coupon.title}
               </Link>
             </h3>
-            {dealPrice && (
-              <div className="mt-1 flex items-baseline gap-2">
-                <span className="text-lg font-extrabold text-ink">{dealPrice}</span>
-                {originalMrp && <span className="text-sm text-ink-soft line-through">{originalMrp}</span>}
-                {savings && <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">{savings}</span>}
-              </div>
-            )}
-            {coupon.description && (
-              <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
-                {coupon.description}
-              </p>
-            )}
-            {rating && (
-              <p className="mt-1 text-xs text-ink-soft">★ {rating} {reviewsCount ? `(${reviewsCount} reviews)` : ""}</p>
-            )}
+            <div className="mt-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+              {dealPrice && (
+                <div className="flex items-baseline gap-2">
+                  <span className="text-lg font-extrabold text-ink">{dealPrice}</span>
+                  {originalMrp && <span className="text-sm text-ink-soft line-through">{originalMrp}</span>}
+                  {savings && <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">{savings}</span>}
+                </div>
+              )}
+              {coupon.description && (
+                <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">
+                  {coupon.description}
+                </p>
+              )}
+              {rating && (
+                <p className="mt-1 text-xs text-ink-soft">★ {rating} {reviewsCount ? `(${reviewsCount} reviews)` : ""}</p>
+              )}
+            </div>
           </div>
 
           <div className="relative z-10 flex min-h-5 flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-soft">
