@@ -34,7 +34,7 @@ export default function FuelOneStorePage() {
             <button type="button" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
               Share
             </button>
-            <Link href="/stores/fuelone/go" className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white">
+            <Link href="/go/fuelone" className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white">
               Go to store
             </Link>
           </div>
@@ -70,7 +70,7 @@ export default function FuelOneStorePage() {
                 <span className="text-sm text-ink-soft line-through">{p.mrp}</span>
                 <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">{p.discount}</span>
               </div>
-              <Link href="/stores/fuelone/go" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+              <Link href="/go/fuelone" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
                 Buy now
               </Link>
             </div>
