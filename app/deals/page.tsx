@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // drops are counted exactly the way the page selects them.
   const [offers, products] = await Promise.all([
     resilient.listCoupons({ active_only: true, limit: 1 }),
-    resilient.listProducts({ limit: 50 }),
+    resilient.listProducts({ limit: 20 }),
   ]);
   const total = offers.total;
   const drops = products.items.filter((product) => product.last_price_drop_pct != null).length;
@@ -81,7 +81,7 @@ export default async function DealsPage({
     // they carry the keyword only — the coupon filters cannot apply to them.
     keyword
       ? Promise.resolve({ items: [], total: 0, skip: 0, limit: 50 })
-      : resilient.listProducts({ limit: 50 }),
+      : resilient.listProducts({ limit: 20 }),
   ]);
 
   const total = coupons.total;
