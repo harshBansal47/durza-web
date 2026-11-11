@@ -83,6 +83,7 @@ export default function StorePageClient({
   const websiteHost = hostnameOf(store.website_url);
   const hasVotes = stats.totalReports > 0;
   const accent = storeAccent(store.slug);
+  const [expanded, setExpanded] = useState(false);
   const productCount = productCollections.reduce(
     (total, collection) => total + collection.category.product_count,
     0,
@@ -102,7 +103,7 @@ export default function StorePageClient({
           content: (
             <div className="grid gap-3 sm:grid-cols-2">
               {groupSimilar(tab.items)
-                .slice(0, 100)
+                .slice(0, expanded ? 100 : 6)
                 .map((entry) =>
                   entry.kind === "group" ? (
                     <CouponGroupCard
@@ -458,6 +459,12 @@ export default function StorePageClient({
           .
         </p>
       </section>
+
+      {!expanded && Object.values(tabs).reduce((n, t) => n + t.items.length, 0) > 6 && (
+        <button type="button" onClick={() => setExpanded(true)} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
+          Show all {Object.values(tabs).reduce((n, t) => n + t.items.length, 0)} offers
+        </button>
+      )}
 
       {relatedStores.length > 0 && (
         <section aria-labelledby="related">
