@@ -181,3 +181,10 @@ history, sales hubs, collections, guides, reviews, compare, bank offers, and
 an admin analytics dashboard. Still genuinely open: browser extension, web-push
 delivery, and the homepage's store-name/logo lookup still fetches up to 100
 stores per request rather than using a proper join — fine at current scale.
+
+## Recent updates
+- Store pages with pagination, loading skeletons, hero images.
+- Coupon card improvements: price rows, category badges, CTA differentiation.
+- Admin portal: Telegram/WhatsApp publishers with pagination.
+- FirstCry custom hub with Club calculator, diaper tracker, baby gear finder.
+- SEO: branding, sitemap, noindex duplicates.
