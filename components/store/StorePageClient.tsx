@@ -84,6 +84,19 @@ export default function StorePageClient({
   const hasVotes = stats.totalReports > 0;
   const accent = storeAccent(store.slug);
   const [expanded, setExpanded] = useState(false);
+  const [filter, setFilter] = useState("all");
+  const filteredTabs = useMemo(() => {
+    const match = (item: (typeof tabs.best.items)[number]) => {
+      if (filter === "all") return true;
+      if (filter === "under500") return (item as any).deal_price ? parseInt(String((item as any).deal_price).replace(/[^\d]/g, ""), 10) < 500 : false;
+      return true;
+    };
+    return {
+      best: tabs.best ? { ...tabs.best, items: tabs.best.items.filter(match) } : tabs.best,
+      latest: tabs.latest ? { ...tabs.latest, items: tabs.latest.items.filter(match) } : tabs.latest,
+      expiring: tabs.expiring ? { ...tabs.expiring, items: tabs.expiring.items.filter(match) } : tabs.expiring,
+    };
+  }, [tabs, filter]);
   const productCount = productCollections.reduce(
     (total, collection) => total + collection.category.product_count,
     0,
@@ -95,7 +108,7 @@ export default function StorePageClient({
   // A tab with nothing in it is noise — only offer tabs that have coupons.
   const visibleTabs = useMemo(
     () =>
-      Object.entries(tabs)
+      Object.entries(filteredTabs)
         .filter(([, tab]) => tab.items.length > 0)
         .map(([id, tab]) => ({
           id,
@@ -286,6 +299,18 @@ export default function StorePageClient({
             {pagination.rangeEnd ?? Math.min(pagination.page * 20, stats.total)} of {stats.total} offers
           </p>
         )}
+        <div className="mb-4 flex flex-wrap gap-2">
+          {["all", "under500"].map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setFilter(f)}
+              className={`rounded-full px-3 py-1 text-xs font-medium ${filter === f ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}
+            >
+              {f === "all" ? "All" : "Under ₹500"}
+            </button>
+          ))}
+        </div>
         {visibleTabs.length > 0 ? (
           <>
             {/* Keeps the h1 → h2 → h3 order intact for every code card below. */}
