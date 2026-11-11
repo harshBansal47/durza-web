@@ -79,6 +79,7 @@ export function toDealQuery(
     expires_within_days: filters.expiresWithinDays,
     sort: filters.sort,
     active_only: true,
+    has_code: false,
     skip: page.skip,
     limit: page.limit,
   };

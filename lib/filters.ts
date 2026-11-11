@@ -182,7 +182,7 @@ export function toCouponQuery(
     store_id: resolved.store_id,
     category_id: resolved.category_id,
     discount_type: filters.type || undefined,
-    has_code: filters.code === "" ? undefined : filters.code === "codes",
+    has_code: filters.code === "" ? true : filters.code === "codes",
     verified: filters.confirmed === "once" ? true : undefined,
     verified_within_hours: hours,
     min_success_rate: filters.rate ? Number(filters.rate) / 100 : undefined,
