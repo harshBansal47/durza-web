@@ -1,42 +1,31 @@
-"use client";
+import type { Metadata } from "next";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import StoreClient from "./client";
 
-import { useState } from "react";
+const title = "FirstCry Club Break-Even Calculator";
+const description = "Check if a FirstCry Club membership pays for itself — compare monthly spend vs the ₹499 or ₹999 fee and see your net annual savings.";
+const canonical = "/stores/firstcry/club-calculator";
 
-export default function ClubCalculatorPage() {
-  const [spend, setSpend] = useState(2500);
-  const [months, setMonths] = useState(12);
-  const membership = months === 12 ? 999 : 499;
-  const savings = Math.round(spend * 0.07 * months + 100 * months);
-  const net = savings - membership;
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical },
+  openGraph: { title, description, url: canonical, type: "website" },
+  twitter: { card: "summary_large_image", title, description },
+};
 
+export default function Page() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 space-y-6">
-      <h1 className="text-2xl font-bold text-ink">FirstCry Club Break-Even Calculator</h1>
-      <div className="space-y-4">
-        <label className="block text-sm font-medium text-ink">
-          Monthly spend: ₹{spend.toLocaleString("en-IN")}
-          <input type="range" min={1000} max={10000} step={500} value={spend} onChange={(e) => setSpend(Number(e.target.value))} className="mt-2 w-full" />
-        </label>
-        <label className="block text-sm font-medium text-ink">
-          Membership
-          <select value={months} onChange={(e) => setMonths(Number(e.target.value))} className="mt-2 w-full rounded-lg border border-ledger-line px-3 py-2">
-            <option value={3}>3 months (₹499)</option>
-            <option value={12}>12 months (₹999)</option>
-          </select>
-        </label>
-      </div>
-      <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <p className="text-sm text-ink-soft">Estimated annual savings: ₹{savings.toLocaleString("en-IN")}</p>
-        <p className="mt-1 text-sm text-ink-soft">Membership cost: ₹{membership}</p>
-        <p className={`mt-2 text-lg font-bold ${net > 0 ? "text-green-700" : "text-rust"}`}>
-          {net > 0 ? `You save ₹${net.toLocaleString("en-IN")} net.` : "Not worth it yet."}
-        </p>
-        {net > 0 && (
-          <a href="https://track.vcommission.com/click?campaign_id=10081&pub_id=133499&sub1=club_calc&url=https://www.firstcry.com/club" target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
-            Join FirstCry Club
-          </a>
-        )}
-      </div>
-    </div>
+    <>
+      <Breadcrumbs
+        items={[
+    { name: "Home", path: "/" },
+    { name: "Stores", path: "/stores" },
+    { name: "FirstCry", path: "/stores/firstcry" },
+    { name: "Club Break-Even Calculator", path: "/stores/firstcry/club-calculator" },
+        ]}
+      />
+      <StoreClient />
+    </>
   );
 }
