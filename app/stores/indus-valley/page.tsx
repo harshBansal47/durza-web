@@ -34,8 +34,8 @@ export default function IndusValleyStorePage() {
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
       <section className="rounded-2xl bg-gradient-to-r from-emerald-700 to-green-500 text-white p-8">
         <h1 className="text-3xl font-bold">Indus Valley Bio-Organic</h1>
-        <p className="mt-2 text-sm opacity-90">100% Botanical, Ammonia-Free & PPD-Free Hair Color & Organic Skin Care</p>
-        <p className="mt-1 text-xs opacity-80">Verified Offers: Extra 10% Off with FIRST10 + Free Delivery Above ₹299</p>
+        <p className="mt-2 text-sm font-medium text-white">100% Botanical, Ammonia-Free & PPD-Free Hair Color & Organic Skin Care</p>
+        <p className="mt-1 text-xs font-semibold text-white/90">Verified Offers: Extra 10% Off with FIRST10 + Free Delivery Above ₹299</p>
       </section>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
