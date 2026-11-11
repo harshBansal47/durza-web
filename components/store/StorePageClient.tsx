@@ -10,6 +10,7 @@ import SaveDealBanner from "@/components/SaveDealBanner";
 import { RecordView } from "@/components/Analytics";
 import PageTitle from "@/components/ui/PageTitle";
 import { storeInitials } from "@/lib/catalog";
+import { api } from "@/lib/api";
 import { hostnameOf, parseHttpUrl } from "@/lib/url";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { GO_REL, storeGoHref } from "@/lib/go";
@@ -139,7 +140,7 @@ export default function StorePageClient({
                       }}
                       layout="store-grid"
                       variant={entry.coupon.id === tabs.best?.items[0]?.id ? "featured" : id === "expiring" ? "expiring-soon" : "coupon"}
-                      ctaHref={`/coupons/${entry.coupon.id}/go`}
+                      ctaHref={api.goUrl(entry.coupon.id, "store-page")}
                       ctaLabel={entry.coupon.code ? "View code" : "View deal"}
                     />
                   ),
