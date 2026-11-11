@@ -1,3 +1,4 @@
+"use client";
 import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
@@ -362,6 +363,14 @@ export function CouponCard({
           <Link
             href={href}
             aria-disabled={expired}
+            onClick={async (e) => {
+              if (expired) return;
+              if (coupon.code) {
+                try { await navigator.clipboard.writeText(coupon.code); } catch {}
+              }
+            }}
+            target="_blank"
+            rel="noopener sponsored"
             className={`btn relative z-10 w-full justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-cta"}`}
           >
             {ctaLabel ?? ctaText ?? (expired ? "No longer valid" : coupon.code ? "View code" :
