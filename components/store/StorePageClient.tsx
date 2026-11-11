@@ -269,7 +269,6 @@ export default function StorePageClient({
 
       <section className="rounded-lg border border-ledger-line bg-paper-alt px-4 py-2.5 text-sm">
         <p className="text-ink-soft">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Coupon codes and deals are checked against the store&apos;s source pages; each offer shows its latest check date.</span>
          
           {/* {store.commission_disclosure ?? DEFAULT_DISCLOSURE} */}
         </p>
