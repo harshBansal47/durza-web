@@ -13,7 +13,7 @@ import { useSession } from "@/components/session/SessionProvider";
 import { setSavedCouponAction } from "@/app/account/actions";
 
 /** Save requires a signed-in account: anonymous saves can't sync to a profile. */
-export function CardSaveButton({ couponId }: { couponId: string }) {
+export function CardSaveButton({ couponId, compact = false }: { couponId: string; compact?: boolean }) {
   const router = useRouter();
   // Shared with the header; null means the check is still in flight, and the
   // button stays inert until it lands (see `disabled` below).
@@ -92,12 +92,14 @@ export function CardSaveButton({ couponId }: { couponId: string }) {
         aria-pressed={saved}
         aria-label={saved ? "Remove from saved deals" : "Save this deal"}
         title={isSignedIn === false ? "Sign in to save" : saved ? "Saved" : "Save for later"}
-        className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all active:scale-90 ${
+        className={`relative z-10 flex shrink-0 items-center justify-center rounded-full border transition-all active:scale-90 ${
+          compact ? "h-8 w-8" : "h-9 w-9"
+        } ${
           disabled
-            ? "border-ledger-line bg-white text-ink-soft opacity-50"
+            ? "border-slate-200 bg-white text-slate-300 opacity-60"
             : saved
-              ? "border-rust bg-rust text-white"
-              : "border-ledger-line bg-white text-ink-soft hover:border-rust hover:text-rust"
+              ? "border-slate-900 bg-slate-900 text-white"
+              : "border-slate-200/80 bg-white text-slate-400 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700"
         }`}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

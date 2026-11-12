@@ -2,10 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { CouponCard } from "@/components/CouponCard";
+import OfferCard from "@/components/OfferCard";
 import StoreHero from "@/components/StoreHero";
 import { hostnameOf } from "@/lib/url";
-import { formatDiscount } from "@/lib/format";
+import { formatDiscount, formatDiscountHeading } from "@/lib/format";
 import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
 import SaveDealBanner from "@/components/SaveDealBanner";
@@ -82,7 +82,7 @@ export default function StorePageClient({
           id,
           label: tab.label,
           content: (
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {groupSimilar(tab.items)
                 .slice(0, expanded ? 100 : 6)
                 .map((entry) =>
@@ -94,21 +94,16 @@ export default function StorePageClient({
                       currency={code}
                     />
                   ) : (
-                    <CouponCard
+                    <OfferCard
                       key={entry.coupon.id}
-                      coupon={entry.coupon}
-                      store={{
-                        id: store.id,
-                        name: store.name,
-                        slug: store.slug,
-                        logo_url: store.logo_url,
-                        website_url: store.website_url,
-                        currency: code,
-                      }}
-                      layout="store-grid"
-                      variant={entry.coupon.id === tabs.best?.items[0]?.id ? "featured" : id === "expiring" ? "expiring-soon" : "coupon"}
+                      bookmarkId={entry.coupon.id}
+                      code={entry.coupon.code}
+                      badge={formatDiscountHeading(entry.coupon, code)}
+                      title={entry.coupon.title}
+                      description={entry.coupon.description}
                       ctaHref={api.goUrl(entry.coupon.id, "store-page")}
-                      ctaLabel={entry.coupon.code ? "View code" : "View deal"}
+                      verified={entry.coupon.verification_status === "verified"}
+                      expiresAt={entry.coupon.expires_at}
                     />
                   ),
                 )}

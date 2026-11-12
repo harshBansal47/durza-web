@@ -9,12 +9,15 @@ import type { CouponPublic } from "@/lib/types";
  */
 
 export interface StoreOfferCard {
+  id: string;
   code: string;
   badge: string;
   title: string;
   description: string | null;
   targetUrl: string;
   subId: string;
+  /** ISO expiry; null when the offer never expires. */
+  expiresAt: string | null;
   /** 0-based catalog order, from restrictions.sort. */
   sort: number;
 }
@@ -58,12 +61,14 @@ export function toOfferCards(coupons: CouponPublic[]): StoreOfferCard[] {
     .map((c) => {
       const r = restrictionsOf(c);
       return {
+        id: c.id,
         code: c.code as string,
         badge: str(r.badge) ?? "OFFER",
         title: c.title,
         description: c.description,
         targetUrl: str(r.target_url) ?? "",
         subId: str(r.sub_id) ?? c.slug,
+        expiresAt: c.expires_at,
         sort: sortKey(c),
       };
     })

@@ -1,6 +1,7 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -35,15 +36,18 @@ export default function IbaCosmeticsPage({ offers, products, heroImageUrl, offer
         <h2 className="text-xl font-bold text-ink">Halal Beauty & Wudhu-Friendliness Decoder</h2>
         <p className="mt-2 text-sm text-ink-soft">Iba Breathable Nail Color uses a patented permeable membrane that allows water and air molecules to penetrate to the nail bed, ensuring valid ablution (Wudhu) without removal. 100% free from Carmine and animal fat.</p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {offers.map((o) => (
-          <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">
-            <span className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-medium text-ink">{o.badge}</span>
-            <h3 className="mt-2 font-semibold text-ink">{o.title}</h3>
-            <p className="mt-1 text-xs text-ink-soft">{o.description}</p>
-            <p className="mt-2 text-sm font-mono text-accent">{o.code}</p>
-            <a href={link(o.targetUrl, o.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Redeem on Iba</a>
-          </div>
+          <OfferCard
+            key={o.code}
+            bookmarkId={o.id}
+            code={o.code}
+            badge={o.badge}
+            title={o.title}
+            description={o.description}
+            ctaHref={link(o.targetUrl, o.subId)}
+            expiresAt={o.expiresAt}
+          />
         ))}
       </div>
       <div>

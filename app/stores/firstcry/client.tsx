@@ -5,6 +5,7 @@ const link = (url: string, sub: string): string => getAffiliateLink("firstcry", 
 
 import { useState, useEffect } from "react";
 import StoreHero from "@/components/StoreHero";
+import OfferCard from "@/components/OfferCard";
 import { api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import Link from "next/link";
 export default function FirstCryStorePage() {
   const [mode, setMode] = useState<"all" | "club">("all");
   const [coupons, setCoupons] = useState<CouponPublic[]>([]);
+  const visibleCoupons = mode === "club" ? coupons.filter((c) => /club/i.test(c.title) || /club/i.test(c.description ?? "")) : coupons;
   useEffect(() => { api.listCoupons({ store_id: "3d447d84-9703-41b9-8f03-93e7f6c42a62", active_only: true, limit: 50 }).then((r) => setCoupons(r.items)).catch(() => {}); }, []);
 
   return (
@@ -59,15 +61,17 @@ export default function FirstCryStorePage() {
       </div>
 
       {/* Deals */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        {coupons.map((c) => (
-          <div key={c.id} className="rounded-2xl border border-ledger-line bg-white p-4">
-            <h3 className="font-semibold text-ink">{c.title}</h3>
-            {c.code && <p className="mt-1 text-sm text-ink-soft">Code: {c.code}</p>}
-            <Link href={`/coupons/${c.slug}`} className="mt-2 inline-block text-sm font-medium text-inkblue hover:underline">
-              View deal →
-            </Link>
-          </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {visibleCoupons.map((c) => (
+          <OfferCard
+            key={c.id}
+            bookmarkId={c.id}
+            code={c.code}
+            badge={c.code ? "CURATED CODE" : "AUTO-APPLIED"}
+            title={c.title}
+            description={c.description}
+            ctaHref={`/coupons/${c.slug}`}
+          />
         ))}
       </div>
 
