@@ -333,7 +333,7 @@ export const api = {
     }),
 
   listStores: (params: StoreListParams = {}) =>
-    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 300 }),
+    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 3600 }),
 
   getStoreById: (storeId: string) => apiFetch<Store>(`/stores/${storeId}`, { revalidate: 300 }),
 
@@ -377,7 +377,7 @@ export const api = {
   listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
 
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number; live_only?: boolean } = {}) =>
-    apiFetch<Paginated<Category>>(`/categories${qs(params)}`, { revalidate: 300 }),
+    apiFetch<Paginated<Category>>(`/categories${qs(params)}`, { revalidate: 3600 }),
 
   getCategoryBySlug: (slug: string) =>
     apiFetch<Category>(`/categories/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
