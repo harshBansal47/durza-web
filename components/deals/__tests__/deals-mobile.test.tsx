@@ -198,7 +198,7 @@ describe("LoadMoreDeals", () => {
     });
     renderPager(2);
 
-    const button = screen.getByRole("link", { name: "Load more deals…" });
+    const button = screen.getByRole("link", { name: "View More" });
     expect(button).toHaveAttribute("href", "/deals?skip=20");
 
     fireEvent.click(button);
@@ -207,17 +207,17 @@ describe("LoadMoreDeals", () => {
     expect(listCoupons).toHaveBeenCalledTimes(1);
     expect(listCoupons.mock.calls[0][0]).toMatchObject({ skip: 1, limit: 20 });
     expect(screen.getByText(/That's all 2 deals for this view/)).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: "Load more deals…" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "View More" })).not.toBeInTheDocument();
   });
 
   it("keeps the button and explains when the fetch fails", async () => {
     listCoupons.mockRejectedValueOnce(new Error("offline"));
     renderPager(5);
 
-    fireEvent.click(screen.getByRole("link", { name: "Load more deals…" }));
+    fireEvent.click(screen.getByRole("link", { name: "View More" }));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(/Couldn't load more deals/);
-    expect(screen.getByRole("link", { name: "Load more deals…" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View More" })).toBeInTheDocument();
   });
 });
 

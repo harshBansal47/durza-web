@@ -76,9 +76,8 @@ export default function LoadMoreDeals({
   }
 
   return (
-    // `contents` keeps the appended cards direct grid items; md:hidden keeps
-    // the whole in-place pager off desktop, which keeps the numbered footer.
-    <div className="contents md:hidden">
+    // `contents` keeps the appended cards direct grid items.
+    <div className="contents">
       {items.length > 0 && (
         <DealFeed
           coupons={items}
@@ -107,7 +106,7 @@ export default function LoadMoreDeals({
             {loading && (
               <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" strokeWidth={2} />
             )}
-            {loading ? "Loading more deals…" : "Load more deals…"}
+            {loading ? "Loading…" : "View More"}
           </a>
         )}
         {error ? (

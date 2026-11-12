@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { resilient } from "@/lib/api";
-import { CouponCard } from "@/components/CouponCard";
 import SectionTitle from "@/components/SectionTitle";
 import PageTitle from "@/components/ui/PageTitle";
 import EmptyState from "@/components/EmptyState";
@@ -12,10 +11,9 @@ import FilterChips from "@/components/filters/FilterChips";
 import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
-import Pagination from "@/components/Pagination";
+import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import { formatMoney } from "@/lib/format";
 import {
-  carriedParams,
   filterCount,
   parseFilters,
   resolveIds,
@@ -224,8 +222,6 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   const categoryName = categories.find((c) => c.slug === filters.category)?.name;
-  const page = Math.floor(skip / PAGE_SIZE) + 1;
-  const pages = Math.max(Math.ceil(couponTotal / PAGE_SIZE), 1);
 
   return (
     <FilterLayout
@@ -278,35 +274,21 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
       {coupons.items.length > 0 && (
         <section className="mt-8">
           <SectionTitle hint={`${couponTotal} total`}>Coupons</SectionTitle>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {coupons.items.map((coupon) => {
-              const store = storeById.get(coupon.store_id);
-              return (
-                <CouponCard
-                  key={coupon.id}
-                  coupon={coupon}
-                  store={
-                    store
-                      ? {
-                          id: store.id,
-                          name: store.name,
-                          slug: store.slug,
-                          logo_url: store.logo_url,
-                          website_url: store.website_url,
-                          currency: store.currency,
-                        }
-                      : undefined
-                  }
-                />
-              );
-            })}
-          </div>
-          <Pagination
-            basePath="/search"
-            searchParams={carriedParams(sp)}
-            skip={skip}
-            limit={PAGE_SIZE}
+          <ViewMoreCoupons
+            initialCoupons={coupons.items}
             total={couponTotal}
+            query={toCouponQuery(filters, resolved, { skip: 0, limit: PAGE_SIZE })}
+            initialSkip={skip}
+            stores={stores.map((s) => ({
+              id: s.id,
+              name: s.name,
+              slug: s.slug,
+              logo_url: s.logo_url,
+              website_url: s.website_url,
+              currency: s.currency,
+            }))}
+            limit={PAGE_SIZE}
+            gridClassName="grid gap-4 sm:grid-cols-2"
           />
         </section>
       )}
@@ -347,8 +329,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
         </section>
       )}
       <p className="mt-6 text-xs text-ink-soft">
-        Showing page {page} of {pages} for coupons. Stores, products and categories are the closest
-        matches we hold.
+        Stores, products and categories are the closest matches we hold; coupons load more on demand.
       </p>
     </FilterLayout>
   );

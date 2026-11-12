@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { resilient } from "@/lib/api";
-import { CouponCardGrid } from "@/components/CouponCard";
-import Pagination from "@/components/Pagination";
+import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
@@ -9,7 +8,7 @@ import FilterChips from "@/components/filters/FilterChips";
 import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
-import { carriedParams, filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
+import { filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import PageTitle from "@/components/ui/PageTitle";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
@@ -64,8 +63,6 @@ export default async function CouponsPage({
   const categoryName = categories.find((c) => c.slug === filters.category)?.name;
 
   const total = coupons.total;
-  const page = Math.floor(skip / PAGE_SIZE) + 1;
-  const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
   const heading = filters.q
     ? `Results for "${filters.q}"`
     : categoryName
@@ -98,7 +95,6 @@ export default async function CouponsPage({
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
               {total} coupon{total === 1 ? "" : "s"}
-              {total > 0 ? ` · page ${page} of ${pages}` : ""}
             </p>
             <p className="mt-1 max-w-prose text-xs text-ink-soft">
               Sorted and filtered by the API, so the counts below are exact.
@@ -132,8 +128,11 @@ export default async function CouponsPage({
             <PopularChips stores={stores} categories={categoriesPage.items} />
           </EmptyState>
         ) : (
-          <CouponCardGrid
-            coupons={coupons.items}
+          <ViewMoreCoupons
+            initialCoupons={coupons.items}
+            total={total}
+            query={toCouponQuery(filters, resolved, { skip: 0, limit: PAGE_SIZE })}
+            initialSkip={skip}
             stores={stores.map((s) => ({
               id: s.id,
               name: s.name,
@@ -142,17 +141,11 @@ export default async function CouponsPage({
               website_url: s.website_url,
               currency: s.currency,
             }))}
-            className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            limit={PAGE_SIZE}
+            gridClassName="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
           />
         )}
 
-        <Pagination
-          basePath="/coupons"
-          searchParams={carriedParams(sp)}
-          skip={skip}
-          limit={PAGE_SIZE}
-          total={total}
-        />
       </FilterLayout>
     </div>
   );

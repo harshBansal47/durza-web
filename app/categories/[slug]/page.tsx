@@ -5,16 +5,15 @@ import { notFound } from "next/navigation";
 import CategoryHero from "@/components/categories/CategoryHero";
 import { lookup, resilient } from "@/lib/api";
 import CategoryChips from "@/components/CategoryChips";
-import { CouponCardGrid } from "@/components/CouponCard";
+import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
-import Pagination from "@/components/Pagination";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
 import FilterChips from "@/components/filters/FilterChips";
 import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
-import { carriedParams, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
+import { parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { categoryLabel } from "@/lib/catalog";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
@@ -93,13 +92,7 @@ export default async function CategoryPage({
   });
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
-  // The category comes from the path, so a stray `?category=` must not ride
-  // along in the pagination links and contradict the page it is on.
-  const pageParams = carriedParams(sp);
-  delete pageParams.category;
   const total = coupons.total;
-  const page = Math.floor(skip / PAGE_SIZE) + 1;
-  const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
 
   const crumbs = [
     { name: "Home", path: "/" },
@@ -148,7 +141,6 @@ export default async function CategoryPage({
             <h2 className="font-serif text-xl text-ink">Latest {categoryName} offers</h2>
             <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
               {total} coupon{total === 1 ? "" : "s"}
-              {total > 0 ? ` · page ${page} of ${pages}` : ""}
             </p>
           </div>
           <SortControl />
@@ -167,8 +159,11 @@ export default async function CategoryPage({
             <PopularChips stores={stores} categories={categoriesPage.items} />
           </EmptyState>
         ) : (
-          <CouponCardGrid
-            coupons={coupons.items}
+          <ViewMoreCoupons
+            initialCoupons={coupons.items}
+            total={total}
+            query={toCouponQuery({ ...filters, category: "" }, { ...resolved, category_id: category.id }, { skip: 0, limit: PAGE_SIZE })}
+            initialSkip={skip}
             stores={stores.map((s) => ({
               id: s.id,
               name: s.name,
@@ -177,17 +172,11 @@ export default async function CategoryPage({
               website_url: s.website_url,
               currency: s.currency,
             }))}
-            className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            limit={PAGE_SIZE}
+            gridClassName="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
           />
         )}
 
-        <Pagination
-          basePath={`/categories/${category.slug}`}
-          searchParams={pageParams}
-          skip={skip}
-          limit={PAGE_SIZE}
-          total={total}
-        />
 
         {offerStores.length > 0 && (
           <section aria-labelledby="category-stores" className="mt-12 border-t border-ledger-line pt-8">

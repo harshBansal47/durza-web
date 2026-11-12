@@ -4,7 +4,6 @@ import { resilient } from "@/lib/api";
 import type { DealCardStore } from "@/components/DealCard";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
-import Pagination from "@/components/Pagination";
 import SectionTitle from "@/components/SectionTitle";
 import DealsFilterPanel from "@/components/filters/DealsFilterPanel";
 import DealsSortControl from "@/components/filters/DealsSortControl";
@@ -199,17 +198,6 @@ export default async function DealsFeedSection({
             </div>
           </>
         )}
-
-        {/* Phones advance with "Load more deals…" in place; the numbered footer stays for desktop. */}
-        <div className="hidden md:block">
-          <Pagination
-            basePath="/deals"
-            searchParams={paginationParams}
-            skip={skip}
-            limit={PAGE_SIZE}
-            total={total}
-          />
-        </div>
 
         {!keyword && (
           <section className="mt-16">
