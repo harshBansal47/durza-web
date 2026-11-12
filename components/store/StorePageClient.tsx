@@ -2,9 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import OfferCard from "@/components/OfferCard";
 import StoreHero from "@/components/StoreHero";
 import { hostnameOf } from "@/lib/url";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { formatDiscount, formatDiscountHeading } from "@/lib/format";
 import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
@@ -303,12 +305,28 @@ export default function StorePageClient({
                   href={`/stores/${related.slug}`}
                   className="lift flex items-center gap-3 rounded-2xl border border-ledger-line bg-white p-3"
                 >
-                  <span
-                    aria-hidden="true"
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-xs font-semibold text-ink-soft"
-                  >
-                    {(related.name ?? "").replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase()}
-                  </span>
+                  {(() => {
+                    const relatedLogo = related.logo_url ?? related.hero_image_url ?? storeLogoUrl(related);
+                    if (relatedLogo) {
+                      return (
+                        <Image
+                          src={relatedLogo}
+                          alt=""
+                          width={36}
+                          height={36}
+                          className="h-9 w-9 shrink-0 rounded-lg border border-ledger-line bg-white object-contain p-0.5"
+                        />
+                      );
+                    }
+                    return (
+                      <span
+                        aria-hidden="true"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-xs font-semibold text-ink-soft"
+                      >
+                        {(related.name ?? "").replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase()}
+                      </span>
+                    );
+                  })()}
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm text-ink">{related.name}</span>
                     {typeof related.offer_count === "number" && (
