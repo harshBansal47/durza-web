@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import PendingLink from "@/components/ui/PendingLink";
 import { CheckCircle2 } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import Image from "next/image";
@@ -137,14 +137,14 @@ export default function Hero({
                 { emoji: "🩺", label: "Menstrual Cup Size Finder", href: "/stores/sirona#cup-size-finder" },
                 { emoji: "🧾", label: "GST Tool Matcher", href: "/stores/moglix#gst-net-cost" },
               ].map((tool) => (
-                <Link
+                <PendingLink
                   key={tool.href}
                   href={tool.href}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-all hover:border-accent-soft hover:bg-orange-50/60 hover:text-accent"
+                  className="rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-all hover:border-accent-soft hover:bg-orange-50/60 hover:text-accent"
                 >
                   <span aria-hidden="true">{tool.emoji}</span>
                   {tool.label}
-                </Link>
+                </PendingLink>
               ))}
             </div>
 
@@ -177,7 +177,7 @@ export default function Hero({
 
                 <div className="flex flex-wrap gap-2">
                   {popularStores.slice(0, 5).map((store) => (
-                    <Link
+                    <PendingLink
                       key={store.id}
                       href={`/stores/${store.slug}`}
                       className="
@@ -193,7 +193,7 @@ export default function Hero({
                       "
                     >
                       {store.name}
-                    </Link>
+                    </PendingLink>
                   ))}
                 </div>
               </div>

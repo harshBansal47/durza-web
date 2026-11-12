@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import PendingLink from "@/components/ui/PendingLink";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 interface TrackStore {
@@ -58,9 +58,9 @@ export default function StoreTrackGrid({ stores }: { stores: TrackStore[] }) {
         const count = typeof store.offer_count === "number" ? store.offer_count : null;
         return (
           <li key={store.id}>
-            <Link
+            <PendingLink
+              variant="overlay"
               href={`/stores/${store.slug}`}
-              title={store.name}
               className="group flex h-full flex-col items-center justify-center rounded-2xl border border-ledger-line bg-white px-2 py-4 text-center shadow-2xs transition-all hover:-translate-y-0.5 hover:border-accent-soft hover:shadow-md"
             >
               <span
@@ -93,7 +93,7 @@ export default function StoreTrackGrid({ stores }: { stores: TrackStore[] }) {
               >
                 {count && count > 0 ? `${count} offer${count === 1 ? "" : "s"}` : "Offers soon"}
               </span>
-            </Link>
+            </PendingLink>
           </li>
         );
       })}
