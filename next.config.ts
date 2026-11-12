@@ -49,16 +49,6 @@ const nextConfig: NextConfig = {
           return [
             { source: "/:path*", headers: securityHeaders },
             {
-              // /deals renders identically for every visitor; dynamic rendering
-              // (searchParams) forced `private, no-store` on every hit, so every
-              // first-time visitor paid a full origin render. Let the CDN hold
-              // each deals URL briefly and serve stale while it revalidates.
-              source: "/deals",
-              headers: [
-                { key: "Cache-Control", value: "public, s-maxage=60, stale-while-revalidate=300" },
-              ],
-            },
-            {
               // Files in /public are served `max-age=0` by default, so every visit revalidates
               // every logo. Matched by extension only: `/stores/<slug>` is an HTML page and
               // must keep its own caching. A day, then serve stale while refreshing, because
