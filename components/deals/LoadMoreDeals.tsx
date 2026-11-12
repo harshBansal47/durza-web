@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
 import DealFeed from "@/components/deals/DealFeed";
 import type { DealCardStore } from "@/components/DealCard";
 import { api } from "@/lib/api";
@@ -48,10 +48,9 @@ export default function LoadMoreDeals({
   const [items, setItems] = useState<CouponPublic[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState(false);
+  const [exhausted, setExhausted] = useState(false);
 
   const loadedCount = baseSkip + serverCount + items.length;
-  const hasMore = !facets.unresolved && !done && loadedCount < total;
 
   async function loadMore() {
     if (loading) return;
@@ -64,7 +63,7 @@ export default function LoadMoreDeals({
       const seen = new Set([...serverIds, ...items.map((coupon) => coupon.id)]);
       const fresh = page.items.filter((coupon) => !seen.has(coupon.id));
       if (fresh.length === 0) {
-        setDone(true);
+        setExhausted(true);
         return;
       }
       setItems((previous) => [...previous, ...fresh]);
@@ -87,33 +86,16 @@ export default function LoadMoreDeals({
         />
       )}
       <div className="col-span-full py-2">
-        {!hasMore ? (
-          total > 0 ? (
-            <p className="py-4 text-center text-xs text-ink-soft">
-              That&apos;s all {total} deal{total === 1 ? "" : "s"} for this view.
-            </p>
-          ) : null
-        ) : (
-          <a
-            href={nextHref}
-            aria-busy={loading}
-            onClick={(event) => {
-              event.preventDefault();
-              void loadMore();
-            }}
-            className="btn btn-outline mx-auto flex w-full max-w-sm items-center justify-center gap-2"
-          >
-            {loading && (
-              <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" strokeWidth={2} />
-            )}
-            {loading ? "Loading…" : "View More"}
-          </a>
-        )}
-        {error ? (
-          <p role="alert" className="mt-2 text-center text-xs text-rust">
-            {error}
-          </p>
-        ) : null}
+        <ViewMoreFooter
+          loaded={exhausted ? total : loadedCount}
+          total={total}
+          loading={loading}
+          error={Boolean(error)}
+          onLoadMore={() => void loadMore()}
+          noun="deals"
+          href={nextHref}
+          suppressAction={facets.unresolved}
+        />
       </div>
     </div>
   );

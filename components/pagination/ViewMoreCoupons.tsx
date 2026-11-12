@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
 import { CouponCard, type CouponCardStore } from "@/components/CouponCard";
+import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
 import { api } from "@/lib/api";
 import type { CouponListParams } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
@@ -70,31 +70,14 @@ export default function ViewMoreCoupons({
         ))}
       </div>
 
-      <div className="mt-6 flex flex-col items-center gap-2">
-        {hasMore ? (
-          <button
-            type="button"
-            onClick={loadMore}
-            disabled={loading}
-            aria-busy={loading}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ledger-line bg-white px-6 py-2.5 text-sm font-semibold text-ink transition-all hover:border-inkblue hover:text-inkblue disabled:opacity-60"
-          >
-            {loading && <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" strokeWidth={2} />}
-            {loading ? "Loading…" : "View More"}
-          </button>
-        ) : (
-          total > 0 && (
-            <p className="py-2 text-center text-xs text-ink-soft">
-              That&apos;s all {total} result{total === 1 ? "" : "s"}.
-            </p>
-          )
-        )}
-        {error && (
-          <p role="alert" className="text-xs text-rust">
-            Couldn&apos;t load more — check your connection and try again.
-          </p>
-        )}
-      </div>
+      <ViewMoreFooter
+        loaded={initialSkip + items.length}
+        total={total}
+        loading={loading}
+        error={error}
+        onLoadMore={loadMore}
+        noun="results"
+      />
     </div>
   );
 }
