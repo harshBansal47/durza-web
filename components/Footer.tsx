@@ -7,6 +7,7 @@ import AppDownloadLink from "@/components/AppDownloadLink";
 import TelegramChannelLink from "@/components/TelegramChannelLink";
 import WhatsAppChannelLink from "@/components/WhatsAppChannelLink";
 import InstagramChannelLink from "@/components/InstagramChannelLink";
+import FacebookChannelLink from "@/components/FacebookChannelLink";
 
 const PALETTE = {
   dark: "var(--color-ink-warm)",
@@ -106,6 +107,7 @@ export default function Footer({
                 <TelegramChannelLink />
                 <WhatsAppChannelLink />
                 <InstagramChannelLink />
+                <FacebookChannelLink />
               </div>
             </div>
             {columns(hasComparisons).map((col) => (
