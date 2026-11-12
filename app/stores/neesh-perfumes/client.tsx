@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -10,20 +12,30 @@ const CONCENTRATIONS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function NeeshPerfumesClient({ offers, products }: Props) {
+export default function NeeshPerfumesClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [concentration, setConcentration] = useState(CONCENTRATIONS[1]);
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-rose-950 to-amber-800 text-white p-8">
-        <h1 className="text-3xl font-bold">Neesh Perfumes</h1>
-        <p className="mt-2 text-sm font-medium text-white">Haute Parfumerie • Handcrafted Extrait de Parfum with Unrivaled Sillage</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Genuine Extrait Formulation (25%–30% Pure Oil, 12H+ Longevity) • Free Insured Delivery Above ₹999</p>
-      </section>
+      <StoreHero
+        name="Neesh Perfumes"
+        subtitle="Haute Parfumerie • Handcrafted Extrait de Parfum with Unrivaled Sillage"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Extrait vs. EDP Concentration &amp; Projection Guide</h2>

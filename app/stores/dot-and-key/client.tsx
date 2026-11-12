@@ -1,5 +1,7 @@
 "use client";
 
+import StoreHero from "@/components/StoreHero";
+
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
@@ -9,20 +11,30 @@ const link = (url: string, sub: string): string => getAffiliateLink("dot-and-key
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function DotAndKeyStorePage({ offers, products }: Props) {
+export default function DotAndKeyStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
 
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-pink-500 to-rose-400 text-white p-8">
-        <h1 className="text-3xl font-bold">Dot & Key Skincare</h1>
-        <p className="mt-2 text-sm font-medium text-white">Fruit-Infused Active Skincare & Dermatologist-Tested Formulations</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Verified Offers: Buy 2 Get 2 FREE with DOTB2G2 + Free Shipping Above ₹499</p>
-      </section>
+      <StoreHero
+        name="Dot & Key Skincare"
+        subtitle="Fruit-Infused Active Skincare & Dermatologist-Tested Formulations"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {offers.map((o) => (

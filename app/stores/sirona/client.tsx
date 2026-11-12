@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -11,20 +13,30 @@ const SIZES = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function SironaClient({ offers, products }: Props) {
+export default function SironaClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [size, setSize] = useState(SIZES[1]);
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-fuchsia-950 to-pink-700 text-white p-8">
-        <h1 className="text-3xl font-bold">Sirona Hygiene</h1>
-        <p className="mt-2 text-sm font-medium text-white">Period Positive • FDA-Approved Menstrual Cups, Pain Relief Patches &amp; PeeBuddy</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">100% Medical-Grade Silicone • Hypoallergenic • Dermatologist Approved • Free Delivery Above ₹399</p>
-      </section>
+      <StoreHero
+        name="Sirona Hygiene"
+        subtitle="Period Positive • FDA-Approved Menstrual Cups, Pain Relief Patches & PeeBuddy"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">2-Click Menstrual Cup Size Finder</h2>

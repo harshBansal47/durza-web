@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -6,19 +8,29 @@ const link = (url: string, sub: string): string => getAffiliateLink("kapiva", ur
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function KapivaPage({ offers, products }: Props) {
+export default function KapivaPage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-lime-600 to-green-500 text-white p-8">
-        <h1 className="text-3xl font-bold">Kapiva Ayurveda</h1>
-        <p className="mt-2 text-sm font-medium text-white">Modern Ayurveda for Everyday Living • Clinically Validated Herbal Nutrition</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">NABL Lab Tested • Heavy Metal Certified Safe • Free Delivery Above ₹499</p>
-      </section>
+      <StoreHero
+        name="Kapiva Ayurveda"
+        subtitle="Modern Ayurveda for Everyday Living • Clinically Validated Herbal Nutrition"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Cost-Per-Day Habit Calculator</h2>
         <p className="mt-2 text-sm text-ink-soft">Kapiva Himalayan Shilajit (20g @ ₹1,099) gives 60 servings = Just ~₹18/day for pure cellular energy & endurance.</p>

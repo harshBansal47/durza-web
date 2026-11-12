@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import StorePageClient from "@/components/store/StorePageClient";
+import ToastProvider from "@/components/ui/Toast";
 import type { Store } from "@/lib/types";
 
 vi.mock("@/components/SaveDealBanner", () => ({ default: () => null }));
@@ -30,14 +31,16 @@ function renderStore(
   pageStats = stats,
 ) {
   return render(
-    <StorePageClient
+    <ToastProvider>
+      <StorePageClient
       store={s}
       tabs={tabs}
       stats={pageStats}
       relatedStores={[]}
       currency="INR"
-      pagination={pagination}
-    />,
+        pagination={pagination}
+      />
+    </ToastProvider>,
   );
 }
 

@@ -1,5 +1,7 @@
 "use client";
 
+import StoreHero from "@/components/StoreHero";
+
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
@@ -9,9 +11,12 @@ const link = (url: string, sub: string): string => getAffiliateLink("guvi", url,
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function GuviStorePage({ offers, products }: Props) {
+export default function GuviStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [goal, setGoal] = useState("job");
@@ -24,13 +29,20 @@ export default function GuviStorePage({ offers, products }: Props) {
     return false;
   }) || filtered[0];
 
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-500 text-white p-8">
-        <h1 className="text-3xl font-bold">GUVI Geek Networks</h1>
-        <p className="mt-2 text-sm font-medium text-white">IIT Madras Incubated • HCL Group Company</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Empowering Indian Engineers: Learn Tech in Tamil, Hindi, Telugu & English with Verified Certifications & Extra 10% Off with GUVI10.</p>
-      </section>
+      <StoreHero
+        name="GUVI Geek Networks"
+        subtitle="IIT Madras Incubated • HCL Group Company"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Career Decision Snippet</h2>

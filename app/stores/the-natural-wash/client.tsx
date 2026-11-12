@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -11,9 +13,12 @@ const CART_FILLERS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function TheNaturalWashClient({ offers, products }: Props) {
+export default function TheNaturalWashClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cart, setCart] = useState<string[]>(["potato"]);
@@ -21,13 +26,20 @@ export default function TheNaturalWashClient({ offers, products }: Props) {
   const subtotal = CART_FILLERS.filter((c) => cart.includes(c.id)).reduce((s, c) => s + c.amount, 0);
   const tnw15 = Math.round(subtotal * 0.15);
   const freeShip = subtotal >= 450;
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-rose-900 to-red-700 text-white p-8">
-        <h1 className="text-3xl font-bold">The Natural Wash</h1>
-        <p className="mt-2 text-sm font-medium text-white">Pure Natural Care • Authentic Ayurveda with Potent Natural Kitchen Actives</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">100% Free from Parabens, Sulphates &amp; Harmful Preservatives • Free Delivery Above ₹450</p>
-      </section>
+      <StoreHero
+        name="The Natural Wash"
+        subtitle="Pure Natural Care • Authentic Ayurveda with Potent Natural Kitchen Actives"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Clean Beauty Cart-Filler Assistant</h2>

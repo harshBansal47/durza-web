@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -14,9 +16,12 @@ const GRINDING = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function ZoffFoodsClient({ offers, products }: Props) {
+export default function ZoffFoodsClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(GRINDING[1]);
@@ -27,13 +32,20 @@ export default function ZoffFoodsClient({ offers, products }: Props) {
   const upi = Math.round((subtotal - pantry20) * 0.05);
   const net = subtotal - pantry20 - upi;
   const freeShip = subtotal >= 499;
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-orange-950 to-red-800 text-white p-8">
-        <h1 className="text-3xl font-bold">ZOFF Foods</h1>
-        <p className="mt-2 text-sm font-medium text-white">Zone Of Fresh Food • Cool-Grinding Technology for 100% Natural Aroma &amp; Purity</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Shark Tank India Featured • Zero Artificial Colors or Preservatives • 5-Layer Zip-Lock Freshness • Free Delivery Above ₹499</p>
-      </section>
+      <StoreHero
+        name="ZOFF Foods"
+        subtitle="Zone Of Fresh Food • Cool-Grinding Technology for 100% Natural Aroma & Purity"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Why Cool-Grinding Matters</h2>

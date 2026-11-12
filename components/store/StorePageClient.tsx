@@ -2,20 +2,17 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { CouponCard } from "@/components/CouponCard";
+import StoreHero from "@/components/StoreHero";
+import { hostnameOf } from "@/lib/url";
+import { formatDiscount } from "@/lib/format";
 import CouponGroupCard from "@/components/CouponGroupCard";
 import { ClientTabs } from "@/components/ui/Tabs";
 import SaveDealBanner from "@/components/SaveDealBanner";
 import { RecordView } from "@/components/Analytics";
-import PageTitle from "@/components/ui/PageTitle";
-import { storeInitials } from "@/lib/catalog";
 import { api } from "@/lib/api";
-import { hostnameOf, parseHttpUrl } from "@/lib/url";
-import { formatDate, formatDiscount } from "@/lib/format";
 import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
-import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 
@@ -44,31 +41,6 @@ interface StorePageClientProps {
   productCategoriesLoadFailed?: boolean;
 }
 
-function StoreMark({ store, size = 64 }: { store: Store; size?: number }) {
-  const logo = storeLogoUrl(store);
-  if (logo) {
-    return (
-      <Image
-        src={logo}
-        alt=""
-        width={size}
-        height={size}
-        className="shrink-0 rounded-full border border-ledger-line bg-paper object-contain"
-        style={{ width: size, height: size }}
-      />
-    );
-  }
-  return (
-    <span
-      aria-hidden="true"
-      className="light-surface flex shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-ink-soft"
-      style={{ width: size, height: size, fontSize: size / 2.6 }}
-    >
-      {storeInitials(store.name)}
-    </span>
-  );
-}
-
 export default function StorePageClient({
   store,
   tabs,
@@ -80,10 +52,9 @@ export default function StorePageClient({
   productCategoriesLoadFailed = false,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
-  const website = parseHttpUrl(store.website_url);
   const websiteHost = hostnameOf(store.website_url);
+  const website = Boolean(websiteHost);
   const hasVotes = stats.totalReports > 0;
-  const accent = storeAccent(store.slug);
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState("all");
   const filteredTabs = useMemo(() => {
@@ -98,10 +69,6 @@ export default function StorePageClient({
       expiring: tabs.expiring ? { ...tabs.expiring, items: tabs.expiring.items.filter(match) } : tabs.expiring,
     };
   }, [tabs, filter]);
-  const productCount = productCollections.reduce(
-    (total, collection) => total + collection.category.product_count,
-    0,
-  );
   const pageNumbers = [...new Set([1, pagination.page - 1, pagination.page, pagination.page + 1, pagination.totalPages])]
     .filter((page) => page >= 1 && page <= pagination.totalPages)
     .sort((a, b) => a - b);
@@ -151,129 +118,23 @@ export default function StorePageClient({
     [tabs, store, code],
   );
 
-  const [copied, setCopied] = useState(false);
-
-  async function share() {
-    const url = window.location.href;
-    const payload = { title: `${store.name} deals on Durza`, url };
-    try {
-      if (navigator.share) {
-        await navigator.share(payload);
-        return;
-      }
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // The visitor dismissed the share sheet, or clipboard access was denied.
-    }
-  }
-
   return (
     <div className="space-y-10 sm:space-y-14">
       <RecordView storeSlug={store.slug} />
-      <header
-        className="dark-surface relative overflow-hidden rounded-[26px] bg-[var(--color-navy)] text-white shadow-[var(--shadow-overlay)]"
-        style={{ backgroundImage: "linear-gradient(120deg, var(--color-navy), var(--color-navy-deep))" }}
-      >
-        {store.hero_image_url && (
-          <Image
-            src={store.hero_image_url}
-            alt=""
-            fill
-            sizes="(max-width: 768px) 100vw, 1200px"
-            className="object-contain object-center opacity-25"
-            priority
-          />
-        )}
-        {/* The store's own accent colour, sampled from its icon — decorative only. */}
-        {accent && (
-          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: accent }} />
-        )}
-        <div className="relative flex flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:px-9 sm:py-10">
-          <div className="relative shrink-0 self-start">
-            {accent && (
-              <span
-                aria-hidden="true"
-                className="absolute -inset-3 rounded-full opacity-40 blur-xl"
-                style={{ backgroundColor: accent }}
-              />
-            )}
-            <div
-              className="relative rounded-full bg-white p-1.5 shadow-[var(--shadow-overlay)]"
-              style={accent ? { boxShadow: `0 0 0 3px ${accent}66, var(--shadow-overlay)` } : undefined}
-            >
-              <StoreMark store={store} size={76} />
-            </div>
-          </div>
+      <StoreHero
+        name={store.name}
+        subtitle={store.description ?? `${stats.total} live ${store.name} coupon codes and deals — each linked to its source page with the date it was last checked.`}
+        domain={websiteHost}
+        heroImageUrl={store.hero_image_url ?? null}
+        offerCount={stats.total}
+        ctaHref={websiteHost ? storeGoHref(store.slug, "store-page") : undefined}
+        perks={[
+          { label: "Live Offers", value: `${stats.total} verified` },
+          { label: "Sourced From", value: "Official pages" },
+          { label: "Affiliation", value: "Commission disclosed" },
+        ]}
+      />
 
-          <div className="min-w-0 flex-1">
-            {/* Name the merchant and both shopping paths in the page's primary heading. */}
-            <PageTitle className="text-white">{store.name} Products, Coupons &amp; Offers</PageTitle>
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
-              <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
-                {stats.total} coupon offers
-              </span>
-              {productCount > 0 && (
-                <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
-                  {productCount} products · {productCollections.length} categories
-                </span>
-              )}
-              {stats.latestCheck && (
-                <span className="rounded-full bg-white/20 px-3 py-1 backdrop-blur">
-                  Last checked <time dateTime={stats.latestCheck}>{formatDate(stats.latestCheck)}</time>
-                </span>
-              )}
-              {website && websiteHost && (
-                <a
-                  href={storeGoHref(store.slug, "store-page")}
-                  target="_blank"
-                  rel={GO_REL}
-                  className="rounded-full bg-white/20 px-3 py-1 text-white backdrop-blur transition-colors hover:bg-white hover:text-inkblue"
-                >
-                  {websiteHost}
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              )}
-            </div>
-            <p className="mt-3 max-w-prose text-sm text-white/90 sm:text-base">
-              {store.description ??
-                `${stats.total} live ${store.name} coupon codes and deals, each linked to its source page with the date it was last checked.`}
-            </p>
-          </div>
-
-          <div className="flex shrink-0 flex-col items-start gap-2 self-start sm:items-end sm:self-center">
-            {website && (
-              <>
-                <a
-                  href={storeGoHref(store.slug, "store-page")}
-                  target="_blank"
-                  rel={GO_REL}
-                  className="btn btn-cta shrink-0"
-                >
-                  Go to {store.name}
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </>
-            )}
-            <button
-              type="button"
-              onClick={share}
-              className="btn light-surface shrink-0 bg-white text-ink hover:bg-white/90"
-              aria-live="polite"
-            >
-              {copied ? "Link copied" : "Share"}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <section className="rounded-lg border border-ledger-line bg-paper-alt px-4 py-2.5 text-sm">
-        <p className="text-ink-soft">
-         
-          {/* {store.commission_disclosure ?? DEFAULT_DISCLOSURE} */}
-        </p>
-      </section>
 
       <Storefront
         store={store}
@@ -447,7 +308,12 @@ export default function StorePageClient({
                   href={`/stores/${related.slug}`}
                   className="lift flex items-center gap-3 rounded-2xl border border-ledger-line bg-white p-3"
                 >
-                  <StoreMark store={related} size={36} />
+                  <span
+                    aria-hidden="true"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-xs font-semibold text-ink-soft"
+                  >
+                    {(related.name ?? "").replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase()}
+                  </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm text-ink">{related.name}</span>
                     {typeof related.offer_count === "number" && (

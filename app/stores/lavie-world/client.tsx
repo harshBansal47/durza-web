@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -11,20 +13,30 @@ const CARRY = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function LavieWorldClient({ offers, products }: Props) {
+export default function LavieWorldClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [carry, setCarry] = useState(CARRY[0]);
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-fuchsia-700 to-pink-500 text-white p-8">
-        <h1 className="text-3xl font-bold">Lavie World</h1>
-        <p className="mt-2 text-sm font-medium text-white">Fickle Is Fun • Designer Handbags, Work Totes &amp; Festive Clutches</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">6-Month Manufacturer Warranty on Zips, Hardware &amp; Stitching • Free Shipping Above ₹499</p>
-      </section>
+      <StoreHero
+        name="Lavie World"
+        subtitle="Fickle Is Fun • Designer Handbags, Work Totes & Festive Clutches"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">What Fits Inside? — Capacity Guide</h2>

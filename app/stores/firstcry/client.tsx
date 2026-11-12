@@ -4,9 +4,9 @@ import { getAffiliateLink } from "@/lib/affiliate";
 const link = (url: string, sub: string): string => getAffiliateLink("firstcry", url, sub);
 
 import { useState, useEffect } from "react";
+import StoreHero from "@/components/StoreHero";
 import { api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function FirstCryStorePage() {
@@ -16,18 +16,19 @@ export default function FirstCryStorePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-pink-500 to-rose-400 text-white">
-        <div className="relative z-10 px-6 py-12">
-          <h1 className="text-3xl font-bold">FirstCry Coupons & Offers</h1>
-          <p className="mt-2 text-sm opacity-90">Verified deals on baby products, gear, and more.</p>
-          <div className="mt-4 flex gap-3">
-            <Link href={link("https://www.firstcry.com", "store_hub")} target="_blank" rel="nofollow sponsored noopener" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
-              Go to store
-            </Link>
-          </div>
-        </div>
-      </section>
+      <StoreHero
+        name="FirstCry"
+        subtitle="Verified deals on baby products, gear, and more."
+        domain="firstcry.com"
+        heroImageUrl="/stores/firstcry.png"
+        offerCount={coupons.length || undefined}
+        ctaHref={link("https://www.firstcry.com", "store_hub")}
+        perks={[
+          { label: "Club Savings", value: "Members-only deals" },
+          { label: "Baby Gear", value: "Strollers & car seats" },
+          { label: "Returns", value: "Easy 7-day returns" },
+        ]}
+      />
 
       {/* Utility bar */}
       <div className="grid gap-4 sm:grid-cols-2">

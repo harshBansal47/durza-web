@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -6,19 +8,29 @@ const link = (url: string, sub: string): string => getAffiliateLink("hirafragran
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function HiraFragrancePage({ offers, products }: Props) {
+export default function HiraFragrancePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-purple-700 to-fuchsia-500 text-white p-8">
-        <h1 className="text-3xl font-bold">Hira Fragrance</h1>
-        <p className="mt-2 text-sm font-medium text-white">Pure Luxury Scents • High-Concentration Extrait de Parfum & Authentic Attars</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">100% IFRA Certified • Zero Harsh Chemicals • Free Delivery Above ₹599</p>
-      </section>
+      <StoreHero
+        name="Hira Fragrance"
+        subtitle="Pure Luxury Scents • High-Concentration Extrait de Parfum & Authentic Attars"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {offers.map((o) => (
           <div key={o.code} className="rounded-2xl border border-ledger-line bg-white p-4">

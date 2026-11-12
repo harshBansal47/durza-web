@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -11,19 +13,29 @@ const ADVISOR = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function WonderchefClient({ offers, products }: Props) {
+export default function WonderchefClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-red-950 to-orange-800 text-white p-8">
-        <h1 className="text-3xl font-bold">Wonderchef</h1>
-        <p className="mt-2 text-sm font-medium text-white">Cook with Pride • Curated by Chef Sanjeev Kapoor • Healthy &amp; Smart Kitchens</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Up to 2-Year On-Site / Replacement Warranty • Free Delivery Above ₹999</p>
-      </section>
+      <StoreHero
+        name="Wonderchef"
+        subtitle="Cook with Pride • Curated by Chef Sanjeev Kapoor • Healthy & Smart Kitchens"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Cookware Safety &amp; Wattage Advisor</h2>

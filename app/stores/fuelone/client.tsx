@@ -3,36 +3,40 @@
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 
 import { useState } from "react";
+import StoreHero from "@/components/StoreHero";
 import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function FuelOneStorePage({ products }: Props) {
+export default function FuelOneStorePage({ products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [active, setActive] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === active);
 
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-2xl">
-        <Image src="/stores/fuelone.webp" alt="Fuel One" fill className="object-cover" priority />
-        <div className="relative z-10 flex flex-col items-center justify-center gap-4 bg-black/40 px-6 py-16 text-center text-white">
-          <h1 className="text-3xl font-bold">Fuel One</h1>
-          <div className="flex gap-3">
-            <button type="button" className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium backdrop-blur">
-              Share
-            </button>
-            <Link href="/go/fuelone" className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white">
-              Go to store
-            </Link>
-          </div>
-        </div>
-      </section>
+      <StoreHero
+        name="Fuel One"
+        subtitle="100% transparent sports nutrition — whey isolate, creatine & FSSAI-certified supplements"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref="/go/fuelone"
+        perks={[
+          { label: "Whey & Creatine", value: "Flat deals inside" },
+          { label: "Authenticity", value: "FSSAI-certified" },
+          { label: "Delivery", value: "Pan-India shipping" },
+        ]}
+      />
 
       {/* Category badges */}
       <div className="mt-8 flex flex-wrap gap-2">

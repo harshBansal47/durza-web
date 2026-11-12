@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -7,9 +9,12 @@ const BUNDLE = { shirt: 1399, chino: 1699, code: 500, upiRate: 0.05 };
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function TheBearHouseClient({ offers, products }: Props) {
+export default function TheBearHouseClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [qty, setQty] = useState({ shirt: true, chino: true });
@@ -18,13 +23,20 @@ export default function TheBearHouseClient({ offers, products }: Props) {
   const bundleOff = subtotal >= 2999 ? BUNDLE.code : 0;
   const upiOff = Math.round((subtotal - bundleOff) * BUNDLE.upiRate);
   const net = subtotal - bundleOff - upiOff;
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-orange-950 to-amber-800 text-white p-8">
-        <h1 className="text-3xl font-bold">The Bear House</h1>
-        <p className="mt-2 text-sm font-medium text-white">Crafted For Comfort • Premium Textured Casual Shirts, Linen &amp; Tailored Menswear</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Free Delivery Above ₹999 • Hassle-Free 7-Day Size Exchange &amp; Easy Returns</p>
-      </section>
+      <StoreHero
+        name="The Bear House"
+        subtitle="Crafted For Comfort • Premium Textured Casual Shirts, Linen & Tailored Menswear"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Smart 2-Item Wardrobe Multiplier</h2>

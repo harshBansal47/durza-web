@@ -1,5 +1,7 @@
 "use client";
 
+import StoreHero from "@/components/StoreHero";
+
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
@@ -9,9 +11,12 @@ const link = (url: string, sub: string): string => getAffiliateLink("boult", url
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function BoultStorePage({ offers, products }: Props) {
+export default function BoultStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [priority, setPriority] = useState("gaming");
@@ -24,13 +29,20 @@ export default function BoultStorePage({ offers, products }: Props) {
     return false;
   }) || filtered[0];
 
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-slate-800 to-zinc-700 text-white p-8">
-        <h1 className="text-3xl font-bold">Boult Audio</h1>
-        <p className="mt-2 text-sm font-medium text-white">Engineered for Sound • Premium TWS, ANC Earbuds & AMOLED Smartwatches</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Smart Savings: Flat ₹100 Off with BOULT100 + Extra 5% Off on Prepaid UPI Checkout + Free Delivery.</p>
-      </section>
+      <StoreHero
+        name="Boult Audio"
+        subtitle="Engineered for Sound • Premium TWS, ANC Earbuds & AMOLED Smartwatches"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Audio Decision Snippet</h2>

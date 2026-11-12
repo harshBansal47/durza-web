@@ -31,6 +31,9 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("zeroharm", { skip: 0, limit: 50 });
   const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
   const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const storeUrl = destination?.store.website_url ?? undefined;
+  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
   return (
     <>
       <Breadcrumbs
@@ -41,7 +44,7 @@ export default async function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <ZeroHarmClient offers={offers} products={products} />
+      <ZeroHarmClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} />
       <RelatedGuides slug="zeroharm" />
     </>
   );

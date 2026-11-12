@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -7,21 +9,31 @@ const FAMILY_MEMBERS = [2, 3, 4, 5, 6];
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function NordPassClient({ offers, products }: Props) {
+export default function NordPassClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [members, setMembers] = useState(6);
   const filtered = products.filter((p) => p.tab === concern);
   const perPerson = Math.round(249 / members);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-teal-950 to-cyan-800 text-white p-8">
-        <h1 className="text-3xl font-bold">NordPass</h1>
-        <p className="mt-2 text-sm font-medium text-white">Stress-Free Digital Life • Encrypted Passwords, Passkeys &amp; Real-Time Breach Alerts</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">Zero-Knowledge Architecture with XChaCha20 Encryption • 30-Day Money-Back Guarantee</p>
-      </section>
+      <StoreHero
+        name="NordPass"
+        subtitle="Stress-Free Digital Life • Encrypted Passwords, Passkeys & Real-Time Breach Alerts"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Plan Cost &amp; Device Multiplier Tool</h2>

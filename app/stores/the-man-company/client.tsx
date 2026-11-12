@@ -1,4 +1,6 @@
 "use client";
+
+import StoreHero from "@/components/StoreHero";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -11,19 +13,29 @@ const STEPS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
 }
 
-export default function TheManCompanyClient({ offers, products }: Props) {
+export default function TheManCompanyClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
+  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
-      <section className="rounded-2xl bg-gradient-to-r from-stone-900 to-stone-700 text-white p-8">
-        <h1 className="text-3xl font-bold">The Man Company</h1>
-        <p className="mt-2 text-sm font-medium text-white">Gentleman In You • Premium Beard Growth, Charcoal Detox &amp; Long-Lasting Scents</p>
-        <p className="mt-1 text-xs font-semibold text-white/90">100% Toxin-Free • Natural Essential Oils • SLS &amp; Paraben Free • Free Delivery Above ₹499</p>
-      </section>
+      <StoreHero
+        name="The Man Company"
+        subtitle="Gentleman In You • Premium Beard Growth, Charcoal Detox & Long-Lasting Scents"
+        domain={domain}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        ctaHref={ctaHref}
+        offers={offers}
+      />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">The 2-Step Patchy Beard Solution Decoder</h2>
