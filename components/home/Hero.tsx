@@ -129,6 +129,25 @@ export default function Hero({
               </div>
             </div>
 
+            {/* Quick-tool pills — jump straight to a store's interactive tool */}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {[
+                { emoji: "⚡", label: "BLDC Power Calculator", href: "/stores/havells/bldc-calculator" },
+                { emoji: "🥤", label: "Protein Cost Decoder", href: "/stores/alpino#protein-decoder" },
+                { emoji: "🩺", label: "Menstrual Cup Size Finder", href: "/stores/sirona#cup-size-finder" },
+                { emoji: "🧾", label: "GST Tool Matcher", href: "/stores/moglix#gst-net-cost" },
+              ].map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-all hover:border-accent-soft hover:bg-orange-50/60 hover:text-accent"
+                >
+                  <span aria-hidden="true">{tool.emoji}</span>
+                  {tool.label}
+                </Link>
+              ))}
+            </div>
+
             {/* Trust row under the search */}
             <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-ink-soft">
               {[

@@ -38,7 +38,7 @@ export default function MoglixClient({ offers, products, heroImageUrl, offerCoun
         offers={offers}
       />
 
-      <div className="rounded-2xl border border-ledger-line bg-white p-6">
+      <div id="gst-net-cost" className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">True Net Cost Calculator</h2>
         <p className="mt-1 text-sm text-ink-soft">Same ₹4,299 pressure washer — very different net cost depending on who is buying.</p>
         <div className="mt-4 flex flex-wrap gap-2">

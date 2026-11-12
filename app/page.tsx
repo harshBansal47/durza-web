@@ -1,39 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Clock,
-  Compass,
-  Infinity as InfinityIcon,
-  Percent,
-  Star,
-  Store,
-  Tag,
-  TicketPercent,
-  TrendingUp,
-} from "lucide-react";
-import { CouponCardGrid } from "@/components/CouponCard";
-import CouponTicketRow from "@/components/coupons/CouponTicketRow";
+import { ArrowRight, Compass, Store, Flame } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import Hero from "@/components/home/Hero";
 import ActivityTicker, { type ActivityItem } from "@/components/home/ActivityTicker";
-import BannerCarousel from "@/components/home/BannerCarousel";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
 import StatBand from "@/components/home/StatBand";
-import FeaturedBanner from "@/components/home/FeaturedBanner";
-import StoreScroller from "@/components/home/StoreScroller";
+import StoreTrackGrid from "@/components/home/StoreTrackGrid";
+import VerifiedDealsExplorer from "@/components/home/VerifiedDealsExplorer";
 import HowItWorks from "@/components/home/HowItWorks";
-import DealsCarousel from "@/components/home/DealsCarousel";
-import { getSponsored } from "@/lib/ads";
 import { api } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
-import { NewDealsRow, RecentlyVerifiedRow } from "@/components/discovery/Discovery";
-import { RecommendedRow } from "@/components/discovery/Recommended";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
@@ -98,23 +80,19 @@ export default async function HomePage() {
     coupons,
     stores,
     categories,
-    topRated,
     endingSoon,
     recentlyVerified,
     verifiedToday,
     newest,
-    biggest,
     editorial,
     latestComparisons,
     recentReviews,
     latestDeals,
     bestCoupons,
-    headerAd,
   ] = await Promise.all([
     safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>),
     safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>),
     safe(api.listCategories({ limit: 24, live_only: true }), emptyPage as Paginated<never>),
-    safe(api.listCoupons({ active_only: true, sort: "top_rated", limit: 8 }), emptyPage as Paginated<CouponPublic>),
     safe(
       api.listCoupons({ active_only: true, sort: "ending_soon", expires_within_days: 7, limit: 8 }),
       emptyPage as Paginated<CouponPublic>,
@@ -129,10 +107,6 @@ export default async function HomePage() {
       emptyPage as Paginated<CouponPublic>,
     ),
     safe(api.listCoupons({ active_only: true, sort: "newest", limit: 8 }), emptyPage as Paginated<CouponPublic>),
-    safe(
-      api.listCoupons({ active_only: true, sort: "biggest_discount", limit: 4 }),
-      emptyPage as Paginated<CouponPublic>,
-    ),
     safe(api.getEditorialHomepage(), emptyEditorial),
     safe(api.listEditorial({ content_type: "comparison", limit: 3 }), emptyEditorialPage),
     safe(api.listEditorial({ content_type: "review", limit: 3 }), emptyEditorialPage),
@@ -144,7 +118,6 @@ export default async function HomePage() {
       api.listCoupons({ active_only: true, has_code: true, sort: "recommended", limit: 8 }),
       emptyPage as Paginated<CouponPublic>,
     ),
-    getSponsored("header"),
   ]);
 
   // The store list is a lookup table for card badges (every card needs its store); the
@@ -176,8 +149,6 @@ export default async function HomePage() {
     currency: s.currency,
   }));
 
-  const confirmed = topRated.items;
-
   // One offer should appear once on this page. Sections fill in the order they
   // are shown, and an offer already placed in an earlier row is skipped — a
   // presentation filter over the backend's orders, not a re-ranking.
@@ -193,22 +164,38 @@ export default async function HomePage() {
     return picked;
   };
 
-  // The hero renders only spotlight[0], so reserve only that coupon. Reserving
-  // three here would make the other two disappear from every later section.
   const spotlight = take(coupons.items, 1);
-  const topPicks = take(biggest.items, 4);
-  const latestDealsItems = take(latestDeals.items, 8);
-  const endingSoonItems = take(endingSoon.items, 8);
-  const confirmedItems = take(confirmed, 8);
   const recentlyVerifiedItems = take(recentlyVerified.items, 8);
-  const biggestItems = topPicks;
-  const bestCouponsItems = take(bestCoupons.items, 8);
-  // A presentation filter over the backend's recommended order (not a re-ranking).
-  const evergreen = take(
-    coupons.items.filter((c) => c.expires_at === null && c.code !== null),
-    4,
-  );
-  const newestItems = take(newest.items, 8);
+  // Tab pools for the unified Verified Deals Explorer. The shared `shown` set
+  // keeps every offer unique across the page: nothing that landed in the hero
+  // or an earlier tab reappears in a later one.
+  const fill = (pool: CouponPublic[], limit = 6): CouponPublic[] => {
+    const picked: CouponPublic[] = [];
+    for (const item of pool) {
+      if (shown.has(item.id)) continue;
+      shown.add(item.id);
+      picked.push(item);
+      if (picked.length >= limit) break;
+    }
+    return picked;
+  };
+  const backfill = (picked: CouponPublic[]): CouponPublic[] => {
+    const extra: CouponPublic[] = [];
+    for (const item of coupons.items) {
+      if (picked.length + extra.length >= 6) break;
+      if (shown.has(item.id)) continue;
+      shown.add(item.id);
+      extra.push(item);
+    }
+    return [...picked, ...extra];
+  };
+  const explorerTabs = {
+    top: backfill(fill(coupons.items)),
+    codes: backfill(fill(bestCoupons.items)),
+    deals: backfill(fill(latestDeals.items)),
+    newest: backfill(fill(newest.items)),
+  };
+  const activityDeals = explorerTabs.deals;
 
   // The activity tape under the hero is built only from rows already on this
   // page (confirmations, the steepest percentages, the newest deals) — a line
@@ -226,27 +213,17 @@ export default async function HomePage() {
         ? `Code ${c.code} confirmed ${formatRelativeTime(c.last_verified_at)}`
         : `${storeNameFor(c)} offer confirmed ${formatRelativeTime(c.last_verified_at)}`,
     }));
-  const percentTape: ActivityItem[] = biggestItems
-    .filter((c) => c.discount_value != null)
-    .slice(0, 4)
-    .map((c) => ({ kind: "percent", text: `${c.discount_value}% off at ${storeNameFor(c)}` }));
-  const dealTape: ActivityItem[] = latestDealsItems
+  const dealTape: ActivityItem[] = activityDeals
     .slice(0, 4)
     .map((c) => ({ kind: "deal", text: clip(c.title, 64) }));
   const activityItems: ActivityItem[] = [];
   for (let i = 0; activityItems.length < 12; i += 1) {
-    const wave = [verifiedTape[i], percentTape[i], dealTape[i]].filter(
+    const wave = [verifiedTape[i], dealTape[i]].filter(
       (item): item is ActivityItem => item !== undefined,
     );
     if (wave.length === 0) break;
     activityItems.push(...wave.slice(0, 12 - activityItems.length));
   }
-
-  // The steepest percentage currently tracked — the featured banner's number.
-  const biggestPercent = Math.max(
-    0,
-    ...biggestItems.map((c) => (c.discount_type === "percentage" && c.discount_value != null ? c.discount_value : 0)),
-  );
 
   const hasEditorial = Object.values(editorial).some((items) => items.length > 0)
     || latestComparisons.items.length > 0
@@ -309,23 +286,33 @@ export default async function HomePage() {
           )}
 
           {stores.items.length > 0 && (
-            <section className="section-panel mt-10 p-5 sm:p-6" aria-labelledby="stores-heading">
+            <section className="mt-10" aria-labelledby="stores-heading">
               <SectionTitle hint={`${stores.total} tracked`} icon={Store}>
                 <span id="stores-heading">Stores we track</span>
               </SectionTitle>
-              <StoreScroller stores={stores.items.slice(0, 8)} />
+              <StoreTrackGrid stores={stores.items} />
             </section>
           )}
 
 
-          {topPicks.length > 0 && (
-            <section className="mt-10" aria-labelledby="top-picks-heading">
-              <SectionTitle hint="handpicked from live offers" icon={TrendingUp} action={{ href: "/deals", label: "Browse all deals" }}>
-                <span id="top-picks-heading">Today&apos;s top picks</span>
-              </SectionTitle>
-              <CouponCardGrid coupons={topPicks} stores={cardStores} variant="featured" className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" pageType="homepage" />
-            </section>
-          )}
+          <section className="mt-12" aria-labelledby="deals-explorer-heading">
+            <SectionTitle hint="every card read from the store's own page" icon={Flame} action={{ href: "/deals", label: "Browse all deals" }}>
+              <span id="deals-explorer-heading">Verified Deals Explorer</span>
+            </SectionTitle>
+            <VerifiedDealsExplorer tabs={explorerTabs} />
+          </section>
+
+          <section className="mt-12 rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white p-6 md:p-8" aria-labelledby="smart-stacking-heading">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-orange-700">Smart Stacking</p>
+            <h2 id="smart-stacking-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Don&apos;t just copy codes — stack them.</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-soft sm:text-base">
+              Use Durza&apos;s interactive store matchers to combine base store discounts, verified promo codes, and extra 5% UPI prepaid savings.
+            </p>
+            <Link href="/stores" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+              Explore Smart Store Guides
+              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </Link>
+          </section>
 
           <EditorialSection
             title="Featured buying guides"
@@ -342,29 +329,6 @@ export default async function HomePage() {
             label="All comparisons"
           />
 
-          {latestDealsItems.length > 0 && (
-            <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="latest-deals-heading">
-              <SectionTitle
-                hint="latest offers"
-                icon={Tag}
-                action={{ href: "/deals", label: "Browse all deals" }}
-              >
-                <span id="latest-deals-heading">Durza Exclusive Offers</span>
-              </SectionTitle>
-              {REDESIGN_ENABLED ? (
-                <CouponTicketRow
-                  coupons={latestDealsItems}
-                  stores={cardStores}
-                  label="Durza Exclusive Offers"
-                  pageType="homepage"
-                  variant="scroll"
-                />
-              ) : (
-                <DealsCarousel coupons={latestDealsItems} stores={cardStores} label="Durza Exclusive Offers" pageType="homepage" />
-              )}
-            </section>
-          )}
-
           <section className="mt-8 rounded-2xl border border-verified/15 bg-verified-soft/50 px-5 py-5 sm:px-7" aria-label="Our deal standards">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -376,102 +340,6 @@ export default async function HomePage() {
               </div>
             </div>
           </section>
-
-          {endingSoonItems.length > 0 && (
-            <section className="section-panel-muted mt-12 p-5 sm:p-6" aria-labelledby="ending-heading">
-              <SectionTitle
-                hint="real expiry dates only"
-                icon={Clock}
-                action={{ href: "/coupons", label: "All coupons" }}
-              >
-                <span id="ending-heading">Ending soon</span>
-              </SectionTitle>
-              {REDESIGN_ENABLED ? (
-                <CouponTicketRow
-                  coupons={endingSoonItems}
-                  stores={cardStores}
-                  label="Verified Deals ending soon"
-                  pageType="homepage"
-                  variant="scroll"
-                />
-              ) : (
-                <DealsCarousel coupons={endingSoonItems} stores={cardStores} label="Verified Deals ending soon" pageType="homepage" />
-              )}
-            </section>
-          )}
-
-          {biggestPercent > 0 && <FeaturedBanner percent={biggestPercent} />}
-
-          {confirmedItems.length > 0 && (
-            <section className="mt-12" aria-labelledby="confirmed-heading">
-              <SectionTitle hint={`${confirmedItems.length} with shopper votes`} icon={Star}>
-                <span id="confirmed-heading">Top rated by shoppers</span>
-              </SectionTitle>
-              <DealsCarousel coupons={confirmedItems} stores={cardStores} label="Deals rated by shoppers" pageType="homepage" />
-            </section>
-          )}
-
-          <div className="mt-12">
-            <RecommendedRow />
-          </div>
-
-          <div className="mt-12">
-            <RecentlyVerifiedRow coupons={recentlyVerifiedItems} stores={cardStores} />
-          </div>
-
-          <section className="mt-8">
-            <BannerCarousel sponsored={headerAd} />
-          </section>
-
-          {biggestItems.length > 0 && (
-            <section className="mt-12" aria-labelledby="biggest-heading">
-              <SectionTitle hint="percentage offers only" icon={Percent}>
-                <span id="biggest-heading">Biggest % off</span>
-              </SectionTitle>
-              {REDESIGN_ENABLED ? (
-                <CouponTicketRow
-                  coupons={biggestItems}
-                  stores={cardStores}
-                  label="Biggest percentage discounts"
-                  pageType="homepage"
-                />
-              ) : (
-                <CouponCardGrid
-                  coupons={biggestItems}
-                  stores={cardStores}
-                  variant="featured"
-                  className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-                />
-              )}
-            </section>
-          )}
-
-          {bestCouponsItems.length > 0 && (
-            <section className="mt-12" aria-labelledby="best-coupons-heading">
-              <SectionTitle
-                hint="codes only"
-                icon={TicketPercent}
-                action={{ href: "/coupons", label: "Browse all coupons" }}
-              >
-                <span id="best-coupons-heading">Best coupons</span>
-              </SectionTitle>
-              {REDESIGN_ENABLED ? (
-                <CouponTicketRow
-                  coupons={bestCouponsItems}
-                  stores={cardStores}
-                  label="Best coupons"
-                  pageType="homepage"
-                />
-              ) : (
-                <CouponCardGrid
-                  coupons={bestCouponsItems}
-                  stores={cardStores}
-                  variant="featured"
-                  className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-                />
-              )}
-            </section>
-          )}
 
           <EditorialSection
             title="Recent reviews"
@@ -497,22 +365,6 @@ export default async function HomePage() {
               </div>
             </section>
           )}
-
-          {evergreen.length > 0 && (
-            <section className="mt-12">
-              <SectionTitle hint="no expiry date" icon={InfinityIcon}>Codes with no expiry</SectionTitle>
-              <CouponCardGrid
-                coupons={evergreen}
-                stores={cardStores}
-                variant="featured"
-                className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-              />
-            </section>
-          )}
-
-          <div className="mt-12">
-            <NewDealsRow coupons={newestItems} stores={cardStores} />
-          </div>
 
           <section className="mt-16">
             <SectionTitle icon={Compass}>How it works</SectionTitle>

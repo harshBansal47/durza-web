@@ -3,21 +3,17 @@ import Image from "next/image";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 /**
- * Generated cover art for buying guides. One outline-icon palette, four
- * variants chosen from the guide's own title/summary (real data), so every
- * cover is consistent without any stock photography.
+ * Generated cover art for buying guides. One outline-icon palette, now with
+ * distinct category accents so the three homepage guides read as three
+ * different topics at a glance instead of near-identical thumbnails.
  */
 export type GuideCoverVariant = "cart" | "card" | "shirt" | "generic";
 
 export function guideCoverVariant(title: string, summary: string): GuideCoverVariant {
   const probe = `${title} ${summary}`.toLowerCase();
-  if (/(amazon|flipkart|myntra|meesho|ajio|nykaa|cart|shopping|store)/.test(probe)) {
-    if (/(card|credit|bank|emi|payment)/.test(probe)) return "card";
-    if (/(shirt|fashion|apparel|wear|clothing)/.test(probe)) return "shirt";
-    return "cart";
-  }
   if (/(card|credit|bank|emi|payment)/.test(probe)) return "card";
   if (/(shirt|fashion|apparel|wear|clothing)/.test(probe)) return "shirt";
+  if (/(amazon|flipkart|myntra|meesho|ajio|nykaa|cart|shopping|store)/.test(probe)) return "cart";
   return "generic";
 }
 
@@ -42,7 +38,7 @@ const STORE_MENTIONS: [slug: string, pattern: RegExp][] = [
   ["makemytrip", /\bmake ?my ?trip\b/],
   ["ixigo", /\bixigo\b/],
   ["swiggy", /\bswiggy\b/],
-  ["zomato", /\bzomato\b/],
+  ["zomato", /\bzomatou?\b/],
 ];
 
 export function guideStoreMentions(title: string, summary: string, max = 3): string[] {
@@ -55,6 +51,45 @@ export function guideStoreMentions(title: string, summary: string, max = 3): str
     .slice(0, max)
     .map((m) => m.slug);
 }
+
+const VARIANTS: Record<
+  GuideCoverVariant,
+  {
+    label: string;
+    background: string;
+    glyphColor: string;
+    chip: string;
+  }
+> = {
+  cart: {
+    label: "E-COMMERCE",
+    background:
+      "bg-[radial-gradient(ellipse_at_top_left,#ffedd5,transparent_60%),radial-gradient(ellipse_at_bottom_right,#fdba74,transparent_55%),linear-gradient(135deg,#fff7ed,#ffedd5)]",
+    glyphColor: "text-orange-600",
+    chip: "bg-orange-200/80 text-orange-900",
+  },
+  card: {
+    label: "CREDIT CARDS",
+    background:
+      "bg-[radial-gradient(ellipse_at_top_left,#e0e7ff,transparent_60%),radial-gradient(ellipse_at_bottom_right,#c7d2fe,transparent_55%),linear-gradient(135deg,#eef2ff,#e0e7ff)]",
+    glyphColor: "text-indigo-700",
+    chip: "bg-indigo-200/80 text-indigo-900",
+  },
+  shirt: {
+    label: "FASHION",
+    background:
+      "bg-[radial-gradient(ellipse_at_top_left,#d1fae5,transparent_60%),radial-gradient(ellipse_at_bottom_right,#a7f3d0,transparent_55%),linear-gradient(135deg,#ecfdf5,#d1fae5)]",
+    glyphColor: "text-emerald-700",
+    chip: "bg-emerald-200/80 text-emerald-900",
+  },
+  generic: {
+    label: "BUYING GUIDE",
+    background:
+      "bg-[radial-gradient(ellipse_at_top_left,#e2e8f0,transparent_60%),radial-gradient(ellipse_at_bottom_right,#cbd5e1,transparent_55%),linear-gradient(135deg,#f8fafc,#e2e8f0)]",
+    glyphColor: "text-slate-600",
+    chip: "bg-slate-200/80 text-slate-800",
+  },
+};
 
 export function GuideCover({
   variant,
@@ -74,35 +109,30 @@ export function GuideCover({
     const src = storeLogoUrl({ slug });
     return src ? [{ slug, src }] : [];
   });
-  const palette = {
-    cart: { bg: "bg-accent-faint", ink: "text-accent" },
-    card: { bg: "bg-accent-faint", ink: "text-durza-deep" },
-    shirt: { bg: "bg-accent-faint", ink: "text-accent" },
-    generic: { bg: "bg-paper-alt", ink: "text-ink-soft" },
-  }[variant];
+  const palette = VARIANTS[variant];
 
   const glyph: Record<GuideCoverVariant, ReactElement> = {
     cart: (
-      <g fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="9" cy="21" r="1" />
-        <circle cx="20" cy="21" r="1" />
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="21" r="1.4" />
+        <circle cx="19.5" cy="21" r="1.4" />
+        <path d="M1.5 1.5h4.2l2.7 13.2a2 2 0 0 0 2 1.6h9.4a2 2 0 0 0 2-1.6L23 6.2H6.2" />
       </g>
     ),
     card: (
-      <g fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="5" width="20" height="14" rx="2" />
+      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="5" width="20" height="14" rx="2.4" />
         <line x1="2" y1="10" x2="22" y2="10" />
         <line x1="6" y1="15" x2="10" y2="15" />
       </g>
     ),
     shirt: (
-      <g fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
+      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.1a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2z" />
       </g>
     ),
     generic: (
-      <g fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
         <polyline points="14 2 14 8 20 8" />
         <line x1="16" y1="13" x2="8" y2="13" />
@@ -114,48 +144,44 @@ export function GuideCover({
   return (
     <div
       aria-hidden="true"
-      className={`relative flex w-full items-center justify-center gap-4 overflow-hidden ${
+      className={`relative flex w-full items-center gap-4 overflow-hidden border border-black/5 p-5 ${palette.background} ${
         hero ? "aspect-[2/1] rounded-2xl sm:aspect-[21/9]" : "aspect-[16/9] rounded-xl"
-      } ${palette.bg} ${palette.ink} ${className}`}
+      } ${className}`}
     >
-      {/* Faint dot grid fading toward the edges */}
+      {/* Dot texture fading toward edges */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-35"
         style={{
-          backgroundImage: "radial-gradient(rgba(0,0,0,0.12) 1px, transparent 1px)",
-          backgroundSize: "12px 12px",
-          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          backgroundImage: "radial-gradient(rgba(0,0,0,0.16) 1px, transparent 1px)",
+          backgroundSize: "14px 14px",
+          maskImage: "radial-gradient(ellipse at 30% 30%, black 30%, transparent 70%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 30% 30%, black 30%, transparent 70%)",
         }}
       />
-      <span
-        className={`relative flex shrink-0 items-center justify-center rounded-full bg-white/70 ${
-          hero ? "h-24 w-24" : "h-16 w-16"
-        }`}
-      >
-        <svg
-          viewBox="0 0 24 24"
-          className={hero ? "h-12 w-12" : "h-8 w-8"}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <span className={`relative inline-flex ${hero ? "h-24 w-24" : "h-16 w-16 sm:h-20 sm:w-20"} shrink-0 items-center justify-center rounded-2xl bg-white/85 shadow-sm ${palette.glyphColor}`}>
+        <svg viewBox="0 0 24 24" className={hero ? "h-12 w-12" : "h-8 w-8 sm:h-10 sm:w-10"} fill="none" xmlns="http://www.w3.org/2000/svg">
           {glyph[variant]}
         </svg>
       </span>
-      {logos.length > 0 && (
-        <span className="relative flex -space-x-3">
-          {logos.map(({ slug, src }) => (
-            <Image
-              key={slug}
-              src={src}
-              alt=""
-              width={hero ? 64 : 48}
-              height={hero ? 64 : 48}
-              className={`${hero ? "h-16 w-16" : "h-12 w-12"} rounded-full border-2 border-white bg-white object-contain`}
-            />
-          ))}
+      <span className="relative flex min-w-0 flex-col items-start gap-2">
+        <span className={`inline-flex items-center rounded-full ${palette.chip} px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em]`}>
+          {palette.label}
         </span>
-      )}
+        {logos.length > 0 && (
+          <span className="flex -space-x-2.5">
+            {logos.map(({ slug, src }) => (
+              <Image
+                key={slug}
+                src={src}
+                alt=""
+                width={hero ? 64 : 48}
+                height={hero ? 64 : 48}
+                className={`${hero ? "h-14 w-14" : "h-11 w-11 sm:h-12 sm:w-12"} rounded-full border-2 border-white bg-white object-contain shadow-sm`}
+              />
+            ))}
+          </span>
+        )}
+      </span>
     </div>
   );
 }
