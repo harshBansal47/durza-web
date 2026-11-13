@@ -25,3 +25,15 @@ export function isHomepageIndiaRelevant(storeSlug: string | null | undefined): b
   if (!storeSlug) return false;
   return !HOMEPAGE_EXCLUDED_STORE_SLUGS.has(storeSlug);
 }
+
+
+/**
+ * The IDs of stores worth showing an Indian shopper today — every store we
+ * can call Indian-relevant, minus the off-target list above. Used for the
+ * listing pages (coupons, deals, categories, search) where the API filter
+ * is an allow-list; pass these to `listCoupons({ store_ids })` and totals
+ * stay consistent with what the page shows.
+ */
+export function allowedStoreIds(stores: readonly { id: string; slug: string }[]): string[] {
+  return stores.filter((s) => isHomepageIndiaRelevant(s.slug)).map((s) => s.id);
+}

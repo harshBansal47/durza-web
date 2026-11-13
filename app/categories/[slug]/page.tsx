@@ -15,6 +15,7 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { categoryLabel } from "@/lib/catalog";
+import { allowedStoreIds } from "@/lib/homepage-curation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
@@ -37,8 +38,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!category) return {};
 
   const label = categoryLabel(category);
-  // The backend's exact total for the same live list the page shows.
-  const offers = await resilient.listCoupons({ category_id: category.id, active_only: true, limit: 1 });
+  // Exact total for the same filtered list the page shows (Indian-relevant only).
+  const allStores = await resilient.listStores({ limit: 100 }).catch(() => ({ items: [], total: 0, skip: 0, limit: 0 }));
+  const offers = await resilient.listCoupons({ category_id: category.id, active_only: true, limit: 1, store_ids: allowedStoreIds(allStores.items) });
   const total = offers.total;
 
   const title = `${label} Coupons & Deals${total > 0 ? `: ${total} Live Offers` : ""}`;
@@ -81,17 +83,18 @@ export default async function CategoryPage({
   const stores = storesPage.items;
   const categories = categoriesPage.items;
 
-  // The URL's category param cannot override the page's own slug — otherwise
-  // /categories/fashion?category=electronics would show electronics under a
-  // "fashion" heading. Every other filter still applies within this category.
+  // Indian-relevant stores only, unless the visitor explicitly chose one.
   const resolved = resolveIds({ ...filters, category: "" }, stores, categories);
-  const coupons = await resilient.listCoupons({
+  const indiaRelevantIds = allowedStoreIds(stores);
+  const query: Parameters<typeof resilient.listCoupons>[0] = {
     ...toCouponQuery({ ...filters, category: "" }, { ...resolved, category_id: category.id }, {
       skip,
       limit: PAGE_SIZE,
     }),
     has_code: undefined,
-  });
+  };
+  if (!filters.store) query.store_ids = indiaRelevantIds;
+  const coupons = await resilient.listCoupons(query);
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   const total = coupons.total;
@@ -164,7 +167,7 @@ export default async function CategoryPage({
           <ViewMoreCoupons
             initialCoupons={coupons.items}
             total={total}
-            query={toCouponQuery({ ...filters, category: "" }, { ...resolved, category_id: category.id }, { skip: 0, limit: PAGE_SIZE })}
+            query={query}
             initialSkip={skip}
             stores={stores.map((s) => ({
               id: s.id,

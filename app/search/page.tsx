@@ -13,6 +13,7 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import { formatMoney } from "@/lib/format";
+import { allowedStoreIds } from "@/lib/homepage-curation";
 import {
   filterCount,
   parseFilters,
@@ -159,10 +160,14 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
   const resolved = resolveIds(filters, stores, categories);
   const exploratory = isExploratory(filters) && !resolved.unresolved;
 
+  const indiaRelevantIds = allowedStoreIds(stores);
+  const couponQuery = toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE });
+  if (!filters.store && indiaRelevantIds.length) couponQuery.store_ids = indiaRelevantIds;
+
   const [coupons, products, matchingStores, allCategories] = await Promise.all([
     resolved.unresolved
       ? Promise.resolve({ items: [], total: 0, skip, limit: PAGE_SIZE })
-      : resilient.listCoupons(toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE })),
+      : resilient.listCoupons(couponQuery),
     exploratory
       ? resilient.listProducts({ search: query, limit: 20 })
       : Promise.resolve({ items: [], total: 0, skip: 0, limit: 20 }),
@@ -277,7 +282,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
           <ViewMoreCoupons
             initialCoupons={coupons.items}
             total={couponTotal}
-            query={toCouponQuery(filters, resolved, { skip: 0, limit: PAGE_SIZE })}
+            query={couponQuery}
             initialSkip={skip}
             stores={stores.map((s) => ({
               id: s.id,

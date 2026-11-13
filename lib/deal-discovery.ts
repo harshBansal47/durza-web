@@ -71,9 +71,11 @@ export function toDealQuery(
   filters: DealFilters,
   facets: { store_ids: string[]; category_ids: string[] },
   page: { skip: number; limit: number },
+  extraStoreIds?: string[],
 ): CouponListParams {
   return {
     store_id: facets.store_ids[0],
+    ...(extraStoreIds && extraStoreIds.length ? { store_ids: extraStoreIds } : {}),
     category_id: facets.category_ids[0],
     verified_within_hours: filters.verifiedWithinHours,
     expires_within_days: filters.expiresWithinDays,

@@ -9,6 +9,7 @@ import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
+import { allowedStoreIds } from "@/lib/homepage-curation";
 import PageTitle from "@/components/ui/PageTitle";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
@@ -20,7 +21,8 @@ const PAGE_SIZE = 20;
 export async function generateMetadata(): Promise<Metadata> {
   // The count is the backend's exact total for the same live list the page
   // shows, so the snippet can state it without qualifying it.
-  const offers = await resilient.listCoupons({ active_only: true, limit: 1 });
+  const allStores = await resilient.listStores({ limit: 100 }).catch(() => ({ items: [], total: 0, skip: 0, limit: 0 }));
+  const offers = await resilient.listCoupons({ active_only: true, limit: 1, store_ids: allowedStoreIds(allStores.items) });
   const total = offers.total;
   const title = total > 0 ? `Coupons & Promo Codes: ${total} Live Offers` : "Coupons & Promo Codes";
   const description =""
@@ -51,13 +53,18 @@ export default async function CouponsPage({
   const categories = categoriesPage.items;
   const resolved = resolveIds(filters, stores, categories);
 
+  // Focus: an Indian shopper. Restrict the listing to Indian-relevant stores
+  // unless the visitor explicitly chose one. India D2C with no currency still
+  // ranks fine on its own merits.
+  const indiaRelevantIds = allowedStoreIds(stores);
+  const query = toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE });
+  if (!filters.store) query.store_ids = indiaRelevantIds;
+
   // A slug the catalogue doesn't know is not "no filter" — it is an empty page,
   // otherwise a typo silently shows every coupon under a chip that claims a store.
   const coupons = resolved.unresolved
     ? { items: [], total: 0, skip, limit: PAGE_SIZE }
-    : await resilient.listCoupons(
-        toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE }),
-      );
+    : await resilient.listCoupons(query);
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   const categoryName = categories.find((c) => c.slug === filters.category)?.name;
@@ -131,7 +138,7 @@ export default async function CouponsPage({
           <ViewMoreCoupons
             initialCoupons={coupons.items}
             total={total}
-            query={toCouponQuery(filters, resolved, { skip: 0, limit: PAGE_SIZE })}
+            query={query}
             initialSkip={skip}
             stores={stores.map((s) => ({
               id: s.id,

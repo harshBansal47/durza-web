@@ -32,6 +32,7 @@ export default function LoadMoreDeals({
   stores,
   categoryNames,
   nextHref,
+  storeIds,
 }: {
   filters: DealFilters;
   facets: { store_ids: string[]; category_ids: string[]; unresolved: boolean };
@@ -44,6 +45,8 @@ export default function LoadMoreDeals({
   stores: DealCardStore[];
   categoryNames: Record<string, string>;
   nextHref: string;
+  /** When set and the visitor picked no store, restrict the feed to these stores. */
+  storeIds?: string[];
 }) {
   const [items, setItems] = useState<CouponPublic[]>([]);
   const [loading, setLoading] = useState(false);
@@ -57,7 +60,7 @@ export default function LoadMoreDeals({
     setLoading(true);
     setError(null);
     try {
-      const query = toDealQuery(filters, facets, { skip: loadedCount, limit });
+      const query = toDealQuery(filters, facets, { skip: loadedCount, limit }, storeIds);
       if (keyword) query.search = keyword;
       const page = await api.listCoupons(query);
       const seen = new Set([...serverIds, ...items.map((coupon) => coupon.id)]);

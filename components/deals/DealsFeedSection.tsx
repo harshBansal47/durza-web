@@ -14,6 +14,7 @@ import DealsMobileToolbar from "@/components/deals/DealsMobileToolbar";
 import LoadMoreDeals from "@/components/deals/LoadMoreDeals";
 import SpotlightDeal from "@/components/deals/SpotlightDeal";
 import { parseDealFilters, resolveDealFacets, toDealQuery } from "@/lib/deal-discovery";
+import { allowedStoreIds } from "@/lib/homepage-curation";
 import { pickSpotlightDeal } from "@/lib/deal-feed";
 import { absoluteUrl } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
@@ -41,6 +42,10 @@ export default async function DealsFeedSection({
   const resolved = resolveDealFacets(filters, stores, categories);
   const query = toDealQuery(filters, resolved, { skip, limit: PAGE_SIZE });
   if (keyword) query.search = keyword;
+  // Focus: an Indian shopper. India-relevant stores only, unless the visitor
+  // chose a store filter themselves.
+  const indiaRelevantIds = resolved.store_ids.length === 0 ? allowedStoreIds(stores) : [];
+  if (indiaRelevantIds.length) query.store_ids = indiaRelevantIds;
 
   const [coupons, priceDrops] = await Promise.all([
     resolved.unresolved
@@ -194,6 +199,7 @@ export default async function DealsFeedSection({
                 stores={dealStores}
                 categoryNames={categoryNames}
                 nextHref={nextPageHref}
+                storeIds={indiaRelevantIds}
               />
             </div>
           </>
