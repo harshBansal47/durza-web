@@ -5,7 +5,7 @@ import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
-import type { CouponPublic } from "@/lib/types";
+import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "HealthKart Coupons & Offers – Extra Savings on Supplements";
@@ -59,43 +59,14 @@ const FAQS = [
 
 export const revalidate = 300;
 
-export interface HealthKartStats {
-  verifiedRecently: number;
-  avgRate: number | null;
-  latestCheck: string | null;
-  totalReports: number;
-}
-
-function computeStats(all: CouponPublic[]): HealthKartStats {
-  const thirtyDays = Date.now() - 30 * 24 * 60 * 60 * 1000;
-  const verifiedRecently = all.filter(
-    (c) => c.last_verified_at && Date.parse(c.last_verified_at) > thirtyDays,
-  ).length;
-  const rates = all
-    .map((c) => c.success_rate)
-    .filter((r): r is number => typeof r === "number");
-  const avgRate = rates.length ? Math.round(rates.reduce((a, b) => a + b, 0) / rates.length) : null;
-  const latestChecked = all
-    .map((c) => c.last_checked_at)
-    .filter((t): t is string => Boolean(t))
-    .sort();
-  const latestCheck = latestChecked.length ? latestChecked[latestChecked.length - 1] : null;
-  const totalReports = all.reduce(
-    (n, c) => n + (c.success_count ?? 0) + (c.fail_count ?? 0),
-    0,
-  );
-  return { verifiedRecently, avgRate, latestCheck, totalReports };
-}
-
 export default async function Page() {
   const destination = await resilient.getStoreDestination("healthkart", { skip: 0, limit: 50 });
   const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
   const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
-  const all: CouponPublic[] = destination ? [...destination.coupons, ...destination.deals] : [];
-  const stats = computeStats(all);
+  const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? all.length;
+  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
     <>

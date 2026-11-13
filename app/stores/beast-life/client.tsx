@@ -1,32 +1,41 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("beast-life", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function BeastLifeStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function BeastLifeStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Beast Life"
         subtitle="Fuel the Beast Within • 100% Transparent Sports Nutrition & Heavy Lifts"
@@ -36,6 +45,9 @@ export default function BeastLifeStorePage({ offers, products, heroImageUrl, off
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Stack & Cost-Per-Scoop Calculator</h2>
@@ -62,6 +74,21 @@ export default function BeastLifeStorePage({ offers, products, heroImageUrl, off
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How people stack savings on BeastLife"
+        lead="A pre-workout + intra combo for the month, from the BeastLife store:"
+        lines={[
+          { label: "Beast pre-workout & intra combo", value: "₹1,399" },
+          { label: "Apply PUMP15 (15% off)", value: "− ₹210*" },
+          { label: "UPI / card instant discount", value: "− ₹60*" },
+          { label: "Free shipping above ₹999", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,129" }}
+        saving="You could save ₹270+ on one order"
+        note="*Illustrative — eligibility and final totals are decided at checkout."
+      />
+      <HowToApply storeName="Beast Life" />
 
       <div>
         <h2 className="text-xl font-bold text-ink">Training Phase & Nutrition Matcher</h2>
@@ -94,21 +121,30 @@ export default function BeastLifeStorePage({ offers, products, heroImageUrl, off
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How do I verify the authenticity of my Beast Life supplement?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Every Beast Life product comes with a scratch-off authentication QR code on the packaging seal. Scan the code to verify batch authenticity, lab testing reports, and manufacturing dates directly on beastlife.in.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Can coupon code BEAST10 be combined with prepaid UPI discounts?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. First enter coupon code BEAST10 on beastlife.in during checkout. When you select UPI or debit/credit card payment, an additional 5% instant discount is calculated on the remaining balance.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">What is the minimum spend for free shipping on Beast Life?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Beast Life offers free doorstep shipping on all orders totaling ₹999 or more across India. A single tub of Whey Protein or a Pre-Workout + Creatine combo automatically crosses this threshold.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="Beast Life FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

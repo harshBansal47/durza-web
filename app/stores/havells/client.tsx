@@ -1,28 +1,37 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("havells", url, sub);
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function HavellsPage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function HavellsPage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Havells India"
         subtitle="Havells • Making A Difference with Smart & Energy-Efficient Appliances"
@@ -32,6 +41,9 @@ export default function HavellsPage({ offers, products, heroImageUrl, offerCount
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">BLDC Energy Savings Calculator</h2>
         <p className="mt-2 text-sm text-ink-soft">Replacing a standard 75W fan with a Havells 28W BLDC fan saves ~₹1,400 per fan on your annual electricity bill (paying for itself in under 3 years).</p>
@@ -50,6 +62,21 @@ export default function HavellsPage({ offers, products, heroImageUrl, offerCount
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How people stack savings on Havells"
+        lead="Swap a ceiling fan for a 5-star BLDC (quiet + power-saving):"
+        lines={[
+          { label: "5-star BLDC fan", value: "₹5,499" },
+          { label: "BLDC300 (fan offer)", value: "− ₹300" },
+          { label: "HAVELLS500 (above ₹4,999)", value: "− ₹500*" },
+          { label: "Free doorstep delivery", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹4,699" }}
+        saving="You could save ₹800+ on a BLDC upgrade"
+        note="*Illustrative — BLDC300 and HAVELLS500 may have separate eligibility; the cart shows the best combination."
+      />
+      <HowToApply storeName="Havells India" />
       <div>
         <h2 className="text-xl font-bold text-ink">Appliance Use-Case & Energy Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -68,12 +95,30 @@ export default function HavellsPage({ offers, products, heroImageUrl, offerCount
           ))}
         </div>
       </div>
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does warranty registration work on the Havells official store?</summary><p className="mt-2 text-sm text-ink-soft">Every Havells product includes a 100% genuine manufacturer warranty; you can register it on their website using your invoice and serial number.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Is doorstep installation available?</summary><p className="mt-2 text-sm text-ink-soft">Yes, eligible products include doorstep installation as per Havells service terms.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How to apply HAVELLS500?</summary><p className="mt-2 text-sm text-ink-soft">Add products worth ₹4,999 or more and enter HAVELLS500 at checkout to get flat ₹500 off.</p></details>
-      </section>
+            <FaqSection eyebrow="Havells India FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

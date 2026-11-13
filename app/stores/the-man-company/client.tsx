@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("the-man-company", url, sub);
 const STEPS = [
   { title: "Step 1 — Micro-needle 2x a week", detail: "Roll the 0.5mm titanium Derma Roller over patchy areas twice weekly to boost blood circulation and collagen production around dormant follicles." },
@@ -14,20 +20,23 @@ const STEPS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function TheManCompanyClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function TheManCompanyClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="The Man Company"
         subtitle="Gentleman In You • Premium Beard Growth, Charcoal Detox & Long-Lasting Scents"
@@ -37,6 +46,9 @@ export default function TheManCompanyClient({ offers, products, heroImageUrl, of
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">The 2-Step Patchy Beard Solution Decoder</h2>
@@ -66,6 +78,20 @@ export default function TheManCompanyClient({ offers, products, heroImageUrl, of
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on The Man Company"
+        lead="A complete beard kit (oil, wash, comb & balm):"
+        lines={[
+          { label: "Complete beard kit", value: "₹1,299" },
+          { label: "Apply BEARD20 (20% off)", value: "− ₹260*" },
+          { label: "Free shipping above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,039" }}
+        saving="You could save ₹260+ on the kit"
+        note="*Illustrative — TMC15 applies to marked grooming lines; fragrances may follow other offers."
+      />
+      <HowToApply storeName="The Man Company" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Men&apos;s Grooming Routine &amp; Scent Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -85,12 +111,30 @@ export default function TheManCompanyClient({ offers, products, heroImageUrl, of
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How long does The Man Company Beard Growth Oil take to show results?</summary><p className="mt-2 text-sm text-ink-soft">Most users report softer, thicker-looking growth in 4–8 weeks of nightly use with the Derma Roller twice a week. Results vary by genetics and consistency — combine oil with the roller for best outcomes.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the difference between gas deodorants and Blanc EDP?</summary><p className="mt-2 text-sm text-ink-soft">Deodorants only mask sweat odour for hours. Blanc Eau de Parfum is an 8H+ fragrance with lemon, birch, lavender and patchouli notes layered for office and gym wear — it projects without overpowering.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the minimum order for free shipping?</summary><p className="mt-2 text-sm text-ink-soft">Free doorstep delivery across India on all orders of ₹499 or more — the Beard Growth Oil alone is enough to qualify.</p></details>
-      </section>
+            <FaqSection eyebrow="The Man Company FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

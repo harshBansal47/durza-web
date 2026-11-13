@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("zeroharm", url, sub);
 const TECH = [
   { id: "standard", label: "Standard Supplements", points: ["High-heat chemical extraction destroys phytonutrients", "Harsh stomach acid blocks up to 80% of absorption", "Large 1000mg tablets just to compensate for loss", "Bulk dosage increases side-effect risk"] },
@@ -13,21 +19,24 @@ const TECH = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function ZeroHarmClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function ZeroHarmClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(TECH[1]);
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="ZeroHarm Sciences"
         subtitle="Precision Plant Nutraceuticals • Nano-Formulated for 5x Higher Absorption"
@@ -37,6 +46,9 @@ export default function ZeroHarmClient({ offers, products, heroImageUrl, offerCo
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Why Nano-Encapsulation Beats Standard Tablets</h2>
@@ -68,6 +80,20 @@ export default function ZeroHarmClient({ offers, products, heroImageUrl, offerCo
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on ZeroHarm"
+        lead="A 90-day nano-nutraceutical wellness course:"
+        lines={[
+          { label: "90-day nano-nutraceutical course", value: "₹2,499" },
+          { label: "Apply NANO25 (25% off)", value: "− ₹625*" },
+          { label: "Free shipping above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,874" }}
+        saving="You could save ₹625+ on the course"
+        note="*Illustrative — NANO25 applies to marked 90-day courses; ZERO15 is the all-catalogue 15% offer."
+      />
+      <HowToApply storeName="ZeroHarm Sciences" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Nano-Nutrition &amp; Clinical Concern Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -87,12 +113,30 @@ export default function ZeroHarmClient({ offers, products, heroImageUrl, offerCo
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does ZeroHarm extract Vitamin B12 purely from plants?</summary><p className="mt-2 text-sm text-ink-soft">ZeroHarm derives methylcobalamin from Spirulina and Chlorella through gentle water extraction, then nano-encapsulates it for direct intestinal absorption — no animal derivatives, no synthetic B12.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Why do smaller nano dosages work faster than bulky 1000mg pills?</summary><p className="mt-2 text-sm text-ink-soft">Bioavailability, not milligram weight, drives results. Nano lipid spheres carry plant actives past stomach acid into the small intestine, so your body absorbs far more per tablet than from an unabsorbed bulk dose.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Can I stack NANO25 with prepaid UPI discounts?</summary><p className="mt-2 text-sm text-ink-soft">Yes. Apply NANO25 for flat 25% off 90-day combo courses, then pay via UPI or card for an extra 5% instant deduction on the discounted balance.</p></details>
-      </section>
+            <FaqSection eyebrow="ZeroHarm Sciences FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("the-natural-wash", url, sub);
 const CART_FILLERS = [
   { id: "potato", label: "Potato Wax (₹380)", amount: 380 },
@@ -14,12 +20,14 @@ const CART_FILLERS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function TheNaturalWashClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function TheNaturalWashClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cart, setCart] = useState<string[]>(["potato"]);
@@ -27,11 +35,12 @@ export default function TheNaturalWashClient({ offers, products, heroImageUrl, o
   const subtotal = CART_FILLERS.filter((c) => cart.includes(c.id)).reduce((s, c) => s + c.amount, 0);
   const tnw15 = Math.round(subtotal * 0.15);
   const freeShip = subtotal >= 450;
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="The Natural Wash"
         subtitle="Pure Natural Care • Authentic Ayurveda with Potent Natural Kitchen Actives"
@@ -41,6 +50,9 @@ export default function TheNaturalWashClient({ offers, products, heroImageUrl, o
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Clean Beauty Cart-Filler Assistant</h2>
@@ -73,6 +85,20 @@ export default function TheNaturalWashClient({ offers, products, heroImageUrl, o
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on The Natural Wash"
+        lead="A lip-and-skin essentials trio (vegan, no-paraben):"
+        lines={[
+          { label: "Lip & skin trio", value: "₹1,199" },
+          { label: "Apply TNW15 (15% off)", value: "− ₹180*" },
+          { label: "Free shipping above ₹450", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,019" }}
+        saving="You could save ₹180+ on one order"
+        note="*Illustrative — TNW15 applies to marked natural-care lines; B2G1 selects from lip & skin."
+      />
+      <HowToApply storeName="The Natural Wash" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Kitchen-Active Ayurvedic Beauty Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -92,12 +118,30 @@ export default function TheNaturalWashClient({ offers, products, heroImageUrl, o
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Why are raw potato and beetroot effective in skincare?</summary><p className="mt-2 text-sm text-ink-soft">Potato starch contains natural catecholase enzymes that fade dark spots and blemishes; beetroot is rich in betalain antioxidants that tint and nourish chapped lips without synthetic dyes.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Does TNW lip balm contain artificial dyes?</summary><p className="mt-2 text-sm text-ink-soft">No. The Beetroot Lip Balm gets its tint entirely from pure beetroot extract with shea and cocoa butter — zero artificial colorants or parabens.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the shipping policy?</summary><p className="mt-2 text-sm text-ink-soft">Free doorstep delivery across India on all orders of ₹450 or more; a small flat shipping fee applies below ₹450.</p></details>
-      </section>
+            <FaqSection eyebrow="The Natural Wash FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

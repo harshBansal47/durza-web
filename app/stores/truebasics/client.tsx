@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("truebasics", url, sub);
 const COMPARISONS = [
   { id: "ashwagandha", generic: { label: "Generic Ashwagandha", points: ["Unverified withanolide % — often <1.5%", "May contain toxic leaf material mixed with root", "Effectiveness varies batch to batch", "No clinical trials backing stress claims"] }, patented: { label: "KSM-66® (Full-Spectrum Root)", points: ["Highest concentration of withanolides (5%+)", "Root-only extract — zero leaf alkaloids", "22 published clinical trials on stress & sleep", "Same extract used in the studies, not a look-alike"] } },
@@ -13,21 +19,24 @@ const COMPARISONS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function TrueBasicsClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function TrueBasicsClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [comparison, setComparison] = useState(COMPARISONS[0]);
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="TrueBasics"
         subtitle="Clinically Proven Nutrition • Patented Ingredients & Maximum Bioavailability"
@@ -37,6 +46,9 @@ export default function TrueBasicsClient({ offers, products, heroImageUrl, offer
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Patent vs. Generic Ingredient Transparency Matrix</h2>
@@ -73,6 +85,20 @@ export default function TrueBasicsClient({ offers, products, heroImageUrl, offer
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on TrueBasics"
+        lead="A 90-day clinical omega-3 + ashwagandha regimen:"
+        lines={[
+          { label: "90-day clinical regimen", value: "₹2,199" },
+          { label: "Apply CLINICAL20 (60/90-day)", value: "− ₹440*" },
+          { label: "Free shipping above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,759" }}
+        saving="You could save ₹440+ on the regimen"
+        note="*Illustrative — CLINICAL20 applies to 60/90-day bundles only; TRUE10 to individual bottles."
+      />
+      <HowToApply storeName="TrueBasics" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Clinical Ingredient &amp; Health Goal Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -92,12 +118,30 @@ export default function TrueBasicsClient({ offers, products, heroImageUrl, offer
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Why does enteric coating in TrueBasics Omega-3 prevent fishy burps?</summary><p className="mt-2 text-sm text-ink-soft">The enteric coat is pH-sensitive: it survives stomach acid and dissolves only in the small intestine, so the fish oil is absorbed where it acts — never releasing fishy odour in the stomach.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What makes KSM-66 clinically superior to raw root powders?</summary><p className="mt-2 text-sm text-ink-soft">KSM-66 is a root-only, full-spectrum extract standardized to 5% withanolides with 22 published human trials. Raw powders vary wildly in withanolide content and may include leaf alkaloids.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I qualify for free delivery?</summary><p className="mt-2 text-sm text-ink-soft">Free doorstep delivery across India on all orders of ₹499 or more — a single bottle of KSM-66 Ashwagandha already qualifies.</p></details>
-      </section>
+            <FaqSection eyebrow="TrueBasics FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

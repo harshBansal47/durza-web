@@ -1,32 +1,41 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("bytepe", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function BytePeStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function BytePeStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="BytePe"
         subtitle="Seamless Digital Payments, Instant Bill Cashback & Smart Merchant Payouts"
@@ -36,6 +45,9 @@ export default function BytePeStorePage({ offers, products, heroImageUrl, offerC
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Platform Fee Transparency Calculator</h2>
@@ -63,6 +75,19 @@ export default function BytePeStorePage({ offers, products, heroImageUrl, offerC
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How Bytepe saves you money"
+        lead="Pay your first electricity or gas bill with Bytepe this month:"
+        lines={[
+          { label: "First bill via Bytepe", value: "₹250" },
+          { label: "FIRSTBILL cashback", value: "− ₹50" }
+        ]}
+        total={{ label: "You pay", value: "₹200" }}
+        saving="You save ₹50 on your first bill"
+        note="Also consider: recharge/Fastag/voucher discounts stack across months — up to 5–8% on supported categories."
+      />
+      <HowToApply storeName="BytePe" />
 
       <div>
         <h2 className="text-xl font-bold text-ink">Payment Service & Cashback Matcher</h2>
@@ -92,21 +117,30 @@ export default function BytePeStorePage({ offers, products, heroImageUrl, offerC
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Does BytePe charge convenience fees on mobile and electricity bill payments?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Unlike many major wallet and UPI apps that levy a ₹2 to ₹5 platform or convenience fee, BytePe processes standard BBPS utility bill payments and mobile recharges with zero platform fee.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How does the FIRSTBILL cashback code work?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Create your BytePe account, choose your state electricity or piped gas provider under the BBPS section, enter a bill amount of ₹500 or more, and apply code FIRSTBILL. Your cashback is credited to your BytePe wallet immediately upon bank settlement.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How fast do brand digital gift vouchers get delivered?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Gift vouchers purchased on BytePe are delivered instantly via SMS and email within seconds of transaction confirmation, ready to redeem on Amazon, Flipkart, or food delivery apps.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="BytePe FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

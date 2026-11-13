@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("levis", url, sub);
 const CARTS = [
   { id: "solo", label: "1 × 511™ Jeans (₹2,599)", total: "₹2,599", outcome: "No flat coupon unlocked — add the Batwing Tee to cross ₹3,499.", sub: "cart_solo", url: "https://www.levi.in" },
@@ -14,21 +20,24 @@ const CARTS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function LevisClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function LevisClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cart, setCart] = useState(CARTS[1]);
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Levi's India"
         subtitle="Original Jeans & Authentic Apparel • Engineered Since 1873"
@@ -38,6 +47,9 @@ export default function LevisClient({ offers, products, heroImageUrl, offerCount
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Fit-Number Decoder &amp; Smart Cart Threshold Hack</h2>
@@ -73,6 +85,20 @@ export default function LevisClient({ offers, products, heroImageUrl, offerCount
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Levi's"
+        lead="A pair of 502 jeans and a belt for gifting:"
+        lines={[
+          { label: "502 jeans + belt", value: "₹3,499" },
+          { label: "Apply LEVIS500 (above ₹3,499)", value: "− ₹500" },
+          { label: "Free shipping above ₹999", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹2,999" }}
+        saving="You could save ₹500+ on one order"
+        note="*Illustrative — LEVIS1000 needs a ₹5,999+ cart; sale styles may be excluded."
+      />
+      <HowToApply storeName="Levi's India" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Levi&apos;s Fit &amp; Category Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -92,12 +118,30 @@ export default function LevisClient({ offers, products, heroImageUrl, offerCount
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the difference between the Levi&apos;s 511™ and 512™ fits?</summary><p className="mt-2 text-sm text-ink-soft">511™ is a slim fit through the thigh and leg. 512™ keeps the slim thigh but tapers the ankle opening — a slim-taper silhouette best paired with sneakers or Chelsea boots.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does the 15-day size exchange and return work?</summary><p className="mt-2 text-sm text-ink-soft">Unworn Levi&apos;s purchases can be exchanged or returned within 15 days of delivery. Start a request on levi.in with your invoice; reverse pickup and refund are handled by their courier partners.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Can LEVIS1000 be applied on sale items?</summary><p className="mt-2 text-sm text-ink-soft">Yes, LEVIS1000 applies on cart value above ₹5,999 including sale items, and LEVIS500 kicks in above ₹3,499. Enter the code at the payment step before paying.</p></details>
-      </section>
+            <FaqSection eyebrow="Levi's India FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

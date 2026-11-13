@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("neesh-perfumes", url, sub);
 const CONCENTRATIONS = [
   { id: "edp", label: "Eau de Parfum (15–18%)", headline: "Standard EDP — fades in 2–3 hours in Indian heat", points: ["15%–18% perfume oil concentration", "Evaporates fast in high heat and humidity", "Reapplication needed through the day", "Fine for mild climates and short wear"] },
@@ -13,21 +19,24 @@ const CONCENTRATIONS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function NeeshPerfumesClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function NeeshPerfumesClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [concentration, setConcentration] = useState(CONCENTRATIONS[1]);
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Neesh Perfumes"
         subtitle="Haute Parfumerie • Handcrafted Extrait de Parfum with Unrivaled Sillage"
@@ -37,6 +46,9 @@ export default function NeeshPerfumesClient({ offers, products, heroImageUrl, of
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Extrait vs. EDP Concentration &amp; Projection Guide</h2>
@@ -70,6 +82,20 @@ export default function NeeshPerfumesClient({ offers, products, heroImageUrl, of
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Neesh"
+        lead="A Luxe perfume gift box for the festive season:"
+        lines={[
+          { label: "Luxe gift box (2-3 extrait de parfum)", value: "₹2,499" },
+          { label: "Apply LUXE20 (20% off)", value: "− ₹500*" },
+          { label: "Free insured delivery above ₹999", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,999" }}
+        saving="You could save ₹500+ on one order"
+        note="*Illustrative — discovery sets have a separate ₹300 off; individual full bottles differ in eligibility."
+      />
+      <HowToApply storeName="Neesh Perfumes" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Haute Fragrance &amp; Scent Profile Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -89,12 +115,30 @@ export default function NeeshPerfumesClient({ offers, products, heroImageUrl, of
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the difference between Eau de Parfum and Extrait de Parfum?</summary><p className="mt-2 text-sm text-ink-soft">Standard EDP carries 15%–18% perfume oil; Neesh Extrait packs 25%–30%. That is why Extrait survives Indian heat and humidity with 12H+ sillage instead of fading in 2–3 hours.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How long do Neesh scents last on clothing?</summary><p className="mt-2 text-sm text-ink-soft">On fabric, Neesh Extrait and pure attars hold 12–24 hours. Mist pulse points and a light spray on clothing (from 30cm away) for the strongest, longest-lasting projection.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I apply NEESH10?</summary><p className="mt-2 text-sm text-ink-soft">Add your chosen bottles or discovery set to the cart on neeshperfumes.com, enter NEESH10 at checkout for an extra 10% off — no minimum order value, stackable with sale prices.</p></details>
-      </section>
+            <FaqSection eyebrow="Neesh Perfumes FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

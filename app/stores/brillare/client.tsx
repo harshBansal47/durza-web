@@ -1,31 +1,40 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("brillare", url, sub);
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function BrillareStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function BrillareStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Brillare Science"
         subtitle="100% Vegan, Zero-Dilution Natural Hair & Skin Formulations"
@@ -35,6 +44,9 @@ export default function BrillareStorePage({ offers, products, heroImageUrl, offe
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {offers.map((o) => (
@@ -50,6 +62,20 @@ export default function BrillareStorePage({ offers, products, heroImageUrl, offe
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How people stack savings on Brillare"
+        lead="Brillare's gentle scalp-care regimen (shampoo + conditioner + oil):"
+        lines={[
+          { label: "Scalp-care regimen combo", value: "₹1,899" },
+          { label: "Apply FLAT20 (buy any 2)", value: "− ₹380*" },
+          { label: "Free shipping above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,519" }}
+        saving="You could save ₹380+ on one order"
+        note="*Illustrative — B2G1 and WELCOME10 have different conditions; B2G1 selects from marked products only."
+      />
+      <HowToApply storeName="Brillare Science" />
 
       <div>
         <h2 className="text-xl font-bold text-ink">Hair & Skin Concern Matcher</h2>
@@ -79,21 +105,30 @@ export default function BrillareStorePage({ offers, products, heroImageUrl, offe
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How do I apply the Brillare FLAT20 promo code?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Add any 2 items to your basket on the official Brillare site and apply FLAT20 during checkout. If paying online, an extra 5% discount stacks automatically.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How long does one box of Brillare Oil Shots last?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Each box contains 8 single-dose vials of 6ml each, designed for a 24-day intensive regimen applying every 3 days.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">What is the minimum order for free shipping on Brillare?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Standard doorstep delivery is free on all orders of ₹499 or more.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="Brillare Science FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

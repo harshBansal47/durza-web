@@ -1,23 +1,31 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("guvi", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function GuviStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function GuviStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [goal, setGoal] = useState("job");
@@ -30,11 +38,12 @@ export default function GuviStorePage({ offers, products, heroImageUrl, offerCou
     return false;
   }) || filtered[0];
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="GUVI Geek Networks"
         subtitle="IIT Madras Incubated • HCL Group Company"
@@ -44,6 +53,9 @@ export default function GuviStorePage({ offers, products, heroImageUrl, offerCou
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Career Decision Snippet</h2>
@@ -89,6 +101,20 @@ export default function GuviStorePage({ offers, products, heroImageUrl, offerCou
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on GUVI"
+        lead="Enrol in a multi-course tech combo instead of separate courses:"
+        lines={[
+          { label: "Multi-course tech combo", value: "₹4,499" },
+          { label: "Apply CAREER25 (up to 25% off)", value: "− ₹1,125*" },
+          { label: "Free live demo class (Zen)", value: "₹0" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹3,374" }}
+        saving="You could save ₹1,125+ vs buying separately"
+        note="*Illustrative — course-wise pricing varies by cohort and city; check the current price before enrolling."
+      />
+      <HowToApply storeName="GUVI Geek Networks" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Vernacular Tech Career Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -121,21 +147,30 @@ export default function GuviStorePage({ offers, products, heroImageUrl, offerCou
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Are GUVI certifications recognized by tech companies and recruiters?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. GUVI is an IIT Madras incubated company under the HCL Group. Their course certificates are recognized by top tech companies, and their Zen Class bootcamp has over 600 hiring partners including PayPal, Juspay, and Freshworks.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Can I learn complex programming in Hindi or Tamil on GUVI?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. GUVI&apos;s primary innovation is vernacular teaching. You can learn Python, Java, Data Science, and Full Stack development in your native mother tongue without language barrier obstacles, while all coding syntax remains standard English.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How do I apply the GUVI10 promo code?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Select your desired self-paced course or bundle on guvi.in, proceed to the checkout payment page, and enter coupon code GUVI10 to receive an instant 10% deduction.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="GUVI Geek Networks FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

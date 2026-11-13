@@ -1,91 +1,148 @@
 "use client";
 
-import { getAffiliateLink } from "@/lib/affiliate";
-const link = (url: string, sub: string): string => getAffiliateLink("firstcry", url, sub);
-
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
-import { api } from "@/lib/api";
-import type { CouponPublic } from "@/lib/types";
-import Link from "next/link";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import StackingExample from "@/components/store/StackingExample";
+import HowToApply from "@/components/store/HowToApply";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
+import { getAffiliateLink } from "@/lib/affiliate";
+import type { StoreOfferCard } from "@/lib/store-offers";
 
-export default function FirstCryStorePage() {
+const link = (url: string, sub: string): string => getAffiliateLink("firstcry", url, sub);
+
+interface Props {
+  offers: StoreOfferCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
+  heroImageUrl?: string | null;
+  offerCount?: number | null;
+  storeUrl?: string;
+}
+
+export default function FirstCryStorePage({
+  offers,
+  faqs,
+  stats,
+  heroImageUrl,
+  offerCount,
+  storeUrl,
+}: Props) {
   const [mode, setMode] = useState<"all" | "club">("all");
-  const [coupons, setCoupons] = useState<CouponPublic[]>([]);
-  const visibleCoupons = mode === "club" ? coupons.filter((c) => /club/i.test(c.title) || /club/i.test(c.description ?? "")) : coupons;
-  useEffect(() => { api.listCoupons({ store_id: "3d447d84-9703-41b9-8f03-93e7f6c42a62", active_only: true, limit: 50 }).then((r) => setCoupons(r.items)).catch(() => {}); }, []);
+  const visibleOffers = mode === "club" ? offers.filter((o) => /club/i.test(o.title) || /club/i.test(o.description ?? "")) : offers;
+  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : "firstcry.com";
+  const topOffer = offers[0] ?? null;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 pb-24 md:pb-8">
       <StoreHero
         name="FirstCry"
-        subtitle="Verified deals on baby products, gear, and more."
-        domain="firstcry.com"
-        heroImageUrl="/stores/firstcry.png"
-        offerCount={coupons.length || undefined}
-        ctaHref={link("https://www.firstcry.com", "store_hub")}
+        heading="FirstCry Coupons & Offers"
+        subtitle="Verified deals on baby gear, diapers, feeding and FirstCry Club savings — all in one place."
+        domain={domain}
+        heroImageUrl={heroImageUrl ?? "/stores/firstcry.png"}
+        offerCount={offerCount}
+        ctaHref={link(storeUrl ?? "https://www.firstcry.com", "store_hub")}
+        ctaLabel="Go to FirstCry"
         perks={[
           { label: "Club Savings", value: "Members-only deals" },
           { label: "Baby Gear", value: "Strollers & car seats" },
-          { label: "Returns", value: "Easy 7-day returns" },
+          { label: "Diapers", value: "DIAPLOVE & diaper offers" },
         ]}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
 
-      {/* Utility bar */}
+      {/* Utility bar — FirstCry-exclusive tools */}
       <div className="grid gap-4 sm:grid-cols-2">
-        <Link href="/stores/firstcry/club-calculator" className="rounded-2xl border border-ledger-line bg-white p-4 hover:border-inkblue">
+        <Link href="/stores/firstcry/club-calculator" className="rounded-2xl border border-ledger-line bg-white p-4 transition-colors hover:border-inkblue">
           <h3 className="font-semibold text-ink">🧮 Club Break-Even Calculator</h3>
-          <p className="mt-1 text-sm text-ink-soft">Check if FirstCry Club is worth it.</p>
+          <p className="mt-1 text-sm text-ink-soft">Check if FirstCry Club is worth it for your spend.</p>
         </Link>
-        <Link href="/stores/firstcry/diaper-cost-tracker" className="rounded-2xl border border-ledger-line bg-white p-4 hover:border-inkblue">
+        <Link href="/stores/firstcry/diaper-cost-tracker" className="rounded-2xl border border-ledger-line bg-white p-4 transition-colors hover:border-inkblue">
           <h3 className="font-semibold text-ink">👶 Diaper Cost Tracker</h3>
           <p className="mt-1 text-sm text-ink-soft">Compare cost-per-pant across brands.</p>
         </Link>
       </div>
 
-      {/* Audience toggle */}
-      <div className="flex gap-2">
-        {(["all", "club"] as const).map((m) => (
-          <button
-            key={m}
-            type="button"
-            onClick={() => setMode(m)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-              mode === m ? "bg-accent text-white" : "bg-gray-100 text-ink-soft hover:bg-gray-200"
-            }`}
+      {/* Offers with Club filter */}
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-lg font-bold text-ink">Latest FirstCry offers</h2>
+          <div className="flex gap-2">
+            {(["all", "club"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => setMode(m)}
+                className={`min-h-11 rounded-full px-4 py-2 text-sm font-medium transition ${
+                  mode === m ? "bg-ink text-white" : "bg-white text-ink-soft ring-1 ring-ledger-line hover:text-ink"
+                }`}
+              >
+                {m === "all" ? "All Offers" : "Club Members Only"}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {visibleOffers.map((o) => (
+            <OfferCard
+              key={o.id}
+              bookmarkId={o.id}
+              code={o.code}
+              badge={o.badge}
+              title={o.title}
+              description={o.description}
+              ctaHref={link(o.targetUrl, o.subId)}
+              expiresAt={o.expiresAt}
+            />
+          ))}
+        </div>
+      </div>
+
+      <StackingExample
+        title="How Club members stack savings on FirstCry"
+        lead="A diaper-and-wipes stock-up for the month with Club benefits stacked:"
+        lines={[
+          { label: "Diaper + wipes stock-up", value: "₹1,299" },
+          { label: "Apply SPARSH45 (skincare %)", value: "− ₹200*" },
+          { label: "Club member price", value: "− extra*" },
+          { label: "Free delivery on diapers", value: "₹0" },
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,099" }}
+        saving="You could save ₹200+ on the monthly stock-up"
+        note="*Illustrative — Club member price depends on your tier and category; check the FirstCry product page for your exact price."
+      />
+
+      <HowToApply storeName="FirstCry" />
+
+      <FaqSection eyebrow="FirstCry FAQs" items={faqs} />
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
           >
-            {m === "all" ? "All Offers" : "Club Members Only"}
-          </button>
-        ))}
-      </div>
-
-      {/* Deals */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {visibleCoupons.map((c) => (
-          <OfferCard
-            key={c.id}
-            bookmarkId={c.id}
-            code={c.code}
-            badge={c.code ? "CURATED CODE" : "AUTO-APPLIED"}
-            title={c.title}
-            description={c.description}
-            ctaHref={`/coupons/${c.slug}`}
-          />
-        ))}
-      </div>
-
-      {/* SEO editorial */}
-      <section className="prose max-w-none">
-        <h2>FirstCry Coupons & Offers</h2>
-        <p>Find verified FirstCry discount codes, Club member savings, and baby gear deals. Each offer is checked against the store&apos;s source pages.</p>
-      </section>
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Are FirstCry coupons on Durza verified?</summary><p className="mt-2 text-sm text-ink-soft">Deals listed here are refreshed from firstcry.com campaign pages; codes apply at checkout on the official site.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does the FirstCry Club calculator estimate savings?</summary><p className="mt-2 text-sm text-ink-soft">It models member pricing plus coupon stacking against the ₹499 or ₹999 fee using your monthly spend — actual savings vary by category.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the return policy on baby gear?</summary><p className="mt-2 text-sm text-ink-soft">Most baby gear is returnable within 7 days of delivery in original condition; check the individual product page for eligibility.</p></details>
-      </section>
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

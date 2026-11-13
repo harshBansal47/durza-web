@@ -5,6 +5,7 @@ import { faqPageJsonLd } from "@/lib/seo";
 import ZeroHarmClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
+import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "ZeroHarm Coupons, Plant Vitamin B12 & Narie PCOS Deals";
@@ -31,6 +32,7 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("zeroharm", { skip: 0, limit: 50 });
   const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
   const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
@@ -44,7 +46,7 @@ export default async function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <ZeroHarmClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} />
+      <ZeroHarmClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
       <RelatedGuides slug="zeroharm" />
     </>
   );

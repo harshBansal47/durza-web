@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("life-changing-astro", url, sub);
 const CHECKLIST = [
   { title: "Lab Verification", detail: "Every gemstone includes an independent gemological lab certificate verifying natural origin — no glass-filled or synthetic stones." },
@@ -14,20 +20,23 @@ const CHECKLIST = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function LifeChangingAstroClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function LifeChangingAstroClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Life Changing Astro"
         subtitle="Authentic Vedic Guidance, Lab-Certified Gemstones & Energized Rudraksha"
@@ -37,6 +46,9 @@ export default function LifeChangingAstroClient({ offers, products, heroImageUrl
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Authenticity &amp; Consultation Confidence Checklist</h2>
@@ -66,6 +78,20 @@ export default function LifeChangingAstroClient({ offers, products, heroImageUrl
         ))}
       </div>
 
+      <StackingExample
+        title="How people book at the best price"
+        lead="A Vedic Kundli consultation for a major life decision:"
+        lines={[
+          { label: "1-on-1 Vedic Kundli consultation", value: "₹2,999" },
+          { label: "Apply ASTRO15 (15% off)", value: "− ₹450*" },
+          { label: "Free insured doorstep shipping", value: "for Rudraksha/gemstones" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹2,549" }}
+        saving="You could save ₹450+ on the consultation"
+        note="*Illustrative — consultation prices vary by consultant; Rudraksha/gemstone offers are separate (see offer cards)."
+      />
+      <HowToApply storeName="Life Changing Astro" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Life Goal &amp; Vedic Remedy Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -85,12 +111,30 @@ export default function LifeChangingAstroClient({ offers, products, heroImageUrl
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I verify a gemstone&apos;s lab certificate?</summary><p className="mt-2 text-sm text-ink-soft">Every gemstone ships with an independent ISO / Govt. lab certificate. Cross-check the certificate number and stone description on the lab&apos;s official website before wearing or gifting the stone.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I book a preferred astrologer and time slot?</summary><p className="mt-2 text-sm text-ink-soft">Choose the consultation product on the site, pick your preferred date and time including weekends, and confirm the slot online. A calendar invite with the meeting link follows your booking.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the difference between Nepali and Indonesian Rudraksha?</summary><p className="mt-2 text-sm text-ink-soft">Nepali Rudraksha beads grow in the Himalayas with intact internal chambers verified by X-ray; Indonesian beads are larger but hold a single central seed. Nepali beads are preferred for remedial use.</p></details>
-      </section>
+            <FaqSection eyebrow="Life Changing Astro FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

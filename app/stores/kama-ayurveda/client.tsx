@@ -1,28 +1,37 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("kama-ayurveda", url, sub);
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function KamaAyurvedaPage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function KamaAyurvedaPage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Kama Ayurveda"
         subtitle="Authentic Ayurvedic Formulations • 100% Natural, Plant-Based Luxury Care"
@@ -32,6 +41,9 @@ export default function KamaAyurvedaPage({ offers, products, heroImageUrl, offer
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Luxury Cart Optimization & Sample Unlocking Guide</h2>
         <ul className="mt-3 space-y-1 text-sm text-ink-soft">
@@ -55,6 +67,20 @@ export default function KamaAyurvedaPage({ offers, products, heroImageUrl, offer
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How people stack savings on Kama Ayurveda"
+        lead="A Kumkumadi face-care gift set (festive box):"
+        lines={[
+          { label: "Kumkumadi festive gift set", value: "₹2,499" },
+          { label: "Apply RITUAL15 (15% off)", value: "− ₹375*" },
+          { label: "Free doorstep delivery above ₹1,499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹2,124" }}
+        saving="You could save ₹520+ with free delivery"
+        note="*Illustrative — gift boxes qualify above ₹1,499; GLOWGIFT applies above ₹2,999."
+      />
+      <HowToApply storeName="Kama Ayurveda" />
       <div>
         <h2 className="text-xl font-bold text-ink">Ayurvedic Treatment & Ritual Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -73,12 +99,30 @@ export default function KamaAyurvedaPage({ offers, products, heroImageUrl, offer
           ))}
         </div>
       </div>
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I choose my 3 complimentary samples?</summary><p className="mt-2 text-sm text-ink-soft">An interactive sample selector appears at checkout, letting you handpick 3 luxury trial sizes across cleansers, oils, and moisturizers.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Is Kama Kumkumadi Oil suitable for oily or acne-prone skin?</summary><p className="mt-2 text-sm text-ink-soft">Yes, but apply only 2–3 drops onto damp skin and leave on for 30 minutes before wiping with a warm cotton cloth.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the minimum threshold for free shipping?</summary><p className="mt-2 text-sm text-ink-soft">Free express delivery on all domestic orders totaling ₹1,499 or more.</p></details>
-      </section>
+            <FaqSection eyebrow="Kama Ayurveda FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

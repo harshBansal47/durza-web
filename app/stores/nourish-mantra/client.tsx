@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("nourish-mantra", url, sub);
 const CONFIDENCE = [
   { title: "Vedic Modernity", detail: "Traditional herbs like Ashwagandha and Gotu Kola fused with clinical actives — Peptides and Niacinamide — in one formula." },
@@ -14,20 +20,23 @@ const CONFIDENCE = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function NourishMantraClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function NourishMantraClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Nourish Mantra"
         subtitle="Modern Clean Skincare Rooted in Vedic Wisdom • 100% Vegan & Plastic Neutral"
@@ -37,6 +46,9 @@ export default function NourishMantraClient({ offers, products, heroImageUrl, of
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Clean Formulation Confidence Card</h2>
@@ -67,6 +79,20 @@ export default function NourishMantraClient({ offers, products, heroImageUrl, of
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Nourish Mantra"
+        lead="A clean-skincare serum and moisturiser duo:"
+        lines={[
+          { label: "Serum + moisturiser duo", value: "₹1,499" },
+          { label: "Apply GLOW20 (above ₹1,499)", value: "− ₹300" },
+          { label: "Free shipping above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,199" }}
+        saving="You could save ₹300+ on one order"
+        note="*Illustrative — GLOW20 needs ₹1,499+; MANTRA15 applies to marked serums."
+      />
+      <HowToApply storeName="Nourish Mantra" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Vedic Activism &amp; Clean Concern Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -86,12 +112,30 @@ export default function NourishMantraClient({ offers, products, heroImageUrl, of
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does the Nourish Mantra Urban Rani Youth Serum work?</summary><p className="mt-2 text-sm text-ink-soft">Urban Rani Youth Serum blends modern actives like Niacinamide with traditional botanical extracts like Fortunella fruit and Okra. It works as an intensive cellular hydrator and pollution shield, reducing fine lines and evening skin texture without clogging pores.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Can MANTRA15 or GLOW20 be combined with prepaid UPI discounts?</summary><p className="mt-2 text-sm text-ink-soft">Yes. First enter coupon code MANTRA15 or GLOW20 on nourishmantra.in during checkout. When you proceed to the payment gateway and choose UPI or prepaid cards, an extra 5% instant discount is calculated on the remaining balance.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the minimum order threshold for free delivery on Nourish Mantra?</summary><p className="mt-2 text-sm text-ink-soft">Nourish Mantra provides free doorstep delivery across India on all orders of ₹499 or more. A single under-eye gel or serum immediately unlocks free shipping.</p></details>
-      </section>
+            <FaqSection eyebrow="Nourish Mantra FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,23 +1,31 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("boult", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function BoultStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function BoultStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [priority, setPriority] = useState("gaming");
@@ -30,11 +38,12 @@ export default function BoultStorePage({ offers, products, heroImageUrl, offerCo
     return false;
   }) || filtered[0];
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Boult Audio"
         subtitle="Engineered for Sound • Premium TWS, ANC Earbuds & AMOLED Smartwatches"
@@ -44,6 +53,9 @@ export default function BoultStorePage({ offers, products, heroImageUrl, offerCo
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Audio Decision Snippet</h2>
@@ -78,6 +90,21 @@ export default function BoultStorePage({ offers, products, heroImageUrl, offerCo
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Boult"
+        lead="Boult earphones for the daily commute:"
+        lines={[
+          { label: "Boult earphones", value: "₹1,499" },
+          { label: "Apply BOULT100 (above ₹999)", value: "− ₹100" },
+          { label: "UPI / card discount", value: "− ₹70*" },
+          { label: "Free shipping, all India", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,329" }}
+        saving="You could save ₹170+ on one order"
+        note="*Illustrative — ANC/product-specific codes differ in eligibility; check the offer card."
+      />
+      <HowToApply storeName="Boult Audio" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Audio & Smartwatch Use-Case Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -109,21 +136,30 @@ export default function BoultStorePage({ offers, products, heroImageUrl, offerCo
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How do I apply coupon code BOULT100 at checkout?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Add any earbuds, smartwatch, or audio accessory worth ₹999 or more to your cart on goboult.co.in. At the payment step, enter BOULT100 in the discount coupon box to receive an instant ₹100 deduction.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">What does Combat Mode™ mean in Boult gaming earbuds?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Combat Mode™ optimizes the Bluetooth audio transmission to deliver ultra-low latency down to 40 milliseconds, ensuring in-game footsteps and gunshots sync in real time without audio delay.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Do Boult products purchased via these deals come with brand warranty?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. All purchases made through official store links on goboult.co.in include Boult&apos;s official 1-year replacement warranty, which you can register on their website using your invoice.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="Boult Audio FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

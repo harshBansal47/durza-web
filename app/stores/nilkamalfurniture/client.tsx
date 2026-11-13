@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("nilkamalfurniture", url, sub);
 const CONFIDENCE = [
   { title: "Mesh Breathability", detail: "Aerated mesh backs prevent back sweating during long Indian summers — the single biggest complaint with leatherette chairs." },
@@ -14,29 +20,35 @@ const CONFIDENCE = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function NilkamalFurnitureClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function NilkamalFurnitureClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Nilkamal Furniture"
-        subtitle="India's Favorite Furniture Brand • Ergonomic Chairs, Wardrobes & Solid Living"
+        subtitle="Ergonomic chairs, beds, wardrobes and home storage — free delivery and assembly in most cities."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Ergonomic WFH &amp; Assembly Confidence Checker</h2>
@@ -66,6 +78,20 @@ export default function NilkamalFurnitureClient({ offers, products, heroImageUrl
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Nilkamal"
+        lead="A bed-side table and a dining set for the new home:"
+        lines={[
+          { label: "Bed-side table + chairs combo", value: "₹4,999" },
+          { label: "Apply NILKAMAL500 (above ₹4,999)", value: "− ₹500" },
+          { label: "Free delivery & assembly", value: "on big furniture" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹4,499" }}
+        saving="You could save ₹500 + assembly costs"
+        note="*Illustrative — BEDROOM1000 needs ₹9,999+; assembly is free only on eligible big furniture."
+      />
+      <HowToApply storeName="Nilkamal Furniture" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Room Utility &amp; Ergonomic Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -85,12 +111,30 @@ export default function NilkamalFurnitureClient({ offers, products, heroImageUrl
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does Nilkamal carpenter assembly work?</summary><p className="mt-2 text-sm text-ink-soft">Eligible large furniture — wardrobes, beds and tables — is delivered and assembled by a Nilkamal-trained carpenter at no extra cost in covered cities. The slot is scheduled after delivery confirmation; keep the invoice handy for the team.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What are the return and warranty terms on plastic and wood furniture?</summary><p className="mt-2 text-sm text-ink-soft">Structural frames carry 1–5 year manufacturer warranties against defects. Returns are accepted within the standard return window with the original invoice and packaging, subject to Nilkamal&apos;s terms.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Can NILKAMAL500 stack with the 5% UPI discount?</summary><p className="mt-2 text-sm text-ink-soft">Yes. Apply NILKAMAL500 at checkout for flat ₹500 off above ₹4,999, then pay via UPI or card for an extra 5% instant deduction on the remaining balance. BEDROOM1000 works the same above ₹9,999.</p></details>
-      </section>
+            <FaqSection eyebrow="Nilkamal Furniture FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("lavie-world", url, sub);
 const CARRY = [
   { id: "laptop", label: "14\" Laptop + Charger", result: "Work Tote", detail: "You need the Horsebit Structured Large Work Tote (₹1,399) — padded sleeve fits a 14\" laptop with room for a charger and documents.", math: "Base 65% OFF + extra 10% with LAVIE10 + 5% UPI ≈ ₹1,069 final.", url: "https://www.lavieworld.com/collections/tote-bags", sub: "capacity_laptop" },
@@ -14,21 +20,24 @@ const CARRY = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function LavieWorldClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function LavieWorldClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [carry, setCarry] = useState(CARRY[0]);
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Lavie World"
         subtitle="Fickle Is Fun • Designer Handbags, Work Totes & Festive Clutches"
@@ -38,6 +47,9 @@ export default function LavieWorldClient({ offers, products, heroImageUrl, offer
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">What Fits Inside? — Capacity Guide</h2>
@@ -70,6 +82,21 @@ export default function LavieWorldClient({ offers, products, heroImageUrl, offer
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Lavie"
+        lead="A handbag and sling duo for everyday work:"
+        lines={[
+          { label: "Handbag + sling duo", value: "₹1,699" },
+          { label: "LAVIE10 (10% off)", value: "− ₹170*" },
+          { label: "STYLE200 (above ₹1,499)", value: "− ₹200*" },
+          { label: "Free delivery above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,329" }}
+        saving="You could save ₹370+ on one order"
+        note="*Illustrative — LAVIE10 and STYLE200 may have different eligibility; the cart total wins."
+      />
+      <HowToApply storeName="Lavie World" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Capacity &amp; Occasion Handbag Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -89,12 +116,30 @@ export default function LavieWorldClient({ offers, products, heroImageUrl, offer
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What does the 6-month manufacturer warranty cover?</summary><p className="mt-2 text-sm text-ink-soft">Lavie covers manufacturing defects in zips, hardware and stitching for 6 months from delivery. Register your invoice on lavieworld.com to claim repairs or replacement.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I clean my faux leather handbag?</summary><p className="mt-2 text-sm text-ink-soft">Wipe with a soft, dry or slightly damp microfibre cloth. Avoid harsh detergents and direct sunlight; use a mild soap solution for stubborn spots and air-dry naturally.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Can I stack LAVIE10 with the 5% UPI discount?</summary><p className="mt-2 text-sm text-ink-soft">Yes. Apply LAVIE10 at checkout first, then pay via UPI or card for an extra 5% instant discount on the remaining balance.</p></details>
-      </section>
+            <FaqSection eyebrow="Lavie World FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

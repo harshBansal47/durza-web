@@ -1,41 +1,53 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("boldfit", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function BoldfitStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function BoldfitStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Boldfit"
-        subtitle="India's Leading Fitness Gear, Gym Accessories & Recovery Essentials"
+        subtitle="Home gyms, resistance gear and recovery essentials — check today's verified codes."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {offers.map((o) => (
@@ -51,6 +63,21 @@ export default function BoldfitStorePage({ offers, products, heroImageUrl, offer
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How people stack savings on Boldfit"
+        lead="A home-gym starter set (resistance bands, dumbbells & a mat):"
+        lines={[
+          { label: "Home-gym starter combo", value: "₹1,999" },
+          { label: "Apply BF500 (above ₹1,999)", value: "− ₹500" },
+          { label: "UPI / prepaid checkout", value: "− ₹75*" },
+          { label: "Standard delivery", value: "₹0*" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,424" }}
+        saving="You could save ₹575+ on one order"
+        note="*Illustrative — free-order perks (like socks) vary by current offer."
+      />
+      <HowToApply storeName="Boldfit" />
 
       <div>
         <h2 className="text-xl font-bold text-ink">Workout Goal & Setup Matcher</h2>
@@ -83,21 +110,30 @@ export default function BoldfitStorePage({ offers, products, heroImageUrl, offer
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">How do I unlock free gym socks with my Boldfit order?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Add products totaling ₹1,899 or more to your cart and apply coupon SAVE100. Boldfit automatically adds a complimentary pair of performance socks to eligible shipments.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Does the Boldfit Doorway Pull-Up bar require drilling?</summary>
-          <p className="mt-2 text-sm text-ink-soft">No, the TitanGrip Pull-Up Bar uses adjustable tension leverage with silicone buffer pads, securing between standard doorway frames without screws or wall drilling.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">What is the minimum order threshold for free shipping on Boldfit?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Doorstep delivery is completely free on all orders of ₹800 or more across India.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="Boldfit FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

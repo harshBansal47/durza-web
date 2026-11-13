@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("wonderchef", url, sub);
 const ADVISOR = [
   { title: "100% PFOA & Lead-Free", detail: "Wonderchef Granite coatings use non-toxic mineral layers safe for high-heat Indian tadka — no leaching, no flaking fumes." },
@@ -14,20 +20,23 @@ const ADVISOR = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function WonderchefClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function WonderchefClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Wonderchef"
         subtitle="Cook with Pride • Curated by Chef Sanjeev Kapoor • Healthy & Smart Kitchens"
@@ -37,6 +46,9 @@ export default function WonderchefClient({ offers, products, heroImageUrl, offer
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Cookware Safety &amp; Wattage Advisor</h2>
@@ -66,6 +78,20 @@ export default function WonderchefClient({ offers, products, heroImageUrl, offer
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Wonderchef"
+        lead="A pressure-cooker + cookware upgrade for the kitchen:"
+        lines={[
+          { label: "Wonderchef cookware combo", value: "₹3,999" },
+          { label: "Apply KITCHEN500 (above ₹3,999)", value: "− ₹500" },
+          { label: "Free shipping above ₹999", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹3,499" }}
+        saving="You could save ₹500+ plus cash-back*"
+        note="*Illustrative — Nutri-Blends often carry CHEF10 (10% extra); PREPAID5 may combine at checkout."
+      />
+      <HowToApply storeName="Wonderchef" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Kitchen Appliance &amp; Cookware Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -85,12 +111,30 @@ export default function WonderchefClient({ offers, products, heroImageUrl, offer
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How is the Wonderchef Nutri-Blend different from a standard mixer grinder?</summary><p className="mt-2 text-sm text-ink-soft">The Nutri-Blend runs a 22,000 RPM copper motor with unbreakable jars built for smoothies and masala grinding in seconds, with juicer and chopper attachments — standard mixers lack the RPM and jar ecosystem.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Does granite cookware work on induction stoves?</summary><p className="mt-2 text-sm text-ink-soft">Yes. Wonderchef granite pans feature a stainless magnetic base, making them fully induction and gas compatible with even, fast heating across both cooktop types.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I claim the warranty?</summary><p className="mt-2 text-sm text-ink-soft">Register your appliance or cookware on wonderchef.com with the invoice to activate the 2-year on-site / replacement warranty, then raise a service request through support.</p></details>
-      </section>
+            <FaqSection eyebrow="Wonderchef FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,23 +1,31 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("fitspire", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function FitspireStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function FitspireStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cartTotal, setCartTotal] = useState(2000);
@@ -28,11 +36,12 @@ export default function FitspireStorePage({ offers, products, heroImageUrl, offe
   const shipping = cartTotal >= 499 ? 70 : 0;
   const final = cartTotal - fit20 - prepaid - shipping;
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Fitspire"
         subtitle="100% Vegan & Plant-Based Wellness Formulations"
@@ -42,6 +51,9 @@ export default function FitspireStorePage({ offers, products, heroImageUrl, offe
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Smart Shopper&apos;s Stacking Calculator</h2>
@@ -76,6 +88,20 @@ export default function FitspireStorePage({ offers, products, heroImageUrl, offe
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Fitspire"
+        lead="Monthly gummy vitamins and probiotics restock:"
+        lines={[
+          { label: "Monthly gummy restock", value: "₹1,499" },
+          { label: "Apply FIT20 (above ₹1,499)", value: "− ₹300" },
+          { label: "Free delivery above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹1,199" }}
+        saving="You could save ₹300+ per month"
+        note="*Illustrative — B2G1 applies to marked probiotic lines only; FIT20 needs ₹1,499+ cart value."
+      />
+      <HowToApply storeName="Fitspire" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Plant-Wellness Lifestyle Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -107,21 +133,30 @@ export default function FitspireStorePage({ offers, products, heroImageUrl, offe
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Can I stack coupon code FIT10 or FIT20 with UPI checkout discounts?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. First apply coupon code FIT10 or FIT20 in your Fitspire shopping cart. When you proceed to the payment gateway and choose UPI or prepaid cards, Fitspire applies an additional 5% instant deduction on the discounted subtotal.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Is Fitspire Collagen sourced from animals or fish?</summary>
-          <p className="mt-2 text-sm text-ink-soft">No. Fitspire collagen is 100% plant-based, using natural plant extracts like Sesbania Agati, Acerola Cherry, and Bamboo Shoot that stimulate the body&apos;s natural collagen synthesis without marine or bovine derivatives.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">What is the easiest cart-filler to hit the ₹499 free shipping mark?</summary>
-          <p className="mt-2 text-sm text-ink-soft">If your cart is around ₹350–₹450, adding an all-natural high protein peanut butter tub or an effervescent drink tube is more cost-effective than paying the standard ₹70 doorstep shipping fee.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="Fitspire FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

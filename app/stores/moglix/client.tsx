@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("moglix", url, sub);
 const BUYERS = [
   { id: "retail", label: "Retail Buyer (Home DIY)", lines: [["High-Pressure Washer", "₹4,299"], ["TOOLS250 coupon", "− ₹250"], ["Effective price", "₹4,049"]], note: "Plus extra 5% instant off on prepaid UPI/card checkout." },
@@ -13,21 +19,24 @@ const BUYERS = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function MoglixClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function MoglixClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [buyer, setBuyer] = useState(BUYERS[0]);
   const filtered = products.filter((p) => p.tab === concern);
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Moglix"
         subtitle="Power Tools, Safety Gear, Automotive & Electricals • GST Invoice Ready"
@@ -37,6 +46,9 @@ export default function MoglixClient({ offers, products, heroImageUrl, offerCoun
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div id="gst-net-cost" className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">True Net Cost Calculator</h2>
@@ -73,6 +85,21 @@ export default function MoglixClient({ offers, products, heroImageUrl, offerCoun
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on Moglix"
+        lead="A professional tool kit for home repairs:"
+        lines={[
+          { label: "Professional tool kit", value: "₹3,499" },
+          { label: "TOOLS250 (above ₹3,499)", value: "− ₹250" },
+          { label: "GST input credit (GSTIN holders)", value: "up to 28%*" },
+          { label: "Free prepaid note on invoices", value: "for businesses" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹3,249" }}
+        saving="You could save ₹250 + GST credit on business buys"
+        note="*Illustrative — GST input credit applies only when you invoice to a GSTIN and Moglix issues a B2B invoice."
+      />
+      <HowToApply storeName="Moglix" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Home DIY &amp; Industrial Equipment Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -92,12 +119,30 @@ export default function MoglixClient({ offers, products, heroImageUrl, offerCoun
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do I download a GST tax invoice on Moglix?</summary><p className="mt-2 text-sm text-ink-soft">Enter your GSTIN at checkout or save it in your Moglix business profile — every order then ships with a compliant GST tax invoice, downloadable from My Orders.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What warranty covers Bosch and Stanley power tools?</summary><p className="mt-2 text-sm text-ink-soft">Genuine Bosch and Stanley tools carry the manufacturer warranty (typically 1 year), serviceable at authorised centres. Keep your Moglix invoice as proof of purchase.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How does bulk quote pricing work?</summary><p className="mt-2 text-sm text-ink-soft">Add items to your cart, choose the bulk/quote option, and the Moglix B2B team sends volume-based pricing with delivery timelines — ideal for workshops, contractors and facility managers.</p></details>
-      </section>
+            <FaqSection eyebrow="Moglix FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

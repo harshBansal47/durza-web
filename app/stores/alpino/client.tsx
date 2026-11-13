@@ -1,32 +1,41 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 
 import { useState } from "react";
 
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("alpino", url, sub);
 
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function AlpinoStorePage({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function AlpinoStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const filtered = products.filter((p) => p.tab === concern);
 
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Alpino Health Foods"
         subtitle="The Real Peanut Butter • Zero Palm Oil, Zero Trans Fat & 100% Roasted Peanuts"
@@ -36,6 +45,9 @@ export default function AlpinoStorePage({ offers, products, heroImageUrl, offerC
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div id="protein-decoder" className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Protein-Per-Rupee Stacking Calculator</h2>
@@ -62,6 +74,21 @@ export default function AlpinoStorePage({ offers, products, heroImageUrl, offerC
           />
         ))}
       </div>
+
+      <StackingExample
+        title="How people stack savings on Alpino"
+        lead="Grab a 2.5 kg Mega Saver Tub and a rolled-oats combo for a weekly stock-up:"
+        lines={[
+          { label: "2.5 kg Mega Saver Tub", value: "₹1,299" },
+          { label: "Apply BULK20 (20% off)", value: "− ₹260*" },
+          { label: "UPI / instant checkout offer", value: "− ₹50*" },
+          { label: "Free doorstep shipping", value: "above ₹499" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹989" }}
+        saving="You could save ₹310+ on one stock-up"
+        note="*Illustrative — exact discount shown at checkout. Offers don't always combine; the biggest single-cart total decides eligibility."
+      />
+      <HowToApply storeName="Alpino Health Foods" />
 
       <div>
         <h2 className="text-xl font-bold text-ink">Diet Goal & Nutrition Matcher</h2>
@@ -94,21 +121,30 @@ export default function AlpinoStorePage({ offers, products, heroImageUrl, offerC
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Why does oil separate on top of Alpino All-Natural Peanut Butter?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Oil separation is natural proof that Alpino contains zero hydrogenated vegetable oil, stabilizers, or chemical emulsifiers. The oil on top is 100% natural peanut oil. Simply stir it with a clean spoon before use.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">Can coupon code ALPINO10 be combined with prepaid UPI checkout discounts?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Yes. First apply coupon code ALPINO10 on alpino.store during checkout. When you select UPI or debit/credit card payment, an additional 5% instant discount is calculated on the remaining balance.</p>
-        </details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4">
-          <summary className="font-medium text-ink">What is the minimum cart value for free shipping on Alpino?</summary>
-          <p className="mt-2 text-sm text-ink-soft">Alpino provides free doorstep shipping on all orders totaling ₹499 or more across India. A single 1kg Dark Chocolate PB or combining 1kg Natural PB with Rolled Oats easily hits this mark.</p>
-        </details>
-      </section>
+            <FaqSection eyebrow="Alpino Health Foods FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

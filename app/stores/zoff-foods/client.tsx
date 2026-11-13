@@ -1,10 +1,16 @@
 "use client";
 
 import StoreHero from "@/components/StoreHero";
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import HowToApply from "@/components/store/HowToApply";
+import StackingExample from "@/components/store/StackingExample";
+import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
+import { ArrowUpRight } from "lucide-react";
 const link = (url: string, sub: string): string => getAffiliateLink("zoff-foods", url, sub);
 const RESTOCK_ITEMS = [
   { id: "masala", label: "Essential Masala Combo (₹499)", amount: 499 },
@@ -17,12 +23,14 @@ const GRINDING = [
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
+  faqs: FaqItem[];
+  stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function ZoffFoodsClient({ offers, products, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function ZoffFoodsClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(GRINDING[1]);
@@ -33,11 +41,12 @@ export default function ZoffFoodsClient({ offers, products, heroImageUrl, offerC
   const upi = Math.round((subtotal - pantry20) * 0.05);
   const net = subtotal - pantry20 - upi;
   const freeShip = subtotal >= 499;
+  const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="ZOFF Foods"
         subtitle="Zone Of Fresh Food • Cool-Grinding Technology for 100% Natural Aroma & Purity"
@@ -47,6 +56,9 @@ export default function ZoffFoodsClient({ offers, products, heroImageUrl, offerC
         ctaHref={ctaHref}
         offers={offers}
       />
+      <TrustStats {...stats} />
+      <AffiliateDisclosure />
+
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Why Cool-Grinding Matters</h2>
@@ -92,6 +104,20 @@ export default function ZoffFoodsClient({ offers, products, heroImageUrl, offerC
         ))}
       </div>
 
+      <StackingExample
+        title="How people stack savings on ZOFF Foods"
+        lead="A monthly kitchen masala box, 3 months upfront:"
+        lines={[
+          { label: "Monthly Kitchen Masala Box × 3", value: "₹3,897" },
+          { label: "Apply PANTRY20 (20% off)", value: "− ₹780*" },
+          { label: "Free shipping above ₹499", value: "included" }
+        ]}
+        total={{ label: "You pay", value: "≈ ₹3,117" }}
+        saving="You could save ₹780+ over 3 months"
+        note="*Illustrative — PANTRY20 applies to monthly masala boxes; PREPAID5 (UPI) may combine."
+      />
+      <HowToApply storeName="ZOFF Foods" />
+
       <div>
         <h2 className="text-xl font-bold text-ink">Cool-Ground Spice &amp; Pantry Matcher</h2>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -111,12 +137,30 @@ export default function ZoffFoodsClient({ offers, products, heroImageUrl, offerC
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold text-ink">FAQ</h2>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What does Cool-Grinding technology do to spice aroma?</summary><p className="mt-2 text-sm text-ink-soft">Traditional mills generate up to 95°C heat that burns off volatile essential oils. ZOFF grinds at sub-zero temperatures, preserving up to 95% of natural essential oils — so Haldi smells like Haldi, and Kashmiri Mirchi keeps its natural crimson.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How do the 5-layer zip-lock pouches prevent clumping in monsoon humidity?</summary><p className="mt-2 text-sm text-ink-soft">Each pouch is a multi-layer vapour barrier with a resealable zip lock, keeping moisture out so spices stay free-flowing, bright and potent even through Indian monsoons.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">What is the free shipping threshold?</summary><p className="mt-2 text-sm text-ink-soft">Free doorstep delivery across India on all orders of ₹499 or more — the Essential Kitchen Masala Combo alone qualifies.</p></details>
-      </section>
+            <FaqSection eyebrow="ZOFF Foods FAQs" items={faqs} />
+
+
+      {topOffer && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={link(topOffer.targetUrl, topOffer.subId)}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topOffer.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }
