@@ -66,19 +66,37 @@
     // omits the merchant name. Keep the description grounded in offer data.
     const discount = formatDiscount(coupon, store?.currency ?? "INR");
     const merchantName = store?.name;
-    const offerKind = coupon.code ? "promo code" : "offer";
-    const title = `${merchantName ? `${merchantName} ` : ""}${offerKind}: ${coupon.title}`;
+    // Build a keywordy title for the queries shoppers actually type — "[brand] [code]
+    // coupon code" — in a form that still reads naturally. codeless deals fall back to "offer".
+    const variantKeyword = /first|new/i.test(coupon.title)
+      ? "first order coupon"
+      : coupon.code
+        ? "coupon code"
+        : "offer";
+    const amountKeyword = discount !== "Deal"
+      ? discount.replace(/\s+/g, " ").replace(/[^0-9a-zA-Z₹+%-]/g, "")
+      : null;
+    // Keyword-packed SERP title — the query shoppers type verbatim.
+    const now = new Date();
+    const month = new Intl.DateTimeFormat("en-IN", { month: "short", year: "numeric" }).format(now);
+    const titlePieces = [
+      merchantName,
+      coupon.code ? `${coupon.code}` : null,
+      variantKeyword,
+      amountKeyword,
+      `(${month})`,
+    ].filter(Boolean);
+    const title = metaDescription(titlePieces.join(" ").slice(0, 68)) ?? "Durza coupon";
     const description = metaDescription(
       [
         merchantName,
-        coupon.code ? "promo code available" : "offer",
-        discount !== "Deal" ? discount : null,
-        coupon.title,
+        coupon.code ? `Code ${coupon.code} — top live coupon at ${merchantName}.` : `Latest offer at ${merchantName}.`,
+        discount !== "Deal" ? `${discount} savings available right now.` : null,
         coupon.description,
-        "See offer details and last-checked information on Durza.",
+        "Code, validity, and where it works on the Durza coupon page.",
       ]
         .filter(Boolean)
-        .join(" — "),
+        .join(" "),
     );
     const canonical = absoluteUrl(`/coupons/${coupon.slug}`);
 
