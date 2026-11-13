@@ -150,4 +150,62 @@ describe("discovery modules", () => {
     expect(screen.getByText("Why am I seeing this?")).toBeInTheDocument();
     expect(screen.getByText(/You have looked at Amazon/)).toBeInTheDocument();
   });
+
+  it("Recommended asks for every store at once, not one after another", async () => {
+    localStorage.setItem(
+      "durza.taste_v2",
+      JSON.stringify({
+        version: 2,
+        stores: [
+          { id: "amazon", at: Date.now() },
+          { id: "myntra", at: Date.now() },
+          { id: "nykaa", at: Date.now() },
+        ],
+        followed: [],
+      }),
+    );
+    // None of the lookups resolves until we say so. If the row waited for one store
+    // before asking for the next, only one call would have been made by now.
+    const release: Array<() => void> = [];
+    apiMock.getStoreBySlug.mockImplementation(
+      (slug: string) =>
+        new Promise((resolve) => {
+          release.push(() => resolve({ id: `id-${slug}`, name: slug, slug, logo_url: null, currency: "INR" }));
+        }),
+    );
+    apiMock.listCoupons.mockResolvedValue({ items: [makeCoupon()], total: 1 });
+
+    render(<RecommendedRow />);
+    await vi.waitFor(() => expect(api.getStoreBySlug).toHaveBeenCalledTimes(3));
+
+    release.forEach((resolve) => resolve());
+    expect(await screen.findByText("For you")).toBeInTheDocument();
+  });
+
+  it("Recommended keeps the visitor's order and skips a store that fails", async () => {
+    localStorage.setItem(
+      "durza.taste_v2",
+      JSON.stringify({
+        version: 2,
+        stores: [
+          { id: "slow", at: Date.now() },
+          { id: "broken", at: Date.now() },
+          { id: "fast", at: Date.now() },
+        ],
+        followed: [],
+      }),
+    );
+    apiMock.getStoreBySlug.mockImplementation(async (slug: string) => {
+      if (slug === "broken") throw new Error("offline");
+      if (slug === "slow") await new Promise((resolve) => setTimeout(resolve, 20));
+      return { id: `id-${slug}`, name: slug, slug, logo_url: null, currency: "INR" };
+    });
+    apiMock.listCoupons.mockResolvedValue({ items: [makeCoupon()], total: 1 });
+
+    render(<RecommendedRow />);
+    await screen.findByText("For you");
+
+    const names = screen.getAllByText(/^More from/).map((el) => el.textContent);
+    expect(names).toEqual(["More from slow", "More from fast"]);
+  });
 });

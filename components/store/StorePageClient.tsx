@@ -15,6 +15,7 @@ import { RecordView } from "@/components/Analytics";
 import { api } from "@/lib/api";
 import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
+import { parseRupeePrice } from "@/lib/price";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 import HowToApply from "@/components/store/HowToApply";
@@ -65,7 +66,10 @@ export default function StorePageClient({
   const filteredTabs = useMemo(() => {
     const match = (item: (typeof tabs.best.items)[number]) => {
       if (filter === "all") return true;
-      if (filter === "under500") { const price = item.restrictions?.deal_price; return typeof price === "string" ? parseInt(price.replace(/[^\d]/g, ""), 10) < 500 : false; }
+      if (filter === "under500") {
+        const price = parseRupeePrice(item.restrictions?.deal_price);
+        return price !== null && price < 500;
+      }
       return true;
     };
     return {
@@ -74,6 +78,9 @@ export default function StorePageClient({
       expiring: tabs.expiring ? { ...tabs.expiring, items: tabs.expiring.items.filter(match) } : tabs.expiring,
     };
   }, [tabs, filter]);
+  // The tabs are the same offers in different orders, so the offers on the page are the size of
+  // the biggest tab. Adding the tabs up would count every offer two or three times.
+  const offersShown = Math.max(0, ...Object.values(filteredTabs).map((tab) => tab?.items.length ?? 0));
   const pageNumbers = [...new Set([1, pagination.page - 1, pagination.page, pagination.page + 1, pagination.totalPages])]
     .filter((page) => page >= 1 && page <= pagination.totalPages)
     .sort((a, b) => a - b);
@@ -115,7 +122,7 @@ export default function StorePageClient({
             </div>
           ),
         })),
-    [tabs, store, code],
+    [filteredTabs, expanded, code],
   );
 
   return (
@@ -196,6 +203,17 @@ export default function StorePageClient({
             )}
             <ClientTabs tabs={visibleTabs} />
           </>
+        ) : filter !== "all" ? (
+          <div role="status" className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-5 py-8 text-center">
+            <p className="font-semibold text-ink">No offers under ₹500 on this page.</p>
+            <button
+              type="button"
+              onClick={() => setFilter("all")}
+              className="mt-3 rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue"
+            >
+              Show all offers
+            </button>
+          </div>
         ) : (
           <section
             aria-labelledby="no-offers"
@@ -292,9 +310,9 @@ export default function StorePageClient({
       <SaveDealBanner target={{ kind: "store", id: store.id, slug: store.slug, name: store.name }} />
 
 
-      {!expanded && Object.values(tabs).reduce((n, t) => n + t.items.length, 0) > 6 && (
+      {!expanded && offersShown > 6 && (
         <button type="button" onClick={() => setExpanded(true)} className="rounded-full border border-ledger-line px-4 py-2 text-sm font-medium text-ink-soft hover:border-inkblue hover:text-inkblue">
-          Show all {Object.values(tabs).reduce((n, t) => n + t.items.length, 0)} offers
+          Show all {offersShown} offers
         </button>
       )}
 

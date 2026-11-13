@@ -56,37 +56,41 @@ export function RecommendedRow() {
 
     let cancelled = false;
     (async () => {
-      const built: Row[] = [];
-      for (const slug of slugs) {
-        if (cancelled) break;
-        try {
-          const store = await api.getStoreBySlug(slug).catch(() => null);
-          if (!store || cancelled) continue;
-          const page = await api
-            .listCoupons({ store_id: store.id, active_only: true, limit: 8 })
-            .catch(() => null);
-          const items = (page?.items ?? []).slice(0, 8);
-          if (items.length === 0) continue;
-          built.push({
-            storeName: store.name,
-            storeSlug: store.slug,
-            saved: signals.followed.includes(slug),
-            coupons: items,
-            stores: [
-              {
-                id: store.id,
-                name: store.name,
-                slug: store.slug,
-                logo_url: store.logo_url,
-                website_url: store.website_url,
-                currency: store.currency,
-              },
-            ],
-          });
-        } catch {
-          /* offline — skip this store, keep the others */
-        }
-      }
+      // One request chain per store, all started together. They used to run one store at a
+      // time, so three stores meant six browser round trips in a row before the row appeared.
+      // Promise.all keeps the results in `slugs` order, so saved stores still come first.
+      const results = await Promise.all(
+        slugs.map(async (slug): Promise<Row | null> => {
+          try {
+            const store = await api.getStoreBySlug(slug).catch(() => null);
+            if (!store || cancelled) return null;
+            const page = await api
+              .listCoupons({ store_id: store.id, active_only: true, limit: 8 })
+              .catch(() => null);
+            const items = (page?.items ?? []).slice(0, 8);
+            if (items.length === 0) return null;
+            return {
+              storeName: store.name,
+              storeSlug: store.slug,
+              saved: signals.followed.includes(slug),
+              coupons: items,
+              stores: [
+                {
+                  id: store.id,
+                  name: store.name,
+                  slug: store.slug,
+                  logo_url: store.logo_url,
+                  website_url: store.website_url,
+                  currency: store.currency,
+                },
+              ],
+            };
+          } catch {
+            return null; // offline — skip this store, keep the others
+          }
+        }),
+      );
+      const built = results.filter((row): row is Row => row !== null);
       if (!cancelled && built.length > 0) setRows(built);
     })();
     return () => {
