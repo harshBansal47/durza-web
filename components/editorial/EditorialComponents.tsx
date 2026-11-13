@@ -16,6 +16,39 @@ import GuideArt from "./GuideArt";
 import { SITE_URL } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { renderBrandText } from "@/lib/brandMentions";
+
+/**
+ * Turn markdown-style inline links [label](url) into real anchors. Used in list
+ * items and paragraphs. URLs starting with http(s)/ and same-origin /coupons-/
+ * paths are allowed; anything else is left as raw text. Markdown links must
+ * never become script tags, so attributes use noopener noreferrer.
+ */
+const MARKDOWN_LINK = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g;
+
+function renderInlineLinks(text: string | null | undefined): React.ReactNode {
+  if (!text) return null;
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let counter = 0;
+  for (const match of text.matchAll(MARKDOWN_LINK)) {
+    const idx = match.index ?? 0;
+    if (idx > lastIndex) parts.push(text.slice(lastIndex, idx));
+    const isExternal = match[2].startsWith("http");
+    parts.push(
+      <a
+        key={counter++}
+        href={match[2]}
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        className="font-semibold text-inkblue underline decoration-inkblue/30 underline-offset-2 hover:decoration-inkblue"
+      >
+        {renderBrandText(match[1])}
+      </a>,
+    );
+    lastIndex = idx + match[0].length;
+  }
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  return <>{parts}</>;
+}
 import AdSenseSlot from "./AdSenseSlot";
 import JsonLd from "@/components/JsonLd";
 
@@ -253,7 +286,7 @@ function ContentBlock({ block, id }: { block: Record<string, unknown>; id?: stri
     const List = type === "ordered_list" ? "ol" : "ul";
     return (
       <List className="my-5 space-y-2 pl-6 text-base leading-7 text-ink-soft" style={{ listStyleType: type === "ordered_list" ? "decimal" : "disc" }}>
-        {items.map((item, index) => <li key={`${index}-${item.slice(0, 24)}`}>{renderBrandText(item)}</li>)}
+        {items.map((item, index) => <li key={`${index}-${item.slice(0, 24)}`}>{renderInlineLinks(item)}</li>)}
       </List>
     );
   }
@@ -293,7 +326,7 @@ function ContentBlock({ block, id }: { block: Record<string, unknown>; id?: stri
     );
   }
   if (!text) return null;
-  return <p className="my-5 text-base leading-8 text-ink-soft">{renderBrandText(text)}</p>;
+  return <p className="my-5 text-base leading-8 text-ink-soft">{renderInlineLinks(text)}</p>;
 }
 
 function ComparisonTable({ data }: { data: Record<string, unknown> }) {
