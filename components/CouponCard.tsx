@@ -136,10 +136,6 @@ export function CouponCard({
      /subscription|audible|unlimited|prime/i.test(coupon.title) ? "Subscription" :
      /sneaker|boot|running|loafer|sandal|formal|backpack/i.test(coupon.title) ? "Footwear & Bags" : null);
 
-  const priceMatch = (coupon.title + " " + (coupon.description ?? "")).match(/(?:Flat\s*)?₹\s*([\d,]+)/i);
-  const mrpMatch = (coupon.title + " " + (coupon.description ?? "")).match(/MRP\s*₹?\s*([\d,]+)/i);
-  const extractedDealPrice = priceMatch ? priceMatch[1] : null;
-  const mrpPrice = mrpMatch && mrpMatch[1] !== extractedDealPrice ? mrpMatch[1] : null;
 
   return (
     <div
@@ -365,7 +361,7 @@ export function CouponCard({
           <Link
             href={href}
             aria-disabled={expired}
-            onClick={async (e) => {
+            onClick={async () => {
               if (expired) return;
               if (coupon.code) {
                 try { await navigator.clipboard.writeText(coupon.code); } catch {}

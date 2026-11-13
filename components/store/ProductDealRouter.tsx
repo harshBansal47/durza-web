@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowUpRight, TicketPercent } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Check, Copy, TicketPercent } from "lucide-react";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 
 /**
@@ -36,6 +37,36 @@ function bestOffer(offers: StoreOfferCard[]): StoreOfferCard | null {
   const flat = offers.filter((o) => /₹\s*\d+/.test(o.badge));
   if (flat.length) return flat.slice().sort((a, b) => Number.parseInt(b.badge.replace(/[^\d]/g, "")) - Number.parseInt(a.badge.replace(/[^\d]/g, "")))[0];
   return offers[0];
+}
+
+function CopyCodePill({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={(event) => {
+        event.stopPropagation();
+        void navigator.clipboard.writeText(code);
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 2000);
+      }}
+      aria-label={copied ? `Code ${code} copied` : `Copy code ${code}`}
+      title={copied ? `✓ ${code} copied` : `Click to copy ${code}`}
+      className="inline-flex min-h-8 cursor-pointer items-center gap-1 rounded border border-verified-ink/30 bg-white px-2 py-0.5 font-mono text-[10px] font-bold text-verified-ink transition-colors hover:border-verified-ink hover:bg-verified-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-verified-ink"
+    >
+      {copied ? (
+        <>
+          <Check aria-hidden="true" className="h-3 w-3" strokeWidth={2.5} />
+          <span>✓ Copied</span>
+        </>
+      ) : (
+        <>
+          <Copy aria-hidden="true" className="h-3 w-3" strokeWidth={2} />
+          <span>{code}</span>
+        </>
+      )}
+    </button>
+  );
 }
 
 /** One-line human description of the use case for a product. */
@@ -110,12 +141,8 @@ export default function ProductDealRouter({
           </p>
         ) : (
           products.map((p) => (
-            <a
+            <div
               key={`${p.name}-${p.targetUrl}`}
-              href={p.targetUrl}
-              target="_blank"
-              rel="nofollow sponsored noopener"
-              aria-label={`Shop ${storeName}'s ${concern} collection: ${p.name}`}
               className="group flex h-full flex-col rounded-2xl border border-ledger-line bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-inkblue hover:shadow-sm"
             >
               {/* 1 · Discount anchor header — badge from the DB, never invented */}
@@ -145,7 +172,7 @@ export default function ProductDealRouter({
               {/* 3 · One-line checkout stacking tip */}
               <div className="mt-3 rounded-lg bg-paper-sunken/70 px-3 py-2 text-[11px] leading-snug text-ink-soft">
                 <span className="font-semibold text-ink">Checkout stack:</span> collection markdown + code{" "}
-                <span className="font-mono font-bold text-ink">{promo?.code ?? "SALE"}</span>
+                {promo?.code ? <CopyCodePill code={promo.code} /> : <span className="font-mono font-bold text-ink">SALE</span>}
                 {promo?.description ? (
                   <span className="text-ink-soft"> ({promo.description})</span>
                 ) : null}{" "}
@@ -156,11 +183,17 @@ export default function ProductDealRouter({
               </p>
 
               {/* 4 · Deep link CTA — merchant decides pricing */}
-              <span className="mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-xl bg-ink px-4 py-2.5 text-[11px] font-semibold text-white transition-colors group-hover:bg-slate-800">
+              <a
+                href={p.targetUrl}
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                aria-label={`Shop ${storeName}'s ${concern || "collection"} collection: ${p.name}`}
+                className="mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-xl bg-ink px-4 py-2.5 text-[11px] font-semibold text-white transition-colors hover:bg-slate-800"
+              >
                 Shop {storeName}&apos;s {concern || "collection"} ↗
                 <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-              </span>
-            </a>
+              </a>
+            </div>
           ))
         )}
       </div>
