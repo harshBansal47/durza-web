@@ -53,6 +53,34 @@ const RELATED_GUIDES: Record<string, RelatedStore[]> = {
     { slug: "firstcry", name: "FirstCry", hook: "Baby & kids essentials" },
     { slug: "healthkart", name: "HealthKart", hook: "Adult protein & gains" },
   ],
+  "ajio-com-ecommerce-cps-india": [
+    { slug: "myntra", name: "Myntra", hook: "Fashion, beauty and home finds" },
+    { slug: "tatacliq-com-ecommerce-cps-india", name: "Tata CLiQ", hook: "Marketplace + Neu app bank deals" },
+    { slug: "levis", name: "Levi's", hook: "Jeans, tees and offer-week drops" },
+  ],
+  "tatacliq-com-ecommerce-cps-india": [
+    { slug: "ajio-com-ecommerce-cps-india", name: "Ajio", hook: "Ethnic, western and designer sale drops" },
+    { slug: "myntra", name: "Myntra", hook: "Fashion and beauty with member pricing" },
+    { slug: "levis", name: "Levi's", hook: "Direct from the denim source" },
+  ],
+  nykaa: [
+    { slug: "iba-cosmetics", name: "IBA Cosmetics", hook: "Halal-certified clean beauty" },
+    { slug: "dot-and-key", name: "Dot & Key", hook: "Skin longevity actives for India" },
+    { slug: "nourish-mantra", name: "Nourish Mantra", hook: "Vegan clean skincare routines" },
+  ],
+  myntra: [
+    { slug: "ajio-com-ecommerce-cps-india", name: "Ajio", hook: "Ethnic-first sale fashion" },
+    { slug: "levis", name: "Levi's", hook: "Denim at list-and-sale prices" },
+    { slug: "lavie-world", name: "Lavie", hook: "Everyday handbags and totes" },
+  ],
+  swiggy: [
+    { slug: "zomato", name: "Zomato", hook: "Food delivery and dineout deals" },
+    { slug: "igp", name: "IGP", hook: "Late-night cakes and gifts" },
+  ],
+  zomato: [
+    { slug: "swiggy", name: "Swiggy", hook: "Food delivery and Instamart" },
+    { slug: "igp", name: "IGP", hook: "Celebration cakes and gifts" },
+  ],
   zeroharm: [
     { slug: "truebasics", name: "TrueBasics", hook: "Patented-ingredient clinical nutrition" },
     { slug: "kapiva", name: "Kapiva Ayurveda", hook: "Ayurvedic metabolic support" },

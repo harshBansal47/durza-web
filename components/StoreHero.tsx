@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import StoreShareButton from "./StoreShareButton";
-import type { StoreOfferCard } from "@/lib/store-offers";
 
 export interface StoreHeroPerk {
   label: string;
@@ -27,7 +26,7 @@ export interface StoreHeroProps {
   /** Three quick-scan highlights for the footer strip. Derived from offers when not passed. */
   perks?: [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk];
   /** Coded offers for the store — used to derive perks when perks is not passed. */
-  offers?: StoreOfferCard[];
+  offers?: ReadonlyArray<{ code: string | null; title?: string | null }>;
 }
 
 function monogram(name: string): string {
@@ -47,10 +46,10 @@ function thresholdOf(title: string | null): string | null {
  * strip always reflects live DB data: top code, free-shipping threshold, and the
  * prepaid/UPI stacking code.
  */
-export function deriveStoreHeroPerks(offers: StoreOfferCard[] | undefined): [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk] {
+export function deriveStoreHeroPerks(offers: ReadonlyArray<{ code: string | null; title?: string | null }> | undefined): [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk] {
   const top = offers?.[0];
-  const freeShip = offers?.find((o) => /free/i.test(o.title) || o.code.toUpperCase() === "FREESHIP");
-  const prepaid = offers?.find((o) => /EXTRA5|PREPAID|UPI/i.test(o.code));
+  const freeShip = offers?.find((o) => /free/i.test(o.title ?? "") || o.code?.toUpperCase() === "FREESHIP");
+  const prepaid = offers?.find((o) => /EXTRA5|PREPAID|UPI/i.test(o.code ?? ""));
   const freeShipValue = thresholdOf(freeShip?.title ?? null);
   return [
     { label: "Top Code", value: top?.code ?? "Welcome10" },
