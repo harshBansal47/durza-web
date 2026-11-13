@@ -18,6 +18,54 @@
 /** Durza's vCommission publisher ID — identical for every brand. */
 export const VCOMMISSION_PUB_ID = "133499";
 
+/**
+ * Admitad — used for Acer and other Admitad-routed programs. The per-offer
+ * campaign hashes (matched against Acer's coupon_sources rows) live here, with
+ * an env-var fallback for rotating them without a redeploy. When the hash
+ * doesn't match, use the Admitad deep link as configured in .env.
+ */
+export const ADMITAD_ACER_CAMPAIGNS: Record<string, { campaignUrl: string }> = {
+  AD232KL: { campaignUrl: "https://tjzuh.com/g/miev580u89b8e4e2707a759e60847d/?i=3" },
+  AD233KGL: { campaignUrl: "https://tjzuh.com/g/9zblsyb5mcb8e4e2707a759e60847d/?i=3" },
+  TABLET500: { campaignUrl: "https://tjzuh.com/g/mfscb8aremb8e4e2707a759e60847d/?i=3" },
+};
+
+function admitadBaseUrl(code: string): string | undefined {
+  const mapped = ADMITAD_ACER_CAMPAIGNS[code.toUpperCase()]?.campaignUrl;
+  const env = process.env.NEXT_PUBLIC_ADMITAD_ACER_BASE_URL;
+  return mapped ?? env;
+}
+
+/**
+ * Build an Admitad deep link for a specific Acer offer — or the global base
+ * URL if the per-code campaign hash isn't in the table. The result has the
+ * tracker baked in and the destination on Acer as `ulp` (or inlined into the
+ * hash for campaigns that don't use `ulp`), plus a subid for placement
+ * attribution.
+ */
+export function getAcerAdmitadLink(
+  targetUrl: string,
+  code: string,
+  subId: string,
+): string | undefined {
+  const base = admitadBaseUrl(code);
+  if (!base) {
+    if (process.env.NODE_ENV === "production") {
+      console.warn(`[affiliate] Acer Admitad base URL not configured for code ${code} — link untracked`);
+    }
+    return undefined;
+  }
+  // Admitad deep-link format: ulp=<destination>&subid=<placement tag>
+  try {
+    const u = new URL(base);
+    u.searchParams.set("ulp", encodeURIComponent(targetUrl));
+    u.searchParams.set("subid", subId);
+    return u.toString();
+  } catch {
+    return `${base}${base.includes("?") ? "&" : "?"}ulp=${encodeURIComponent(targetUrl)}&subid=${encodeURIComponent(subId)}`;
+  }
+}
+
 /** Per-brand campaign IDs issued by the vCommission dashboard. */
 export const VCOMMISSION_CAMPAIGNS = {
   "alpino": "13512",

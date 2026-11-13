@@ -14,6 +14,7 @@
 export const LOCAL_STORE_LOGOS: Record<string, string> = {
   ajio: "/stores/ajio.png",
   "amazon-in": "/stores/amazon-in.png",
+  "acer": "/stores/acer-com-ecommerce-cps-india.jpg",
   bigbasket: "/stores/bigbasket.png",
   croma: "/stores/croma.png",
   firstcry: "/stores/firstcry.png",
