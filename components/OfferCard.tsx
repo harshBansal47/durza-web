@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Copy, Zap } from "lucide-react";
 import { CardSaveButton } from "./CardSaveButton";
+import { useTrackedHref } from "@/lib/useTrackedHref";
 
 export interface OfferCardProps {
   /** Coupon id — enables the bookmark save button when provided. */
@@ -49,6 +50,7 @@ export default function OfferCard({
   badgeTone,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
+  const trackedHref = useTrackedHref(ctaHref);
   const isCoded = Boolean(code);
   const tone = badgeTone ?? (isCoded ? "amber" : "emerald");
   const days = daysUntil(expiresAt);
@@ -134,7 +136,7 @@ export default function OfferCard({
         )}
 
         <a
-          href={ctaHref}
+          href={trackedHref}
           target="_blank"
           rel="nofollow sponsored noopener noreferrer"
           className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-slate-800"

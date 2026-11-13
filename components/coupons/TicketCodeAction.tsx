@@ -6,6 +6,7 @@ import { markRevealed } from "@/lib/deviceState";
 import { rememberGo } from "@/lib/lastGo";
 import { api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
+import { useTrackedHref } from "@/lib/useTrackedHref";
 
 /**
  * The ticket's reveal action.
@@ -26,12 +27,13 @@ export default function TicketCodeAction({
   /** Where the click happened; the backend files anything unknown as "unknown". */
   src?: string;
 }) {
+  const url = useTrackedHref(api.goUrl(coupon.id, src));
   if (!coupon.code) return null;
 
   return (
     <CodeRevealButton
       code={coupon.code}
-      url={api.goUrl(coupon.id, src)}
+      url={url}
       label="Reveal code"
       showCode={false}
       className="w-full justify-center"

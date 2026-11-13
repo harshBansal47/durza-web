@@ -18,6 +18,7 @@ import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
 import { CardImpressions } from "./CardImpressions";
 import { expiryTone } from "@/lib/persuasion";
+import { useTrackedHref } from "@/lib/useTrackedHref";
 
 export type CouponCardVariant = "coupon" | "price-drop" | "free-shipping" | "expiring-soon" | "featured";
 
@@ -101,6 +102,7 @@ export function CouponCard({
   const resolved: CouponCardVariant = expired ? "expiring-soon" : expiringSoon ? "expiring-soon" : variant;
 
   const href = ctaHref ?? `/coupons/${coupon.slug}`;
+  const trackedHref = useTrackedHref(href);
   const rate = successRateLabel(coupon);
   const reports = totalReports(coupon);
   const featured = resolved === "featured";
@@ -224,7 +226,7 @@ export function CouponCard({
           )}
           <div className="min-w-0">
             <h3 className="line-clamp-2 min-h-[2.25rem] font-sans text-[15px] font-semibold leading-[1.125rem] text-ink" title={coupon.title}>
-              <Link href={href} className="after:absolute after:inset-0 hover:text-accent">
+              <Link href={trackedHref} className="after:absolute after:inset-0 hover:text-accent">
                 {coupon.title}
               </Link>
             </h3>

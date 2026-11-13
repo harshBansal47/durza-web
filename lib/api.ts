@@ -26,6 +26,7 @@ import type {
 } from "./types";
 import { getPublicApiBaseUrl } from "./api-url";
 import { ApiError, apiErrorMessage } from "./api-error";
+import { buildContentRef } from "./subid";
 
 export { ApiError } from "./api-error";
 
@@ -269,7 +270,8 @@ export const api = {
    * `src` tags which surface sent the click ("coupon-page", "sticky-bar", ...);
    * the backend only accepts short lowercase tags and files anything else as "unknown".
    */
-  goUrl: (couponId: string, src?: string, contentRef?: string) => `${API_URL}/coupons/${couponId}/go${goQuery(src, contentRef)}`,
+  goUrl: (couponId: string, src?: string, contentRef?: string) =>
+    `${API_URL}/coupons/${couponId}/go${goQuery(src ?? "site", contentRef ?? buildContentRef(src ?? "site", undefined, couponId))}`,
 
   /** Live sponsored placements (the backend already enforces the booked window). */
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
@@ -280,11 +282,11 @@ export const api = {
 
   /** Tracked redirect to a product's store page. The raw URL is never in API JSON. */
   productGoUrl: (productId: string, src?: string, contentRef?: string) =>
-    `${API_URL}/products/${productId}/go${goQuery(src, contentRef)}`,
+    `${API_URL}/products/${productId}/go${goQuery(src ?? "product-page", contentRef ?? buildContentRef(src ?? "product-page", undefined, productId))}`,
 
   /** Tracked redirect for an affiliate campaign; the destination remains backend-only. */
-  vcommissionCampaignGoUrl: (campaignId: string, src?: string) =>
-    `${API_URL}/vcommission/campaigns/${encodeURIComponent(campaignId)}/go${goQuery(src)}`,
+  vcommissionCampaignGoUrl: (campaignId: string, src?: string, contentRef?: string) =>
+    `${API_URL}/vcommission/campaigns/${encodeURIComponent(campaignId)}/go${goQuery(src ?? "campaign-catalog", contentRef ?? buildContentRef(src ?? "campaign-catalog", undefined, campaignId))}`,
 
   verifyCoupon: (couponId: string, worked: boolean, note?: string) =>
     apiFetch<VerifyResponse>(`/coupons/${couponId}/verify`, {

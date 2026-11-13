@@ -6,21 +6,28 @@ afterEach(() => vi.unstubAllGlobals());
 describe("tracked outbound URLs", () => {
   it("goUrl points at the coupon /go redirect and carries the source tag", () => {
     const url = api.goUrl("abc", "coupon-page");
-    expect(url).toMatch(/\/coupons\/abc\/go\?src=coupon-page$/);
+    expect(url).toContain("/coupons/abc/go?");
+    expect(url).toContain("src=coupon-page");
+    expect(url).toMatch(/content_ref=/);
   });
 
-  it("goUrl without a source adds no query string", () => {
-    expect(api.goUrl("abc")).toMatch(/\/coupons\/abc\/go$/);
+  it("goUrl without a source still emits a sub-id so every click is traceable", () => {
+    const url = api.goUrl("abc");
+    expect(url).toContain("src=");
+    expect(url).toContain("content_ref=");
+    expect(url).toMatch(/content_ref=[^&]*[0-9a-f]/i);
   });
 
   it("productGoUrl points at the product /go redirect", () => {
-    expect(api.productGoUrl("p1", "product-page")).toMatch(/\/products\/p1\/go\?src=product-page$/);
+    const url = api.productGoUrl("p1", "product-page");
+    expect(url).toContain("/products/p1/go?");
+    expect(url).toContain("src=product-page");
   });
 
   it("vcommissionCampaignGoUrl points at the backend campaign redirect", () => {
-    expect(api.vcommissionCampaignGoUrl("campaign-1", "campaign-catalog")).toMatch(
-      /\/vcommission\/campaigns\/campaign-1\/go\?src=campaign-catalog$/,
-    );
+    const url = api.vcommissionCampaignGoUrl("campaign-1", "campaign-catalog");
+    expect(url).toContain("/vcommission/campaigns/campaign-1/go?");
+    expect(url).toContain("src=campaign-catalog");
   });
 
   it("encodes the source tag so it can never break out of the query string", () => {

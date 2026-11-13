@@ -14,6 +14,7 @@ import { api } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/format";
 import { absoluteUrl } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
+import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
@@ -120,6 +121,14 @@ export default async function HomePage() {
     ),
   ]);
 
+  // Indian shoppers today — deals that make sense for that audience only.
+  // The excluded set lives in lib/homepage-curation.ts; this section filters every
+  // offer pool the homepage will render.
+  const relevantStoreIds = new Set(
+    stores.items.filter((s) => isHomepageIndiaRelevant(s.slug)).map((s) => s.id),
+  );
+  const isHomepageRelevant = (coupon: CouponPublic) => relevantStoreIds.has(coupon.store_id);
+
   // The store list is a lookup table for card badges (every card needs its store); the
   // stores rail only shows the first dozen.
   // Real per-category offer counts for the redesign's category tiles. Only
@@ -164,8 +173,8 @@ export default async function HomePage() {
     return picked;
   };
 
-  const spotlight = take(coupons.items, 1);
-  const recentlyVerifiedItems = take(recentlyVerified.items, 8);
+  const spotlight = take(coupons.items.filter(isHomepageRelevant), 1);
+  const recentlyVerifiedItems = take(recentlyVerified.items.filter(isHomepageRelevant), 8);
   // Tab pools for the unified Verified Deals Explorer. The shared `shown` set
   // keeps every offer unique across the page: nothing that landed in the hero
   // or an earlier tab reappears in a later one.
@@ -181,7 +190,7 @@ export default async function HomePage() {
   };
   const backfill = (picked: CouponPublic[]): CouponPublic[] => {
     const extra: CouponPublic[] = [];
-    for (const item of coupons.items) {
+    for (const item of coupons.items.filter(isHomepageRelevant)) {
       if (picked.length + extra.length >= 6) break;
       if (shown.has(item.id)) continue;
       shown.add(item.id);
@@ -190,12 +199,12 @@ export default async function HomePage() {
     return [...picked, ...extra];
   };
   const explorerTabs = {
-    top: backfill(fill(coupons.items)),
-    codes: backfill(fill(bestCoupons.items)),
-    deals: backfill(fill(latestDeals.items)),
-    newest: backfill(fill(newest.items)),
+    top: backfill(fill(coupons.items.filter(isHomepageRelevant))),
+    codes: backfill(fill(bestCoupons.items.filter(isHomepageRelevant))),
+    deals: backfill(fill(latestDeals.items.filter(isHomepageRelevant))),
+    newest: backfill(fill(newest.items.filter(isHomepageRelevant))),
   };
-  const activityDeals = explorerTabs.deals;
+  const activityDeals = explorerTabs.deals; // already relevant
 
   // The activity tape under the hero is built only from rows already on this
   // page (confirmations, the steepest percentages, the newest deals) — a line
