@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl } from "@/lib/seo";
 import { resilient } from "@/lib/api";
 import { categoryLabel } from "@/lib/catalog";
 import PageTitle from "@/components/ui/PageTitle";
 import CategoryIcon from "@/components/CategoryIcon";
-import { absoluteUrl } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -26,7 +27,34 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CategoriesIndexPage() {
   const { items } = await resilient.listCategories({ limit: 100, live_only: true });
-  return (
+      const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+            { "@type": "ListItem", position: 2, name: "Categories", item: absoluteUrl("/categories") },
+          ],
+        },
+        {
+          "@type": "ItemList",
+          name: "Coupon categories",
+          itemListOrder: "https://schema.org/ItemListOrderAscending",
+          numberOfItems: items.length,
+          itemListElement: items.slice(0, 24).map((cat, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: cat.name,
+            url: absoluteUrl(`/categories/${cat.slug}`),
+          })),
+        },
+      ],
+    };
+    return (
+      <>
+        <JsonLd data={jsonLd} />
+
     <div className="mx-auto max-w-6xl px-6 py-12">
       <PageTitle className="mb-8">Categories</PageTitle>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -47,5 +75,6 @@ export default async function CategoriesIndexPage() {
         ))}
       </div>
     </div>
+      </>
   );
 }

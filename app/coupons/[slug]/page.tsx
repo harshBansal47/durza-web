@@ -124,6 +124,23 @@
 
     // schema.org structured data
     const rating = aggregateRatingJsonLd(coupon.success_count, coupon.fail_count);
+    // Schema.org expects an Offer to carry a price; without it Google drops rich
+    // snippets. Emit the flat/percent value as a PriceSpecification when we have it and
+    // currency INR. JS-less tests that screenshot the page still work — it's just JSON-LD.
+    const priceUnderstood =
+      coupon.discount_type === "fixed" && typeof coupon.discount_value === "number"
+        ? {
+            priceCurrency: "INR",
+            price: String(coupon.discount_value),
+            valueAddedTaxIncluded: false,
+          }
+        : coupon.discount_type === "percentage" && typeof coupon.discount_value === "number"
+          ? {
+              priceCurrency: "INR",
+              price: String(coupon.discount_value),
+              valueAddedTaxIncluded: false,
+            }
+          : undefined;
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Offer",
@@ -132,8 +149,16 @@
       url: absoluteUrl(`/coupons/${coupon.slug}`),
       availability: coupon.is_active ? "https://schema.org/InStock" : "https://schema.org/Discontinued",
       ...(coupon.expires_at ? { validThrough: coupon.expires_at } : {}),
+      ...(priceUnderstood ? { priceSpecification: { "@type": "PriceSpecification", ...priceUnderstood } } : {}),
       ...(store
-        ? { seller: { "@type": "Organization", name: store.name, url: store.website_url ?? undefined } }
+        ? {
+            seller: {
+              "@type": "Organization",
+              name: store.name,
+              url: store.website_url ?? undefined,
+              logo: storeLogo ? { "@type": "ImageObject", url: storeLogo } : undefined,
+            },
+          }
         : {}),
       ...(coupon.code ? { discountCode: coupon.code } : {}),
       ...(rating ? { aggregateRating: rating } : {}),
