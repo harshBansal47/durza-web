@@ -32,7 +32,7 @@ function columns(hasComparisons: boolean) {
     {
       title: "Popular categories",
       links: [
-        { href: "/categories/flights", label: "Flight coupons" },
+        { href: "/categories/travel", label: "Travel deals" },
         { href: "/categories/fashion", label: "Fashion deals" },
         { href: "/categories/electronics", label: "Electronics" },
         { href: "/categories/software", label: "Software" },
