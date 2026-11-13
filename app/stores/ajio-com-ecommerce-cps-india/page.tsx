@@ -33,7 +33,15 @@ export const revalidate = 300;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("ajio-com-ecommerce-cps-india", { skip: 0, limit: 50 });
-  const offers: CouponPublic[] = destination ? destination.coupons : [];
+  const all = [...(destination?.coupons ?? []), ...(destination?.deals ?? [])];
+  const seen = new Set<string>();
+  const offers: CouponPublic[] = [];
+  for (const c of all) {
+    if (seen.has(c.id)) continue;
+    seen.add(c.id);
+    offers.push(c);
+  }
+  offers.sort((a, b) => (a.code ? 0 : 1) - (b.code ? 0 : 1));
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
