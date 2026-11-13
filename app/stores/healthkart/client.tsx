@@ -182,7 +182,7 @@ export default function HealthKartPage({
           <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" strokeWidth={2} /><span><span className="font-semibold text-ink">Expired</span> — never shown as active. If a code fails, the card will tell you the newest verified option.</span></li>
         </ul>
         <p className="mt-3 border-t border-slate-100 pt-3 text-[11px] text-ink-soft">
-          Durza re-checks offers regularly — see the verification strip above the coupons. Report a code that fails and we&apos;ll re-check it.
+          Durza re-checks offers regularly — when a code has been tested recently, the verification strip appears above the coupons. Report a code that fails and we&apos;ll re-check it.
         </p>
       </section>
 

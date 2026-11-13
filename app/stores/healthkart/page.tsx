@@ -8,7 +8,7 @@ import { resilient } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
-const title = "HealthKart Coupons & Offers – Extra Savings on Supplements | Durza";
+const title = "HealthKart Coupons & Offers – Extra Savings on Supplements";
 const description =
   "Latest verified HealthKart promo codes, HK Cash and UPI offers. Save on protein, creatine, vitamins and supplements — free shipping above ₹499.";
 const canonical = "/stores/healthkart";
