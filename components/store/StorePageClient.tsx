@@ -17,6 +17,8 @@ import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
+import HowToApply from "@/components/store/HowToApply";
+import { ArrowUpRight } from "lucide-react";
 
 interface StorePageClientProps {
   store: Store;
@@ -54,6 +56,7 @@ export default function StorePageClient({
   productCategoriesLoadFailed = false,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
+  const topCoupon = Object.values(tabs).flatMap((tab) => tab.items).find((coupon) => coupon.code) ?? null;
   const websiteHost = hostnameOf(store.website_url);
   const website = Boolean(websiteHost);
   const hasVotes = stats.totalReports > 0;
@@ -116,7 +119,7 @@ export default function StorePageClient({
   );
 
   return (
-    <div className="space-y-10 sm:space-y-14">
+    <div className="space-y-10 pb-24 sm:space-y-14 md:pb-0">
       <RecordView storeSlug={store.slug} />
       <StoreHero
         name={store.name}
@@ -138,6 +141,8 @@ export default function StorePageClient({
         collections={productCollections}
         categoriesLoadFailed={productCategoriesLoadFailed}
       />
+
+      <HowToApply storeName={store.name} />
 
       <section aria-labelledby="store-coupons-heading">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
@@ -355,6 +360,27 @@ export default function StorePageClient({
         </Link>{" "}
         and save the offers you want to revisit.
       </p>
+
+      {topCoupon && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+          <a
+            href={api.goUrl(topCoupon.id, "store-page")}
+            rel="nofollow sponsored noopener noreferrer"
+            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+          >
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Code {topCoupon.code}
+              </span>
+              <span className="block truncate text-xs font-semibold">{topCoupon.title}</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+              Shop
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 }
