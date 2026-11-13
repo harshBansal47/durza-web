@@ -166,7 +166,7 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
     }));
   }
   const categories = await fetchBatch(
-    (s, l) => api.listCategories({ skip: s, limit: l }),
+    (s, l) => api.listCategories({ skip: s, limit: l, live_only: true }),
     skip,
     SITEMAP_CHUNK_SIZE,
   );

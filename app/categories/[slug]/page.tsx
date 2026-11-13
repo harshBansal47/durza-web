@@ -51,6 +51,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title,
     description,
     alternates: { canonical },
+    // Empty categories are thin pages — keep them out of the index until they carry offers.
+    ...(total > 0 ? {} : { robots: { index: false, follow: true } }),
     openGraph: { title, description, url: canonical, type: "website" },
     twitter: { card: "summary_large_image", title, description },
   };
