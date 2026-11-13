@@ -74,7 +74,7 @@
         ? "coupon code"
         : "offer";
     const amountKeyword = discount !== "Deal"
-      ? discount.replace(/\s+/g, " ").replace(/[^0-9a-zA-Z₹+%-]/g, "")
+      ? discount.replace(/\s+/g, " ").replace(/[^\w₹+%\- ]/g, "").trim()
       : null;
     // Keyword-packed SERP title — the query shoppers type verbatim.
     const now = new Date();
