@@ -6,7 +6,9 @@
  * the click came from:
  *
  *   src          — the page / placement the click fired from (e.g. "homepage")
- *   content_ref  — a compact triple of `page|placement|couponShortId`
+ *   content_ref  — a compact, backend-safe id; the redirect whitelist is
+ *                  `[a-z0-9:_-]{1,80}`, so the separator is ":" and every
+ *                  segment is lowercased and stripped of anything else.
  *
  * `content_ref` is constructed on every click automatically, so nothing
  * leaves the site untracked. `src` always travels too; legacy callers that
@@ -15,18 +17,23 @@
 
 const COUPON_ID_LENGTH = 12;
 
-const shortCouponId = (id: string): string => id.replace(/-/g, "").slice(0, COUPON_ID_LENGTH);
+/** Backend-safe segment: lowercase letters/digits + `_` and `-`, max 20. */
+export const cleanSegment = (s: string): string =>
+  s.toLowerCase().replace(/[^a-z0-9_-]/g, "_").replace(/_+/g, "_").replace(/^_+|_+$/g, "").slice(0, 20);
 
-/** Builds the content_ref for a click on this page. Kept short and pipe-separated. */
+const shortCouponId = (id: string): string =>
+  id.replace(/-/g, "").slice(0, COUPON_ID_LENGTH).replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+
+/** Builds the content_ref for a click on this page — always backend-safe. */
 export function buildContentRef(
   page: string,
   placement: string | undefined,
   couponId: string,
   utmSource?: string | null,
 ): string {
-  const parts = [page, placement ?? "", shortCouponId(couponId)];
-  if (utmSource) parts.push(utmSource.slice(0, 20));
-  return parts.filter((part) => part.length > 0).join("|").slice(0, 78);
+  const parts = [cleanSegment(page), placement ? cleanSegment(placement) : "", shortCouponId(couponId)];
+  if (utmSource) parts.push(cleanSegment(utmSource));
+  return parts.filter((part) => part.length > 0).join(":").slice(0, 78);
 }
 
 /**
