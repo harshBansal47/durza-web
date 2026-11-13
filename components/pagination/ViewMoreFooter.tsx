@@ -16,6 +16,7 @@ export default function ViewMoreFooter({
   noun,
   href,
   suppressAction = false,
+  errorMessage,
 }: {
   loaded: number;
   total: number;
@@ -33,6 +34,8 @@ export default function ViewMoreFooter({
   href?: string;
   /** Hide the action entirely (useful when server-side filtering is unresolved). */
   suppressAction?: boolean;
+  /** Override the generic connection-error line (e.g. "Couldn't load more deals…"). */
+  errorMessage?: string;
 }) {
   const hasMore = loaded < total;
   const pct = total > 0 ? Math.round((loaded / total) * 100) : 100;
@@ -98,7 +101,7 @@ export default function ViewMoreFooter({
 
       {error && (
         <p role="alert" className="text-xs text-rust">
-          Couldn&apos;t load more — check your connection and try again.
+          {errorMessage ?? "Couldn't load more — check your connection and try again."}
         </p>
       )}
     </div>

@@ -95,6 +95,7 @@ export default function LoadMoreDeals({
           noun="deals"
           href={nextHref}
           suppressAction={facets.unresolved}
+          errorMessage="Couldn't load more deals. Check your connection and try again."
         />
       </div>
     </div>

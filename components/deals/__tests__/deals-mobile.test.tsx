@@ -206,7 +206,7 @@ describe("LoadMoreDeals", () => {
     expect(await screen.findByText("Second page deal")).toBeInTheDocument();
     expect(listCoupons).toHaveBeenCalledTimes(1);
     expect(listCoupons.mock.calls[0][0]).toMatchObject({ skip: 1, limit: 20 });
-    expect(screen.getByText(/That's all 2 deals for this view/)).toBeInTheDocument();
+    expect(screen.getByText(/That's all 2 deals\./)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "View More" })).not.toBeInTheDocument();
   });
 
