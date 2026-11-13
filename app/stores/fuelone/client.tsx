@@ -7,8 +7,7 @@ import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
-import Image from "next/image";
-import Link from "next/link";
+import ProductDealRouter from "@/components/store/ProductDealRouter";
 import { ArrowUpRight } from "lucide-react";
 
 interface Props {
@@ -24,7 +23,6 @@ interface Props {
 export default function FuelOneStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [active, setActive] = useState(tabs[0] ?? "");
-  const filtered = products.filter((p) => p.tab === active);
 
   const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
@@ -48,42 +46,18 @@ export default function FuelOneStorePage({ offers, products, faqs, stats, heroIm
       <AffiliateDisclosure />
 
 
-      {/* Category badges */}
-      <div className="mt-8 flex flex-wrap gap-2">
-        {tabs.map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => setActive(cat)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-              active === cat ? "bg-accent text-white" : "bg-gray-100 text-ink-soft hover:bg-gray-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* Products */}
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((p) => (
-          <div key={p.name} className="overflow-hidden rounded-2xl border border-ledger-line bg-white shadow-sm">
-            <Image src={p.image ?? "/stores/fuelone.webp"} alt={p.name} width={400} height={200} className="h-40 w-full object-contain bg-paper" />
-            <div className="p-4">
-              <h3 className="font-semibold text-ink">{p.name}</h3>
-              {p.variant && <p className="text-xs text-ink-soft">{p.variant}</p>}
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-lg font-bold text-ink">{p.price}</span>
-                <span className="text-sm text-ink-soft line-through">{p.mrp}</span>
-                <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">{p.discount}</span>
-              </div>
-              <Link href="/go/fuelone" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">
-                Buy now
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+      {products.length > 0 && (
+        <ProductDealRouter
+          title="Fuel One Deal Router"
+          offers={offers}
+          products={products}
+          tabs={tabs}
+          concern={active}
+          onConcern={setActive}
+          storeName="Fuel One"
+          columns={3}
+        />
+      )}
             <FaqSection eyebrow="Fuel One FAQs" items={faqs} />
 
 

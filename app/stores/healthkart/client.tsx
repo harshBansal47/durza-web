@@ -9,6 +9,7 @@ import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
+import ProductDealRouter from "@/components/store/ProductDealRouter";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 
@@ -39,7 +40,6 @@ export default function HealthKartPage({
 }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [goal, setGoal] = useState(tabs[0] ?? "");
-  const filtered = products.filter((p) => p.tab === goal);
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
   const topOffer = offers[0] ?? null;
@@ -97,57 +97,18 @@ export default function HealthKartPage({
       {/* 4 · How to use the codes — the exact steps */}
       <HowToApply storeName="HealthKart" />
 
-      {/* 5 · Popular products from the live catalogue */}
+      {/* 5 · Flash deal router — use-case collections from live catalogue */}
       {products.length > 0 && (
-        <section aria-labelledby="popular-products">
-          <h2 id="popular-products" className="text-xl font-bold text-ink">
-            Popular supplements at HealthKart
-          </h2>
-          <p className="mt-1 text-sm text-ink-soft">Prices shown are those listed on HealthKart right now — always double-check at checkout.</p>
-          {tabs.length > 1 && (
-            <div className="mt-3 flex flex-wrap gap-2" role="tablist" aria-label="Shop by goal">
-              {tabs.map((t) => (
-                <button
-                  key={t}
-                  role="tab"
-                  aria-selected={goal === t}
-                  type="button"
-                  onClick={() => setGoal(t)}
-                  className={`min-h-11 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    goal === t ? "bg-ink text-white" : "bg-white text-ink-soft ring-1 ring-ledger-line hover:text-ink"
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          )}
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {filtered.map((p) => (
-              <div
-                key={`${p.name}-${p.price}`}
-                className="flex flex-col rounded-2xl border border-ledger-line bg-white p-4"
-              >
-                <h3 className="text-sm font-semibold leading-5 text-ink">{p.name}</h3>
-                <p className="mt-1 line-clamp-2 text-xs leading-4 text-ink-soft">{p.specs}</p>
-                <div className="mt-2 flex items-baseline gap-2">
-                  <span className="text-lg font-bold text-ink">{p.price}</span>
-                  {p.mrp && <span className="text-xs text-ink-soft line-through">{p.mrp}</span>}
-                </div>
-                <p className="mt-0.5 text-[11px] font-medium text-emerald-800">{p.discount}</p>
-                <a
-                  href={link(p.targetUrl, p.subId)}
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                  className="mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-xl bg-ink px-4 py-2 text-center text-xs font-semibold text-white transition-colors hover:bg-slate-800"
-                >
-                  Get Deal on HealthKart
-                  <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
+        <ProductDealRouter
+          title="Popular supplements at HealthKart"
+          offers={offers}
+          products={products}
+          tabs={tabs}
+          concern={goal}
+          onConcern={setGoal}
+          storeName="HealthKart"
+          columns={4}
+        />
       )}
 
       {/* 6 · Buy safely — HealthKart-specific guidance */}

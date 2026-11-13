@@ -11,6 +11,7 @@ import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 import { ArrowUpRight } from "lucide-react";
+import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("milton", url, sub);
 const NEEDS = [
   { id: "hot", label: "Need 24H Boiling Hot Tea/Coffee?", result: "Vacuum Thermosteel (Flip Lid 1000ml)", detail: "A double-walled vacuum flask keeps tea, coffee or dal at boiling temperature for up to 24 hours. Pre-heat with hot water for 5 minutes first.", note: "₹849 • 25% OFF + extra 10% with MILTON10", url: "https://www.milton.in/collections/thermosteel-flasks", sub: "need_hot" },
@@ -31,7 +32,6 @@ export default function MiltonClient({ offers, products, faqs, stats, heroImageU
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [need, setNeed] = useState(NEEDS[0]);
-  const filtered = products.filter((p) => p.tab === concern);
   const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
@@ -95,24 +95,16 @@ export default function MiltonClient({ offers, products, faqs, stats, heroImageU
       />
       <HowToApply storeName="Milton India" />
 
-      <div>
-        <h2 className="text-xl font-bold text-ink">Daily Carry &amp; Insulation Hours Matcher</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tabs.map((c) => (
-            <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {filtered.map((p) => (
-            <div key={p.name} className="rounded-2xl border border-ledger-line bg-white p-4">
-              <h3 className="font-semibold text-ink">{p.name}</h3>
-              <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
-              <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on Milton</a>
-            </div>
-          ))}
-        </div>
-      </div>
+            <ProductDealRouter
+        title="Daily Carry &amp; Insulation Hours Matcher"
+        offers={offers}
+        products={products}
+        tabs={tabs}
+        concern={concern}
+        onConcern={setConcern}
+        storeName="milton"
+        columns={2}
+      />
 
             <FaqSection eyebrow="Milton India FAQs" items={faqs} />
 

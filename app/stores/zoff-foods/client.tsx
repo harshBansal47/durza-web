@@ -11,6 +11,7 @@ import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 import { ArrowUpRight } from "lucide-react";
+import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("zoff-foods", url, sub);
 const RESTOCK_ITEMS = [
   { id: "masala", label: "Essential Masala Combo (₹499)", amount: 499 },
@@ -35,7 +36,6 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(GRINDING[1]);
   const [restock, setRestock] = useState<string[]>(["masala", "almonds"]);
-  const filtered = products.filter((p) => p.tab === concern);
   const subtotal = RESTOCK_ITEMS.filter((r) => restock.includes(r.id)).reduce((s, r) => s + r.amount, 0);
   const pantry20 = Math.round(subtotal * 0.2);
   const upi = Math.round((subtotal - pantry20) * 0.05);
@@ -118,24 +118,16 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
       />
       <HowToApply storeName="ZOFF Foods" />
 
-      <div>
-        <h2 className="text-xl font-bold text-ink">Cool-Ground Spice &amp; Pantry Matcher</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tabs.map((c) => (
-            <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {filtered.map((p) => (
-            <div key={p.name} className="rounded-2xl border border-ledger-line bg-white p-4">
-              <h3 className="font-semibold text-ink">{p.name}</h3>
-              <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
-              <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on ZOFF</a>
-            </div>
-          ))}
-        </div>
-      </div>
+            <ProductDealRouter
+        title="Cool-Ground Spice &amp; Pantry Matcher"
+        offers={offers}
+        products={products}
+        tabs={tabs}
+        concern={concern}
+        onConcern={setConcern}
+        storeName="zoff-foods"
+        columns={2}
+      />
 
             <FaqSection eyebrow="ZOFF Foods FAQs" items={faqs} />
 

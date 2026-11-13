@@ -11,6 +11,7 @@ import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 import { ArrowUpRight } from "lucide-react";
+import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("the-bear-house", url, sub);
 const BUNDLE = { shirt: 1399, chino: 1699, code: 500, upiRate: 0.05 };
 interface Props {
@@ -27,7 +28,6 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [qty, setQty] = useState({ shirt: true, chino: true });
-  const filtered = products.filter((p) => p.tab === concern);
   const subtotal = (qty.shirt ? BUNDLE.shirt : 0) + (qty.chino ? BUNDLE.chino : 0);
   const bundleOff = subtotal >= 2999 ? BUNDLE.code : 0;
   const upiOff = Math.round((subtotal - bundleOff) * BUNDLE.upiRate);
@@ -96,24 +96,16 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
       />
       <HowToApply storeName="The Bear House" />
 
-      <div>
-        <h2 className="text-xl font-bold text-ink">Menswear Fabric &amp; Occasion Matcher</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tabs.map((c) => (
-            <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {filtered.map((p) => (
-            <div key={p.name} className="rounded-2xl border border-ledger-line bg-white p-4">
-              <h3 className="font-semibold text-ink">{p.name}</h3>
-              <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
-              <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Shop on The Bear House</a>
-            </div>
-          ))}
-        </div>
-      </div>
+            <ProductDealRouter
+        title="Menswear Fabric &amp; Occasion Matcher"
+        offers={offers}
+        products={products}
+        tabs={tabs}
+        concern={concern}
+        onConcern={setConcern}
+        storeName="the-bear-house"
+        columns={2}
+      />
 
             <FaqSection eyebrow="The Bear House FAQs" items={faqs} />
 

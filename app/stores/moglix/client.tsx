@@ -11,6 +11,7 @@ import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 import { ArrowUpRight } from "lucide-react";
+import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("moglix", url, sub);
 const BUYERS = [
   { id: "retail", label: "Retail Buyer (Home DIY)", lines: [["High-Pressure Washer", "₹4,299"], ["TOOLS250 coupon", "− ₹250"], ["Effective price", "₹4,049"]], note: "Plus extra 5% instant off on prepaid UPI/card checkout." },
@@ -30,7 +31,6 @@ export default function MoglixClient({ offers, products, faqs, stats, heroImageU
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [buyer, setBuyer] = useState(BUYERS[0]);
-  const filtered = products.filter((p) => p.tab === concern);
   const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
@@ -100,24 +100,16 @@ export default function MoglixClient({ offers, products, faqs, stats, heroImageU
       />
       <HowToApply storeName="Moglix" />
 
-      <div>
-        <h2 className="text-xl font-bold text-ink">Home DIY &amp; Industrial Equipment Matcher</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tabs.map((c) => (
-            <button key={c} type="button" onClick={() => setConcern(c)} className={`rounded-full px-4 py-2 text-sm font-medium ${concern === c ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c}</button>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {filtered.map((p) => (
-            <div key={p.name} className="rounded-2xl border border-ledger-line bg-white p-4">
-              <h3 className="font-semibold text-ink">{p.name}</h3>
-              <p className="mt-1 text-xs text-ink-soft">{p.specs}</p>
-              <div className="mt-2 flex items-baseline gap-2"><span className="text-lg font-bold text-ink">{p.price}</span><span className="text-sm text-ink-soft line-through">{p.mrp}</span></div>
-              <a href={link(p.targetUrl, p.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block w-full rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-white">Get Deal on Moglix</a>
-            </div>
-          ))}
-        </div>
-      </div>
+            <ProductDealRouter
+        title="Home DIY &amp; Industrial Equipment Matcher"
+        offers={offers}
+        products={products}
+        tabs={tabs}
+        concern={concern}
+        onConcern={setConcern}
+        storeName="moglix"
+        columns={2}
+      />
 
             <FaqSection eyebrow="Moglix FAQs" items={faqs} />
 
