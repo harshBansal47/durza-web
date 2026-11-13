@@ -11,6 +11,8 @@ export interface StoreHeroPerk {
 export interface StoreHeroProps {
   /** Display name rendered in the H1, e.g. "Kapiva Ayurveda". */
   name: string;
+  /** Full H1 override — e.g. "HealthKart Coupons & Offers". Defaults to "{name} Coupons, Deals & Smart Savings". */
+  heading?: string;
   /** Advertiser domain for the pill, e.g. "kapiva.in". Falls back to hidden. */
   domain?: string | null;
   /** One-line value proposition under the title. */
@@ -64,6 +66,7 @@ export function deriveStoreHeroPerks(offers: StoreOfferCard[] | undefined): [Sto
  */
 export default function StoreHero({
   name,
+  heading,
   domain,
   subtitle,
   heroImageUrl,
@@ -101,7 +104,7 @@ export default function StoreHero({
           {/* Title + trust signals */}
           <div className="min-w-0 flex-1">
             <h1 className="font-sans text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-              {name} Coupons, Deals &amp; Smart Savings
+              {heading ?? `${name} Coupons, Deals & Smart Savings`}
             </h1>
             <p className="mt-1 max-w-2xl text-sm text-slate-600 md:text-base">{subtitle}</p>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-medium">
