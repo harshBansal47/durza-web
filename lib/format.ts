@@ -1,4 +1,5 @@
 import type { CouponPublic } from "./types";
+import { percentageOffFromRestrictions } from "./discount";
 
 /**
  * Pull the overall maximum discount out of the store's stated terms, when the
@@ -39,6 +40,10 @@ export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
     const core = `${formatMoney(coupon.discount_value, currency)} off`;
     return variable ? `Up to ${core}` : core;
   }
+  // Some deals carry no structured discount — but the store does list both a
+  // reduced price and an MRP, so we can state the saving accurately.
+  const computed = percentageOffFromRestrictions(coupon);
+  if (computed !== null && computed > 0) return `${computed}% off`;
   return "";
 }
 
