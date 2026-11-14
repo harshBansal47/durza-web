@@ -28,6 +28,6 @@ export const BRAND_SHORT_NAME = "Durza";
 export const BRAND_TITLE_SUFFIX = "Durza";
 export const TITLE_TEMPLATE = `%s | ${BRAND_TITLE_SUFFIX}`;
 
-export const SITE_TITLE = "Durza Coupons India - Verified Coupons & Offers";
+export const SITE_TITLE = "Durza Coupons India - Coupon Codes & Deals";
 export const SITE_DESCRIPTION =
   "Discover online deals, coupon codes, shopping offers and product comparisons on Durza. Find useful ways to save before you buy.";

@@ -1,6 +1,19 @@
+import Image from "next/image";
 import Link from "next/link";
 import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import { staticGuideForStore } from "@/data/store-guides";
+import { LOCAL_STORE_LOGOS, ADMITAD_PROGRAM_LOGOS } from "@/lib/storeLogos";
+
+/** Local curated icon first, then the Admitad icon for the store's program, else null (monogram). */
+function tileLogo(slug: string): string | null {
+  return LOCAL_STORE_LOGOS[slug] ?? ADMITAD_PROGRAM_LOGOS[slug] ?? null;
+}
+
+function monogram(name: string): string {
+  const words = name.trim().split(/\s+/).filter(Boolean);
+  const letters = words.length === 1 ? words[0].slice(0, 2) : words[0][0] + words[words.length - 1][0];
+  return letters.toUpperCase();
+}
 
 interface RelatedStore {
   slug: string;
@@ -269,20 +282,36 @@ export default function RelatedGuides({ slug }: { slug: string }) {
             More Durza store hubs in the same shelf — built by the same editors.
           </p>
           <ul className="mt-4 flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-3">
-            {items.map((item) => (
-          <li key={item.slug} className="w-52 shrink-0 sm:w-auto">
-            <Link
-              href={`/stores/${item.slug}`}
-              className="block h-full rounded-2xl border border-ledger-line bg-white p-4 transition hover:border-inkblue hover:shadow-sm"
-            >
-              <p className="font-semibold text-ink">{item.name}</p>
-              <p className="mt-1 text-xs text-ink-soft">{item.hook}</p>
-              <span className="mt-3 inline-block text-xs font-medium text-accent">
-                Visit store →
-              </span>
-            </Link>
-          </li>
-        ))}
+            {items.map((item) => {
+              const logo = tileLogo(item.slug);
+              return (
+                <li key={item.slug} className="w-52 shrink-0 sm:w-auto">
+                  <Link
+                    href={`/stores/${item.slug}`}
+                    className="block h-full rounded-2xl border border-ledger-line bg-white p-4 transition hover:border-inkblue hover:shadow-sm"
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-ledger-line bg-paper text-xs font-bold text-ink-soft">
+                      {logo ? (
+                        <Image
+                          src={logo}
+                          alt={`${item.name} logo`}
+                          width={40}
+                          height={40}
+                          className="h-10 w-10 rounded-full object-cover"
+                        />
+                      ) : (
+                        monogram(item.name)
+                      )}
+                    </span>
+                    <p className="mt-3 font-semibold text-ink">{item.name}</p>
+                    <p className="mt-1 text-xs text-ink-soft">{item.hook}</p>
+                    <span className="mt-3 inline-block text-xs font-medium text-accent">
+                      Visit store →
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </>
       ) : null}

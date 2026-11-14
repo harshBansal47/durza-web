@@ -30,7 +30,7 @@ describe("persuasion primitives", () => {
   });
 
   it("trustCopy uses honest low-data copy", () => {
-    expect(trustCopy("verified", 12)).toBe("Verified working by 12 Durza users recently");
+    expect(trustCopy("verified", 12)).toBe("12 shopper reports said it worked recently");
     expect(trustCopy("low-data", 2)).toBe("No votes yet from enough shoppers");
     expect(trustCopy("no-data", 0)).toBe("Fresh — be the first to try");
   });

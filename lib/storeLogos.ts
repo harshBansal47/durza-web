@@ -49,6 +49,37 @@ export const STORE_ACCENTS: Record<string, string> = {
   zomato: "#cc202e",
 };
 
+/**
+ * Admitad-connected program icons fetched from the network (verified-active
+ * programs only — see backend `affiliate_campaigns`). Kept separate from
+ * LOCAL_STORE_LOGOS so the "all locally-mapped icons are /stores/{slug}.png"
+ * contract stays true.
+ */
+export const ADMITAD_PROGRAM_LOGOS: Record<string, string> = {
+  "palmonas": "/stores/palmonas.webp",
+  "firstcry": "/stores/firstcry.jpg",
+  "milton-in": "/stores/milton-in.webp",
+  "adidas": "/stores/adidas.webp",
+  "bewakoof": "/stores/bewakoof.webp",
+  "acer": "/stores/acer.png",
+  "asus": "/stores/asus.webp",
+  "lenovo-india": "/stores/lenovo-india.png",
+  "victorias-secret": "/stores/victorias-secret.webp",
+  "salty": "/stores/salty.webp",
+  "veromoda": "/stores/veromoda.webp",
+  "aldo-new": "/stores/aldo-new.webp",
+  "digihaat": "/stores/digihaat.webp",
+  "charles-keith": "/stores/charles-keith.webp",
+  "bliss-club": "/stores/bliss-club.webp",
+  "bath-body-works": "/stores/bath-body-works.webp",
+};
+
+/** The admitad icon for a slug, when one exists in public/stores/. */
+export function admitadLogoForSlug(slug?: string | null): string | null {
+  if (!slug) return null;
+  return ADMITAD_PROGRAM_LOGOS[slug] ?? null;
+}
+
 const WEBSITE_HOST_PREFIXES = ["www", "store", "shop", "m", "mobile"];
 
 function faviconDomain(hostname: string): string {

@@ -12,7 +12,7 @@ export const copy = {
   status: {
     noVotes: "No votes yet",
     lowData: "No votes yet from enough shoppers",
-    verified: (reports: number) => `Verified working by ${reports} Durza users recently`,
+    verified: (reports: number) => `${reports} shopper reports said it worked recently`,
     checked: (date: string) => `Checked ${date}`,
     expires: (date: string) => `Expires ${date}`,
     endsToday: "Ends today",
@@ -71,5 +71,5 @@ export const BANNED_URGENCY = [
 export const GLOSSARY_TERMS = [
   { term: "coupon", allowed: ["coupon", "offer", "deal"] },
   { term: "code", allowed: ["code", "promo code"] },
-  { term: "verified", allowed: ["verified", "checked", "reports"] },
+  { term: "verified", allowed: ["checked", "reports"] },
 ] as const;
