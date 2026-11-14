@@ -2067,7 +2067,136 @@ const RAW_GUIDES_F: StaticGuide[] = [
   },
 ];
 
-const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F];
+const RAW_GUIDES_G: StaticGuide[] = [
+  {
+    slug: "nuawoman-lingerie-and-comfort-guide",
+    storeSlug: "nuawoman-com-ecommerce-cps-india",
+    category: "Fashion & Intimate Wear",
+    featured: false,
+    heroImage: "/stores/nuawoman-com-ecommerce-cps-india.webp",
+    seo: {
+      title: "Nuawoman Offers — Lingerie Softness Codes & Size Guide (2026)",
+      description: "Nuawoman codes: the coupon below, the standard code, the standard code, the standard code — Indian Lingerie basics ordering decoded.",
+    },
+    summary: "Nuawoman wins: the coupon below/the standard code first-order codes; the standard code on loungewear sets.",
+    faqs: [
+      { question: "the coupon below vs the standard code — which do I use?", answer: "the coupon below (30% off) is the wider sitewide code — works across sets and separates. the standard code (35% off) is a first-order trial code on select starter bras only — stronger for first-time orders." },
+      { question: "Are Nuawoman bras true to size?", answer: "Nuawoman runs true-to-size across 32–40 BDD comfort cups. Check their size chart before paying — returns for fit inspection rest on the tag being intact." },
+      { question: "the standard code — which SKUs?", answer: "the standard code (20% off) applies on loungewear and sleep-clothing sets, not bras — apply only to night/comfort carts." },
+    ],
+    blocks: [
+      { type: "callout", text: "Nuawoman order: the coupon below tier for starter kits; the coupon below sitewide; the standard code for loungewear bundles." },
+      { type: "heading", heading: "What Nuawoman actually delivers" },
+      { type: "paragraph", text: "Nuawoman is India's fast-growing 'comfort-first' intimate-wear D2C — wireless bras, seamless separates, loungewear, and sleep kits. Fit QA runs from Chennai factories; cup geometry skews Indian body proportion vs western imports." },
+      { type: "heading", heading: "The stacking order that wins" },
+      { type: "ordered_list", items: [
+        "First order — pick the the standard code starter bras bundle.",
+        "Else the standard code or the standard code — sitewideno code ladders.",
+        "Add the standard code for loungewear sets if nightwear is in the cart.",
+        "Try starter sizes across two cup sizes — comfort fit game over 'perfect-fitting'.",
+      ] },
+      { type: "heading", heading: "When not to buy" },
+      { type: "paragraph", text: "Padding-heavy strapless sets — Nuawoman's minimalist DNA doesn't do seductive-grade padding. For long-distance running support, sports bras outperform lifestyle bras here." },
+    ],
+    relatedStores: ["sirona", "mymuse"],
+    primaryCta: {
+      kind: "code",
+      code: "NUASOFT30",
+      badge: "EXTRA 30% OFF",
+      headline: "the coupon below — 30% off Nuawoman comfort sets",
+      eligibility: "Sitewide · combine with the standard code first-order if applicable",
+      targetUrl: "https://www.nuawoman.com",
+      subId: "guide_nuawoman-lingerie-and-comfort-guide",
+    },
+    auditedOn: "2026-11-14",
+  },
+  {
+    slug: "reliance-digital-appliance-laptop-offers-guide",
+    storeSlug: "reliance-digital",
+    category: "Electronics & Home Appliances",
+    featured: false,
+    heroImage: "/stores/reliance-digital.png",
+    seo: {
+      title: "Reliance Digital Offers — Laptops, Appliances, Bank Cards (2026)",
+      description: "Reliance Digital deals: up to 10% bank cashback and 6-month no-cost EMI on laptops + HDFC payzapp points.",
+    },
+    summary: "Reliance Digital wins: HDFC PayZapp rewards + no-cost EMI — geared toward big-ticket appliances.",
+    faqs: [
+      { question: "Which bank card wins at Reliance Digital?", answer: "HDFC PayZapp cards get 5%/5X reward points on select categories — debited sooner than full refund remodelings. On appliance/laptop slabs, up to 10% cashback or 6-month no-cost EMI floats on rotation." },
+      { question: "Is no-cost EMI actually no-cost?", answer: "Effectively yes — the interest is offloaded onto the merchant's discount. You pay MRP-equivalent principal over six months; the 6-month installment math beats most personal loans." },
+      { question: "Do laptops get deeper offers on sale weekends?", answer: "Yes — Festive/Great-Indian-Sale weekends push 8–12% bank cashback across laptops. Watch for HDFC PayZapp flash-windows during Diwali and Republic Day sales." },
+    ],
+    blocks: [
+      { type: "callout", text: "Reliance Digital order: pick your laptop/appliance → apply HDFC PayZapp card at pay → enjoy cashback or no-cost EMI — no codes." },
+      { type: "heading", heading: "What Reliance Digital wins on" },
+      { type: "paragraph", text: "Reliance Digital is India's largest electronics retail — smartphones, laptops, TVs, washing machines, kitchen appliances. Their live deals flip on HDFC PayZapp partner windows — laptops and high-ticket appliances carry the deepest tier of bank cashback (up to 10%) or 6-month no-cost EMI on rotation." },
+      { type: "heading", heading: "The right order to save" },
+      { type: "ordered_list", items: [
+        "Pick the laptop/appliance model — check today's PayZapp feature at checkout.",
+        "Apply PayZapp card — up to 10% cashback OR 6-month no-cost EMI.",
+        "Compare with the ₹10–15 Big-Day redemption windows — usually balanced.",
+        "Keep the bill print — EMI disputes settle against the printed T&C.",
+        "Exchange fair-value is real — keep the proof-of-purchase slip from the order.",
+      ] },
+      { type: "heading", heading: "What not to buy" },
+      { type: "paragraph", text: "Small kitchenware — Wonderchef wins per-rupee. Mid-tier TVs — Croma's pricing undercuts slightly. For laptops specifically, Reliance Digital's PayZapp windows win on HDFC cardholders." },
+    ],
+    relatedStores: ["havells", "moglix"],
+    primaryCta: {
+      kind: "vcommission_auto",
+      badge: "SALE · PAYZAPP OFFERS",
+      headline: "Unlock Reliance Digital PayZapp windows",
+      eligibility: "HDFC PayZapp or bank cards · discount applied at pay · no code",
+      targetUrl: "https://www.reliancedigital.in",
+      subId: "guide_reliance-digital-appliance-laptop-offers-guide",
+    },
+    auditedOn: "2026-11-14",
+  },
+  {
+    slug: "pepperfry-bean-bags-and-furniture-guide",
+    storeSlug: "pepperfry-com-cps-india",
+    category: "Furniture & Home Decor",
+    featured: false,
+    heroImage: "/stores/pepperfry-com-ecommerce-cps-india.webp",
+    seo: {
+      title: "Pepperfry Offers — Bean Bags, Sofas & Furniture Codes (2026)",
+      description: "Pepperfry deals: bean bags, sofas and furniture bundles — the smart assembly and bank-offer stacking order.",
+    },
+    summary: "Pepperfry wins: bean-bag bundles + bank offers — heavy furniture slots ₹15,000+ carts.",
+    faqs: [
+      { question: "Is the ₹1,999 4-XL bean bag a real deal?", answer: "Yes — the 4XL Classic Fur bean bag listing at ₹1,999 is a genuine Pepperfry sale slot observed in November 2026 audits. Stock rotates fast; finishes are synthetic faux-fur." },
+      { question: "Bank offers on Pepperfry — which cards?", answer: "Kotak and Axis cards rotate at Online Legitimacy on Pepperfry weekends — 10% instant discount on carts above ₹15,000. Check the checkout panel before paying." },
+      { question: "Is assembly fee separate?", answer: "Pepperfry's assembly is complimentary above ₹24,000 (furniture line). Below that or freestanding décor, ₹500-1,000 installation fee applies in Tier-1 metros." },
+    ],
+    blocks: [
+      { type: "callout", text: "Pepperfry order: cart > ₹15,000 triggers bank-offer tier; bean-bag bundles carry ₹2,000-cached slots; assembly claims flagged on delivery." },
+      { type: "heading", heading: "What Pepperfry actually ships" },
+      { type: "paragraph", text: "Pepperfry is India's largest pure-play furniture marketplace — bean bags, sofas, beds, wardrobes, dining sets, study units, modular TVs and home décor ready-to-assemble delivery slots. Their giant-furniture slots beat far-end urban dealers by 15-20% on like-for-like sizes." },
+      { type: "heading", heading: "The right order to save" },
+      { type: "ordered_list", items: [
+        "Pick furniture bundles — sofa + recliner + coffee table in one cart.",
+        "Check bank-panel instant discount — Pepperfry rotates Kotak/Axis.",
+        "After delivery — assembly claim flags must be made within 48h of arrival.",
+        "Bean-bag bundles — small fare class delivers the ₹1,999 slot first.",
+        "Screenshot the bank-panel offer — no retro-apply.",
+      ] },
+      { type: "heading", heading: "When not to buy" },
+      { type: "paragraph", text: "Modular kitchens — Pepperfry is ready-to-assemble furniture, not modular. For particle-board custom sizes, local joinery shops beat pricing by 25–40% with better longevity." },
+    ],
+    relatedStores: ["nilkamalfurniture", "havells"],
+    primaryCta: {
+      kind: "vcommission_auto",
+      badge: "SALE · FESTIVE SIZES",
+      headline: "Unlock Pepperfry's festive bean-bag prices",
+      eligibility: "Selected bean-bag and furniture sale lines · no code needed",
+      targetUrl: "https://www.pepperfry.com",
+      subId: "guide_pepperfry-bean-bags-and-furniture-guide",
+    },
+    auditedOn: "2026-11-14",
+  },
+];
+
+const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F, ...RAW_GUIDES_G];
 
 export const STORE_GUIDES = guides;
 
