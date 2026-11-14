@@ -18,7 +18,7 @@
   import { daysUntil, formatDiscount } from "@/lib/format";
   import { getRequirements, requirementLabels, sourceLine } from "@/lib/requirements";
   import Breadcrumbs from "@/components/Breadcrumbs";
-  import { absoluteUrl, aggregateRatingJsonLd, metaDescription } from "@/lib/seo";
+  import { absoluteUrl, metaDescription } from "@/lib/seo";
   import type { CouponPublic, Store } from "@/lib/types";
   import Image from "next/image";
   import VerifiedGauge from "@/components/VerifiedGauge";
@@ -123,7 +123,6 @@
     const description = htmlToText(coupon.description);
 
     // schema.org structured data
-    const rating = aggregateRatingJsonLd(coupon.success_count, coupon.fail_count);
     // Schema.org expects an Offer to carry a price; without it Google drops rich
     // snippets. Emit the flat/percent value as a PriceSpecification when we have it and
     // currency INR. JS-less tests that screenshot the page still work — it's just JSON-LD.
@@ -161,7 +160,6 @@
           }
         : {}),
       ...(coupon.code ? { discountCode: coupon.code } : {}),
-      ...(rating ? { aggregateRating: rating } : {}),
     };
 
     const crumbs = [
