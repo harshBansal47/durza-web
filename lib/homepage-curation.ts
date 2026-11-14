@@ -19,6 +19,7 @@ export const HOMEPAGE_EXCLUDED_STORE_SLUGS = new Set([
   "boggbag-com-ecommerce-cps-united-states", // US tote bags — audience outside India
   "tenxyou-com-ecommerce-cps-india", // origin/audience unclear; kept off the front
   "invideo", // video-editor SaaS for businesses — belongs on its own store page
+  "glasseslit", // US-only eyeglasses retailer, prices in USD — off-target for Indian shoppers
 ]);
 
 export function isHomepageIndiaRelevant(storeSlug: string | null | undefined): boolean {
