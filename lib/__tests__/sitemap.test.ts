@@ -252,13 +252,20 @@ describe("sitemap shards (D1)", () => {
     });
   });
 
-  it("keeps legacy sitemap shards available before the editorial API is deployed", async () => {
+  it("publishes the static guide catalogue even when the editorial API is not deployed", async () => {
+    // Pre-API contract used to require an empty guides shard ("never 404, never a
+    // stale placeholder"). The hand-authored static buying guides in
+    // data/store-guides.ts don't depend on the API, so they publish regardless —
+    // the shard stays 200 with only the static URLs.
     listEditorial.mockRejectedValue(new ApiError("Not found", 404));
 
     const response = await shardRequest("guides-0");
 
     expect(response.status).toBe(200);
-    expect(await response.text()).not.toContain("<loc>");
+    const body = await response.text();
+    expect(body).toContain("<loc>");
+    expect(body).toContain("/guides/");
+    expect(body).toContain("<priority>0.85</priority>");
   });
 
   it("surfaces API failures instead of publishing an empty shard", async () => {

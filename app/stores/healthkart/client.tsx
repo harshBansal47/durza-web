@@ -113,7 +113,7 @@ export default function HealthKartPage({
 
       {/* 6 · Buy safely — HealthKart-specific guidance */}
       <section aria-labelledby="buy-safely" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 id="buy-safely" className="text-lg font-bold text-ink">How to buy supplements safely in India</h2>
+        <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="buy-safely">How to buy supplements safely in India</h2>
         <ul className="mt-3 grid gap-2 text-sm text-ink-soft sm:grid-cols-2">
           {[
             "Check the FSSAI licence number on the pack — every legal supplement in India carries one.",
@@ -136,7 +136,7 @@ export default function HealthKartPage({
 
       {/* 7 · Trust & verification — what verified means */}
       <section aria-labelledby="trust-verified" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 id="trust-verified" className="text-lg font-bold text-ink">What “verified” means on this page</h2>
+        <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="trust-verified">What “verified” means on this page</h2>
         <ul className="mt-3 space-y-2 text-sm text-ink-soft">
           <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} /><span><span className="font-semibold text-ink">Verified</span> — the code was tested at checkout and worked during our most recent check.</span></li>
           <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" strokeWidth={2} /><span><span className="font-semibold text-ink">Pending / new</span> — newly added code, waiting to be checked. It may still work, just not confirmed yet.</span></li>

@@ -14,18 +14,19 @@ function formatDate(value?: string | null): string | null {
   return date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 }
 
-export default async function SaleEditionPage({ params }: { params: { series: string; edition: string } }) {
+export default async function SaleEditionPage({ params }: { params: Promise<{ series: string; edition: string }> }) {
   if (!SALE_HUBS_ENABLED) notFound();
-  const data = await api.getSaleEdition(params.series, params.edition);
+  const { series, edition } = await params;
+  const data = await api.getSaleEdition(series, edition);
   if (!data) notFound();
   const coupons: CouponPublic[] = (data.coupons ?? []) as CouponPublic[];
   const start = formatDate(data.start_at);
   const end = formatDate(data.end_at);
   return (
     <div>
-      <h1>{data.title ?? params.series}</h1>
+      <h1>{data.title ?? series}</h1>
       <p>
-        {params.series} {params.edition}
+        {series} {edition}
       </p>
       {start && end ? (
         <p>

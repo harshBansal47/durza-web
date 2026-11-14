@@ -15,9 +15,10 @@ function formatDate(value?: string | null): string | null {
   return date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 }
 
-export default async function SaleSeriesPage({ params }: { params: { series: string } }) {
+export default async function SaleSeriesPage({ params }: { params: Promise<{ series: string }> }) {
   if (!SALE_HUBS_ENABLED) notFound();
-  const data = await api.getSaleSeries(params.series);
+  const { series } = await params;
+  const data = await api.getSaleSeries(series);
   if (!data) notFound();
   const coupons: CouponPublic[] = (data.coupons ?? []) as CouponPublic[];
   const start = formatDate(data.start_at);

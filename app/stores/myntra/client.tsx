@@ -94,7 +94,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
       <HowToApply storeName={"Myntra"} />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 id="brand-guidance" className="text-lg font-bold text-ink">How to get the most from Myntra</h2>
+        <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="brand-guidance">How to get the most from Myntra</h2>
         <ul className="mt-3 grid gap-2 text-sm text-ink-soft sm:grid-cols-2">
           <li key="g0" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { editorialMetadata, renderEditorialPage } from "@/lib/editorial-pages";
+import { STORE_GUIDES } from "@/data/store-guides";
 
 export const revalidate = 300;
 
-// Without this export a dynamic route is rendered on every request and `revalidate` is ignored
-// for the page (it goes out `private, no-store`). Returning nothing keeps builds from needing
-// the API; pages are rendered on first request, then cached and refreshed. See stores/[slug].
+// DB-driven guides are rendered on first request and then cached/refreshed —
+// but the hand-authored store guides below are known at build time, so they
+// prerender for zero-request first hits. Any DB slug not listed here still
+// renders dynamically (dynamicParams defaults to true).
 export function generateStaticParams() {
-  return [];
+  return STORE_GUIDES.map((guide) => ({ slug: guide.slug }));
 }
+
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

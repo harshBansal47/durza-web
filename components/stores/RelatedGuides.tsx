@@ -1,4 +1,6 @@
 import Link from "next/link";
+import StoreGuideLink from "@/components/stores/StoreGuideLink";
+import { staticGuideForStore } from "@/data/store-guides";
 
 interface RelatedStore {
   slug: string;
@@ -256,15 +258,18 @@ const RELATED_GUIDES: Record<string, RelatedStore[]> = {
 
 export default function RelatedGuides({ slug }: { slug: string }) {
   const items = RELATED_GUIDES[slug];
-  if (!items?.length) return null;
+  if (!items?.length && !staticGuideForStore(slug)) return null;
   return (
     <section aria-label="Related stores" className="mx-auto max-w-6xl px-4 pb-10">
-      <h2 className="text-lg font-bold text-ink">Related Smart Store Guides</h2>
-      <p className="mt-1 text-sm text-ink-soft">
-        More Durza store hubs in the same shelf — built by the same editors.
-      </p>
-      <ul className="mt-4 flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-3">
-        {items.map((item) => (
+      <StoreGuideLink slug={slug} />
+      {items?.length ? (
+        <>
+          <h2 className="text-lg font-bold text-ink">Related Smart Store Guides</h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            More Durza store hubs in the same shelf — built by the same editors.
+          </p>
+          <ul className="mt-4 flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-3">
+            {items.map((item) => (
           <li key={item.slug} className="w-52 shrink-0 sm:w-auto">
             <Link
               href={`/stores/${item.slug}`}
@@ -278,7 +283,9 @@ export default function RelatedGuides({ slug }: { slug: string }) {
             </Link>
           </li>
         ))}
-      </ul>
+          </ul>
+        </>
+      ) : null}
     </section>
   );
 }

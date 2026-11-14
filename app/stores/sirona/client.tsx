@@ -51,7 +51,7 @@ export default function SironaClient({ offers, products, faqs, stats, heroImageU
       <AffiliateDisclosure />
 
 
-      <div id="cup-size-finder" className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6">
+      <div className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6" id="cup-size-finder">
         <h2 className="text-xl font-bold text-ink">2-Click Menstrual Cup Size Finder</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {SIZES.map((s) => (

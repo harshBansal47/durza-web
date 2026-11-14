@@ -96,7 +96,7 @@ export default function ProductDealRouter({
         : "grid gap-4 sm:grid-cols-2";
 
   return (
-    <section aria-labelledby="deal-router-heading" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
+    <section id="tool" aria-labelledby="deal-router-heading" className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="min-w-0">
           {eyebrow ? (

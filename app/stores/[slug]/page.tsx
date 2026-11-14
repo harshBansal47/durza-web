@@ -12,6 +12,7 @@ import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import JsonLd from "@/components/JsonLd";
+import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import type { StoreProductCollection } from "@/components/store/Storefront";
 
 // Pagination reads request-time searchParams, so the page itself cannot be ISR-cached.
@@ -275,6 +276,7 @@ export default async function StorePage({ params, searchParams }: Props) {
             </dl>
           </section>
         )}
+        <StoreGuideLink slug={store.slug} />
         {destination.related_content.length ? (
           <section className="mt-12" aria-label={`Buying content related to ${store.name}`}>
             <div className="mb-5">

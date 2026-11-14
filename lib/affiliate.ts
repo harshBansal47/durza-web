@@ -125,6 +125,31 @@ function campaignIdFor(brand: AffiliateBrand): string {
 }
 
 /**
+ * Amazon Associates — used for all Amazon.in outbound clicks from guides and
+ * deal cards. Endorsed as the canonical Amazon route, replacing any vCommission
+ * loop for Amazon. The tag never changes; the placement tag is `ascsubtag`.
+ *
+ * Works on product, search, deals or any Amazon.in URL — never a fake coupon
+ * code. Throws into a `tag=durza02-21` default if the env var is absent.
+ */
+export function getAmazonAffiliateLink(
+  targetUrl: string = "https://www.amazon.in",
+  subId: string = "guide_hub",
+): string {
+  const tag = process.env.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG || "durza02-21";
+  try {
+    const u = new URL(targetUrl);
+    // Preserve any existing query params, enforce our tag + placement tag.
+    u.searchParams.set("tag", tag);
+    u.searchParams.set("ascsubtag", subId);
+    return u.toString();
+  } catch {
+    const sep = targetUrl.includes("?") ? "&" : "?";
+    return `${targetUrl}${sep}tag=${tag}&ascsubtag=${subId}`;
+  }
+}
+
+/**
  * Every configuration problem worth surfacing. Empty when the map is healthy.
  */
 export function affiliateConfigWarnings(): string[] {

@@ -49,7 +49,7 @@ export default function AlpinoStorePage({ offers, products, faqs, stats, heroIma
       <AffiliateDisclosure />
 
 
-      <div id="protein-decoder" className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6">
+      <div className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6" id="protein-decoder">
         <h2 className="text-xl font-bold text-ink">Protein-Per-Rupee Stacking Calculator</h2>
         <div className="mt-4 space-y-2 text-sm text-ink-soft">
           <p>Alpino All-Natural 1kg (₹449) delivers 300g pure plant protein → Just ~₹1.49 per gram of clean protein.</p>

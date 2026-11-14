@@ -156,15 +156,28 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
         SITEMAP_CHUNK_SIZE,
       );
     } catch (error) {
-      if (isEditorialEndpointUnavailable(error)) return [];
-      throw error;
+      if (isEditorialEndpointUnavailable(error)) items = [];
+      else throw error;
     }
-    return items.filter((content) => content.is_indexable).map((content) => ({
+    const entries: MetadataRoute.Sitemap = items.filter((content) => content.is_indexable).map((content) => ({
       url: content.canonical_url ?? `${SITE_URL}${editorialPath(content)}`,
       lastModified: content.updated_at,
       changeFrequency: "monthly" as const,
       priority: content.is_featured ? 0.75 : 0.65,
     }));
+    if (kind === "guides") {
+      // Hand-authored static buying guides -- same weight as flagship guides.
+      const { STORE_GUIDES } = await import("@/data/store-guides");
+      entries.push(
+        ...STORE_GUIDES.map((guide) => ({
+          url: `${SITE_URL}/guides/${guide.slug}`,
+          lastModified: guide.auditedOn ? new Date(guide.auditedOn) : new Date(),
+          changeFrequency: "weekly" as const,
+          priority: 0.85,
+        })),
+      );
+    }
+    return entries;
   }
   const categories = await fetchBatch(
     (s, l) => api.listCategories({ skip: s, limit: l, live_only: true }),

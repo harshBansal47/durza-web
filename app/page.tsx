@@ -18,6 +18,7 @@ import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
+import { staticFeaturedGuides } from "@/lib/static-editorial";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
 export const revalidate = 300;
@@ -325,7 +326,7 @@ export default async function HomePage() {
 
           <EditorialSection
             title="Featured buying guides"
-            items={editorial.guides}
+            items={[...staticFeaturedGuides(1), ...editorial.guides.slice(0, 2), ...staticFeaturedGuides(3).slice(1)].slice(0, 3)}
             href="/guides"
             label="All guides"
             wideFirst={REDESIGN_ENABLED}
