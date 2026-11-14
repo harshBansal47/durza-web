@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useTransition, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/Toast";
 
 interface FilterNavigationValue {
   /** True from the moment a filter is chosen until the new results are on screen. */
@@ -13,25 +14,35 @@ interface FilterNavigationValue {
 const FilterNavigationContext = createContext<FilterNavigationValue | null>(null);
 
 /**
- * One place that knows a same-origin navigation is pending.
+ * One place that knows *something* happened on the screen after a click — either a
+ * full navigation is pending (bar + shimmer) or the browser is handing the reader
+ * to a store/sponsor in a new tab (a toast that names the destination).
  *
- * Choosing a filter, sort or search term re-renders a server page — and so does any
- * plain internal link, such as clicking a buying guide. On a slow connection (or a
- * cold cache) that takes a second or more, during which a bare click looks dead.
+ * Two flavours of feedback, by design:
+ *  1. Same-origin, in-place navigation — `startTransition(router.push(…))`; the top
+ *     progress shimmer and `data-filtering` dimming signal the wait.
+ *  2. Anything that opens elsewhere — outbound store/affiliate anchors, our `/go/`
+ *     redirect links, `target="_blank"` — the click is never intercepted (the tab
+ *     opens as usual); the toast tells the reader where they're going.
  *
- * Two routes funnel into the same pending state:
- *  1. `navigate(url)` — the filter/sort/search controls (client-managed, scroll:false).
- *  2. Any same-origin `<a href="/…">` click anywhere in the document, intercepted at
- *     the capture phase (this provider mounts once, near the root) and replayed
- *     through a transition.
- *
- * While pending, the page dims `[data-filter-results]` and shows a shimmering
- * progress bar across the top. External redirects, new tabs, downloads, hash
- * jumps on the current page, and explicit `target`/`download` links are never
- * intercepted.
+ * Filter/search/sort controls keep the original API (`navigate`) so listings still
+ * route without scrolling.
  */
+
+/** A few destinations shoppers recognise by name; everything else shows its host. */
+function outboundLabel(url: URL): string {
+  const host = url.hostname.replace(/^www\./, "").toLowerCase();
+  if (host === "track.vcommission.com") return "the store — hang tight";
+  if (host === "tjzuh.com") return "Acer India — hang tight";
+  if (/amazon\./.test(host)) return "Amazon.in in a new tab";
+  if (host === "swiggy.com" || host === "www.swiggy.com") return "Swiggy in a new tab";
+  if (host === "zomato.com" || host === "www.zomato.com") return "Zomato in a new tab";
+  return `${host} in a new tab`;
+}
+
 export function FilterNavigationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
 
   const navigate = useCallback(
@@ -43,7 +54,7 @@ export function FilterNavigationProvider({ children }: { children: ReactNode }) 
     [router],
   );
 
-  // Intercept same-origin anchor clicks document-wide.
+  // Intercept same-origin internal clicks and confirm outbound opens.
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented) return;
@@ -52,18 +63,31 @@ export function FilterNavigationProvider({ children }: { children: ReactNode }) 
       const anchor = target?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!anchor) return;
       const href = anchor.getAttribute("href") ?? "";
-      if (href.startsWith("http") || href.startsWith("//") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
-      if (href.startsWith("#")) return;
-      if (anchor.getAttribute("target") === "_blank") return;
+      if (href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("#")) return;
+      if (anchor.getAttribute("target") === "_blank") {
+        // Confirmation for opens-in-new-tab — internal or external.
+        const url = new URL(href, window.location.origin);
+        const sameOrigin = url.origin === window.location.origin;
+        toast(
+          sameOrigin ? `Opening in a new tab — hang tight` : `Opening ${outboundLabel(url)}`,
+          { type: "info", duration: 2400 },
+        );
+        return; // default opens the tab; nothing to intercept
+      }
       if (anchor.hasAttribute("download")) return;
       const url = new URL(href, window.location.origin);
-      if (url.origin !== window.location.origin) return;
-      const current = new URL(window.location.href);
-      // Hash-only jump on the current page — browser handles it, not us.
-      if (url.pathname === current.pathname && url.search === current.search && url.hash) return;
-      // Static asset downloads / media are not route navigations.
-      if (/\.(pdf|zip|tar|gz|csv|xlsx|png|jpe?g|webp|avif|gif|svg|mp4|webm|mp3)(?:[?#]|$)/i.test(url.pathname)) return;
-
+      const sameOrigin = url.origin === window.location.origin;
+      // Outbound stores and our affiliate redirect hop — confirm instead of bar.
+      if (!sameOrigin || url.pathname.startsWith("/go/")) {
+        toast(
+          url.pathname.startsWith("/go/")
+            ? "Opening the store — hang tight"
+            : `Opening ${outboundLabel(url)}`,
+          { type: "info", duration: 2400 },
+        );
+        return; // default behaviour opens the destination; nothing to prevent
+      }
+      // Same-origin, in-place navigation — top bar via transition.
       event.preventDefault();
       startTransition(() => {
         router.push(`${url.pathname}${url.search}${url.hash}`);
@@ -71,7 +95,7 @@ export function FilterNavigationProvider({ children }: { children: ReactNode }) 
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, [router]);
+  }, [router, toast]);
 
   // CSS reads this to dim `[data-filter-results]` (see globals.css).
   useEffect(() => {
