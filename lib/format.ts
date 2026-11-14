@@ -40,8 +40,16 @@ export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
     const core = `${formatMoney(coupon.discount_value, currency)} off`;
     return variable ? `Up to ${core}` : core;
   }
-  // Some deals carry no structured discount — but the store does list both a
-  // reduced price and an MRP, so we can state the saving accurately.
+  if (coupon.discount_type === "deal") {
+    // End-of-spectrum Mega-Deals line: 40%+ is the literal 'Beyond!' claim; otherwise
+    // print the actual computed saving; otherwise just the "no code needed" marker.
+    const computed = percentageOffFromRestrictions(coupon);
+    if (computed !== null && computed >= 40) return "MEGA DEALS — 40% OFF & Beyond!";
+    if (computed !== null && computed > 0) return `MEGA DEALS — ${computed}% off`;
+    return "MEGA DEALS — No Code Needed";
+  }
+  // percentage/fixed without a stored value: also surface something, but as "Deal"
+  // to keep tests of those types honest with users' eyes.
   const computed = percentageOffFromRestrictions(coupon);
   if (computed !== null && computed > 0) return `${computed}% off`;
   return "";

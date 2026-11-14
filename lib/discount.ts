@@ -28,3 +28,31 @@ export function percentageOffFromRestrictions(coupon: CouponPublic): number | nu
   const pct = Math.round(((mrp - price) / mrp) * 100);
   return pct > 0 ? pct : null;
 }
+
+/**
+ * The "Mega Deals" heading — a single marketing line that an India-shopper
+ * understands for codes-less big-save offers.
+ *
+ * Spec: this never overclaims. If the computed discount is >= 40%, we print the
+ * literal "Mega Deals — 40% OFF & Beyond!" line you asked for. Otherwise the
+ * same base head shows the *actual* computed saving ("Mega Deals — 15% off"),
+ * never a made-up figure.
+ */
+export function megaDealLabel(computedPct: number | null): string {
+  if (computedPct !== null && computedPct >= 40) {
+    return "MEGA DEALS — 40% OFF & Beyond!";
+  }
+  if (computedPct !== null) {
+    return `MEGA DEALS — ${computedPct}% OFF`;
+  }
+  return "MEGA DEALS — No Code Needed";
+}
+
+/** Convenience: one-shot call used by formatters. */
+export function megaDealFromCoupon(coupon: CouponPublic): string | null {
+  const discount =
+    coupon.discount_type === "percentage" && typeof coupon.discount_value === "number"
+      ? Number(coupon.discount_value)
+      : percentageOffFromRestrictions(coupon);
+  return megaDealLabel(discount);
+}

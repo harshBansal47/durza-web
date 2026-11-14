@@ -57,10 +57,34 @@ describe("formatDiscount", () => {
     expect(formatDiscount(coupon)).toBe("Up to 7.5% off (max ₹3,000)");
   });
 
-  it("falls back to 'Deal' for a deal with no discount_value", () => {
+  it("shows the Mega Deals label for a deal with no discount_value", () => {
     expect(formatDiscount(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "",
+      "MEGA DEALS — No Code Needed",
     );
+  });
+
+  it("uses 40%+ only when it's actually true (deal-from-restrictions)", () => {
+    expect(
+      formatDiscount(
+        makeCoupon({
+          discount_type: "deal",
+          discount_value: null,
+          restrictions: { price: "₹60", mrp: "₹100" },
+        }),
+      ),
+    ).toBe("MEGA DEALS — 40% OFF & Beyond!");
+  });
+
+  it("uses the actual computed saving when under 40% from restrictions", () => {
+    expect(
+      formatDiscount(
+        makeCoupon({
+          discount_type: "deal",
+          discount_value: null,
+          restrictions: { price: "₹220", mrp: "₹260" },
+        }),
+      ),
+    ).toBe("MEGA DEALS — 15% off");
   });
 
   it("falls back to 'Deal' when discount_value is missing even for percentage/fixed", () => {
@@ -69,9 +93,9 @@ describe("formatDiscount", () => {
     );
   });
 
-  it("uses a neutral visual heading when no discount amount is available", () => {
+  it("uses the Mega Deals wording for deal cards with no discount amount", () => {
     expect(formatDiscountHeading(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "",
+      "MEGA DEALS — No Code Needed",
     );
   });
 });
