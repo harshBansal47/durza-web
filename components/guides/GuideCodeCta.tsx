@@ -31,18 +31,20 @@ export default function GuideCodeCta({
   cta: StaticGuideCta;
 }) {
   const [copied, setCopied] = useState(false);
-  const [status, setStatus] = useState<"idle" | "failed">("idle");
 
   const href = trackedUrl(storeSlug, cta);
 
-  const copyAndGo = async () => {
+  const copyAndGo = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Middle/right-click and "open in new tab" shouldn't trigger clipboard
+    // writes — only the primary click copies the code, then opens the tab.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
     if (cta.kind === "code") {
       try {
         await navigator.clipboard.writeText(cta.code);
       } catch {
-        // Clipboard can fail on insecure contexts — the user still gets the tap
-        // destination; they can copy the code from the toast that appears.
-        setStatus("failed");
+        // Clipboard can fail on insecure/blocked contexts — the tracked tab
+        // still opens; we never expose the raw code as a fallback in the DOM.
       }
       setCopied(true);
     }
@@ -86,10 +88,12 @@ export default function GuideCodeCta({
           </code>
         )}
 
-        <button
-          type="button"
-          onClick={() => void copyAndGo()}
+        <a
+          href={href}
+          target="_blank"
+          rel="nofollow sponsored noopener"
           aria-label={ariaLabel}
+          onClick={(event) => void copyAndGo(event)}
           className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-amber-400 px-5 py-2.5 text-sm font-bold text-ink transition-colors hover:bg-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
         >
           {copied ? (
@@ -103,7 +107,7 @@ export default function GuideCodeCta({
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
             </>
           )}
-        </button>
+        </a>
       </div>
 
       <p className="border-t border-slate-800 px-5 py-2 text-[10px] uppercase tracking-wider text-slate-400">
