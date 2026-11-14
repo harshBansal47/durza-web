@@ -109,7 +109,11 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       skip,
       SITEMAP_CHUNK_SIZE,
     );
-    return coupons.map((coupon) => ({
+    // Match the page's own robots verdict: page says is_indexable === false → not sitemapped.
+    // Otherwise Google discovers 1,249 URLs where 83% return <meta name="robots" content="noindex, follow" />,
+    // which reads in GSC Coverage as "crawled / discovered, currently not indexed" in our favor case.
+    const indexable = coupons.filter((coupon) => coupon.is_indexable !== false);
+    return indexable.map((coupon) => ({
       url: `${SITE_URL}/coupons/${coupon.slug}`,
       lastModified: coupon.last_verified_at ?? coupon.created_at,
       changeFrequency: "daily" as const,
