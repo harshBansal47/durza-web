@@ -15,7 +15,8 @@ export type GoSource =
   | "homepage"
   | "search"
   | "site"
-  | "telegram";
+  | "telegram"
+  | "banner-store";
 
 /**
  * rel for any link that can earn us money: `sponsored` is Google's marker for paid or

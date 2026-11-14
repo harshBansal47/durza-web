@@ -68,6 +68,19 @@ export interface Store {
   created_at: string;
 }
 
+/** A banner served by an affiliate program — rendered as an <img> inside a
+ * rel="sponsored nofollow" link to /go/{slug}, never as a raw embed. */
+export interface StoreCreative {
+  id: string;
+  campaign_id: string;
+  network: string;
+  name: string;
+  width: number;
+  height: number;
+  type: string | null;
+  image_url: string;
+}
+
 export type EditorialType = "guide" | "review" | "comparison" | "collection";
 export type EditorialStatus = "draft" | "in_review" | "published" | "archived";
 

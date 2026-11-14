@@ -342,6 +342,13 @@ export const api = {
   getStoreBySlug: (slug: string) =>
     apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
 
+  /** Banner creatives for this store's connected affiliate programs. Empty when none are matched or all are unsuitable — the store page hides the slot. */
+  getStoreCreatives: (slug: string, limit = 2) =>
+    apiFetch<import("./types").StoreCreative[]>(
+      `/stores/by-slug/${encodeURIComponent(slug)}/creatives?limit=${limit}`,
+      { revalidate: 3600 },
+    ),
+
   getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => {
     const qs = new URLSearchParams();
     if (params?.skip) qs.set("skip", String(params.skip));
@@ -612,6 +619,7 @@ export const resilient = {
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
     orEmpty(api.listAds(params)),
   getStoreBySlug: (slug: string) => orNull(api.getStoreBySlug(slug)),
+  getStoreCreatives: (slug: string, limit = 2) => orEmptyArray(api.getStoreCreatives(slug, limit)),
   getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => orNull(api.getStoreDestination(slug, params)),
   getStoreById: (storeId: string) => orNull(api.getStoreById(storeId)),
   listMarkets: () => orEmptyArray(api.listMarkets()),
