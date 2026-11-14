@@ -10,6 +10,7 @@ import {
   type SitemapId,
 } from "@/lib/sitemap-groups";
 import { isIndexableStore } from "@/lib/store-indexing";
+import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import type { CouponPublic, EditorialContent } from "@/lib/types";
 import { editorialPath } from "@/lib/editorial-path";
 
@@ -109,15 +110,28 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
   const skip = chunk * SITEMAP_CHUNK_SIZE;
   if (kind === "static") return STATIC_PAGES;
   if (kind === "coupons") {
+    // Fetch the allowed store IDs once so we can filter coupons from non-India stores.
+    // HOMEPAGE_EXCLUDED_STORE_SLUGS excludes global/non-India programs from listing pages;
+    // the sitemap must respect the same boundary so we don't submit URLs that the
+    // audience and the page's own store filter already exclude.
+    const allStores = await api.listStores({ limit: 500 });
+    const allowedStoreIds = new Set(
+      allStores.items
+        .filter((s) => isHomepageIndiaRelevant(s.slug))
+        .map((s) => s.id),
+    );
+
     const coupons = await fetchBatch(
       (s, l) => api.listCoupons({ skip: s, limit: l }),
       skip,
       SITEMAP_CHUNK_SIZE,
     );
     // Match the page's own robots verdict: page says is_indexable === false → not sitemapped.
-    // Otherwise Google discovers 1,249 URLs where 83% return <meta name="robots" content="noindex, follow" />,
-    // which reads in GSC Coverage as "crawled / discovered, currently not indexed" in our favor case.
-    const indexable = coupons.filter((coupon) => coupon.is_indexable !== false);
+    // Also exclude coupons from non-India stores so we don't waste crawl budget on
+    // global/off-topic programs that are already excluded from listing pages.
+    const indexable = coupons.filter(
+      (coupon) => coupon.is_indexable !== false && allowedStoreIds.has(coupon.store_id),
+    );
     return indexable.map((coupon) => ({
       url: `${SITE_URL}/coupons/${coupon.slug}`,
       lastModified: coupon.last_verified_at ?? coupon.created_at,
@@ -132,8 +146,15 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       SITEMAP_CHUNK_SIZE,
     );
     // Only stores the page itself would index: see lib/store-indexing.ts.
+    // Also exclude non-India / global stores (same exclusion list as the homepage
+    // and listing pages) so the sitemap only advertises URLs that are relevant to
+    // the India audience Google associates with durza.in.
     return stores
-      .filter((store) => isIndexableStore(store.offer_count, store.description))
+      .filter(
+        (store) =>
+          isIndexableStore(store.offer_count, store.description) &&
+          isHomepageIndiaRelevant(store.slug),
+      )
       .map((store) => {
         const custom = CUSTOM_STORE_SLUGS.has(store.slug);
         const parsed = store.created_at ? new Date(store.created_at) : null;

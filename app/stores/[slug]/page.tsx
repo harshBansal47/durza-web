@@ -6,6 +6,7 @@ import { ApiError, api, lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { isIndexableStore } from "@/lib/store-indexing";
+import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
@@ -116,15 +117,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const canonical = `/stores/${store.slug}`;
-  // A store with no offers and nothing written about it is a page with nothing to say: keep it
-  // out of search results until it has something real, rather than offering Google thin pages.
-  // `follow` stays on so its links still count. It reappears in the index once an offer or a
-  // description exists (pages refresh every five minutes).
+  // A store with no offers and nothing written about it is a page with nothing to say.
+  // A non-India store (global VPN, US retailer, etc.) is off-topic for this site's audience.
+  // Both cases: keep out of search results until they have something relevant to say.
+  // `follow` stays on so their links still count.
   const thin = !isIndexableStore(total, store.description);
+  const offTarget = !isHomepageIndiaRelevant(store.slug);
   return {
     title,
     description,
-    ...(thin ? { robots: { index: false, follow: true } } : {}),
+    ...((thin || offTarget) ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical },
     openGraph: { title, description, url: canonical, type: "website" },
     twitter: { card: "summary_large_image", title, description },

@@ -27,6 +27,9 @@ import type { Product, Store } from "@/lib/types";
 export const metadata: Metadata = {
   title: "Search",
   description: "Search every store, code, price drop and category Durza tracks.",
+  // Disallowed in robots.txt; this meta tag aligns the page-level signal so
+  // any bot that finds the URL via a link also does not index it.
+  robots: { index: false, follow: false },
 };
 
 export const dynamic = "force-dynamic";
