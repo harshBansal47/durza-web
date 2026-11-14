@@ -25,7 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const offers = await resilient.listCoupons({ active_only: true, limit: 1, store_ids: allowedStoreIds(allStores.items) });
   const total = offers.total;
   const title = total > 0 ? `Coupons & Promo Codes: ${total} Live Offers` : "Coupons & Promo Codes";
-  const description =""
+  const description =
+    total > 0
+      ? `Browse ${total} live coupon codes and promo offers for Indian stores — each one shows the store page it came from and when it was last checked.`
+      : "Browse coupon codes and promo offers for Indian online stores — each one shows the store page it came from and when it was last checked.";
   const canonical = absoluteUrl("/coupons");
   return {
     title,

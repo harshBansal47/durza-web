@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 
 import PageTitle from "@/components/ui/PageTitle";
 import KeywordForm from "@/components/filters/KeywordForm";
@@ -41,8 +42,9 @@ interface DealsPageProps {
 export default async function DealsPage({ searchParams }: DealsPageProps) {
   return (
     <div className="mx-auto max-w-6xl px-4 pb-20 md:px-6 md:py-12">
-      {/* Phones drop the title block and start at the sticky tool row below;
-          the h1 stays for structure and screen readers. */}
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Deals", path: "/deals" }])} />
+      {/* H1 is always rendered for structure; it's visually hidden on mobile where
+          the sticky filter row gives sufficient context. */}
       <PageTitle className="sr-only md:not-sr-only">Today&apos;s verified deals</PageTitle>
       <p className="mb-8 mt-2 hidden text-sm text-ink-soft md:block">
         What shoppers most recently confirmed working, and where prices moved.

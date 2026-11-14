@@ -12,8 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const result = await resilient.listEditorial({ content_type: "collection", limit: 1 }).catch(() => null);
   const isEmpty = !result || result.total === 0;
   return {
-    title: "Savings collections",
-    description: "Curated collections of useful discounts, tools, and ways to save.",
+    title: "Curated Savings Collections — Deals Grouped by Goal",
+    description: "Hand-picked groups of discounts, buying guides and offers organised around what you're trying to do — fitness, home, travel and more.",
     alternates: { canonical: "/collections" },
     ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
   };

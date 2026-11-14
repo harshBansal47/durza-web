@@ -12,8 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const result = await resilient.listEditorial({ content_type: "comparison", limit: 1 }).catch(() => null);
   const isEmpty = !result || result.total === 0;
   return {
-    title: "Comparisons",
-    description: "Compare products and services side by side before choosing what to buy.",
+    title: "Product & Service Comparisons — Side-by-Side Reviews",
+    description: "Compare Indian products and online services side by side — features, pricing and trade-offs — before you decide what to buy.",
     alternates: { canonical: "/compare" },
     ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
   };

@@ -11,8 +11,8 @@ import { STORE_GUIDES } from "@/data/store-guides";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Buying guides",
-  description: "Practical buying guides to help you compare options and save before you buy.",
+  title: "Shopping Buying Guides — Compare & Save in India",
+  description: "Practical buying guides for Indian shoppers: laptop deals, nutrition brands, skincare, kitchenware and more. Research before you spend.",
   alternates: { canonical: "/guides" },
 };
 

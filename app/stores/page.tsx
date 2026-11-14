@@ -16,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const stores = await loadStores();
   const total = stores.total;
   const examples = stores.items.slice(0, 3).map((store) => store.name).join(", ");
+  const title = `Coupon Codes & Deals by Store`;
   const description =
     total > 0
-      ? `Browse ${total} stores on Durza${examples ? `, including ${examples}` : ""} — every coupon and deal shows the store page it came from and when it was last checked.`
-      : "Browse stores on Durza with coupon codes, deals and offers, each sourced from the store's own page.";
-  const title = "Stores with Coupons & Deals";
+      ? `Promo codes and deals for ${total} Indian online stores${examples ? `, including ${examples}` : ""} — every offer sourced from the store's own page with a last-checked date.`
+      : "Coupon codes and deals for Indian online stores — every offer sourced from the store's own page with a last-checked date.";
   const canonical = absoluteUrl("/stores");
   return {
     title,
