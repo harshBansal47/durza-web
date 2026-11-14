@@ -234,10 +234,13 @@ export async function fetchAffiliateCampaigns(
 }
 
 export async function sendTelegram(couponId: string, title?: string): Promise<{ message_id: number }> {
+  // Telegram is rate-limited and may retry on our behalf, so the outbound API
+  // call can sit longer than 8s with no fault. The default transport timeout
+  // is 8s — for the admin Approve & send path we wait longer, on purpose.
   const response = await clientHttp.post<{ message_id: number }>(
     clientAppUrl("/api/admin/telegram/send"),
     { coupon_id: couponId, title },
-    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store", timeoutMs: 30_000 }),
   );
   return response.data;
 }
