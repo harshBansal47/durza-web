@@ -98,7 +98,30 @@ describe("sitemap shards (D1)", () => {
 
   it("coupon shard contains URLs and never requests above the backend limit", async () => {
     paginatedBackend(250);
-    listStores.mockResolvedValue(emptyPage);
+    // The coupon shard now fetches the store list first to build the set of
+    // India-relevant store IDs. Supply a store whose id matches the coupons
+    // (store_id: "s1") and whose slug passes isHomepageIndiaRelevant().
+    listStores.mockResolvedValue({
+      items: [{
+        id: "s1",
+        name: "Example Store",
+        slug: "example-store",          // not in HOMEPAGE_EXCLUDED_STORE_SLUGS → passes
+        offer_count: 10,
+        description: null,
+        logo_url: null,
+        website_url: null,
+        pricing_summary: null,
+        pricing_checked_at: null,
+        is_active: true,
+        commission_disclosure: null,
+        country_code: "IN",
+        currency: "INR",
+        created_at: "2026-01-01T00:00:00Z",
+      }],
+      total: 1,
+      skip: 0,
+      limit: 500,
+    });
     listCategories.mockResolvedValue(emptyPage);
 
     const response = await shardRequest("coupons-0");
@@ -110,14 +133,85 @@ describe("sitemap shards (D1)", () => {
     // The whole shard is published: 250 URLs.
     expect((xml.match(/<loc>/g) ?? []).length).toBe(250);
 
-    // Every individual request stays within the backend limit. The
-    // first call is sitemapIds()'s probe (limit: 1); the three
-    // after it are fetchBatch's pages of BACKEND_MAX_LIMIT.
-    const limits = listCoupons.mock.calls.map((call) => call[0]?.limit ?? 0);
-    for (const limit of limits) {
+    // Every individual request to listCoupons stays within the backend limit.
+    // The first call is sitemapIds()'s probe (limit: 1); the three after it
+    // are fetchBatch's pages of BACKEND_MAX_LIMIT.
+    const couponLimits = listCoupons.mock.calls.map((call) => call[0]?.limit ?? 0);
+    for (const limit of couponLimits) {
       expect(limit).toBeLessThanOrEqual(BACKEND_MAX_LIMIT);
     }
-    expect(limits.filter((limit) => limit === BACKEND_MAX_LIMIT).length).toBe(3);
+    expect(couponLimits.filter((limit) => limit === BACKEND_MAX_LIMIT).length).toBe(3);
+  });
+
+  it("excludes coupons from non-India / HOMEPAGE_EXCLUDED stores", async () => {
+    // Two stores: one India-relevant, one excluded (invideo is in HOMEPAGE_EXCLUDED_STORE_SLUGS).
+    // All coupons have store_id matching one or the other.
+    listStores.mockResolvedValue({
+      items: [
+        {
+          id: "india-store",
+          name: "India Store",
+          slug: "healthkart",             // passes isHomepageIndiaRelevant
+          offer_count: 5,
+          description: null,
+          logo_url: null,
+          website_url: null,
+          pricing_summary: null,
+          pricing_checked_at: null,
+          is_active: true,
+          commission_disclosure: null,
+          country_code: "IN",
+          currency: "INR",
+          created_at: "2026-01-01T00:00:00Z",
+        },
+        {
+          id: "off-target-store",
+          name: "InVideo",
+          slug: "invideo",               // in HOMEPAGE_EXCLUDED_STORE_SLUGS → excluded
+          offer_count: 3,
+          description: null,
+          logo_url: null,
+          website_url: null,
+          pricing_summary: null,
+          pricing_checked_at: null,
+          is_active: true,
+          commission_disclosure: null,
+          country_code: null,
+          currency: "USD",
+          created_at: "2026-01-01T00:00:00Z",
+        },
+      ],
+      total: 2,
+      skip: 0,
+      limit: 500,
+    });
+    listCoupons.mockImplementation(async (params = {}) => {
+      const skip = params.skip ?? 0;
+      if (skip > 0) return emptyPage;
+      return {
+        items: [
+          { ...makeCoupons(1, 0)[0], id: "india-c1",   slug: "india-coupon-1",   store_id: "india-store",    is_indexable: true },
+          { ...makeCoupons(1, 1)[0], id: "india-c2",   slug: "india-coupon-2",   store_id: "india-store",    is_indexable: true },
+          { ...makeCoupons(1, 2)[0], id: "off-c1",     slug: "invideo-coupon-1", store_id: "off-target-store", is_indexable: true },
+          { ...makeCoupons(1, 3)[0], id: "off-c2",     slug: "invideo-coupon-2", store_id: "off-target-store", is_indexable: true },
+        ],
+        total: 4,
+        skip,
+        limit: params.limit ?? 100,
+      };
+    });
+    listCategories.mockResolvedValue(emptyPage);
+
+    const response = await shardRequest("coupons-0");
+    expect(response.status).toBe(200);
+    const xml = await response.text();
+
+    // India store coupons appear
+    expect(xml).toContain("/coupons/india-coupon-1");
+    expect(xml).toContain("/coupons/india-coupon-2");
+    // Off-target store coupons are excluded even though is_indexable is true
+    expect(xml).not.toContain("/coupons/invideo-coupon-1");
+    expect(xml).not.toContain("/coupons/invideo-coupon-2");
   });
 
   it("leaves out a store with no offers and nothing written about it", async () => {

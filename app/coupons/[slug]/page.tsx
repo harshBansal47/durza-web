@@ -3,6 +3,7 @@
   import Link from "next/link";
   import { notFound } from "next/navigation";
   import { lookup, resilient } from "@/lib/api";
+  import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
   import CouponCodePanel from "@/components/CouponCodePanel";
   import {
     CategoryLink,
@@ -60,6 +61,14 @@
     if (coupon.is_indexable === false) return { robots: { index: false, follow: true } };
 
     const store = await loadStore(coupon.store_id);
+
+    // A coupon from a non-India / globally-excluded store is off-target for
+    // this site's audience. Keep it out of the index even if is_indexable is
+    // true — the sitemap already excludes it, so this ensures the page-level
+    // signal is consistent. `follow` stays on so its links still count.
+    if (store && !isHomepageIndiaRelevant(store.slug)) {
+      return { robots: { index: false, follow: true } };
+    }
 
     // Lead with the merchant and offer type so a result remains relevant to
     // searches like "Acer promo code" even when the provider's offer title
