@@ -5,11 +5,19 @@ import PageTitle from "@/components/ui/PageTitle";
 import { resilient } from "@/lib/api";
 
 export const revalidate = 300;
-export const metadata: Metadata = {
-  title: "Savings collections",
-  description: "Curated collections of useful discounts, tools, and ways to save.",
-  alternates: { canonical: "/collections" },
-};
+
+// Thin-page safety: sections with no published collections are kept out of the
+// index (follow stays open so crawlers still reach the linked articles).
+export async function generateMetadata(): Promise<Metadata> {
+  const result = await resilient.listEditorial({ content_type: "collection", limit: 1 }).catch(() => null);
+  const isEmpty = !result || result.total === 0;
+  return {
+    title: "Savings collections",
+    description: "Curated collections of useful discounts, tools, and ways to save.",
+    alternates: { canonical: "/collections" },
+    ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 
 export default async function CollectionsPage() {
   const collections = await resilient.listEditorial({ content_type: "collection", limit: 60 });

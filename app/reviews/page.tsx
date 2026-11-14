@@ -5,11 +5,19 @@ import PageTitle from "@/components/ui/PageTitle";
 import { resilient } from "@/lib/api";
 
 export const revalidate = 300;
-export const metadata: Metadata = {
-  title: "Reviews",
-  description: "Independent product and service reviews, with pricing context and clear pros and cons.",
-  alternates: { canonical: "/reviews" },
-};
+
+// Thin-page safety: sections with no published reviews are kept out of the
+// index (follow stays open so crawlers still reach the linked articles).
+export async function generateMetadata(): Promise<Metadata> {
+  const result = await resilient.listEditorial({ content_type: "review", limit: 1 }).catch(() => null);
+  const isEmpty = !result || result.total === 0;
+  return {
+    title: "Reviews",
+    description: "Independent product and service reviews, with pricing context and clear pros and cons.",
+    alternates: { canonical: "/reviews" },
+    ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 
 export default async function ReviewsPage() {
   const reviews = await resilient.listEditorial({ content_type: "review", limit: 60 });

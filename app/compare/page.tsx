@@ -5,11 +5,19 @@ import PageTitle from "@/components/ui/PageTitle";
 import { resilient } from "@/lib/api";
 
 export const revalidate = 300;
-export const metadata: Metadata = {
-  title: "Comparisons",
-  description: "Compare products and services side by side before choosing what to buy.",
-  alternates: { canonical: "/compare" },
-};
+
+// Thin-page safety: sections with no published comparisons are kept out of the
+// index (follow stays open so crawlers still reach the linked articles).
+export async function generateMetadata(): Promise<Metadata> {
+  const result = await resilient.listEditorial({ content_type: "comparison", limit: 1 }).catch(() => null);
+  const isEmpty = !result || result.total === 0;
+  return {
+    title: "Comparisons",
+    description: "Compare products and services side by side before choosing what to buy.",
+    alternates: { canonical: "/compare" },
+    ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 
 export default async function ComparisonsPage() {
   const comparisons = await resilient.listEditorial({ content_type: "comparison", limit: 60 });
