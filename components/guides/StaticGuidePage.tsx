@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import type { StaticGuide } from "@/data/store-guides";
 import JsonLd from "@/components/JsonLd";
+import AdSenseSlot from "@/components/editorial/AdSenseSlot";
+import { BRAND } from "@/lib/brand";
 import GuideCodeCta from "@/components/guides/GuideCodeCta";
 import GuideInteractiveToolCard from "@/components/guides/GuideInteractiveToolCard";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
@@ -73,6 +75,12 @@ export const staticGuideMetadata = (guide: StaticGuide): Metadata => ({
 export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
   const storeName = storeDisplayName(guide.storeSlug);
   const toolLink = guide.interactiveTool ? toolHref(guide.storeSlug) : undefined;
+  // Ad units mirror the editorial article layout: for an article this length
+  // (< 900 words) Google placements are the top unit before the body and the
+  // end unit before the footer — same as the editorial 2-ad word-count case.
+  const contentAdSlot = process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
+  const topAdSlot = process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP || BRAND.adsenseSlots.top || contentAdSlot;
+  const endAdSlot = process.env.NEXT_PUBLIC_ADSENSE_SLOT_END || BRAND.adsenseSlots.end || contentAdSlot;
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
@@ -98,6 +106,8 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
           />
         </div>
       )}
+
+      <AdSenseSlot eligible slot={topAdSlot} />
 
       <div className="prose prose-slate mt-8 max-w-none text-base leading-8 text-ink-soft">
         {guide.blocks.map((block, i) => {
@@ -190,6 +200,8 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
       )}
 
       <FaqAccordion faqs={guide.faqs} />
+
+      <AdSenseSlot eligible slot={endAdSlot} />
 
       <aside className="not-prose mt-10 border-t border-ledger-line pt-8">
         <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-inkblue">
