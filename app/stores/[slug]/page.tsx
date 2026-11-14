@@ -2,7 +2,7 @@ import { cache } from "react";
 import type { Metadata } from "next";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
-import { api, lookup, resilient } from "@/lib/api";
+import { ApiError, api, lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { isIndexableStore } from "@/lib/store-indexing";
@@ -70,10 +70,18 @@ async function loadProductCollections(storeId: string): Promise<{
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const destination = await loadStore(slug, 0).catch(() => null);
+  // Use the same lookup the page uses: a real 404 from the API throws ApiError(404)
+  // which orNotFound converts to null. Any other failure also throws and surfaces as
+  // an error page. We must call notFound() here too — if only the page component
+  // calls it, Next.js has already committed the 200 status from generateMetadata.
+  const destination = await loadStore(slug, 0).catch((error: unknown) => {
+    // Non-404 API failures: let the error boundary handle it
+    if (error instanceof ApiError && error.status !== 404) throw error;
+    return null;
+  });
   // Same test the page uses to 404, so a store the page refuses to show is never indexable.
   if (!destination || !destination.store.is_active) {
-    return { title: "Store not found", robots: { index: false, follow: false } };
+    notFound();
   }
   const store = destination.store;
 
