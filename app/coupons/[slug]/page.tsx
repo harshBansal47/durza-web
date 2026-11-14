@@ -73,7 +73,7 @@
       : coupon.code
         ? "coupon code"
         : "offer";
-    const amountKeyword = discount !== "Deal"
+    const amountKeyword = discount !== "Deal" && !discount.startsWith("MEGA DEALS")
       ? discount.replace(/\s+/g, " ").replace(/[^\w₹+%\- ]/g, "").trim()
       : null;
     // Keyword-packed SERP title — the query shoppers type verbatim.
@@ -91,7 +91,7 @@
       [
         merchantName,
         coupon.code ? `Code ${coupon.code} — top live coupon at ${merchantName}.` : `Latest offer at ${merchantName}.`,
-        discount !== "Deal" ? `${discount} savings available right now.` : null,
+        discount !== "Deal" && !discount.startsWith("MEGA DEALS") ? `${discount} savings available right now.` : null,
         coupon.description,
         "Code, validity, and where it works on the Durza coupon page.",
       ]
