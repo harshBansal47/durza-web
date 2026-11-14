@@ -117,7 +117,12 @@ export default async function HomePage() {
       emptyPage as Paginated<CouponPublic>,
     ),
     safe(
-      api.listCoupons({ active_only: true, has_code: true, sort: "recommended", limit: 8 }),
+      api.listCoupons({
+        active_only: true,
+        has_code: true,
+        sort: "newest",
+        limit: 8,
+      }),
       emptyPage as Paginated<CouponPublic>,
     ),
   ]);
