@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { items, total } = await resilient.listCategories({ limit: 100, live_only: true });
   const names = items.slice(0, 4).map((category) => categoryLabel(category));
   const examples = names.length > 0 ? ` — ${names.join(", ")}${total > names.length ? " and more" : ""}` : "";
-  const title = `Coupons by Category — Shop Electronics, Fashion, Beauty & More`;
+  const title = `Coupons by Category — Electronics, Fashion & More`;
   const description = `Browse coupons and deals by shopping category${examples}. Every offer on Durza shows the store page it came from and when it was last checked.`;
   const canonical = absoluteUrl("/categories");
   return {

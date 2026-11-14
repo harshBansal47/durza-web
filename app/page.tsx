@@ -316,9 +316,21 @@ export default async function HomePage() {
           )}
 
 
+          <section className="mt-12 rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white p-6 md:p-8" aria-labelledby="black-friday-heading">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-orange-700">Black Friday in India · 27 Nov 2026</p>
+            <h2 id="black-friday-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Black Friday 2026 — where to actually save</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-soft sm:text-base">
+              What is historically on sale, which stores run real discounts, and how to stack bank offers on top — nothing on this page requires a countdown timer.
+            </p>
+            <Link href="/black-friday" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+              Open the Black Friday hub
+              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            </Link>
+          </section>
+
           <section className="mt-12" aria-labelledby="deals-explorer-heading">
             <SectionTitle hint="every card read from the store's own page" icon={Flame} action={{ href: "/deals", label: "Browse all deals" }}>
-              <span id="deals-explorer-heading">Verified Deals Explorer</span>
+              <span id="deals-explorer-heading">Checked Deals Explorer</span>
             </SectionTitle>
             <VerifiedDealsExplorer tabs={explorerTabs} storesById={storesById} />
           </section>

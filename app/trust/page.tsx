@@ -6,7 +6,7 @@ import PageTitle from "@/components/ui/PageTitle";
 export const metadata: Metadata = {
   title: "How Durza Works",
   description:
-    "How Durza finds coupons and deals, how offers are checked, and how commissions are disclosed.",
+    "Where offers come from — program feeds and store-page reads — plus how votes, ranking and commissions are disclosed.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },
@@ -521,10 +521,11 @@ export default function TrustPage() {
                 </p>
 
                 <p>
-                  Offers are also read from the store&rsquo;s own pages and carry
-                  a source link and last-checked date. Expired offers are removed
-                  from listings; a retired code can only come back if the store
-                  publishes it again.
+                  Offers come in one of two ways: directly from the merchant&rsquo;s own affiliate program feed (Admitad, vCommission and similar) as published, or from us reading the store&rsquo;s own pages by hand — either way each offer carries a source link and last-checked date. We have no business claiming every code is tested by hand; codes we have not independently checked are labelled as such, and the votes below are exactly what other shoppers did with them.
+                </p>
+
+                <p>
+                  Offers expire on their stated date and are removed from listings; a retired code can only come back if the store republishes it, because we do not restore deleted rows.
                 </p>
               </div>
 

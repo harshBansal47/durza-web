@@ -5,6 +5,7 @@ import PageTitle from "@/components/ui/PageTitle";
 import EmptyState from "@/components/EmptyState";
 import StoresBrowser from "@/components/stores/StoresBrowser";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
+import { allowedStoreIds } from "@/lib/homepage-curation";
 import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 300;
@@ -15,11 +16,16 @@ const loadStores = cache(() => resilient.listStores({ limit: PAGE_SIZE }));
 export async function generateMetadata(): Promise<Metadata> {
   const stores = await loadStores();
   const total = stores.total;
-  const examples = stores.items.slice(0, 3).map((store) => store.name).join(", ");
-  const title = `Coupon Codes & Deals by Store`;
+  const title = "Coupons & Offers by Store — Acer, Amazon, Flipkart";
+  const indiaRelevant = allowedStoreIds(stores.items)
+    .map((id) => stores.items.find((s) => s.id === id))
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((s) => s!.name)
+    .join(", ");
   const description =
     total > 0
-      ? `Promo codes and deals for ${total} Indian online stores${examples ? `, including ${examples}` : ""} — every offer sourced from the store's own page with a last-checked date.`
+      ? `Promo codes and deals for ${total} Indian online stores${indiaRelevant ? `, including ${indiaRelevant}` : ""} — every offer sourced from the store's own page with a last-checked date.`
       : "Coupon codes and deals for Indian online stores — every offer sourced from the store's own page with a last-checked date.";
   const canonical = absoluteUrl("/stores");
   return {

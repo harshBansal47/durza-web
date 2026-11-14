@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const result = await resilient.listEditorial({ content_type: "comparison", limit: 1 }).catch(() => null);
   const isEmpty = !result || result.total === 0;
   return {
-    title: "Product & Service Comparisons — Side-by-Side Reviews",
+    title: "Comparisons — Features, Pricing & Trade-offs",
     description: "Compare Indian products and online services side by side — features, pricing and trade-offs — before you decide what to buy.",
     alternates: { canonical: "/compare" },
     ...(isEmpty ? { robots: { index: false, follow: true } } : {}),

@@ -79,6 +79,7 @@ const NAV_LINKS = [
 ];
 
 const MORE_NAV_LINKS = [
+  { href: "/black-friday", label: "Black Friday 2026" },
   { href: "/guides", label: "Guides" },
   { href: "/bank-offers", label: "Bank & card offers" },
   { href: "/reviews", label: "Reviews" },

@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   // Static copy on purpose: an exact-count title/description forced one Neon round
   // trip before <head> could flush — costing ~0.5s on every cold render for very
   // little SEO gain. The live count is already shown inside the page itself.
-  title: "Today's Verified Deals & Offers",
+  title: "Today's Checked Deals & Offers",
   description:
     "Live deals and offers — every deal shows the store page it came from and when it was last checked.",
   alternates: { canonical: absoluteUrl("/deals") },
   openGraph: {
-    title: "Today's Verified Deals & Offers",
+    title: "Today's Checked Deals & Offers",
     description:
       "Live deals and offers — every deal shows the store page it came from and when it was last checked.",
     url: absoluteUrl("/deals"),
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Today's Verified Deals & Offers",
+    title: "Today's Checked Deals & Offers",
     description:
       "Live deals and offers — every deal shows the store page it came from and when it was last checked.",
   },
