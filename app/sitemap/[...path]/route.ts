@@ -13,7 +13,7 @@ import { isIndexableStore } from "@/lib/store-indexing";
 import type { CouponPublic, EditorialContent } from "@/lib/types";
 import { editorialPath } from "@/lib/editorial-path";
 
-export const revalidate = 3600;
+export const revalidate = 900;
 
 /**
  * Custom-built brand store pages (app/stores/<slug>/page.tsx). They carry unique
