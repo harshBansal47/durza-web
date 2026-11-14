@@ -1,9 +1,13 @@
 import { render, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import AdSenseSlot from "../AdSenseSlot";
 
 describe("AdSenseSlot", () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_ADS_ENABLED = "1";
+  });
   afterEach(() => {
+    delete process.env.NEXT_PUBLIC_ADS_ENABLED;
     document.querySelectorAll("#google-adsense-script").forEach((node) => node.remove());
     delete (window as Window & { adsbygoogle?: unknown[] }).adsbygoogle;
   });
@@ -35,5 +39,12 @@ describe("AdSenseSlot", () => {
   it("renders nothing without a slot id", () => {
     const { container } = render(<AdSenseSlot eligible slot="" />);
     expect(container.querySelector("ins.adsbygoogle")).not.toBeInTheDocument();
+  });
+
+  it("renders nothing when the ads kill switch is not enabled", () => {
+    delete process.env.NEXT_PUBLIC_ADS_ENABLED;
+    const { container } = render(<AdSenseSlot eligible slot="1170962423" />);
+    expect(container.querySelector("ins.adsbygoogle")).not.toBeInTheDocument();
+    expect(document.getElementById("google-adsense-script")).not.toBeInTheDocument();
   });
 });

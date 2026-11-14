@@ -27,6 +27,11 @@ declare global {
  * The script is loaded here rather than in the root layout, so non-article
  * pages do not pay for it and it only appears on eligible article pages.
  */
+/** Single kill switch for every ad unit. Unset means ads never render. */
+function isAdsEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_ADS_ENABLED === "1";
+}
+
 export default function AdSenseSlot({
   eligible,
   slot,
@@ -51,7 +56,7 @@ export default function AdSenseSlot({
   }, [desktopOnly]);
 
   useEffect(() => {
-    if (!eligible || !visible || !client || !resolvedSlot) return;
+    if (!isAdsEnabled() || !eligible || !visible || !client || !resolvedSlot) return;
     const scriptId = "google-adsense-script";
     let script = document.getElementById(scriptId) as HTMLScriptElement | null;
     const initializeSlot = () => {
@@ -82,7 +87,7 @@ export default function AdSenseSlot({
     return () => script?.removeEventListener("load", markLoaded);
   }, [eligible, visible, client, resolvedSlot]);
 
-  if (!eligible || !visible || !client || !resolvedSlot) return null;
+  if (!isAdsEnabled() || !eligible || !visible || !client || !resolvedSlot) return null;
   return (
     <ins
       className="adsbygoogle my-10 block min-h-[100px] overflow-hidden text-center"
