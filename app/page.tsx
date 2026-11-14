@@ -125,6 +125,12 @@ export default async function HomePage() {
   // Indian shoppers today — deals that make sense for that audience only.
   // The excluded set lives in lib/homepage-curation.ts; this section filters every
   // offer pool the homepage will render.
+  // Plain id → identity lookup for the explorer cards (serialisable across the
+  // client boundary): logo + name + slug + website, keyed by store_id.
+  const storesById = Object.fromEntries(
+    stores.items.map((s) => [s.id, { name: s.name, slug: s.slug, logo_url: s.logo_url, website_url: s.website_url }]),
+  );
+
   const relevantStoreIds = new Set(
     stores.items.filter((s) => isHomepageIndiaRelevant(s.slug)).map((s) => s.id),
   );
@@ -309,7 +315,7 @@ export default async function HomePage() {
             <SectionTitle hint="every card read from the store's own page" icon={Flame} action={{ href: "/deals", label: "Browse all deals" }}>
               <span id="deals-explorer-heading">Verified Deals Explorer</span>
             </SectionTitle>
-            <VerifiedDealsExplorer tabs={explorerTabs} />
+            <VerifiedDealsExplorer tabs={explorerTabs} storesById={storesById} />
           </section>
 
           <section className="mt-12 rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white p-6 md:p-8" aria-labelledby="smart-stacking-heading">

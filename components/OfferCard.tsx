@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Copy, Zap } from "lucide-react";
 import { CardSaveButton } from "./CardSaveButton";
 import { useTrackedHref } from "@/lib/useTrackedHref";
+import OfferBrandMark, { type OfferBrand } from "./OfferBrandMark";
 
 export interface OfferCardProps {
   /** Coupon id — enables the bookmark save button when provided. */
@@ -23,6 +24,11 @@ export interface OfferCardProps {
   expiresAt?: string | null;
   /** Override the discount-badge tone explicitly when caller knows it. */
   badgeTone?: "amber" | "emerald";
+  /**
+   * Brand identity for grids that mix stores (homepage explorer, deal feeds).
+   * Omit on single-brand store pages where the page itself already names the store.
+   */
+  brand?: OfferBrand;
 }
 
 function daysUntil(iso: string | null | undefined): number | null {
@@ -48,6 +54,7 @@ export default function OfferCard({
   verified = false,
   expiresAt,
   badgeTone,
+  brand,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
   const trackedHref = useTrackedHref(ctaHref);
@@ -74,6 +81,7 @@ export default function OfferCard({
 
   return (
     <article className="group flex h-full flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs transition-all hover:border-slate-300 hover:shadow-md">
+      {brand ? <OfferBrandMark brand={brand} /> : null}
       {/* Top row — discount anchor pill + verified tag, bookmark on the right */}
       <div className="mb-3 flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">

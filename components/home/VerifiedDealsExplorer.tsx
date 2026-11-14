@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Flame, TicketPercent, Zap, Clock4 } from "lucide-react";
+import { Flame, TicketPercent, Zap, Clock4 } from "lucide-react";
 import OfferCard from "@/components/OfferCard";
 import type { CouponPublic } from "@/lib/types";
 import { formatDiscountHeading } from "@/lib/format";
@@ -23,9 +23,15 @@ const TABS: { id: DealsExplorerTab; label: string; icon: typeof Flame }[] = [
 
 export default function VerifiedDealsExplorer({
   tabs,
+  storesById,
   goSrc = "homepage",
 }: {
   tabs: Record<DealsExplorerTab, CouponPublic[]>;
+  /** id → minimal store identity, so cross-store grids can name who the deal is from. */
+  storesById?: Record<
+    string,
+    { name: string; slug: string; logo_url?: string | null; website_url?: string | null }
+  >;
   goSrc?: string;
 }) {
   const [active, setActive] = useState<DealsExplorerTab>("top");
@@ -73,19 +79,33 @@ export default function VerifiedDealsExplorer({
           aria-labelledby={`verified-deals-tab-${active}`}
           className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
         >
-          {deals.map((coupon) => (
-            <OfferCard
-              key={coupon.id}
-              bookmarkId={coupon.id}
-              code={coupon.code}
-              badge={formatDiscountHeading(coupon)}
-              title={coupon.title}
-              description={coupon.description}
-              ctaHref={api.goUrl(coupon.id, goSrc)}
-              verified={coupon.verification_status === "verified"}
-              expiresAt={coupon.expires_at}
-            />
-          ))}
+          {deals.map((coupon) => {
+            const store = storesById?.[coupon.store_id];
+            return (
+              <OfferCard
+                key={coupon.id}
+                bookmarkId={coupon.id}
+                brand={
+                  store
+                    ? {
+                        id: coupon.store_id,
+                        name: store.name,
+                        slug: store.slug,
+                        logo_url: store.logo_url ?? null,
+                        website_url: store.website_url ?? null,
+                      }
+                    : undefined
+                }
+                code={coupon.code}
+                badge={formatDiscountHeading(coupon)}
+                title={coupon.title}
+                description={coupon.description}
+                ctaHref={api.goUrl(coupon.id, goSrc)}
+                verified={coupon.verification_status === "verified"}
+                expiresAt={coupon.expires_at}
+              />
+            );
+          })}
         </div>
       )}
     </div>
