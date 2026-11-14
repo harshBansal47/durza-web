@@ -121,7 +121,7 @@ export default async function HomePage() {
         active_only: true,
         has_code: true,
         sort: "newest",
-        limit: 8,
+        limit: 30,
       }),
       emptyPage as Paginated<CouponPublic>,
     ),
