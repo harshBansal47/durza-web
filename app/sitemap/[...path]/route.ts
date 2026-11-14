@@ -49,6 +49,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/coupons`, changeFrequency: "hourly", priority: 0.9 },
   { url: `${SITE_URL}/deals`, changeFrequency: "hourly", priority: 0.9 },
   { url: `${SITE_URL}/bank-offers`, changeFrequency: "daily", priority: 0.8 },
+  { url: `${SITE_URL}/black-friday`, changeFrequency: "weekly", priority: 0.9 },
   { url: `${SITE_URL}/stores`, changeFrequency: "daily", priority: 0.8 },
   { url: `${SITE_URL}/stores/firstcry`, changeFrequency: "daily", priority: 0.8 },
   { url: `${SITE_URL}/stores/lenovo-india`, changeFrequency: "daily", priority: 0.8 },
