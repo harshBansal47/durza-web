@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "GUVI Coupons, Coding Courses & Certification Deals";
-const description = "Verified GUVI promo codes, GUVI10 instant 10% off and best deals on Python, Full Stack and Data Science courses.";
+const description = "GUVI promo codes, GUVI10 instant 10% off and best deals on Python, Full Stack and Data Science courses.";
 const canonical = "/stores/guvi";
 
 export const metadata: Metadata = {

@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Hira Fragrance Coupons, Extrait de Parfum & Attar Deals";
-const description = "Verified Hira Fragrance promo codes and best deals on Extrait de Parfum, Oud and alcohol-free attars. Free shipping ₹599+.";
+const description = "Hira Fragrance promo codes and best deals on Extrait de Parfum, Oud and alcohol-free attars. Free shipping ₹599+.";
 const canonical = "/stores/hirafragrance";
 
 export const metadata: Metadata = {

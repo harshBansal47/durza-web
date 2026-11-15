@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Dot & Key Coupons, Skincare & Sunscreen Deals";
-const description = "Verified Dot & Key promo codes, DOTB2G2 buy 2 get 2 free and best deals on sunscreens, serums and skincare from dotandkey.com.";
+const description = "Dot & Key promo codes, DOTB2G2 buy 2 get 2 free and best deals on sunscreens, serums and skincare from dotandkey.com.";
 const canonical = "/stores/dot-and-key";
 
 export const metadata: Metadata = {

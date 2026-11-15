@@ -58,7 +58,7 @@ export default function DealsFilterPanel({
       />
       <label className="block">
         <span className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-          Recently verified
+          Recently checked
         </span>
         <select
           className="input"

@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "ZOFF Foods Coupons, Cool-Ground Spices & Masala Combo Deals";
-const description = "Verified ZOFF Foods promo codes, PANTRY20 20% off and best deals on Cool-Ground Haldi, Kashmiri Mirchi, Garam Masala combos and pure whole spices.";
+const description = "ZOFF Foods promo codes, PANTRY20 20% off and best deals on Cool-Ground Haldi, Kashmiri Mirchi, Garam Masala combos and pure whole spices.";
 const canonical = "/stores/zoff-foods";
 
 export const metadata: Metadata = {

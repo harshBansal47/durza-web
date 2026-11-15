@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Nourish Mantra Coupons, Urban Rani & Clean Skincare Deals";
-const description = "Verified Nourish Mantra promo codes, GLOW20 20% off, and best deals on 100% vegan Urban Rani Youth Serum, Cosmic Sutra Eye Gel, and Redensyl serums.";
+const description = "Nourish Mantra promo codes, GLOW20 20% off, and best deals on 100% vegan Urban Rani Youth Serum, Cosmic Sutra Eye Gel, and Redensyl serums.";
 const canonical = "/stores/nourish-mantra";
 
 export const metadata: Metadata = {

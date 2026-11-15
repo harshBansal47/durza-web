@@ -31,9 +31,9 @@ const FAQS = [
       "Copy the code from this page, visit HealthKart (website or app), add your items to the cart, paste the code into the coupon box at checkout and tap Apply. The discount is shown before you pay.",
   },
   {
-    question: "Are these HealthKart codes verified on Durza?",
+    question: "Are these HealthKart codes on Durza checked?",
     answer:
-      "Codes marked as verified worked at checkout in our recent checks. Codes are re-checked regularly. If a verified code fails for you, the minimum order value or product eligibility on the card may not be met — or the code has just expired and we are re-verifying it.",
+      "Codes marked as checked resolved correctly at our recent store checks. If a code fails for you, the minimum order value or product eligibility on the card may not be met — or the code has expired and we are re-checking it.",
   },
   {
     question: "Can I combine a coupon with a UPI discount or HK Cash?",
@@ -46,7 +46,7 @@ const FAQS = [
       "Payment options (UPI, cards, net banking, Cash on Delivery) vary by product and cart value. The options available for your order appear on the payment page — Durza cannot change or confirm them for every cart.",
   },
   {
-    question: "What does verified mean on a Durza coupon card?",
+    question: "What does 'checked' mean on a Durza coupon card?",
     answer:
       "It means the code was tested and worked at checkout during our most recent check. Unverified or newly-added codes are labelled differently until they pass.",
   },

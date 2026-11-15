@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Levi's India Coupons, 511 & 501 Jeans Deals & Sale Offers";
-const description = "Verified Levi.in promo codes, ₹1,000 off code LEVIS1000, and best deals on 511 Slim, 512 Taper and 501 Original jeans.";
+const description = "Levi.in promo codes, ₹1,000 off code LEVIS1000, and best deals on 511 Slim, 512 Taper and 501 Original jeans.";
 const canonical = "/stores/levis";
 
 export const metadata: Metadata = {

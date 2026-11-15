@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "IGP Coupons, Cake & Personalized Gift Delivery Deals";
-const description = "Verified IGP.com coupon codes, IGP10 10% off and best deals on same-day cakes, personalized photo gifts and floral bouquets.";
+const description = "IGP.com coupon codes, IGP10 10% off and best deals on same-day cakes, personalized photo gifts and floral bouquets.";
 const canonical = "/stores/igp";
 
 export const metadata: Metadata = {

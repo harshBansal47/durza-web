@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Boldfit Coupons, Gym Equipment & Supplement Deals";
-const description = "Verified Boldfit promo codes and best deals on home gym equipment, resistance bands and protein supplements. Free delivery above ₹800.";
+const description = "Boldfit promo codes and best deals on home gym equipment, resistance bands and protein supplements. Free delivery above ₹800.";
 const canonical = "/stores/boldfit";
 
 export const metadata: Metadata = {

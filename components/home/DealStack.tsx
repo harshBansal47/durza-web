@@ -120,7 +120,7 @@ export default function DealStack({ deals, stores = [] }: DealStackProps) {
                       </div>
                       {hasSource && (
                         <span className="shrink-0 rounded-full bg-verified-soft px-2 py-0.5 text-[10px] font-medium text-verified-ink">
-                          Source verified
+                          Source checked
                         </span>
                       )}
                     </div>

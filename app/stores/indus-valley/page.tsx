@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Indus Valley Coupons, Hair Colour & Herbal Dye Deals";
-const description = "Verified Indus Valley promo codes, FIRST10 offers and best deals on ammonia-free herbal hair colour with free delivery above ₹299.";
+const description = "Indus Valley promo codes, FIRST10 offers and best deals on ammonia-free herbal hair colour with free delivery above ₹299.";
 const canonical = "/stores/indus-valley";
 
 export const metadata: Metadata = {

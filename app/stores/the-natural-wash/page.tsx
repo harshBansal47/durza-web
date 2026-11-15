@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "The Natural Wash Coupons, Beetroot Lip Balm & Potato Wax Deals";
-const description = "Verified The Natural Wash promo codes, 15% off code TNW15, and best deals on Beetroot lip balm, Potato wax blemish corrector and herbal hair care.";
+const description = "The Natural Wash promo codes, 15% off code TNW15, and best deals on Beetroot lip balm, Potato wax blemish corrector and herbal hair care.";
 const canonical = "/stores/the-natural-wash";
 
 export const metadata: Metadata = {

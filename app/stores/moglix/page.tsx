@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Moglix Coupons, Power Tools & Pressure Washer Deals";
-const description = "Verified Moglix promo codes, ₹250 off code TOOLS250, and best deals on Bosch drill kits, high-pressure car washers, safety shoes and GST-invoice supplies.";
+const description = "Moglix promo codes, ₹250 off code TOOLS250, and best deals on Bosch drill kits, high-pressure car washers, safety shoes and GST-invoice supplies.";
 const canonical = "/stores/moglix";
 
 export const metadata: Metadata = {

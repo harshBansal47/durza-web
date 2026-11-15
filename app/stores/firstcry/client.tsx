@@ -41,7 +41,7 @@ export default function FirstCryStorePage({
       <StoreHero
         name="FirstCry"
         heading="FirstCry Coupons & Offers"
-        subtitle="Verified deals on baby gear, diapers, feeding and FirstCry Club savings — all in one place."
+        subtitle="Deals on baby gear, diapers, feeding and FirstCry Club savings — in one place."
         domain={domain}
         heroImageUrl={heroImageUrl ?? "/stores/firstcry.png"}
         offerCount={offerCount}

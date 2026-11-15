@@ -13,7 +13,7 @@ function buildMessage(coupon: CouponPublic, title?: string): string {
         ? `🏷️ Get ₹${coupon.discount_value} OFF`
         : "🏷️ Special deal";
   return [
-    "🛍 Durza Verified Offer",
+    "🛍 Durza Offer",
     "",
     `🔥 ${title ?? coupon.title}`,
     "",

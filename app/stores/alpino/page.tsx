@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Alpino Coupons, Peanut Butter & Protein Deals";
-const description = "Verified Alpino promo codes and best deals on all-natural peanut butter, high-protein oats and healthy snacks with free delivery above ₹499.";
+const description = "Alpino promo codes and best deals on all-natural peanut butter, high-protein oats and healthy snacks with free delivery above ₹499.";
 const canonical = "/stores/alpino";
 
 export const metadata: Metadata = {

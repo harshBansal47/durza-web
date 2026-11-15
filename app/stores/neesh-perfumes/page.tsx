@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Neesh Perfumes Coupons, Glaze Extrait & Luxury Attar Deals";
-const description = "Verified Neesh Perfumes promo codes, NEESH10 extra 10% off, and best deals on Glaze Extrait de Parfum, Milky Way and high-sillage attars.";
+const description = "Neesh Perfumes promo codes, NEESH10 extra 10% off, and best deals on Glaze Extrait de Parfum, Milky Way and high-sillage attars.";
 const canonical = "/stores/neesh-perfumes";
 
 export const metadata: Metadata = {

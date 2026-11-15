@@ -59,7 +59,7 @@ export default function LifeChangingAstroClient({ offers, products, faqs, stats,
             </li>
           ))}
         </ol>
-        <a href={link("https://lifechangingastro.com", "confidence_checklist")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Book a Verified Consultation</a>
+        <a href={link("https://lifechangingastro.com", "confidence_checklist")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Book a consultation</a>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

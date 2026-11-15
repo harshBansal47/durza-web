@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Fuel One Coupons, Whey Protein & Creatine Deals";
-const description = "Verified Fuel One deals on whey isolate, creatine and pre-workout with live prices vs MRP and free delivery across India.";
+const description = "Fuel One deals on whey isolate, creatine and pre-workout with live prices vs MRP and free delivery across India.";
 const canonical = "/stores/fuelone";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How are Fuel One prices on Durza verified?", answer: "Prices and MRP reflect the official fuelone.in listing at the time of page update — supplement and creatine prices shift with promotions." },
+  { question: "How are Fuel One prices on Durza shown?", answer: "Prices and MRP reflect the official fuelone.in listing at the time of page update — supplement and creatine prices shift with promotions." },
   { question: "Are Fuel One supplements FSSAI certified?", answer: "Yes. Fuel One sells FSSAI-licensed sports nutrition directly from its official warehouse with batch and best-before details on every pack." },
   { question: "Does Fuel One offer free delivery?", answer: "Free delivery is available on eligible orders on the official site; the cart page at checkout shows the current threshold." },
 ];

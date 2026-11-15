@@ -23,7 +23,7 @@ export default function PromoStrip() {
     <div className="border-b border-ledger-line bg-paper-raised text-ink no-print">
       <div className="relative mx-auto flex max-w-6xl items-center gap-3 px-4 py-1.5 sm:px-6">
         <span className="hidden shrink-0 rounded-full bg-accent/10 px-2.5 py-0.5 text-[11px] font-semibold text-accent sm:inline">
-          Verified deals, always free
+          Clear offers, always free
         </span>
         {/* Phones get one static line: a scrolling ticker cuts words off at the edge. */}
         <p className="min-w-0 flex-1 truncate text-xs font-semibold sm:hidden">Real codes, real check dates</p>

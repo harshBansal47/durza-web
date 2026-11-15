@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "BytePe Coupons, Bill Payment Cashback Deals";
-const description = "Verified BytePe cashback codes, FIRSTBILL offers and best deals on BBPS bill payments, recharges and instant digital gift vouchers.";
+const description = "BytePe cashback codes, FIRSTBILL offers and best deals on BBPS bill payments, recharges and instant digital gift vouchers.";
 const canonical = "/stores/bytepe";
 
 export const metadata: Metadata = {

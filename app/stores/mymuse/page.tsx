@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "MyMuse Coupons, Couple Kits & Intimate Wellness Deals";
-const description = "Verified MyMuse.in promo codes, MUSE10 extra 10% off and discreet deals on couple kits, waterproof massagers and natural lubricants.";
+const description = "MyMuse.in promo codes, MUSE10 extra 10% off and discreet deals on couple kits, waterproof massagers and natural lubricants.";
 const canonical = "/stores/mymuse";
 
 export const metadata: Metadata = {

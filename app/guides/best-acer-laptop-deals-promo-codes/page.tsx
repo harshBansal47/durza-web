@@ -7,9 +7,9 @@ import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import GuidePromoRevealCTA, { type GuidePromoOffer } from "@/components/guides/GuidePromoRevealCTA";
 import QuickAnswer from "@/components/ui/QuickAnswer";
 
-const title = "Best Acer Laptop Deals in India (2026): Nitro Gaming, Swift OLED, Aspire Lite + Verified Promo Codes";
+const title = "Best Acer Laptop Deals in India (2026): Nitro, Swift, Aspire & Promo Codes";
 const description =
-  "Buying an Acer laptop in India in 2026? We rank Nitro V, Predator Helios, Swift Go OLED & Aspire Lite — with Admitad codes verified in our own audit and stacked with bank offers.";
+  "Buying an Acer laptop in India in 2026? We rank Acer Nitro V, Predator Helios, Swift Go OLED & Aspire Lite by use-case — with Admitad codes sourced from Acer's own program feed, stacked with bank offers.";
 const canonical = "/guides/best-acer-laptop-deals-promo-codes";
 
 export const metadata: Metadata = {
@@ -119,11 +119,11 @@ export default function BestAcerLaptopDealsPage() {
       <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="flex items-center gap-2 text-xs font-semibold text-verified-ink">
           <BadgeCheck aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          <span>Updated Nov 2026 · Codes verified on Acer.com</span>
+          <span>Updated Nov 2026 · Codes sourced from Acer's own Admitad program</span>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-3">
-          <span className="inline-flex items-center rounded-full bg-verified-soft px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-verified-ink"><Sparkles className="mr-1 h-3 w-3" /> Admitad coupon verified</span>
+          <span className="inline-flex items-center rounded-full bg-paper-alt px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-ink-soft"><Sparkles className="mr-1 h-3 w-3" /> Feed source: Acer program via Admitad</span>
           <span className="inline-flex items-center rounded-full border border-ledger-line bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink-soft">Official store only</span>
           <span className="inline-flex items-center rounded-full border border-ledger-line bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink-soft">Student-eligible</span>
         </div>
@@ -212,7 +212,7 @@ export default function BestAcerLaptopDealsPage() {
         </section>
 
         <section aria-labelledby="explore-more" className="mt-12">
-          <h2 id="explore-more" className="font-serif text-2xl font-extrabold text-ink">Explore more verified store hubs on Durza</h2>
+          <h2 id="explore-more" className="font-serif text-2xl font-extrabold text-ink">Explore more store hubs on Durza</h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
               { href: "/stores/acer", title: "All Acer coupons on Durza", subtitle: "View All Active Acer Coupons & Offers →", primary: true },
@@ -250,7 +250,7 @@ export default function BestAcerLaptopDealsPage() {
 
         <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-ink-soft">
           <p className="font-semibold text-ink">Editorial note</p>
-          <p className="mt-1">This guide was written and updated November 2026. Acer&apos;s catalogue and offers change frequently; the codes on this page were verified in our own store audit on Acer.com India on this date. We never invent list prices, discounts, or stock status; exact figures shown on Acer&apos;s checkout are the ones you pay.</p>
+          <p className="mt-1">This guide was written and updated November 2026. Acer&apos;s catalogue and offers change frequently; codes on this page are sourced from Acer's feed via Admitad — confirm live status on the checkout panel before you pay. We never invent list prices, discounts, or stock status; exact figures shown on Acer&apos;s checkout are the ones you pay.</p>
         </div>
       </article>
     </>

@@ -76,7 +76,7 @@ export default function StoreHero({
   offers,
 }: StoreHeroProps) {
   const resolvedPerks = perks ?? deriveStoreHeroPerks(offers);
-  const countLabel = typeof offerCount === "number" && offerCount > 0 ? `${offerCount} Verified Offers` : "Verified Offers";
+  const countLabel = typeof offerCount === "number" && offerCount > 0 ? `${offerCount} Offers` : "Offers";
 
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">

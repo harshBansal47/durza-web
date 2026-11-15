@@ -207,7 +207,7 @@ export default async function StorePage({ params, searchParams }: Props) {
   const faqs = [
     ...destination.faqs,
     {
-      question: `Are the ${store.name} codes on Durza verified?`,
+      question: `How are the ${store.name} codes on Durza kept current?`,
       answer:
         totalReports > 0
           ? `${verifiedCount} of the current ${items.length} listed offers have shopper reports from the last 30 days, with an average reported success rate of ${Math.round(avgRate * 100)}%.`

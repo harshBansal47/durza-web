@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Havells Coupons, Home Appliances & Electricals Deals";
-const description = "Verified Havells promo codes, HAVELLS500 flat ₹500 off above ₹4,999 and best deals on fans, appliances and electricals.";
+const description = "Havells promo codes, HAVELLS500 flat ₹500 off above ₹4,999 and best deals on fans, appliances and electricals.";
 const canonical = "/stores/havells";
 
 export const metadata: Metadata = {

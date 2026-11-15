@@ -32,7 +32,7 @@ export function RecentlyVerifiedRow({
       <SectionTitle hint="checked by shoppers" icon={BadgeCheck}>
         <span id="freshly-checked">Freshly checked</span>
       </SectionTitle>
-      <DealsCarousel coupons={rows} stores={storesFor(rows, stores)} label="Recently verified deals" />
+      <DealsCarousel coupons={rows} stores={storesFor(rows, stores)} label="Recently checked deals" />
     </section>
   );
 }

@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "NordPass Coupons, Password Manager Deals & Free Trial";
-const description = "Verified NordPass promo codes, up to 50% off on 2-year plans, and best deals on encrypted zero-knowledge password management and family suites.";
+const description = "NordPass promo codes, up to 50% off on 2-year plans, and best deals on encrypted zero-knowledge password management and family suites.";
 const canonical = "/stores/nordpass";
 
 export const metadata: Metadata = {

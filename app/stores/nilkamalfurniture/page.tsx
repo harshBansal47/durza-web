@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Nilkamal Furniture Coupons, Office Chair & Wardrobe Deals";
-const description = "Verified Nilkamal Furniture promo codes, ₹1,000 off code BEDROOM1000, and best deals on ergonomic chairs, wardrobes and beds.";
+const description = "Nilkamal Furniture promo codes, ₹1,000 off code BEDROOM1000, and best deals on ergonomic chairs, wardrobes and beds.";
 const canonical = "/stores/nilkamalfurniture";
 
 export const metadata: Metadata = {

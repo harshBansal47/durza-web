@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Gritzo Coupons, SuperMilk & Kids Nutrition Deals";
-const description = "Verified Gritzo promo codes, SUPER10 extra 10% off and best deals on SuperMilk protein drinks and growth nutrition for kids.";
+const description = "Gritzo promo codes, SUPER10 extra 10% off and best deals on SuperMilk protein drinks and growth nutrition for kids.";
 const canonical = "/stores/gritzo";
 
 export const metadata: Metadata = {

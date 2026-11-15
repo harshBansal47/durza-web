@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Beast Life Coupons, Whey Protein & Creatine Deals";
-const description = "Verified Beast Life promo codes, BEAST10 offers and best deals on whey protein, creatine and pre-workout from beastlife.in. Free delivery ₹999+.";
+const description = "Beast Life promo codes, BEAST10 offers and best deals on whey protein, creatine and pre-workout from beastlife.in. Free delivery ₹999+.";
 const canonical = "/stores/beast-life";
 
 export const metadata: Metadata = {

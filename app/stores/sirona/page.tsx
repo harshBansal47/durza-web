@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Sirona Hygiene Coupons, Menstrual Cup & PeeBuddy Deals";
-const description = "Verified Sirona Hygiene promo codes, 15% off code SIRONA15, and best deals on FDA-approved menstrual cups, heat patches and PeeBuddy devices.";
+const description = "Sirona Hygiene promo codes, 15% off code SIRONA15, and best deals on FDA-approved menstrual cups, heat patches and PeeBuddy devices.";
 const canonical = "/stores/sirona";
 
 export const metadata: Metadata = {

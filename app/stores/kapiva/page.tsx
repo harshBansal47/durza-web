@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Kapiva Coupons, Himalayan Shilajit & Herbal Juice Deals";
-const description = "Verified Kapiva promo codes, KAPIVA10 extra 10% off and best deals on Himalayan Shilajit resin, Dia Free Juice and Get Slim.";
+const description = "Kapiva promo codes, KAPIVA10 extra 10% off and best deals on Himalayan Shilajit resin, Dia Free Juice and Get Slim.";
 const canonical = "/stores/kapiva";
 
 export const metadata: Metadata = {

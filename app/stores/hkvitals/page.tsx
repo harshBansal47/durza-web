@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "HK Vitals Coupons, Fish Oil & Vitamin Deals";
-const description = "Verified HK Vitals promo codes, HKV10 offers and best deals on omega-3 fish oil, multivitamins and calcium. Free delivery ₹499+.";
+const description = "HK Vitals promo codes, HKV10 offers and best deals on omega-3 fish oil, multivitamins and calcium. Free delivery ₹499+.";
 const canonical = "/stores/hkvitals";
 
 export const metadata: Metadata = {

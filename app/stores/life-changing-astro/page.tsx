@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Life Changing Astro Coupons, Kundli Consultation & Gemstone Deals";
-const description = "Verified Life Changing Astro codes, ASTRO15 15% off and best deals on 1-on-1 Vedic consultations and lab-certified gemstones.";
+const description = "Life Changing Astro codes, ASTRO15 15% off and best deals on 1-on-1 Vedic consultations and lab-certified gemstones.";
 const canonical = "/stores/life-changing-astro";
 
 export const metadata: Metadata = {

@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Fitspire Coupons, Collagen & Weight Care Deals";
-const description = "Verified Fitspire promo codes, FIT10 and FIT20 offers and best deals on plant-based collagen and apple cider vinegar.";
+const description = "Fitspire promo codes, FIT10 and FIT20 offers and best deals on plant-based collagen and apple cider vinegar.";
 const canonical = "/stores/fitspire";
 
 export const metadata: Metadata = {

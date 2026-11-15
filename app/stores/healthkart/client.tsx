@@ -49,7 +49,7 @@ export default function HealthKartPage({
       <StoreHero
         name="HealthKart"
         heading="HealthKart Coupons & Offers"
-        subtitle="Protein, creatine, vitamins and sports nutrition — check today's verified codes and save on every order."
+        subtitle="Protein, creatine, vitamins and sports nutrition — check today's codes and save on every order."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -132,13 +132,13 @@ export default function HealthKartPage({
         </p>
       </section>
 
-      {/* 7 · Trust & verification — what verified means */}
-      <section aria-labelledby="trust-verified" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="trust-verified">What “verified” means on this page</h2>
+      {/* 7 · Trust & verification — what checked means */}
+      <section aria-labelledby="trust-checked" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
+        <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="trust-checked">What “checked” means on this page</h2>
         <ul className="mt-3 space-y-2 text-sm text-ink-soft">
-          <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} /><span><span className="font-semibold text-ink">Verified</span> — the code was tested at checkout and worked during our most recent check.</span></li>
+          <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} /><span><span className="font-semibold text-ink">Checked</span> — the code resolved correctly during our most recent feed check.</span></li>
           <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" strokeWidth={2} /><span><span className="font-semibold text-ink">Pending / new</span> — newly added code, waiting to be checked. It may still work, just not confirmed yet.</span></li>
-          <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" strokeWidth={2} /><span><span className="font-semibold text-ink">Expired</span> — never shown as active. If a code fails, the card will tell you the newest verified option.</span></li>
+          <li className="flex items-start gap-2"><ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" strokeWidth={2} /><span><span className="font-semibold text-ink">Expired</span> — never shown as active. If a code fails, the card will tell you the newest option we checked.</span></li>
         </ul>
         <p className="mt-3 border-t border-slate-100 pt-3 text-[11px] text-ink-soft">
           Durza re-checks offers regularly — when a code has been tested recently, the verification strip appears above the coupons. Report a code that fails and we&apos;ll re-check it.

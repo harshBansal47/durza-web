@@ -37,7 +37,7 @@ export default function BoldfitStorePage({ offers, products, faqs, stats, heroIm
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Boldfit"
-        subtitle="Home gyms, resistance gear and recovery essentials — check today's verified codes."
+        subtitle="Home gyms, resistance gear and recovery essentials — check today's codes."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}

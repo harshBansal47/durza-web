@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Lavie World Coupons, Handbags, Totes & Sling Deals";
-const description = "Verified Lavie World promo codes, extra 10% off code LAVIE10, and up to 65% off on office totes, satchel bags, slings, and bridal clutches.";
+const description = "Lavie World promo codes, extra 10% off code LAVIE10, and up to 65% off on office totes, satchel bags, slings, and bridal clutches.";
 const canonical = "/stores/lavie-world";
 
 export const metadata: Metadata = {

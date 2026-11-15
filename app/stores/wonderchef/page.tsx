@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Wonderchef Coupons, Nutri-Blend & Granite Cookware Deals";
-const description = "Verified Wonderchef codes, CHEF10 extra 10% off, best deals on Nutri-Blend grinders, PFOA-free granite cookware and Regalia coffee makers.";
+const description = "Wonderchef codes, CHEF10 extra 10% off, best deals on Nutri-Blend grinders, PFOA-free granite cookware and Regalia coffee makers.";
 const canonical = "/stores/wonderchef";
 
 export const metadata: Metadata = {

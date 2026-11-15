@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Milton Coupons, Thermosteel Flask & Electric Tiffin Deals";
-const description = "Verified Milton.in promo codes, MILTON10 extra 10% off and best deals on 24-hour Thermosteel flasks, electric lunch boxes and copper bottles.";
+const description = "Milton.in promo codes, MILTON10 extra 10% off and best deals on 24-hour Thermosteel flasks, electric lunch boxes and copper bottles.";
 const canonical = "/stores/milton";
 
 export const metadata: Metadata = {

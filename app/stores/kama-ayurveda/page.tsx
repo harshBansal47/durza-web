@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Kama Ayurveda Coupons, Kumkumadi & Bringadi Deals";
-const description = "Verified Kama Ayurveda promo codes, KAMA10 10% off and best luxury deals on Kumkumadi night serum, Bringadi oil and rose water.";
+const description = "Kama Ayurveda promo codes, KAMA10 10% off and best luxury deals on Kumkumadi night serum, Bringadi oil and rose water.";
 const canonical = "/stores/kama-ayurveda";
 
 export const metadata: Metadata = {

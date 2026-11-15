@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "The Man Company Coupons, Beard Growth & Blanc Perfume Deals";
-const description = "Verified The Man Company promo codes, 15% off code TMC15, and best deals on Derma Roller beard kits, Blanc EDP, and charcoal face care.";
+const description = "The Man Company promo codes, 15% off code TMC15, and best deals on Derma Roller beard kits, Blanc EDP, and charcoal face care.";
 const canonical = "/stores/the-man-company";
 
 export const metadata: Metadata = {

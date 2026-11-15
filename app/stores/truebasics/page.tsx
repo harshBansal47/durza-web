@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "TrueBasics Coupons, Triple Strength Omega-3 & KSM-66 Deals";
-const description = "Verified TrueBasics promo codes, 20% off code CLINICAL20, and best deals on Triple Strength Omega-3, KSM-66 Ashwagandha and clinical multivitamins.";
+const description = "TrueBasics promo codes, 20% off code CLINICAL20, and best deals on Triple Strength Omega-3, KSM-66 Ashwagandha and clinical multivitamins.";
 const canonical = "/stores/truebasics";
 
 export const metadata: Metadata = {

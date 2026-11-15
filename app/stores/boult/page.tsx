@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Boult Coupons, Gaming Earbuds & Smartwatch Deals";
-const description = "Verified Boult promo codes, BOULT100 flat ₹100 off and best deals on gaming earbuds, neckbands and smartwatches at goboult.co.in.";
+const description = "Boult promo codes, BOULT100 flat ₹100 off and best deals on gaming earbuds, neckbands and smartwatches at goboult.co.in.";
 const canonical = "/stores/boult";
 
 export const metadata: Metadata = {

@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "ZeroHarm Coupons, Plant Vitamin B12 & Narie PCOS Deals";
-const description = "Verified ZeroHarm promo codes, ZERO15 15% off and best deals on nano-formulated Plant Vitamin B12, Vegan D3+K2, Liver Detox and Narie PCOS care.";
+const description = "ZeroHarm promo codes, ZERO15 15% off and best deals on nano-formulated Plant Vitamin B12, Vegan D3+K2, Liver Detox and Narie PCOS care.";
 const canonical = "/stores/zeroharm";
 
 export const metadata: Metadata = {

@@ -54,7 +54,7 @@ export default function GuidePromoRevealCTA({ offer }: { offer: GuidePromoOffer 
   return (
     <div
       role="region"
-      aria-label={`Admitad offer: ${offer.badge ?? "Verified Acer deal"}`}
+      aria-label={`Admitad offer: ${offer.badge ?? "Admitad deal"}`}
       className="my-8 overflow-hidden rounded-2xl border border-ledger-line bg-white shadow-sm"
     >
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 bg-slate-50/60 px-5 py-4">
@@ -67,7 +67,7 @@ export default function GuidePromoRevealCTA({ offer }: { offer: GuidePromoOffer 
           </span>
           <div className="min-w-0">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-              {offer.badge ?? "Verified Admitad Deal"}
+              {offer.badge ?? "Admitad deal"}
             </span>
             <h3 className="mt-1 text-base font-semibold leading-snug text-ink">{offer.headline}</h3>
             {offer.eligibility && (

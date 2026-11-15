@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Brillare Coupons, Oil Shots & Hair Care Deals";
-const description = "Verified Brillare promo codes, FLAT20 offers and best deals on oil shots and hair care with free delivery on orders above ₹499.";
+const description = "Brillare promo codes, FLAT20 offers and best deals on oil shots and hair care with free delivery on orders above ₹499.";
 const canonical = "/stores/brillare";
 
 export const metadata: Metadata = {

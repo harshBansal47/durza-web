@@ -199,7 +199,7 @@ export default function ProductDealRouter({
       </div>
 
       <p className="mt-3 text-[10px] text-ink-soft">
-        Live pricing on {storeName} — always verified at checkout. The badge and code above are the ones currently running on the merchant site.
+        Live pricing on {storeName} — refreshed at checkout. The badge and code above are the ones currently running on the merchant site.
       </p>
     </section>
   );
