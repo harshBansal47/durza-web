@@ -190,6 +190,14 @@ export interface CouponPublic {
   last_verified_at: string | null;
   success_rate: number | null;
   verification_status: VerificationStatus;
+  /** Live-checkout telemetry (null when never tested). */
+  tested_cart_value: number | null;
+  /** Exact rupee discount observed at checkout during live-testing. */
+  verified_discount_amount: number | null;
+  /** True when the live verifier gave this coupon two consecutive failures; UI should hide. */
+  auto_suppressed: boolean;
+  /** Number of consecutive failed verification attempts. */
+  verification_failures: number;
   /** When the offer's source was last read/checked — not a shopper vote. */
   last_checked_at: string | null;
   /** Store-stated conditions: minimum order, terms, source page, check date. */

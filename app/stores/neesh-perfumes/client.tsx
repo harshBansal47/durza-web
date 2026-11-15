@@ -39,7 +39,7 @@ export default function NeeshPerfumesClient({ offers, products, faqs, stats, her
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Neesh Perfumes"
-        subtitle="Haute Parfumerie • Handcrafted Extrait de Parfum with Unrivaled Sillage"
+        subtitle="Haute Parfumerie • Handcrafted Extrait de Parfum — concentrated doses, no filler alcohol"
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}

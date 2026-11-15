@@ -54,6 +54,10 @@ function makeCoupons(count: number, start = 0): CouponPublic[] {
     verification_status: "unverified" as const,
     last_checked_at: null,
     restrictions: null,
+    tested_cart_value: null,
+    verified_discount_amount: null,
+    auto_suppressed: false,
+    verification_failures: 0,
     created_at: "2026-01-01T00:00:00Z",
   }));
 }

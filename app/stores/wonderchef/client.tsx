@@ -16,7 +16,7 @@ const link = (url: string, sub: string): string => getAffiliateLink("wonderchef"
 const ADVISOR = [
   { title: "100% PFOA & Lead-Free", detail: "Wonderchef Granite coatings use non-toxic mineral layers safe for high-heat Indian tadka — no leaching, no flaking fumes." },
   { title: "Induction + Gas Dual Base", detail: "All granite pans carry a magnetic stainless steel base plate, fully compatible with both induction cooktops and gas stoves." },
-  { title: "Stacking Formula", detail: "Catalog 49% off + code CHEF10 (extra 10%) + 5% instant UPI deduction = maximum savings on chef-curated kitchenware." },
+  { title: "Stacking Formula", detail: "Catalog 49% off + code CHEF10 (extra 10%) + 5% instant UPI deduction = maximum savings on chef-grade kitchenware." },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -39,7 +39,7 @@ export default function WonderchefClient({ offers, products, faqs, stats, heroIm
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="Wonderchef"
-        subtitle="Cook with Pride • Curated by Chef Sanjeev Kapoor • Healthy & Smart Kitchens"
+        subtitle="Cook with Pride • Chef Sanjeev Kapoor's kitchen line • Smart modern tools"
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}

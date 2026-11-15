@@ -20,6 +20,14 @@ export interface OfferCardProps {
   ctaLabel?: string;
   /** Show the subtle "✓ Verified" tag. Defaults to hidden until data backs it. */
   verified?: boolean;
+  /** Live-checkout verification telemetry, populated when the backend auto-tested the code. */
+  liveVerification?: {
+    lastVerifiedAt: string;
+    verifiedDiscountAmount: number | null;
+    testedCartValue: number | null;
+  } | null;
+  /** Live verifier failure count — when ≥ 2 the card is auto-hidden. */
+  autoSuppressed?: boolean;
   /** ISO date; renders a muted "Ends in Nd" pill when inside 7 days. */
   expiresAt?: string | null;
   /** Override the discount-badge tone explicitly when caller knows it. */
@@ -52,11 +60,14 @@ export default function OfferCard({
   ctaHref,
   ctaLabel,
   verified = false,
+  liveVerification = null,
+  autoSuppressed = false,
   expiresAt,
   badgeTone,
   brand,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
+  if (autoSuppressed) return null;
   const trackedHref = useTrackedHref(ctaHref);
   const isCoded = Boolean(code);
   const tone = badgeTone ?? (isCoded ? "amber" : "emerald");
@@ -82,7 +93,7 @@ export default function OfferCard({
   return (
     <article className="group flex h-full flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs transition-all hover:border-slate-300 hover:shadow-md">
       {brand ? <OfferBrandMark brand={brand} /> : null}
-      {/* Top row — discount anchor pill + verified tag, bookmark on the right */}
+      {/* Top row — discount anchor pill + live-verification pill, bookmark on the right */}
       <div className="mb-3 flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">
           <span
@@ -90,7 +101,20 @@ export default function OfferCard({
           >
             {badge ?? (isCoded ? "OFFER" : "SITEWIDE DEAL")}
           </span>
-          {verified ? <span className="text-[11px] font-medium text-slate-400">✓ Verified</span> : null}
+          {liveVerification ? (
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-800"
+              title={liveVerification.lastVerifiedAt}
+            >
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Live-tested {new Date(liveVerification.lastVerifiedAt).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+              {liveVerification.verifiedDiscountAmount != null && liveVerification.testedCartValue != null ? (
+                <> · ₹{liveVerification.verifiedDiscountAmount} off on ₹{liveVerification.testedCartValue.toLocaleString('en-IN')}</>
+              ) : null}
+            </span>
+          ) : (
+            verified ? <span className="text-[11px] font-medium text-slate-400">✓ Verified</span> : null
+          )}
           {expiringSoon ? (
             <span className="hidden text-[11px] font-medium text-slate-400 sm:inline">
               · ends in {days}d

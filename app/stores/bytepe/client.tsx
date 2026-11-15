@@ -38,7 +38,7 @@ export default function BytePeStorePage({ offers, products, faqs, stats, heroIma
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="BytePe"
-        subtitle="Seamless Digital Payments, Instant Bill Cashback & Smart Merchant Payouts"
+        subtitle="Cardless billing + cashback, no subscription required — in plain words"
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}

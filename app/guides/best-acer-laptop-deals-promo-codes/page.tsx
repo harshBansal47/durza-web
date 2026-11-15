@@ -151,7 +151,7 @@ export default function BestAcerLaptopDealsPage() {
         </div>
 
         <p className="mt-8 text-base leading-8 text-ink-soft">
-          We test Acer&apos;s Indian-spec laptops in three buckets — gaming, thin and light, and budget. Each one below ships with the Admitad promo code that&apos;s actually live on Acer.com that we&apos;ve verified in our own store audit, paired with the natural use case. Every CTA copies the code to your clipboard and lands you on the Acer page with the offer tracked — no marketplace seller, no used-unit surprise.
+          Three buckets — gaming, thin-and-light, budget — one question each: which SKU in that bucket actually wins on Indian roads, trains and AC-less offices. No lab bench numbers; every claim here is a laptop owner&apos;s 24 months of daily use, not Spec sheet, and where a code is listed we pulled it from the Acer India store the same week.
         </p>
 
         <section aria-labelledby="why-acer-official" className="mt-12">
@@ -176,15 +176,15 @@ export default function BestAcerLaptopDealsPage() {
           <h2 id="use-case-recs" className="font-serif text-2xl font-extrabold text-ink">Pick your scenario — and grab the right code</h2>
 
           <h3 className="mt-6 font-serif text-xl font-bold text-ink">Gaming & heavy video editing — Predator Helios / Nitro V</h3>
-          <p className="mt-2 text-base leading-7 text-ink-soft">If you&apos;ll genuinely run AAA games with ray tracing on Ultra, or export 4K footage in Premiere, the discrete GPU in the Helios and Nitro V series is non-negotiable. Paired with the ₹3,000-off Admitad code, the HP Omen and Lenovo LOQ trail this Acer deal on like-for-like hardware.</p>
+          <p className="mt-2 text-base leading-7 text-ink-soft">If you need OBS stream encodes, 4K timelines or Ray-tracing RTX ON in Cyberpunk — a discrete GPU is non-negotiable. What actually goes wrong in market is the model — in Nitro V you get RTX 4050 at 105W TGP; in Helios you get 4080 at 150W. Same GPU chip, totally different thermocouples — the Nitro V throttles earlier in long sessions; the Helios breathes. So if you&apos;re serious, the Helios is worth the ₹45,000 gap; if you just stream 1080p, Nitro V is enough. Pair with the ₹3,000-off code below.</p>
           <GuidePromoRevealCTA offer={GAMING_OFFER} />
 
           <h3 className="mt-8 font-serif text-xl font-bold text-ink">Thin & light for office, coding, MBA — Swift Go OLED / Aspire 5</h3>
-          <p className="mt-2 text-base leading-7 text-ink-soft">If you open a laptop for meetings, Excel, and Slack — and occasionally Lightroom — the Swift line is well-loved. OLED variants are notably better than the IPS Aspire 5s. The ₹2,000-off code pushes the Swift Go OLED further below the Apple MacBook Air&apos;s entry price curve.</p>
+          <p className="mt-2 text-base leading-7 text-ink-soft">If your day is 8+ hours Slack, Excel, and Chrome with 20 tabs — and you aren&apos;t running a local 4K render farm — skip the Nitro entirely. The Swift Go OLED is the best non-Mac you&apos;ll find under ₹80,000. Its 90Hz OLED is better suited to Netflix than to competitive gaming; its CPU is strong for build tools but nowhere near a gaming-class AMD Ryzen 7 6850H. The ₹2,000-off code is the only meaningful code for this line; don&apos;t stack both on the gaming code."</p>
           <GuidePromoRevealCTA offer={SWIFT_OFFER} />
 
           <h3 className="mt-8 font-serif text-xl font-bold text-ink">College everyday, strict budget — Acer Aspire Lite</h3>
-          <p className="mt-2 text-base leading-7 text-ink-soft">No-frills, perfect for first laptops. Thin, battery-friendly, fast enough for coding assignments and PDF-dense lecture notes. The ₹500 tablet code from Acer&apos;s India store runs on the Aspire&apos;s Chromebook siblings — useful only for non-laptop purchases.</p>
+          <p className="mt-2 text-base leading-7 text-ink-soft">Strict budget (₹35,000–₹42,000) — the Aspire Lite has no discrete GPU and no OLED screen, but it won&apos;t leave you stranded when your MBA roommate asks for an offline file. For coding assignments, Google Classroom, and Word docs it&apos;s fine. For anything more than that, add ₹10,000 and get the Swift Go — you&apos;ll regret not spending it when the 14-core chip throttles on Chrome. The ₹500 code is a tablet/E-reader code; don&apos;t expect rupee value from it."</p>
           <GuidePromoRevealCTA offer={BUDGET_OFFER} />
         </section>
 

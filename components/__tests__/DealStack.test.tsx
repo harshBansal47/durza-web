@@ -25,6 +25,10 @@ function makeCoupon(overrides: Partial<CouponPublic> = {}): CouponPublic {
     verification_status: "unverified",
     last_checked_at: "2026-03-10T00:00:00Z",
     restrictions: null,
+    verification_failures: 0,
+    tested_cart_value: null,
+    verified_discount_amount: null,
+    auto_suppressed: false,
     created_at: "2026-01-01T00:00:00Z",
     ...overrides,
   };

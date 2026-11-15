@@ -40,7 +40,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
       <StoreHero
         name="Ajio"
         heading="Ajio Coupons & Offers"
-        subtitle="Sarees, kurtis, ethnic & western wear — curated deals refreshed from Ajio's official campaign pages."
+        subtitle="Sarees, kurtis, ethnic & western wear — deals pulled straight from Ajio's official campaign pages."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
