@@ -58,6 +58,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/stores/firstcry/club-calculator`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/stores/firstcry/diaper-cost-tracker`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/stores/firstcry/baby-gear-finder`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/stores/havells/bldc-calculator`, changeFrequency: "weekly", priority: 0.75 },
   { url: `${SITE_URL}/categories`, changeFrequency: "daily", priority: 0.8 },
   { url: `${SITE_URL}/guides`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/guides/best-acer-laptop-deals-promo-codes`, changeFrequency: "weekly", priority: 0.85 },
