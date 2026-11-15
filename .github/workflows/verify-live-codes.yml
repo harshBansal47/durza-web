@@ -1,0 +1,38 @@
+# Live checkout code verifier — runs the Python verifier against the backend
+# DB every 12h. Requires two secrets in repo settings:
+#   ORACLE_VM_HOST       e.g. "144.24.124.148"
+#   ORACLE_SSH_KEY       private key matching the VM's authorized_keys
+# Without them this job is a no-op (it fails-closed if secrets are missing).
+name: Verify live codes
+
+on:
+  schedule:
+    - cron: "17 */12 * * *"   # 2 am and 2 pm UTC-ish
+  workflow_dispatch:
+
+jobs:
+  live-checkout-verify:
+    runs-on: ubuntu-latest
+    if: ${{ vars.VERIFIER_ENABLED == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify via podman on the Oracle VM
+        env:
+          ORACLE_VM_HOST: ${{ secrets.ORACLE_VM_HOST }}
+          ORACLE_SSH_KEY: ${{ secrets.ORACLE_SSH_KEY }}
+        run: |
+          set -e
+          # Upload a small runner that runs inside podman against the prod DB.
+          mkdir -p /tmp/verify-runner
+          cat > /tmp/verify-runner/run.py <<'PY'
+          import asyncio
+          from app.core.database import AsyncSessionLocal
+          from app.services.code_verifier import run_live_checkout_verification
+          async def main():
+              async with AsyncSessionLocal() as db:
+                  print(await run_live_checkout_verification(db, max_coupons=6))
+          asyncio.run(main())
+          PY
+          scp -i "$ORACLE_SSH_KEY" -o StrictHostKeyChecking=no /tmp/verify-runner/run.py "ubuntu@$ORACLE_VM_HOST:/tmp/run_verifier.py"
+          ssh -i "$ORACLE_SSH_KEY" -o StrictHostKeyChecking=no "ubuntu@$ORACLE_VM_HOST" \
+            "podman run --rm -i --user root -e PYTHONPATH=/code --env-file /home/ubuntu/durza/.env --net durza_default -v /home/ubuntu/durza/app:/code/app -v /tmp/run_verifier.py:/tmp/run_verifier.py durza_app python -B /tmp/run_verifier.py"
