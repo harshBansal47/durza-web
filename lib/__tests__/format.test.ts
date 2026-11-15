@@ -63,7 +63,7 @@ describe("formatDiscount", () => {
 
   it("shows the Mega Deals label for a deal with no discount_value", () => {
     expect(formatDiscount(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "MEGA DEALS — No Code Needed",
+      "Mega deal",
     );
   });
 
@@ -88,7 +88,7 @@ describe("formatDiscount", () => {
           restrictions: { price: "₹220", mrp: "₹260" },
         }),
       ),
-    ).toBe("MEGA DEALS — 15% off");
+    ).toBe("15% off");
   });
 
   it("falls back to 'Deal' when discount_value is missing even for percentage/fixed", () => {
@@ -99,7 +99,7 @@ describe("formatDiscount", () => {
 
   it("uses the Mega Deals wording for deal cards with no discount amount", () => {
     expect(formatDiscountHeading(makeCoupon({ discount_type: "deal", discount_value: null }))).toBe(
-      "MEGA DEALS — No Code Needed",
+      "Mega deal",
     );
   });
 });

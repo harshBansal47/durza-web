@@ -374,7 +374,7 @@ export function CouponCard({
             {ctaLabel ?? ctaText ?? (expired ? "No longer valid" : coupon.code ? "View code" :
               /free trial|trial/i.test(coupon.title) ? "Start Free Trial" :
               /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Activate Offer" :
-              "Buy on Amazon")}
+              "Activate Deal")}
           </Link>
         </div>
       </article>

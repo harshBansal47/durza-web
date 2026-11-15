@@ -45,8 +45,8 @@ export function formatDiscount(coupon: CouponPublic, currency = "INR"): string {
     // print the actual computed saving; otherwise just the "no code needed" marker.
     const computed = percentageOffFromRestrictions(coupon);
     if (computed !== null && computed >= 40) return "MEGA DEALS — 40% OFF & Beyond!";
-    if (computed !== null && computed > 0) return `MEGA DEALS — ${computed}% off`;
-    return "MEGA DEALS — No Code Needed";
+    if (computed !== null && computed > 0) return `${computed}% off`;
+    return "Mega deal";
   }
   // percentage/fixed without a stored value: also surface something, but as "Deal"
   // to keep tests of those types honest with users' eyes.
