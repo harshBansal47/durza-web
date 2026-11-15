@@ -147,6 +147,15 @@ function faviconDomain(hostname: string): string {
 }
 
 /**
+ * A same-site absolute logo URL would make the image optimizer crawl the
+ * site's own public URL back — downgrade to root-relative so it serves from
+ * the public folder directly.
+ */
+function sameOriginLogo(raw: string): string {
+  return raw.replace(/^https?:\/\/(?:www\.)?durza\.in\//, "/");
+}
+
+/**
  * Prefer the backend logo, then a curated local asset, then the website's
  * cached favicon. Null means no usable website URL is available; use initials.
  */
@@ -158,7 +167,7 @@ export function storeLogoUrl(
   } | null | undefined,
 ): string | null {
   if (!store) return null;
-  if (store.logo_url) return store.logo_url;
+  if (store.logo_url) return sameOriginLogo(store.logo_url);
   if (store.slug && LOCAL_STORE_LOGOS[store.slug]) return LOCAL_STORE_LOGOS[store.slug];
   if (store.website_url) {
     try {
