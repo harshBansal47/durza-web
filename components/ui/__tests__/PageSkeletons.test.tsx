@@ -34,16 +34,8 @@ describe("page skeletons", () => {
   });
 });
 
-describe("route loading files", () => {
-  const loaders = import.meta.glob("/app/**/loading.tsx", { eager: true }) as Record<string, { default: () => React.JSX.Element }>;
-
-  it("finds the loaders (guards against the glob silently matching nothing)", () => {
-    expect(Object.keys(loaders).length).toBeGreaterThanOrEqual(15);
-  });
-
-  it.each(Object.entries(loaders))("%s renders a busy region", (_path, module) => {
-    const Loading = module.default;
-    const { container } = render(<Loading />);
-    expect(container.querySelector('[aria-busy="true"]')).toBeTruthy();
-  });
-});
+// NOTE: route-level app/**/loading.tsx files were removed — a streamed shell
+// commits HTTP 200 before generateMetadata can call notFound(), so /stores
+// and /coupons returned 200 for pages carrying 404 content. The skeletons
+// above (components/ui/PageSkeletons.tsx) remain in use wherever a static
+// fallback is still helpful.
