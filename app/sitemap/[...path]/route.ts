@@ -68,16 +68,11 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/guides/icici-bank-offers-india-2026`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/guides/rbl-bank-offers-india-2026`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/guides/best-credit-card-online-shopping-india-2026`, changeFrequency: "weekly", priority: 0.85 },
+  // Utility/legal pages are intentionally NOT in the sitemap — they are crawled
+  // via the footer and carry no standalone search demand.
   { url: `${SITE_URL}/reviews`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/compare`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/collections`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/trust`, changeFrequency: "monthly", priority: 0.5 },
-  { url: `${SITE_URL}/how-it-works`, changeFrequency: "monthly", priority: 0.5 },
-  { url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.4 },
-  { url: `${SITE_URL}/contact`, changeFrequency: "yearly", priority: 0.3 },
-  { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
-  { url: `${SITE_URL}/terms`, changeFrequency: "yearly", priority: 0.2 },
-  { url: `${SITE_URL}/affiliate-disclosure`, changeFrequency: "yearly", priority: 0.2 },
 ];
 
 /**
@@ -134,19 +129,29 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
     );
 
     const coupons = await fetchBatch(
-      (s, l) => api.listCoupons({ skip: s, limit: l }),
+      (s, l) => api.listCoupons({ skip: s, limit: l, active_only: true }),
       skip,
       SITEMAP_CHUNK_SIZE,
     );
+    const now = Date.now();
     // Match the page's own robots verdict: page says is_indexable === false → not sitemapped.
     // Also exclude coupons from non-India stores so we don't waste crawl budget on
     // global/off-topic programs that are already excluded from listing pages.
+    // Also exclude offers Google would read as garbage: no active status, auto-suppressed,
+    // or already expired — those pages carry the "deal unavailable" state and would sit
+    // in the index as soft-404s.
     const indexable = coupons.filter(
-      (coupon) => coupon.is_indexable !== false && allowedStoreIds.has(coupon.store_id),
+      (coupon) =>
+        coupon.is_indexable !== false &&
+        !coupon.auto_suppressed &&
+        coupon.is_active !== false &&
+        (!coupon.expires_at || new Date(coupon.expires_at).getTime() > now) &&
+        allowedStoreIds.has(coupon.store_id),
     );
     return indexable.map((coupon) => ({
       url: `${SITE_URL}/coupons/${coupon.slug}`,
-      lastModified: coupon.last_verified_at ?? coupon.created_at,
+      // "last content touched" — feed re-checks or shopper action. Never a fake fresh date.
+      lastModified: coupon.last_checked_at ?? coupon.last_verified_at ?? coupon.created_at,
       changeFrequency: "daily" as const,
       priority: couponPriority(coupon),
     }));
@@ -169,10 +174,9 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       )
       .map((store) => {
         const custom = CUSTOM_STORE_SLUGS.has(store.slug);
-        const parsed = store.created_at ? new Date(store.created_at) : null;
         return {
           url: `${SITE_URL}/stores/${store.slug}`,
-          lastModified: parsed && !Number.isNaN(parsed.getTime()) ? parsed : undefined,
+          // No honest per-page "last changed" signal exists for stores — so no lastmod.
           changeFrequency: "weekly" as const,
           // Custom-built brand pages carry unique tools and FAQs; give them the
           // same weight as the editorial pages in /sitemap/guides.xml.
@@ -213,7 +217,7 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
       entries.push(
         ...STORE_GUIDES.map((guide) => ({
           url: `${SITE_URL}/guides/${guide.slug}`,
-          lastModified: guide.auditedOn ? new Date(guide.auditedOn) : new Date(),
+          lastModified: guide.auditedOn ? new Date(guide.auditedOn) : undefined,
           changeFrequency: "weekly" as const,
           priority: 0.85,
         })),
