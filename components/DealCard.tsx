@@ -89,7 +89,7 @@ export default function DealCard({
 
           {price && (
             <p className="flex flex-wrap items-baseline gap-2">
-              <span className="font-mono text-xl font-medium text-ink">
+              <span className="font-mono text-xl font-medium text-ink line-clamp-2">
                 {formatMoney(price.current, price.currency)}
               </span>
               {price.original != null && price.original > price.current && (

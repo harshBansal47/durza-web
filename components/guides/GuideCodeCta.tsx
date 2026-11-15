@@ -112,8 +112,8 @@ export default function GuideCodeCta({
 
       <p className="border-t border-slate-800 px-5 py-2 text-[10px] uppercase tracking-wider text-slate-400">
         {copied && isCode
-          ? `Promo code copied! Paste it at ${storeName} checkout.`
-          : "Durza may earn a small commission. Opens in a new tab."}
+          && `Promo code copied! Paste it at ${storeName} checkout.`
+        }
       </p>
     </aside>
   );

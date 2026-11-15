@@ -71,7 +71,7 @@ export default function SpotlightDeal({
       </h2>
 
       {figure ? (
-        <p className="savings-figure mt-3 text-3xl font-extrabold text-ink">{figure}</p>
+        <p className="savings-figure mt-3 line-clamp-2 text-2xl font-extrabold text-ink">{figure}</p>
       ) : null}
 
       {source?.checkedDate ? (

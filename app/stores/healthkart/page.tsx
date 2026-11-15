@@ -50,11 +50,7 @@ const FAQS = [
     answer:
       "It means the code was tested and worked at checkout during our most recent check. Unverified or newly-added codes are labelled differently until they pass.",
   },
-  {
-    question: "Does Durza charge me for using these codes?",
-    answer:
-      "No. Using a coupon from Durza is always free for you. Durza may earn a commission when you shop through some of our links — that never increases your price.",
-  },
+
 ];
 
 export const revalidate = 300;

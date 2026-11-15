@@ -194,7 +194,7 @@ export default function StorePageClient({
                 <span className="rounded-full bg-orange-50 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-orange-800">
                   {hasVotes ? "Best right now" : "Top offer"}
                 </span>
-                <span className="savings-figure text-2xl font-extrabold text-orange-700">{formatDiscount(tabs.best.items[0], code)}</span>
+                <span className="savings-figure line-clamp-2 text-xl font-extrabold text-orange-700">{formatDiscount(tabs.best.items[0], code)}</span>
                 <span className="min-w-0 flex-1 text-sm font-semibold text-ink sm:truncate">
                   {tabs.best.items[0].title}
                 </span>
