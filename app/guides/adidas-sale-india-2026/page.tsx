@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import GuideAffiliateOutButton, { GuideAffiliateOutBanner } from "@/components/guides/GuideAffiliateOutButton";
+import QuickAnswer from "@/components/ui/QuickAnswer";
 import { ADMITAD_PROGRAMS } from "@/data/admitad-programs";
 
 const canonical = "/guides/adidas-sale-india-2026";
@@ -107,6 +108,12 @@ export default function AdidasSalePage() {
         <p className="mt-3 font-serif text-xl leading-snug text-ink-soft">
           “Up to 60% off” explained honestly — what is actually cheap this season, what is just a padded MRP, and how to stack bank instant discounts on official-store orders.
         </p>
+        <QuickAnswer
+          question="Is the Adidas sale in India actually worth it?"
+          answer="Only the outlet tail is worth chase. Samba & Gazelle almost never go deep; Ultraboost last-gen drops are genuinely cheap; bank + member stack gets you 20–35% off on official-store orders. If the shoe isn&apos;t on your wishlist, the 60% tag usually applies to odd sizes, not your size."
+          jumpHref="#stack-order"
+          jumpLabel="See the stacking order below"
+        />
 
         <GuideAffiliateOutButton
           program={ADIDAS.id}
@@ -136,7 +143,7 @@ export default function AdidasSalePage() {
           alt="Adidas India — shoes and sportswear sale"
         />
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">How to stack discounts, in order</h2>
+        <h2 id="stack-order" className="mt-10 font-serif text-2xl font-bold text-ink">How to stack discounts, in order</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-6 leading-7 text-ink-soft">
           <li><strong className="text-ink">Sale base price first.</strong> Never buy at the pre-sale sticker if you can wait; the same style usually reappears at a deeper cut in the next window.</li>
           <li><strong className="text-ink">Then coupons / member codes</strong> — applied at checkout on the payable cart value, after item-level sale pricing.</li>

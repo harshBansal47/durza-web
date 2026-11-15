@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const allStores = await resilient.listStores({ limit: 100 }).catch(() => ({ items: [], total: 0, skip: 0, limit: 0 }));
   const offers = await resilient.listCoupons({ active_only: true, limit: 1, store_ids: allowedStoreIds(allStores.items) });
   const total = offers.total;
-  const title = total > 0 ? `Coupons & Promo Codes: ${total} Live Offers` : "Coupons & Promo Codes";
+  const title = total > 0 ? `Coupon Codes & Deals — ${total} Live Offers` : "Coupon Codes & Deals";
   const description =
     total > 0
       ? `Browse ${total} live coupon codes and promo offers for Indian stores — each one shows the store page it came from and when it was last checked.`
@@ -88,10 +88,10 @@ export default async function CouponsPage({
       <JsonLd data={itemListJsonLd(
               coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
             )} />
-      <PageTitle className="mb-4">{heading}</PageTitle>
-      <div className="mb-8">
-        <KeywordForm placeholder="Search coupons, brands or stores…" label="Search coupons" />
-      </div>
+      <PageTitle className="mb-2">{heading}</PageTitle>
+      <p className="mb-5 max-w-xl text-sm text-ink-soft">
+        Codes from the store&apos;s own pages — checked date shown on every card.
+      </p>
 
       <FilterLayout
         panel={

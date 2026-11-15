@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import GuideAffiliateOutButton, { GuideAffiliateOutBanner } from "@/components/guides/GuideAffiliateOutButton";
+import QuickAnswer from "@/components/ui/QuickAnswer";
 import { ADMITAD_PROGRAMS } from "@/data/admitad-programs";
 
 const canonical = "/guides/lenovo-laptop-offers-india-2026";
@@ -106,6 +107,12 @@ export default function LenovoOffersPage() {
         <p className="mt-3 font-serif text-xl leading-snug text-ink-soft">
           IdeaPad vs ThinkPad vs Legion — what the 2026 discounts are worth, where they apply, and how to stack them with card offers without buying the wrong machine.
         </p>
+        <QuickAnswer
+          question="Which Lenovo line is right for me in India?"
+          answer="Student / everyday work: IdeaPad. Programmer or nomad with 8+ hours on the machine: ThinkPad. Gaming or 3D editing: Legion. The big stackable discounts (10–20%) land on the official store during festive and Republic Day windows, usually with a bank instant discount on top."
+          jumpHref="#lenovo-lines"
+          jumpLabel="See the lines ranked below"
+        />
 
         <GuideAffiliateOutButton
           program={LENOVO.id}
@@ -115,7 +122,7 @@ export default function LenovoOffersPage() {
           note="Tracked affiliate link through the Lenovo India Admitad program — commission costs you nothing; price is unchanged."
         />
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">Which Lenovo line is for which buyer?</h2>
+        <h2 id="lenovo-lines" className="mt-10 font-serif text-2xl font-bold text-ink">Which Lenovo line is for which buyer?</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
           {[
             {

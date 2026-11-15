@@ -103,19 +103,19 @@ export default function Hero({
             {/* Main heading — massive and bold on desktop */}
             <h1
               className={[
-                "max-w-2xl font-sans font-medium tracking-tight",
-                "text-4xl leading-[0.98] sm:text-5xl lg:text-6xl lg:font-extrabold lg:leading-[1.1]",
+                "max-w-2xl font-sans font-extrabold tracking-tight",
+                "text-4xl leading-[0.95] sm:text-5xl lg:text-6xl lg:leading-[1.05]",
                 hasActivity ? "mt-6" : "mt-0",
               ].join(" ")}
             >
-              Save money
+              Coupons, deals &amp; offers —
               <br />
-              <span className="text-accent">before you buy.</span>
+              <span className="text-accent">₹0 extra, India-first.</span>
             </h1>
 
             <p className="mt-5 max-w-xl text-base leading-7 text-ink-soft lg:mt-6 lg:max-w-lg lg:text-lg lg:leading-relaxed">
-              Find trusted deals, compare your options, and choose what&apos;s worth
-              it.
+              Real codes, stated terms and check dates — scraped from official store
+              pages every day.
             </p>
 
             {/* Mega search bar — prominent on desktop */}
@@ -146,6 +146,24 @@ export default function Hero({
                   {tool.label}
                 </PendingLink>
               ))}
+            </div>
+
+            {/* Primary action — one verb, one place. */}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <PendingLink
+                href="/coupons?sort=recommended"
+                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+              >
+                Show today&apos;s coupons
+                <span aria-hidden="true">→</span>
+              </PendingLink>
+              <PendingLink
+                href="/deals"
+                className="inline-flex items-center gap-2 rounded-xl border border-ledger-line bg-white px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-inkblue/40 hover:text-inkblue"
+              >
+                Today&apos;s deals
+                <span aria-hidden="true" className="text-green-600">●</span>
+              </PendingLink>
             </div>
 
             {/* Trust row under the search */}

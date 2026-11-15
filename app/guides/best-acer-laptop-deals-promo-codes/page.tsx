@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import GuidePromoRevealCTA, { type GuidePromoOffer } from "@/components/guides/GuidePromoRevealCTA";
+import QuickAnswer from "@/components/ui/QuickAnswer";
 
 const title = "Best Acer Laptop Deals in India (2026): Nitro Gaming, Swift OLED, Aspire Lite + Verified Promo Codes";
 const description =
@@ -129,6 +130,12 @@ export default function BestAcerLaptopDealsPage() {
 
         <h1 className="mt-4 font-serif text-4xl font-extrabold leading-tight tracking-tight text-ink sm:text-5xl">Best Acer Laptops in India (2026)</h1>
         <p className="mt-3 font-serif text-xl leading-snug text-ink-soft">Nitro gaming, Swift OLED, Aspire budget — with the Admitad codes we actually used in testing, and where they really apply.</p>
+        <QuickAnswer
+          question="Which Acer laptop should I buy in India right now?"
+          answer="Gaming (ray-tracing / 4K video): Nitro V or Predator Helios. Thin, light, everyday carry: Swift Go OLED. Strictly budget for study or office: Aspire Lite. All three take the Admitad code on the official Acer store plus your student discount."
+          jumpHref="#use-case-recs"
+          jumpLabel="See the full breakdown below"
+        />
 
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
           {[
