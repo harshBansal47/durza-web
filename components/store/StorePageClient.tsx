@@ -18,7 +18,6 @@ import { groupSimilar } from "@/lib/grouping";
 import { parseRupeePrice } from "@/lib/price";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
-import HowToApply from "@/components/store/HowToApply";
 import { ArrowUpRight } from "lucide-react";
 
 interface StorePageClientProps {
@@ -148,8 +147,6 @@ export default function StorePageClient({
         collections={productCollections}
         categoriesLoadFailed={productCategoriesLoadFailed}
       />
-
-      <HowToApply storeName={store.name} />
 
       <section aria-labelledby="store-coupons-heading">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">

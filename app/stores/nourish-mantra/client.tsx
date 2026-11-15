@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -91,7 +90,6 @@ export default function NourishMantraClient({ offers, products, faqs, stats, her
         saving="You could save ₹300+ on one order"
         note="*Illustrative — GLOW20 needs ₹1,499+; MANTRA15 applies to marked serums."
       />
-      <HowToApply storeName="Nourish Mantra" />
 
             <ProductDealRouter
         title="Vedic Activism &amp; Clean Concern Matcher"

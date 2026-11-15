@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -97,7 +96,6 @@ export default function TrueBasicsClient({ offers, products, faqs, stats, heroIm
         saving="You could save ₹440+ on the regimen"
         note="*Illustrative — CLINICAL20 applies to 60/90-day bundles only; TRUE10 to individual bottles."
       />
-      <HowToApply storeName="TrueBasics" />
 
             <ProductDealRouter
         title="Clinical Ingredient &amp; Health Goal Matcher"

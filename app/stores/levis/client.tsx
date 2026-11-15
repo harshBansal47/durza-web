@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -97,7 +96,6 @@ export default function LevisClient({ offers, products, faqs, stats, heroImageUr
         saving="You could save ₹500+ on one order"
         note="*Illustrative — LEVIS1000 needs a ₹5,999+ cart; sale styles may be excluded."
       />
-      <HowToApply storeName="Levi's India" />
 
             <ProductDealRouter
         title="Levi&apos;s Fit &amp; Category Matcher"

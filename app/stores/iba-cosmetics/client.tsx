@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -75,7 +74,6 @@ export default function IbaCosmeticsPage({ offers, products, faqs, stats, heroIm
         saving="You could save ₹195+ on one order"
         note="*Illustrative — IBA15 applies to marked clean-beauty ranges; check the card for exclusions."
       />
-      <HowToApply storeName="Iba Cosmetics" />
             <ProductDealRouter
         title="Clean Certification & Makeup Matcher"
         offers={offers}

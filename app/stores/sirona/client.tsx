@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -93,7 +92,6 @@ export default function SironaClient({ offers, products, faqs, stats, heroImageU
         saving="You could save ₹135+ on the kit"
         note="*Illustrative — cup bundles have separate CUPFREE pricing; check both offers."
       />
-      <HowToApply storeName="Sirona Hygiene" />
 
             <ProductDealRouter
         title="Feminine Hygiene &amp; Period Comfort Matcher"

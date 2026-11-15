@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -90,7 +89,6 @@ export default function TheManCompanyClient({ offers, products, faqs, stats, her
         saving="You could save ₹260+ on the kit"
         note="*Illustrative — TMC15 applies to marked grooming lines; fragrances may follow other offers."
       />
-      <HowToApply storeName="The Man Company" />
 
             <ProductDealRouter
         title="Men&apos;s Grooming Routine &amp; Scent Matcher"

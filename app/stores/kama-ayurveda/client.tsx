@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -80,7 +79,6 @@ export default function KamaAyurvedaPage({ offers, products, faqs, stats, heroIm
         saving="You could save ₹520+ with free delivery"
         note="*Illustrative — gift boxes qualify above ₹1,499; GLOWGIFT applies above ₹2,999."
       />
-      <HowToApply storeName="Kama Ayurveda" />
             <ProductDealRouter
         title="Ayurvedic Treatment & Ritual Matcher"
         offers={offers}

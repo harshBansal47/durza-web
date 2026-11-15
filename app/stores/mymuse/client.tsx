@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -90,7 +89,6 @@ export default function MyMuseClient({ offers, products, faqs, stats, heroImageU
         saving="You could save ₹360+ on one order"
         note="*Illustrative — plain-box shipping is free on every order; BUNDLE applies to marked starter kits."
       />
-      <HowToApply storeName="MyMuse India" />
 
             <ProductDealRouter
         title="Intimate Wellness &amp; Comfort Matcher"

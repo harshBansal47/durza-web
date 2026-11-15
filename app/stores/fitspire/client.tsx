@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -100,7 +99,6 @@ export default function FitspireStorePage({ offers, products, faqs, stats, heroI
         saving="You could save ₹300+ per month"
         note="*Illustrative — B2G1 applies to marked probiotic lines only; FIT20 needs ₹1,499+ cart value."
       />
-      <HowToApply storeName="Fitspire" />
 
             <ProductDealRouter
         title="Plant-Wellness Lifestyle Matcher"

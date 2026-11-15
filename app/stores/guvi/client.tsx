@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -113,7 +112,6 @@ export default function GuviStorePage({ offers, products, faqs, stats, heroImage
         saving="You could save ₹1,125+ vs buying separately"
         note="*Illustrative — course-wise pricing varies by cohort and city; check the current price before enrolling."
       />
-      <HowToApply storeName="GUVI Geek Networks" />
 
             <ProductDealRouter
         title="Vernacular Tech Career Matcher"

@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -77,7 +76,6 @@ export default function KapivaPage({ offers, products, faqs, stats, heroImageUrl
         saving="You could save ₹285+ on the combo"
         note="*Illustrative — combo % varies by tablet/resin sizes; EXTRA5 (UPI) may combine at checkout."
       />
-      <HowToApply storeName="Kapiva Ayurveda" />
             <ProductDealRouter
         title="Health Goal & Herbal Nutrition Matcher"
         offers={offers}

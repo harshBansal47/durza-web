@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -90,7 +89,6 @@ export default function WonderchefClient({ offers, products, faqs, stats, heroIm
         saving="You could save ₹500+ plus cash-back*"
         note="*Illustrative — Nutri-Blends often carry CHEF10 (10% extra); PREPAID5 may combine at checkout."
       />
-      <HowToApply storeName="Wonderchef" />
 
             <ProductDealRouter
         title="Kitchen Appliance &amp; Cookware Matcher"

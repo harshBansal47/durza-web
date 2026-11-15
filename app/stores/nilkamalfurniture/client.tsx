@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -90,7 +89,6 @@ export default function NilkamalFurnitureClient({ offers, products, faqs, stats,
         saving="You could save ₹500 + assembly costs"
         note="*Illustrative — BEDROOM1000 needs ₹9,999+; assembly is free only on eligible big furniture."
       />
-      <HowToApply storeName="Nilkamal Furniture" />
 
             <ProductDealRouter
         title="Room Utility &amp; Ergonomic Matcher"

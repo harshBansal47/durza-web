@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -77,7 +76,6 @@ export default function DotAndKeyStorePage({ offers, products, faqs, stats, hero
         saving="You could save ₹305+ on one order"
         note="*Illustrative — EXTRA10 and GLOW15 may have different eligibility; the checkout shows the combinable total."
       />
-      <HowToApply storeName="Dot & Key Skincare" />
 
             <ProductDealRouter
         title="Fruit-Active Ingredient Matcher"

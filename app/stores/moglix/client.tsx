@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -98,7 +97,6 @@ export default function MoglixClient({ offers, products, faqs, stats, heroImageU
         saving="You could save ₹250 + GST credit on business buys"
         note="*Illustrative — GST input credit applies only when you invoice to a GSTIN and Moglix issues a B2B invoice."
       />
-      <HowToApply storeName="Moglix" />
 
             <ProductDealRouter
         title="Home DIY &amp; Industrial Equipment Matcher"

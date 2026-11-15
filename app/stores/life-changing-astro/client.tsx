@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -90,7 +89,6 @@ export default function LifeChangingAstroClient({ offers, products, faqs, stats,
         saving="You could save ₹450+ on the consultation"
         note="*Illustrative — consultation prices vary by consultant; Rudraksha/gemstone offers are separate (see offer cards)."
       />
-      <HowToApply storeName="Life Changing Astro" />
 
             <ProductDealRouter
         title="Life Goal &amp; Vedic Remedy Matcher"

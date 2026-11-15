@@ -7,7 +7,6 @@ import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import StackingExample from "@/components/store/StackingExample";
-import HowToApply from "@/components/store/HowToApply";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import { getAffiliateLink } from "@/lib/affiliate";
@@ -117,8 +116,6 @@ export default function FirstCryStorePage({
         saving="You could save ₹200+ on the monthly stock-up"
         note="*Illustrative — Club member price depends on your tier and category; check the FirstCry product page for your exact price."
       />
-
-      <HowToApply storeName="FirstCry" />
 
       <FaqSection eyebrow="FirstCry FAQs" items={faqs} />
 

@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -76,7 +75,6 @@ export default function HavellsPage({ offers, products, faqs, stats, heroImageUr
         saving="You could save ₹800+ on a BLDC upgrade"
         note="*Illustrative — BLDC300 and HAVELLS500 may have separate eligibility; the cart shows the best combination."
       />
-      <HowToApply storeName="Havells India" />
             <ProductDealRouter
         title="Appliance Use-Case & Energy Matcher"
         offers={offers}

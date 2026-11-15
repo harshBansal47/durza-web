@@ -5,7 +5,6 @@ import { ArrowUpRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -95,7 +94,6 @@ export default function HealthKartPage({
       />
 
       {/* 4 · How to use the codes — the exact steps */}
-      <HowToApply storeName="HealthKart" />
 
       {/* 5 · Flash deal router — use-case collections from live catalogue */}
       {products.length > 0 && (

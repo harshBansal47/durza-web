@@ -5,7 +5,6 @@ import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import StackingExample from "@/components/store/StackingExample";
-import HowToApply from "@/components/store/HowToApply";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import { api } from "@/lib/api";
@@ -90,8 +89,6 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         saving="≈ ₹690 saved on your first order — that's Myntra new-user logic"
         note="*Illustrative — BFF500 is first-order only; bank-card eligibility and savings caps are shown at checkout."
       />
-
-      <HowToApply storeName={"Myntra"} />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
         <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="brand-guidance">How to get the most from Myntra</h2>

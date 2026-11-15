@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -77,7 +76,6 @@ export default function BoldfitStorePage({ offers, products, faqs, stats, heroIm
         saving="You could save ₹575+ on one order"
         note="*Illustrative — free-order perks (like socks) vary by current offer."
       />
-      <HowToApply storeName="Boldfit" />
 
             <ProductDealRouter
         title="Workout Goal & Setup Matcher"

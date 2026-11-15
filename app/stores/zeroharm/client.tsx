@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -92,7 +91,6 @@ export default function ZeroHarmClient({ offers, products, faqs, stats, heroImag
         saving="You could save ₹625+ on the course"
         note="*Illustrative — NANO25 applies to marked 90-day courses; ZERO15 is the all-catalogue 15% offer."
       />
-      <HowToApply storeName="ZeroHarm Sciences" />
 
             <ProductDealRouter
         title="Nano-Nutrition &amp; Clinical Concern Matcher"

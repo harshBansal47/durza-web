@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -75,7 +74,6 @@ export default function HkVitalsPage({ offers, products, faqs, stats, heroImageU
         saving="You could save ₹360+ on a value pack"
         note="*Illustrative — VITAL20 applies to 2/3-month value packs only."
       />
-      <HowToApply storeName="HK Vitals by HealthKart" />
             <ProductDealRouter
         title="Nutrition Deficiency & Goal Matcher"
         offers={offers}

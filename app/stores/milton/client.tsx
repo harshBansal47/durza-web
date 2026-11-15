@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -93,7 +92,6 @@ export default function MiltonClient({ offers, products, faqs, stats, heroImageU
         saving="You could save ₹195+ on one order"
         note="*Illustrative — MILTON10 applies to Thermosteel lines; OFFICE15 to marked lunch combos."
       />
-      <HowToApply storeName="Milton India" />
 
             <ProductDealRouter
         title="Daily Carry &amp; Insulation Hours Matcher"

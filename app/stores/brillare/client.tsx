@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -75,7 +74,6 @@ export default function BrillareStorePage({ offers, products, faqs, stats, heroI
         saving="You could save ₹380+ on one order"
         note="*Illustrative — B2G1 and WELCOME10 have different conditions; B2G1 selects from marked products only."
       />
-      <HowToApply storeName="Brillare Science" />
 
             <ProductDealRouter
         title="Hair & Skin Concern Matcher"

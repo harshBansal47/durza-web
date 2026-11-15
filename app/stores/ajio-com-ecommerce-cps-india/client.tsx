@@ -5,7 +5,6 @@ import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import StackingExample from "@/components/store/StackingExample";
-import HowToApply from "@/components/store/HowToApply";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import { api } from "@/lib/api";
@@ -90,8 +89,6 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         saving="You could pay ≈ ₹1,619 against a ₹2,499 MRP — that's ₹880+ saved"
         note="*Illustrative — card/UPI eligibility and exact percentages are decided at checkout. Ajio rarely uses public coupon codes; stacking typically works via bank instant offers."
       />
-
-      <HowToApply storeName={"Ajio"} />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
         <h2 className="scroll-mt-24 text-lg font-bold text-ink" id="brand-guidance">How to shop Ajio like a pro</h2>

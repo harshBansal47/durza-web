@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -94,7 +93,6 @@ export default function NeeshPerfumesClient({ offers, products, faqs, stats, her
         saving="You could save ₹500+ on one order"
         note="*Illustrative — discovery sets have a separate ₹300 off; individual full bottles differ in eligibility."
       />
-      <HowToApply storeName="Neesh Perfumes" />
 
             <ProductDealRouter
         title="Haute Fragrance &amp; Scent Profile Matcher"

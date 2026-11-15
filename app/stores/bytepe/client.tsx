@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -87,7 +86,6 @@ export default function BytePeStorePage({ offers, products, faqs, stats, heroIma
         saving="You save ₹50 on your first bill"
         note="Also consider: recharge/Fastag/voucher discounts stack across months — up to 5–8% on supported categories."
       />
-      <HowToApply storeName="BytePe" />
 
             <ProductDealRouter
         title="Payment Service & Cashback Matcher"

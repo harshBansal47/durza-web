@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -76,7 +75,6 @@ export default function GritzoStorePage({ offers, products, faqs, stats, heroIma
         saving="You could save ₹360+ on each jar"
         note="*Illustrative — SuperMilk % depends on the jar size; HEALTHYBOX is a different combo offer."
       />
-      <HowToApply storeName="Gritzo" />
 
             <ProductDealRouter
         title="Age & Gender SuperMilk Matcher"

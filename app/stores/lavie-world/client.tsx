@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -95,7 +94,6 @@ export default function LavieWorldClient({ offers, products, faqs, stats, heroIm
         saving="You could save ₹370+ on one order"
         note="*Illustrative — LAVIE10 and STYLE200 may have different eligibility; the cart total wins."
       />
-      <HowToApply storeName="Lavie World" />
 
             <ProductDealRouter
         title="Capacity &amp; Occasion Handbag Matcher"

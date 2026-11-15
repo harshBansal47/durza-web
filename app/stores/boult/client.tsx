@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -103,7 +102,6 @@ export default function BoultStorePage({ offers, products, faqs, stats, heroImag
         saving="You could save ₹170+ on one order"
         note="*Illustrative — ANC/product-specific codes differ in eligibility; check the offer card."
       />
-      <HowToApply storeName="Boult Audio" />
 
             <ProductDealRouter
         title="Audio & Smartwatch Use-Case Matcher"

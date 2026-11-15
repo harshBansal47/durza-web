@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -71,7 +70,6 @@ export default function HiraFragrancePage({ offers, products, faqs, stats, heroI
         saving="You could save ₹400+ on one order"
         note="*Illustrative — discovery sets have separate ₹200 off offer."
       />
-      <HowToApply storeName="Hira Fragrance" />
             <ProductDealRouter
         title="Occasion & Scent Profile Matcher"
         offers={offers}

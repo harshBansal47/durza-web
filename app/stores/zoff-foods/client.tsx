@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -116,7 +115,6 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
         saving="You could save ₹780+ over 3 months"
         note="*Illustrative — PANTRY20 applies to monthly masala boxes; PREPAID5 (UPI) may combine."
       />
-      <HowToApply storeName="ZOFF Foods" />
 
             <ProductDealRouter
         title="Cool-Ground Spice &amp; Pantry Matcher"

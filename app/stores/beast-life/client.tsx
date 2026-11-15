@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -88,7 +87,6 @@ export default function BeastLifeStorePage({ offers, products, faqs, stats, hero
         saving="You could save ₹270+ on one order"
         note="*Illustrative — eligibility and final totals are decided at checkout."
       />
-      <HowToApply storeName="Beast Life" />
 
             <ProductDealRouter
         title="Training Phase & Nutrition Matcher"

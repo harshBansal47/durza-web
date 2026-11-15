@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -88,7 +87,6 @@ export default function AlpinoStorePage({ offers, products, faqs, stats, heroIma
         saving="You could save ₹310+ on one stock-up"
         note="*Illustrative — exact discount shown at checkout. Offers don't always combine; the biggest single-cart total decides eligibility."
       />
-      <HowToApply storeName="Alpino Health Foods" />
 
             <ProductDealRouter
         title="Diet Goal & Nutrition Matcher"

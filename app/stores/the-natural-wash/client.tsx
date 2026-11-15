@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -97,7 +96,6 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
         saving="You could save ₹180+ on one order"
         note="*Illustrative — TNW15 applies to marked natural-care lines; B2G1 selects from lip & skin."
       />
-      <HowToApply storeName="The Natural Wash" />
 
             <ProductDealRouter
         title="Kitchen-Active Ayurvedic Beauty Matcher"

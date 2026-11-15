@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
@@ -92,7 +91,6 @@ export default function NordPassClient({ offers, products, faqs, stats, heroImag
         saving="You could save ₹2,600+ vs monthly billing"
         note="*Illustrative — NordPass prices vary by country, currency and billing period; the checkout in your region shows the exact rate."
       />
-      <HowToApply storeName="NordPass" />
 
       {products.length > 0 && (
         <ProductDealRouter

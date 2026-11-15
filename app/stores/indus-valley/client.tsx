@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -76,7 +75,6 @@ export default function IndusValleyStorePage({ offers, products, faqs, stats, he
         saving="You could save ₹110+ on your first order"
         note="*Illustrative — FIRST10 is first-order only; AC10 covers combos & regimes."
       />
-      <HowToApply storeName="Indus Valley Bio-Organic" />
 
             <ProductDealRouter
         title="Hair & Skin Solution Matcher"

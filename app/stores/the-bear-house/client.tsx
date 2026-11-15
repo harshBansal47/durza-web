@@ -2,7 +2,6 @@
 
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import HowToApply from "@/components/store/HowToApply";
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
@@ -94,7 +93,6 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
         saving="You could save ₹500+ on a rotation bundle"
         note="*Illustrative — BEAR10 adds on eligible polos; sale styles may be excluded."
       />
-      <HowToApply storeName="The Bear House" />
 
             <ProductDealRouter
         title="Menswear Fabric &amp; Occasion Matcher"
