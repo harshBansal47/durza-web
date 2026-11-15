@@ -99,13 +99,15 @@ export default async function BlackFridayPage() {
   // Load live offers from stores that typically run Black Friday deals.
   // We show at most 8 live offers so the page is accurate — no fabricated listings.
   const [storesPage, liveOffers] = await Promise.all([
-    resilient.listStores({ limit: 150 }),
+    // 100 is the API's maximum; more returns 422. (Was 150 — silently empty: that
+    // is why the offer tiles showed no logo or store name.)
+    resilient.listStores({ limit: 100 }),
     resilient.listCoupons({
       active_only: true,
       sort: "recommended",
       limit: 8,
       store_ids: await (async () => {
-        const s = await resilient.listStores({ limit: 150 });
+        const s = await resilient.listStores({ limit: 100 });
         return allowedStoreIds(s.items);
       })(),
     }).catch(() => ({ items: [], total: 0, skip: 0, limit: 0 })),

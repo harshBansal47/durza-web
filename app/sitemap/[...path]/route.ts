@@ -115,9 +115,15 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
     // HOMEPAGE_EXCLUDED_STORE_SLUGS excludes global/non-India programs from listing pages;
     // the sitemap must respect the same boundary so we don't submit URLs that the
     // audience and the page's own store filter already exclude.
-    const allStores = await api.listStores({ limit: 500 });
+    // The backend caps page size at 100 — a single larger request would 422,
+    // and the sitemap would silently ship no coupons. Page through instead.
+    const allStores = await fetchBatch(
+      (skip, limit) => api.listStores({ skip, limit }),
+      0,
+      Number.MAX_SAFE_INTEGER,
+    );
     const allowedStoreIds = new Set(
-      allStores.items
+      allStores
         .filter((s) => isHomepageIndiaRelevant(s.slug))
         .map((s) => s.id),
     );
