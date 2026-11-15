@@ -15,21 +15,39 @@ import { STORE_GUIDES } from "@/data/store-guides";
  * static guide appears. Default is 5; anything not listed is 5.
  */
 const GUIDE_PRIORITY: Record<string, number> = {
-  "reliance-digital-appliance-laptop-offers-guide": 8,
-  "milton-thermosteel-offers-guide": 8,
-  "firstcry-parenting-deals-and-firstcry-club-guide": 8,
+  // Tier 10 — Indian own-SKU premium brands
+  "alpino-peanut-butter-and-oats-guide": 10,
+  "beast-life-whey-and-recovery-guide": 10,
+  "boldfit-home-gym-deals-and-offers-guide": 10,
+  "boult-audio-earbuds-anc-codes-guide": 10,
+  "the-man-company-grooming-beard-kits-guide": 10,
+  "milton-thermosteel-offers-guide": 10,
+  "havells-bldc-fan-offers-guide": 10,
+  "sirona-menstrual-cup-guide": 10,
+  "wonderchef-khuramas-kitchenware-guide": 10,
+  "dot-and-key-skin-active-guide": 10,
+  "kapiva-ayurveda-daily-wellness-guide": 10,
+  "kama-ayurveda-bringadi-and-kumkumadi-guide": 10,
+  "gritzo-kids-nutrition-and-growth-guide": 10,
+  "fitspire-plant-protein-and-vegan-guide": 10,
+  "truebasics-clinical-strength-guide": 10,
+  // Tier 9 — Indian own-SKU household / Indian-owned marketplaces
+  "firstcry-parenting-deals-and-firstcry-club-guide": 9,
+  "nykaa-coupons-and-sale-guide": 9,
+  "pepperfry-bean-bags-and-furniture-guide": 9,
+  // Tier 8 — India-reachable partners / Indian travel
   "zomato-veg-deals-and-go-out-offers-guide": 8,
-  "boult-audio-earbuds-anc-codes-guide": 7,
-  "havells-bldc-fan-offers-guide": 7,
-  "pepperfry-bean-bags-and-furniture-guide": 7,
-  "moglix-tools-and-gst-savings-guide": 7,
-  "levis-denim-offers-and-sale-guide": 6,
-  "nykaa-coupons-and-sale-guide": 6,
-  "beast-life-whey-and-recovery-guide": 6,
-  "alpino-peanut-butter-and-oats-guide": 6,
-  "baccabucci-footwear-sandali-loafers-guide": 3,
-  "ixigo-travel-flight-hotel-codes-guide": 3,
-  "life-changing-astro-consultation-guide": 2,
+  "ixigo-travel-flight-hotel-codes-guide": 8,
+  "reliance-digital-appliance-laptop-offers-guide": 8,
+  "lenovo-laptop-offers-india-2026": 8,
+  "best-acer-laptop-deals-promo-codes": 8,
+  // Tier 7 — partner-tier coupons/guides
+  "adidas-sale-india-2026": 7,
+  "levis-denim-offers-and-sale-guide": 7,
+  "moglix-tools-and-gst-savings-guide": 5,
+  "baccabucci-footwear-sandali-loafers-guide": 5,
+  // Low priority — off-topic / flat-volume
+  "life-changing-astro-consultation-guide": 3,
 };
 
 const DEFAULT_GUIDE_PRIORITY = 5;
