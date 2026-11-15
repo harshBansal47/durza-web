@@ -3,7 +3,7 @@ import type { CouponListParams } from "./api";
 export const DEAL_SORT_OPTIONS = [
   { value: "recommended", label: "Recommended" },
   { value: "trending", label: "Trending" },
-  { value: "recently_verified", label: "Recently verified" },
+  { value: "recently_verified", label: "Recently checked" },
   { value: "top_rated", label: "Top rated" },
   { value: "biggest_percent", label: "Biggest percentage" },
 ] as const;
