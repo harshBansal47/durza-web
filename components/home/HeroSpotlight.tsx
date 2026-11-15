@@ -48,9 +48,9 @@ export default function HeroSpotlight({ coupon, store }: HeroSpotlightProps) {
 
       <span className="min-w-0 flex-1">
         <span className="block text-[11px] font-medium text-ink-soft">
-          Featured deal{checked ? `, checked ${checked}` : ""}
+          {store?.name ?? "Featured deal"}{checked ? ` · checked ${checked}` : ""}
         </span>
-        <span className="block truncate text-sm font-semibold text-ink">{coupon.title}</span>
+        <span className="mt-0.5 line-clamp-2 text-sm font-semibold leading-snug text-ink">{coupon.title}</span>
       </span>
 
       <span className="shrink-0 text-right">
