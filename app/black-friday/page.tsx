@@ -177,8 +177,8 @@ export default async function BlackFridayPage() {
         </div>
       </section>
 
-      {/* Year-specific guide link */}
-      <div className="mt-6 rounded-xl border border-ledger-line bg-paper-raised p-4">
+      {/* Year-specific guide links */}
+      <div className="mt-6 space-y-2 rounded-xl border border-ledger-line bg-paper-raised p-4">
         <p className="text-sm text-ink-soft">
           <span className="font-semibold text-ink">In-depth 2026 guide →</span>{" "}
           <Link
@@ -188,6 +188,16 @@ export default async function BlackFridayPage() {
             Black Friday 2026: Date and Best Buys on Amazon India
           </Link>{" "}
           — covers what to buy, what to skip, and when to shop.
+        </p>
+        <p className="text-sm text-ink-soft">
+          <span className="font-semibold text-ink">Full 2026 calendar →</span>{" "}
+          <Link
+            href="/guides/amazon-flipkart-sale-dates-2026"
+            className="text-inkblue underline underline-offset-2 hover:no-underline"
+          >
+            Amazon & Flipkart Sale Dates India 2026
+          </Link>{" "}
+          — Black Friday, Cyber Monday, Christmas & New Year, plus expected Big Billion Days / Great Indian Festival windows.
         </p>
       </div>
 

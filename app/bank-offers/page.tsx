@@ -435,6 +435,43 @@ export default async function BankOffersPage() {
                 ))}
               </dl>
             </section>
+
+            {/* Deeper editorial reads */}
+            <section aria-labelledby="deeper-reads-heading" className="mt-14">
+              <h2 id="deeper-reads-heading" className="font-serif text-2xl font-extrabold text-ink">
+                Deeper reads
+              </h2>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+                {[
+                  {
+                    href: "/guides/icici-bank-offers-india-2026",
+                    title: "ICICI Bank Offers India 2026",
+                    note: "ixigo flights, MakeMyTrip, Amazon Pay ICICI — how instant discounts really apply.",
+                  },
+                  {
+                    href: "/guides/rbl-bank-offers-india-2026",
+                    title: "RBL Bank Offers India 2026",
+                    note: "ixigo hotel slabs, Tatacliq offer, monthly caps.",
+                  },
+                  {
+                    href: "/guides/best-credit-card-online-shopping-india-2026",
+                    title: "Best online-shopping card 2026",
+                    note: "The 5-step framework for picking the card per cart.",
+                  },
+                ].map((guide) => (
+                  <li key={guide.href}>
+                    <Link
+                      href={guide.href}
+                      className="flex h-full flex-col rounded-2xl border border-ledger-line bg-white p-4 transition-colors hover:border-inkblue"
+                    >
+                      <span className="font-serif font-bold text-ink">{guide.title}</span>
+                      <span className="mt-1 text-xs leading-5 text-ink-soft">{guide.note}</span>
+                      <span className="mt-auto pt-3 text-xs font-semibold text-accent">Read the guide →</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
         </section>
       </div>
