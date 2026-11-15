@@ -1,0 +1,200 @@
+query,geo,max_interest,best_interest_source,top_12m,top_3m,top_1m,rising_12m,rising_3m,rising_1m,cluster,brandability,windows_seen
+code,IN,100,top_12m,100|20%,100|-4%,100|-10%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+creatine,IN,100,top_12m,100|-40%,,,,,,sports-nutrition,brandable,top_12m
+coupon,IN,67,top_12m,67|30%,64|-2%,62|-6%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+muscletech coupon code,IN,59,top_12m,59|-40%,,,,,,sports-nutrition,brandable,top_12m
+yoga bar coupon code,IN,46,top_12m,46|Breakout,,,,,,sports-nutrition,brandable,top_12m
+bigmuscles coupon code,IN,45,top_12m,45|-50%,,,,,,sports-nutrition,brandable,top_12m
+coupon code,IN,44,top_3m,43|20%,44|1%,43|-9%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+yoga bar,IN,42,top_12m,42|Breakout,,,,,,sports-nutrition,brandable,top_12m
+muscleblaze coupon code,IN,38,top_12m,38|-50%,,,,,,sports-nutrition,brandable,top_12m
+muscleblaze,IN,35,top_12m,35|-60%,,,,,,sports-nutrition,brandable,top_12m
+big muscle,IN,34,top_12m,34|-40%,,,,,,sports-nutrition,brandable,top_12m
+creatine monohydrate,IN,34,top_12m,34|-50%,,,,,,sports-nutrition,brandable,top_12m
+gnc coupon code,IN,33,top_12m,33|-60%,,,,,,sports-nutrition,brandable,top_12m
+yoga bar oats,IN,31,top_12m,31|Breakout,,,,,,sports-nutrition,brandable,top_12m
+fancode,IN,28,top_1m,16|-20%,21|40%,28|7%,,,,entertainment,brandable,top_12m;top_3m;top_1m
+big muscles coupon code,IN,21,top_12m,21|-20%,,,,,,sports-nutrition,brandable,top_12m
+points,IN,18,top_1m,17|-10%,17|4%,18|-5%,,,,other,review,top_12m;top_3m;top_1m
+nutrabay coupon code,IN,18,top_12m,18|-10%,,,,,,sports-nutrition,brandable,top_12m
+reward,IN,15,top_3m,12|-3%,15|10%,14|-5%,,,,other,review,top_12m;top_3m;top_1m
+hsn code,IN,12,top_12m,12|9%,12|-6%,12|-30%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+promo code,IN,11,top_3m,9|10%,11|10%,9|-10%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+coupons,IN,10,top_12m,10|20%,10|-20%,10|-9%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+voucher,IN,9,top_3m,8|7%,9|10%,9|8%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+jiomart,IN,6,top_12m,6|300%,,,6|300%,,,grocery-quick-commerce,brandable,top_12m;rising_12m
+hdfc,IN,5,top_12m,5|0%,,5|8%,,,,bank-rewards,brandable,top_12m;top_1m
+jiomart coupon,IN,5,top_12m,5|250%,1|-80%,,5|250%,,,grocery-quick-commerce,brandable,top_12m;top_3m;rising_12m
+dominos,IN,5,top_1m,4|40%,4|3%,5|20%,,,5|20%,qsr-food,brandable,top_12m;top_3m;top_1m;rising_1m
+student discount,IN,4,top_12m,4|-4%,,,,,,education-learning,brandable,top_12m
+reduction,IN,4,top_12m,4|1%,4|10%,4|-20%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+dxn,IN,4,top_1m,3|40%,3|-10%,4|7%,,,,off-brand-mlm,off-brand,top_12m;top_3m;top_1m
+redbus,IN,4,top_1m,3|20%,,4|10%,,,4|10%,travel,brandable,top_12m;top_1m;rising_1m
+jiomart coupon code,IN,3,top_12m,3|300%,1|-80%,,3|300%,,,grocery-quick-commerce,brandable,top_12m;top_3m;rising_12m
+deal,IN,3,top_12m,3|50%,3|8%,3|-20%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+redeem code,IN,3,top_1m,,,3|-7%,,,,head-coupon-terms,brandable,top_1m
+amazon,IN,3,top_12m,3|5%,3|-1%,3|-20%,,,,marketplace-brand,brandable,top_12m;top_3m;top_1m
+apple,IN,3,top_12m,3|0%,2|-20%,2|-40%,,,,other,review,top_12m;top_3m;top_1m
+dominos coupon code,IN,3,top_1m,2|40%,2|-7%,3|20%,,,3|20%,qsr-food,brandable,top_12m;top_3m;top_1m;rising_1m
+hostinger,IN,3,top_3m,2|70%,3|80%,2|-40%,2|70%,,,saas-hosting,off-brand,top_12m;top_3m;top_1m;rising_12m
+hdfc reward points,IN,2,top_12m,2|-9%,,2|1%,,,,bank-rewards,brandable,top_12m;top_1m
+chegg,IN,2,top_12m,2|-70%,1|-9%,1|-20%,,,,education-learning,brandable,top_12m;top_3m;top_1m
+promotion,IN,2,top_12m,2|8%,2|-3%,2|-20%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+rebate,IN,2,top_12m,2|-7%,2|-40%,1|-20%,,,,head-coupon-terms,brandable,top_12m;top_3m;top_1m
+myntra,IN,2,top_12m,2|6%,,,,,,marketplace-brand,brandable,top_12m
+elysium,IN,2,top_12m,2|30%,2|10%,2|10%,,,,other,review,top_12m;top_3m;top_1m
+gate,IN,2,top_3m,,2|300%,,,,,other,review,top_3m
+google,IN,2,top_12m,2|-40%,2|10%,2|-20%,,,,other,review,top_12m;top_3m;top_1m
+orangex,IN,2,top_3m,,2|350%,,,,,other,review,top_3m
+hostinger coupon,IN,2,top_3m,1|80%,2|60%,,1|80%,,,saas-hosting,off-brand,top_12m;top_3m;rising_12m
+hostinger coupon code,IN,2,top_3m,1|60%,2|60%,1|-40%,,,,saas-hosting,off-brand,top_12m;top_3m;top_1m
+redbus coupon code,IN,2,top_12m,2|40%,2|10%,2|9%,,,,travel,brandable,top_12m;top_3m;top_1m
+hdfc credit card points redeem,IN,1,rising_1m,,,,,,1|10%,bank-rewards,brandable,rising_1m
+hdfc rewards,IN,1,top_1m,,,1|10%,,,1|10%,bank-rewards,brandable,top_1m;rising_1m
+mastercard,IN,1,top_3m,,1|450%,,,1|450%,,bank-rewards,brandable,top_3m;rising_3m
+mastercard rewards,IN,1,rising_3m,,,,0|950%,1|550%,,bank-rewards,brandable,rising_12m;rising_3m
+binance,IN,1,top_3m,,1|600%,,,1|600%,,crypto,off-brand,top_3m;rising_3m
+binance promo code,IN,1,rising_3m,,,,0|Breakout,1|700%,,crypto,off-brand,rising_12m;rising_3m
+polyx binance,IN,1,rising_3m,,,,,1|650%,,crypto,off-brand,rising_3m
+apple student discount,IN,1,top_12m,1|-20%,1|-20%,1|-30%,,,,education-learning,brandable,top_12m;top_3m;top_1m
+chatgpt,IN,1,top_3m,,1|40%,1|-6%,,,,education-learning,brandable,top_3m;top_1m
+code org,IN,1,rising_1m,,,,,,1|30%,education-learning,brandable,rising_1m
+code with harry,IN,1,top_12m,1|60%,1|-30%,1|-4%,,,,education-learning,brandable,top_12m;top_3m;top_1m
+pw coupon code,IN,1,top_12m,1|20%,,1|5%,,,,education-learning,brandable,top_12m;top_1m
+student discount apple,IN,1,top_12m,1|-10%,,,,,,education-learning,brandable,top_12m
+bookmyshow,IN,1,rising_1m,,,,,,1|10%,entertainment,brandable,rising_1m
+fancode live,IN,1,rising_1m,,,,,,1|40%,entertainment,brandable,rising_1m
+fancode login,IN,1,top_3m,,1|50%,1|10%,,,,entertainment,brandable,top_3m;top_1m
+sonyliv,IN,1,rising_1m,,,,,,1|40%,entertainment,brandable,rising_1m
+mech arena promo code,IN,1,rising_12m,,,,1|150%,,1|10%,game-codes,off-brand,rising_12m;rising_1m
+mech arena promo codes,IN,1,top_12m,1|200%,1|-3%,1|8%,1|200%,,,game-codes,off-brand,top_12m;top_3m;top_1m;rising_12m
+blinkit coupon,IN,1,top_12m,1|170%,,,1|170%,,,grocery-quick-commerce,brandable,top_12m;rising_12m
+blinkit coupon code,IN,1,top_3m,,1|-30%,,1|170%,,,grocery-quick-commerce,brandable,top_3m;rising_12m
+jio mart coupon,IN,1,top_12m,1|300%,,,1|300%,,,grocery-quick-commerce,brandable,top_12m;rising_12m
+jio mart coupons,IN,1,rising_12m,,,,1|550%,,,grocery-quick-commerce,brandable,rising_12m
+jiomart coupon code today,IN,1,rising_12m,,,,1|350%,,,grocery-quick-commerce,brandable,rising_12m
+jiomart coupons,IN,1,rising_12m,,,,1|1000%,,,grocery-quick-commerce,brandable,rising_12m
+bogo,IN,1,top_1m,,,1|90%,,,1|90%,head-coupon-terms,brandable,top_1m;rising_1m
+fan code,IN,1,top_3m,,1|40%,,,,,head-coupon-terms,brandable,top_3m
+free redeem code,IN,1,top_12m,1|-50%,,1|-20%,,,,head-coupon-terms,brandable,top_12m;top_1m
+promotional,IN,1,top_12m,1|40%,,1|-10%,,,,head-coupon-terms,brandable,top_12m;top_1m
+red bus coupon code,IN,1,top_1m,,,1|30%,,,1|30%,head-coupon-terms,brandable,top_1m;rising_1m
+flipkart,IN,1,top_1m,,,1|-30%,,,,marketplace-brand,brandable,top_1m
+myntra coupon code,IN,1,top_12m,1|40%,1|-20%,1|-9%,,,,marketplace-brand,brandable,top_12m;top_3m;top_1m
+dxn e world,IN,1,rising_1m,,,,0|120%,,1|10%,off-brand-mlm,off-brand,rising_12m;rising_1m
+dxn eworld,IN,1,top_3m,,1|-10%,,,,,off-brand-mlm,off-brand,top_3m
+10x,IN,1,top_12m,1|10%,1|10%,1|2%,,,,other,review,top_12m;top_3m;top_1m
+palazzo versace dubai,IN,1,top_3m,,1|550%,,,1|550%,,other,review,top_3m;rising_3m
+red bus coupon,IN,1,top_12m,1|20%,1|20%,1|20%,,,1|20%,other,review,top_12m;top_3m;top_1m;rising_1m
+whatsapp,IN,1,top_1m,,,1|6%,,,,other,review,top_1m
+youtube,IN,1,top_12m,1|-10%,1|-1%,1|20%,,,1|20%,other,review,top_12m;top_3m;top_1m;rising_1m
+pringles,IN,1,top_12m,1|40%,1|10%,1|2%,,,,other-brand,brandable,top_12m;top_3m;top_1m
+dominos coupon code today,IN,1,rising_12m,,,,1|70%,,1|20%,qsr-food,brandable,rising_12m;rising_1m
+dominos offer,IN,1,rising_1m,,,,,,1|20%,qsr-food,brandable,rising_1m
+godaddy,IN,1,top_12m,1|-1%,1|-10%,1|0%,,,,saas-hosting,off-brand,top_12m;top_3m;top_1m
+hostinger discount,IN,1,top_3m,,1|350%,,0|550%,,,saas-hosting,off-brand,top_3m;rising_12m
+hostinger promo code,IN,1,top_3m,,1|300%,,0|500%,,,saas-hosting,off-brand,top_3m;rising_12m
+lemlist,IN,1,rising_3m,,,,,1|550%,,saas-hosting,off-brand,rising_3m
+namecheap,IN,1,top_1m,,,1|0%,,,,saas-hosting,off-brand,top_1m
+vivo,IN,1,top_3m,,1|750%,,,1|750%,,smartphone-vivo,brandable,top_3m;rising_3m
+indigo,IN,1,top_12m,1|90%,,,1|90%,,,travel,brandable,top_12m;rising_12m
+rapido coupon,IN,1,top_1m,,,1|1%,,,,travel,brandable,top_1m
+rapido coupon code,IN,1,rising_12m,,,,1|100%,,,travel,brandable,rising_12m
+toyota car discount offers august,IN,0,,,,,0|Breakout,,,auto,off-brand,rising_12m
+volkswagen suv offers and discounts,IN,0,,,,,,0|Breakout,,auto,off-brand,rising_3m
+superbottoms coupons,IN,0,,,,,,,0|3350%,baby,brandable,rising_1m
+how to redeem hdfc credit card points,IN,0,,,,,,,0|20%,bank-rewards,brandable,rising_1m
+mastercard application,IN,0,,,,,,0|1300%,,bank-rewards,brandable,rising_3m
+mastercard credit card,IN,0,,,,,,0|650%,,bank-rewards,brandable,rising_3m
+mastercard login,IN,0,,,,,,0|550%,,bank-rewards,brandable,rising_3m
+mastercard travel rewards,IN,0,,,,,0|3550%,0|400%,,bank-rewards,brandable,rising_12m;rising_3m
+nykaa coupon code today,IN,0,,,,,,,0|30%,beauty-nykaa,brandable,rising_1m
+yes madam coupon code,IN,0,,,,,,,0|20%,consumer-services,brandable,rising_1m
+binance app,IN,0,,,,,,0|750%,,crypto,off-brand,rising_3m
+binance bonus,IN,0,,,,,,0|550%,,crypto,off-brand,rising_3m
+binance exchange,IN,0,,,,,,0|600%,,crypto,off-brand,rising_3m
+binance review,IN,0,,,,,,0|1150%,,crypto,off-brand,rising_3m
+bitget bonus,IN,0,,,,,,0|900%,,crypto,off-brand,rising_3m
+bitget exchange,IN,0,,,,,,0|800%,,crypto,off-brand,rising_3m
+bitget login,IN,0,,,,,,0|650%,,crypto,off-brand,rising_3m
+bitget referral code,IN,0,,,,,,0|650%,,crypto,off-brand,rising_3m
+bitget wallet,IN,0,,,,,,0|750%,,crypto,off-brand,rising_3m
+gate deal,IN,0,,,,,,0|500%,,crypto,off-brand,rising_3m
+gate exchange,IN,0,,,,,,0|650%,,crypto,off-brand,rising_3m
+polyx crypto,IN,0,,,,,,0|650%,,crypto,off-brand,rising_3m
+adobe student plan,IN,0,,,,,,,0|130%,education-learning,brandable,rising_1m
+croma apple sale discounts,IN,0,,,,,0|Breakout,,,electronics-croma,brandable,rising_12m
+crex,IN,0,,,,,,,0|40%,entertainment,brandable,rising_1m
+cricbuzz,IN,0,,,,,,,0|140%,entertainment,brandable,rising_1m
+district app coupon code,IN,0,,,,,0|80%,,,entertainment,brandable,rising_12m
+savana coupon code,IN,0,,,,,0|80%,,,fashion-budget,brandable,rising_12m
+shein coupon code,IN,0,,,,,0|120%,,,fashion-budget,brandable,rising_12m
+el dorado gg,IN,0,,,,,,0|650%,,game-codes,off-brand,rising_3m
+el doradogg,IN,0,,,,,,0|850%,,game-codes,off-brand,rising_3m
+eldorad,IN,0,,,,,,0|2050%,,game-codes,off-brand,rising_3m
+eldorado reviews,IN,0,,,,,,0|900%,,game-codes,off-brand,rising_3m
+eldorado roblox,IN,0,,,,,,0|800%,,game-codes,off-brand,rising_3m
+eldoradogg,IN,0,,,,,,0|1650%,,game-codes,off-brand,rising_3m
+fc codes,IN,0,,,,,,,0|30%,game-codes,off-brand,rising_1m
+fc mobile redeem code,IN,0,,,,,,,0|30%,game-codes,off-brand,rising_1m
+fc mobile redeem code today,IN,0,,,,,,,0|70%,game-codes,off-brand,rising_1m
+forge codes,IN,0,,,,,0|Breakout,,0|4650%,game-codes,off-brand,rising_12m;rising_1m
+free fire max redemption codes,IN,0,,,,,0|500%,,,game-codes,off-brand,rising_12m
+mech arena promo codes today,IN,0,,,,,0|300%,,0|30%,game-codes,off-brand,rising_12m;rising_1m
+promo codes for mech arena,IN,0,,,,,,,0|10%,game-codes,off-brand,rising_1m
+rivals codes,IN,0,,,,,0|200%,,0|30%,game-codes,off-brand,rising_12m;rising_1m
+fnp coupon code,IN,0,,,,,,,0|50%,gifting,brandable,rising_1m
+igp coupon code,IN,0,,,,,,,0|30%,gifting,brandable,rising_1m
+bigbasket coupon code,IN,0,,,,,0|500%,,,grocery-quick-commerce,brandable,rising_12m
+blinkit coupon codes,IN,0,,,,,0|70%,,,grocery-quick-commerce,brandable,rising_12m
+jio mart coupon code,IN,0,,,,,0|250%,,,grocery-quick-commerce,brandable,rising_12m
+jio mart coupons today,IN,0,,,,,0|250%,,,grocery-quick-commerce,brandable,rising_12m
+jiomart promo code today,IN,0,,,,,0|300%,,,grocery-quick-commerce,brandable,rising_12m
+open code,IN,0,,,,,0|500%,,,head-coupon-terms,brandable,rising_12m
+rivals code,IN,0,,,,,,,0|70%,head-coupon-terms,brandable,rising_1m
+yt.be/activate code,IN,0,,,,,,,0|190%,head-coupon-terms,brandable,rising_1m
+amazon coupons,IN,0,,,,,0|150%,,,marketplace-brand,brandable,rising_12m
+chadwick boseman,IN,0,,,,,0|70%,,,news-event,off-brand,rising_12m
+crcs sahara refund portal resubmission,IN,0,,,,,,,0|20%,news-event,off-brand,rising_1m
+dxn online billing system,IN,0,,,,,,,0|60%,off-brand-mlm,off-brand,rising_1m
+app.emergent,IN,0,,,,,,0|1100%,,other,review,rising_3m
+asap coupon code.com,IN,0,,,,,0|650%,,,other,review,rising_12m
+b1g1,IN,0,,,,,0|90%,,,other,review,rising_12m
+bons,IN,0,,,,,,,0|20%,other,review,rising_1m
+dream deal group,IN,0,,,,,0|130%,,,other,review,rising_12m
+elrado,IN,0,,,,,,0|1550%,,other,review,rising_3m
+emergent pricing,IN,0,,,,,,0|950%,,other,review,rising_3m
+emergent.sh,IN,0,,,,,,0|650%,,other,review,rising_3m
+emergentsh,IN,0,,,,,,0|750%,,other,review,rising_3m
+facebook,IN,0,,,,,,,0|40%,other,review,rising_1m
+gate review,IN,0,,,,,,0|450%,,other,review,rising_3m
+gate trade,IN,0,,,,,,0|400%,,other,review,rising_3m
+insightful,IN,0,,,,,,0|900%,,other,review,rising_3m
+lem list,IN,0,,,,,,0|500%,,other,review,rising_3m
+lenlist,IN,0,,,,,,0|450%,,other,review,rising_3m
+peopleperhour typing jobs,IN,0,,,,,,0|1000%,,other,review,rising_3m
+promotions,IN,0,,,,,0|90%,,,other,review,rising_12m
+whatsapp web,IN,0,,,,,,,0|20%,other,review,rising_1m
+ghar soap coupon code,IN,0,,,,,,,0|100%,other-brand,brandable,rising_1m
+dominos coupons,IN,0,,,,,,,0|50%,qsr-food,brandable,rising_1m
+dominos offer today,IN,0,,,,,,,0|40%,qsr-food,brandable,rising_1m
+dominos offers,IN,0,,,,,,,0|20%,qsr-food,brandable,rising_1m
+kfc buy 1 get 1 offer,IN,0,,,,,,,0|250%,qsr-food,brandable,rising_1m
+kfc today offer buy 1 get 1 free price,IN,0,,,,,,,0|450%,qsr-food,brandable,rising_1m
+5dplanner,IN,0,,,,,,0|400%,,rewards-apps,off-brand,rising_3m
+be 10x,IN,0,,,,,0|160%,,,rewards-apps,off-brand,rising_12m
+content reward,IN,0,,,,,0|3150%,,0|20%,rewards-apps,off-brand,rising_12m;rising_1m
+feature points,IN,0,,,,,0|80%,,,rewards-apps,off-brand,rising_12m
+google opinion rewards online,IN,0,,,,,,0|1650%,,rewards-apps,off-brand,rising_3m
+mypoints watch ads,IN,0,,,,,,0|1000%,,rewards-apps,off-brand,rising_3m
+mypoints watch ads for money,IN,0,,,,,,0|900%,,rewards-apps,off-brand,rising_3m
+mypoints watching ads,IN,0,,,,,,0|1200%,,rewards-apps,off-brand,rising_3m
+godaddy promo code,IN,0,,,,,,,0|20%,saas-hosting,off-brand,rising_1m
+hostinger discount code,IN,0,,,,,0|950%,,,saas-hosting,off-brand,rising_12m
+lemlist login,IN,0,,,,,,0|550%,,saas-hosting,off-brand,rising_3m
+webshare,IN,0,,,,,,0|550%,,saas-hosting,off-brand,rising_3m
+oneplus freedom sale discounts,IN,0,,,,,0|Breakout,,,smartphone-oneplus,brandable,rising_12m
+vivo deals,IN,0,,,,,,0|2350%,,smartphone-vivo,brandable,rising_3m
+indigo compensation voucher,IN,0,,,,,0|Breakout,,,travel,brandable,rising_12m
+rapido coupon codes,IN,0,,,,,,,0|20%,travel,brandable,rising_1m
+redbus coupon codes,IN,0,,,,,0|140%,,0|40%,travel,brandable,rising_12m;rising_1m

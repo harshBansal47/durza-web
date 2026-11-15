@@ -46,6 +46,11 @@ const FAQS = [
       "Order matters: promo code first (reduces item value), bank instant discount second (applies on reduced value), EMI rewards last. Two bank offers never stack. Brand coupons that say 'not valid with bank offers' do what they say — the payment page drops the bank line for that merchant. There is no magic order that bends gateway rules.",
   },
   {
+    question: "Can I redeem my credit card reward points for these carts?",
+    answer:
+      "Often yes, through your card's own redemption portal — HDFC SmartBuy converts points to online shopping vouchers for major marketplaces, and ICICI/RBL have equivalent portals. The value per point varies by campaign and category; the exchange rate shown at the redemption step is the real one. This page tracks the instant-discount layer only — reward-point values update daily and are owned by the bank, not by Durza.",
+  },
+  {
     question: "Why did a friend get a discount I did not qualify for?",
     answer:
       "Most offers have caps — per day, per campaign, per customer per month — and eligibility lists by card family. Two people standing in the same store on the same day can see different outcomes. The four usual differences: card family variant, minimum transaction value honored after exclusions, campaign cap already exhausted, and whether the offer is targeted at existing holders of a specific card rather than a general campaign.",

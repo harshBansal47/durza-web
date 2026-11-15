@@ -50,3 +50,12 @@ Use `lib/format.ts` for Indian number grouping, unambiguous dates (“31 Oct 202
 ## Provider text
 
 Provider-supplied coupon titles and terms may be normalised at display time for casing, spacing and emoji/shouting only. Never alter amounts, codes, dates or conditions. Keep the “Up to” rule from `docs/ui-guidelines.md`.
+
+## SEO query targeting (binding)
+
+1. Before writing or editing anything that changes query visibility (titles, meta descriptions, headings, H-tables, FAQs, CTAs for external paths), read `docs/seo/keyword-clusters.md` and `docs/seo/page-map.md`. If the cluster is already assigned to a page, optimise that page — do not create a competing one.
+2. Use tracked vocabulary or natural synonyms. Never transplant a trending term into copy that doesn't serve the shopper's intent.
+3. Every new page must declare its target cluster in `docs/seo/page-map.md` (same commit). No orphan pages.
+4. Never fabricate demand numbers; relative Trends scores, not volumes.
+5. Seasonal opportunities are scheduled in `docs/seo/future-work.md` — budget for Diwali / BF / CM / Christmas phasing and do not add seasonal copy outside the window.
+6. The standing measurement loop is Google Search Console; Trends evidence guides but does not arbitrate. Rankings are verified, not assumed.

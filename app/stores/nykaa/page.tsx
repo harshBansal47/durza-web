@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import type { CouponPublic } from "@/lib/types";
 
 const title = "Nykaa Coupons & Offers – Beauty Sale Bank Deals";
-const description = "Live Nykaa offers and bank-card discounts on beauty, skincare and Nykaa Fashion — refreshed from official campaign pages.";
+const description = "Live Nykaa coupon codes for today — bank-card discounts on beauty, skincare and Nykaa Fashion, refreshed from official campaign pages.";
 const canonical = "/stores/nykaa";
 
 export const metadata: Metadata = {
@@ -27,6 +27,7 @@ const FAQS = [
   { question: "Do Nykaa coupon codes exist?", answer: "Nykaa runs more auto-applied bank and sale deals than blanket public codes — most savings land through bank partners and Prive coins; any public code we can source is listed above." },
   { question: "Can I return beauty products?", answer: "Yes — unopened/sealed beauty products have a standard return window; skincare and makeup restrictions vary by brand. The PDP and shipping promise at checkout govern eligibility." },
   { question: "How do the bank offers work?", answer: "Nykaa runs instant-discount deals with bank partners (often 10% cards). The ‘offers’ tab at PDP/cart shows what applies to you; the discount lands after you choose the partner card at checkout." },
+  { question: "Is there a Nykaa coupon code for today (2026)?", answer: "Nykaa leans on bank-card and Prive coins over blanket codes. When a public code is sourced and live, it appears in the offers panel above this answer and stays until its expiry date — some weeks have one, others none. There is no standing daily-code guarantee; the panel is always the current truth." },
 ];
 
 export const revalidate = 300;

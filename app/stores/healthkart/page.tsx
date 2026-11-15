@@ -10,7 +10,7 @@ import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCar
 
 const title = "HealthKart Coupons & Offers – Extra Savings on Supplements";
 const description =
-  "Latest verified HealthKart promo codes, HK Cash and UPI offers. Save on protein, creatine, vitamins and supplements — free shipping above ₹499.";
+  "Current HealthKart promo codes, MuscleBlaze deals, HK Cash and UPI offers. Save on protein, creatine monohydrate and vitamins — free shipping above ₹499.";
 const canonical = "/stores/healthkart";
 
 export const metadata: Metadata = {
@@ -48,7 +48,12 @@ const FAQS = [
   {
     question: "What does 'checked' mean on a Durza coupon card?",
     answer:
-      "It means the code was tested and worked at checkout during our most recent check. Unverified or newly-added codes are labelled differently until they pass.",
+      "It means the code resolved correctly at our most recent check — sourced from HealthKart's campaign pages or tested by a shopper using our success-rate votes. Codes without any reports are labelled 'no votes yet'.",
+  },
+  {
+    question: "Do HealthKart codes apply to MuscleBlaze? Any MuscleBlaze coupon codes right now?",
+    answer:
+      "MuscleBlaze is HealthKart's own sports-nutrition label — MuscleBlaze products go through the same healthkart.com checkout. Any code listed on this page applies to MuscleBlaze as well as to other labels; there is no separate MuscleBlaze checkout, so no separate coupon page exists.",
   },
 
 ];

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "How does Midnight Delivery work on IGP.com?", answer: "Select the Midnight Delivery slot during checkout; the surprise arrives between 11:00 PM and 11:59 PM across 400+ cities." },
   { question: "Can coupon code IGP10 be applied to personalized gifts?", answer: "Yes, IGP10 provides an additional 10% discount on custom photo frames, LED lamps, and hampers with no minimum." },
+  { question: "Are there any IGP codes for midnight or same-day delivery?", answer: "Midnight and same-day deliveries occasionally run occasion-specific codes — wedding season, anniversaries, Rakhi — which appear in the offers panel above this answer when they are source-checked. IGP10 remains the standing site code; checkout will show whether an occasion code applies to your slot." },
   { question: "What happens if the recipient is not available?", answer: "For perishables, delivery agents coordinate via phone; standard products ship with courier partners and SMS tracking." },
 ];
 
