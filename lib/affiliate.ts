@@ -1,5 +1,9 @@
+import { VCOMMISSION_CAMPAIGNS as VCOMMISSION_CAMPAIGN_REGISTRY } from "@/data/vcommission-campaigns";
+
 /**
- * Single source of truth for vCommission affiliate deep links.
+ * vCommission affiliate deep links. The campaign registry lives in
+ * `data/vcommission-campaigns.ts`; this module builds links and re-exports the
+ * campaign map for brand pages and guides, so we never maintain two lists.
  *
  * Every outbound click on a brand page goes through `getAffiliateLink`, so the
  * campaign mapping lives in exactly one place. Campaign IDs are public (they
@@ -66,48 +70,17 @@ export function getAcerAdmitadLink(
   }
 }
 
-/** Per-brand campaign IDs issued by the vCommission dashboard. */
-export const VCOMMISSION_CAMPAIGNS = {
-  "alpino": "13512",
-  "beast-life": "13808",
-  "boldfit": "13749",
-  "boult": "10323",
-  "brillare": "13375",
-  "bytepe": "13363",
-  "dot-and-key": "12957",
-  "firstcry": "10081",
-  "fitspire": "13768",
-  "fuelone": "13114",
-  "gritzo": "13113",
-  "guvi": "10782",
-  "havells": "13307",
-  "healthkart": "10109",
-  "hirafragrance": "13740",
-  "hkvitals": "10111",
-  "iba-cosmetics": "12939",
-  "igp": "11874",
-  "indus-valley": "12859",
-  "kama-ayurveda": "10125",
-  "kapiva": "10126",
-  "lavie-world": "13524",
-  "levis": "11501",
-  "life-changing-astro": "13860",
-  "milton": "12749",
-  "moglix": "10351",
-  "mymuse": "10666",
-  "neesh-perfumes": "10175",
-  "nilkamalfurniture": "11875",
-  "nordpass": "10181",
-  "nourish-mantra": "12144",
-  "sirona": "13441",
-  "the-bear-house": "13462",
-  "the-man-company": "10248",
-  "the-natural-wash": "12839",
-  "truebasics": "10255",
-  "wonderchef": "12979",
-  "zeroharm": "10514",
-  "zoff-foods": "13859",
-} as const satisfies Record<string, string>;
+// Single source of truth lives in `data/vcommission-campaigns.ts` (parity with
+// `data/admitad-programs.ts`). This module derives the kebab store-slug →
+// campaign id map every brand page and guide uses, so the two never drift.
+// Campaign IDs are public (they ship in every outbound link); the only thing
+// that breaks in production is a placeholder ID, which `logAffiliateConfigWarnings` flags loudly.
+const DERIVED_CAMPAIGN_IDS = Object.fromEntries(
+  Object.values(VCOMMISSION_CAMPAIGN_REGISTRY).map((campaign) => [campaign.slug, campaign.id]),
+) as { [Slug in (typeof VCOMMISSION_CAMPAIGN_REGISTRY)[keyof typeof VCOMMISSION_CAMPAIGN_REGISTRY]["slug"]]: string };
+
+/** Per-brand campaign IDs issued by the vCommission dashboard, keyed by store hub slug. */
+export const VCOMMISSION_CAMPAIGNS = DERIVED_CAMPAIGN_IDS;
 
 export type AffiliateBrand = keyof typeof VCOMMISSION_CAMPAIGNS;
 
