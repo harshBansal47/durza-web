@@ -98,6 +98,49 @@ interface SectionDef {
   picks: Array<{ id: string; badge?: string }>;
 }
 
+interface ProteinPick {
+  badge: string;
+  brand: string;
+  name: string;
+  blurb: string;
+  bestFor: string;
+  url: string;
+  image?: string;
+}
+
+/** The three health products the Durza desk stands behind — hand-picked, no feed. */
+const PROTEIN_PICKS: ProteinPick[] = [
+  {
+    badge: "ISOLATE WHEY — UK INFORMED CHOICE",
+    brand: "BigMuscles Nutrition",
+    name: "Premium Gold Whey [2 kg, Rich Chocolate]",
+    blurb:
+      "25 g protein per ~37 g scoop with 11 g EAA and ProHydrolase enzyme technology — a disclosed, isolate-first blend with no amino spiking. Batches are tested monthly under Informed Choice (UK) and every pack carries a batch-verification code.",
+    bestFor: "Closing the protein gap on training days — the post-workout or breakfast shake.",
+    url: "https://link.amazon/B02k8S0KF",
+    image: "/stores/amazon-in/bigmuscles-premium-gold-whey.png",
+  },
+  {
+    badge: "26 G PROTEIN PER 100 G — NO ADDED SUGAR",
+    brand: "Yoga Bar",
+    name: "High Protein Oats 1 kg, Pack of 2 [Dark Chocolate]",
+    blurb:
+      "26 g protein per 100 g from a whey + soya protein blend with chia, sunflower and pumpkin seeds, probiotics (Bacillus coagulans) and zero added sugar — a training-day breakfast that eats like dessert.",
+    bestFor: "A quick breakfast on gym days — 26 g of protein before 9 am without a shaker.",
+    url: "https://link.amazon/B05uwpEeL",
+    image: "/stores/amazon-in/yogabar-high-protein-oats-dark-chocolate.png",
+  },
+  {
+    badge: "CREAMP — TRUSTIFIED CERTIFIED",
+    brand: "MuscleBlaze",
+    name: "Micronised Creatine Monohydrate CreAMP Powder, 100 g",
+    blurb:
+      "3 g micronised creatine monohydrate per scoop (~33 servings per 100 g pouch) with CreAbsorb technology and third-party Trustified certification — plain creatine, done right, in the safest starter size.",
+    bestFor: "Strength and power blocks — progressive overload on lifting days.",
+    url: "https://link.amazon/B0iU3vLmN",
+  },
+];
+
 const SECTIONS: SectionDef[] = [
   {
     id: "desk",
@@ -216,16 +259,6 @@ const SECTIONS: SectionDef[] = [
       { id: "0ee34e79-1bf6-442f-82eb-1ab487694642", badge: "REFURBISHED" },
     ],
   },
-  {
-    id: "health",
-    title: "Health & wellness essentials",
-    lead: "Nutrients this year, blood-pressure after the doctor's advice — at prices within the standard pharmacy lane.",
-    picks: [
-      { id: "94804b19-1423-4ef1-ac17-9e1f73d404d2", badge: "VIT C" },
-      { id: "815c20c5-029d-49be-b59f-a160ae91779c", badge: "DOCTOR-PREFERRED" },
-      { id: "d35f89a4-57c3-43d9-bc18-2887e66e904d", badge: "WITH STRIPS" },
-    ],
-  },
 ];
 
 interface Props {
@@ -268,7 +301,7 @@ export default function AmazonStorePage({
       <StoreHero
         name="Amazon"
         heading="Amazon — hand-picked best"
-        subtitle="Work-from-home, components, audio, kitchen, home gym, personal care and cards — curated picks from Amazon India, every card brand-backed and professionally chosen."
+        subtitle="Work-from-home, components, audio, kitchen, home gym, personal care and health — curated picks from Amazon India, every card brand-backed and professionally chosen."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -290,6 +323,20 @@ export default function AmazonStorePage({
             <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
           </a>
         ))}
+        <a
+          href="#health"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          Health &amp; wellness
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
+        <a
+          href="#amazon-home-kitchen-picks"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          Home &amp; kitchen
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
       </nav>
 
       <div className="mt-8 space-y-12">
@@ -320,6 +367,124 @@ export default function AmazonStorePage({
           ),
         )}
       </div>
+
+      <section id="health" aria-labelledby="health-heading" className="mt-10 rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Health &amp; sports nutrition</p>
+            <h2 id="health-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+              Health &amp; wellness essentials
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-ink-soft">
+              The three we would put in this cart first — picked for honest scoop math, real certifications and no-label-mystery ingredients. Every card links straight to the Amazon listing.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+            <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+            Editor&apos;s picks
+          </span>
+        </div>
+
+        <ul className="mt-6 grid gap-4 md:grid-cols-3">
+          {PROTEIN_PICKS.map((pick) => (
+            <li key={pick.url}>
+              <a
+                href={pick.url}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+              >
+                {pick.image ? (
+                  <span className="relative block aspect-[4/5] w-full overflow-hidden bg-paper-alt">
+                    <Image
+                      src={pick.image}
+                      alt={pick.name}
+                      width={700}
+                      height={875}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 380px"
+                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </span>
+                ) : (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-3 bg-[radial-gradient(ellipse_at_center,#241f1d_0%,#0e0c0b_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-zinc-500">MuscleBlaze</span>
+                    <span className="font-serif text-6xl font-black leading-none tracking-tight text-white">
+                      CRE<span className="text-red-600">AMP</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-300">Micronised Creatine Monohydrate</span>
+                    <span className="mt-2 rounded-full border border-red-600 bg-red-600/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-red-400">
+                      Trustified Certified
+                    </span>
+                  </span>
+                )}
+                <span className="flex flex-1 flex-col p-4">
+                  <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{pick.badge}</span>
+                  <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{pick.brand}</span>
+                  <span className="mt-1 font-serif text-lg font-bold leading-snug text-ink">{pick.name}</span>
+                  <span className="mt-2 text-[12px] leading-6 text-ink-soft">{pick.blurb}</span>
+                  <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                    <span className="font-semibold text-ink">Best for: </span>
+                    {pick.bestFor}
+                  </span>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                    View on Amazon
+                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 overflow-x-auto rounded-xl border border-ledger-line">
+          <table className="min-w-full divide-y divide-ledger-line bg-white text-left text-[12px] leading-5">
+            <thead className="bg-paper-alt">
+              <tr>
+                <th scope="col" className="px-4 py-2.5 font-mono text-[9px] font-semibold uppercase tracking-widest text-ink-soft">Side by side</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Premium Gold Whey</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold text-ink">High Protein Oats</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold text-ink">CreAMP Creatine</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-ledger-line">
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">What it is</th>
+                <td className="px-4 py-2 text-ink">Whey isolate-first blend, flavoured (Rich Chocolate)</td>
+                <td className="px-4 py-2 text-ink">Wholegrain oat cereal with protein blend</td>
+                <td className="px-4 py-2 text-ink">Micronised creatine monohydrate, unflavoured</td>
+              </tr>
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">Per serving (pack label)</th>
+                <td className="px-4 py-2 text-ink">25 g protein / 37 g scoop</td>
+                <td className="px-4 py-2 text-ink">26 g protein / 100 g oats</td>
+                <td className="px-4 py-2 text-ink">3 g creatine / 1 scoop</td>
+              </tr>
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">Certification</th>
+                <td className="px-4 py-2 text-ink">Informed Choice (UK) — monthly batch testing</td>
+                <td className="px-4 py-2 text-ink">No third-party badge claimed — check batch on arrival</td>
+                <td className="px-4 py-2 text-ink">Trustified certified</td>
+              </tr>
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">Best for</th>
+                <td className="px-4 py-2 text-ink">Training-day protein gap</td>
+                <td className="px-4 py-2 text-ink">Breakfast that pulls its weight</td>
+                <td className="px-4 py-2 text-ink">Strength and power blocks · ~33 days at 3 g/day</td>
+              </tr>
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">Think twice if</th>
+                <td className="px-4 py-2 text-ink">Heavy dairy intolerance with no lactase support</td>
+                <td className="px-4 py-2 text-ink">You dislike a textured cereal bowl</td>
+                <td className="px-4 py-2 text-ink">Your doctor flagged kidney concerns — ask first</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+          Figures are the brands&apos; own label values, not a lab audit by Durza — scan the pack&apos;s batch/QR code when your order arrives. Nothing on this page shows a price or a “was” anchor: Amazon sets the live figure. Every card is an Amazon Associates link (tag=durza02-21), so a qualifying purchase supports Durza at no extra cost to you. Pregnant, nursing or managing a condition? Talk to your doctor before you start any supplement.
+        </p>
+      </section>
 
       <section id="amazon-home-kitchen-picks" aria-labelledby="home-kitchen-picks-heading" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
