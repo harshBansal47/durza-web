@@ -39,6 +39,11 @@ export const revalidate = 3600;
  */
 const RELATED_GUIDES: RelatedGuideItem[] = [
   {
+    slug: "amazon-prime-audible-kindle-subscriptions-guide",
+    title: "Amazon Prime, Audible & Kindle Unlimited India 2026 — subscriptions, trials and Renewed",
+    hook: "What Prime, Audible, Kindle Unlimited, Amazon Business and Amazon Renewed actually include — and when each is worth it.",
+  },
+  {
     slug: "amazon-flipkart-sale-dates-2026",
     title: "Amazon & Flipkart Sale Dates India 2026 — Black Friday, Christmas & New Year",
     hook: "Real sale windows and honest timing for big-ticket electronics.",
@@ -58,7 +63,11 @@ const RELATED_GUIDES: RelatedGuideItem[] = [
     title: "RBL Bank Offers India 2026 — the live list",
     hook: "RBL offers that land at checkout on sale weekends.",
   },
-  ...STORE_GUIDES.filter((guide) => guide.relatedStores?.includes("amazon-in")).map((guide) => ({
+  ...STORE_GUIDES.filter(
+    (guide) =>
+      guide.relatedStores?.includes("amazon-in") &&
+      guide.slug !== "amazon-prime-audible-kindle-subscriptions-guide",
+  ).map((guide) => ({
     slug: guide.slug,
     title: guide.seo.title,
     hook: guide.summary,

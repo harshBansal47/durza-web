@@ -397,18 +397,6 @@ const SECTIONS: SectionDef[] = [
       { id: "8ffe28f8-ff4e-404b-b5c6-80b28a36a94b", badge: "DIGITAL EYE" },
     ],
   },
-  {
-    id: "software",
-    title: "Software & subscriptions",
-    lead: "Prime, Audible and Kindle Unlimited — experiences you can start before dinner.",
-    picks: [
-      { id: "a19b086a-f209-4bff-aef3-6165b8b7f967", badge: "ANNUAL SAVER" },
-      { id: "6b145afb-db33-4984-8b6b-3c2b4d8cf7fa", badge: "2 MONTHS FREE" },
-      { id: "0a03b3ce-b02e-41bd-a709-fab95b192aef", badge: "UNLIMITED BOOKS" },
-      { id: "8a56ca88-659c-4ec2-8a98-92aa56cbf280", badge: "B2B REGISTER" },
-      { id: "0ee34e79-1bf6-442f-82eb-1ab487694642", badge: "REFURBISHED" },
-    ],
-  },
 ];
 
 interface Props {
