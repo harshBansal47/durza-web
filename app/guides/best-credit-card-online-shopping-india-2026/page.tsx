@@ -9,7 +9,7 @@ import { BANKS } from "@/lib/bank-offers";
 import LiveBankOffers from "@/components/bank-offers/LiveBankOffers";
 import QuickAnswer from "@/components/ui/QuickAnswer";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const title = "Best Credit Card for Online Shopping India 2026 — the honest answer, with live offers";
 const description =

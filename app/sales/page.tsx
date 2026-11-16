@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { SALE_HUBS_ENABLED } from "@/lib/flags";
 import { api } from "@/lib/api";
 
-export const revalidate = 300;
+export const revalidate = 900;
 
 export default async function SalesIndexPage() {
   if (!SALE_HUBS_ENABLED) notFound();

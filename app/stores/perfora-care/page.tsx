@@ -27,7 +27,7 @@ const FAQS = [
   { question: "Does the water flosser replace traditional floss?", answer: "Water flossers are excellent for gum pockets, braces and implants but not a complete replacement for string floss on tight interdental spaces. Used together they deliver the best 360°-clean for adults." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("perforacare-com-ecommerce-cps-india", { skip: 0, limit: 10 });

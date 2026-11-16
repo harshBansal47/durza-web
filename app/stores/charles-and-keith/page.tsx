@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Is Durza affiliated with Charles & Keith India?", answer: "Durza is a publisher partner — the link goes through the advertising affiliate program; nothing about the catalogue, checkout or warranty is on Durza. Prices, sizes, stock, returns and exchanges are all the store's own." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("charles-keith", { skip: 0, limit: 10 });

@@ -30,7 +30,7 @@ const FAQS = [
   { question: "Is there a Nykaa coupon code for today (2026)?", answer: "Nykaa leans on bank-card and Prive coins over blanket codes. When a public code is sourced and live, it appears in the offers panel above this answer and stays until its expiry date — some weeks have one, others none. There is no standing daily-code guarantee; the panel is always the current truth." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("nykaa", { skip: 0, limit: 50 });

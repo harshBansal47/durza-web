@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Can LEVIS1000 be applied on sale items?", answer: "Yes, LEVIS1000 applies on cart value above ₹5,999 including sale items, and LEVIS500 kicks in above ₹3,499. Enter the code at the payment step before paying." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("levis", { skip: 0, limit: 50 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the free shipping threshold?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — the Essential Kitchen Masala Combo alone qualifies." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("zoff-foods", { skip: 0, limit: 50 });

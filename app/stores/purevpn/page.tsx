@@ -28,7 +28,7 @@ const FAQS = [
   { question: "What is PureVPN's privacy stance and where is it based?", answer: "PureVPN is headquartered in the British Virgin Islands, an independent privacy jurisdiction without EU/US mass-surveillance data retention mandates. The no-logs policy has been audited and published." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("purevpn-com-utility-cpa-worldwide", { skip: 0, limit: 10 });

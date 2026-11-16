@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How does the 1-year warranty replacement work?", answer: "MyMuse offers a 1-year replacement warranty on massagers and electronic products. Reach out to support with your order ID and a short video/photo of the defect, and a replacement ships after verification." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("mymuse", { skip: 0, limit: 50 });

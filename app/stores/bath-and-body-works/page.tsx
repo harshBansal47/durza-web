@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Are the fragrance mists safe on clothes?", answer: "Fragrance mists are intended for skin, not fabric. We recommend spraying onto skin from a 15–20 cm distance; for garment scenting, use dedicated fabric sprays instead." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("bath-body-works", { skip: 0, limit: 10 });

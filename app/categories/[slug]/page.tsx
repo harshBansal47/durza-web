@@ -20,7 +20,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const PAGE_SIZE = 20;
 

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How does bulk quote pricing work?", answer: "Add items to your cart, choose the bulk/quote option, and the Moglix B2B team sends volume-based pricing with delivery timelines — ideal for workshops, contractors and facility managers." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("moglix", { skip: 0, limit: 50 });

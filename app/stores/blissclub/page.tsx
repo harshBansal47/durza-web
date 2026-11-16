@@ -27,7 +27,7 @@ const FAQS = [
   { question: "Can I return BlissClub activewear if it doesn't fit?", answer: "Yes — BlissClub offers 15-day returns on full-price products from blissclub.com. The exchange process, reverse-pickup windows and refund turnaround vary by city; check the specific product page." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("bliss-club", { skip: 0, limit: 10 });

@@ -58,7 +58,7 @@ const FAQS = [
 
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("healthkart", { skip: 0, limit: 50 });

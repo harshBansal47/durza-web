@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum order threshold for free delivery on Nourish Mantra?", answer: "Nourish Mantra provides free doorstep delivery across India on all orders of ₹499 or more. A single under-eye gel or serum immediately unlocks free shipping." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("nourish-mantra", { skip: 0, limit: 50 });

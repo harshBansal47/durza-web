@@ -29,7 +29,7 @@ const FAQS = [
   { question: "Why is there no 'verified' badge on AJIO deals?", answer: "Durza doesn't hand-test merchant campaigns. We sync from the AJIO campaigns feed nightly, parse what the feed actually returned, list it live. Only when Durza's checkout-verification layer reports a real success will a green tick appear — and none currently has." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("ajio-com-ecommerce-cps-india", { skip: 0, limit: 100 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum order threshold for free delivery?", answer: "Free doorstep delivery across all PIN codes in India for orders totaling ₹499 or more." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("iba-cosmetics", { skip: 0, limit: 50 });

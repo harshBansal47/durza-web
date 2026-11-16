@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How do I qualify for free delivery?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — a single bottle of KSM-66 Ashwagandha already qualifies." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("truebasics", { skip: 0, limit: 50 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum spend for free shipping on Beast Life?", answer: "Beast Life offers free doorstep shipping on all orders totaling ₹999 or more across India. A single tub of Whey Protein or a Pre-Workout + Creatine combo automatically crosses this threshold." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("beast-life", { skip: 0, limit: 50 });

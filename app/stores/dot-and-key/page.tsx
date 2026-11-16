@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum order threshold for free shipping on Dot & Key?", answer: "Shipping is free on all orders of ₹499 or more. Adding an impulse essential like the Gloss Boss Lip Balm (₹225) is an easy way to reach the threshold." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("dot-and-key", { skip: 0, limit: 50 });

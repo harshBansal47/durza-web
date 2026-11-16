@@ -14,7 +14,7 @@ import PageTitle from "@/components/ui/PageTitle";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = 900;
 
 const PAGE_SIZE = 20;
 

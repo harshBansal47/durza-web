@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How do I claim the warranty?", answer: "Register your appliance or cookware on wonderchef.com with the invoice to activate the 2-year on-site / replacement warranty, then raise a service request through support." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("wonderchef", { skip: 0, limit: 50 });

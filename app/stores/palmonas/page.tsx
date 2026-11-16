@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Is the lab-grown diamond documentation included?", answer: "Lab-grown diamonds ship with their grading report; check product pages for the specific certificate format on each listing. Skilfully set, the stones are visually indistinguishable from mined stones." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("palmonas", { skip: 0, limit: 10 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How does the 7-day exchange process work?", answer: "Initiate a size exchange within 7 days of delivery from your account or support. The reverse pickup is free, and the replacement ships after the courier collects the original pair." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("the-bear-house", { skip: 0, limit: 50 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What does the 1-year manufacturer warranty cover?", answer: "One year on vacuum insulation performance and electrical heating elements (Futuron). Register your product on milton.in with the invoice to claim repairs or replacement." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("milton", { skip: 0, limit: 50 });

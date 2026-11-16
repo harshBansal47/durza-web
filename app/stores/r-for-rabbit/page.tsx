@@ -27,7 +27,7 @@ const FAQS = [
   { question: "Does R for Rabbit ship pan-India including tier-II and tier-III?", answer: "Yes — free shipping across 27 000+ PIN codes. Assembly help, installation videos and online customer support are available in Hindi, English and select state languages." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("rforrabbit-com-ecommerce-cps-india", { skip: 0, limit: 10 });

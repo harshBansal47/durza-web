@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum order for free shipping?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — the Beard Growth Oil alone is enough to qualify." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("the-man-company", { skip: 0, limit: 50 });

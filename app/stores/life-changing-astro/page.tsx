@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the difference between Nepali and Indonesian Rudraksha?", answer: "Nepali Rudraksha beads grow in the Himalayas with intact internal chambers verified by X-ray; Indonesian beads are larger but hold a single central seed. Nepali beads are preferred for remedial use." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("life-changing-astro", { skip: 0, limit: 50 });

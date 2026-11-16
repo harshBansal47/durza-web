@@ -27,7 +27,7 @@ const FAQS = [
   { question: "Are Tupperware India products modular for stacking?", answer: "Yes — Tupperware was designed to nest and stack. Their dry-storage range, lunch box range and modular kitchen range are all engineered to occupy minimum shelf volume." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("shoptupperware-in-ecommerce-cps-india", { skip: 0, limit: 10 });

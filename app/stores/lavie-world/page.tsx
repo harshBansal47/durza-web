@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Can I stack LAVIE10 with the 5% UPI discount?", answer: "Yes. Apply LAVIE10 at checkout first, then pay via UPI or card for an extra 5% instant discount on the remaining balance." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("lavie-world", { skip: 0, limit: 50 });

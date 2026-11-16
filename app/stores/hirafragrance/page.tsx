@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What are the shipping details?", answer: "Free insured shipping across India on prepaid orders above ₹599." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("hirafragrance", { skip: 0, limit: 50 });

@@ -28,7 +28,7 @@ const FAQS = [
   { question: "Does Adidas India run seasonal sales like Black Friday?", answer: "Yes — Adidas India runs major sales during ICC/FIFA tournaments, end-of-season sales, and Black Friday. The best deals usually come during these windows via adidas.co.in, not marketplaces." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("adidas", { skip: 0, limit: 10 });

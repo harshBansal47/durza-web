@@ -4,7 +4,7 @@ import { EditorialListing } from "@/components/editorial/EditorialComponents";
 import PageTitle from "@/components/ui/PageTitle";
 import { resilient } from "@/lib/api";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 // Thin-page safety: sections with no published reviews are kept out of the
 // index (follow stays open so crawlers still reach the linked articles).

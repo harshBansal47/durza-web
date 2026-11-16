@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Can NILKAMAL500 stack with the 5% UPI discount?", answer: "Yes. Apply NILKAMAL500 at checkout for flat ₹500 off above ₹4,999, then pay via UPI or card for an extra 5% instant deduction on the remaining balance. BEDROOM1000 works the same above ₹9,999." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("nilkamalfurniture", { skip: 0, limit: 50 });

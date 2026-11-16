@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How do I apply NEESH10?", answer: "Add your chosen bottles or discovery set to the cart on neeshperfumes.com, enter NEESH10 at checkout for an extra 10% off — no minimum order value, stackable with sale prices." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("neesh-perfumes", { skip: 0, limit: 50 });

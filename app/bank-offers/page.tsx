@@ -11,7 +11,7 @@ import { formatDiscount, successRateLabel, expiryLabel } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = 900;
 
 /** Page through the live catalogue so the hub is not blind to offers past page one. */
 async function fetchLiveCoupons(maxPages = 3): Promise<CouponPublic[]> {

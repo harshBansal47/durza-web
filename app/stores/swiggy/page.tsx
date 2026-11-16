@@ -28,7 +28,7 @@ const FAQS = [
   { question: "How do Instamart offers work?", answer: "Instamart (quick grocery) runs cart-miniuma free delivery below its own threshold, plus ‘store/partner’ deals visible on the Instamart home page." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("swiggy", { skip: 0, limit: 50 });

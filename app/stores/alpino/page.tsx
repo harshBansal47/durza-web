@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum cart value for free shipping on Alpino?", answer: "Alpino provides free doorstep shipping on all orders totaling ₹499 or more across India. A single 1kg Dark Chocolate PB or combining 1kg Natural PB with Rolled Oats easily hits this mark." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("alpino", { skip: 0, limit: 50 });

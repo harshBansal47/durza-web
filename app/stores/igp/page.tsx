@@ -27,7 +27,7 @@ const FAQS = [
   { question: "What happens if the recipient is not available?", answer: "For perishables, delivery agents coordinate via phone; standard products ship with courier partners and SMS tracking." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("igp", { skip: 0, limit: 50 });

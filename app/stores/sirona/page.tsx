@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What are the free delivery terms?", answer: "Free express delivery across India on all orders of ₹399 or more — a single PeeBuddy pack or heat patches cross the threshold." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("sirona", { skip: 0, limit: 50 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum order threshold for free shipping on Boldfit?", answer: "Doorstep delivery is completely free on all orders of ₹800 or more across India." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("boldfit", { skip: 0, limit: 50 });

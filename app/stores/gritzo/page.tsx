@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Can coupon code SUPER10 be applied to 1kg and 2kg value packs?", answer: "Yes. Code SUPER10 provides an additional 10% discount on top of already-discounted 1kg and 2kg bulk economy jars." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("gritzo", { skip: 0, limit: 50 });

@@ -28,7 +28,7 @@ const FAQS = [
   { question: "What is Lenovo's warranty and service network in India?", answer: "Lenovo India offers 1-year standard warranty with upgrade to 3-year PremiumCare at purchase or post-registration. Lenovo offers on-site service for select PremiumCare plans and carry-in/service-centre repair nationwide via authorised partners." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("lenovo-india", { skip: 0, limit: 10 });

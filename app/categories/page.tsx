@@ -7,7 +7,7 @@ import { categoryLabel } from "@/lib/catalog";
 import PageTitle from "@/components/ui/PageTitle";
 import CategoryIcon from "@/components/CategoryIcon";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { items, total } = await resilient.listCategories({ limit: 100, live_only: true });

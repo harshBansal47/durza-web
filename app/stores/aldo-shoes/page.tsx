@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Are ALDO India prices the same as ALDO Europe?", answer: "No. Prices on aldoshoes.in are India-specific, inclusive of GST and duties, and set by the India licensee. Collections are also localised — not every European style is stocked." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("aldo-new", { skip: 0, limit: 10 });

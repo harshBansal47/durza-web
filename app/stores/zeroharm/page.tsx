@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Can I stack NANO25 with prepaid UPI discounts?", answer: "Yes. Apply NANO25 for flat 25% off 90-day combo courses, then pay via UPI or card for an extra 5% instant deduction on the discounted balance." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("zeroharm", { skip: 0, limit: 50 });

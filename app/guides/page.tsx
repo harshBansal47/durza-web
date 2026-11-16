@@ -8,7 +8,7 @@ import StoreGuideDirectory from "@/components/guides/StoreGuideDirectory";
 import { resilient } from "@/lib/api";
 import { STORE_GUIDES } from "@/data/store-guides";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Buying Guides — Research & Compare for India",

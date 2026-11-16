@@ -4,7 +4,7 @@ import { api } from "@/lib/api";
 import { CouponCardGrid } from "@/components/CouponCard";
 import type { CouponPublic } from "@/lib/types";
 
-export const revalidate = 300;
+export const revalidate = 900;
 
 
 /** "12 Mar 2026" — the shop's own format, not the browser's. */

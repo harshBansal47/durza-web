@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How fast do brand digital gift vouchers get delivered?", answer: "Gift vouchers purchased on BytePe are delivered instantly via SMS and email within seconds of transaction confirmation, ready to redeem on Amazon, Flipkart, or food delivery apps." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("bytepe", { skip: 0, limit: 50 });

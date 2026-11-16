@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { editorialMetadata, renderEditorialPage } from "@/lib/editorial-pages";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 // Without this export a dynamic route is rendered on every request and `revalidate` is ignored
 // for the page (it goes out `private, no-store`). See stores/[slug] for the full note.

@@ -28,7 +28,7 @@ const FAQS = [
   { question: "What is Hyperpure?", answer: "Zomato's B2B supply for restaurants — not a consumer-facing offer, but it explains why some restaurants have fresher stock than others." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("zomato", { skip: 0, limit: 50 });

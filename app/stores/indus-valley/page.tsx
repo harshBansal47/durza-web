@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Can the FIRST10 coupon code be used on bundles and kits?", answer: "Yes, FIRST10 stacks on already-discounted combos and individual items for first-time shoppers." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("indus-valley", { skip: 0, limit: 50 });

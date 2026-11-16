@@ -8,7 +8,7 @@ import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import { allowedStoreIds } from "@/lib/homepage-curation";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const PAGE_SIZE = 24;
 const loadStores = cache(() => resilient.listStores({ limit: PAGE_SIZE }));

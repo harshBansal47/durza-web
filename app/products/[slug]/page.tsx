@@ -12,7 +12,7 @@ import PriceHistory from "@/components/product/PriceHistory";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 // Without this export a dynamic route is rendered on every request and `revalidate` is ignored
 // for the page (it goes out `private, no-store`). Returning nothing keeps builds from needing

@@ -28,7 +28,7 @@ const FAQS = [
   { question: "What is the difference between ROG and TUF?", answer: "ROG is the gaming-elite line — premium materials, factory overclocked CPU/GPU, advanced thermal design, and ROG Swift displays. TUF Gaming is durability-first — military-tested (MIL-STD 810H) with solid GPU per rupee but heavier chassis and baseline design choices." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("asus", { skip: 0, limit: 10 });

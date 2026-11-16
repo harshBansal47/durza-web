@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the shipping policy?", answer: "Free doorstep delivery across India on all orders of ₹450 or more; a small flat shipping fee applies below ₹450." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("the-natural-wash", { skip: 0, limit: 50 });

@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the free shipping threshold?", answer: "Free delivery on orders above ₹499." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("hkvitals", { skip: 0, limit: 50 });

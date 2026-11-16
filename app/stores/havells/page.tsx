@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How to apply HAVELLS500?", answer: "Add products worth ₹4,999 or more and enter HAVELLS500 at checkout to get flat ₹500 off." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("havells", { skip: 0, limit: 50 });

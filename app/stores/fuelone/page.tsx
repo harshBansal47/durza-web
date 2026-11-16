@@ -27,7 +27,7 @@ const FAQS = [
   { question: "Where do Fuel One creatine monohydrate deals show up — is there always a code?", answer: "Fuel One creatine prices move with promotions. When a creatine-specific code exists it appears in the offers panel above this answer until its expiry — some weeks have one, others rely on the auto-applied promotion price in the cart instead. The panel is the weekly source of truth." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("fuelone", { skip: 0, limit: 50 });

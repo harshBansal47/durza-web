@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the minimum threshold for free shipping?", answer: "Free express delivery on all domestic orders totaling ₹1,499 or more." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("kama-ayurveda", { skip: 0, limit: 50 });

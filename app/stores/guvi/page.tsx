@@ -26,7 +26,7 @@ const FAQS = [
   { question: "How do I apply the GUVI10 promo code?", answer: "Select your desired self-paced course or bundle on guvi.in, proceed to the checkout payment page, and enter coupon code GUVI10 to receive an instant 10% deduction." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("guvi", { skip: 0, limit: 50 });

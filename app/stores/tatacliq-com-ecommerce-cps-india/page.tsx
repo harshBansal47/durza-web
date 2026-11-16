@@ -28,7 +28,7 @@ const FAQS = [
   { question: "Are these codes usable on sale items?", answer: "Some bank codes work on sale collections, some don't. The code page at checkout says what applies; when in doubt, look at the final ‘after-code’ price before you pay." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("tatacliq-com-ecommerce-cps-india", { skip: 0, limit: 50 });

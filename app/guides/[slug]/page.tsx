@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { editorialMetadata, renderEditorialPage } from "@/lib/editorial-pages";
 import { STORE_GUIDES } from "@/data/store-guides";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 // DB-driven guides are rendered on first request and then cached/refreshed —
 // but the hand-authored store guides below are known at build time, so they

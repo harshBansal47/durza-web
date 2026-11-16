@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the easiest cart-filler to hit the ₹499 free shipping mark?", answer: "If your cart is around ₹350–₹450, adding an all-natural high protein peanut butter tub or an effervescent drink tube is more cost-effective than paying the standard ₹70 doorstep shipping fee." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("fitspire", { skip: 0, limit: 50 });

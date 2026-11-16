@@ -26,7 +26,7 @@ const FAQS = [
   { question: "What is the return policy on baby gear?", answer: "Most baby gear is returnable within 7 days of delivery in original condition; check the individual product page for eligibility." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("firstcry", { skip: 0, limit: 50 });

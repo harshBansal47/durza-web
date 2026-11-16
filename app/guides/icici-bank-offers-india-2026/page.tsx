@@ -8,7 +8,7 @@ import { fetchLiveBankSnapshot } from "@/lib/bank-offers-fetch";
 import LiveBankOffers from "@/components/bank-offers/LiveBankOffers";
 import QuickAnswer from "@/components/ui/QuickAnswer";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const title = "ICICI Bank Offers India 2026 — ixigo, MakeMyTrip, Amazon Pay ICICI (live list)";
 const description =

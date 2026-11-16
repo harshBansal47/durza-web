@@ -28,7 +28,7 @@ const FAQS = [
   { question: "Are Lenskart powered lenses reliable?", answer: "Yes — lens quality is made to your prescription; ask about AR coating, blue-light filters and photochromic options which upgrade power lenses for desk work." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("lenskart", { skip: 0, limit: 50 });

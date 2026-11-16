@@ -26,7 +26,7 @@ const FAQS = [
   { question: "Do Boult products purchased via these deals come with brand warranty?", answer: "Yes. All purchases made through official store links on goboult.co.in include Boult's official 1-year replacement warranty, which you can register on their website using your invoice." },
 ];
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("boult", { skip: 0, limit: 50 });
