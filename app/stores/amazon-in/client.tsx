@@ -138,6 +138,7 @@ const PROTEIN_PICKS: ProteinPick[] = [
       "3 g micronised creatine monohydrate per scoop (~33 servings per 100 g pouch) with CreAbsorb technology and third-party Trustified certification — plain creatine, done right, in the safest starter size.",
     bestFor: "Strength and power blocks — progressive overload on lifting days.",
     url: "https://link.amazon/B0iU3vLmN",
+    image: "/stores/amazon-in/creamp.jpg",
   },
 ];
 
@@ -161,6 +162,7 @@ const PERSONAL_DEVICES: PersonalDevice[] = [
       "LED-lit cutting window, 3 speed settings and a USB-rechargeable grinding/shaving platform — the gentle, lamp-lit way to trim nails for adults, kids and seniors who find a manual clipper a struggle.",
     bestFor: "Thick nails, shaky hands and anyone skipping trims because they hurt.",
     url: "https://link.amazon/B0fA1dltP",
+    image: "/stores/amazon-in/nail-clipper.jpg",
   },
   {
     badge: "CE & USFDA — AUDIO-VISUAL ALARM",
@@ -170,6 +172,7 @@ const PERSONAL_DEVICES: PersonalDevice[] = [
       "SpO2 and pulse rate on a large rotatable OLED, with an audio-visual alarm when readings drop, perfusion-index strength gauge and automatic shut-off. Splash-resistant for bedside, travel and high-altitude use.",
     bestFor: "Elderly parents at home — saturation at a glance, no guessing.",
     url: "https://link.amazon/B0ceYJazW",
+    image: "/stores/amazon-in/drtrust-oximeter.jpg",
   },
   {
     badge: "BP-02 — LARGE LCD, ONE BUTTON",
@@ -204,6 +207,8 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "Medium oxo-biodegradable garbage bags sized for everyday kitchen and bathroom bins — 180 bags across six rolls, suited to both dry and wet waste without tearing at the seams.",
     bestFor: "Daily bin liners where you want a known roll count and a no-fuss medium size.",
     url: "https://link.amazon/B012CLFpv",
+    image: "/stores/amazon-in/presto-garbage-bags.jpg",
+    imageAlt: "Amazon Brand Presto! medium garbage bags, 180 count, black",
   },
   {
     badge: "6-PIECE SET — TRANSPARENT WINDOW",
@@ -213,6 +218,8 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "Non-woven printed saree and cloth storage covers with a transparent window so you can see what’s inside without unzipping — six pieces to sort a shelf or wardrobe in one go.",
     bestFor: "Seasonal sarees, lehengas and occasion wear you want dust-free but visible.",
     url: "https://link.amazon/B00kmawoo",
+    image: "/stores/amazon-in/homestrap-saree-covers.jpg",
+    imageAlt: "Homestrap set of 6 non-woven printed saree covers with transparent window, grey",
   },
   {
     badge: "1800 W — DUAL TEMPERATURE",
@@ -233,6 +240,8 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "An all-in-one DIY kit: 11 metal drill bits, 6 masonry, 5 wood, spade bits, 18 screwdriver bits, countersink, knife and nutsetters — TiN-coated for longer edge life across common home materials.",
     bestFor: "A first proper drill-and-drive kit for shelves, frames and weekend fixes.",
     url: "https://link.amazon/B09hu4GMq",
+    image: "/stores/amazon-in/bosch-xline-50.jpg",
+    imageAlt: "Bosch X-Line 50-piece TiN-coated drill and screwdriver bit set",
   },
 ];
 
