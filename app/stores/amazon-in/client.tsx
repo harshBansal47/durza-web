@@ -141,6 +141,48 @@ const PROTEIN_PICKS: ProteinPick[] = [
   },
 ];
 
+interface PersonalDevice {
+  badge: string;
+  brand: string;
+  name: string;
+  blurb: string;
+  bestFor: string;
+  url: string;
+  image?: string;
+}
+
+/** Three personal-care devices that earn their shelf — hand-picked, no feed. */
+const PERSONAL_DEVICES: PersonalDevice[] = [
+  {
+    badge: "FOOT & NAIL CARE — LED + 3 SPEEDS",
+    brand: "Automatic · USB rechargeable",
+    name: "Automatic Electric Nail Clipper & Grinder with LED Light & 3 Speed Settings",
+    blurb:
+      "LED-lit cutting window, 3 speed settings and a USB-rechargeable grinding/shaving platform — the gentle, lamp-lit way to trim nails for adults, kids and seniors who find a manual clipper a struggle.",
+    bestFor: "Thick nails, shaky hands and anyone skipping trims because they hurt.",
+    url: "https://link.amazon/B0fA1dltP",
+  },
+  {
+    badge: "CE & USFDA — AUDIO-VISUAL ALARM",
+    brand: "Dr Trust USA · Signature Series 201 (Midnight Black)",
+    name: "Signature Series Fingertip Pulse Oximeter with Audio Visual Alarm",
+    blurb:
+      "SpO2 and pulse rate on a large rotatable OLED, with an audio-visual alarm when readings drop, perfusion-index strength gauge and automatic shut-off. Splash-resistant for bedside, travel and high-altitude use.",
+    bestFor: "Elderly parents at home — saturation at a glance, no guessing.",
+    url: "https://link.amazon/B0ceYJazW",
+  },
+  {
+    badge: "BP-02 — LARGE LCD, ONE BUTTON",
+    brand: "Dr. Morepen",
+    name: "Blood Pressure Monitor Model BP-02",
+    blurb:
+      "Fully automatic blood pressure monitoring on a large dedicated LCD — systolic, diastolic and pulse/minute, with per-session memory and a colour-coded category scale printed on the panel. No cuff-inflating by hand, ever.",
+    bestFor: "Weekly home tracking — same time, same arm, seated, back supported.",
+    url: "https://link.amazon/B08Sl3rmX",
+    image: "/stores/amazon-in/dr-morepen-bp02.jpg",
+  },
+];
+
 const SECTIONS: SectionDef[] = [
   {
     id: "desk",
@@ -331,6 +373,13 @@ export default function AmazonStorePage({
           <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
         </a>
         <a
+          href="#personal-care-devices"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          Personal care devices
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
+        <a
           href="#amazon-home-kitchen-picks"
           className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
         >
@@ -483,6 +532,123 @@ export default function AmazonStorePage({
 
         <p className="mt-4 text-[11px] leading-5 text-ink-soft">
           Figures are the brands&apos; own label values, not a lab audit by Durza — scan the pack&apos;s batch/QR code when your order arrives. Nothing on this page shows a price or a “was” anchor: Amazon sets the live figure. Every card is an Amazon Associates link (tag=durza02-21), so a qualifying purchase supports Durza at no extra cost to you. Pregnant, nursing or managing a condition? Talk to your doctor before you start any supplement.
+        </p>
+      </section>
+
+      <section id="personal-care-devices" aria-labelledby="personal-care-devices-heading" className="mt-10 rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Home health gadgets</p>
+            <h2 id="personal-care-devices-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+              Personal care devices
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-ink-soft">
+              Three devices that earn the shelf — a lamp-lit way to trim nails, an at-a-glance oxygen clip and a blood-pressure check you can actually run correctly at home.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+            <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+            Editor&apos;s picks
+          </span>
+        </div>
+
+        <ul className="mt-6 grid gap-4 md:grid-cols-3">
+          {PERSONAL_DEVICES.map((device) => (
+            <li key={device.url}>
+              <a
+                href={device.url}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+              >
+                {device.image ? (
+                  <span className="relative block aspect-[4/5] w-full overflow-hidden bg-white">
+                    <Image
+                      src={device.image}
+                      alt={device.name}
+                      width={800}
+                      height={708}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 380px"
+                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </span>
+                ) : device.url.includes("B0fA1dltP") ? (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#1c232b_0%,#0c1015_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-500">Foot &amp; nail care</span>
+                    <span className="text-center font-serif text-4xl font-black leading-tight text-white">
+                      NAIL<span className="text-cyan-400">LIT</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300">Electric clipper + grinder</span>
+                    <span className="rounded-full border border-cyan-400/60 bg-cyan-400/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-cyan-300">
+                      LED · 3 speeds · USB
+                    </span>
+                  </span>
+                ) : (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#19141c_0%,#0b090e_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-zinc-500">Dr Trust USA</span>
+                    <span className="text-center font-serif text-4xl font-black leading-tight text-white">
+                      SIGNATURE<span className="text-red-500">201</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-300">Oxygen clip · Midnight Black</span>
+                    <span className="rounded-full border border-red-500/60 bg-red-500/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-red-400">
+                      CE &amp; USFDA Approved
+                    </span>
+                  </span>
+                )}
+                <span className="flex flex-1 flex-col p-4">
+                  <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{device.badge}</span>
+                  <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{device.brand}</span>
+                  <span className="mt-1 font-serif text-[17px] font-bold leading-snug text-ink">{device.name}</span>
+                  <span className="mt-2 text-[12px] leading-6 text-ink-soft">{device.blurb}</span>
+                  <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                    <span className="font-semibold text-ink">Best for: </span>
+                    {device.bestFor}
+                  </span>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                    View on Amazon
+                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 overflow-x-auto rounded-xl border border-ledger-line">
+          <table className="min-w-full divide-y divide-ledger-line bg-white text-left text-[12px] leading-5">
+            <thead className="bg-paper-alt">
+              <tr>
+                <th scope="col" className="px-4 py-2.5 font-mono text-[9px] font-semibold uppercase tracking-widest text-ink-soft">Read this before you buy</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Nail Clipper &amp; Grinder</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Pulse Oximeter 201</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold text-ink">BP-02 Monitor</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-ledger-line">
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">What it reads</th>
+                <td className="px-4 py-2 text-ink">How cleanly a nail is trimmed — grind and cut</td>
+                <td className="px-4 py-2 text-ink">SpO2 % · pulse rate · perfusion index</td>
+                <td className="px-4 py-2 text-ink">SBP / DBP / pulse per minute</td>
+              </tr>
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">Watch out for</th>
+                <td className="px-4 py-2 text-ink">Grind in short passes — never force against the growth line</td>
+                <td className="px-4 py-2 text-ink">Cold fingers read lower — warm up and sit still, 6-8 seconds</td>
+                <td className="px-4 py-2 text-ink">One reading proves nothing — track weekly, same arm, same time</td>
+              </tr>
+              <tr>
+                <th scope="row" className="px-4 py-2 font-medium text-ink-soft">Not a substitute for</th>
+                <td className="px-4 py-2 text-ink">Foot clinic care for ingrown nails and diabetic foot checks</td>
+                <td className="px-4 py-2 text-ink">An ER or your physician reviewing persistent low SpO2</td>
+                <td className="px-4 py-2 text-ink">Your doctor&apos;s diagnosis or medication plan</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+          Screening, not diagnosis — bring your readings to your doctor, especially before changing medication. Prices and availability live on Amazon; every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral at no extra cost to you. Devices here show the listing&apos;s own blurb, not an independent lab audit.
         </p>
       </section>
 
