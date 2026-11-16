@@ -1,0 +1,127 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type { ActivityItem } from "@/components/home/ActivityTicker";
+import type { HeroDeal, HeroStore } from "@/lib/home-hero";
+import "./hero.css";
+import FeaturedDesk from "./FeaturedDesk";
+import HeroBand from "./HeroBand";
+import HeroSearch from "./HeroSearch";
+import OfferDrawer from "./OfferDrawer";
+import ToolModal from "./ToolModal";
+import VerifyDeskTicker from "./VerifyDeskTicker";
+import { HERO_TOOLS, type HeroToolId } from "./tools";
+import { usePrefersReducedMotion } from "./hooks";
+
+export interface HomeHeroProps {
+  /** Search pool (includes the featured offers). */
+  deals: HeroDeal[];
+  featured: HeroDeal[];
+  stores: HeroStore[];
+  popularStores: HeroStore[];
+  tickerItems: ActivityItem[];
+  stats: { coupons: number; stores: number; categories: number };
+  /** Offers the backend re-checked in the last 24h (a real count). */
+  checkedToday: number;
+}
+
+/**
+ * Homepage hero, light theme: verification ticker, headline + command search +
+ * quick tools, the featured-offers panel, and a trust/stats band. Owns the two
+ * overlays (offer drawer, tool modal) so any entry point — search result,
+ * featured card, a tool's related offer — opens the same ones.
+ */
+export default function HomeHero({ deals, featured, stores, popularStores, tickerItems, stats, checkedToday }: HomeHeroProps) {
+  const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
+  const [toolId, setToolId] = useState<HeroToolId | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const reduced = usePrefersReducedMotion();
+
+  // Dot-grid parallax: one passive listener, frame-throttled, removed on unmount.
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || reduced) return;
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        el.style.transform = `translateY(${Math.min(window.scrollY, 1000) * 0.12}px)`;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [reduced]);
+
+  return (
+    <section className="hx" aria-label="Today's verified coupons">
+      <div className="hx-bg" aria-hidden="true">
+        <div className="hx-aurora" />
+        <div className="hx-grid" ref={gridRef} />
+        <div className="hx-grain" />
+      </div>
+
+      <VerifyDeskTicker items={tickerItems} />
+
+      <div className="hx-main">
+        <div className="hx-left">
+          {checkedToday > 0 && (
+            <span className="hx-eyebrow hx-rise" style={{ ["--i" as string]: 0 }}>
+              <i aria-hidden="true" />
+              {checkedToday.toLocaleString("en-IN")} offers re-checked against store pages today
+            </span>
+          )}
+          <h1 className="hx-h1 hx-rise" style={{ ["--i" as string]: 1 }}>
+            Skip the hunt.{" "}
+            <br />
+            <span className="hx-grad">Copy a code that works.</span>
+          </h1>
+          <p className="hx-sub hx-rise" style={{ ["--i" as string]: 1 }}>
+            India&apos;s verification-first coupon desk — <b>real codes, stated terms, check dates</b>, read from official store pages. No sign-up, no fake timers, ₹0 extra.
+          </p>
+
+          <HeroSearch
+            deals={deals}
+            featured={featured}
+            stores={stores}
+            popularStores={popularStores}
+            totals={{ coupons: stats.coupons, stores: stats.stores }}
+            onOpenDeal={setDrawerDeal}
+            onOpenTool={setToolId}
+          />
+
+          <div className="hx-tools hx-rise" style={{ ["--i" as string]: 3 }}>
+            <div className="hx-tools-label">
+              Shopping tools <em>— answers in seconds, no sign-up</em>
+            </div>
+            <div className="hx-toolrow">
+              {HERO_TOOLS.map((tool) => (
+                <button key={tool.id} type="button" className="hx-toolchip" onClick={() => setToolId(tool.id)}>
+                  <span className={`hx-tc-icon tone-${tool.tone}`} aria-hidden="true">
+                    <tool.Icon size={18} strokeWidth={2.1} />
+                  </span>
+                  <span>
+                    <span className="hx-tc-name">{tool.name}</span>
+                    <span className="hx-tc-desc">{tool.desc}</span>
+                  </span>
+                  <span className="hx-tc-time">{tool.time}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <FeaturedDesk deals={featured} total={stats.coupons} onOpenDeal={setDrawerDeal} />
+      </div>
+
+      <HeroBand popular={popularStores} moreStores={Math.max(0, stats.stores - popularStores.length)} stats={stats} />
+      <div className="hx-seam" aria-hidden="true" />
+
+      {toolId && <ToolModal toolId={toolId} deals={deals} onClose={() => setToolId(null)} onOpenDeal={setDrawerDeal} />}
+      {drawerDeal && <OfferDrawer key={drawerDeal.id} deal={drawerDeal} onClose={() => setDrawerDeal(null)} />}
+    </section>
+  );
+}

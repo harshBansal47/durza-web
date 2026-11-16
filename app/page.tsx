@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Compass, Store, Flame } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
-import Hero from "@/components/home/Hero";
-import ActivityTicker, { type ActivityItem } from "@/components/home/ActivityTicker";
+import HomeHero from "@/components/home/hero/HomeHero";
+import type { ActivityItem } from "@/components/home/ActivityTicker";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
-import StatBand from "@/components/home/StatBand";
 import StoreTrackGrid from "@/components/home/StoreTrackGrid";
 import VerifiedDealsExplorer from "@/components/home/VerifiedDealsExplorer";
 import HowItWorks from "@/components/home/HowItWorks";
 import { api } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/format";
+import { categoryNameMap, popularStores as pickPopularStores, toHeroDeal, toHeroStore } from "@/lib/home-hero";
 import { absoluteUrl } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
@@ -157,10 +157,6 @@ export default async function HomePage() {
     });
   }
 
-  const lastCheckedAt = REDESIGN_ENABLED
-    ? (coupons.items.map((c) => c.last_checked_at).filter(Boolean).sort().pop() ?? null)
-    : null;
-
   const cardStores = stores.items.map((s) => ({
     id: s.id,
     name: s.name,
@@ -185,7 +181,9 @@ export default async function HomePage() {
     return picked;
   };
 
-  const spotlight = take(coupons.items.filter(isHomepageRelevant), 1);
+  // The hero's "Featured right now" panel: the first four relevant offers in the backend's
+  // recommended order. Taking them here keeps each offer unique across the page.
+  const featuredCoupons = take(coupons.items.filter(isHomepageRelevant), 4);
   const recentlyVerifiedItems = take(recentlyVerified.items.filter(isHomepageRelevant), 8);
   // Tab pools for the unified Verified Deals Explorer. The shared `shown` set
   // keeps every offer unique across the page: nothing that landed in the hero
@@ -246,6 +244,28 @@ export default async function HomePage() {
     activityItems.push(...wave.slice(0, 12 - activityItems.length));
   }
 
+  // Hero view-model. Search pool = every relevant offer already fetched for this page (deduped,
+  // capped to keep the client payload small); stores are the full list so any store is findable.
+  const heroStores = stores.items.filter((s) => isHomepageIndiaRelevant(s.slug)).map(toHeroStore);
+  const heroStoreById = new Map(stores.items.map((s) => [s.id, toHeroStore(s)]));
+  const heroCategoryNames = categoryNameMap(categories.items);
+  const heroPool = new Map<string, CouponPublic>();
+  for (const list of [coupons.items, bestCoupons.items, latestDeals.items, newest.items, recentlyVerified.items, endingSoon.items]) {
+    for (const coupon of list) {
+      if (heroPool.size >= 40) break;
+      if (isHomepageRelevant(coupon) && !heroPool.has(coupon.id)) heroPool.set(coupon.id, coupon);
+    }
+  }
+  const heroDeals = [...heroPool.values()].flatMap((coupon) => {
+    const store = heroStoreById.get(coupon.store_id);
+    return store ? [toHeroDeal(coupon, store, heroCategoryNames)] : [];
+  });
+  const heroFeatured = featuredCoupons.flatMap((coupon) => {
+    const store = heroStoreById.get(coupon.store_id);
+    return store ? [toHeroDeal(coupon, store, heroCategoryNames)] : [];
+  });
+  const heroPopularStores = pickPopularStores(heroStores, 5);
+
   const hasEditorial = Object.values(editorial).some((items) => items.length > 0)
     || latestComparisons.items.length > 0
     || recentReviews.items.length > 0;
@@ -254,35 +274,15 @@ export default async function HomePage() {
   return (
     <div className="page-shell">
 
-      <Hero
-        stats={[
-          { label: "Active coupons", value: coupons.total },
-          { label: "Stores", value: stores.total },
-          { label: "Categories", value: categories.total },
-        ]}
-        popularStores={stores.items.map((st) => ({
-          id: st.id,
-          name: st.name,
-          slug: st.slug,
-          logo_url: st.logo_url,
-          website_url: st.website_url,
-        }))}
-        spotlight={spotlight}
-        verifiedToday={verifiedToday.total}
-        endingSoon={endingSoon.total}
-        showStats={!REDESIGN_ENABLED}
+      <HomeHero
+        deals={heroDeals}
+        featured={heroFeatured}
+        stores={heroStores}
+        popularStores={heroPopularStores}
+        tickerItems={isEmpty ? [] : activityItems}
+        stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
+        checkedToday={verifiedToday.total}
       />
-
-      {REDESIGN_ENABLED && (
-        <section className="mt-6" aria-label="Site stats">
-          <StatBand
-            coupons={coupons.total}
-            stores={stores.total}
-            categories={categories.total}
-            lastCheckedAt={lastCheckedAt}
-          />
-        </section>
-      )}
 
       {isEmpty ? (
        <section className="section-panel mt-12 px-6 py-14 text-center">
@@ -294,8 +294,6 @@ export default async function HomePage() {
         </section>
       ) : (
         <>
-          <ActivityTicker items={activityItems} />
-
           {categories.items.length > 0 && (
             <section className="mt-4" id="categories" aria-label="Shop by category">
               {REDESIGN_ENABLED ? (
