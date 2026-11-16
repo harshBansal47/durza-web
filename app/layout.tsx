@@ -48,6 +48,7 @@ export const metadata: Metadata = {
   },
   other: {
     "google-adsense-account": BRAND.adsensePublisherId,
+    "fo-verify": "9c8d9952-0191-423c-b22f-50669d1bb6da",
   },
   openGraph: {
     type: "website",
