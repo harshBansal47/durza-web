@@ -29,7 +29,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "Happi Planet Magic Eraser | Pack of 4 | No Scratch Multi-Surface Cleaning Sponge",
     badge: "Best seller — cleaning",
     url: "https://link.amazon/B0aLjz4py",
-    image: "https://m.media-amazon.com/images/I/41NYKXTBNYL.jpg",
+    image: "/stores/bestsellers/happi-planet-magic-eraser.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -37,7 +37,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "Scotch-Brite Scrub Sponge | Pack of 3 — everyday utensil cleaning",
     badge: "Best seller — kitchen",
     url: "https://link.amazon/B05dkGhsf",
-    image: "https://m.media-amazon.com/images/I/51xADb-cPCL.jpg",
+    image: "/stores/bestsellers/scotch-brite-scrub-sponge.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -45,7 +45,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "ShineXPro Microfiber Cleaning Cloth Roll | 20 pcs | Ultra-absorbent, washable",
     badge: "Best seller — cleaning cloth",
     url: "https://www.amazon.in/ShineXPro-Microfiber-Cleaning-Cloth-Roll/dp/B0FS1VB862?pd_rd_w=PzNgP&content-id=amzn1.sym.b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_p=b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_r=NGJDWMGF74DBC4GWTNAM&pd_rd_wg=2GQjb&pd_rd_r=83637cff-77e6-4ca4-ba9f-e56aaf6afb04&pd_rd_i=B0FS1VB862&th=1&linkCode=ll2&tag=durza02-21&linkId=61b2163cf9a498bd24554c01a3e1c94a&ref_=as_li_ss_tl",
-    image: "https://m.media-amazon.com/images/I/51XuWaIQJ7L.jpg",
+    image: "/stores/bestsellers/shinexpro-microfiber-cleaning-cloth.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -53,7 +53,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "Zulaxy Photo Frame Hooks for Wall Without Drilling | 10 Pack Self Adhesive",
     badge: "Best seller — wall hooks",
     url: "https://link.amazon/B061JtXXr",
-    image: "https://m.media-amazon.com/images/I/31YDSKTWfrL.jpg",
+    image: "/stores/bestsellers/zulaxy-photo-frame-hooks.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -61,7 +61,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "WaterScience Replacement Cartridge for CLEO Shower & Tap Filter | Borewell water",
     badge: "Best seller — water filter",
     url: "https://link.amazon/B04uEUk26",
-    image: "https://m.media-amazon.com/images/I/31dNZRxPhCL.jpg",
+    image: "/stores/bestsellers/waterscience-cleo-shower-filter.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -69,7 +69,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "Gala Sponge Wipe for Kitchen Cleaning | Biodegradable Cellulose | 5 Pcs",
     badge: "Best seller — kitchen sponge",
     url: "https://link.amazon/B09kXLwZk",
-    image: "https://m.media-amazon.com/images/I/41-ESw5WCJL.jpg",
+    image: "/stores/bestsellers/gala-sponge-wipe.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -77,7 +77,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "GM 3060 Extension Board 10A | 2M Cord | Master Switch + Safety Shutter",
     badge: "Best seller — extension board",
     url: "https://link.amazon/B0iLjOpdt",
-    image: "https://m.media-amazon.com/images/I/31CxdeK4dnL.jpg",
+    image: "/stores/bestsellers/gm-3060-extension-board.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -85,7 +85,7 @@ const BESTSELLERS: BestsellerPick[] = [
     name: "Scotch-Brite Twin Bucket Spin Mop | Easy Wring & Rinse | 360° Adjustable Handle",
     badge: "Best seller — spin mop",
     url: "https://link.amazon/B0evjuTT8",
-    image: "https://m.media-amazon.com/images/I/318MNJe2mpL.jpg",
+    image: "/stores/bestsellers/scotch-brite-spin-mop.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -361,8 +361,7 @@ export default function AmazonStorePage({
                     alt={item.name}
                     width={item.imageWidth}
                     height={item.imageHeight}
-                    unoptimized
-                    className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                                        className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
                   />
                 </span>
                 <span className="flex flex-1 flex-col p-3">
