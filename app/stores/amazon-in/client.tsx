@@ -8,10 +8,88 @@ import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import { api } from "@/lib/api";
 import { formatDiscountHeading } from "@/lib/format";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, BadgeCheck } from "lucide-react";
+import Image from "next/image";
 import type { CouponPublic } from "@/lib/types";
 
 const FALLBACK_URL = "https://www.amazon.in";
+
+interface BestsellerPick {
+  name: string;
+  badge: string;
+  url: string;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+}
+
+/** Amazon bestsellers in Home & Kitchen — handpicked by the Durza editor from live pages. */
+const BESTSELLERS: BestsellerPick[] = [
+  {
+    name: "Happi Planet Magic Eraser | Pack of 4 | No Scratch Multi-Surface Cleaning Sponge",
+    badge: "Best seller — cleaning",
+    url: "https://link.amazon/B0aLjz4py",
+    image: "https://m.media-amazon.com/images/I/41NYKXTBNYL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "Scotch-Brite Scrub Sponge | Pack of 3 — everyday utensil cleaning",
+    badge: "Best seller — kitchen",
+    url: "https://link.amazon/B05dkGhsf",
+    image: "https://m.media-amazon.com/images/I/51xADb-cPCL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "ShineXPro Microfiber Cleaning Cloth Roll | 20 pcs | Ultra-absorbent, washable",
+    badge: "Best seller — cleaning cloth",
+    url: "https://www.amazon.in/ShineXPro-Microfiber-Cleaning-Cloth-Roll/dp/B0FS1VB862?pd_rd_w=PzNgP&content-id=amzn1.sym.b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_p=b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_r=NGJDWMGF74DBC4GWTNAM&pd_rd_wg=2GQjb&pd_rd_r=83637cff-77e6-4ca4-ba9f-e56aaf6afb04&pd_rd_i=B0FS1VB862&th=1&linkCode=ll2&tag=durza02-21&linkId=61b2163cf9a498bd24554c01a3e1c94a&ref_=as_li_ss_tl",
+    image: "https://m.media-amazon.com/images/I/51XuWaIQJ7L.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "Zulaxy Photo Frame Hooks for Wall Without Drilling | 10 Pack Self Adhesive",
+    badge: "Best seller — wall hooks",
+    url: "https://link.amazon/B061JtXXr",
+    image: "https://m.media-amazon.com/images/I/31YDSKTWfrL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "WaterScience Replacement Cartridge for CLEO Shower & Tap Filter | Borewell water",
+    badge: "Best seller — water filter",
+    url: "https://link.amazon/B04uEUk26",
+    image: "https://m.media-amazon.com/images/I/31dNZRxPhCL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "Gala Sponge Wipe for Kitchen Cleaning | Biodegradable Cellulose | 5 Pcs",
+    badge: "Best seller — kitchen sponge",
+    url: "https://link.amazon/B09kXLwZk",
+    image: "https://m.media-amazon.com/images/I/41-ESw5WCJL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "GM 3060 Extension Board 10A | 2M Cord | Master Switch + Safety Shutter",
+    badge: "Best seller — extension board",
+    url: "https://link.amazon/B0iLjOpdt",
+    image: "https://m.media-amazon.com/images/I/31CxdeK4dnL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+  {
+    name: "Scotch-Brite Twin Bucket Spin Mop | Easy Wring & Rinse | 360° Adjustable Handle",
+    badge: "Best seller — spin mop",
+    url: "https://link.amazon/B0evjuTT8",
+    image: "https://m.media-amazon.com/images/I/318MNJe2mpL.jpg",
+    imageWidth: 500,
+    imageHeight: 500,
+  },
+];
 
 interface SectionDef {
   id: string;
@@ -254,6 +332,56 @@ export default function AmazonStorePage({
           ),
         )}
       </div>
+
+      <section id="amazon-best-sellers" aria-labelledby="bestsellers-heading" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+          <div>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Amazon best sellers</p>
+            <h2 id="bestsellers-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">Home &amp; Kitchen — Amazon's most-wanted right now</h2>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-soft">Eight items Durza pulled from Amazon's own bestseller lists for Home Improvement &amp; Kitchen. Click any card to go straight to the product — the affiliate tracking is already set up.</p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+            <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+            Trending this week
+          </span>
+        </div>
+
+        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {BESTSELLERS.map((item) => (
+            <li key={item.url} className="min-h-0">
+              <a
+                href={item.url}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-paper-raised transition hover:border-inkblue hover:shadow-sm"
+              >
+                <span className="relative block aspect-square w-full overflow-hidden bg-paper-alt">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={item.imageWidth}
+                    height={item.imageHeight}
+                    unoptimized
+                    className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                  />
+                </span>
+                <span className="flex flex-1 flex-col p-3">
+                  <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
+                  <span className="mt-1 line-clamp-2 text-[12px] leading-5 text-ink">{item.name}</span>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-2 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                    View on Amazon
+                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+          Bestseller data sourced from Amazon India's Best Sellers lists at the time of writing. Rank changes continuously; nothing here is a promise of future ranking. Every link on this row is an Amazon Associates link.
+        </p>
+      </section>
 
       <FaqSection eyebrow="Amazon FAQs" items={faqs} />
 
