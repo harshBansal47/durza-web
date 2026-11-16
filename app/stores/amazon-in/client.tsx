@@ -399,17 +399,6 @@ const SECTIONS: SectionDef[] = [
       { id: "de8c6b0a-4087-42c3-aae7-bdf46ea31006", badge: "COURT READY" },
     ],
   },
-  {
-    id: "tools",
-    title: "Tools & DIY",
-    lead: "Plugs, drills and the kinds of pliers a kitchen drawer forgets about. Professional-grade.",
-    picks: [
-      { id: "3ce3a8b1-3499-4203-ba70-a45f366dd603", badge: "500W VS DRILL" },
-      { id: "1b1c1232-6739-48d0-b72c-e9e5e3934f97", badge: "MOBILE KIT" },
-      { id: "bd6bdfb6-df4b-4c18-8af2-63e93482aec9", badge: "SET WITH BOX" },
-      { id: "8ffe28f8-ff4e-404b-b5c6-80b28a36a94b", badge: "DIGITAL EYE" },
-    ],
-  },
 ];
 
 interface Props {
