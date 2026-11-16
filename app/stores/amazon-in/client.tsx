@@ -453,16 +453,6 @@ export default function AmazonStorePage({
       <AffiliateDisclosure />
 
       <nav aria-label="Jump to a section" className="mt-6 flex flex-wrap gap-2">
-        {sectioned.map((s) => (
-          <a
-            key={s.id}
-            href={`#${s.id}`}
-            className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
-          >
-            {s.title.split("—")[0].trim()}
-            <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-          </a>
-        ))}
         <a
           href="#health"
           className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
@@ -498,36 +488,18 @@ export default function AmazonStorePage({
           Home &amp; kitchen
           <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
         </a>
-      </nav>
 
-      <div className="mt-8 space-y-12">
-        {sectioned.map((section) =>
-          section.items.length === 0 ? null : (
-            <section key={section.id} id={section.id} aria-labelledby={`${section.id}-heading`}>
-              <div className="mb-4">
-                <h2 id={`${section.id}-heading`} className="font-serif text-2xl font-extrabold tracking-tight text-ink">
-                  {section.title}
-                </h2>
-                <p className="mt-1 max-w-3xl text-sm leading-6 text-ink-soft">{section.lead}</p>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {section.items.map(({ o, badge }) => (
-                  <OfferCard
-                    key={o.id}
-                    bookmarkId={o.id}
-                    code={o.code}
-                    badge={badge ?? formatDiscountHeading(o, "INR")}
-                    title={o.title}
-                    description={o.description ?? undefined}
-                    ctaHref={api.goUrl(o.id, "store-page")}
-                    expiresAt={o.expires_at}
-                  />
-                ))}
-              </div>
-            </section>
-          ),
-        )}
-      </div>
+        {sectioned.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+          >
+            {s.title.split("—")[0].trim()}
+            <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+          </a>
+        ))}
+      </nav>
 
       <section id="health" aria-labelledby="health-heading" className="mt-10 rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
@@ -991,6 +963,36 @@ export default function AmazonStorePage({
           Selection reflects what our editor found genuinely useful in the Home &amp; Kitchen category — not a claim about popularity. Every link on this row is an Amazon Associates link.
         </p>
       </section>
+
+
+      <div className="mt-8 space-y-12">
+        {sectioned.map((section) =>
+          section.items.length === 0 ? null : (
+            <section key={section.id} id={section.id} aria-labelledby={`${section.id}-heading`}>
+              <div className="mb-4">
+                <h2 id={`${section.id}-heading`} className="font-serif text-2xl font-extrabold tracking-tight text-ink">
+                  {section.title}
+                </h2>
+                <p className="mt-1 max-w-3xl text-sm leading-6 text-ink-soft">{section.lead}</p>
+              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {section.items.map(({ o, badge }) => (
+                  <OfferCard
+                    key={o.id}
+                    bookmarkId={o.id}
+                    code={o.code}
+                    badge={badge ?? formatDiscountHeading(o, "INR")}
+                    title={o.title}
+                    description={o.description ?? undefined}
+                    ctaHref={api.goUrl(o.id, "store-page")}
+                    expiresAt={o.expires_at}
+                  />
+                ))}
+              </div>
+            </section>
+          ),
+        )}
+      </div>
 
       <FaqSection eyebrow="Amazon FAQs" items={faqs} />
 
