@@ -43,7 +43,13 @@ const nextConfig: NextConfig = {
         // The campaigns catalogue is admin-only now (/admin/campaigns); the old public address
         // is kept only so existing links and search results land somewhere sensible.
         async redirects() {
-          return [{ source: "/affiliate-campaigns", destination: "/", permanent: true }];
+          return [
+            { source: "/affiliate-campaigns", destination: "/", permanent: true },
+            // Consolidated duplicate store rows (see stores deduped 2026-11).
+            { source: "/stores/pepperfry-com-cps-india", destination: "/stores/pepperfry-com-ecommerce-cps-india", permanent: true },
+            { source: "/stores/salty-co-in-ecommerce-cps-india", destination: "/stores/salty", permanent: true },
+            { source: "/stores/milton-in", destination: "/stores/milton", permanent: true },
+          ];
         },
         async headers() {
           return [
