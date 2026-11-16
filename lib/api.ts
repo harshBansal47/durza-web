@@ -335,7 +335,7 @@ export const api = {
     }),
 
   listStores: (params: StoreListParams = {}) =>
-    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 3600 }),
+    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 300 }),
 
   getStoreById: (storeId: string) => apiFetch<Store>(`/stores/${storeId}`, { revalidate: 300 }),
 
