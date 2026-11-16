@@ -183,6 +183,114 @@ const PERSONAL_DEVICES: PersonalDevice[] = [
   },
 ];
 
+interface CuratedPick {
+  badge: string;
+  brand: string;
+  name: string;
+  blurb: string;
+  bestFor: string;
+  url: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+/** Household things — hand-picked, no feed. */
+const HOUSEHOLD_PICKS: CuratedPick[] = [
+  {
+    badge: "DRY & WET WASTE — 180 COUNT",
+    brand: "Amazon Brand · Presto!",
+    name: "Presto! Garbage Bags | Medium | 30 Bags × 6 Rolls | 19 × 21 Inches | Black",
+    blurb:
+      "Medium oxo-biodegradable garbage bags sized for everyday kitchen and bathroom bins — 180 bags across six rolls, suited to both dry and wet waste without tearing at the seams.",
+    bestFor: "Daily bin liners where you want a known roll count and a no-fuss medium size.",
+    url: "https://link.amazon/B012CLFpv",
+  },
+  {
+    badge: "6-PIECE SET — TRANSPARENT WINDOW",
+    brand: "Homestrap · Shark Tank featured",
+    name: "Set of 6 Non-Woven Printed Saree Cover / Wardrobe Organizer (Grey, 45 × 33 × 22 cm)",
+    blurb:
+      "Non-woven printed saree and cloth storage covers with a transparent window so you can see what’s inside without unzipping — six pieces to sort a shelf or wardrobe in one go.",
+    bestFor: "Seasonal sarees, lehengas and occasion wear you want dust-free but visible.",
+    url: "https://link.amazon/B00kmawoo",
+  },
+  {
+    badge: "1800 W — DUAL TEMPERATURE",
+    brand: "BLACK+DECKER",
+    name: "KX1800-B1 Corded Heat Gun (3 Metre Cable, Orange & Black)",
+    blurb:
+      "High-speed 1800 W heat gun with dual temperature settings for stripping paint, drying coats, remelting adhesives and shrink-wrapping — corded with a 3-metre cable for reach around a room.",
+    bestFor: "Paint removal, heat-shrink tubing and loosening old adhesive on DIY jobs.",
+    url: "https://link.amazon/B09AR7wfc",
+    image: "/stores/amazon-in/black-decker-kx1800-heat-gun.jpg",
+    imageAlt: "BLACK+DECKER KX1800-B1 1800 W heat gun",
+  },
+  {
+    badge: "50-PIECE — TiN-COATED",
+    brand: "Bosch",
+    name: "X-Line 50-Piece Drill & Screwdriver Bit Set",
+    blurb:
+      "An all-in-one DIY kit: 11 metal drill bits, 6 masonry, 5 wood, spade bits, 18 screwdriver bits, countersink, knife and nutsetters — TiN-coated for longer edge life across common home materials.",
+    bestFor: "A first proper drill-and-drive kit for shelves, frames and weekend fixes.",
+    url: "https://link.amazon/B09hu4GMq",
+  },
+];
+
+/** Kitchen appliances — hand-picked, no feed. */
+const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
+  {
+    badge: "500 W — 3 JARS & 2 BLADES",
+    brand: "NutriPro · 1 Year Warranty",
+    name: "Juicer Mixer Grinder – Smoothie Maker (Gold)",
+    blurb:
+      "500-watt juicer-mixer-grinder built around smoothie making — supplied with 3 jars and 2 blades in a gold finish, backed by a 1-year warranty as stated on the listing.",
+    bestFor: "Daily smoothies and quick chutneys without a bulky countertop footprint.",
+    url: "https://link.amazon/B04HvT3G7",
+  },
+  {
+    badge: "PORTABLE — NON-STICK ROUND",
+    brand: "Mini electric waffle iron",
+    name: "Mini Waffle Maker | Portable Non-Stick Waffle Iron (Red)",
+    blurb:
+      "A compact, plug-in round waffle iron with a non-stick plate — sized for individual waffles, pancakes, cookies, eggs, paninis and quick breakfast snacks.",
+    bestFor: "Single-serve breakfasts and snack waffles in a small kitchen or hostel room.",
+    url: "https://link.amazon/B08tyKqCH",
+    image: "/stores/amazon-in/mini-waffle-maker-red.jpg",
+    imageAlt: "Portable red mini round waffle maker, non-stick plate",
+  },
+  {
+    badge: "10 KG CAPACITY — LCD DISPLAY",
+    brand: "Aliston Atom · SF400 / A121",
+    name: "Atom Kitchen Weight Machine Digital Scale",
+    blurb:
+      "Digital kitchen scale with LCD display rated to 10 kg, aimed at home baking, cooking and portion control — sold with a 6-month manufacturer warranty as stated on the listing (colour may vary).",
+    bestFor: "Baking by weight, meal-prep portions and dialling in coffee or dough ratios.",
+    url: "https://link.amazon/B0gPMbSmL",
+    image: "/stores/amazon-in/atom-sf400-a121-kitchen-scale.jpg",
+    imageAlt: "Atom SF400/A121 digital kitchen weighing scale, 10 kg capacity",
+  },
+  {
+    badge: "CORDLESS — 6 MOULDS",
+    brand: "Pigeon · Instamami",
+    name: "Automatic Noodle Maker with 6 Moulds | Cordless Type-C Idiyappam & Pasta Maker (Cream)",
+    blurb:
+      "A portable, handheld cordless noodle press that runs on Type-C charging and ships with 6 moulds — presses idiyappam, noodles and pasta shapes without being tethered to a socket.",
+    bestFor: "Fresh idiyappam and quick pasta shapes when you don’t want a full machine out.",
+    url: "https://link.amazon/B0b5B8P4l",
+    image: "/stores/amazon-in/pigeon-instamami-noodle-maker.jpg",
+    imageAlt: "Pigeon Instamami cordless automatic noodle and idiyappam maker with moulds",
+  },
+  {
+    badge: "HEAT SEALER — PORTABLE",
+    brand: "Amazer",
+    name: "Mini Sealing Machine for Food Packets / Plastic Bags (Assorted)",
+    blurb:
+      "A pocket-size heat sealer for reclosing snack packets and plastic bags at home — portable and hand-held, aimed at keeping opened food packs sealed between uses (colour assorted).",
+    bestFor: "Resealing chips, namkeen and freezer bags without hunting for clips.",
+    url: "https://link.amazon/B09AEQ7RS",
+  },
+];
+
 const SECTIONS: SectionDef[] = [
   {
     id: "desk",
@@ -377,6 +485,20 @@ export default function AmazonStorePage({
           className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
         >
           Personal care devices
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
+        <a
+          href="#household"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          Household essentials
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
+        <a
+          href="#kitchen-appliances"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          Kitchen appliances
           <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
         </a>
         <a
@@ -649,6 +771,185 @@ export default function AmazonStorePage({
 
         <p className="mt-4 text-[11px] leading-5 text-ink-soft">
           Screening, not diagnosis — bring your readings to your doctor, especially before changing medication. Prices and availability live on Amazon; every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral at no extra cost to you. Devices here show the listing&apos;s own blurb, not an independent lab audit.
+        </p>
+      </section>
+
+      <section id="household" aria-labelledby="household-heading" className="mt-10 rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Home + DIY</p>
+            <h2 id="household-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+              Household essentials
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-ink-soft">
+              Everyday bins, wardrobe order and two tool-bench basics — picked for the jobs they actually solve, not for a spec sheet.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+            <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+            Editor&apos;s picks
+          </span>
+        </div>
+
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {HOUSEHOLD_PICKS.map((item) => (
+            <li key={item.url}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+              >
+                {item.image ? (
+                  <span className="relative block aspect-[4/5] w-full overflow-hidden bg-white">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt ?? item.name}
+                      width={800}
+                      height={800}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px"
+                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </span>
+                ) : item.url.includes("B012CLFpv") ? (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#1f2937_0%,#0b0f14_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-500">Presto!</span>
+                    <span className="text-center font-serif text-3xl font-black leading-tight text-white">
+                      GARBAGE<span className="text-emerald-400">BAGS</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300">Medium · 180 count</span>
+                    <span className="rounded-full border border-emerald-400/60 bg-emerald-400/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-300">
+                      30 × 6 rolls · 19×21&quot;
+                    </span>
+                  </span>
+                ) : item.url.includes("B00kmawoo") ? (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#2a2d33_0%,#121418_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-zinc-500">Homestrap</span>
+                    <span className="text-center font-serif text-3xl font-black leading-tight text-white">
+                      SAREE<span className="text-amber-300">COVERS</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-300">Set of 6 · Grey</span>
+                    <span className="rounded-full border border-amber-300/60 bg-amber-300/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-amber-200">
+                      Window · 45×33×22 cm
+                    </span>
+                  </span>
+                ) : (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#1b2430_0%,#0a0f16_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-500">Bosch</span>
+                    <span className="text-center font-serif text-3xl font-black leading-tight text-white">
+                      X-LINE<span className="text-sky-400">50</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300">Drill &amp; screwdriver kit</span>
+                    <span className="rounded-full border border-sky-400/60 bg-sky-400/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-sky-300">
+                      TiN-coated · 50 pieces
+                    </span>
+                  </span>
+                )}
+                <span className="flex flex-1 flex-col p-4">
+                  <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
+                  <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{item.brand}</span>
+                  <span className="mt-1 font-serif text-[16px] font-bold leading-snug text-ink">{item.name}</span>
+                  <span className="mt-2 text-[12px] leading-6 text-ink-soft">{item.blurb}</span>
+                  <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                    <span className="font-semibold text-ink">Best for: </span>
+                    {item.bestFor}
+                  </span>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                    View on Amazon
+                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+          Descriptions reflect the listings&apos; stated specs and contents — check the live Amazon page for current pack details and compatibility. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
+        </p>
+      </section>
+
+      <section id="kitchen-appliances" aria-labelledby="kitchen-appliances-heading" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Kitchen equipment</p>
+            <h2 id="kitchen-appliances-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+              Kitchen appliances
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-ink-soft">
+              Small, useful machines for the counter — from a 500 W mixer and a single-serve waffle iron to a scale, a cordless noodle press and a pocket heat sealer.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+            <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+            Editor&apos;s picks
+          </span>
+        </div>
+
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {KITCHEN_APPLIANCE_PICKS.map((item) => (
+            <li key={item.url}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+              >
+                {item.image ? (
+                  <span className="relative block aspect-[4/5] w-full overflow-hidden bg-white">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt ?? item.name}
+                      width={800}
+                      height={800}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 240px"
+                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </span>
+                ) : item.url.includes("B04HvT3G7") ? (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#2a2118_0%,#120e0a_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-amber-600/80">NutriPro</span>
+                    <span className="text-center font-serif text-3xl font-black leading-tight text-white">
+                      500<span className="text-amber-400">W</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-100/80">Juicer · Mixer · Grinder</span>
+                    <span className="rounded-full border border-amber-400/60 bg-amber-400/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-amber-300">
+                      3 jars · 2 blades · Gold
+                    </span>
+                  </span>
+                ) : (
+                  <span className="relative flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#1b2430_0%,#0b1016_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-500">Amazer</span>
+                    <span className="text-center font-serif text-3xl font-black leading-tight text-white">
+                      MINI<span className="text-teal-400">SEAL</span>
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300">Heat sealer for packets</span>
+                    <span className="rounded-full border border-teal-400/60 bg-teal-400/10 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-teal-300">
+                      Portable · hand-held
+                    </span>
+                  </span>
+                )}
+                <span className="flex flex-1 flex-col p-4">
+                  <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
+                  <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{item.brand}</span>
+                  <span className="mt-1 font-serif text-[16px] font-bold leading-snug text-ink">{item.name}</span>
+                  <span className="mt-2 text-[12px] leading-6 text-ink-soft">{item.blurb}</span>
+                  <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                    <span className="font-semibold text-ink">Best for: </span>
+                    {item.bestFor}
+                  </span>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                    View on Amazon
+                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+          Specs, included accessories and warranty terms are taken from the listings — confirm the live Amazon page before you buy, as variants (colour, jar count, moulds) can differ by seller. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
         </p>
       </section>
 
