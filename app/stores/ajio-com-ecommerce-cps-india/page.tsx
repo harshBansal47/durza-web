@@ -8,8 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import type { CouponPublic } from "@/lib/types";
 
-const title = "Ajio Coupons & Offers – Up to 70% OFF Sale Deals";
-const description = "Live Ajio coupon codes and sale offers on ethnic and western wear. Save on your first order and big-ticket festive hauls.";
+const title = "AJIO Offers & Best Deals (2026) — 180+ Live AJIO Coupons Listed Cleanly";
+const description =
+  "Live AJIO offers and best deals, organised by category — men, women, ethnic, denim, footwear, accessories, beauty, home, kids, sports, gadgets and more. Every live AJIO code and checkout-deal, daily-refreshed, no fakes.";
 const canonical = "/stores/ajio-com-ecommerce-cps-india";
 
 export const metadata: Metadata = {
@@ -21,27 +22,18 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "Does Ajio offer Cash on Delivery?", answer: "Yes — COD is available on many pin-codes and for most categories, including first-time orders. Check ‘Pay on Delivery’ at checkout; some COD pin-codes may attract a small handling fee." },
-  { question: "How do Ajio's bank and UPI offers work?", answer: "Ajio runs instant-discount offers through banks, cards and UPI partners — usually a percentage off a minimum cart value. Apply these at checkout, or they apply automatically when you pay with an eligible card or UPI app." },
-  { question: "Can I return or exchange something I bought at a heavy discount?", answer: "Most Ajio purchases come with reverse-pickup return/exchange, including discounted items, subject to the eligibility shown on each product page. Sale merchandise can be returned where the PDP says so — check before you order." },
-  { question: "Ajio Luxe vs Ajio Lounge — what's the difference?", answer: "Ajio Luxe is the premium/designer route; Ajio Lounge carries everyday basics. Both books live on the same Ajio account and checkout." },
-  { question: "Why don't I see any coupon codes?", answer: "Ajio's deals are mostly automatic bank/card and sale-event promos — they apply at checkout without a code. The offers we can source are listed above with the date they were last checked." },
-  { question: "Are Ajio prices competitive?", answer: "Ajio often undercuts MRP during its big-ticket sales, but compare with marketplace (or brand-direct) pricing for expensive pieces before you pull the trigger." },
+  { question: "Why does Durza sort AJIO offers by category instead of date?", answer: "AJIO refreshes aggressively — sale windows change every day. A flat chronological list disappears in a week. Grouping by category keeps the page useful even after the top promo of the day has sold through." },
+  { question: "Are these affiliate links?", answer: "Yes. Every link routes through AJIO's vCommission partner network for Durza. Durza earns a referral fee on qualifying AJIO orders at no cost to you; prices and delivery are AJIO's own." },
+  { question: "Can I combine AJIO offers with bank card discounts?", answer: "Yes — AJIO typically runs instant discounts for ICICI, SBI, HDFC and other card partners alongside its own promo codes and Coupon-Code-of-the-Day campaigns. Check your bank side, not ours, for exact rules." },
+  { question: "Does Durza know the actual price of AJIO products?", answer: "No. Durza knows merchants' promotional campaign messaging; the prices on the AJIO checkout are AJIO's canonical numbers. Durza displays offer titles unchanged, and does not rewrite, re-quote or re-verify discount percentages." },
+  { question: "Why is there no 'verified' badge on AJIO deals?", answer: "Durza doesn't hand-test merchant campaigns. We sync from the AJIO campaigns feed nightly, parse what the feed actually returned, list it live. Only when Durza's checkout-verification layer reports a real success will a green tick appear — and none currently has." },
 ];
 
 export const revalidate = 300;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("ajio-com-ecommerce-cps-india", { skip: 0, limit: 50 });
-  const all = [...(destination?.coupons ?? []), ...(destination?.deals ?? [])];
-  const seen = new Set<string>();
-  const offers: CouponPublic[] = [];
-  for (const c of all) {
-    if (seen.has(c.id)) continue;
-    seen.add(c.id);
-    offers.push(c);
-  }
-  offers.sort((a, b) => (a.code ? 0 : 1) - (b.code ? 0 : 1));
+  const destination = await resilient.getStoreDestination("ajio-com-ecommerce-cps-india", { skip: 0, limit: 100 });
+  const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
@@ -53,7 +45,7 @@ export default async function Page() {
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Ajio.com", path: canonical },
+          { name: "AJIO", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
