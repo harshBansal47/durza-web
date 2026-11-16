@@ -164,7 +164,6 @@ const SECTIONS: SectionDef[] = [
 
 interface Props {
   offers: CouponPublic[];
-  rawOffers: CouponPublic[];
   faqs: FaqItem[];
   stats: TrustStatsProps;
   heroImageUrl?: string | null;
@@ -177,7 +176,6 @@ const cue = (offers: CouponPublic[], id: string): CouponPublic | undefined =>
 
 export default function AmazonStorePage({
   offers,
-  rawOffers,
   faqs,
   stats,
   heroImageUrl,
@@ -193,7 +191,7 @@ export default function AmazonStorePage({
     ...s,
     items: s.picks
       .map((p) => {
-        const o = cue(rawOffers, p.id);
+        const o = cue(offers, p.id);
         return o ? { o, badge: p.badge } : null;
       })
       .filter(Boolean) as Array<{ o: CouponPublic; badge?: string }>,

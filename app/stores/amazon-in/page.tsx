@@ -33,7 +33,7 @@ export const revalidate = 300;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("amazon-in", { skip: 0, limit: 100 });
-  const offers: CouponPublic[] = destination?.coupons ?? [];
+  const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
@@ -51,7 +51,6 @@ export default async function Page() {
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient
         offers={offers}
-        rawOffers={destination?.coupons ?? []}
         faqs={FAQS}
         stats={stats}
         heroImageUrl={heroImageUrl}
