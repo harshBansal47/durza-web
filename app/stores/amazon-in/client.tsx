@@ -14,7 +14,7 @@ import type { CouponPublic } from "@/lib/types";
 
 const FALLBACK_URL = "https://www.amazon.in";
 
-interface BestsellerPick {
+interface HomeKitchenPick {
   name: string;
   badge: string;
   url: string;
@@ -23,69 +23,69 @@ interface BestsellerPick {
   imageHeight: number;
 }
 
-/** Amazon bestsellers in Home & Kitchen — handpicked by the Durza editor from live pages. */
-const BESTSELLERS: BestsellerPick[] = [
+/** Curated Home & Kitchen items — editor's pick, chosen for genuine usefulness. */
+const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
   {
     name: "Happi Planet Magic Eraser | Pack of 4 | No Scratch Multi-Surface Cleaning Sponge",
-    badge: "Best seller — cleaning",
+    badge: "Useful pick — cleaning",
     url: "https://link.amazon/B0aLjz4py",
-    image: "/stores/bestsellers/happi-planet-magic-eraser.jpg",
+    image: "/stores/home-kitchen/happi-planet-magic-eraser.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "Scotch-Brite Scrub Sponge | Pack of 3 — everyday utensil cleaning",
-    badge: "Best seller — kitchen",
+    badge: "Useful pick — kitchen",
     url: "https://link.amazon/B05dkGhsf",
-    image: "/stores/bestsellers/scotch-brite-scrub-sponge.jpg",
+    image: "/stores/home-kitchen/scotch-brite-scrub-sponge.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "ShineXPro Microfiber Cleaning Cloth Roll | 20 pcs | Ultra-absorbent, washable",
-    badge: "Best seller — cleaning cloth",
+    badge: "Useful pick — cleaning cloth",
     url: "https://www.amazon.in/ShineXPro-Microfiber-Cleaning-Cloth-Roll/dp/B0FS1VB862?pd_rd_w=PzNgP&content-id=amzn1.sym.b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_p=b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_r=NGJDWMGF74DBC4GWTNAM&pd_rd_wg=2GQjb&pd_rd_r=83637cff-77e6-4ca4-ba9f-e56aaf6afb04&pd_rd_i=B0FS1VB862&th=1&linkCode=ll2&tag=durza02-21&linkId=61b2163cf9a498bd24554c01a3e1c94a&ref_=as_li_ss_tl",
-    image: "/stores/bestsellers/shinexpro-microfiber-cleaning-cloth.jpg",
+    image: "/stores/home-kitchen/shinexpro-microfiber-cleaning-cloth.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "Zulaxy Photo Frame Hooks for Wall Without Drilling | 10 Pack Self Adhesive",
-    badge: "Best seller — wall hooks",
+    badge: "Useful pick — wall hooks",
     url: "https://link.amazon/B061JtXXr",
-    image: "/stores/bestsellers/zulaxy-photo-frame-hooks.jpg",
+    image: "/stores/home-kitchen/zulaxy-photo-frame-hooks.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "WaterScience Replacement Cartridge for CLEO Shower & Tap Filter | Borewell water",
-    badge: "Best seller — water filter",
+    badge: "Useful pick — water filter",
     url: "https://link.amazon/B04uEUk26",
-    image: "/stores/bestsellers/waterscience-cleo-shower-filter.jpg",
+    image: "/stores/home-kitchen/waterscience-cleo-shower-filter.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "Gala Sponge Wipe for Kitchen Cleaning | Biodegradable Cellulose | 5 Pcs",
-    badge: "Best seller — kitchen sponge",
+    badge: "Useful pick — kitchen sponge",
     url: "https://link.amazon/B09kXLwZk",
-    image: "/stores/bestsellers/gala-sponge-wipe.jpg",
+    image: "/stores/home-kitchen/gala-sponge-wipe.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "GM 3060 Extension Board 10A | 2M Cord | Master Switch + Safety Shutter",
-    badge: "Best seller — extension board",
+    badge: "Useful pick — extension board",
     url: "https://link.amazon/B0iLjOpdt",
-    image: "/stores/bestsellers/gm-3060-extension-board.jpg",
+    image: "/stores/home-kitchen/gm-3060-extension-board.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
   {
     name: "Scotch-Brite Twin Bucket Spin Mop | Easy Wring & Rinse | 360° Adjustable Handle",
-    badge: "Best seller — spin mop",
+    badge: "Useful pick — spin mop",
     url: "https://link.amazon/B0evjuTT8",
-    image: "/stores/bestsellers/scotch-brite-spin-mop.jpg",
+    image: "/stores/home-kitchen/scotch-brite-spin-mop.jpg",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -333,21 +333,21 @@ export default function AmazonStorePage({
         )}
       </div>
 
-      <section id="amazon-best-sellers" aria-labelledby="bestsellers-heading" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+      <section id="amazon-home-kitchen-picks" aria-labelledby="home-kitchen-picks-heading" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Amazon best sellers</p>
-            <h2 id="bestsellers-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">Home &amp; Kitchen — Amazon's most-wanted right now</h2>
-            <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-soft">Eight items Durza pulled from Amazon's own bestseller lists for Home Improvement &amp; Kitchen. Click any card to go straight to the product — the affiliate tracking is already set up.</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Best useful items in Home &amp; Improvement</p>
+            <h2 id="home-kitchen-picks-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">Useful Home &amp; Improvement picks</h2>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-soft">Eight items we think are genuinely useful in the Home &amp; Kitchen aisle. Click any card to go straight to the product — Amazon serves it and Durza earns a small referral from the click.</p>
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
             <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
-            Trending this week
+            Editor's picks
           </span>
         </div>
 
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {BESTSELLERS.map((item) => (
+          {HOME_KITCHEN_PICKS.map((item) => (
             <li key={item.url} className="min-h-0">
               <a
                 href={item.url}
@@ -378,7 +378,7 @@ export default function AmazonStorePage({
         </ul>
 
         <p className="mt-4 text-[11px] leading-5 text-ink-soft">
-          Bestseller data sourced from Amazon India's Best Sellers lists at the time of writing. Rank changes continuously; nothing here is a promise of future ranking. Every link on this row is an Amazon Associates link.
+          Selection reflects what our editor found genuinely useful in the Home &amp; Kitchen category — not a claim about popularity. Every link on this row is an Amazon Associates link.
         </p>
       </section>
 
