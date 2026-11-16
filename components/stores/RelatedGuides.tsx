@@ -21,6 +21,13 @@ interface RelatedStore {
   hook: string;
 }
 
+/** An editorial `/guides/<slug>` link rendered alongside the store cross-links. */
+export interface RelatedGuideItem {
+  slug: string;
+  title: string;
+  hook: string;
+}
+
 /**
  * Curated, vertical-matched cross-links rendered at the bottom of each custom
  * brand store page. Groups: nutrition & supplements, clean beauty, fragrance,
@@ -269,12 +276,42 @@ const RELATED_GUIDES: Record<string, RelatedStore[]> = {
   ],
 };
 
-export default function RelatedGuides({ slug }: { slug: string }) {
+export default function RelatedGuides({
+  slug,
+  guides,
+}: {
+  slug: string;
+  guides?: RelatedGuideItem[];
+}) {
   const items = RELATED_GUIDES[slug];
-  if (!items?.length && !staticGuideForStore(slug)) return null;
+  if (!items?.length && !staticGuideForStore(slug) && !guides?.length) return null;
   return (
     <section aria-label="Related stores" className="mx-auto max-w-6xl px-4 pb-10">
       <StoreGuideLink slug={slug} />
+      {guides?.length ? (
+        <>
+          <h2 className="text-lg font-bold text-ink">Buying guides worth your ten minutes</h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            Durza editorial — the honest reads behind this store.
+          </p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {guides.map((guide) => (
+              <li key={guide.slug}>
+                <Link
+                  href={`/guides/${guide.slug}`}
+                  className="flex h-full flex-col rounded-2xl border border-ledger-line bg-white p-4 transition hover:border-inkblue hover:shadow-sm"
+                >
+                  <p className="font-semibold leading-snug text-ink">{guide.title}</p>
+                  <p className="mt-1.5 text-xs leading-5 text-ink-soft">{guide.hook}</p>
+                  <span className="mt-3 inline-block text-xs font-medium text-accent">
+                    Read guide →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
       {items?.length ? (
         <>
           <h2 className="text-lg font-bold text-ink">Related Smart Store Guides</h2>

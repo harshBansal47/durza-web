@@ -3,14 +3,15 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
-import RelatedGuides from "@/components/stores/RelatedGuides";
+import RelatedGuides, { type RelatedGuideItem } from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
+import { STORE_GUIDES } from "@/data/store-guides";
 import type { CouponPublic } from "@/lib/types";
 
 const title = "Amazon India Offers & Best Deals (2026) — Curated Professional Picks";
 const description =
-  "Hand-picked Amazon India picks Curated by the Durza editor — work-from-home gear, PC components, audio, kitchen, home gym, personal care and cards. Refreshed with live Check dates.";
+  "Hand-picked Amazon India picks Curated by the Durza editor — work-from-home gear, PC components, audio, kitchen, home gym and personal care. Refreshed with live Check dates.";
 const canonical = "/stores/amazon-in";
 
 export const metadata: Metadata = {
@@ -30,6 +31,39 @@ const FAQS = [
 ];
 
 export const revalidate = 300;
+
+/**
+ * Guides that relate to Amazon — the hand-built Amazon/bank guides plus every
+ * static guide whose relatedStores points at amazon-in (Lenovo, ASUS, PureVPN).
+ * The store's own finance guide rides on the StoreGuideLink banner.
+ */
+const RELATED_GUIDES: RelatedGuideItem[] = [
+  {
+    slug: "amazon-flipkart-sale-dates-2026",
+    title: "Amazon & Flipkart Sale Dates India 2026 — Black Friday, Christmas & New Year",
+    hook: "Real sale windows and honest timing for big-ticket electronics.",
+  },
+  {
+    slug: "best-credit-card-online-shopping-india-2026",
+    title: "Best Credit Card for Online Shopping India 2026 — the honest answer",
+    hook: "Which card actually pays back on online-shopping weekends.",
+  },
+  {
+    slug: "icici-bank-offers-india-2026",
+    title: "ICICI Bank Offers India 2026 — the live list",
+    hook: "ICICI issues the Amazon co-brand — where its offers rotate.",
+  },
+  {
+    slug: "rbl-bank-offers-india-2026",
+    title: "RBL Bank Offers India 2026 — the live list",
+    hook: "RBL offers that land at checkout on sale weekends.",
+  },
+  ...STORE_GUIDES.filter((guide) => guide.relatedStores?.includes("amazon-in")).map((guide) => ({
+    slug: guide.slug,
+    title: guide.seo.title,
+    hook: guide.summary,
+  })),
+];
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("amazon-in", { skip: 0, limit: 100 });
@@ -57,7 +91,7 @@ export default async function Page() {
         offerCount={offerCount}
         storeUrl={storeUrl}
       />
-      <RelatedGuides slug="amazon-in" />
+      <RelatedGuides slug="amazon-in" guides={RELATED_GUIDES} />
     </>
   );
 }

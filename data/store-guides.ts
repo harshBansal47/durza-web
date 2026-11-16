@@ -2919,7 +2919,93 @@ const RAW_GUIDES_I: StaticGuide[] = [
   },
 ];
 
-const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F, ...RAW_GUIDES_G, ...RAW_GUIDES_H, ...RAW_GUIDES_I];
+const RAW_GUIDES_J: StaticGuide[] = [
+  {
+    slug: "amazon-finance-card-smarts-buying-guide",
+    storeSlug: "amazon-in",
+    category: "Finance & cards",
+    featured: false,
+    heroImage: "/stores/amazon-in.png",
+    seo: {
+      title: "Amazon India Finance & Card Smarts 2026 — ICICI Credit Card, Gift Cards, EMI, UPI",
+      description: "The five ways to pay on Amazon India — the ICICI co-brand card, welcome bonus, UPI cashback, no-cost EMI and Amazon Pay gift cards — read as they are actually worded, not as the poster claims.",
+    },
+    summary: "Amazon payment products — the honest terms.",
+    faqs: [
+      { question: "Is the Amazon Pay ICICI card really 5% unlimited cashback for Prime members?", answer: "That is the rate the offer is worded with — 5% unlimited on Amazon.in for Prime members and 3% for non-Prime, as promoted at application time. Whether a purchase qualifies, which categories are excluded, and the exact scheme of the welcome rewards are decided on the application page, and they change. Apply through the official Amazon Pay flow, not through a friend's referral link; Durza cannot and does not verify card approvals for you." },
+      { question: "What is the welcome bonus actually worth?", answer: "The listing describes ₹1,500–₹2,000 in welcome rewards and vouchers on approval. Those amounts are introductory rewards tied to approval plus spend conditions — check the offer page at the time you apply; they are rebalanced by the issuing bank, not by Durza. If the figure on the page you see is lower than this guide quotes, the page you see wins." },
+      { question: "Are Amazon Pay gift cards multi-pack refundable?", answer: "Amazon Pay gift cards are generally non-refundable once they are claimed by the recipient, and they are the currency fraudsters prefer — no genuine seller, bank or tax office will ever ask you to pay one. Multi-packs are simply group-scaled gift cards; they do not stack discounts, they stack convenience. Buy them only when the recipient is unambiguously expecting them." },
+      { question: "Is no-cost EMI actually no-cost on Amazon?", answer: "In the ledger sense, yes — the interest is folded into the merchant discount, and the marketplace advertises it that way (this listing says 'up to 18-month zero-interest' on laptops, TVs and large appliances). 'No cost' is not the same as 'no consequence': convenience fees, foreclosure charges and partial refunds each interact with the plan. EMI beats carrying the same cart at card APR; it does not beat paying cash or a debit card with a real discount elsewhere." },
+      { question: "Should I switch Amazon Pay UPI to my primary route for the welcome cashback?", answer: "No. The UPI welcome listing describes a one-time reward on your first recharge or bill payment — small, capped and introductory. Take the free money if it is sitting there; do not rewire your payments around it." },
+    ],
+    blocks: [
+      { type: "callout", text: "Rates, slabs, fee language and reward caps are written by Amazon Pay and ICICI, and they change at the application page. Durza describes what the offer page says today; it never pretends to verify an approval, and it never counts affiliate cashback as buyer savings." },
+      { type: "heading", heading: "The five offers on this page" },
+      { type: "table",
+       headers: ["Offer (as listed)", "What it actually is", "Read before applying"],
+       rows: [
+         [
+           "Amazon Pay ICICI Bank Credit Card",
+           "Co-brand rewards credit card — 5% unlimited cashback for Prime members and 3% for non-Prime on Amazon.in, worded as 'lifetime-free' by the offer.",
+           "Application page decides approval, category slabs, forex rate and annual-fee language. Apply only through the official Amazon Pay flow.",
+         ],
+         [
+           "Amazon Pay ICICI Card Welcome Bonus",
+           "₹1,500–₹2,000 in introductory rewards and merchant vouchers on approval.",
+           "Introductory rewards come with a spend condition and expire if the card is not used; read the issuance banner at sign-up, not this table.",
+         ],
+         [
+           "No Cost EMI on Major Credit Cards",
+           "0%-interest instalment plans on major credit cards, up to 18 months for laptops, TVs and large appliances, per the offer wording.",
+           "Only on eligible products and eligible cards; the cart shows the live eligibility at checkout — never assume a listing applies to your cart.",
+         ],
+         [
+           "Amazon Pay Gift Cards Multi-Pack",
+           "0% processing fee on gift-card bundles, with custom greeting designs and instant email delivery.",
+           "Gift cards burn like fire: once claimed, they are not redeemable cash. Never use them to pay fines, 'fees' or strangers.",
+         ],
+         [
+           "Amazon Pay UPI Welcome Cashback",
+           "One-time cashback on your first Amazon Pay UPI recharge or bill payment.",
+           "Capped, small and one-off — do not churn your primary payment habits for an intro reward.",
+         ],
+       ] },
+      { type: "heading", heading: "The honest read of the ICICI co-brand card" },
+      { type: "paragraph", text: "The Amazon Pay ICICI card is a purchase-rewards vehicle, not a cheap-credit product. The 5%/3% split is the real headline and it is what Prime membership pays for — outside that lane the card is ordinary fare. 'Lifetime-free' is the scheme Amazon markets; the issuing bank decides the operative language at approval. If you buy meaningfully on Amazon.in through the year, this card replaces a generic credit card in your rotation. If you do not, it does not need to live in your wallet at all — there is no reward for a card you never use, and fees are written in the fine print, not the banner." },
+      { type: "list", items: [
+        "Buy with the co-brand on Amazon.in, route other spend through a rewards card that covers those categories instead",
+        "The welcome bonus rewards you for approval order plus minimum spend — fail the condition and it quietly vanishes",
+        "A forex-weak card for international purchases is a different product; compare forex markups before you shop abroad",
+        "Never let an annual review lapse into fees you did not opt in for — read the annual statement letter, every year",
+      ] },
+      { type: "heading", heading: "No-cost EMI — what the poster hides" },
+      { type: "paragraph", text: "Zero-interest instalments work because the marketplace folds the interest into the merchant discount before the sticker price. The cart you see is usually honest about it — and occasionally not, because discount and price are two separate levers. The check that keeps you safe: if the same product is listed at a visibly lower cash price without EMI, the EMI 'cost' is the delta you accept to spread payment. For laptops and appliances where the EMI fee is zero because the merchant offered it, fine. For everything else, price-check the same SKU without the scheme before you buy." },
+      { type: "heading", heading: "Gift cards — a convenience, not a wallet" },
+      { type: "paragraph", text: "Amazon Pay gift cards are best used exactly as they are meant: a gift someone will remember receiving, or a clean way to let someone shop without handing you card access. Their multi-pack wrapper is a group-gifting run. They do not earn rewards, they are not redeemable with third parties, and they are lost-memory plastic — email them to the recipient and check the claim status instead of trusting delivery. A promised reward for buying gift cards is a scam shape; Durza never routes you into one." },
+      { type: "heading", heading: "UPI welcome cashback — a keyhole, not a door" },
+      { type: "paragraph", text: "First Amazon Pay UPI recharge or bill payment earns the introductory cashback. That is the entire scheme it advertises. It is deliberately small upfront value to onboard you — which is fine, because UPI itself is already free. It will not put a meaningful amount in your pocket; it will legitimately nudge you into trying Amazon Pay. No need to mainline it." },
+      { type: "heading", heading: "Who should not open the Amazon Pay ICICI card" },
+      { type: "list", items: [
+        "You rarely buy on Amazon.in — you will never reach the spend where cashback outweighs statement friction",
+        "You carry card debt — rewards cards are priced to be repaid in full; the APR field is not your friend",
+        "You need forex resilience — use a forex-light travel card instead",
+        "You already max out a category card that beats 5% on Amazon — carrying two overlapping cards fragments statement discipline",
+      ] },
+    ],
+    relatedStores: ["amazon-in"],
+    primaryCta: {
+      kind: "amazon",
+      badge: "OFFICIAL",
+      headline: "Amazon Pay ICICI card — official application (terms as shown today)",
+      eligibility: "Indians 21+ with valid PAN & income proof; issuer decides approval",
+      targetUrl: "https://www.amazon.in/s?k=Amazon+Pay+ICICI+Bank+Credit+Card&tag=durza02-21",
+      subId: "guide_amazon-finance-card-smarts-buying-guide",
+    },
+    auditedOn: "2026-11-17",
+  },
+];
+
+const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F, ...RAW_GUIDES_G, ...RAW_GUIDES_H, ...RAW_GUIDES_I, ...RAW_GUIDES_J];
 
 export const STORE_GUIDES = guides;
 

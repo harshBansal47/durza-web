@@ -226,18 +226,6 @@ const SECTIONS: SectionDef[] = [
       { id: "d35f89a4-57c3-43d9-bc18-2887e66e904d", badge: "WITH STRIPS" },
     ],
   },
-  {
-    id: "finance",
-    title: "Finance & card smarts",
-    lead: "Amazon-branded payment products — ICICI cards, welcome bonuses, EMI options and gift cards.",
-    picks: [
-      { id: "a93cfd4f-2181-4638-9ce1-1a5ac9277496", badge: "ICICI CO-BRAND" },
-      { id: "a9c7985d-cdab-4456-b0c4-4bcad264d4c6", badge: "BONUS VAULT" },
-      { id: "8254a99e-0871-4094-9d0e-e5347f2aaac8", badge: "UPI WELCOME" },
-      { id: "3b005736-72e7-49b7-b849-ec172c55cef1", badge: "EMI ON CARDS" },
-      { id: "7594fcb1-b877-4a7e-90f3-f87d663fcaf5", badge: "GIFT CARDS" },
-    ],
-  },
 ];
 
 interface Props {
