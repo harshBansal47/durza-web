@@ -255,6 +255,8 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "500-watt juicer-mixer-grinder built around smoothie making — supplied with 3 jars and 2 blades in a gold finish, backed by a 1-year warranty as stated on the listing.",
     bestFor: "Daily smoothies and quick chutneys without a bulky countertop footprint.",
     url: "https://link.amazon/B04HvT3G7",
+    image: "/stores/amazon-in/nutripro-jmg.jpg",
+    imageAlt: "NutriPro juicer mixer grinder smoothie maker, 500 W, 3 jars and 2 blades, gold",
   },
   {
     badge: "PORTABLE — NON-STICK ROUND",
@@ -297,6 +299,8 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "A pocket-size heat sealer for reclosing snack packets and plastic bags at home — portable and hand-held, aimed at keeping opened food packs sealed between uses (colour assorted).",
     bestFor: "Resealing chips, namkeen and freezer bags without hunting for clips.",
     url: "https://link.amazon/B09AEQ7RS",
+    image: "/stores/amazon-in/amazer-mini-sealer.jpg",
+    imageAlt: "Amazer mini heat sealing machine for food packets and plastic bags",
   },
 ];
 
