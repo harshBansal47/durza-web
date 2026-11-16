@@ -34,7 +34,7 @@
   import { ImpressionTracker } from "@/components/ImpressionTracker";
   import { RecordView } from "@/components/Analytics";
 
-  export const revalidate = 900;
+  export const revalidate = 1800;
 
   // Without this export a dynamic route is rendered on every request and `revalidate` is ignored
   // for the page (it goes out `private, no-store`). See stores/[slug] for the full note.

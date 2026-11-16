@@ -248,10 +248,10 @@ export const api = {
   // ---- Public catalogue -------------------------------------------------
 
   listCoupons: (params: CouponListParams = {}) =>
-    apiFetch<Paginated<CouponPublic>>(`/coupons${qs(params)}`, { revalidate: 300 }),
+    apiFetch<Paginated<CouponPublic>>(`/coupons${qs(params)}`, { revalidate: 1800 }),
 
   getCouponBySlug: (slug: string) =>
-    apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+    apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: 1800 }),
 
   /**
    * Live vote counts for one coupon, never cached. The coupon page itself is
@@ -263,7 +263,7 @@ export const api = {
 
   /** Account pages hold coupon ids (from /me/saved-coupons), not slugs. */
   getCouponById: (couponId: string) =>
-    apiFetch<CouponPublic>(`/coupons/${couponId}`, { revalidate: 300 }),
+    apiFetch<CouponPublic>(`/coupons/${couponId}`, { revalidate: 1800 }),
 
   /**
    * Affiliate URLs are only ever resolved by the server-side /go redirect.
@@ -275,7 +275,7 @@ export const api = {
 
   /** Live sponsored placements (the backend already enforces the booked window). */
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
-    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 600 }),
+    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 3600 }),
 
   /** Tracked redirect to an advertiser. The advertiser URL is never in API JSON. */
   adGoUrl: (adId: string, src?: string, contentRef?: string) => `${API_URL}/ads/${adId}/go${goQuery(src, contentRef)}`,
@@ -331,16 +331,16 @@ export const api = {
 
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     apiFetch<VerificationHistoryItem[]>(`/coupons/${couponId}/verification-history${qs({ limit })}`, {
-      revalidate: 300,
+      revalidate: 1800,
     }),
 
   listStores: (params: StoreListParams = {}) =>
-    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 300 }),
+    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 3600 }),
 
-  getStoreById: (storeId: string) => apiFetch<Store>(`/stores/${storeId}`, { revalidate: 300 }),
+  getStoreById: (storeId: string) => apiFetch<Store>(`/stores/${storeId}`, { revalidate: 3600 }),
 
   getStoreBySlug: (slug: string) =>
-    apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+    apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
 
   /** Banner creatives for this store's connected affiliate programs. Empty when none are matched or all are unsuitable — the store page hides the slot. */
   getStoreCreatives: (slug: string, limit = 2) =>
@@ -355,31 +355,31 @@ export const api = {
     if (params?.limit) qs.set("limit", String(params.limit));
     const q = qs.toString();
     return apiFetch<StoreDestination>(`/stores/by-slug/${encodeURIComponent(slug)}/destination${q ? `?${q}` : ""}`, {
-      revalidate: 300,
+      revalidate: 3600,
     });
   },
 
 
   listEditorial: (
     params: { content_type?: EditorialType; skip?: number; limit?: number } = {},
-  ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: 300 }),
+  ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: 1800 }),
 
   getEditorial: (contentType: EditorialType, slug: string) =>
     apiFetch<EditorialContent>(
       `/editorial/${contentType}/${encodeURIComponent(slug)}`,
-      { revalidate: 300 },
+      { revalidate: 1800 },
     ),
 
   getEditorialHomepage: () =>
-    apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: 300 }),
+    apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: 1800 }),
 
-  listSales: () => apiFetch<{ slug: string; title: string }[]>(`/sales`, { revalidate: 300 }),
+  listSales: () => apiFetch<{ slug: string; title: string }[]>(`/sales`, { revalidate: 1800 }),
   getSaleSeries: (series: string) =>
-    apiFetch<SaleSeriesResponse>(`/sales/${encodeURIComponent(series)}`, { revalidate: 300 }),
+    apiFetch<SaleSeriesResponse>(`/sales/${encodeURIComponent(series)}`, { revalidate: 1800 }),
   getSaleEdition: (series: string, edition: string) =>
     apiFetch<SaleEditionResponse>(
       `/sales/${encodeURIComponent(series)}/${encodeURIComponent(edition)}`,
-      { revalidate: 300 },
+      { revalidate: 1800 },
     ),
 
   /** ISO 3166-1 alpha-2 codes Durza currently serves. */
@@ -389,23 +389,23 @@ export const api = {
     apiFetch<Paginated<Category>>(`/categories${qs(params)}`, { revalidate: 3600 }),
 
   getCategoryBySlug: (slug: string) =>
-    apiFetch<Category>(`/categories/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+    apiFetch<Category>(`/categories/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
 
-  getPageBySlug: (slug: string) => apiFetch<CmsPage>(`/pages/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+  getPageBySlug: (slug: string) => apiFetch<CmsPage>(`/pages/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
 
   listProductCategories: (store_id: string) =>
-    apiFetch<ProductCategory[]>(`/products/categories${qs({ store_id })}`, { revalidate: 300 }),
+    apiFetch<ProductCategory[]>(`/products/categories${qs({ store_id })}`, { revalidate: 3600 }),
 
   listProducts: (
     params: { search?: string; store_id?: string; category_id?: string; skip?: number; limit?: number } = {},
-  ) => apiFetch<Paginated<Product>>(`/products${qs(params)}`, { revalidate: 300 }),
+  ) => apiFetch<Paginated<Product>>(`/products${qs(params)}`, { revalidate: 3600 }),
 
-  getProductBySlug: (slug: string) => apiFetch<Product>(`/products/by-slug/${encodeURIComponent(slug)}`, { revalidate: 300 }),
+  getProductBySlug: (slug: string) => apiFetch<Product>(`/products/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
 
-  getProductById: (id: string) => apiFetch<Product>(`/products/${id}`, { revalidate: 300 }),
+  getProductById: (id: string) => apiFetch<Product>(`/products/${id}`, { revalidate: 3600 }),
 
   getPriceHistory: (productId: string) =>
-    apiFetch<PricePoint[]>(`/products/${productId}/price-history`, { revalidate: 300 }),
+    apiFetch<PricePoint[]>(`/products/${productId}/price-history`, { revalidate: 3600 }),
 
   // ---- Autocomplete (no cache, abortable) -------------------------------
 

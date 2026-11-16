@@ -9,7 +9,7 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import DealsFeedSection from "@/components/deals/DealsFeedSection";
 import DealsFeedSkeleton from "@/components/deals/DealsFeedSkeleton";
 
-export const revalidate = 900;
+export const revalidate = 1800;
 
 export const metadata: Metadata = {
   // Static copy on purpose: an exact-count title/description forced one Neon round

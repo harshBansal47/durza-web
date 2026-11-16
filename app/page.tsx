@@ -21,7 +21,7 @@ import { EditorialCard, EditorialSection } from "@/components/editorial/Editoria
 import { staticFeaturedGuides } from "@/lib/static-editorial";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
-export const revalidate = 900;
+export const revalidate = 1800;
 
 export async function generateMetadata(): Promise<Metadata> {
   const canonical = absoluteUrl("/");
