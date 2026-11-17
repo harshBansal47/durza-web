@@ -2040,50 +2040,6 @@ const RAW_GUIDES_F: StaticGuide[] = [
     },
     auditedOn: "2026-11-14",
   },
-  {
-    slug: "ixigo-travel-flight-hotel-codes-guide",
-    storeSlug: "ixigo",
-    category: "Travel & OTA",
-    featured: false,
-    heroImage: "/stores/ixigo.png",
-    seo: {
-      title: "ixigo Coupons — Flights, Hotels & Bank Card Codes (2026)",
-      description: "ixigo codes: MONEY (up to ₹6,000 off flights), INSTANT (25% off flights), IXICICID (12% ICICI), IXICICID/IXRBLD/IXRBLN — decoded.",
-    },
-    summary: "ixigo wins: MONEY/INSTANT on flights; IXICICID on first booking; IXRBLD/IXRBLN/IXICICID on bank cards.",
-    faqs: [
-      { question: "MONEY vs INSTANT — which flies?", answer: "MONEY gives up to ₹6,000 off flight bookings on select routes; INSTANT cashes out at 25% off capped by route/duration. Higher cart value wins on MONEY for international stretches; INSTANT takes the domestic win." },
-      { question: "Is ixigo Assured worth it?", answer: "Yes for international flights — ixigo Assured free-cancellation + ₹4,000 vouchers effectively offset ₹500-700 per trip in cancellation flexibility. The small booking fee repays on one schedule-change." },
-      { question: "IXRBLD / IXRBLN / IXICICID — hotels and flights with bank cards?", answer: "Yes — IXRBLD (10% off domestic hotels, RBL cards) and IXRBLN (10% up to ₹2,500 on international hotels, RBL cards). ICICI cards get IXICICID (12% off flights). Capped by slab; cart value triggers the cap." },
-    ],
-    blocks: [
-      { type: "callout", text: "ixigo order: pick MONEY or INSTANT on flights (whichever wins); IXICICID on first flight booking; IXRBLD/IXRBLN for bank cards on hotels." },
-      { type: "heading", heading: "ixigo's own playbook" },
-      { type: "paragraph", text: "ixigo is India's #1 OTA after Cleartrip — flights, hotels, trains, buses. Assured free-cancellation + voucher scheme pins the international-claim route. Bank-offer codes rotate between ICICI and RBL — see the checkout panel for today." },
-      { type: "heading", heading: "The stacking order that wins" },
-      { type: "ordered_list", items: [
-        "Pick your flight route — apply MONEY or INSTANT (whichever wins).",
-        "First booking today — IXICICID (12% off, ICICI cards).",
-        "Hotel on the same trip — IXRBLD (RBL domestic hotels) or IXRBLN (international hotels, RBL).",
-        "Check Assured on international legs — cancellation voucher apply-back wins.",
-        "Pay with the right card — bank instant discounts apply automatically at pay.",
-      ] },
-      { type: "heading", heading: "When not to buy" },
-      { type: "paragraph", text: "Fixed-schedule flights for conferences — book direct with the airline (refund terms differ). Consolidator/VIP-rate hotels — booking via hotel direct can win for stay >5 nights." },
-    ],
-    relatedStores: ["igp", "guvi"],
-    interactiveTool: { headline: "Browse ixigo's assurances — Assured vs. Standard trip flexibility", sublabel: "Our hub compares Assured voucher terms vs standard fare." },
-    primaryCta: {
-      kind: "code",
-      code: "INSTANT",
-      badge: "UP TO 25% OFF",
-      headline: "INSTANT — up to 25% off flights on ixigo",
-      eligibility: "Select routes · cap applies · apply at checkout",
-      targetUrl: "https://www.ixigo.com",
-      subId: "guide_ixigo-travel-flight-hotel-codes-guide",
-    },
-    auditedOn: "2026-11-14",
-  },
 ];
 
 const RAW_GUIDES_G: StaticGuide[] = [

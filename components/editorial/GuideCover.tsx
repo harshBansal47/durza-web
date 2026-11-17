@@ -35,8 +35,7 @@ const STORE_MENTIONS: [slug: string, pattern: RegExp][] = [
   ["bigbasket", /\bbig ?basket\b/],
   ["firstcry", /\bfirst ?cry\b/],
   ["lenskart", /\blenskart\b/],
-  ["makemytrip", /\bmake ?my ?trip\b/],
-  ["ixigo", /\bixigo\b/],
+
 ];
 
 export function guideStoreMentions(title: string, summary: string, max = 3): string[] {

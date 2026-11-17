@@ -196,7 +196,7 @@ export default async function BestOnlineShoppingCardPage() {
             >
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">ICICI deep-dive</p>
               <p className="mt-2 font-serif font-bold text-ink">ICICI Bank Offers India 2026</p>
-              <p className="mt-1 text-sm leading-6 text-ink-soft">ixigo flights, MakeMyTrip, Amazon Pay ICICI — how the instant discount really applies at checkout.</p>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">How ICICI instant discounts apply at checkout, eligibility, and common reasons they fail.</p>
               <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-inkblue">Read the guide <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
             </Link>
             <Link
@@ -205,7 +205,7 @@ export default async function BestOnlineShoppingCardPage() {
             >
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">RBL deep-dive</p>
               <p className="mt-2 font-serif font-bold text-ink">RBL Bank Offers India 2026</p>
-              <p className="mt-1 text-sm leading-6 text-ink-soft">ixigo domestic & international hotel slabs, Tatacliq card offer, per-customer caps explained.</p>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">How RBL card instant discounts work at checkout, eligibility, and monthly caps.</p>
               <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-inkblue">Read the guide <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
             </Link>
           </div>
@@ -232,7 +232,7 @@ export default async function BestOnlineShoppingCardPage() {
             When new offers actually appear
           </h2>
           <p className="mt-4 text-base leading-8 text-ink-soft">
-            Three recurring waves: the festive mega-sale fortnight (late September–mid October), bank quarter closes (March and December, when campaigns top up to hit targets), and travel-partner pushes when ixigo/MakeMyTrip co-run cards. Between waves the field narrows to co-brands and targeted cardholder emails. The panel above shows whatever is readable on any given day — if it is empty, no bank is currently running an offer we can honestly show you.
+            Three recurring waves: the festive mega-sale fortnight (late September–mid October), bank quarter closes (March and December, when campaigns top up to hit targets), and travel-partner campaign pushes. Between waves the field narrows to co-brands and targeted cardholder emails. The panel above shows whatever is readable on any given day — if it is empty, no bank is currently running an offer we can honestly show you.
           </p>
         </section>
 

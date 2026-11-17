@@ -10,9 +10,9 @@ import QuickAnswer from "@/components/ui/QuickAnswer";
 
 export const revalidate = 3600;
 
-const title = "ICICI Bank Offers India 2026 — ixigo, MakeMyTrip, Amazon Pay ICICI (live list)";
+const title = "ICICI Bank Offers India 2026 — live list";
 const description =
-  "Which ICICI Bank offers are live right now in India? Current ixigo flight discounts, MakeMyTrip instant discount, Amazon Pay ICICI card deals — plus how ICICI instant discounts work at checkout, eligibility and common reasons they fail.";
+  "Which ICICI Bank offers are live right now in India? See current ICICI card and payment offers in our catalogue — plus how ICICI instant discounts work at checkout, eligibility and common reasons they fail.";
 const canonical = "/guides/icici-bank-offers-india-2026";
 
 export const metadata: Metadata = {
@@ -106,12 +106,12 @@ export default async function IciciBankOffersPage() {
           ICICI Bank Offers India (2026) — what is live right now
         </h1>
         <p className="mt-3 font-serif text-xl leading-snug text-ink-soft">
-          The current ixigo, MakeMyTrip and Amazon Pay ICICI offers — plus how ICICI instant discounts actually apply at checkout, and why the payment page decides everything.
+          Current ICICI card and payment offers in our catalogue — plus how ICICI instant discounts actually apply at checkout, and why the payment page decides everything.
         </p>
 
         <QuickAnswer
           question="Which ICICI offers are actually live this week?"
-          answer="The panel below lists every ICICI offer our catalogue has read from the source pages — today that means ixigo flight and net-banking discounts, a MakeMyTrip instant discount with a specific code, and the Amazon Pay ICICI co-brand offers. They rotate, so the panel is the truth, not a cached headline."
+          answer="The panel below lists every ICICI offer our catalogue has read from the source pages. Offers rotate, so the panel is the truth, not a cached headline."
           jumpHref="#live"
           jumpLabel="See the live ICICI offers"
         />
@@ -181,7 +181,7 @@ export default async function IciciBankOffersPage() {
             When ICICI pushes the strongest offers
           </h2>
           <p className="mt-4 text-base leading-8 text-ink-soft">
-            Two recurring windows: the festive mega-sale fortnight (September–October) when every bank competes for the cart, and travel-launch windows when ICICI leans into ixigo and MakeMyTrip partnerships with flat flight and hotel discounts. Outside those windows, the offers narrow to co-brand campaigns and targeted email/SMS offers for existing cardholders — the catalogue panel above is the only honest source for what is actually running today.
+            Two recurring windows: the festive mega-sale fortnight (September–October) when every bank competes for the cart, and travel-launch windows when banks run flat flight and hotel discount campaigns. Outside those windows, the offers narrow to co-brand campaigns and targeted email/SMS offers for existing cardholders — the catalogue panel above is the only honest source for what is actually running today.
           </p>
         </section>
 

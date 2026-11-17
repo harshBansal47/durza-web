@@ -79,7 +79,7 @@ Update this file only — it is the single source:
 
 - **10**: HealthKart, Fuel One, MuscleBlaze (cps), Alpino, Bewakoof, Bliss Club, Boult, Boldfit, Dot & Key, Fitspire, Gritzo, HKvitals, Kama Ayurveda, Kapiva, Milton, MuscleBlaze (cps), Sirona, Indus Valley, The Man Company, The Natural Wash, Nourish Mantra, Zoff Foods, ZeroHarm, Havells, MyMuse, The Bear House, Wonderchef, TrueBasics, MuscleBlaze(cps)
 - **9**: FirstCry, Nykaa, Lenskart, Meesho
-- **8**: Acer, Lenovo India, Asus, Adidas, Zomato, Swiggy, MakeMyTrip, ixigo
+- **8**: Acer, Lenovo India, Asus, Adidas
 - **7**: Amazon India, Flipkart, Croma, Reliance Digital
 - **2**: off-target / utility (kept off homepage rails)
 

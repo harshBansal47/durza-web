@@ -446,12 +446,12 @@ export default async function BankOffersPage() {
                   {
                     href: "/guides/icici-bank-offers-india-2026",
                     title: "ICICI Bank Offers India 2026",
-                    note: "ixigo flights, MakeMyTrip, Amazon Pay ICICI — how instant discounts really apply.",
+                    note: "How ICICI instant discounts apply at checkout, eligibility, and common reasons they fail.",
                   },
                   {
                     href: "/guides/rbl-bank-offers-india-2026",
                     title: "RBL Bank Offers India 2026",
-                    note: "ixigo hotel slabs, Tatacliq offer, monthly caps.",
+                    note: "How RBL card instant discounts work at checkout, eligibility, and monthly caps.",
                   },
                   {
                     href: "/guides/best-credit-card-online-shopping-india-2026",
