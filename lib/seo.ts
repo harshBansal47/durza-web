@@ -5,6 +5,20 @@ export function absoluteUrl(path: string): string {
 }
 
 /**
+ * Raw affiliate-network/program boilerplate (e.g. Admitad campaign blurbs) is not
+ * shopper-facing copy. Filter it out so pages fall back to our own descriptions.
+ */
+export function cleanStoreDescription(text: string | null | undefined): string | undefined {
+  const normalized = text?.replace(/\s+/g, " ").trim();
+  if (!normalized) return undefined;
+  const boilerplate =
+    /program description from admitad/i.test(normalized) ||
+    /(^|\s)company description\s*:/i.test(normalized) ||
+    /(^|\s)campaign description\s*:/i.test(normalized);
+  return boilerplate ? undefined : normalized;
+}
+
+/**
  * A meta description is one plain-text line and search engines cut it near
  * 155-160 characters. Copy from the API arrives as paragraphs and can contain
  * newlines, which is what renders a snippet as a half sentence. Collapse the
@@ -14,7 +28,7 @@ export function absoluteUrl(path: string): string {
  * to their own copy.
  */
 export function metaDescription(text: string | null | undefined, max = 158): string | undefined {
-  const normalized = text?.replace(/\s+/g, " ").trim();
+  const normalized = cleanStoreDescription(text);
   if (!normalized) return undefined;
   if (normalized.length <= max) return normalized;
   const clipped = normalized.slice(0, max - 1);

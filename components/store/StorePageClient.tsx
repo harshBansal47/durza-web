@@ -16,6 +16,7 @@ import { api } from "@/lib/api";
 import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
 import { parseRupeePrice } from "@/lib/price";
+import { cleanStoreDescription } from "@/lib/seo";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 import { ArrowUpRight } from "lucide-react";
@@ -124,12 +125,14 @@ export default function StorePageClient({
     [filteredTabs, expanded, code],
   );
 
+  const storeDescription = cleanStoreDescription(store.description);
+
   return (
     <div className="space-y-10 pb-24 sm:space-y-14 md:pb-0">
       <RecordView storeSlug={store.slug} />
       <StoreHero
         name={store.name}
-        subtitle={store.description ?? `${stats.total} live ${store.name} coupon codes and deals — each linked to its source page with the date it was last checked.`}
+        subtitle={storeDescription ?? `${stats.total} live ${store.name} coupon codes and deals — each linked to its source page with the date it was last checked.`}
         domain={websiteHost}
         heroImageUrl={store.hero_image_url ?? null}
         offerCount={stats.total}

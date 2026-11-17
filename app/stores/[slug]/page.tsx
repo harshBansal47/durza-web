@@ -7,7 +7,7 @@ import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { isIndexableStore } from "@/lib/store-indexing";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
-import { faqPageJsonLd, metaDescription } from "@/lib/seo";
+import { cleanStoreDescription, faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import StorePageClient from "@/components/store/StorePageClient";
@@ -121,7 +121,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // A non-India store (global VPN, US retailer, etc.) is off-topic for this site's audience.
   // Both cases: keep out of search results until they have something relevant to say.
   // `follow` stays on so their links still count.
-  const thin = !isIndexableStore(total, store.description);
+  const usableDescription = cleanStoreDescription(store.description);
+  const thin = !isIndexableStore(total, usableDescription);
   const offTarget = !isHomepageIndiaRelevant(store.slug);
   return {
     title,
