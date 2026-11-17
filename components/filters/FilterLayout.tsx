@@ -42,7 +42,7 @@ export default function FilterLayout({
 
   return (
     <div className={layoutClass}>
-      <aside className="hidden lg:block">
+      <aside className="hidden lg:block" data-lx="filters">
         <div className={`sticky top-24 ${mobileDrawer ? "w-72" : ""}`}>
           <Suspense fallback={<div className="h-64 bg-paper-raised" />}>{panel}</Suspense>
         </div>

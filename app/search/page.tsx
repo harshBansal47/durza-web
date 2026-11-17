@@ -53,13 +53,13 @@ export default async function SearchPage({ searchParams }: Props) {
 
   if (!filters.q) {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <div className="hx-portal lx mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <PageTitle>What are you shopping for?</PageTitle>
         <p className="mt-2 max-w-prose text-ink-soft">
           Search a store, a brand, a product or a category. Everything listed here has a verification
           trail — use the filters on the results page to see only codes somebody has actually tried.
         </p>
-        <div className="mt-6">
+        <div className="mt-6 max-w-2xl">
           <KeywordForm
             size="lg"
             autoFocus
@@ -73,9 +73,9 @@ export default async function SearchPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <TrackEvent event="search" payload={{ query: filters.q }} />
-      <div className="mb-8">
+      <div className="mb-8 max-w-3xl">
         <KeywordForm
           size="lg"
           label="Search Durza"

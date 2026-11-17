@@ -1,11 +1,12 @@
 import { cache } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BookOpen, Wrench } from "lucide-react";
-import CategoryHero from "@/components/categories/CategoryHero";
 import { lookup, resilient } from "@/lib/api";
+import ListingHero from "@/components/listing/ListingHero";
 import CategoryChips from "@/components/CategoryChips";
 import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import EmptyState from "@/components/EmptyState";
@@ -162,35 +163,37 @@ export default async function CategoryPage({
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
       <Breadcrumbs items={crumbs} />
       <JsonLd data={itemList} />
 
-      <CategoryHero category={{ ...category, name: categoryName }} title={`${categoryName} Coupons & Offers`} />
-
-      {(parent || subcategories.length > 0) && (
-        <nav aria-label="Category hierarchy" className="mb-4 flex flex-wrap items-center gap-2 text-sm">
-          {parent ? (
-            <Link href={`/categories/${parent.slug}`} className="rounded-full border border-ledger-line px-3 py-1.5 text-ink-soft hover:border-inkblue hover:text-inkblue">
-              ↑ {categoryLabel(parent)}
-            </Link>
-          ) : null}
-          {subcategories.map((sc) => (
-            <Link key={sc.id} href={`/categories/${sc.slug}`} className="rounded-full border border-ledger-line px-3 py-1.5 text-ink hover:border-inkblue hover:text-inkblue">
-              {categoryLabel(sc)}
-            </Link>
-          ))}
-        </nav>
-      )}
+      <ListingHero
+        eyebrow={`${total.toLocaleString("en-IN")} live offer${total === 1 ? "" : "s"} in ${categoryName}`}
+        title={`${categoryName} Coupons & Offers`}
+        lead={`Live ${categoryName.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, each offer sourced and last checked.`}
+        controls={
+          <Suspense fallback={null}>
+            <KeywordForm
+              size="bar"
+              placeholder={`Search ${categoryName.toLowerCase()} coupons…`}
+              label={`Search ${categoryName} coupons`}
+            />
+          </Suspense>
+        }
+        chips={[
+          ...(parent ? [{ href: `/categories/${parent.slug}`, label: `↑ ${categoryLabel(parent)}` }] : []),
+          ...subcategories.slice(0, 6).map((sc) => ({ href: `/categories/${sc.slug}`, label: categoryLabel(sc) })),
+        ]}
+        stats={[
+          { value: total.toLocaleString("en-IN"), label: "Live offers", live: total > 0 },
+          { value: offerStores.length.toLocaleString("en-IN"), label: "Stores" },
+          ...(guides.length > 0 ? [{ value: guides.length.toLocaleString("en-IN"), label: "Guides" }] : []),
+          ...(tools.length > 0 ? [{ value: tools.length.toLocaleString("en-IN"), label: "Tools" }] : []),
+        ]}
+      />
 
       <div className="mb-6">
         <CategoryChips categories={categories.filter((c) => !c.parent_id || c.parent_id === category.parent_id || c.id === category.id)} activeSlug={category.slug} />
-      </div>
-      <div className="mb-8">
-        <KeywordForm
-          placeholder={`Search ${categoryName.toLowerCase()} coupons…`}
-          label={`Search ${categoryName} coupons`}
-        />
       </div>
 
       <FilterLayout

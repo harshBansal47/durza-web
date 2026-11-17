@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { EditorialListing } from "@/components/editorial/EditorialComponents";
-import PageTitle from "@/components/ui/PageTitle";
+import ListingHero from "@/components/listing/ListingHero";
 import StoreGuideDirectory from "@/components/guides/StoreGuideDirectory";
 import { resilient } from "@/lib/api";
 import { STORE_GUIDES } from "@/data/store-guides";
@@ -24,14 +23,22 @@ export default async function GuidesPage() {
     title: guide.seo.title,
     summary: guide.summary,
   }));
+  const categories = Array.from(new Set(staticGuides.map((g) => g.category))).slice(0, 8);
+  const totalGuides = guides.items.length + staticGuides.length;
   return (
-    <div className="page-shell">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Buying guides", path: "/guides" }])} />
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-soft"><Link href="/" className="hover:text-inkblue">Home</Link><span className="px-2" aria-hidden="true">/</span>Guides</nav>
-      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">Spend with confidence</p>
-      <PageTitle className="mt-2">Buying guides</PageTitle>
-      <p className="mt-4 max-w-2xl text-base leading-7 text-ink-soft">Straightforward research and practical advice to help you find what fits before you spend.</p>
-      <div className="mt-8"><EditorialListing items={guides.items} /></div>
+      <ListingHero
+        eyebrow="Spend with confidence"
+        title="Buying guides"
+        lead="Straightforward research and practical advice to help you find what fits before you spend."
+        chips={categories.map((c) => ({ href: "/guides", label: c }))}
+        stats={[
+          ...(totalGuides > 0 ? [{ value: totalGuides.toLocaleString("en-IN"), label: "Guides" }] : []),
+          ...(categories.length > 0 ? [{ value: Array.from(new Set(staticGuides.map((g) => g.category))).length.toLocaleString("en-IN"), label: "Categories" }] : []),
+        ]}
+      />
+      <div className="mt-2"><EditorialListing items={guides.items} /></div>
       <StoreGuideDirectory guides={staticGuides} />
     </div>
   );

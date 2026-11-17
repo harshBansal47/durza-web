@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { EditorialListing } from "@/components/editorial/EditorialComponents";
-import PageTitle from "@/components/ui/PageTitle";
+import ListingHero from "@/components/listing/ListingHero";
 import { resilient } from "@/lib/api";
 
 export const revalidate = 3600;
@@ -22,12 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function CollectionsPage() {
   const collections = await resilient.listEditorial({ content_type: "collection", limit: 60 });
   return (
-    <div className="page-shell">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-soft"><Link href="/" className="hover:text-inkblue">Home</Link><span className="px-2" aria-hidden="true">/</span>Collections</nav>
-      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">Curated for you</p>
-      <PageTitle className="mt-2">Savings collections</PageTitle>
-      <p className="mt-4 max-w-2xl text-base leading-7 text-ink-soft">Useful discounts and tools brought together around the things you’re working toward.</p>
-      <div className="mt-8"><EditorialListing items={collections.items} /></div>
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
+      <ListingHero
+        eyebrow="Curated for you"
+        title="Savings collections"
+        lead="Useful discounts and tools brought together around the things you’re working toward."
+        stats={collections.items.length > 0 ? [{ value: collections.items.length.toLocaleString("en-IN"), label: "Collections" }] : undefined}
+      />
+      <div className="mt-2"><EditorialListing items={collections.items} /></div>
     </div>
   );
 }

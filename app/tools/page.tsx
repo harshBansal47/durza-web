@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function ToolsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 md:px-6 md:py-10">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-6 md:px-6 md:py-10">
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Tools", path: "/tools" }])} />
       <ToolsPageClient />
     </div>

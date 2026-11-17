@@ -4,7 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import { absoluteUrl } from "@/lib/seo";
 import { resilient } from "@/lib/api";
 import { categoryLabel } from "@/lib/catalog";
-import PageTitle from "@/components/ui/PageTitle";
+import ListingHero from "@/components/listing/ListingHero";
 import CategoryIcon from "@/components/CategoryIcon";
 
 export const revalidate = 3600;
@@ -27,54 +27,60 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CategoriesIndexPage() {
   const { items } = await resilient.listCategories({ limit: 100, live_only: true });
-      const jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
-            { "@type": "ListItem", position: 2, name: "Categories", item: absoluteUrl("/categories") },
-          ],
-        },
-        {
-          "@type": "ItemList",
-          name: "Coupon categories",
-          itemListOrder: "https://schema.org/ItemListOrderAscending",
-          numberOfItems: items.length,
-          itemListElement: items.slice(0, 24).map((cat, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            name: cat.name,
-            url: absoluteUrl(`/categories/${cat.slug}`),
-          })),
-        },
-      ],
-    };
-    return (
-      <>
-        <JsonLd data={jsonLd} />
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+          { "@type": "ListItem", position: 2, name: "Categories", item: absoluteUrl("/categories") },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        name: "Coupon categories",
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        numberOfItems: items.length,
+        itemListElement: items.slice(0, 24).map((cat, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: cat.name,
+          url: absoluteUrl(`/categories/${cat.slug}`),
+        })),
+      },
+    ],
+  };
+  return (
+    <>
+      <JsonLd data={jsonLd} />
 
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <PageTitle className="mb-8">Categories</PageTitle>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {items.map((c) => (
-          <Link
-            key={c.id}
-            href={`/categories/${c.slug}`}
-            className="group flex flex-col items-center gap-3 rounded-lg border border-ledger-line bg-paper-raised px-4 py-6 text-center transition-colors hover:border-accent-soft hover:text-ink"
-          >
-            <span
-              aria-hidden="true"
-              className="flex h-12 w-12 items-center justify-center rounded-lg border border-ledger-line bg-paper text-ink shadow-[var(--shadow-hairline)] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-accent-soft group-hover:shadow-[var(--shadow-raised)]"
+      <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
+        <ListingHero
+          eyebrow={`${items.length} categor${items.length === 1 ? "y" : "ies"} with live offers`}
+          title="Categories"
+          lead="Browse coupons and deals by shopping category — each offer sourced from the store’s own page with a last-checked date."
+          chips={items.slice(0, 8).map((c) => ({ href: `/categories/${c.slug}`, label: categoryLabel(c) }))}
+          stats={items.length > 0 ? [{ value: items.length.toLocaleString("en-IN"), label: "Categories" }] : undefined}
+        />
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {items.map((c) => (
+            <Link
+              key={c.id}
+              href={`/categories/${c.slug}`}
+              className="group flex flex-col items-center gap-3 rounded-2xl border border-ledger-line bg-white px-4 py-6 text-center shadow-[var(--shadow-hairline)] transition-all hover:-translate-y-0.5 hover:border-accent-soft hover:shadow-sm"
             >
-              <CategoryIcon category={c} className="h-6 w-6" />
-            </span>
-            <span className="text-sm font-medium text-ink group-hover:text-accent">{categoryLabel(c)}</span>
-          </Link>
-        ))}
+              <span
+                aria-hidden="true"
+                className="flex h-12 w-12 items-center justify-center rounded-xl border border-ledger-line bg-paper text-ink shadow-[var(--shadow-hairline)] transition-all duration-200 group-hover:border-accent-soft"
+              >
+                <CategoryIcon category={c} className="h-6 w-6" />
+              </span>
+              <span className="text-sm font-semibold text-ink group-hover:text-accent">{categoryLabel(c)}</span>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
-      </>
+    </>
   );
 }

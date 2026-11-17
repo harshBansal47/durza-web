@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
-import PageTitle from "@/components/ui/PageTitle";
+import ListingHero from "@/components/listing/ListingHero";
 import KeywordForm from "@/components/filters/KeywordForm";
 import DealsFeedSection from "@/components/deals/DealsFeedSection";
 import DealsFeedSkeleton from "@/components/deals/DealsFeedSkeleton";
@@ -41,20 +41,17 @@ interface DealsPageProps {
 
 export default async function DealsPage({ searchParams }: DealsPageProps) {
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-20 md:px-6 md:py-12">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 pb-20 md:px-6 md:py-12">
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Deals", path: "/deals" }])} />
-      {/* H1 is always rendered for structure; it's visually hidden on mobile where
-          the sticky filter row gives sufficient context. */}
-      <PageTitle className="sr-only md:not-sr-only">Today&apos;s deals in India</PageTitle>
-      <p className="mb-8 mt-2 hidden text-sm text-ink-soft md:block">
-        Live offers on the stores shoppers use daily — Oppo, Flipkart, Nykaa, Amazon — with store page, terms and last-checked date.
-      </p>
-      <div className="mb-8 hidden md:block">
-        <KeywordForm
-          placeholder="Search today's deals…"
-          label="Search today's deals"
-        />
-      </div>
+      {/* On phones the sticky toolbar below gives the context, so only the h1 stays
+          (visually hidden); from md up this is the full header. */}
+      <ListingHero
+        mobile="title-only"
+        eyebrow="Live deals · check date on every card"
+        title="Today's deals in India"
+        lead="Live offers on the stores shoppers use daily — Oppo, Flipkart, Nykaa, Amazon — with store page, terms and last-checked date."
+        controls={<KeywordForm size="bar" placeholder="Search today's deals…" label="Search today's deals" />}
+      />
 
       <Suspense fallback={<DealsFeedSkeleton />}>
         <DealsFeedSection searchParams={searchParams} />

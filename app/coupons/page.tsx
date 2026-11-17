@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { resilient } from "@/lib/api";
 import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
@@ -10,7 +11,7 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { allowedStoreIds } from "@/lib/homepage-curation";
-import PageTitle from "@/components/ui/PageTitle";
+import ListingHero from "@/components/listing/ListingHero";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
@@ -80,7 +81,7 @@ export default async function CouponsPage({
       : "All coupons";
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
       <JsonLd data={breadcrumbJsonLd([
               { name: "Home", path: "/" },
               { name: "Coupons", path: "/coupons" },
@@ -88,10 +89,22 @@ export default async function CouponsPage({
       <JsonLd data={itemListJsonLd(
               coupons.items.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
             )} />
-      <PageTitle className="mb-2">{heading}</PageTitle>
-      <p className="mb-5 max-w-xl text-sm text-ink-soft">
-        Codes from the store&apos;s own pages — checked date shown on every card.
-      </p>
+      <ListingHero
+        eyebrow={`${total.toLocaleString("en-IN")} ${filters.q || filterCount(filters) > 0 ? "matching" : "live"} coupon${total === 1 ? "" : "s"}`}
+        title={heading}
+        lead="Codes from the store's own pages — checked date shown on every card."
+        controls={
+          <Suspense fallback={null}>
+            <KeywordForm size="bar" placeholder="Search coupons by keyword…" label="Search coupons by keyword" />
+          </Suspense>
+        }
+        chips={categories.slice(0, 7).map((c) => ({ href: `/coupons?category=${c.slug}`, label: c.name }))}
+        stats={[
+          { value: total.toLocaleString("en-IN"), label: filters.q || filterCount(filters) > 0 ? "Matching offers" : "Live coupons", live: !(filters.q || filterCount(filters) > 0) },
+          ...(storesPage.total > 0 ? [{ value: storesPage.total.toLocaleString("en-IN"), label: "Stores tracked" }] : []),
+          ...(categoriesPage.total > 0 ? [{ value: categoriesPage.total.toLocaleString("en-IN"), label: "Categories" }] : []),
+        ]}
+      />
 
       <FilterLayout
         panel={
@@ -101,7 +114,7 @@ export default async function CouponsPage({
           />
         }
       >
-        <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
+        <div className="lx-results-head mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
               {total} coupon{total === 1 ? "" : "s"}

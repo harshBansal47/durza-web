@@ -41,7 +41,7 @@ export default function ViewMoreFooter({
   const pct = total > 0 ? Math.round((loaded / total) * 100) : 100;
 
   return (
-    <div className="mt-6 flex flex-col items-center gap-3">
+    <div className="mt-6 flex flex-col items-center gap-3" data-lx="more">
       {/* Progress row: count + bar */}
       <div className="flex w-full max-w-sm flex-col items-center gap-1.5">
         <p className="text-xs font-medium text-ink-soft" aria-live="polite">

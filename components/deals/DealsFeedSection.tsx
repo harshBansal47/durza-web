@@ -140,7 +140,7 @@ export default async function DealsFeedSection({
       />
 
       <FilterLayout mobileDrawer mobileTrigger="none" panel={filterPanel}>
-        <div className="mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
+        <div className="lx-results-head mb-5 flex flex-wrap items-start justify-between gap-4 border-b border-ledger-line pb-4">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
               {total} deal{total === 1 ? "" : "s"}

@@ -1,0 +1,106 @@
+/*
+  Listing pages (coupons, deals, stores) — light theme.
+
+  Page roots get `class="hx-portal lx"`: `.hx-portal` supplies the hero's colour tokens
+  and `.lx` re-points the site's own Tailwind tokens (ink, paper, accent…) at the same
+  warm palette *inside that wrapper only*. That alone recolours every existing
+  utility-class component (filters, tickets, deal cards, store cards) without
+  touching their markup or behaviour; the rules below then change shape and type.
+  Nothing here applies outside a `.lx` wrapper, so other pages are unchanged.
+*/
+.lx {
+  --color-ink: #1c1610;
+  --color-ink-soft: #5c5347;
+  --color-ledger-line: rgba(28, 22, 16, 0.1);
+  --color-paper: #fffdfa;
+  --color-warm-paper: #fffdfa;
+  --color-paper-alt: #fff3e6;
+  --color-accent: #c2410c;
+  --color-inkblue: #c2410c;
+  --color-accent-faint: #fff1e8;
+  --color-accent-soft: #fdba74;
+}
+
+/* ---------- hero header ---------- */
+.lx-hero { margin-bottom: 28px; }
+.lx-hero-body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 20px clamp(28px, 4vw, 56px); align-items: end; padding: clamp(18px, 2.6vw, 30px) 0 4px; }
+@media (max-width: 900px) { .lx-hero-body { grid-template-columns: minmax(0, 1fr); } }
+.lx-hero-text, .lx-hero-side { min-width: 0; }
+.lx-hero .hx-h1 { margin: 14px 0 10px; }
+.lx-hero .hx-sub { margin: 0; }
+.lx-hero-controls { max-width: 560px; }
+.lx-hero-controls form { max-width: none; width: 100%; }
+.lx-hero-controls form[role="search"] input {
+  height: 56px; width: 100%; border-radius: 16px; border: 1px solid var(--hx-line2); background: #fff;
+  padding: 0 16px 0 46px; font-family: var(--font-sans); font-size: 15.5px; font-weight: 500; color: var(--hx-tx);
+  box-shadow: var(--hx-shadow); transition: border-color 0.2s, box-shadow 0.2s;
+}
+.lx-hero-controls form[role="search"] input:focus { outline: none; border-color: rgba(238, 90, 11, 0.7); box-shadow: 0 0 0 4px rgba(238, 90, 11, 0.16), var(--hx-shadow); background: #fff; }
+.lx-hero-controls form[role="search"] svg { left: 16px; width: 20px; height: 20px; color: var(--hx-orange); }
+.lx-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.lx-chip { padding: 6px 13px; font-size: 12.5px; font-weight: 600; color: var(--hx-tx2); border: 1px solid var(--hx-line); background: #fff; border-radius: 99px; transition: 0.18s; }
+.lx-chip:hover { color: var(--hx-orange-deep); border-color: rgba(238, 90, 11, 0.55); background: #fff7f0; transform: translateY(-1px); }
+.lx-hero-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; margin-top: 16px; padding: 14px 0 18px; border-top: 1px solid var(--hx-line); }
+.lx-trust { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; list-style: none; }
+.lx-trust li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--hx-tx2); }
+.lx-trust svg { color: var(--hx-green-ink); }
+.lx-trust .amber svg { color: #b45309; }
+.lx-trust .blue svg { color: var(--hx-blue); }
+.lx-stats { display: flex; gap: clamp(18px, 2.4vw, 34px); margin: 0; }
+.lx-stats dd { margin: 0; }
+@media (max-width: 767px) {
+  .lx-hero[data-mobile="title-only"] { margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+  .lx-hero[data-mobile="title-only"] > :not(.lx-hero-body),
+  .lx-hero[data-mobile="title-only"] .lx-hero-body > :not(.lx-hero-text),
+  .lx-hero[data-mobile="title-only"] .lx-hero-text > :not(.hx-h1) { display: none; }
+  .lx-hero[data-mobile="title-only"] .lx-hero-body { display: block; padding: 0; }
+  .lx-hero[data-mobile="title-only"] .hx-h1 { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+/* ---------- results header, filters, chips ---------- */
+.lx .lx-results-head { padding: 0 0 14px; border-bottom: 1px solid var(--hx-line); }
+.lx .font-mono.uppercase { font-family: var(--font-sans); font-weight: 800; letter-spacing: 0.14em; color: var(--hx-tx3); }
+.lx [data-lx="filters"] > .sticky { padding: 16px; background: rgba(255, 255, 255, 0.85); border: 1px solid var(--hx-line); border-radius: 18px; box-shadow: var(--hx-shadow); }
+.lx .input { height: auto; border-radius: 12px; border-color: var(--hx-line2); background: #fff; font-weight: 500; }
+.lx .input:focus, .lx .input:focus-visible { outline: none; border-color: rgba(238, 90, 11, 0.7); box-shadow: 0 0 0 3px rgba(238, 90, 11, 0.14); }
+.lx [data-filter-results] > details { border: 1px solid var(--hx-line); border-radius: 16px; background: #fff; box-shadow: var(--hx-shadow); }
+.lx [aria-label="Active filters"] > button:not(:last-child) { background: var(--hx-tint); border-color: rgba(238, 90, 11, 0.4); color: var(--hx-orange-deep); }
+.lx [aria-label="Active filters"] > button:not(:last-child):hover { background: #fff; border-color: var(--hx-orange); color: var(--hx-orange-deep); }
+.lx .btn-outline { background: #fff; border-color: var(--hx-line2); color: var(--hx-tx); font-weight: 600; }
+.lx .btn-outline:hover:not(:disabled) { background: #fff7f0; color: var(--hx-orange-deep); border-color: rgba(238, 90, 11, 0.5); }
+.lx .btn-primary { background: var(--hx-cta); font-weight: 700; }
+.lx .btn-primary:hover:not(:disabled) { background: var(--hx-cta); filter: brightness(1.06); }
+.lx .btn-cta { background: var(--hx-cta); border-radius: 12px; font-weight: 700; box-shadow: 0 8px 20px -10px rgba(194, 65, 12, 0.7); }
+.lx .btn-cta:hover:not(:disabled) { background: var(--hx-cta); filter: brightness(1.06); box-shadow: 0 12px 24px -10px rgba(194, 65, 12, 0.75); }
+
+/* ---------- coupon tickets and deal cards ---------- */
+.lx .ticket-wrap, .lx .ticket-wrap:hover { filter: none; }
+.lx article.ticket { border-radius: 18px; border-color: var(--hx-line); background: #fff; }
+.lx .ticket-wrap { transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1); }
+.lx .ticket-wrap:hover { transform: translateY(-3px); }
+.lx .ticket-wrap:hover article.ticket { border-color: rgba(238, 90, 11, 0.5); box-shadow: 0 18px 36px -22px rgba(90, 50, 10, 0.45); }
+.lx .savings-figure { font-family: var(--hx-disp); font-weight: 700; letter-spacing: -0.02em; color: var(--hx-orange-deep); }
+.lx .ticket code { font-family: var(--hx-disp); font-weight: 700; letter-spacing: 0.08em; color: var(--hx-amber-ink); background: var(--hx-amber-bg); border: 1.5px dashed rgba(217, 119, 6, 0.6); border-radius: 10px; }
+.lx .deal-ticket .font-mono.text-xl { font-family: var(--hx-disp); font-weight: 700; color: var(--hx-orange-deep); }
+.lx .deal-ticket h2 { font-weight: 600; }
+.lx .ticket .rounded-full.bg-accent-faint { background: var(--hx-amber-bg); color: var(--hx-amber-ink); }
+.lx .ticket [role="img"] > span { background: linear-gradient(90deg, #16a34a, #3ecf8e); }
+
+/* ---------- store cards and letter index ---------- */
+.lx a.lift { border-radius: 18px; border-color: var(--hx-line); background: #fff; }
+.lx a.lift:hover { border-color: rgba(238, 90, 11, 0.5); box-shadow: 0 18px 36px -22px rgba(90, 50, 10, 0.45); }
+.lx a.lift > span.relative > span, .lx a.lift img { border-radius: 14px; }
+.lx a.lift .font-serif { font-family: var(--hx-disp); font-weight: 700; color: var(--hx-tx); }
+.lx a.lift span.rounded-full.bg-accent-faint { background: var(--hx-amber-bg); color: var(--hx-amber-ink); }
+.lx nav[aria-label="Jump to letter"] a { font-family: var(--hx-disp); font-weight: 700; border-color: var(--hx-line2); background: #fff; color: var(--hx-tx2); }
+.lx nav[aria-label="Jump to letter"] a:hover { border-color: rgba(238, 90, 11, 0.55); background: #fff7f0; color: var(--hx-orange-deep); }
+.lx section[id^="letter-"] h2 > span:first-child { font-family: var(--hx-disp); font-size: 22px; letter-spacing: 0; color: var(--hx-orange-deep); }
+
+/* ---------- pagination, empty state, deals pills ---------- */
+.lx [data-lx="more"] a.rounded-full, .lx [data-lx="more"] button.rounded-full { font-weight: 700; border-color: var(--hx-line2); }
+.lx [data-lx="more"] a.rounded-full:hover, .lx [data-lx="more"] button.rounded-full:hover:not(:disabled) { color: var(--hx-orange-deep); border-color: rgba(238, 90, 11, 0.55); background: #fff7f0; }
+.lx [role="progressbar"] > div { background: linear-gradient(90deg, var(--hx-orange), var(--hx-amber)); }
+.lx .border-dashed.border-ledger-line.bg-white { border-color: rgba(217, 119, 6, 0.4); border-radius: 20px; background: linear-gradient(180deg, #fff, var(--hx-bg1)); }
+.lx .font-serif { font-family: var(--hx-disp); font-weight: 700; letter-spacing: -0.01em; }
+.lx nav[aria-label="Quick category filters"] a[aria-current="true"] { background: var(--hx-cta); }
+.lx nav[aria-label="Quick category filters"] a:not([aria-current]) { background: #fff; border: 1px solid var(--hx-line); }

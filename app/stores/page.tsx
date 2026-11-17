@@ -1,7 +1,8 @@
 import { cache } from "react";
 import type { Metadata } from "next";
 import { resilient } from "@/lib/api";
-import PageTitle from "@/components/ui/PageTitle";
+import { Search } from "lucide-react";
+import ListingHero from "@/components/listing/ListingHero";
 import EmptyState from "@/components/EmptyState";
 import StoresBrowser from "@/components/stores/StoresBrowser";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
@@ -63,25 +64,22 @@ export default async function StoresIndexPage({
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
       <JsonLd data={breadcrumb} />
       <JsonLd data={itemList} />
-      <PageTitle className="mb-4">Stores</PageTitle>
-      <p className="mb-8 max-w-xl text-sm leading-relaxed text-ink-soft">
-        Every store we track, with the offers we found on its own pages — not a directory of
-        everything that exists.
-      </p>
-      <form action="/stores" className="mb-10 max-w-md">
-        <label htmlFor="store-filter" className="sr-only">Filter stores</label>
-        <input
-          id="store-filter"
-          name="q"
-          type="search"
-          defaultValue={q ?? ""}
-          placeholder="Filter stores…"
-          className="w-full border border-ledger-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink focus:border-inkblue"
-        />
-      </form>
+      <ListingHero
+        eyebrow={`${total.toLocaleString("en-IN")} ${total === 1 ? "store" : "stores"} tracked`}
+        title="Stores"
+        lead="Every store we track, with the offers we found on its own pages — not a directory of everything that exists."
+        controls={
+          <form action="/stores" role="search" className="relative min-w-0">
+            <label htmlFor="store-filter" className="sr-only">Filter stores</label>
+            <Search aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" strokeWidth={2} />
+            <input id="store-filter" name="q" type="search" defaultValue={q ?? ""} placeholder="Filter stores…" />
+          </form>
+        }
+        stats={total > 0 ? [{ value: total.toLocaleString("en-IN"), label: "Stores tracked" }] : undefined}
+      />
 
       {items.length === 0 ? (
         <EmptyState title="No stores found." body="Try a different filter." cta={{ href: "/stores", label: "All stores" }} />
