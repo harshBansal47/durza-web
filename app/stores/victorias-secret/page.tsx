@@ -47,7 +47,7 @@ export default async function Page() {
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <LuxuryStoreClient
         storeName="Victoria's Secret"
-        tagline="Fine fragrance, candles, lotions and intimates — the Indian edit of an internationally storied house."
+        tagline="Fine fragrance, candles, lotions and intimates — an Indian edit of an iconic house, curated for those who choose with intention."
         storeSlug="victorias-secret"
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -55,8 +55,8 @@ export default async function Page() {
         faqs={FAQS}
         stats={stats}
         slots={VICTORIAS_SECRET_SLOTS}
-        showcaseEyebrow="Victoria's Secret · The Fragrance Edit"
-        showcaseLead="Fine fragrance mists, 3-wick candles, body butters and the signature lingerie collections — curated for the Indian wardrobe."
+        showcaseEyebrow="Victoria's Secret · The Signature Edit"
+        showcaseLead="Fragrance, satin and self-care, handpicked to feel indulgent — a quiet invitation to discover what’s waiting at the official store."
       />
     </>
   );
