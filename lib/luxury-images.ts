@@ -263,39 +263,57 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
 
 export const PALMONAS_SLOTS: LuxurySlot[] = [
   {
+    kicker: "Waterproof PVD",
     collection: "Everyday 18k Gold-Plated Chains",
-    styling: "Slim Singapore, paperclip and cable chains in 18k gold-plated brass — waterproof, sweat-tested, three shades from discreet ankle to weekend link.",
-    image: null,
-    alt: "Palmonas gold plated chain",
+    styling:
+      "Anti-tarnish 18k gold-vermeil Singapore, paperclip and snake chains — waterproof, sweat-proof layers that stay luminous from gym sessions to dinner plans.",
+    image:
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+    alt: "Everyday 18k gold-plated chain necklaces",
   },
   {
+    kicker: "925 Silver + Lab Diamond",
     collection: "Lab-Grown Diamond Accents",
-    styling: "Lab-created diamond solitaires set in white-gold plated sterling — the sparkle of heirlooms without the GIA paperwork.",
-    image: null,
-    alt: "Palmonas lab grown diamond",
+    styling:
+      "Brilliant lab-grown diamond solitaires set in 925 silver and gold vermeil — refined sparkle and everyday elegance without the heirloom markup.",
+    image:
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80",
+    alt: "Lab-grown diamond ring and fine jewelry accent",
   },
   {
+    kicker: "Stacking Staple",
     collection: "Stackable Bracelets & Bangles",
-    styling: "Paperclip and herringbone bracelets — stack of two, stack of seven, or the single sculptural cuff — looks intentional either way.",
-    image: null,
-    alt: "Palmonas stackable bracelet",
+    styling:
+      "Sculptural cuffs, paperclip and herringbone bracelets in anti-tarnish gold finishes — designed to stack effortlessly for a polished wrist story.",
+    image:
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80",
+    alt: "Stackable gold bracelets and bangles",
   },
   {
+    kicker: "Boardroom Minimal",
     collection: "Daily-Wear Studs & Hoops",
-    styling: "Micro-studs and huggie hoops with lab-grown diamonds — the paperweight-to-boardroom-neutral earring set, priced for daily wear.",
-    image: null,
-    alt: "Palmonas daily wear studs",
+    styling:
+      "Understated studs and huggie hoops with a clean, modern profile — lightweight, waterproof demi-fine essentials for all-day Indian wear.",
+    image:
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+    alt: "Minimal daily-wear gold stud earrings and hoops",
   },
   {
+    kicker: "Signature Charm",
     collection: "Charm & Pendant Edits",
-    styling: "Star, snake, fig-leaf and eye pendants — every charm is a conversation, every pendant travels from desk to dinner without sliding.",
-    image: null,
-    alt: "Palmonas charm pendant",
+    styling:
+      "Meaningful charms and pendant drops in warm gold tones — layer over chains for a personal, modern neck-mess that moves from desk to dinner.",
+    image:
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80",
+    alt: "Gold charm and pendant necklace edit",
   },
   {
+    kicker: "Luxury Gift Box",
     collection: "Couples & Gift Sets",
-    styling: "Interlocking initial necklaces, duo rings and curated gift boxes — anniversary, birthday, Valentine — with silk-box presentation and handwritten card option.",
-    image: null,
-    alt: "Palmonas couples set",
+    styling:
+      "Curated gift-ready sets and couple edits with premium presentation — thoughtful, demi-fine keepsakes for anniversaries, milestones and celebrations.",
+    image:
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+    alt: "Curated jewelry gift box set",
   },
 ];
