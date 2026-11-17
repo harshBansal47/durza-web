@@ -7,6 +7,7 @@ import type { ActivityItem } from "@/components/home/ActivityTicker";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
 import StoreTrackGrid from "@/components/home/StoreTrackGrid";
+import CuratedAmazonPicks from "@/components/home/CuratedAmazonPicks";
 import VerifiedDealsExplorer from "@/components/home/VerifiedDealsExplorer";
 import HowItWorks from "@/components/home/HowItWorks";
 import { api } from "@/lib/api";
@@ -313,6 +314,7 @@ export default async function HomePage() {
             </section>
           )}
 
+          <CuratedAmazonPicks />
 
           <section className="mt-12 rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white p-6 md:p-8" aria-labelledby="black-friday-heading">
             <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-orange-700">Black Friday in India · 27 Nov 2026</p>
