@@ -61,27 +61,33 @@ export default function FuelOneStorePage({ offers, products, faqs, stats, heroIm
             <FaqSection eyebrow="Fuel One FAQs" items={faqs} />
 
 
-      {topOffer && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-          <a
-            href="/go/fuelone"
-            target="_blank"
-            rel="nofollow sponsored noopener noreferrer"
-            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-          >
-            <span className="min-w-0">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+        <a
+          href={topOffer ? "/go/fuelone?src=store-page" : "/go/fuelone?src=store-page"}
+          target="_blank"
+          rel="nofollow sponsored noopener noreferrer"
+          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+        >
+          <span className="min-w-0">
+            {topOffer?.code ? (
               <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
                 Code {topOffer.code}
               </span>
-              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            ) : (
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Official store
+              </span>
+            )}
+            <span className="block truncate text-xs font-semibold">
+              {topOffer ? topOffer.title : `Check live range & offers on Fuel One`}
             </span>
-            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-              Shop
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-            </span>
-          </a>
-        </div>
-      )}
+          </span>
+          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+            Shop
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats"
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
+import ExploreStoreCta from "@/components/store/ExploreStoreCta";
 import OfferCard from "@/components/OfferCard";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
@@ -63,20 +64,24 @@ export default function NourishMantraClient({ offers, products, faqs, stats, her
         <a href={link("https://nourishmantra.in/collections/combos", "confidence_card")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Build My Clean Routine</a>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {offers.map((o) => (
-          <OfferCard
-            key={o.code}
-            bookmarkId={o.id}
-            code={o.code}
-            badge={o.badge}
-            title={o.title}
-            description={o.description}
-            ctaHref={link(o.targetUrl, o.subId)}
-            expiresAt={o.expiresAt}
-          />
-        ))}
-      </div>
+      {offers.length > 0 ? (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {offers.map((o) => (
+            <OfferCard
+              key={o.code}
+              bookmarkId={o.id}
+              code={o.code}
+              badge={o.badge}
+              title={o.title}
+              description={o.description}
+              ctaHref={link(o.targetUrl, o.subId)}
+              expiresAt={o.expiresAt}
+            />
+          ))}
+        </div>
+      ) : (
+        <ExploreStoreCta storeName="Nourish Mantra" href={ctaHref} />
+      )}
 
       <StackingExample
         title="How people stack savings on Nourish Mantra"
@@ -105,27 +110,33 @@ export default function NourishMantraClient({ offers, products, faqs, stats, her
             <FaqSection eyebrow="Nourish Mantra FAQs" items={faqs} />
 
 
-      {topOffer && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-          <a
-            href={link(topOffer.targetUrl, topOffer.subId)}
-            target="_blank"
-            rel="nofollow sponsored noopener noreferrer"
-            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-          >
-            <span className="min-w-0">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+        <a
+          href={topOffer ? link(topOffer.targetUrl, topOffer.subId) : ctaHref}
+          target="_blank"
+          rel="nofollow sponsored noopener noreferrer"
+          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+        >
+          <span className="min-w-0">
+            {topOffer?.code ? (
               <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
                 Code {topOffer.code}
               </span>
-              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            ) : (
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Official store
+              </span>
+            )}
+            <span className="block truncate text-xs font-semibold">
+              {topOffer ? topOffer.title : `Check live range & offers on Nourish Mantra`}
             </span>
-            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-              Shop
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-            </span>
-          </a>
-        </div>
-      )}
+          </span>
+          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+            Shop
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

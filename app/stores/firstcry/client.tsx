@@ -9,6 +9,7 @@ import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats"
 import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
+import ExploreStoreCta from "@/components/store/ExploreStoreCta";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard } from "@/lib/store-offers";
 
@@ -87,20 +88,24 @@ export default function FirstCryStorePage({
             ))}
           </div>
         </div>
-        <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {visibleOffers.map((o) => (
-            <OfferCard
-              key={o.id}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={link(o.targetUrl, o.subId)}
-              expiresAt={o.expiresAt}
-            />
-          ))}
-        </div>
+        {visibleOffers.length > 0 ? (
+          <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {visibleOffers.map((o) => (
+              <OfferCard
+                key={o.id}
+                bookmarkId={o.id}
+                code={o.code}
+                badge={o.badge}
+                title={o.title}
+                description={o.description}
+                ctaHref={link(o.targetUrl, o.subId)}
+                expiresAt={o.expiresAt}
+              />
+            ))}
+          </div>
+        ) : (
+          <ExploreStoreCta storeName="FirstCry" href={link(storeUrl ?? "https://www.firstcry.com", "store_hub")} />
+        )}
       </div>
 
       <StackingExample
@@ -119,27 +124,33 @@ export default function FirstCryStorePage({
 
       <FaqSection eyebrow="FirstCry FAQs" items={faqs} />
 
-      {topOffer && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-          <a
-            href={link(topOffer.targetUrl, topOffer.subId)}
-            target="_blank"
-            rel="nofollow sponsored noopener noreferrer"
-            className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-          >
-            <span className="min-w-0">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
+        <a
+          href={topOffer ? link(topOffer.targetUrl, topOffer.subId) : link(storeUrl ?? "https://www.firstcry.com", "store_hub")}
+          target="_blank"
+          rel="nofollow sponsored noopener noreferrer"
+          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
+        >
+          <span className="min-w-0">
+            {topOffer?.code ? (
               <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
                 Code {topOffer.code}
               </span>
-              <span className="block truncate text-xs font-semibold">{topOffer.title}</span>
+            ) : (
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                Official store
+              </span>
+            )}
+            <span className="block truncate text-xs font-semibold">
+              {topOffer ? topOffer.title : `Check live range & offers on FirstCry`}
             </span>
-            <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-              Shop
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-            </span>
-          </a>
-        </div>
-      )}
+          </span>
+          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
+            Shop
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+          </span>
+        </a>
+      </div>
     </div>
   );
 }
