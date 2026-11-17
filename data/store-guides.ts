@@ -2218,7 +2218,7 @@ const RAW_GUIDES_G: StaticGuide[] = [
   },
   {
     slug: "pepperfry-bean-bags-and-furniture-guide",
-    storeSlug: "pepperfry-com-cps-india",
+    storeSlug: "pepperfry-com-ecommerce-cps-india",
     category: "Furniture & Home Decor",
     featured: false,
     heroImage: "/stores/pepperfry-com-ecommerce-cps-india.webp",
