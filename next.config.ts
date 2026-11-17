@@ -51,6 +51,16 @@ const nextConfig: NextConfig = {
             { source: "/stores/milton-in", destination: "/stores/milton", permanent: true },
             { source: "/stores/charles-keith", destination: "/stores/charles-and-keith", permanent: true },
             { source: "/stores/aldo-new", destination: "/stores/aldo-shoes", permanent: true },
+            // Custom store pages whose route slug differs from the API/store slug.
+            { source: "/stores/bath-body-works", destination: "/stores/bath-and-body-works", permanent: true },
+            { source: "/stores/bliss-club", destination: "/stores/blissclub", permanent: true },
+            { source: "/stores/lenovo-india", destination: "/stores/lenovo", permanent: true },
+            { source: "/stores/perforacare-com-ecommerce-cps-india", destination: "/stores/perfora-care", permanent: true },
+            { source: "/stores/purevpn-com-utility-cpa-worldwide", destination: "/stores/purevpn", permanent: true },
+            { source: "/stores/rforrabbit-com-ecommerce-cps-india", destination: "/stores/r-for-rabbit", permanent: true },
+            { source: "/stores/sanskrutihomes-in-ecommerce-cps-india", destination: "/stores/sanskruti-homes", permanent: true },
+            { source: "/stores/shoptupperware-in-ecommerce-cps-india", destination: "/stores/shop-tupperware", permanent: true },
+            { source: "/stores/veromoda", destination: "/stores/vero-moda", permanent: true },
           ];
         },
         async headers() {
