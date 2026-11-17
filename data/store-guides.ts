@@ -86,7 +86,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "ajio-com-ecommerce-cps-india",
     category: "Fashion",
     featured: true,
-    heroImage: "/stores/ajio-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/ajio.png",
     seo: {
       title: "Ajio Coupons, Bank Offers & Stacking Guide (2026)",
       description: "How Ajio's real discount engine works: bank instant discounts, wallet redeems, sale slabs and the exact checkout order.",
@@ -235,7 +235,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "tatacliq-com-ecommerce-cps-india",
     category: "Fashion & Lifestyle",
     featured: true,
-    heroImage: "/stores/tatacliq-com-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Tata CLiQ Coupons, Bank Offers & Neu Points Guide (2026)",
       description: "Tata CLiQ's bank-offer engine: Kotak/HDFC/SBI cards, Neu points redemption and CLiQ Luxe — stack them correctly.",
@@ -285,7 +285,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "levis",
     category: "Fashion",
     featured: false,
-    heroImage: "/stores/levi-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/levis.png",
     seo: {
       title: "Levi's India — 501 vs 511 Sizing, Shrink & Sale Math (2026)",
       description: "Levi's India: 501 vs 511 cuts, waist-true carry, sanforised shrink realities, and which sale slab reaches a real price floor.",
@@ -344,7 +344,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "beast-life",
     category: "Supplements",
     featured: true,
-    heroImage: "/stores/beastlife-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/beast-life.png",
     seo: {
       title: "Beast Life Whey, Creatine & Recovery Deals (2026)",
       description: "Beast Life codes explained: whey-isolate tubs, creatine, pre-workout — stack codes with prepaid UPI in the right order.",
@@ -394,7 +394,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "boldfit",
     category: "Fitness & Home Gym",
     featured: false,
-    heroImage: "/stores/boldfit-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/boldfit.png",
     seo: {
       title: "Boldfit Coupons & Home Gym Offers — Cart Math Guide (2026)",
       description: "Boldfit code math: fixed-value and percentage codes, when each wins, and the exact checkout stacking order.",
@@ -445,7 +445,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "alpino",
     category: "Grocery & Health Food",
     featured: false,
-    heroImage: "/stores/alpino-store-ecommerce-cps-india.webp",
+    heroImage: "/stores/alpino.png",
     seo: {
       title: "Alpino Peanut Butter + Oats Coupons — Offer Guide (2026)",
       description: "Alpino live offers: sitewide 10% codes, mega-tub 20% codes, free-ship thresholds and the right buy order.",
@@ -494,7 +494,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "gritzo",
     category: "Kids & Baby Nutrition",
     featured: false,
-    heroImage: "/stores/gritzo-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/gritzo.png",
     seo: {
       title: "Gritzo Kids Nutrition — Offers & Subscription Guide (2026)",
       description: "Gritzo live deals: single-box codes, subscription-stack codes and the bundle pack math for kids.",
@@ -537,7 +537,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "fitspire",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/fitspire-online-ecommerce-cps-india.webp",
+    heroImage: "/stores/fitspire.png",
     seo: {
       title: "Fitspire Plant Protein & Vegan Nutrition Offers (2026)",
       description: "Fitspire live codes: subscription vs single-tub discounts and the B2G1 bundle math for plant-based eaters.",
@@ -581,7 +581,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "kapiva",
     category: "Ayurveda & Wellness",
     featured: true,
-    heroImage: "/stores/kapiva-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/kapiva.png",
     seo: {
       title: "Kapiva Deals — Subscription vs. One-Off, What Actually Saves (2026)",
       description: "Kapiva Vitality line vs. one-off carts: when the subscription wins, what codes stack, and which shilajit is the real deal.",
@@ -639,7 +639,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "truebasics",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/truebasics-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/truebasics.png",
     seo: {
       title: "TrueBasics Clinical-Strength Offers Guide (2026)",
       description: "TrueBasics live stack: clinical-bundle discounts and lab-audit signals — how to pick the right SKU.",
@@ -682,7 +682,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "havells",
     category: "Electronics & Home Appliances",
     featured: true,
-    heroImage: "/stores/havells-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/havells.png",
     seo: {
       title: "Havells BLDC vs. Induction Fans — Honest Math & Offers (2026)",
       description: "Havells: wattage vs rupees, BLDC rationale, which bank panel stacks and when a non-BLDC still wins.",
@@ -741,7 +741,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "moglix",
     category: "Tools & Hardware",
     featured: false,
-    heroImage: "/stores/moglix-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/moglix.png",
     seo: {
       title: "Moglix Tools & GST Savings — B2B Buying Guide (2026)",
       description: "Moglix codes for GST-registered buyers: ITC refund sheets, kit discounts and the B2B stacking order.",
@@ -785,7 +785,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "milton",
     category: "Home & Kitchen",
     featured: false,
-    heroImage: "/stores/milton-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/milton.png",
     seo: {
       title: "Milton Thermosteel — Flask Tiers, Insulation Loss & When to Buy (2026)",
       description: "Milton: Asiana vs Pacer vs Office Master, insulation loss in year one, and the sale price that actually beats retail.",
@@ -837,7 +837,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "wonderchef",
     category: "Home & Kitchen",
     featured: true,
-    heroImage: "/stores/wonderchef-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/wonderchef.png",
     seo: {
       title: "Wonderchef Deals — Sanjeev Kapoor Kitchenware Guide (2026)",
       description: "Wonderchef live offers: appliance vs utensil code triggers and the stacking order that pays.",
@@ -880,7 +880,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "nilkamalfurniture",
     category: "Furniture & Home",
     featured: false,
-    heroImage: "/stores/nilkamalfurniture-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/nilkamalfurniture.png",
     seo: {
       title: "Nilkamal Furniture Offers — Smart Buying Guide (2026)",
       description: "Nilkamal live deals: 5-piece bundle codes, prepaid discounts and the assembly-claim playbook.",
@@ -924,7 +924,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "kama-ayurveda",
     category: "Ayurveda & Skincare",
     featured: false,
-    heroImage: "/stores/kamaayurveda-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/kama-ayurveda.png",
     seo: {
       title: "Kama Ayurveda — Bringadi & Kumkumadi Offer Guide (2026)",
       description: "Kama Ayurveda live codes: ritual-bundle discounts and how to stack them with site offers.",
@@ -968,7 +968,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "the-man-company",
     category: "Men's Grooming",
     featured: false,
-    heroImage: "/stores/themancompany-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/the-man-company.png",
     seo: {
       title: "The Man Company Beard Oil & Grooming Kits — Offers (2026)",
       description: "The Man Company live deals: beard-kit codes, EDP picks and prepaid-discount stacking.",
@@ -1011,7 +1011,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "nourish-mantra",
     category: "Beauty & Skincare",
     featured: false,
-    heroImage: "/stores/nourishmantra-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/nourish-mantra.png",
     seo: {
       title: "Nourish Mantra Vegan Skincare — Offer Guide (2026)",
       description: "Nourish Mantra live codes: C-brightening line offers and the sitewide discount order that saves.",
@@ -1055,7 +1055,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "zoff-foods",
     category: "Grocery & Health Food",
     featured: false,
-    heroImage: "/stores/zofffoods-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/zoff-foods.png",
     seo: {
       title: "Zoff Foods Pantry — Clean-Label Spices Offer Guide (2026)",
       description: "Zoff Foods live deals: bundle codes, single-cart discounts and the clean-pantry stacking order.",
@@ -1145,7 +1145,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "brillare",
     category: "Beauty & Haircare",
     featured: false,
-    heroImage: "/stores/brillare-co-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/brillare.png",
     seo: {
       title: "Brillare Scalp Care — Shampoo Bar Offer Guide (2026)",
       description: "Brillare live deals: shampoo-bar bundles, flat-sitewide codes and the scalp-first routine that saves.",
@@ -1188,7 +1188,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "iba-cosmetics",
     category: "Beauty & Personal Care",
     featured: false,
-    heroImage: "/stores/ibacosmetics-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/iba-cosmetics.png",
     seo: {
       title: "IBA Cosmetics Halal Makeup — Offers & B2G1 Guide (2026)",
       description: "IBA live deals: sitewide discounts, kohl/lipstick bundles and the halal-certified stacking order.",
@@ -1232,7 +1232,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "indus-valley",
     category: "Beauty & Haircare",
     featured: false,
-    heroImage: "/stores/buyindusvalley-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/indus-valley.png",
     seo: {
       title: "Indus Valley Cosmetics — Skin & Hair Offer Guide (2026)",
       description: "Indus Valley live codes: sitewide discounts, prepaid UPI and the best combo stacking order.",
@@ -1275,7 +1275,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "hirafragrance",
     category: "Fragrance",
     featured: false,
-    heroImage: "/stores/hirafragrances-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/hirafragrance.png",
     seo: {
       title: "Hira Fragrance Attars & Oud — Offers & Gifting Guide (2026)",
       description: "Hira Fragrance live deals: oud-line discounts, mini-set trials and the gifting stack.",
@@ -1319,7 +1319,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "neesh-perfumes",
     category: "Fragrance",
     featured: false,
-    heroImage: "/stores/neeshperfumes-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/neesh-perfumes.png",
     seo: {
       title: "Neesh Perfumes Extrait de Parfum — Offer Guide (2026)",
       description: "Neesh Perfumes live codes: Extrait vs EDP tiers and the dab-first stacking order for India.",
@@ -1367,7 +1367,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "sirona",
     category: "Feminine Hygiene",
     featured: false,
-    heroImage: "/stores/thesirona-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/sirona.png",
     seo: {
       title: "Sirona Menstrual Cups & Hygiene — Offer Guide (2026)",
       description: "Sirona live deals: menstrual-cup discounts, first-cup freebies and the hygiene-kit stack.",
@@ -1421,7 +1421,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "mymuse",
     category: "Feminine & Intimate Care",
     featured: false,
-    heroImage: "/stores/mymuse-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/mymuse.png",
     seo: {
       title: "MyMuse Intimate Wellness — Safe & Discreet Buying (2026)",
       description: "MyMuse live deals: bundling codes, prepaid discounts and discreet-shipping — how to save safely.",
@@ -1516,7 +1516,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "guvi",
     category: "Education & Upskilling",
     featured: false,
-    heroImage: "/stores/guvi-in-cps-india.webp",
+    heroImage: "/stores/guvi.png",
     seo: {
       title: "GUVI Course Offers — Vernacular Tech Career Guide (2026)",
       description: "GUVI live deals: career-track bundle discounts, trial-code access and where to start.",
@@ -1559,7 +1559,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "igp",
     category: "Gifting & Cakes",
     featured: false,
-    heroImage: "/stores/igp-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/igp.png",
     seo: {
       title: "IGP Cake Delivery & Gifts — Same-Day Offer Guide (2026)",
       description: "IGP live deals: same-day cake discounts, hamper bundles and the midnight-delivery stack.",
@@ -1602,7 +1602,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "zeroharm",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/zeroharm-in-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "ZeroHarm — Liposomal & Nano Nutrition Offer Guide (2026)",
       description: "ZeroHarm live codes: liposomal-line discounts and the clean-nutrition stack for deficiency markers.",
@@ -1645,7 +1645,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "hkvitals",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/hkvitals-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/hkvitals.png",
     seo: {
       title: "HK Vitals Daily Nutrition — Offers & Bundles Guide (2026)",
       description: "HK Vitals live deals: Omega-3/multivitamin bundles, sitewide codes and subscribe-and-save math.",
@@ -1730,7 +1730,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "lavie-world",
     category: "Fashion & Accessories",
     featured: false,
-    heroImage: "/stores/lavieworld-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/lavie-world.png",
     seo: {
       title: "Lavie World Handbags — Satchel & Tote Offer Guide (2026)",
       description: "Lavie World live deals: satchel-stack codes, sitewide discounts and the office-vs-weekend picks.",
@@ -1773,7 +1773,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "life-changing-astro",
     category: "Spiritual Services",
     featured: false,
-    heroImage: "/stores/lifechangingastro-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/life-changing-astro.png",
     seo: {
       title: "Life Changing Astro Offers — Consultation & Rudraksha (2026)",
       description: "Life Changing Astro live deals: rudraksha discounts, consultation codes and the Gemstone stack.",
@@ -1819,7 +1819,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "baccabucci-com-ecommerce-cps-india",
     category: "Fashion & Footwear",
     featured: false,
-    heroImage: "/stores/baccabucci-com-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Bacca Bucci Offers — Loafers, Flip-Flops & Derbys Guide (2026)",
       description: "Bacca Bucci offers: Flame, Storm, Spirit, Stamina footwear, flip-flops and leather belts — the smart-buy order.",
@@ -1910,7 +1910,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "boult",
     category: "Electronics & Audio",
     featured: false,
-    heroImage: "/stores/goboult-co-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/boult.png",
     seo: {
       title: "Boult Audio Offers — ANC Earbuds & W50 Codes (2026)",
       description: "Boult codes: ANC200 (₹200 off ANC), BOULT100 (₹100 off > ₹999), EXTRA5 (5% UPI/cards) — India's loudest budget-ANC decoded.",
@@ -1953,7 +1953,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "the-bear-house",
     category: "Fashion & Casual Wear",
     featured: false,
-    heroImage: "/stores/thebearhouse-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/the-bear-house.png",
     seo: {
       title: "The Bear House Offers — Linen Shirts, Chinos & Polo Guide (2026)",
       description: "The Bear House codes: BEAR10 (10% off shirts & polos), BUNDLE500 (₹500 off > ₹2,999), EXTRA5 (5% UPI/cards) — Indian men's linen & chinos at festival-sane prices.",
@@ -2003,7 +2003,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "fuelone",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/fuelone-in-ecommerce-cps-india.webp",
+    heroImage: "/stores/fuelone.webp",
     seo: {
       title: "Fuel One Offers — Pea Isolate, Whey & Creatine Guide (2026)",
       description: "Fuel One offers: pea protein isolate, Impact Whey, Whey Iso-Max, creatine — the Indian plant-protein stack and bank deals.",
@@ -2092,7 +2092,7 @@ const RAW_GUIDES_G: StaticGuide[] = [
     storeSlug: "nuawoman-com-ecommerce-cps-india",
     category: "Fashion & Intimate Wear",
     featured: false,
-    heroImage: "/stores/nuawoman-com-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Nuawoman Offers — Lingerie Softness Codes & Size Guide (2026)",
       description: "Nuawoman codes: NUASOFT30 (sitewide 30%), TRY35 (starter-bra trial 35%), TRY20 (loungewear 20%) — Comfort-first Indian Lingerie, decoded.",
@@ -2176,7 +2176,7 @@ const RAW_GUIDES_G: StaticGuide[] = [
     storeSlug: "pepperfry-com-ecommerce-cps-india",
     category: "Furniture & Home Decor",
     featured: false,
-    heroImage: "/stores/pepperfry-com-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Pepperfry Offers — Bean Bags, Sofas & Furniture Codes (2026)",
       description: "Pepperfry deals: bean bags, sofas and furniture bundles — the smart assembly and bank-offer stacking order.",
@@ -2221,7 +2221,7 @@ const RAW_GUIDES_H: StaticGuide[] = [
     storeSlug: "healthkart",
     category: "Supplements",
     featured: true,
-    heroImage: "/stores/healthkart-com-ecommerce-cps-india.webp",
+    heroImage: "/stores/healthkart.png",
     seo: {
       title: "HealthKart Whey & Creatine — Honest ₹/gram Buyer's Guide (2026)",
       description: "HealthKart: per-gram price math, seller scrutiny, lab-verified tubs vs. mystery market-stall sellers — what actually pays.",
@@ -2624,7 +2624,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "purevpn-com-utility-cpa-worldwide",
     category: "Utilities & VPN",
     featured: true,
-    heroImage: "/stores/purevpn-com-utility-cpa-worldwide.webp",
+    heroImage: undefined,
     seo: {
       title: "PureVPN India Guide 2026 — Plans, Pricing & Honest Choice",
       description: "PureVPN India: 1-month vs 2-year vs 5-year plans — honest side-by-side of what VPN actually costs and when.",
@@ -2661,7 +2661,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "sanskrutihomes-in-ecommerce-cps-india",
     category: "Home & Linen",
     featured: false,
-    heroImage: "/stores/sanskrutihomes-in-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Sanskruti Homes Linen Care Guide — Cotton Dome & Wash",
       description: "Sanskruti Homes: handcrafted cotton bedsheets, dohars and kitchen towels. Care, wash and weave notes.",
@@ -2698,7 +2698,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "shoptupperware-in-ecommerce-cps-india",
     category: "Home & Kitchen",
     featured: false,
-    heroImage: "/stores/shoptupperware-in-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Shop Tupperware India Guide — Dry Storage & Lunch Systems",
       description: "Tupperware India: airtight dry storage, modular kitchen, lunch systems. What to buy and how to stack.",
@@ -2734,7 +2734,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "rforrabbit-com-ecommerce-cps-india",
     category: "Baby & Parenting",
     featured: false,
-    heroImage: "/stores/rforrabbit-com-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "R for Rabbit Baby Safety Guide — Car Seats, Strollers, High Chairs",
       description: "R for Rabbit India: car seats, strollers, high chairs and cribs. Safety standards, weight classes, Indian roads.",
@@ -2772,7 +2772,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "perforacare-com-ecommerce-cps-india",
     category: "Health & Oral Care",
     featured: false,
-    heroImage: "/stores/perforacare-com-ecommerce-cps-india.webp",
+    heroImage: undefined,
     seo: {
       title: "Perfora Oral Care Guide — Smart Electric Brush, Whitening & Water Flossers",
       description: "Perfora Care India: smart electric toothbrushes with AI coaching, whitening serums, water flossers. Real hygiene upgrades.",
