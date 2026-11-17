@@ -174,7 +174,7 @@ export const ADMITAD_PROGRAM_LOGOS: Record<string, string> = {
   "adidas": "/stores/adidas.webp",
   "bewakoof": "/stores/bewakoof.webp",
   "acer": "/stores/acer.png",
-  "asus": "/stores/asus.webp",
+  "asus": "/stores/asus.svg",
   "lenovo-india": "/stores/lenovo-india.png",
   "victorias-secret": "/stores/victorias-secret.webp",
   "salty": "/stores/salty.png",

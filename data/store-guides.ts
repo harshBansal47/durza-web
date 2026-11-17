@@ -2596,7 +2596,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "asus",
     category: "Technology & ASUS",
     featured: true,
-    heroImage: "/stores/asus.webp",
+    heroImage: "/stores/asus.svg",
     seo: {
       title: "ASUS India 2026 — ROG, TUF, Zenbook, Vivobook Buying Guide",
       description: "ASUS India: ROG vs TUF, Zenbook OLED vs Vivobook — the Indian gamer, student and creative's honest guide to the 2026 range.",

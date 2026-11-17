@@ -16,7 +16,12 @@ export type GoSource =
   | "search"
   | "site"
   | "telegram"
-  | "banner-store";
+  | "banner-store"
+  | "asus-india-guide-hero"
+  | `asus-india-matcher-${"student" | "gaming" | "creative" | "business"}`
+  | `asus-india-compare-${"rog-strix-g15" | "tuf-gaming-a15" | "zenbook-oled-3k" | "vivobook-15"}`
+  | "asus-india-guide-final"
+  | "asus-india-guide-mobile";
 
 /**
  * rel for any link that can earn us money: `sponsored` is Google's marker for paid or
