@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bldcSpec, cupSize, gstTier, proteinDecode } from "@/lib/hero-tools";
+import { bldcSpec, gstTier, proteinDecode } from "@/lib/hero-tools";
 
 describe("bldcSpec", () => {
   it("sizes airflow from room volume × air changes, rounded to 5", () => {
@@ -57,23 +57,6 @@ describe("proteinDecode", () => {
 
   it("caps purity at 100% when protein exceeds the stated scoop", () => {
     expect(proteinDecode({ price: 100, proteinPerServingG: 40, servingSizeG: 30, servings: 1 }).purityPct).toBe(100);
-  });
-});
-
-describe("cupSize", () => {
-  it("recommends S only when every factor points small", () => {
-    expect(cupSize({ age: "u30", birth: "no", flow: "med", cervix: "mid" }).size).toBe("S");
-  });
-  it.each([
-    [{ age: "o30", birth: "no", flow: "light", cervix: "mid" }],
-    [{ age: "u30", birth: "yes", flow: "light", cervix: "mid" }],
-    [{ age: "u30", birth: "no", flow: "heavy", cervix: "mid" }],
-  ] as const)("recommends L for %o", (input) => {
-    expect(cupSize({ ...input }).size).toBe("L");
-  });
-  it("adapts the stem note and emptying rhythm", () => {
-    expect(cupSize({ age: "u30", birth: "no", flow: "heavy", cervix: "low" })).toMatchObject({ emptying: "every 4–6 h" });
-    expect(cupSize({ age: "u30", birth: "no", flow: "light", cervix: "high" }).stemNote).toMatch(/longer stem/i);
   });
 });
 

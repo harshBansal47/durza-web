@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomeHero from "@/components/home/hero/HomeHero";
 import ToastProvider from "@/components/ui/Toast";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
+import { STORE_TOOLS } from "@/lib/store-tools";
 import type { CouponPublic } from "@/lib/types";
 
 const push = vi.fn();
@@ -174,7 +175,7 @@ describe("HomeHero — search", () => {
     await user.type(searchInput(), "boult");
     expect(screen.getByRole("listbox")).toHaveTextContent("GoBoult");
     await user.click(screen.getByRole("tab", { name: "Tools" }));
-    expect(screen.getByRole("listbox")).toHaveTextContent(/Nothing in today/);
+    expect(screen.getByRole("listbox")).toHaveTextContent("Audio Decision Snippet"); // Boult's tool, found by store name
   });
 
   it("opens a tool from results, routes a store click, and falls back to /search", async () => {
@@ -239,9 +240,10 @@ describe("HomeHero — tools", () => {
 
     await user.click(screen.getByRole("button", { name: /Menstrual Cup Size Finder/ }));
     dialog = screen.getByRole("dialog");
-    expect(dialog).toHaveTextContent("Size S");
-    await user.click(within(dialog).getByRole("button", { name: "30 or above" }));
-    expect(dialog).toHaveTextContent("Size L");
+    expect(dialog).toHaveTextContent("Size M (Medium — Most Popular)"); // Sirona's default option
+    await user.click(within(dialog).getByRole("button", { name: "Given Birth Vaginally?" }));
+    expect(dialog).toHaveTextContent("Size L (Large)");
+    expect(within(dialog).getByRole("link", { name: /Shop Size L Cup on Sirona/ })).toHaveAttribute("href", expect.stringContaining("track.vcommission.com"));
     await user.keyboard("{Escape}");
 
     await user.click(screen.getByRole("button", { name: /GST Tool Matcher/ }));
@@ -265,6 +267,54 @@ describe("HomeHero — tools", () => {
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe("");
+  });
+});
+
+describe("HomeHero — all-tools hub", () => {
+  it("lists every tool, filters by category and search, and opens a tool with a way back", async () => {
+    const user = userEvent.setup();
+    renderHero();
+    const hubBtn = screen.getByRole("button", { name: /Browse all \d+ shopping tools/ });
+    await user.click(hubBtn);
+    const hub = screen.getByRole("dialog", { name: "Shopping tools" });
+    expect(within(hub).getByRole("searchbox", { name: "Search tools" })).toHaveFocus();
+    const total = STORE_TOOLS.length;
+    expect(hub.querySelectorAll(".hx-tcard")).toHaveLength(total);
+
+    await user.click(within(hub).getByRole("button", { name: /^Fashion & style/ }));
+    expect(within(hub).queryByText(/Cup Size/)).not.toBeInTheDocument();
+    expect(within(hub).getByText(/Smart 2-Item Wardrobe Multiplier/)).toBeInTheDocument();
+    await user.click(within(hub).getByRole("button", { name: /^All \d+/ }));
+
+    await user.type(within(hub).getByRole("searchbox", { name: "Search tools" }), "diaper");
+    await user.click(within(hub).getByRole("button", { name: /Diaper Cost-Per-Pant Tracker/ }));
+    expect(screen.queryByRole("dialog", { name: "Shopping tools" })).not.toBeInTheDocument();
+    const tool = screen.getByRole("dialog", { name: /Diaper Cost-Per-Pant Tracker/ });
+    expect(tool).toHaveTextContent("MamyPoko");
+
+    await user.click(within(tool).getByRole("button", { name: "Back to all tools" }));
+    expect(screen.getByRole("dialog", { name: "Shopping tools" })).toBeInTheDocument();
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  it("returns focus to the hub button when a tool opened from the hub is closed", async () => {
+    const user = userEvent.setup();
+    renderHero();
+    const hubBtn = screen.getByRole("button", { name: /Browse all \d+ shopping tools/ });
+    await user.click(hubBtn);
+    await user.click(screen.getByRole("button", { name: /Stacking Calculator/ }));
+    await user.keyboard("{Escape}");
+    await vi.waitFor(() => expect(hubBtn).toHaveFocus());
+  });
+
+  it("shows an empty state for a tool search with no match", async () => {
+    const user = userEvent.setup();
+    renderHero();
+    await user.click(screen.getByRole("button", { name: /Browse all \d+ shopping tools/ }));
+    await user.type(screen.getByRole("searchbox", { name: "Search tools" }), "zzzzqq");
+    expect(screen.getByText(/No tool matches/)).toBeInTheDocument();
   });
 });
 

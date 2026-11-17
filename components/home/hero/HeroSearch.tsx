@@ -8,7 +8,8 @@ import { track } from "@/lib/analytics";
 import { buildHeroResults, SCOPES, splitHighlight, type HeroScope } from "@/lib/hero-search";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import StoreMark from "./StoreMark";
-import { HERO_TOOLS, type HeroTool, type HeroToolId } from "./tools";
+import { TOOL_ICONS } from "@/components/tools/icons";
+import { STORE_TOOLS, type StoreTool } from "@/lib/store-tools";
 import { useMediaQuery, usePrefersReducedMotion } from "./hooks";
 import { hasOpenOverlay } from "./useDialog";
 
@@ -45,7 +46,7 @@ export default function HeroSearch({
   popularStores: HeroStore[];
   totals: { coupons: number; stores: number };
   onOpenDeal: (deal: HeroDeal) => void;
-  onOpenTool: (id: HeroToolId) => void;
+  onOpenTool: (id: string) => void;
 }) {
   const router = useRouter();
   const listId = useId();
@@ -63,7 +64,7 @@ export default function HeroSearch({
   const reduced = usePrefersReducedMotion();
 
   const results = useMemo(
-    () => buildHeroResults<HeroDeal, HeroStore, HeroTool>(query, scope, { deals, featured, stores, popularStores, tools: HERO_TOOLS }),
+    () => buildHeroResults<HeroDeal, HeroStore, StoreTool>(query, scope, { deals, featured, stores, popularStores, tools: STORE_TOOLS }),
     [query, scope, deals, featured, stores, popularStores],
   );
   const trimmed = query.trim();
@@ -145,7 +146,7 @@ export default function HeroSearch({
     ? "Search stores, codes, tools…"
     : `Search ${totals.stores > 0 ? `${totals.stores.toLocaleString("en-IN")} stores` : "stores"}, ${
         totals.coupons > 0 ? `${totals.coupons.toLocaleString("en-IN")} codes` : "codes"
-      }, ${HERO_TOOLS.length} tools…`;
+      }, ${STORE_TOOLS.length} tools…`;
 
   const headings = results.map((r) => (r.type === "deal" && !trimmed ? "Fresh-checked picks" : GROUP_LABEL[r.type]));
   return (
@@ -294,20 +295,23 @@ export default function HeroSearch({
                         <span className="hx-badge store">{result.store.offerCount != null ? `${result.store.offerCount} offers` : "STORE"}</span>
                       </button>
                     )}
-                    {result.type === "tool" && (
-                      <button type="button" {...common}>
-                        <span className={`hx-tc-icon tone-${result.tool.tone}`} style={{ width: 34, height: 34 }} aria-hidden="true">
-                          <result.tool.Icon size={17} strokeWidth={2.1} />
-                        </span>
-                        <span className="hx-item-body">
-                          <span className="hx-item-title">
-                            <Highlight text={result.tool.name} query={trimmed} />
+                    {result.type === "tool" && (() => {
+                      const Icon = TOOL_ICONS[result.tool.icon];
+                      return (
+                        <button type="button" {...common}>
+                          <span className={`hx-tc-icon tone-${result.tool.tone}`} style={{ width: 34, height: 34 }} aria-hidden="true">
+                            <Icon size={17} strokeWidth={2.1} />
                           </span>
-                          <span className="hx-item-meta">{result.tool.desc}</span>
-                        </span>
-                        <span className="hx-badge tool">{result.tool.time}</span>
-                      </button>
-                    )}
+                          <span className="hx-item-body">
+                            <span className="hx-item-title">
+                              <Highlight text={result.tool.title} query={trimmed} />
+                            </span>
+                            <span className="hx-item-meta">{result.tool.storeName} · {result.tool.desc}</span>
+                          </span>
+                          <span className="hx-badge tool">{result.tool.time}</span>
+                        </button>
+                      );
+                    })()}
                   </div>
                 );
               })}

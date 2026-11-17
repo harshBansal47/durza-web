@@ -122,39 +122,6 @@ export function proteinDecode(input: ProteinInput): ProteinResult {
   };
 }
 
-export interface CupInput {
-  age: "u30" | "o30";
-  birth: "no" | "yes";
-  flow: "light" | "med" | "heavy";
-  cervix: "low" | "mid" | "high";
-}
-
-export interface CupResult {
-  size: "S" | "L";
-  capacity: string;
-  why: string;
-  stemNote: string;
-  emptying: string;
-}
-
-export function cupSize({ age, birth, flow, cervix }: CupInput): CupResult {
-  const large = age === "o30" || birth === "yes" || flow === "heavy";
-  return {
-    size: large ? "L" : "S",
-    capacity: large ? "≈ 25–30 ml" : "≈ 15–20 ml",
-    why: large
-      ? "Age 30+, vaginal birth or heavy flow points to the larger size"
-      : "Under 30, no vaginal birth and light/medium flow points to the smaller size",
-    stemNote:
-      cervix === "low"
-        ? "Choose a short-stem or trimmable-stem variant — a low cervix needs less length."
-        : cervix === "high"
-          ? "A longer stem / bell shape will be easier to reach and remove."
-          : "Standard stem length will suit you.",
-    emptying: flow === "heavy" ? "every 4–6 h" : flow === "med" ? "every 6–8 h" : "up to 10–12 h",
-  };
-}
-
 export interface GstInput {
   invoicesPerMonth: number;
   multiState: boolean;

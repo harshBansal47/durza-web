@@ -21,8 +21,9 @@ export interface SearchableStore {
 
 export interface SearchableTool {
   id: string;
-  name: string;
+  title: string;
   desc: string;
+  storeName: string;
 }
 
 export type HeroResult<D, S, T> =
@@ -40,6 +41,8 @@ export const SCOPES: { id: HeroScope; label: string }[] = [
 
 const MAX_DEALS = 6;
 const MAX_STORES = 4;
+const MAX_TOOLS_IN_ALL = 3;
+const MAX_TOOLS = 8;
 
 function includes(haystack: string, needle: string): boolean {
   return haystack.toLowerCase().includes(needle);
@@ -92,7 +95,8 @@ export function buildHeroResults<D extends SearchableDeal, S extends SearchableS
   }
   if (scope === "all" || scope === "tool") {
     pool.tools
-      .filter((t) => includes(`${t.name} ${t.desc}`, q))
+      .filter((t) => includes(`${t.title} ${t.desc} ${t.storeName}`, q))
+      .slice(0, scope === "all" ? MAX_TOOLS_IN_ALL : MAX_TOOLS)
       .forEach((tool) => out.push({ type: "tool", tool }));
   }
   return out;

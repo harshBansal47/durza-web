@@ -8,7 +8,14 @@ const deals = [
   deal("3", "Up to 40% off sitewide", "Bewakoof", null, "Fashion"),
 ];
 const stores = [{ slug: "healthkart", name: "HealthKart" }, { slug: "goboult", name: "GoBoult" }, { slug: "bewakoof", name: "Bewakoof" }];
-const tools = [{ id: "protein", name: "Protein Cost Decoder", desc: "₹ per 25g of actual protein" }, { id: "gst", name: "GST Tool Matcher", desc: "Free vs paid filing software" }];
+const tools = [
+  { id: "protein", title: "Protein Cost Decoder", desc: "₹ per 25g of actual protein", storeName: "Alpino" },
+  { id: "gst", title: "GST Tool Matcher", desc: "Free vs paid filing software", storeName: "Moglix" },
+  { id: "t3", title: "Diaper Tracker", desc: "Cost per pant", storeName: "FirstCry" },
+  { id: "t4", title: "Diaper Bag Guide", desc: "What to pack", storeName: "FirstCry" },
+  { id: "t5", title: "Diaper Deals", desc: "Packs compared", storeName: "FirstCry" },
+  { id: "t6", title: "Diaper Sizes", desc: "Pick a size", storeName: "FirstCry" },
+];
 const pool = { deals, featured: deals.slice(0, 2), stores, popularStores: stores.slice(0, 2), tools };
 const types = (r: ReturnType<typeof buildHeroResults<(typeof deals)[number], (typeof stores)[number], (typeof tools)[number]>>) => r.map((x) => x.type);
 
@@ -18,7 +25,7 @@ describe("buildHeroResults", () => {
     expect(buildHeroResults("", "code", pool).every((r) => r.type === "deal" && r.deal.code)).toBe(true);
     expect(buildHeroResults("", "deal", pool).every((r) => r.type === "deal" && !r.deal.code)).toBe(true);
     expect(types(buildHeroResults("", "store", pool))).toEqual(["store", "store"]);
-    expect(types(buildHeroResults("", "tool", pool))).toEqual(["tool", "tool"]);
+    expect(types(buildHeroResults("", "tool", pool))).toEqual(["tool", "tool", "tool", "tool"]);
   });
 
   it("matches title, store, category and code, case-insensitively", () => {
@@ -40,6 +47,12 @@ describe("buildHeroResults", () => {
     expect(types(buildHeroResults("health", "store", pool))).toEqual(["store"]);
     expect(types(buildHeroResults("gst", "tool", pool))).toEqual(["tool"]);
     expect(buildHeroResults("gst", "store", pool)).toEqual([]);
+  });
+
+  it("matches tools by store name and caps tools in the All scope", () => {
+    expect(buildHeroResults("alpino", "tool", pool).map((r) => (r.type === "tool" ? r.tool.id : ""))).toEqual(["protein"]);
+    expect(buildHeroResults("diaper", "all", pool).filter((r) => r.type === "tool")).toHaveLength(3); // capped
+    expect(buildHeroResults("diaper", "tool", pool).filter((r) => r.type === "tool")).toHaveLength(4); // all matches in the Tools scope
   });
 
   it("returns nothing for a miss", () => {

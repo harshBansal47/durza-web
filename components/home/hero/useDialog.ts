@@ -28,7 +28,11 @@ function focusables(root: HTMLElement): HTMLElement[] {
   return [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => !el.hasAttribute("inert") && el.getClientRects().length > 0);
 }
 
-export function useDialog(ref: RefObject<HTMLElement | null>, onClose: () => void) {
+/**
+ * `initialFocus` is a CSS selector for the element that should receive focus on open
+ * (e.g. a search field); without it, the first focusable element does.
+ */
+export function useDialog(ref: RefObject<HTMLElement | null>, onClose: () => void, initialFocus?: string) {
   // Keep the latest callback without re-running the effect (which would re-lock and steal focus).
   const closeRef = useRef(onClose);
   useEffect(() => {
@@ -46,7 +50,7 @@ export function useDialog(ref: RefObject<HTMLElement | null>, onClose: () => voi
       previousOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
     }
-    (focusables(node)[0] ?? node).focus();
+    (((initialFocus && node.querySelector<HTMLElement>(initialFocus)) || focusables(node)[0]) ?? node).focus();
 
     function onKeyDown(event: KeyboardEvent) {
       if (stack[stack.length - 1] !== id) return;
@@ -81,5 +85,5 @@ export function useDialog(ref: RefObject<HTMLElement | null>, onClose: () => voi
       if (--scrollLocks === 0) document.body.style.overflow = previousOverflow;
       if (returnTo?.isConnected) returnTo.focus();
     };
-  }, [ref]);
+  }, [ref, initialFocus]);
 }

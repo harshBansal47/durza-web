@@ -22,6 +22,7 @@ function columns(hasComparisons: boolean) {
     { href: "/black-friday", label: "Black Friday 2026" },
     { href: "/bank-offers", label: "Bank & card offers" },
     { href: "/stores", label: "Stores" },
+    { href: "/tools", label: "Shopping tools" },
     { href: "/categories", label: "Categories" },
     { href: "/guides", label: "Buying guides" },
     { href: "/reviews", label: "Reviews" },
