@@ -6,10 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Dot & Key Coupons, Skincare & Sunscreen Deals";
-const description = "Dot & Key promo codes, DOTB2G2 buy 2 get 2 free and best deals on sunscreens, serums and skincare from dotandkey.com.";
+const title = "Dot & Key Skincare — Official Store Guide & Deals";
+const description =
+  "Shop Dot & Key sunscreens, serums and moisturizers by skin concern. Check live prices, combos and current offers on the official Dot & Key store.";
 const canonical = "/stores/dot-and-key";
 
 export const metadata: Metadata = {
@@ -21,9 +22,26 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How does the Dot & Key Buy 2 Get 2 Free (B2G2) code work?", answer: "Add any 4 eligible skincare items to your cart on dotandkey.com and apply code DOTB2G2. The system automatically discounts the two lowest-priced items to ₹0." },
-  { question: "Which Dot & Key sunscreen is best for oily and acne-prone skin?", answer: "The Watermelon Hyaluronic Cooling Sunscreen SPF 50+ is oil-free, lightweight, and leaves zero white cast, making it the preferred choice for humid climates and oily skin types." },
-  { question: "What is the minimum order threshold for free shipping on Dot & Key?", answer: "Shipping is free on all orders of ₹499 or more. Adding an impulse essential like the Gloss Boss Lip Balm (₹225) is an easy way to reach the threshold." },
+  {
+    question: "How does the Dot & Key Buy 2 Get 2 Free (B2G2) offer work?",
+    answer:
+      "Dot & Key runs B2G2 and other sitewide promotions from time to time. When active, eligible items and the applicable code/auto-discount are shown on dotandkey.com — add the required items to your cart and confirm the final discount in the cart/checkout before paying.",
+  },
+  {
+    question: "Which Dot & Key sunscreen is best for oily and acne-prone skin?",
+    answer:
+      "The Watermelon Hyaluronic Cooling Sunscreen SPF 50+ is positioned as a lightweight, oil-free gel with no white cast, making it a popular pick for oily or humid-weather routines. Check the current ingredients, SPF details and suitability on the official product page.",
+  },
+  {
+    question: "What is the free shipping threshold on Dot & Key?",
+    answer:
+      "Free shipping thresholds on dotandkey.com vary between ₹299 and ₹999 depending on whether a sitewide B2G2 sale is active—check the progress bar inside your cart drawer before checkout.",
+  },
+  {
+    question: "What is Dot & Key's return and refund policy?",
+    answer:
+      "Dot & Key accepts return or replacement requests within 48 hours of delivery strictly for transit-damaged, defective, or incorrect sealed items (with photo proof via customercare@dotandkey.com). Prepaid refunds process within 7 working days, while COD refunds take up to 14 working days.",
+  },
 ];
 
 export const revalidate = 3600;
@@ -31,22 +49,29 @@ export const revalidate = 3600;
 export default async function Page() {
   const destination = await resilient.getStoreDestination("dot-and-key", { skip: 0, limit: 50 });
   const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.dotandkey.com";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Dot & Key", path: "/stores/dot-and-key" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Dot & Key", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+        stats={stats}
+        faqs={FAQS}
+      />
       <RelatedGuides slug="dot-and-key" />
     </>
   );
