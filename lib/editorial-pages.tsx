@@ -7,6 +7,11 @@ import { metaDescription } from "@/lib/seo";
 import { staticGuideBySlug } from "@/data/store-guides";
 import StaticGuidePage, { staticGuideMetadata } from "@/components/guides/StaticGuidePage";
 
+function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null) {
+  const guide = type === "guide" ? staticGuideBySlug(slug) : undefined;
+  return guide?.heroImageLayout === "editorial" && guide.heroImage ? guide.heroImage : fallback;
+}
+
 export async function editorialMetadata(type: EditorialType, slug: string): Promise<Metadata> {
   const content = await resilient.getEditorial(type, slug);
   // Store buying guides authored in data/store-guides.ts fall through here.
@@ -17,6 +22,7 @@ export async function editorialMetadata(type: EditorialType, slug: string): Prom
   if (!content) return { title: "Content not found", robots: { index: false, follow: false } };
   const canonical = content.canonical_url ?? editorialPath(content);
   const title = content.seo_title ?? content.title;
+  const heroImage = guideHeroImage(type, slug, content.hero_image_url);
   // Either field can be missing; the first one that says something becomes a
   // single-line description the result page can show in full.
   const description = metaDescription(content.meta_description) ?? metaDescription(content.summary);
@@ -30,7 +36,7 @@ export async function editorialMetadata(type: EditorialType, slug: string): Prom
       description,
       url: canonical,
       type: "article",
-      ...(content.hero_image_url ? { images: [content.hero_image_url] } : {}),
+      ...(heroImage ? { images: [heroImage] } : {}),
     },
   };
 }
@@ -43,5 +49,10 @@ export async function renderEditorialPage(type: EditorialType, slug: string) {
   }
   if (!content) notFound();
   const { default: EditorialArticle } = await import("@/components/editorial/EditorialComponents");
-  return <EditorialArticle content={content} />;
+  const heroImage = guideHeroImage(type, slug, content.hero_image_url);
+  return (
+    <EditorialArticle
+      content={heroImage === content.hero_image_url ? content : { ...content, hero_image_url: heroImage ?? null }}
+    />
+  );
 }

@@ -27,7 +27,7 @@ const productJsonLd = {
   "@graph": ASUS_COMPARISONS.map((product) => ({
     "@type": "Product",
     name: `ASUS ${product.name}`,
-    description: product.description,
+    description: `${product.bestFor}. ${product.keySpec}. Indicative range: ${product.budget}.`,
     category: "Laptop",
     brand: { "@type": "Brand", name: "ASUS" },
   })),

@@ -1,141 +1,176 @@
 import type { FaqItem } from "@/components/store/FaqSection";
 
-export type AsusMatchId = "student" | "gaming" | "creative" | "business";
+export type AsusMatchId = "gaming" | "creative" | "coding" | "travel";
 
-export const ASUS_MATCHER_ORDER: AsusMatchId[] = ["student", "gaming", "creative", "business"];
+export const ASUS_MATCHER_ORDER: AsusMatchId[] = ["gaming", "creative", "coding", "travel"];
 
 export const ASUS_MATCHES: Record<
   AsusMatchId,
   {
     label: string;
-    badge: string;
     headline: string;
+    checklist: string[];
     spec: string;
     budget: string;
-    tradeOff: string;
   }
 > = {
-  student: {
-    label: "Student",
-    badge: "Best for students",
-    headline: "Vivobook 15 / 16 — an everyday study companion",
-    spec: "Look for a current Ryzen 5 or Core i5-class CPU, 16GB RAM where possible, and a 512GB SSD. Integrated graphics are usually enough for study, coding and office work.",
-    budget: "₹40,000–₹70,000",
-    tradeOff:
-      "A Vivobook can cover everyday study and coding without paying for a gaming GPU. The trade-off is that display quality, battery life and upgrade options vary by exact model number.",
-  },
   gaming: {
-    label: "Gaming",
-    badge: "Best for gaming",
-    headline: "ROG Strix or TUF Gaming — choose by GPU and budget",
-    spec: "Compare the exact GPU, its power limit and VRAM, then check cooling, screen refresh rate and RAM. Do not compare laptops by GPU name alone.",
-    budget: "₹70,000–₹2,00,000+",
-    tradeOff:
-      "ROG typically targets premium gaming features, while TUF gives shoppers more price points to compare. Both trade portability and battery life for gaming performance, and the exact configuration matters more than the family name.",
+    label: "Gaming & AAA",
+    headline: "ROG & TUF — high-refresh power for AAA and esports",
+    checklist: [
+      "NVIDIA GeForce RTX 40/50-series GPU with the right TGP for sustained performance",
+      "144Hz–240Hz display (Nebula/OLED options on flagship ROG models)",
+      "Advanced cooling (tri-fan, liquid metal on select configs) and a 90Wh-class battery",
+    ],
+    spec: "Recommended: 16GB–32GB DDR5 RAM · RTX 4060–5090 class GPU (match TGP/VRAM to your titles)",
+    budget: "₹65,000 – ₹2,60,000+ (model & configuration dependent)",
   },
   creative: {
-    label: "Creative",
-    badge: "Best for creators",
-    headline: "Zenbook OLED — for a sharper, colour-focused screen",
-    spec: "Compare the panel resolution, colour coverage and calibration for the specific SKU. For heavier video or 3D work, check whether that configuration has a discrete GPU and enough memory.",
-    budget: "₹80,000–₹1,60,000",
-    tradeOff:
-      "An OLED option can be appealing for photo work and media, but not every Zenbook has the same panel or colour specification. OLED may also cost more than an IPS alternative, so match the screen to the work you actually do.",
+    label: "Creative & OLED",
+    headline: "Zenbook & ProArt — color-true canvases for creators",
+    checklist: [
+      "Lumina/OLED panel with 3K resolution, high refresh and color-accurate coverage",
+      "Intel Core Ultra or Ryzen AI CPU with NPU acceleration for creative workflows",
+      "Discrete RTX graphics and fast SSD storage for video, 3D and large asset libraries",
+    ],
+    spec: "Recommended: 16GB–32GB RAM · Intel Arc / RTX discrete GPU for demanding timelines & 3D",
+    budget: "₹85,000 – ₹2,80,000+ (model & configuration dependent)",
   },
-  business: {
-    label: "Business",
-    badge: "Best for work",
-    headline: "ExpertBook or Zenbook — prioritise support and portability",
-    spec: "Start with a current Core i5/Ryzen 5-class CPU, 16GB RAM and a 512GB SSD. Check ports, webcam, warranty terms and any IT-management features your organisation requires.",
-    budget: "₹60,000–₹1,50,000",
-    tradeOff:
-      "Business-focused configurations can make day-to-day work and support requirements easier to compare. Features such as vPro, fingerprint readers and extended onsite service are configuration-specific, so confirm them before buying.",
+  coding: {
+    label: "Coding & Study",
+    headline: "Vivobook S & Pro — fast, focused machines for code and class",
+    checklist: [
+      "16GB LPDDR5/LPDDR5X memory and a 512GB–1TB SSD for smooth multitasking",
+      "Color-accurate OLED or crisp IPS display with ErgoSense keyboard comfort",
+      "Modern Core/Ryzen processor with all-day efficiency for dev tools and study apps",
+    ],
+    spec: "Recommended: 16GB RAM · Integrated or RTX 3050/4050-class GPU for light creation & CUDA tasks",
+    budget: "₹52,000 – ₹95,000 (model & configuration dependent)",
+  },
+  travel: {
+    label: "Ultra-Light Travel",
+    headline: "Zenbook ultraportables — premium power that travels light",
+    checklist: [
+      "Sub-1.2kg Ceraluminum™ chassis with durable, premium build quality",
+      "Long-lasting battery with fast charging for work on the move",
+      "Bright OLED display, full I/O or USB4, and a responsive precision touchpad",
+    ],
+    spec: "Recommended: 16GB LPDDR5X RAM · Integrated Intel Arc / Radeon graphics for productivity anywhere",
+    budget: "₹85,000 – ₹1,75,000 (model & configuration dependent)",
   },
 };
 
+export const ASUS_LINEUP = [
+  {
+    slug: "rog-strix-zephyrus",
+    title: "ROG Strix & Zephyrus",
+    badge: "Flagship Gaming · ₹1.15L+",
+    copy: "NVIDIA RTX 40/50-series GPUs, Nebula OLED 240Hz displays, and tri-fan liquid metal cooling built for maxed-out frame rates.",
+    image: "/stores/asus-lineup/rog-strix-zephyrus.jpg",
+    alt: "High-performance ASUS ROG gaming laptop",
+  },
+  {
+    slug: "zenbook-oled-duo",
+    title: "Zenbook OLED & Duo",
+    badge: "Executive Ultrabook · ₹85K+",
+    copy: "Sub-1.2kg Ceraluminum™ chassis, 3K 120Hz Lumina OLED screens, and all-day Intel Core Ultra / Ryzen AI battery life.",
+    image: "/stores/asus-lineup/zenbook-oled-duo.jpg",
+    alt: "Sleek ASUS Zenbook ultrabook on a desk",
+  },
+  {
+    slug: "tuf-gaming",
+    title: "TUF Gaming A15 & F15",
+    badge: "High-FPS Value · ₹65K–₹1.25L",
+    copy: "MIL-STD-810H military-grade durability paired with high-TGP RTX graphics and 90Wh batteries for marathon sessions.",
+    image: "/stores/asus-lineup/tuf-gaming.jpg",
+    alt: "ASUS TUF Gaming laptop ready for play",
+  },
+  {
+    slug: "vivobook-s-pro-oled",
+    title: "Vivobook S & Pro OLED",
+    badge: "Coding & Study · ₹52K–₹95K",
+    copy: "16GB LPDDR5X RAM, color-accurate OLED panels, and ergonomic ErgoSense keyboards tailored for developers and students.",
+    image: "/stores/asus-lineup/vivobook-s-pro-oled.jpg",
+    alt: "ASUS Vivobook laptop for coding and study",
+  },
+  {
+    slug: "rog-ally-x",
+    title: "ROG Ally X Handheld",
+    badge: "Portable Console · ₹70K–₹90K",
+    copy: "AMD Ryzen Z1 Extreme power, 80Wh battery, and 120Hz FreeSync display—play full AAA PC libraries anywhere.",
+    image: "/stores/asus-lineup/rog-ally-x.jpg",
+    alt: "ASUS ROG Ally handheld gaming device",
+  },
+  {
+    slug: "proart-studio-monitors",
+    title: "ProArt Studio & Monitors",
+    badge: "3D & Color Grading · ₹1.3L+",
+    copy: "Calman-verified Delta E < 1 displays, ASUS Dial rotary controls, and workstation GPUs for DaVinci Resolve & CAD.",
+    image: "/stores/asus-lineup/proart-studio-monitors.jpg",
+    alt: "ASUS ProArt monitor for color-accurate creative work",
+  },
+] as const;
+
 export const ASUS_COMPARISONS = [
   {
-    id: "rog-strix-g15",
-    name: "ROG Strix G15",
-    bestFor: "Dedicated gaming performance",
-    keySpec: "Dedicated GPU; compare exact GPU, power limit and VRAM by SKU",
-    budget: "₹1,00,000+",
-    description:
-      "A gaming-laptop family to compare when a dedicated GPU and gaming-focused cooling matter; confirm the exact configuration and current availability.",
+    id: "rog-strix-g16",
+    name: "ROG Strix G16",
+    bestFor: "Flagship AAA gaming & esports",
+    keySpec: "Intel Core HX / Ryzen HX · up to RTX 40/50-series, high-refresh Nebula display",
+    budget: "₹1,15,000+",
   },
   {
     id: "tuf-gaming-a15",
-    name: "TUF Gaming A15",
-    bestFor: "Gaming value",
-    keySpec: "CPU and dedicated GPU vary by configuration",
-    budget: "₹70,000–₹1,30,000",
-    description:
-      "A gaming-laptop family to compare across price points; check the exact GPU, display and upgrade options for the listed model.",
+    name: "TUF Gaming A15 / F15",
+    bestFor: "High-FPS value & durability",
+    keySpec: "Ryzen/Intel H-series · RTX 3050–4060 class, MIL-STD-810H chassis",
+    budget: "₹65,000–₹1,25,000",
   },
   {
-    id: "zenbook-oled-3k",
-    name: "Zenbook OLED 3K",
-    bestFor: "Screen-focused creative work",
-    keySpec: "Panel and CPU vary by model; check GPU for demanding workloads",
-    budget: "₹80,000–₹1,60,000",
-    description:
-      "A Zenbook OLED configuration to consider when display quality is a priority; confirm the exact panel and colour specifications on the product listing.",
+    id: "zenbook-14-oled",
+    name: "Zenbook 14 OLED",
+    bestFor: "Executive work & creative mobility",
+    keySpec: "Intel Core Ultra / Ryzen AI · 3K 120Hz Lumina OLED, sub-1.2kg Ceraluminum™",
+    budget: "₹85,000–₹1,75,000",
   },
   {
-    id: "vivobook-15",
-    name: "Vivobook 15",
-    bestFor: "Study and everyday productivity",
-    keySpec: "Compare current Core i5/Ryzen 5-class CPUs; graphics vary by SKU",
-    budget: "₹40,000–₹70,000",
-    description:
-      "A Vivobook family to compare for study and everyday productivity; check memory, storage, display and upgradeability for the exact SKU.",
+    id: "vivobook-s15-oled",
+    name: "Vivobook S 15 OLED",
+    bestFor: "Coding, study & everyday creation",
+    keySpec: "Core/Ryzen processors · 16GB RAM, color-accurate OLED, ErgoSense keyboard",
+    budget: "₹52,000–₹95,000",
   },
 ] as const;
 
 export const ASUS_FAQS: FaqItem[] = [
   {
-    question: "Which ASUS laptop is best for Indian gamers in 2026?",
+    question: "Which ASUS laptop family is right for me?",
     answer:
-      "There is no single best pick for every game or budget. Compare current ROG and TUF listings by the exact GPU, GPU power limit, cooling, screen and total price; confirm the model is currently sold in India before deciding.",
+      "Pick ROG/Zephyrus for maxed-out AAA gaming, TUF for durable high-FPS value, Zenbook for premium OLED portability, Vivobook for coding and study, ROG Ally X for handheld play, and ProArt for color-critical creative work. Use the matcher and check the exact configuration on ASUS India for your needs.",
   },
   {
-    question: "Are Zenbook OLED displays worth the premium?",
+    question: "Are Zenbook OLED displays good for creators and developers?",
     answer:
-      "They can be worth comparing if you value contrast and a vivid display, especially for media and compatible creative work. Panel resolution, colour coverage and calibration vary by model, and OLED is not automatically the best value for coding or office tasks.",
+      "Yes — ASUS Lumina OLED panels deliver vivid contrast and excellent color for media, design and long coding sessions. Check the specific model’s resolution, refresh rate and color coverage on the ASUS India listing to match your workflow.",
   },
   {
-    question: "Does ASUS India offer in-store service across tier-II and tier-III cities?",
+    question: "What advantages do I get buying from the official ASUS India eShop?",
     answer:
-      "Service-centre coverage and available services vary by location. Check ASUS India's official service-centre locator for your PIN code and confirm warranty, repair and onsite-service terms before purchase; we do not claim a fixed city or centre count.",
+      "The ASUS eShop offers official configurations with options like extended warranty/LADP upgrades, instant bank cashback and No-Cost EMI on eligible cards, plus student and pro-verified pricing programs where available — see live terms at checkout.",
   },
   {
-    question: "What is the difference between ROG and TUF?",
+    question: "How do ROG and TUF Gaming differ?",
     answer:
-      "ROG and TUF are ASUS gaming families, but each includes different configurations and price points. Compare the exact GPU, screen, cooling, build, weight and warranty for the model numbers you are considering rather than assuming every ROG or TUF laptop has the same features.",
+      "ROG targets flagship performance and premium features (Nebula displays, advanced cooling), while TUF focuses on durable, great-value high-FPS gaming with MIL-STD-810H-tested chassis on select models. Compare the exact GPU TGP, screen and price for the SKU you choose.",
   },
   {
-    question: "Is ASUS Vivobook good for coding and students?",
+    question: "What specs should I prioritize for coding or study?",
     answer:
-      "A Vivobook can suit study, web development and everyday coding when the configuration has enough memory and storage. As a practical starting point, compare 16GB RAM and a 512GB SSD, and check the exact CPU, display, battery reviews and upgrade options for your course or tools.",
+      "Aim for 16GB RAM, a fast 512GB+ SSD, a comfortable ErgoSense keyboard and a crisp OLED/IPS display. Vivobook S and Pro OLED models are tuned for developers and students — confirm the exact CPU, memory and ports on ASUS India.",
   },
   {
-    question: "How do I claim an ASUS student discount in India?",
+    question: "Where can I find current ASUS India prices, offers and stock?",
     answer:
-      "Student offers depend on ASUS India's current campaigns and eligibility rules; do not assume a permanent discount is available. Check the official listing for the terms, required student verification, eligible models and whether the offer appears in the final checkout total.",
-  },
-  {
-    question: "Are ASUS laptop prices and stock live on this page?",
-    answer:
-      "No. This page is a buying guide, not a live ASUS catalogue, and Durza currently has no ASUS product or coupon offers to display. The rupee ranges are planning budgets only; check ASUS India for current models, prices, stock and final checkout terms.",
-  },
-  {
-    question: "Are all ASUS TUF laptops tested to MIL-STD-810H?",
-    answer:
-      "Do not assume that from the TUF name alone. Check the product specification for the exact model and configuration, and read the scope of any listed durability testing; a family name is not a substitute for a SKU-specific claim.",
-  },
-  {
-    question: "What should I compare before buying an ASUS laptop online?",
-    answer:
-      "Compare the full model number and CPU/GPU configuration, RAM and upgrade limits, storage, screen, weight, warranty, seller and return terms. Check the final payable price at checkout because promotions, availability and delivery can change.",
+      "Live prices, bank offers, EMI options, configurations and availability are shown on the official ASUS India store. Use “Configure & Check Live Price” to view the latest options and checkout terms for your chosen model.",
   },
 ];
