@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Dumbbell, Footprints, Sparkles, Globe } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, BadgeCheck, RotateCcw, Sparkles } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
@@ -17,63 +18,137 @@ interface Props {
   storeUrl?: string;
 }
 
-type Use = "running" | "originals" | "training" | "originals-lifestyle";
+type Tab = "road" | "street" | "race" | "gym";
 
-const MATCHES: Record<Use, { headline: string; spec: string; note: string }> = {
-  running: {
-    headline: "Ultraboost Light / Adizero — for Indian roads",
-    spec: "Boost midsole (Light), Primeknit upper, Continental rubber outsole — engineered for high-humidity, high-heat pavement running. £11,500 – 17,000.",
-    note: "The Adizero line is designed for tempo and race-day pacing; Ultraboost remains the daily-trainer—distance blend with a louder Boost glow.",
+const REL = "nofollow sponsored noopener noreferrer";
+
+const MATCHES: Record<
+  Tab,
+  { tab: string; headline: string; highlight: string; price: string; detail: string }
+> = {
+  road: {
+    tab: "Road Running (Ultraboost 5 / Light)",
+    headline: "Ultraboost 5 / Light — daily road cushion",
+    highlight:
+      "Continental™ Rubber wet-grip for Indian monsoon and asphalt roads, with responsive Boost energy return for smooth everyday miles.",
+    price: "₹13,999–₹17,999",
+    detail: "Built for humid, heat-heavy pavement runs where grip, rebound and comfort need to stay consistent.",
   },
-  originals: {
-    headline: "Originals — Superstar, Stan Smith, Gazelle & Samba",
-    spec: "Iconic leather sneakers and translations — the lineage Indian streetwear pairs with kurtas, chinos and everything from wedding season kurtas to weekend café dressing.",
-    note: "Originals run a touch narrower than athletic trainers; if you favour wide fits try half a size up.",
+  street: {
+    tab: "Streetwear Icons (Samba / Gazelle)",
+    headline: "Samba / Gazelle — terrace-born street icons",
+    highlight:
+      "Low-profile gum soles, suede T-toe heritage and café-to-concert versatility that pairs as easily with denim as with relaxed tailoring.",
+    price: "₹9,999–₹12,999",
+    detail: "Timeless Originals silhouettes for everyday rotation, from daytime plans to late-night sets.",
   },
-  training: {
-    headline: "Training & gym — Adizero trainer / Ultraboost trainer",
-    spec: "Cushioned training shoes with lateral stability wings, insole-forward support — the hybrid walking-workout trainer, ₹6,500 – 11,000.",
-    note: "Best paired with Adidas Training Athleisure — the line Indians actually wear to the gym, the café and casual Friday.",
+  race: {
+    tab: "Race Day & Tempo (Adizero)",
+    headline: "Adizero — built for race day and tempo",
+    highlight:
+      "Lightstrike Pro foam and EnergyRods tuned for 10K and Half-Marathon PBs, delivering propulsive efficiency when pace matters most.",
+    price: "₹15,999–₹24,999",
+    detail: "A fast, snappy ride for structured workouts, tempo sessions and start-line efforts.",
   },
-  "originals-lifestyle": {
-    headline: "Originals Samba & Gazelle — the retro wave",
-    spec: "Samba OG and Gazelle — the authentic terrace classics with T-toe suede, gum rubber and the toe-box silhouette that's dominating Indian streetwear in 2026.",
-    note: "The Samba boom shows no sign of slowing; Gazelle is the quieter sibling with translucent leather and a cleaner line.",
+  gym: {
+    tab: "Gym & Lifting (Dropset 3)",
+    headline: "Dropset 3 — stable base for strength and HIIT",
+    highlight:
+      "Dual-density heel stability for confident squats and HIIT, keeping you planted through heavy sets and explosive transitions.",
+    price: "₹9,999–₹12,999",
+    detail: "Purpose-built gym support with a grounded platform for lifting, circuits and conditioning.",
   },
 };
 
-const ORDER: Use[] = ["running", "originals", "training", "originals-lifestyle"];
-const LABEL: Record<Use, string> = { running: "Running", originals: "Originals", training: "Training", "originals-lifestyle": "Samba & Gazelle" };
+const ORDER: Tab[] = ["road", "street", "race", "gym"];
+
+const LINEUP = [
+  {
+    title: "Adidas Originals: Samba, Gazelle & Spezial",
+    badge: "Terrace Icon",
+    image: "/stores/adidas/samba.jpg",
+    price: "₹9,999–₹12,999",
+    note: "Gum-soled heritage silhouettes with suede texture and everyday streetwear ease.",
+  },
+  {
+    title: "Ultraboost 5 & Light",
+    badge: "Daily Road Cushion",
+    image: "/stores/adidas/ultraboost.jpg",
+    price: "₹13,999–₹17,999",
+    note: "Boost cushioning and Continental™ grip tuned for Indian heat, humidity and tarmac.",
+  },
+  {
+    title: "Adizero Boston & Adios Pro",
+    badge: "Marathon Speed",
+    image: "/stores/adidas/adizero.jpg",
+    price: "₹15,999–₹24,999",
+    note: "Lightstrike Pro foam with EnergyRods for tempo sessions, 10Ks and marathon goals.",
+  },
+  {
+    title: "Dropset & Gym Trainers",
+    badge: "Strength & HIIT",
+    image: "/stores/adidas/dropset.jpg",
+    price: "₹9,999–₹12,999",
+    note: "Dual-density stability for planted squats, heavy lifts and high-intensity circuits.",
+  },
+  {
+    title: "Stan Smith & Superstar",
+    badge: "Court Classics",
+    image: "/stores/adidas/stansmith.jpg",
+    price: "₹8,999–₹11,999",
+    note: "Crisp court DNA in clean monochrome — timeless pairs that finish any off-duty fit.",
+  },
+  {
+    title: "Team India Cricket & Originals Apparel",
+    badge: "Official Kits",
+    image: "/stores/adidas/apparel.jpg",
+    price: "₹1,999–₹7,999",
+    note: "Official kits and Originals layers built for match-day pride and everyday comfort.",
+  },
+];
 
 export default function AdidasClient({ faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
-  const [active, setActive] = useState<Use>("running");
-  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : "adidas.co.in";
+  const [active, setActive] = useState<Tab>("road");
+  const domain = (() => {
+    try {
+      return storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : "adidas.co.in";
+    } catch {
+      return "adidas.co.in";
+    }
+  })();
   const match = MATCHES[active];
-  const Icon = { running: Footprints, originals: Sparkles, training: Dumbbell, "originals-lifestyle": Globe }[active];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 pb-24 sm:px-6 sm:py-12 md:pb-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 pb-28 sm:px-6 sm:py-12 md:pb-8">
       <StoreHero
         name="Adidas"
         heading="Adidas India — from track to café terrace."
-        subtitle="Ultraboost, Adizero, Originals & Training — the Adidas lineup built for Indian roads, gyms and weddings. Careful matcher, honest advice."
+        subtitle="Ultraboost, Adizero, Originals & Training — the Adidas lineup built for Indian roads, gyms and streetwear. Careful matcher, honest advice."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         ctaHref="/go/adidas?src=store-page"
         ctaLabel="Shop Adidas.co.in"
         perks={[
-          { label: "Running", value: "Ultraboost Light" },
-          { label: "Originals", value: "Samba & Gazelle" },
-          { label: "Training", value: "Adizero trainer" },
+          { label: "Running", value: "Ultraboost 5 / Light" },
+          { label: "Streetwear", value: "Samba & Gazelle" },
+          { label: "Training", value: "Dropset 3" },
         ]}
       />
       <TrustStats {...stats} />
       <AffiliateDisclosure />
 
-      <section aria-labelledby="adidas-matcher-heading" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Adidas matcher</p>
-        <h2 id="adidas-matcher-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">Which Adidas fits your foot and pace?</h2>
+      {/* Adidas Matcher */}
+      <section
+        aria-labelledby="adidas-matcher-heading"
+        className="mt-10 rounded-2xl border border-[#1f1f1f] bg-[#0B0B0B] p-5 text-[#F5F5F5] sm:p-7"
+      >
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[#a3e635]">
+          Adidas matcher
+        </p>
+        <h2 id="adidas-matcher-heading" className="mt-1 font-serif text-2xl font-extrabold text-white">
+          Which Adidas fits your stride and style?
+        </h2>
         <div className="mt-5 flex flex-wrap gap-2">
           {ORDER.map((id) => {
             const isActive = active === id;
@@ -84,43 +159,164 @@ export default function AdidasClient({ faqs, stats, heroImageUrl, offerCount, st
                 onClick={() => setActive(id)}
                 aria-pressed={isActive}
                 className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition-colors ${
-                  isActive ? "border-inkblue bg-ink text-white" : "border-ledger-line bg-white text-ink hover:border-inkblue"
+                  isActive
+                    ? "border-[#F5F5F5] bg-[#F5F5F5] text-[#0B0B0B]"
+                    : "border-[#3a3a3a] bg-transparent text-[#d4d4d4] hover:border-[#F5F5F5] hover:text-white"
                 }`}
               >
-                {LABEL[id]}
+                {MATCHES[id].tab}
               </button>
             );
           })}
         </div>
-        <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-5">
-          <h3 className="font-serif text-xl font-bold text-ink">{match.headline}</h3>
-          <p className="mt-3 text-sm leading-7 text-ink-soft"><strong className="text-ink">What to expect:</strong> {match.spec}</p>
-          <p className="mt-3 border-l-2 border-inkblue/40 pl-3 text-[13px] leading-6 text-ink-soft">{match.note}</p>
+        <div className="mt-5 rounded-xl border border-[#2a2a2a] bg-[#141414] p-5">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a3e635]">{match.price}</p>
+          <h3 className="mt-1 font-serif text-xl font-bold text-white">{match.headline}</h3>
+          <p className="mt-3 text-sm leading-7 text-[#d4d4d4]">
+            <strong className="text-white">What to expect:</strong> {match.highlight}
+          </p>
+          <p className="mt-3 border-l-2 border-[#a3e635]/50 pl-3 text-[13px] leading-6 text-[#bdbdbd]">
+            {match.detail}
+          </p>
           <a
-            href="/go/adidas?src=store-page"
-            rel="nofollow sponsored noopener"
+            href="/go/adidas?src=matcher"
+            rel={REL}
             target="_blank"
-            className="mt-4 inline-flex items-center gap-1 rounded-full bg-ink px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-inkblue"
+            className="mt-5 inline-flex items-center gap-1 rounded-full bg-[#F5F5F5] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#0B0B0B] transition-colors hover:bg-[#a3e635]"
           >
-            See this on Adidas India
+            Shop This Silhouette on Adidas.co.in →
             <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
           </a>
         </div>
       </section>
 
+      {/* Signature Lineup */}
+      <section aria-labelledby="adidas-lineup-heading" className="mt-10">
+        <div className="mb-6">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">
+            Signature lineup
+          </p>
+          <h2 id="adidas-lineup-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">
+            Inside Adidas India — The Signature Lineup
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-ink-soft">
+            High-contrast icons across running, training, terrace classics and official kits — curated for the Indian
+            shopper.
+          </p>
+        </div>
+        <ul className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {LINEUP.map((item) => (
+            <li key={item.title} className="min-h-0">
+              <a
+                href="/go/adidas?src=lineup"
+                rel={REL}
+                target="_blank"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#0B0B0B] text-[#F5F5F5] transition-shadow hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#141414]">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute left-3 top-3 rounded-full border border-[#3a3a3a] bg-[#0B0B0B]/80 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#a3e635] backdrop-blur-sm">
+                    {item.badge}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#d4d4d4]">
+                    {item.price}
+                  </p>
+                  <h3 className="mt-2 font-serif text-lg font-bold leading-snug text-white">{item.title}</h3>
+                  <p className="mt-2 text-[13px] leading-6 text-[#bdbdbd]">{item.note}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#a3e635]">
+                    Shop on Adidas.co.in <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Why Order Direct */}
+      <section
+        aria-labelledby="adidas-direct-heading"
+        className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7"
+      >
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Direct advantage</p>
+        <h2 id="adidas-direct-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">
+          Why Order Direct on Adidas.co.in
+        </h2>
+        <ul className="mt-5 grid gap-4 sm:grid-cols-3">
+          <li className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <BadgeCheck aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-inkblue" strokeWidth={1.5} />
+            <div>
+              <p className="font-semibold text-ink">100% Guaranteed Authentic</p>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">
+                Zero counterfeit risk on sought-after pairs like Samba and Ultraboost.
+              </p>
+            </div>
+          </li>
+          <li className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <Sparkles aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-inkblue" strokeWidth={1.5} />
+            <div>
+              <p className="font-semibold text-ink">15% adiClub Welcome Privilege</p>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">
+                Unlock a member welcome perk on your first online signup at adidas.co.in.
+              </p>
+            </div>
+          </li>
+          <li className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <RotateCcw aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-inkblue" strokeWidth={1.5} />
+            <div>
+              <p className="font-semibold text-ink">Free 30-Day Doorstep Size Exchange</p>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">
+                Easy doorstep exchanges so you can lock in the right fit with confidence.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      {/* India's favourite — by the numbers */}
       <section className="mt-8 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">India's favourite — by the numbers</p>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2 text-sm leading-7 text-ink-soft">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">
+          India&apos;s favourite — by the numbers
+        </p>
+        <ul className="mt-4 grid gap-3 text-sm leading-7 text-ink-soft sm:grid-cols-2">
           {[
             "India's #1 sports brand — trusted by the Indian cricket team and 70+ Indian athletes",
-            "Adidas India stores span 400+ retail outlets across 200+ cities — most Indians never need to shop online",
+            "Online-first drops on adidas.co.in unlock exclusive India colourways, extended UK sizes (6–12), and instant adiClub member perks not found in mall stores.",
             "Free returns on full-price items within 30 days — the policy Indian shoppers appreciate most",
             "adidas.co.in often carries exclusive India colourways not found on Amazon or Flipkart",
-          ].map((line) => <li key={line} className="flex items-start gap-2"><span className="mt-1 text-inkblue">•</span>{line}</li>)}
+          ].map((line) => (
+            <li key={line} className="flex items-start gap-2">
+              <span className="mt-1 text-inkblue">•</span>
+              {line}
+            </li>
+          ))}
         </ul>
       </section>
 
       <FaqSection eyebrow="Adidas India FAQs" items={faqs} />
+
+      {/* Mobile sticky CTA */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#1f1f1f] bg-[#0B0B0B]/95 px-4 py-3 backdrop-blur-md md:hidden">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
+          <span className="truncate text-sm font-medium text-[#F5F5F5]">Adidas Official India Store</span>
+          <a
+            href="/go/adidas?src=mobile-sticky"
+            rel={REL}
+            target="_blank"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#F5F5F5] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#0B0B0B]"
+          >
+            Explore Collection →
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
