@@ -5,6 +5,7 @@ import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import type { CouponPublic } from "@/lib/types";
 
@@ -33,8 +34,8 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("rforrabbit-com-ecommerce-cps-india", { skip: 0, limit: 10 });
   const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? "https://rforrabbit.com/";
+  const heroImageUrl = storeLogoUrl({ slug: "r-for-rabbit", logo_url: destination?.store.hero_image_url ?? null, website_url: storeUrl }) ?? null;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (

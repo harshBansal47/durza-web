@@ -5,6 +5,7 @@ import { faqPageJsonLd } from "@/lib/seo";
 import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import type { CouponPublic } from "@/lib/types";
 
@@ -36,8 +37,8 @@ export default async function Page() {
   const secondPage = await resilient.getStoreDestination("ajio-com-ecommerce-cps-india", { skip: 100, limit: 100 });
   const offers: CouponPublic[] = [...(destination?.deals ?? []), ...(secondPage?.deals ?? [])];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], offers);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = storeLogoUrl({ slug: "ajio-com-ecommerce-cps-india", logo_url: destination?.store.hero_image_url ?? null, website_url: storeUrl }) ?? null;
   const offerCount = destination?.offer_total ?? offers.length;
 
   return (

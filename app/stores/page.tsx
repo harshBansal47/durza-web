@@ -45,13 +45,14 @@ export default async function StoresIndexPage({
   const { q, page: pageParam } = await searchParams;
   const page = Math.max(1, Number(pageParam) || 1);
   const skip = (page - 1) * PAGE_SIZE;
+  const HIDDEN_STORE_SLUGS = new Set(["salty-co-in-ecommerce-cps-india", "swiggy", "zomato"]);
   const result = (q || page > 1)
     ? await resilient.listStores({ search: q, limit: PAGE_SIZE, skip })
     : await loadStores();
-  const items = result.items.map((s) =>
-    s.slug === "fuelone" ? { ...s, offer_count: 10 } : s,
-  );
-  const total = result.total;
+  const items = result.items
+    .filter((s) => !HIDDEN_STORE_SLUGS.has(s.slug))
+    .map((s) => (s.slug === "fuelone" ? { ...s, offer_count: 10 } : s));
+  const total = Math.max(0, result.total - result.items.filter((s) => HIDDEN_STORE_SLUGS.has(s.slug)).length);
 
   const breadcrumb = breadcrumbJsonLd([
     { name: "Home", path: "/" },

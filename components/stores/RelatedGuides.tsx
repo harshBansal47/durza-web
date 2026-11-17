@@ -95,14 +95,7 @@ const RELATED_GUIDES: Record<string, RelatedStore[]> = {
     { slug: "levis", name: "Levi's", hook: "Denim at list-and-sale prices" },
     { slug: "lavie-world", name: "Lavie", hook: "Everyday handbags and totes" },
   ],
-  swiggy: [
-    { slug: "zomato", name: "Zomato", hook: "Food delivery and dineout deals" },
-    { slug: "igp", name: "IGP", hook: "Late-night cakes and gifts" },
-  ],
-  zomato: [
-    { slug: "swiggy", name: "Swiggy", hook: "Food delivery and Instamart" },
-    { slug: "igp", name: "IGP", hook: "Celebration cakes and gifts" },
-  ],
+
   zeroharm: [
     { slug: "truebasics", name: "TrueBasics", hook: "Patented-ingredient clinical nutrition" },
     { slug: "kapiva", name: "Kapiva Ayurveda", hook: "Ayurvedic metabolic support" },

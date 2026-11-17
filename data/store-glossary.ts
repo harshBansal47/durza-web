@@ -44,7 +44,6 @@ export const STORE_TOOL_ANCHORS = {
   "nourish-mantra": "tool",
   "nykaa": "brand-guidance",
   "sirona": "cup-size-finder",
-  "swiggy": "brand-guidance",
   "tatacliq-com-ecommerce-cps-india": "brand-guidance",
   "the-bear-house": "tool",
   "the-man-company": "tool",
@@ -53,7 +52,6 @@ export const STORE_TOOL_ANCHORS = {
   "wonderchef": "tool",
   "zeroharm": "tool",
   "zoff-foods": "tool",
-  "zomato": "brand-guidance",
 } as const;
 
 export type StoreSlug = keyof typeof STORE_TOOL_ANCHORS;

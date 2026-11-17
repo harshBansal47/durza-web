@@ -90,8 +90,10 @@ describe("requirementLabels", () => {
 
   it("labels memberships, new-user offers and minimum orders", () => {
     expect(
-      requirementLabels(makeCoupon({ title: "Swiggy One members save 15% on groceries" })),
-    ).toContain("Requires Swiggy One");
+      requirementLabels(
+        makeCoupon({ title: "Members save more", description: "Myntra Insider members" }),
+      ),
+    ).toContain("Requires Myntra Insider");
     expect(requirementLabels(makeCoupon({ title: "10% off for new users" }))).toContain(
       "New users only",
     );

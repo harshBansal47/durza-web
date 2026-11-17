@@ -31,9 +31,7 @@ const BANKS: { label: string; pattern: RegExp }[] = [
 
 /** Named memberships that appear in store offers. */
 const MEMBERSHIPS: { label: string; pattern: RegExp }[] = [
-  { label: "Swiggy One", pattern: /swiggy one/i },
   { label: "Lenskart Gold", pattern: /lenskart gold/i },
-  { label: "Zomato Gold", pattern: /zomato gold/i },
   { label: "Myntra Insider", pattern: /myntra insider/i },
   { label: "Flipkart Plus", pattern: /flipkart plus/i },
 ];

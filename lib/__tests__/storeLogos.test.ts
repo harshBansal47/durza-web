@@ -34,7 +34,6 @@ describe("self-hosted icons", () => {
 
 describe("storeAccent", () => {
   it("returns the sampled colour for stores with icons", () => {
-    expect(storeAccent("zomato")).toBe("#cc202e");
     expect(storeAccent("amazon-in")).toMatch(/^#[0-9a-f]{6}$/);
   });
 

@@ -73,7 +73,6 @@ export const LOCAL_STORE_LOGOS: Record<string, string> = {
   "sirona": "/stores/sirona.png",
   "skullcandy-in-ecommerce-cps-india": "/stores/skullcandy-in-ecommerce-cps-india.png",
   "store-jeenasikho-com-ecommerce-cps-india": "/stores/store-jeenasikho-com-ecommerce-cps-india.png",
-  "swiggy": "/stores/swiggy.png",
   "tatacliq-com-ecommerce-cps-india": "/stores/tatacliq-com-ecommerce-cps-india.png",
   "tenxyou-com-ecommerce-cps-india": "/stores/tenxyou-com-ecommerce-cps-india.png",
   "the-bear-house": "/stores/the-bear-house.png",
@@ -83,7 +82,6 @@ export const LOCAL_STORE_LOGOS: Record<string, string> = {
   "wonderchef": "/stores/wonderchef.png",
   "zeroharm": "/stores/zeroharm.png",
   "zoff-foods": "/stores/zoff-foods.png",
-  "zomato": "/stores/zomato.png",
 };
 
 export const STORE_ACCENTS: Record<string, string> = {
@@ -148,7 +146,6 @@ export const STORE_ACCENTS: Record<string, string> = {
   "sirona": "#e90044",
   "skullcandy-in-ecommerce-cps-india": "#151419",
   "store-jeenasikho-com-ecommerce-cps-india": "#afad60",
-  "swiggy": "#ff5200",
   "tatacliq-com-ecommerce-cps-india": "#e1089d",
   "tenxyou-com-ecommerce-cps-india": "#7d5442",
   "the-bear-house": "#ee4840",
@@ -158,7 +155,6 @@ export const STORE_ACCENTS: Record<string, string> = {
   "wonderchef": "#be2c3f",
   "zeroharm": "#4a4653",
   "zoff-foods": "#f1be7f",
-  "zomato": "#cc202e",
 };
 
 /**
@@ -179,17 +175,51 @@ export const ADMITAD_PROGRAM_LOGOS: Record<string, string> = {
   "victorias-secret": "/stores/victorias-secret.webp",
   "salty": "/stores/salty.png",
   "veromoda": "/stores/veromoda.webp",
+  "vero-moda": "/stores/veromoda.webp",
   "aldo-new": "/stores/aldo-new.webp",
+  "aldo-shoes": "/stores/aldo-new.webp",
   "digihaat": "/stores/digihaat.webp",
   "charles-keith": "/stores/charles-keith.webp",
+  "charles-and-keith": "/stores/charles-keith.webp",
   "bliss-club": "/stores/bliss-club.webp",
+  "blissclub": "/stores/bliss-club.webp",
   "bath-body-works": "/stores/bath-body-works.webp",
+  "bath-and-body-works": "/stores/bath-body-works.webp",
 };
 
 /** The admitad icon for a slug, when one exists in public/stores/. */
 export function admitadLogoForSlug(slug?: string | null): string | null {
   if (!slug) return null;
   return ADMITAD_PROGRAM_LOGOS[slug] ?? null;
+}
+
+/** Actual brand logos for stores whose API/route slug differs or needs an override. */
+const BRAND_LOGO_OVERRIDES: Record<string, string> = {
+  "2ndnumber-tel-virtual-sms": "/stores/2ndnumber-tel-virtual-sms.webp",
+  "movavi": "/stores/movavi.webp",
+  "ajio": "/stores/ajio.png",
+  "ajio-com-ecommerce-cps-india": "/stores/ajio.png",
+  // Prefer real brand marks over affiliate-network/campaign artwork.
+  "veromoda": "/stores/veromoda.webp",
+  "vero-moda": "/stores/veromoda.webp",
+  "aldo-new": "/stores/aldo-new.webp",
+  "aldo-shoes": "/stores/aldo-new.webp",
+  "charles-keith": "/stores/charles-keith.webp",
+  "charles-and-keith": "/stores/charles-keith.webp",
+  "bath-body-works": "/stores/bath-body-works.webp",
+  "bath-and-body-works": "/stores/bath-body-works.webp",
+  "bliss-club": "/stores/bliss-club.webp",
+  "blissclub": "/stores/bliss-club.webp",
+  "victorias-secret": "/stores/victorias-secret.webp",
+  "palmonas": "/stores/palmonas.webp",
+  "digihaat": "/stores/digihaat.webp",
+  "asus": "/stores/asus.svg",
+  "adidas": "/stores/adidas.webp",
+  "salty": "/stores/salty.png",
+};
+
+function isCpsIndiaImage(path?: string | null): boolean {
+  return Boolean(path && /ecommerce-cps-india/i.test(path));
 }
 
 const WEBSITE_HOST_PREFIXES = ["www", "store", "shop", "m", "mobile"];
@@ -210,8 +240,9 @@ function sameOriginLogo(raw: string): string {
 }
 
 /**
- * Prefer the backend logo, then a curated local asset, then the website's
- * cached favicon. Null means no usable website URL is available; use initials.
+ * Prefer the backend logo (unless it's a generic affiliate-network CPS image),
+ * then a real brand/admitad/local override, then the website's cached favicon.
+ * Images named with "ecommerce-cps-india" are never treated as store logos.
  */
 export function storeLogoUrl(
   store: {
@@ -221,8 +252,13 @@ export function storeLogoUrl(
   } | null | undefined,
 ): string | null {
   if (!store) return null;
-  if (store.logo_url) return sameOriginLogo(store.logo_url);
-  if (store.slug && LOCAL_STORE_LOGOS[store.slug]) return LOCAL_STORE_LOGOS[store.slug];
+  const slug = store.slug ?? null;
+  if (store.logo_url && !isCpsIndiaImage(store.logo_url)) return sameOriginLogo(store.logo_url);
+  if (slug && BRAND_LOGO_OVERRIDES[slug]) return BRAND_LOGO_OVERRIDES[slug];
+  if (slug && ADMITAD_PROGRAM_LOGOS[slug]) return ADMITAD_PROGRAM_LOGOS[slug];
+  if (slug && LOCAL_STORE_LOGOS[slug] && !isCpsIndiaImage(LOCAL_STORE_LOGOS[slug])) {
+    return LOCAL_STORE_LOGOS[slug];
+  }
   if (store.website_url) {
     try {
       const website = new URL(store.website_url);

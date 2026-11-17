@@ -14,8 +14,6 @@ const BRANDS: Brand[] = [
   { name: "BigBasket", slug: "bigbasket", aliases: ["BigBasket", "Big Basket"] },
   { name: "Lenskart", slug: "lenskart", aliases: ["Lenskart"] },
   { name: "FirstCry", slug: "firstcry", aliases: ["FirstCry", "First Cry"] },
-  { name: "Zomato", slug: "zomato", aliases: ["Zomato"] },
-  { name: "Swiggy", slug: "swiggy", aliases: ["Swiggy"] },
   { name: "Reliance Digital", slug: "reliance-digital", aliases: ["Reliance Digital"] },
   { name: "MakeMyTrip", slug: "makemytrip", aliases: ["MakeMyTrip", "Make My Trip"] },
   { name: "Ixigo", slug: "ixigo", aliases: ["Ixigo", "ixigo"] },

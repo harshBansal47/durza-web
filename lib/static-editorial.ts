@@ -36,7 +36,6 @@ const GUIDE_PRIORITY: Record<string, number> = {
   "nykaa-coupons-and-sale-guide": 9,
   "pepperfry-bean-bags-and-furniture-guide": 9,
   // Tier 8 — India-reachable partners / Indian travel
-  "zomato-veg-deals-and-go-out-offers-guide": 8,
   "ixigo-travel-flight-hotel-codes-guide": 8,
   "reliance-digital-appliance-laptop-offers-guide": 8,
   "lenovo-laptop-offers-india-2026": 8,

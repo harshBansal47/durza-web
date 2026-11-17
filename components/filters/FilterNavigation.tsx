@@ -35,8 +35,6 @@ function outboundLabel(url: URL): string {
   if (host === "track.vcommission.com") return "the store — hang tight";
   if (host === "tjzuh.com") return "Acer India — hang tight";
   if (/amazon\./.test(host)) return "Amazon.in in a new tab";
-  if (host === "swiggy.com" || host === "www.swiggy.com") return "Swiggy in a new tab";
-  if (host === "zomato.com" || host === "www.zomato.com") return "Zomato in a new tab";
   return `${host} in a new tab`;
 }
 

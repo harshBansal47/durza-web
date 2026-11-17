@@ -54,7 +54,6 @@ export const SHOWCASE_STORE_SLUGS = new Set([
   "sanskruti-homes",
   "shop-tupperware",
   "sirona",
-  "swiggy",
   "tatacliq-com-ecommerce-cps-india",
   "the-bear-house",
   "the-man-company",
@@ -65,7 +64,6 @@ export const SHOWCASE_STORE_SLUGS = new Set([
   "wonderchef",
   "zeroharm",
   "zoff-foods",
-  "zomato",
 ]);
 
 export function isShowcaseStore(slug: string): boolean {
