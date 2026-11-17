@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import { staticGuideForStore } from "@/data/store-guides";
-import { LOCAL_STORE_LOGOS, ADMITAD_PROGRAM_LOGOS } from "@/lib/storeLogos";
+import { storeLogoUrl } from "@/lib/storeLogos";
 
-/** Local curated icon first, then the Admitad icon for the store's program, else null (monogram). */
+/** Unified store logo (brand/curated/favicon fallback), never a CPS-image logo. */
 function tileLogo(slug: string): string | null {
-  return LOCAL_STORE_LOGOS[slug] ?? ADMITAD_PROGRAM_LOGOS[slug] ?? null;
+  return storeLogoUrl({ slug, logo_url: null, website_url: null });
 }
 
 function monogram(name: string): string {
