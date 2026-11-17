@@ -50,6 +50,7 @@ const nextConfig: NextConfig = {
             { source: "/stores/salty-co-in-ecommerce-cps-india", destination: "/stores/salty", permanent: true },
             { source: "/stores/milton-in", destination: "/stores/milton", permanent: true },
             { source: "/stores/charles-keith", destination: "/stores/charles-and-keith", permanent: true },
+            { source: "/stores/aldo-new", destination: "/stores/aldo-shoes", permanent: true },
           ];
         },
         async headers() {
