@@ -206,40 +206,58 @@ export const VERO_MODA_SLOTS: LuxurySlot[] = [
 
 export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
   {
+    kicker: "Floral & Musk",
     collection: "Aromatherapy Fine Fragrance Mists",
-    styling: "Japanese Cherry Blossom, Twilight Woods and Vanilla Bean — the 250ml mists women spritz before stepping into the elevator.",
-    image: null,
-    alt: "Bath & Body Works fragrance mist",
+    styling:
+      "Japanese Cherry Blossom and twilight florals wrapped in soft musk — a fine mist veil that lingers from morning rituals to evening plans.",
+    image:
+      "https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=800&q=80",
+    alt: "Bath & Body Works aromatherapy fine fragrance mist",
   },
   {
+    kicker: "45-Hr Burn · Gourmand",
     collection: "Signature 3-Wick Candles",
-    styling: "Sheets of scent staged: Hazelnut Coffee, The Perfect Apple and Pumpkin Latte — 14.5-oz candles with 45 hours of burn and a hotel-lobby memory.",
-    image: null,
-    alt: "Bath & Body Works 3-wick candle",
+    styling:
+      "Soy-blend 3-wick candles with a warm, gourmand glow — rich throw and an inviting ambience that fills the room for unhurried evenings.",
+    image:
+      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    alt: "Bath & Body Works signature 3-wick candle",
   },
   {
+    kicker: "24-Hr Shea Moisture",
     collection: "Body Lotions & Butters",
-    styling: "Rich, fast-absorbing lotions — Warm Vanilla Sugar and Japanese Cherry Blossom — the replenishing layer women wear to bed.",
-    image: null,
-    alt: "Bath & Body Works body lotion",
+    styling:
+      "Cushioning shea body creams and lotions that melt in fast — plush hydration and a soft scent trail for comfortable, cared-for skin.",
+    image:
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
+    alt: "Bath & Body Works body lotion and shea butter cream",
   },
   {
+    kicker: "Foaming Botanical",
     collection: "PocketBac Hand Soaps & Sanitisers",
-    styling: "Coconut Lime Verbena and Sweet Pea — the confetti-coloured soaps with plant-derived cleansing and susceptibility-cleaning glycerin.",
-    image: null,
-    alt: "Bath & Body Works pocket hand soap",
+    styling:
+      "Gentle foaming hand soaps and PocketBac essentials in bright botanical notes — everyday freshness that feels clean, light and uplifting.",
+    image:
+      "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=800&q=80",
+    alt: "Bath & Body Works foaming hand soaps and PocketBac sanitisers",
   },
   {
+    kicker: "Shower-to-Dawn",
     collection: "Gentle Foaming Body Wash",
-    styling: "Coconut, sandalwood and fragrance blends — shower-to-dawn layering for the user who takes minutes rather than hours.",
-    image: null,
-    alt: "Bath & Body Works body wash",
+    styling:
+      "Silky foaming body wash that layers beautifully — a sensorial cleanse that carries from a refreshing shower to an all-day soft scent.",
+    image:
+      "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80",
+    alt: "Bath & Body Works gentle foaming body wash",
   },
   {
+    kicker: "Curated Gift Box",
     collection: "Home & Dorm Gift Sets",
-    styling: "Gift-boxed candle + lotion + soap trios — Diwali hostess, Valentine, anniversary — the zero-effort route to a house that smells like a spa.",
-    image: null,
-    alt: "Bath & Body Works gift set",
+    styling:
+      "Ready-to-gift fragrance sets and festive hampers — thoughtfully paired mists, creams and candles for effortless, memorable gifting.",
+    image:
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+    alt: "Bath & Body Works home and dorm gift set",
   },
 ];
 
