@@ -116,38 +116,50 @@ export const VICTORIAS_SECRET_SLOTS: LuxurySlot[] = [
 
 export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
   {
+    kicker: "Resort Edit",
     collection: "Accessory: Butter-Soft Leather Sandals",
-    styling: "Low-heeled leather sandals in taupe and sand with hand-finished edges — holiday sellers that fold almost flat in a tote.",
+    styling:
+      "Butter-soft leather straps with hand-finished edges and Pillow Walk™ comfort lasts — airy, fold-flat ease in EU sizes made for sunlit getaways.",
     image: "/stores/aldo-shoes/butter-soft-leather-sandals.jpg",
     alt: "Butter-soft leather sandals in warm neutral tones",
   },
   {
+    kicker: "Boardroom Staple",
     collection: "Work & Boardroom Loafers",
-    styling: "Slick grano-leather loafers in oxblood and espresso — the footwear equivalent of a well-ironed shirt, no socks required.",
+    styling:
+      "Sleek grained leather with brushed hardware and Pillow Walk™ comfort lasts — a polished, slip-on silhouette in EU sizing that carries you from desk to dinner.",
     image: "/stores/aldo-shoes/boardroom-loafers.jpg",
     alt: "Polished leather loafers for work and boardroom wear",
   },
   {
+    kicker: "After-Dark Signature",
     collection: "Evening Heels & Pumps",
-    styling: "Sleek platform and stiletto heels in patent and suede — evening-room captures, not bar-stool survival; 7cm comfort-padded lasts.",
+    styling:
+      "Sculpted profiles in patent and suede with brushed hardware accents and Pillow Walk™ comfort lasts — poised height, EU sizing, and all-evening ease.",
     image: "/stores/aldo-shoes/evening-heels-pumps.jpg",
     alt: "Elegant evening heels and pumps",
   },
   {
+    kicker: "Gallery Carry",
     collection: "Structured Top-Handle Bags",
-    styling: "Stiff, structured top-handle silhouettes in croc-embossed calf leather — book-and-bouquet silhouettes for opening nights.",
+    styling:
+      "Crisp, architectural lines in croc-embossed leather with brushed hardware — a structured top-handle that holds its form from gallery afternoons to evening plans.",
     image: "/stores/aldo-shoes/structured-top-handle-bags.jpg",
     alt: "Structured top-handle handbag with refined silhouette",
   },
   {
+    kicker: "Off-Duty Leather",
     collection: "Trainers & Casual Sneakers",
-    styling: "Clean lines, lambo oil colorways and collapsible heel counters — everyday leathers in tonal palettes, engineered for the 5-km commute.",
+    styling:
+      "Clean leather uppers, subtle brushed hardware details and Pillow Walk™ comfort lasts — refined off-duty ease in EU sizing for the everyday stride.",
     image: "/stores/aldo-shoes/trainers-casual-sneakers.jpg",
     alt: "Casual trainers and lifestyle sneakers",
   },
   {
+    kicker: "Winter Capsule",
     collection: "Suede Ankle Boots",
-    styling: "Genuine suede, almond toe and 6.5cm stacked heel — transitional booting for Delhi winters and Mumbai monsoons.",
+    styling:
+      "Genuine suede with an almond toe, brushed hardware and Pillow Walk™ comfort lasts — a stacked-heel boot in EU sizing for composed winter layering.",
     image: "/stores/aldo-shoes/suede-ankle-boots.jpg",
     alt: "Suede ankle boots with stacked heel",
   },
