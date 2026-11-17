@@ -17,6 +17,7 @@ import { GO_REL, storeGoHref } from "@/lib/go";
 import { groupSimilar } from "@/lib/grouping";
 import { parseRupeePrice } from "@/lib/price";
 import { cleanStoreDescription } from "@/lib/seo";
+import { isShowcaseStore } from "@/lib/showcase-stores";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 import { ArrowUpRight } from "lucide-react";
@@ -214,6 +215,29 @@ export default function StorePageClient({
               Show all offers
             </button>
           </div>
+        ) : isShowcaseStore(store.slug) ? (
+          <section
+            aria-labelledby="store-showcase-cta"
+            className="rounded-[22px] border border-ledger-line bg-white px-5 py-10 text-center"
+          >
+            <h2 id="store-showcase-cta" className="font-serif text-xl font-extrabold text-ink">
+              Explore {store.name}
+            </h2>
+            <p className="mx-auto mt-2 max-w-prose text-ink-soft">
+              Browse the official {store.name} collection and latest arrivals directly on their store.
+            </p>
+            {website && (
+              <a
+                href={storeGoHref(store.slug, "store-page")}
+                target="_blank"
+                rel={GO_REL}
+                className="btn btn-cta mt-4 inline-block"
+              >
+                Visit {store.name} official store
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            )}
+          </section>
         ) : (
           <section
             aria-labelledby="no-offers"
@@ -352,17 +376,18 @@ export default function StorePageClient({
                   })()}
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm text-ink">{related.name}</span>
-                    {typeof related.offer_count === "number" && (
-                      <span
-                        className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
-                          related.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
-                        }`}
-                      >
-                        {related.offer_count > 0
-                          ? `${related.offer_count} live ${related.offer_count === 1 ? "offer" : "offers"}`
-                          : "No live offers right now"}
-                      </span>
-                    )}
+                    {typeof related.offer_count === "number" &&
+                      (related.offer_count > 0 || !isShowcaseStore(related.slug)) && (
+                        <span
+                          className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
+                            related.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
+                          }`}
+                        >
+                          {related.offer_count > 0
+                            ? `${related.offer_count} live ${related.offer_count === 1 ? "offer" : "offers"}`
+                            : "No live offers right now"}
+                        </span>
+                      )}
                   </span>
                 </Link>
               </li>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { storeInitials } from "@/lib/catalog";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
+import { isShowcaseStore } from "@/lib/showcase-stores";
 import type { Store } from "@/lib/types";
 
 /** Shared by the stores index and search results, so a store looks the same
@@ -55,17 +56,18 @@ export default function StoreCard({ store }: { store: Store }) {
         <span className="block truncate text-xs text-ink-soft">
           {host ?? "Offers and coupon codes"}
         </span>
-        {typeof store.offer_count === "number" && (
-          <span
-            className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
-              store.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
-            }`}
-          >
-            {store.offer_count > 0
-              ? `${store.offer_count} live ${store.offer_count === 1 ? "offer" : "offers"}`
-              : "No live offers right now"}
-          </span>
-        )}
+        {typeof store.offer_count === "number" &&
+          (store.offer_count > 0 || !isShowcaseStore(store.slug)) && (
+            <span
+              className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
+                store.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
+              }`}
+            >
+              {store.offer_count > 0
+                ? `${store.offer_count} live ${store.offer_count === 1 ? "offer" : "offers"}`
+                : "No live offers right now"}
+            </span>
+          )}
       </span>
       <ArrowRight
         aria-hidden="true"
