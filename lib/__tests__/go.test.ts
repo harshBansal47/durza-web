@@ -11,6 +11,12 @@ describe("storeGoHref", () => {
     expect(storeGoHref("a/b?c=d#e", "site")).toBe("/go/a%2Fb%3Fc%3Dd%23e?src=site");
   });
 
+  it("supports tracked Adidas guide placements", () => {
+    expect(storeGoHref("adidas", "adidas-guide-style-ultraboost")).toBe(
+      "/go/adidas?src=adidas-guide-style-ultraboost",
+    );
+  });
+
   it("names no network, whatever the store", () => {
     expect(storeGoHref("nordpass", "coupon-page").toLowerCase()).not.toMatch(/vcommission|admitad|cuelinks/);
   });

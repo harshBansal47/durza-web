@@ -17,6 +17,7 @@ export type GoSource =
   | "site"
   | "telegram"
   | "banner-store"
+  | `adidas-guide-style-${"ultraboost" | "adizero" | "originals" | "training"}`
   | "asus-india-guide-hero"
   | `asus-india-matcher-${"student" | "gaming" | "creative" | "business"}`
   | `asus-india-compare-${"rog-strix-g15" | "tuf-gaming-a15" | "zenbook-oled-3k" | "vivobook-15"}`

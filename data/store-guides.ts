@@ -63,6 +63,8 @@ export interface StaticGuide {
   category: string;         // used by the /guides category filter
   featured?: boolean;
   heroImage?: string;
+  heroImageAlt?: string;
+  heroImageLayout?: "logo" | "editorial";
   seo: { title: string; description: string };
   /** 1-line summary shown in listings and the hero. */
   summary: string;
@@ -2633,7 +2635,9 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "adidas",
     category: "Sports & Fashion Lifestyle",
     featured: true,
-    heroImage: "/stores/adidas.webp",
+    heroImage: "/guides/adidas-india-buying-guide.png",
+    heroImageAlt: "Illustrated Adidas India running and training shoe buying guide",
+    heroImageLayout: "editorial",
     seo: {
       title: "Adidas India 2026 — Runners, Originals and Training Picks",
       description: "Adidas India: Ultraboost, Adizero, Originals, Training gear — honest Indian-foot fit, run vs street guide and match scoring.",

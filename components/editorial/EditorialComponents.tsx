@@ -13,6 +13,7 @@ import PageTitle from "@/components/ui/PageTitle";
 import { editorialPath } from "@/lib/editorial-path";
 import { absoluteUrl, faqPageJsonLd } from "@/lib/seo";
 import GuideArt from "./GuideArt";
+import AdidasStyleCompare from "@/components/guides/AdidasStyleCompare";
 import { SITE_URL } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { renderBrandText } from "@/lib/brandMentions";
@@ -586,6 +587,10 @@ export default async function EditorialArticle({ content }: { content: Editorial
           </Fragment>
         ))}
       </div>
+      {content.content_type === "guide" &&
+        content.slug === "adidas-india-ultraboost-originals-training-2026-guide" && (
+          <AdidasStyleCompare />
+        )}
       <AdSenseSlot eligible={content.adsense_eligible} slot={endAdSlot} />
       {faqItems.length > 0 && (
         <section className="mt-12" aria-labelledby="editorial-faq-heading">

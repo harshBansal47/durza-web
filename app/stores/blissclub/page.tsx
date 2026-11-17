@@ -8,9 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import type { CouponPublic } from "@/lib/types";
 
-const title = "BlissClub India — Women's Ultimate Leggings, Flares & Activewear";
+const title = "BlissClub — Ultimate Leggings, Flares & Activewear for Indian Women | Durza";
 const description =
-  "BlissClub India: women's Ultimate Leggings, flares, joggers and activewear. Fit matcher, honest sizing; shop direct from BlissClub's official storefront.";
+  "BlissClub India activewear showcase: Ultimate Leggings, flares, joggers, sports bras, tanks and co-ord sets — find your fit and shop official BlissClub store.";
 const canonical = "/stores/blissclub";
 
 export const metadata: Metadata = {

@@ -8,6 +8,7 @@ import AdSenseSlot from "@/components/editorial/AdSenseSlot";
 import { BRAND } from "@/lib/brand";
 import GuideCodeCta from "@/components/guides/GuideCodeCta";
 import GuideInteractiveToolCard from "@/components/guides/GuideInteractiveToolCard";
+import AdidasStyleCompare from "@/components/guides/AdidasStyleCompare";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { toolHref } from "@/data/store-glossary";
@@ -95,14 +96,18 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
       <p className="mt-3 text-base leading-7 text-ink-soft">{guide.summary}</p>
 
       {guide.heroImage && (
-        <div className="relative mt-6 h-44 w-full overflow-hidden rounded-2xl border border-ledger-line bg-paper-raised sm:h-56">
+        <div
+          className={`relative mt-6 w-full overflow-hidden rounded-2xl border border-ledger-line bg-paper-raised ${
+            guide.heroImageLayout === "editorial" ? "aspect-[16/9]" : "h-44 sm:h-56"
+          }`}
+        >
           <Image
             src={guide.heroImage}
-            alt={`${storeName} logo`}
+            alt={guide.heroImageAlt ?? `${storeName} logo`}
             fill
             priority
             sizes="(max-width: 768px) 100vw, 896px"
-            className="object-contain p-6"
+            className={guide.heroImageLayout === "editorial" ? "object-cover" : "object-contain p-6"}
           />
         </div>
       )}
@@ -193,6 +198,10 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
           headline={guide.interactiveTool.headline}
           sublabel={guide.interactiveTool.sublabel}
         />
+      )}
+
+      {guide.slug === "adidas-india-ultraboost-originals-training-2026-guide" && (
+        <AdidasStyleCompare />
       )}
 
       {guide.primaryCta && (
