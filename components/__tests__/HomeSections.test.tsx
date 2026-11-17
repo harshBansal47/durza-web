@@ -115,7 +115,7 @@ describe("Hero", () => {
     render(
       <Hero
         stats={[
-          { label: "Active coupons", value: 12 },
+          { label: "Active coupons", value: 5000 },
           { label: "Stores", value: 0 },
         ]}
         popularStores={[]}
@@ -123,6 +123,22 @@ describe("Hero", () => {
     );
     expect(screen.getByText("Active coupons")).toBeInTheDocument();
     expect(screen.queryByText("Stores")).not.toBeInTheDocument();
+  });
+
+  it("hides stat numbers until there are at least 5000 coupons", () => {
+    render(
+      <Hero
+        stats={[
+          { label: "Active coupons", value: 724 },
+          { label: "Stores tracked", value: 95 },
+          { label: "Categories", value: 16 },
+        ]}
+        popularStores={[]}
+      />,
+    );
+    expect(screen.queryByText("Active coupons")).not.toBeInTheDocument();
+    expect(screen.queryByText("Stores tracked")).not.toBeInTheDocument();
+    expect(screen.queryByText("Categories")).not.toBeInTheDocument();
   });
 
   it("has a labelled product search with instant suggestions", () => {

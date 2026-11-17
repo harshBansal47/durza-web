@@ -59,11 +59,14 @@ export default function HeroBand({
   stats: { coupons: number; stores: number; categories: number };
 }) {
   const reduced = usePrefersReducedMotion();
-  const items = [
-    { label: "Active coupons", value: stats.coupons, live: true },
-    { label: "Stores tracked", value: stats.stores, live: false },
-    { label: "Categories", value: stats.categories, live: false },
-  ].filter((s) => s.value > 0);
+  const showCounts = stats.coupons >= 5000;
+  const items = showCounts
+    ? [
+        { label: "Active coupons", value: stats.coupons, live: true },
+        { label: "Stores tracked", value: stats.stores, live: false },
+        { label: "Categories", value: stats.categories, live: false },
+      ].filter((s) => s.value > 0)
+    : [];
 
   return (
     <div className="hx-band hx-rise" style={{ ["--i" as string]: 4 }}>

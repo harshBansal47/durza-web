@@ -73,22 +73,35 @@ export default function StatBand({
   const storeVal = useCountUp(stores, true, storeRef);
   const catVal = useCountUp(categories, true, catRef);
 
-  const items: { icon: React.ReactNode; value: string; label: string }[] = [
-    {
-      icon: <Ticket className="h-5 w-5" strokeWidth={1.75} />,
-      value: couponVal.toLocaleString("en-IN"),
-      label: "Active coupons",
-    },
-    {
-      icon: <Store className="h-5 w-5" strokeWidth={1.75} />,
-      value: storeVal.toLocaleString("en-IN"),
-      label: "Stores tracked",
-    },
-    {
-      icon: <LayoutGrid className="h-5 w-5" strokeWidth={1.75} />,
-      value: catVal.toLocaleString("en-IN"),
-      label: "Categories",
-    },
+  const showCounts = coupons >= 5000;
+  const items: Array<{
+    icon: React.ReactNode;
+    value: string;
+    label: string;
+    ref?: React.RefObject<HTMLSpanElement | null>;
+  }> = [
+    ...(showCounts
+      ? [
+          {
+            icon: <Ticket className="h-5 w-5" strokeWidth={1.75} />,
+            value: couponVal.toLocaleString("en-IN"),
+            label: "Active coupons",
+            ref: couponRef,
+          },
+          {
+            icon: <Store className="h-5 w-5" strokeWidth={1.75} />,
+            value: storeVal.toLocaleString("en-IN"),
+            label: "Stores tracked",
+            ref: storeRef,
+          },
+          {
+            icon: <LayoutGrid className="h-5 w-5" strokeWidth={1.75} />,
+            value: catVal.toLocaleString("en-IN"),
+            label: "Categories",
+            ref: catRef,
+          },
+        ]
+      : []),
     {
       icon: <CalendarDays className="h-5 w-5" strokeWidth={1.75} />,
       value: lastCheckedAt ? formatDate(lastCheckedAt) : "—",
@@ -98,29 +111,26 @@ export default function StatBand({
 
   return (
     <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {items.map((item, i) => {
-        const ref = i === 0 ? couponRef : i === 1 ? storeRef : i === 2 ? catRef : undefined;
-        return (
-          <div
-            key={item.label}
-            className="flex min-w-0 items-center gap-3 rounded-2xl border border-ledger-line bg-paper-raised p-4 shadow-[var(--shadow-hairline)]"
+      {items.map((item) => (
+        <div
+          key={item.label}
+          className="flex min-w-0 items-center gap-3 rounded-2xl border border-ledger-line bg-paper-raised p-4 shadow-[var(--shadow-hairline)]"
+        >
+          <span
+            aria-hidden="true"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-faint text-accent"
           >
-            <span
-              aria-hidden="true"
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-faint text-accent"
-            >
-              {item.icon}
-            </span>
-            <dd
-              ref={ref}
-              className="font-mono text-xl font-medium tracking-tight text-ink"
-            >
-              {item.value}
-            </dd>
-            <dt className="truncate text-[11px] text-ink-soft">{item.label}</dt>
-          </div>
-        );
-      })}
+            {item.icon}
+          </span>
+          <dd
+            ref={item.ref}
+            className="font-mono text-xl font-medium tracking-tight text-ink"
+          >
+            {item.value}
+          </dd>
+          <dt className="truncate text-[11px] text-ink-soft">{item.label}</dt>
+        </div>
+      ))}
     </dl>
   );
 }
