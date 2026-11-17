@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const STEPS: [string, string][] = [
-  ["Where coupons come from", "Offers arrive from our sources — feeds, imports and staff curation — and flow through one pipeline: normalize, dedupe, validate. Hand-researched offers are read from the store's own pages, and the source page and check date travel with the offer."],
-  ["How we verify them", "Each offer is structurally validated and (where enabled) probed live. Shopper worked/didn't-work votes set the success rate on the offer — until someone reports, the offer shows no rate at all."],
-  ["How users report results", "One vote per visitor per coupon per day, keyed by a salted IP hash — real signal, no raw tracking."],
-  ["What Durza does NOT do", "We don't sell your data, we don't sell ranking (sponsored placements are labelled, and commission data is only one input), and we don't hijack another creator's referral link."],
+  ["Where offers come from", "Offers come from partner feeds, imports, and manual checks. Each one is cleaned up, de-duplicated, and kept with the store page it came from and the date it was last checked."],
+  ["How they’re checked", "We validate offer details and, where possible, recheck them. The success rate comes from shopper votes — if no one has reported yet, we don’t show a rate."],
+  ["How reports work", "Visitors can mark an offer as worked or didn’t work. Reports are limited to reduce spam and keep the signal useful."],
+  ["What we don’t do", "We don’t sell your data, sell rankings, or redirect someone else’s referral. Sponsored placements are labelled, and commissions are disclosed."],
 ];
 
 export default function HowItWorksPage() {

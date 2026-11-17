@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "Which PureVPN plan is right for casual browsing vs streaming?", answer: "For occasional browsing on public Wi-Fi, the 1-month plan is the most flexible. For daily streaming and international content, the 2-year plan is financially sensible. For tech enthusiasts and permanent home servers, the 5-year plan is the most economical." },
   { question: "Can I use one PureVPN account on multiple devices in India?", answer: "Yes — PureVPN allows up to 10 simultaneous device connections on most consumer plans: phones, laptops, routers (for whole-home coverage) and smart TVs." },
-  { question: "Does PureVPN work with Indian streaming platforms like JioHotstar and Netflix India?", answer: "Yes, PureVPN's Delhi and Mumbai servers support streaming Indian content, and its international servers unlock Netflix US/UK libraries. Server performance changes as platforms expand IP blocking — reroute through a different server if one top-up shows an error." },
+  { question: "Does PureVPN work with Indian streaming platforms like JioHotstar and Netflix India?", answer: "Yes, PureVPN's Delhi and Mumbai servers support streaming Indian content, and its international servers can access Netflix US/UK libraries. Server availability can change as platforms update blocking — try a different server if one doesn't work." },
   { question: "What is PureVPN's privacy stance and where is it based?", answer: "PureVPN is headquartered in the British Virgin Islands, an independent privacy jurisdiction without EU/US mass-surveillance data retention mandates. The no-logs policy has been audited and published." },
 ];
 

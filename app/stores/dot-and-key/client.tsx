@@ -178,7 +178,7 @@ export default function DotAndKeyStorePage({ offers, faqs, stats, heroImageUrl, 
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
             <span>
               <span className="font-semibold">Choose UPI/Prepaid at checkout:</span> prepaid orders are typically eligible
-              for faster (7 working day) refund processing and may unlock extra prepaid perks shown at checkout.
+              for faster (7 working day) refund processing and may qualify for extra prepaid perks shown at checkout.
             </span>
           </li>
           <li className="flex items-start gap-2">

@@ -23,7 +23,7 @@ const MATCHES: Record<Use, { readonly headline: string; readonly icon: string; r
   streaming: {
     icon: "Tv",
     headline: "Streaming & international content",
-    spec: "10 simultaneous devices · 65+ countries · Netflix US/UK unlock · JioHotstar-compatible · 2-year plan is the value sweet spot",
+    spec: "10 simultaneous devices · 65+ countries · access to Netflix US/UK libraries · JioHotstar-compatible · 2-year plan is the value sweet spot",
     note: "PureVPN's Striveto IP rotation is built for streaming; the company maintains the India streaming catalogue without juggling regions; go straight to Delhi or Mumbai servers for JioHotstar.",
   },
   travel: {

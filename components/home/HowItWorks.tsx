@@ -3,14 +3,14 @@ import { Search, Ticket, CheckCircle2 } from "lucide-react";
 const STEPS = [
   {
     glyph: Search,
-    title: "Find a deal",
-    body: "Search a store or product. Every offer shows where it came from and when it was last checked.",
+    title: "Find an offer",
+    body: "Search for a store or product. Each offer shows its source and when it was last checked.",
   },
-  { glyph: Ticket, title: "Reveal and copy", body: "One tap reveals the code and opens the store through our link. We may earn a commission." },
+  { glyph: Ticket, title: "Copy and visit", body: "Reveal the code and head to the store. If you buy through our link, we may earn a commission." },
   {
     glyph: CheckCircle2,
-    title: "Tell us if it worked",
-    body: "Your report updates that offer's success rate for the next shopper. Dead codes drop away.",
+    title: "Share what happened",
+    body: "Let others know if it worked. Reports help keep the success rate and listings useful.",
   },
 ];
 

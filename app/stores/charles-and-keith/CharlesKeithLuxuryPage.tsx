@@ -37,7 +37,7 @@ const LUXURY_COLLECTION_ITEMS = [
     tag: "Intimate Leather Goods",
     title: "Quilted Cardholders & Evening Clutches",
     description:
-      "Tactile chevron quilting, metallic chain-link straps, and sleek zip-around wallets. Pocket-sized indulgences crafted to slip seamlessly from a daytime tote into a cocktail clutch.",
+      "Tactile chevron quilting, metallic chain-link straps, and sleek zip-around wallets. Pocket-sized pieces designed to move easily from a daytime tote to a cocktail clutch.",
     imageUrl: "/stores/charles-and-keith/quilted-small-goods.jpg",
     cta: "Discover Small Goods",
   },

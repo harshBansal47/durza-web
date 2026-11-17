@@ -51,7 +51,7 @@ const CARDS = [
     tag: "Zero-Bounce · Removable Pads",
     copy: "Breathable racerback and scoop-neck designs crafted to pair with Ultimate Leggings for high-impact runs or all-day wireless comfort.",
     image: "/stores/blissclub/bras.jpg",
-    alt: "High-support seamless sports bra for training",
+    alt: "High-support sports bra for training",
   },
   {
     title: "Breeze & Movement Tank Tops",
@@ -80,7 +80,7 @@ const FITS: { id: FitId; label: string; tip: string }[] = [
   {
     id: "yoga",
     label: "Yoga & Pilates",
-    tip: "Choose a true-to-size Ultimate Legging or Bliss Flares for fluid stretch and a no-roll waist; pair with a seamless, zero-bounce bra for ease.",
+    tip: "Choose a true-to-size Ultimate Legging or Bliss Flares for fluid stretch and a no-roll waist; pair with a smooth, zero-bounce bra for comfort.",
   },
   {
     id: "travel",
@@ -90,7 +90,7 @@ const FITS: { id: FitId; label: string; tip: string }[] = [
   {
     id: "bundle",
     label: "Co-Ord Bundle Deals",
-    tip: "Build a 2-piece studio kit (leggings + sports bra/top) in matching shades to unlock official bundle savings and a ready-to-wear set.",
+    tip: "Build a 2-piece studio kit (leggings + sports bra/top) in matching shades to get official bundle savings and a ready-to-wear set.",
   },
 ];
 
@@ -282,7 +282,7 @@ export default function BlissClubClient({ faqs, stats, storeUrl }: Props) {
           Build Your 2-Piece Studio Kit
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-[#e8dfd8]">
-          Pair your favourite leggings with a sports bra or top on blissclub.com to unlock official bundle tiers and
+          Pair your favourite leggings with a sports bra or top on blissclub.com to get official bundle tiers and
           enjoy free express shipping on qualifying orders — a matched set that moves with you, for less.
         </p>
         <a

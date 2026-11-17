@@ -56,7 +56,7 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Clean Beauty Cart-Filler Assistant</h2>
-        <p className="mt-1 text-sm text-ink-soft">Tap items to see when you cross ₹450 free shipping and unlock TNW15.</p>
+        <p className="mt-1 text-sm text-ink-soft">Tap items to see when you cross ₹450 for free shipping and qualify for TNW15.</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {CART_FILLERS.map((c) => (
             <button key={c.id} type="button" onClick={() => setCart((cur) => cur.includes(c.id) ? cur.filter((x) => x !== c.id) : [...cur, c.id])} className={`rounded-full px-4 py-2 text-sm font-medium ${cart.includes(c.id) ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c.label}</button>

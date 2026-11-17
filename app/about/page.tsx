@@ -9,17 +9,17 @@ export const metadata: Metadata = {
 };
 
 const HIGHLIGHTS = [
-  "Every offer shows the store page it was read from and when it was last checked.",
-  "Shopper votes set the success rate — nothing is shown until someone reports.",
-  "Every commission we earn is disclosed on the page.",
+  "Every offer shows where it came from and when it was last checked.",
+  "Success rates are based on shopper reports — we don’t show one until there’s feedback.",
+  "Commissions are disclosed clearly on the page.",
 ];
 
 export default function AboutPage() {
   return (
     <LegalPage
       eyebrow="About Durza"
-      title="Evidence, not marketing"
-      lede="Durza is a deals platform built on one idea: a discount should be evidence, not marketing. We are building toward a shopping assistant that answers what is the cheapest legitimate way to buy this with price history, sourced offers and honest math."
+      title="Clear, honest savings"
+      lede="Durza helps you find store offers with context you can trust: where an offer came from, when it was last checked, and how it’s performing based on real reports."
       highlights={HIGHLIGHTS}
       toc={[
         { id: "what-we-do", label: "What we do" },

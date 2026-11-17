@@ -60,7 +60,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
             ASUS India Official Store — ROG, Zenbook &amp; Vivobook Lineup
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#cbd5e1] sm:text-lg">
-            Compare flagship OLED ultrabooks, RTX gaming rigs, and creator workstations—then unlock official ASUS eShop
+            Compare flagship OLED ultrabooks, RTX gaming rigs, and creator workstations—then find official ASUS eShop
             warranty bundles, bank cashback, and student privileges.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">

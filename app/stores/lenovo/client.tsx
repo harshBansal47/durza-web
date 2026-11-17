@@ -48,7 +48,7 @@ const TABS: Record<
     headline: "ThinkPad — built for founders and Linux developers",
     spec: "X1 Carbon / T14 / Ubuntu-certified / 3-Yr Premier Support",
     price: "₹85,000 – ₹1,95,000",
-    note: "Legendary keyboards, robust reliability and enterprise-ready support for serious engineering and leadership workflows.",
+    note: "Legendary keyboards, dependable build quality, and enterprise-ready support for engineering and leadership workflows.",
   },
   design: {
     label: "Design & Touch (Yoga OLED)",

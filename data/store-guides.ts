@@ -403,7 +403,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     faqs: [
       { question: "SAVE250 or SAVE100 — which should I use?", answer: "SAVE250 (₹250 off fitness essentials) wins above ₹2,500 carts; SAVE100 (₹100 off + free gym socks) wins below. PULLUP150 is the pull-up bar variant — helpful for apartment setups." },
       { question: "Are Boldfit bands and bars India-quality or flimsy?", answer: "Boldfit mid-line bars run at ~400–500kg static capacity on the assembly spec. Quality is genuine; bands degrade to 70% elasticity by year-1 only under constant sun exposure." },
-      { question: "Can I stack BULK buyers (6+ months)?", answer: "Yes — BULK buys unlock staggered bundle pricing on protein tubs combined with gym gear. Site shows the live percentage at pay." },
+      { question: "Can I stack BULK buyers (6+ months)?", answer: "Yes — BULK buys can qualify for staggered bundle pricing on protein tubs combined with gym gear. The site shows the live percentage at checkout." },
     ],
     blocks: [
       { type: "callout", text: "Boldfit math: SAVE250 above ₹2,500; SAVE100 below; PULLUP150 only for pull-up/bar carts. Crossover threshold = cart value." },
@@ -454,7 +454,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     faqs: [
       { question: "BULK20 or ALPINO10 — which do I use?", answer: "BULK20 (20% off 2.5 kg Mega Saver Tubs) wins for bulk buyers; ALPINO10 (10% sitewide on peanut butters & oats) works for jars/snacks — BULK20 only engages on mega tub categories." },
       { question: "Does Alpino PB contain added sugar?", answer: "No. Alpino All-Natural Peanut Butter is unsweetened — the sticker shows 100% roasted peanuts. Natural oil separation is proof, not a defect; stir before using." },
-      { question: "When does the free delivery threshold apply?", answer: "the free delivery threshold engages on cart > ₹499 across India — combine PB + oats + snacks into one order to unlock it." },
+      { question: "When does the free delivery threshold apply?", answer: "Free delivery applies on orders above ₹499 across India — combine PB, oats, and snacks in one order to qualify." },
     ],
     blocks: [
       { type: "callout", text: "Alpino order: BULK20 on 2.5kg tubs; ALPINO10 anywhere else; FREESHIP above ₹499. Oil on top is feature, not defect." },
@@ -1525,7 +1525,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     faqs: [
       { question: "CAREER25 or GUVI10?", answer: "CAREER25 (up to 25% off multi-course tech combos) applies on career-track bundles (full-stack, data-science, cloud); GUVI10 (extra 10% off self-paced courses) covers individual courses." },
       { question: "Is GUVI IIT Madras born?", answer: "Yes — GUVI was incubated at IIT Madras — HCL-legacy roots, govt-recognised CERT-IN ICT-India. Their vernacular teaching (Tamil, Telugu, Hindi) is the structural difference." },
-      { question: "Does CODEKATA mean free demos?", answer: "Yes — CODEKATA unlocks 3-hour trial access to most courses; upgrade during trial and the trial price sticks." },
+      { question: "Does CODEKATA mean free demos?", answer: "Yes — CODEKATA gives 3-hour trial access to most courses; if you upgrade during the trial, the trial price is applied." },
     ],
     blocks: [
       { type: "callout", text: "GUVI order: CAREER25 on career-track bundles; GUVI10 sitewide; FREECLASS for demo classes — language stays vernacular throughout." },

@@ -289,7 +289,7 @@ export default function AdidasClient({ faqs, stats, heroImageUrl, offerCount, st
         <ul className="mt-4 grid gap-3 text-sm leading-7 text-ink-soft sm:grid-cols-2">
           {[
             "India's #1 sports brand — trusted by the Indian cricket team and 70+ Indian athletes",
-            "Online-first drops on adidas.co.in unlock exclusive India colourways, extended UK sizes (6–12), and instant adiClub member perks not found in mall stores.",
+            "Online-first drops on adidas.co.in include select India colourways, extended UK sizes (6–12), and adiClub member perks not always available in mall stores.",
             "Free returns on full-price items within 30 days — the policy Indian shoppers appreciate most",
             "adidas.co.in often carries exclusive India colourways not found on Amazon or Flipkart",
           ].map((line) => (
