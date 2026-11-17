@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Boldfit Coupons, Gym Equipment & Supplement Deals";
-const description = "Boldfit promo codes and best deals on home gym equipment, resistance bands and protein supplements. Free delivery above ₹800.";
+const title = "Boldfit Official Store \u2014 Home Gym, Yoga & Fitness Gear | Durza";
+const description = "Explore Boldfit fitness gear by workout need \u2014 yoga mats, resistance bands, bottles and more. Check live options and availability on the official store.";
 const canonical = "/stores/boldfit";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I unlock free gym socks with my Boldfit order?", answer: "Add products totaling ₹1,899 or more to your cart and apply coupon SAVE100. Boldfit automatically adds a complimentary pair of performance socks to eligible shipments." },
-  { question: "Does the Boldfit Doorway Pull-Up bar require drilling?", answer: "No, the TitanGrip Pull-Up Bar uses adjustable tension leverage with silicone buffer pads, securing between standard doorway frames without screws or wall drilling." },
-  { question: "What is the minimum order threshold for free shipping on Boldfit?", answer: "Doorstep delivery is completely free on all orders of ₹800 or more across India." },
+  { question: "Why buy Boldfit gear from the official store?", answer: "The official store shows the current range of options, sizes/variants and product details, and lets you review Boldfit\u2019s policies directly before purchase." },
+  { question: "How do I choose the right yoga mat or resistance band?", answer: "Pick mat thickness and material based on your workout and comfort needs, and choose resistance levels that match your current strength. Check specs, dimensions and care instructions on the product page." },
+  { question: "Are combos or kits worth it?", answer: "Kits can be convenient if they include the items you need for your routine. Compare the contents and value against buying individual items on the official store." },
+  { question: "What about returns and warranty?", answer: "Returns, replacements and any warranty/support depend on Boldfit\u2019s current policies and the product category. Review the policy and product details on boldfit.in before ordering." },
+  { question: "Where can I check current prices and availability?", answer: "Live prices, variants and availability are shown on boldfit.in. Use this page to find the right category and confirm current details." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("boldfit", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("boldfit", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("boldfit") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.boldfit.in";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Boldfit", path: "/stores/boldfit" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Boldfit", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="boldfit" />
     </>
   );

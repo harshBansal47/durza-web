@@ -6,11 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "HealthKart Coupons & Offers – Extra Savings on Supplements";
-const description =
-  "Current HealthKart promo codes, MuscleBlaze deals, HK Cash and UPI offers. Save on protein, creatine monohydrate and vitamins — free shipping above ₹499.";
+const title = "HealthKart Official Store \u2014 Protein, Creatine & Supplements | Durza";
+const description = "Explore HealthKart supplements by fitness goal \u2014 whey, creatine, vitamins and more. Check authenticity guidance and live prices on the official store.";
 const canonical = "/stores/healthkart";
 
 export const metadata: Metadata = {
@@ -21,52 +20,21 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title, description },
 };
 
-/**
- * Visible FAQ and FAQPage JSON-LD share this array — edit once here.
- */
 const FAQS = [
-  {
-    question: "How do I apply a HealthKart coupon code?",
-    answer:
-      "Copy the code from this page, visit HealthKart (website or app), add your items to the cart, paste the code into the coupon box at checkout and tap Apply. The discount is shown before you pay.",
-  },
-  {
-    question: "Are these HealthKart codes on Durza checked?",
-    answer:
-      "Codes marked as checked resolved correctly at our recent store checks. If a code fails for you, the minimum order value or product eligibility on the card may not be met — or the code has expired and we are re-checking it.",
-  },
-  {
-    question: "Can I combine a coupon with a UPI discount or HK Cash?",
-    answer:
-      "UPI instant discounts often apply alongside coupon codes at checkout, and HK Cash (HealthKart's rewards) can usually be redeemed on eligible orders once earned. Exact eligibility is always shown at HealthKart checkout — Durza never sets it.",
-  },
-  {
-    question: "Does HealthKart offer Cash on Delivery?",
-    answer:
-      "Payment options (UPI, cards, net banking, Cash on Delivery) vary by product and cart value. The options available for your order appear on the payment page — Durza cannot change or confirm them for every cart.",
-  },
-  {
-    question: "What does 'checked' mean on a Durza coupon card?",
-    answer:
-      "It means the code resolved correctly at our most recent check — sourced from HealthKart's campaign pages or tested by a shopper using our success-rate votes. Codes without any reports are labelled 'no votes yet'.",
-  },
-  {
-    question: "Do HealthKart codes apply to MuscleBlaze? Any MuscleBlaze coupon codes right now?",
-    answer:
-      "MuscleBlaze is HealthKart's own sports-nutrition label — MuscleBlaze products go through the same healthkart.com checkout. Any code listed on this page applies to MuscleBlaze as well as to other labels; there is no separate MuscleBlaze checkout, so no separate coupon page exists.",
-  },
-
+  { question: "How does HealthKart address product authenticity?", answer: "HealthKart provides authenticity guidance and verification steps for eligible products and emphasizes sourcing from brands/authorized channels. Follow the verification instructions provided with your product and on the HealthKart site." },
+  { question: "How do I choose the right protein or supplement?", answer: "Match the product to your goal, diet and tolerance. Compare protein per serving, ingredients, allergens and certifications on the label, and consult a qualified professional if you have health conditions or specific needs." },
+  { question: "Are combos or rewards available on HealthKart?", answer: "Combo packs and loyalty/reward benefits may be offered and can change over time. Check live combo pricing, reward terms and checkout offers on the official HealthKart store." },
+  { question: "What is the return policy for supplements?", answer: "Returns/replacements depend on HealthKart\u2019s policy and product eligibility (often requiring items to be unopened/sealed and reported within the stated window). Review the current policy and product conditions before ordering." },
+  { question: "Where can I check current prices and offers?", answer: "Live prices, combos and checkout offers are shown on healthkart.com. Use this page to find the right category and confirm current details on the official store." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("healthkart", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("healthkart", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("healthkart") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.healthkart.com";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
@@ -75,18 +43,16 @@ export default async function Page() {
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "HealthKart", path: "/stores/healthkart" },
+          { name: "HealthKart", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient
-        offers={offers}
-        products={products}
+        faqs={FAQS}
+        stats={stats}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         storeUrl={storeUrl}
-        stats={stats}
-        faqs={FAQS}
       />
       <RelatedGuides slug="healthkart" />
     </>

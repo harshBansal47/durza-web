@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "GUVI Coupons, Coding Courses & Certification Deals";
-const description = "GUVI promo codes, GUVI10 instant 10% off and best deals on Python, Full Stack and Data Science courses.";
+const title = "GUVI Official Courses \u2014 Tech Bootcamps & Coding Programs | Durza";
+const description = "Explore GUVI\u2019s coding courses and career programs by goal \u2014 from career-switch bootcamps to vernacular learning. Check live curriculum, schedules and pricing on GUVI.";
 const canonical = "/stores/guvi";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "Are GUVI certifications recognized by tech companies and recruiters?", answer: "Yes. GUVI is an IIT Madras incubated company under the HCL Group. Their course certificates are recognized by top tech companies, and their Zen Class bootcamp has over 600 hiring partners including PayPal, Juspay, and Freshworks." },
-  { question: "Can I learn complex programming in Hindi or Tamil on GUVI?", answer: "Yes. GUVI's primary innovation is vernacular teaching. You can learn Python, Java, Data Science, and Full Stack development in your native mother tongue without language barrier obstacles, while all coding syntax remains standard English." },
-  { question: "How do I apply the GUVI10 promo code?", answer: "Select your desired self-paced course or bundle on guvi.in, proceed to the checkout payment page, and enter coupon code GUVI10 to receive an instant 10% deduction." },
+  { question: "What kinds of programs does GUVI offer?", answer: "GUVI offers self-paced courses and mentor-led career programs across areas like development, data/AI, testing, design and more. Check the specific track on guvi.in for the latest curriculum, format and schedule." },
+  { question: "Can I learn in my preferred Indian language on GUVI?", answer: "GUVI provides learning options in multiple Indian languages for selected courses and resources, alongside English. Verify language availability for the specific course on the official page." },
+  { question: "Does GUVI provide placement assistance?", answer: "Some career programs include placement assistance, interview preparation or hiring support as per program terms. Review the exact scope, eligibility and conditions on the relevant GUVI program page \u2014 outcomes are not guaranteed." },
+  { question: "Are EMI or scholarships available?", answer: "EMI options, scholarships or discounts may be offered on select programs and can change over time. Check live pricing, eligibility and payment options on the official GUVI enrollment/checkout flow." },
+  { question: "Where can I see current curriculum and pricing?", answer: "Live curriculum, schedules, prerequisites and pricing are shown on guvi.in. Use this page to find the right track and confirm details directly on the official site." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("guvi", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("guvi", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("guvi") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.guvi.in";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "GUVI", path: "/stores/guvi" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "GUVI", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="guvi" />
     </>
   );

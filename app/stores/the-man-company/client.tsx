@@ -1,141 +1,124 @@
 "use client";
 
-import StoreHero from "@/components/StoreHero";
-import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import StackingExample from "@/components/store/StackingExample";
-import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import { useMemo, useState } from "react";
+import { ArrowUpRight, BadgeCheck, Truck, Shield, Wrench, CreditCard, Zap, Home, Sparkles } from "lucide-react";
+import FaqSection from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
-import ExploreStoreCta from "@/components/store/ExploreStoreCta";
-import OfferCard from "@/components/OfferCard";
-import { useState } from "react";
-import { getAffiliateLink } from "@/lib/affiliate";
-import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
-import { ArrowUpRight } from "lucide-react";
-import ProductDealRouter from "@/components/store/ProductDealRouter";
-const link = (url: string, sub: string): string => getAffiliateLink("the-man-company", url, sub);
-const STEPS = [
-  { title: "Step 1 — Micro-needle 2x a week", detail: "Roll the 0.5mm titanium Derma Roller over patchy areas twice weekly to boost blood circulation and collagen production around dormant follicles." },
-  { title: "Step 2 — Feed follicles daily", detail: "Apply Almond & Thyme Growth Oil every evening to nourish active hair follicles and soften coarse beard hair." },
-  { title: "Step 3 — Bundle and stack", detail: "Buy the Derma Roller + Growth Oil + Wash as a kit and apply code BEARD20 for flat 20% off, plus free shipping above ₹499." },
-];
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import { GO_REL, storeGoHref } from "@/lib/go";
+
 interface Props {
-  offers: StoreOfferCard[];
-  products: StoreProductCard[];
-  faqs: FaqItem[];
+  faqs: { question: string; answer: string }[];
   stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function TheManCompanyClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
-  const tabs = Array.from(new Set(products.map((p) => p.tab)));
-  const [concern, setConcern] = useState(tabs[0] ?? "");
-  const topOffer = offers[0] ?? null;
-  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
-  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+const ADV_ICONS = { shield: Shield, truck: Truck, wrench: Wrench, card: CreditCard, zap: Zap, home: Home, check: BadgeCheck, spark: Sparkles };
+
+const ADVANTAGES = [{"title": "Full range & combos", "desc": "Browse complete grooming ranges, combos and curated sets directly on the official store."}, {"title": "Fragrances & discovery sets", "desc": "Explore signature fragrances and discovery/gift formats as available on themancompany.com."}, {"title": "Gifting-ready options", "desc": "Find curated gift boxes and sets suited for occasions \u2014 check contents and availability on the listing."}, {"title": "Checkout benefits as available", "desc": "Prepaid/cart benefits or bundles may be offered from time to time \u2014 see live terms at checkout."}] as const;
+const MATCHERS = [{"id": "fragrance", "label": "Fragrances", "headline": "Signature scents for day and evening", "bullets": ["Choose fragrance notes/profiles that fit your preference and occasion", "Consider discovery sets if trying a new scent", "Check size, concentration and ingredients on the listing"], "cta": "Explore fragrances \u2192", "src": "matcher-fragrance"}, {"id": "beard", "label": "Beard Care", "headline": "Clean, soften and style your beard", "bullets": ["Use a gentle beard wash and follow with oil/balm as needed", "Patch-test new products if you have sensitive skin", "Check ingredients and usage directions on the product page"], "cta": "Explore beard care \u2192", "src": "matcher-beard"}, {"id": "skincare", "label": "Face & Body Care", "headline": "Everyday cleansing and grooming essentials", "bullets": ["Pick cleansers/moisturizers suited to your skin type", "Use sunscreen as part of daytime routines where appropriate", "Review ingredients and instructions before use"], "cta": "Explore face & body care \u2192", "src": "matcher-skincare"}, {"id": "gifting", "label": "Gifting", "headline": "Ready-to-gift grooming sets", "bullets": ["Choose curated hampers or discovery sets for easy gifting", "Check what\u2019s included and packaging details on the listing", "Confirm delivery timelines and availability on the store"], "cta": "Explore gift sets \u2192", "src": "matcher-gifting"}] as const;
+const LINEUP = [{"title": "Eau de Parfums", "badge": "Fragrance", "copy": "Signature scents and sizes \u2014 compare notes and formats.", "src": "lineup-perfumes"}, {"title": "Beard Care", "badge": "Beard", "copy": "Oils, washes and balms \u2014 check ingredients and routine fit.", "src": "lineup-beard"}, {"title": "Face Care", "badge": "Skin", "copy": "Cleansers, scrubs and daily care \u2014 review suitability for your skin.", "src": "lineup-face"}, {"title": "Gift Sets & Combos", "badge": "Gifting", "copy": "Curated boxes and combos \u2014 see contents and presentation.", "src": "lineup-gifting"}, {"title": "Hair & Body", "badge": "Essentials", "copy": "Styling and body care essentials \u2014 check usage and ingredients.", "src": "lineup-hair-body"}] as const;
+
+export default function StoreClient({ faqs, stats }: Props) {
+  const [active, setActive] = useState<string>(MATCHERS[0]?.id ?? "");
+  const current = useMemo(() => MATCHERS.find((m) => m.id === active) ?? MATCHERS[0], [active]);
+  const heroHref = storeGoHref("the-man-company", "store-page");
+  const mobileHref = storeGoHref("the-man-company", "mobile-sticky");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
-      <StoreHero
-        name="The Man Company"
-        subtitle="Gentleman In You • Premium Beard Growth, Charcoal Detox & Long-Lasting Scents"
-        domain={domain}
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        ctaHref={ctaHref}
-        offers={offers}
-      />
+    <main className="mx-auto max-w-6xl px-4 pb-28 pt-6 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden rounded-3xl border border-ledger-line bg-gradient-to-br from-white via-slate-50 to-amber-50/40 p-6 shadow-sm sm:p-10">
+        <div className="max-w-3xl">
+          <p className="mb-3 inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-900">Official store guide</p>
+          <h1 className="font-serif text-3xl font-extrabold leading-tight text-ink sm:text-5xl">The Man Company Official Store — Grooming, Fragrances & Gift Sets</h1>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft sm:text-lg">Build your grooming routine or find a gift set, compare ranges, and check live availability on the official The Man Company store.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={heroHref} target="_blank" rel={GO_REL} className="btn btn-cta inline-flex items-center gap-2">Shop The Man Company → <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
+            <a href="#the-man-company-matcher" className="inline-flex items-center rounded-full border border-ledger-line bg-white px-5 py-3 text-sm font-semibold text-ink hover:bg-slate-50">Find what fits</a>
+          </div>
+          <p className="mt-4 text-xs text-ink-soft">We link you to the official store to check live price, availability and current terms.</p>
+        </div>
+      </section>
+
       <TrustStats {...stats} />
-      <AffiliateDisclosure />
 
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl font-bold text-ink sm:text-3xl">Why shop The Man Company direct</h2>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {ADVANTAGES.map((a, i) => {
+            const Icon = [Shield, Truck, Wrench, CreditCard, Zap, Home, BadgeCheck, Sparkles][i % 8];
+            return (
+              <div key={a.title} className="rounded-2xl border border-ledger-line bg-white p-5 shadow-sm">
+                <Icon className="h-5 w-5 text-amber-700" aria-hidden="true" />
+                <h3 className="mt-3 font-semibold text-ink">{a.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{a.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+        <p className="mt-3 text-xs text-ink-soft">Benefits, availability and terms are determined by the official store and may vary by product, location or time.</p>
+      </section>
 
-      <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">The 2-Step Patchy Beard Solution Decoder</h2>
-        <ol className="mt-4 space-y-3">
-          {STEPS.map((s, i) => (
-            <li key={s.title} className="flex items-start gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-bold text-white">{i + 1}</span>
-              <span className="text-sm"><span className="font-semibold text-ink">{s.title}: </span><span className="text-ink-soft">{s.detail}</span></span>
-            </li>
-          ))}
-        </ol>
-        <a href={link("https://www.themancompany.com/products/beard-growth-kit", "beard_decoder")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop the Beard Growth Pro Kit</a>
-      </div>
-
-      {offers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {offers.map((o) => (
-            <OfferCard
-              key={o.code}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={link(o.targetUrl, o.subId)}
-              expiresAt={o.expiresAt}
-            />
+      <section id="the-man-company-matcher" className="mt-12 scroll-mt-24">
+        <h2 className="font-serif text-2xl font-bold text-ink sm:text-3xl">Find your routine or gift</h2>
+        <p className="mt-2 max-w-3xl text-sm text-ink-soft">Choose your need for a quick checklist, then explore the matching range on the official store.</p>
+        <div role="tablist" aria-label="The Man Company matcher" className="mt-5 flex flex-wrap gap-2">
+          {MATCHERS.map((m) => (
+            <button key={m.id} type="button" role="tab" aria-selected={active === m.id} onClick={() => setActive(m.id)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${active === m.id ? "bg-ink text-white" : "border border-ledger-line bg-white text-ink hover:bg-slate-50"}`}>
+              {m.label}
+            </button>
           ))}
         </div>
-      ) : (
-        <ExploreStoreCta storeName="The Man Company" href={ctaHref} />
-      )}
+        {current && (
+          <div className="mt-5 grid gap-5 rounded-2xl border border-ledger-line bg-white p-5 shadow-sm lg:grid-cols-[1.2fr_1fr]">
+            <div>
+              <h3 className="text-xl font-bold text-ink">{current.headline}</h3>
+              <ul className="mt-4 space-y-2 text-sm text-ink-soft">
+                {current.bullets.map((b) => (<li key={b} className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />{b}</li>))}
+              </ul>
+            </div>
+            <div className="flex flex-col justify-between rounded-xl bg-slate-50 p-4">
+              <p className="text-sm text-ink-soft">Browse the matching range on the official The Man Company store to compare live options, pricing and availability.</p>
+              <a href={storeGoHref("the-man-company", current.src)} target="_blank" rel={GO_REL} className="btn btn-cta mt-4 inline-flex items-center justify-center gap-2">{current.cta} <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
+            </div>
+          </div>
+        )}
+      </section>
 
-      <StackingExample
-        title="How people stack savings on The Man Company"
-        lead="A complete beard kit (oil, wash, comb & balm):"
-        lines={[
-          { label: "Complete beard kit", value: "₹1,299" },
-          { label: "Apply BEARD20 (20% off)", value: "− ₹260*" },
-          { label: "Free shipping above ₹499", value: "included" }
-        ]}
-        total={{ label: "You pay", value: "≈ ₹1,039" }}
-        saving="You could save ₹260+ on the kit"
-        note="*Illustrative — TMC15 applies to marked grooming lines; fragrances may follow other offers."
-      />
+      <section className="mt-12">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Grooming ranges</p>
+        <h2 className="mt-1 font-serif text-2xl font-bold text-ink sm:text-3xl">Shop by category</h2>
+        <p className="mt-2 max-w-3xl text-sm text-ink-soft">Browse grooming, fragrance and gifting categories and confirm live availability on the official store.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {LINEUP.map((item) => (
+            <a key={item.title} href={storeGoHref("the-man-company", item.src)} target="_blank" rel={GO_REL} className="group rounded-2xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <p className="text-xs font-semibold uppercase tracking-wider text-amber-800">{item.badge}</p>
+              <h3 className="mt-2 text-lg font-bold text-ink group-hover:text-inkblue">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{item.copy}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ink">View on official store <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></span>
+            </a>
+          ))}
+        </div>
+      </section>
 
-            <ProductDealRouter
-        title="Men&apos;s Grooming Routine &amp; Scent Matcher"
-        offers={offers}
-        products={products}
-        tabs={tabs}
-        concern={concern}
-        onConcern={setConcern}
-        storeName="the-man-company"
-        columns={2}
-      />
+      <div className="mt-10"><AffiliateDisclosure /></div>
 
-            <FaqSection eyebrow="The Man Company FAQs" items={faqs} />
-
+      <section className="mt-10">
+        <p className="mb-2 max-w-3xl text-sm text-ink-soft">Patch-test new grooming products if you have sensitive skin. Check ingredients, usage directions and current store policies on the official site.</p>
+        <FaqSection eyebrow="The Man Company FAQs" items={faqs} />
+      </section>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a
-          href={topOffer ? link(topOffer.targetUrl, topOffer.subId) : ctaHref}
-          target="_blank"
-          rel="nofollow sponsored noopener noreferrer"
-          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-        >
+        <a href={mobileHref} target="_blank" rel={GO_REL} className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white">
           <span className="min-w-0">
-            {topOffer?.code ? (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Code {topOffer.code}
-              </span>
-            ) : (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Official store
-              </span>
-            )}
-            <span className="block truncate text-xs font-semibold">
-              {topOffer ? topOffer.title : `Check live range & offers on The Man Company`}
-            </span>
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">Official store</span>
+            <span className="block truncate text-xs font-semibold">Check live range & offers on The Man Company</span>
           </span>
-          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-            Shop
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          </span>
+          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">Shop <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
         </a>
       </div>
-    </div>
+    </main>
   );
 }

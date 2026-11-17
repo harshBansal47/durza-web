@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Kapiva Coupons, Himalayan Shilajit & Herbal Juice Deals";
-const description = "Kapiva promo codes, KAPIVA10 extra 10% off and best deals on Himalayan Shilajit resin, Dia Free Juice and Get Slim.";
+const title = "Kapiva Official Store \u2014 Ayurvedic Nutrition & Wellness | Durza";
+const description = "Explore Kapiva juices, Shilajit and wellness nutrition by goal. Check ingredients, lab/test information and live availability on the official Kapiva store.";
 const canonical = "/stores/kapiva";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I verify the purity of Kapiva Shilajit Resin?", answer: "Every jar comes with a batch-specific NABL lab test certificate verifying >60% Fulvic Acid and heavy metal levels below FSSAI limits." },
-  { question: "How should Kapiva juices be consumed for best results?", answer: "Mix 30ml of juice in room-temperature water and consume twice daily on an empty stomach, 30 minutes before breakfast and dinner." },
-  { question: "What is the minimum order for free shipping on Kapiva?", answer: "Free doorstep delivery across India on all orders of ₹499 or more." },
+  { question: "Why buy Kapiva from the official store?", answer: "The official Kapiva store provides current product ranges, ingredient and usage information, and any brand-provided quality/test details. Review specifics on each listing and confirm live availability at checkout." },
+  { question: "How should I choose a Kapiva product?", answer: "Pick based on your wellness goal, preferred format and ingredient suitability. Follow serving guidance and consult a qualified healthcare professional if you are pregnant, nursing, have a condition or take medication." },
+  { question: "Are lab reports or consultations available?", answer: "Kapiva shares quality/testing information for certain products and may offer consultation options as described on its site. Check the relevant product or service page on kapiva.in for current details." },
+  { question: "Can supplements replace medical treatment?", answer: "No. Dietary supplements and Ayurvedic nutrition products are not intended to diagnose, treat, cure or prevent disease. Use them as part of a healthy routine and seek medical advice for health conditions." },
+  { question: "Where can I check current prices and availability?", answer: "Live prices, pack options and availability are shown on kapiva.in. Browse the relevant range via this page to confirm current details." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("kapiva", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("kapiva", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("kapiva") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://kapiva.in";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Kapiva Ayurveda", path: "/stores/kapiva" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Kapiva", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="kapiva" />
     </>
   );

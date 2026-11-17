@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Havells Coupons, Home Appliances & Electricals Deals";
-const description = "Havells promo codes, HAVELLS500 flat ₹500 off above ₹4,999 and best deals on fans, appliances and electricals.";
+const title = "Havells Official Store \u2014 Fans, Geysers & Home Appliances | Durza";
+const description = "Explore Havells fans, water heaters, kitchen appliances and more by use case. Check live models, prices and availability on the official Havells store.";
 const canonical = "/stores/havells";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How does warranty registration work on the Havells official store?", answer: "Every Havells product includes a 100% genuine manufacturer warranty; you can register it on their website using your invoice and serial number." },
-  { question: "Is doorstep installation available?", answer: "Yes, eligible products include doorstep installation as per Havells service terms." },
-  { question: "How to apply HAVELLS500?", answer: "Add products worth ₹4,999 or more and enter HAVELLS500 at checkout to get flat ₹500 off." },
+  { question: "Why buy Havells appliances from the official store?", answer: "The official store lets you view current models, specifications and ratings, with manufacturer-backed warranty and access to authorized service/installation support on eligible products as specified on the listing. Always confirm live price, availability and terms at checkout." },
+  { question: "Does Havells provide installation for products like geysers?", answer: "Installation or demo support may be available for eligible appliances depending on your PIN code and the product. Check installation availability and terms on the specific product page before ordering." },
+  { question: "How do I choose the right fan or water heater?", answer: "Match fan sweep and motor type to your room and efficiency needs. For water heaters, choose capacity for your household and verify pressure/safety ratings for your building. Confirm exact specs on the official listing." },
+  { question: "Are EMI or bank offers available on Havells?", answer: "EMI and bank/card payment options may be available on eligible orders, but they vary by product and payment method. Review live options and terms shown at checkout on the official store." },
+  { question: "Where can I check current Havells prices and stock?", answer: "Live prices, configurations, stock and checkout offers are shown on havells.com. Use the links on this page to browse the relevant range and confirm details before you buy." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("havells", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("havells", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("havells") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://havells.com";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Havells", path: "/stores/havells" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Havells", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="havells" />
     </>
   );

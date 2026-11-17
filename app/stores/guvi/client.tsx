@@ -1,164 +1,124 @@
 "use client";
 
-import StoreHero from "@/components/StoreHero";
-import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import StackingExample from "@/components/store/StackingExample";
-import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
+import { useMemo, useState } from "react";
+import { ArrowUpRight, BadgeCheck, Truck, Shield, Wrench, CreditCard, Zap, Home, Sparkles } from "lucide-react";
+import FaqSection from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
-import ExploreStoreCta from "@/components/store/ExploreStoreCta";
-import OfferCard from "@/components/OfferCard";
-
-import { useState } from "react";
-
-import { getAffiliateLink } from "@/lib/affiliate";
-import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
-import { ArrowUpRight } from "lucide-react";
-import ProductDealRouter from "@/components/store/ProductDealRouter";
-const link = (url: string, sub: string): string => getAffiliateLink("guvi", url, sub);
+import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
+import { GO_REL, storeGoHref } from "@/lib/go";
 
 interface Props {
-  offers: StoreOfferCard[];
-  products: StoreProductCard[];
-  faqs: FaqItem[];
+  faqs: { question: string; answer: string }[];
   stats: TrustStatsProps;
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
 }
 
-export default function GuviStorePage({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
-  const tabs = Array.from(new Set(products.map((p) => p.tab)));
-  const [concern, setConcern] = useState(tabs[0] ?? "");
-  const [goal, setGoal] = useState("job");
-  const [lang, setLang] = useState("English");
+const ADV_ICONS = { shield: Shield, truck: Truck, wrench: Wrench, card: CreditCard, zap: Zap, home: Home, check: BadgeCheck, spark: Sparkles };
 
-  const recommended = products.find(() => {
-    if (goal === "job" && (concern === "Full Stack Web Development" || concern === "Data Science & AI")) return true;
-    if (goal === "single" && concern.startsWith("Programming")) return true;
-    return false;
-  }) || products[0];
+const ADVANTAGES = [{"title": "Recognized ed-tech backing", "desc": "GUVI highlights its incubation and industry partnerships (including IIT-M incubation and HCL Group association) \u2014 see official credentials on guvi.in."}, {"title": "Vernacular learning options", "desc": "Many courses and resources are offered in Indian languages alongside English, helping learners build tech skills with greater clarity."}, {"title": "Hands-on practice ecosystem", "desc": "GUVI provides practice platforms and project-based learning across its programs, as described on official course pages."}, {"title": "Career-focused programs", "desc": "Select mentor-led programs include projects, interview preparation and placement assistance as per program terms \u2014 review details on the specific track."}] as const;
+const MATCHERS = [{"id": "career-switch", "label": "Career Switch", "headline": "Structured bootcamps for job-ready skills", "bullets": ["Review syllabus, projects and mentorship format for the track", "Check eligibility, schedule (weekday/weekend) and time commitment", "Understand placement assistance scope and terms on the program page"], "cta": "Explore career programs \u2192", "src": "matcher-career-switch"}, {"id": "upskill", "label": "Domain Upskilling", "headline": "Advance in AI, cloud, testing, design and more", "bullets": ["Pick a specialization aligned to your current role and goals", "Check prerequisites, tools covered and hands-on components", "Compare live vs self-paced formats and support options"], "cta": "Explore upskilling tracks \u2192", "src": "matcher-upskill"}, {"id": "single-skill", "label": "Learn a Skill/Tool", "headline": "Focused courses to build one capability at a time", "bullets": ["Start with fundamentals and practice through exercises/projects", "Choose language/stack and difficulty level that fits you", "Verify certificate details and access duration on the course page"], "cta": "Explore courses \u2192", "src": "matcher-single-skill"}, {"id": "vernacular", "label": "Learn in Your Language", "headline": "Tech learning in vernacular-friendly formats", "bullets": ["Preview modules available in your preferred language where offered", "Combine lessons with practice to reinforce concepts", "Check course language, format and outcomes on guvi.in"], "cta": "Explore vernacular learning \u2192", "src": "matcher-vernacular"}] as const;
+const LINEUP = [{"title": "Full-Stack Development", "badge": "Career track", "copy": "End-to-end web development programs with projects \u2014 review curriculum and format.", "src": "lineup-fullstack"}, {"title": "Data Science & AI/ML", "badge": "Career track", "copy": "Data and AI-focused learning paths \u2014 check tools, projects and prerequisites.", "src": "lineup-datascience"}, {"title": "Automation Testing & QA", "badge": "Career track", "copy": "Testing and QA skill tracks \u2014 compare tools covered and program structure.", "src": "lineup-testing"}, {"title": "UI/UX Design", "badge": "Design", "copy": "Design-focused programs with portfolio work \u2014 review tools and outcomes.", "src": "lineup-uiux"}, {"title": "DevOps & Cloud", "badge": "Upskilling", "copy": "Cloud and DevOps learning paths \u2014 check modules and hands-on components.", "src": "lineup-devops"}, {"title": "Self-Paced Courses", "badge": "Flexible", "copy": "Learn specific languages or tools at your pace \u2014 verify access and details.", "src": "lineup-selfpaced"}] as const;
 
-  const topOffer = offers[0] ?? null;
-  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
-  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+export default function StoreClient({ faqs, stats }: Props) {
+  const [active, setActive] = useState<string>(MATCHERS[0]?.id ?? "");
+  const current = useMemo(() => MATCHERS.find((m) => m.id === active) ?? MATCHERS[0], [active]);
+  const heroHref = storeGoHref("guvi", "store-page");
+  const mobileHref = storeGoHref("guvi", "mobile-sticky");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
-      <StoreHero
-        name="GUVI Geek Networks"
-        subtitle="IIT Madras Incubated • HCL Group Company"
-        domain={domain}
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        ctaHref={ctaHref}
-        offers={offers}
-      />
-      <TrustStats {...stats} />
-      <AffiliateDisclosure />
-
-
-      <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Career Decision Snippet</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button type="button" onClick={() => setGoal("job")} className={`rounded-full px-4 py-2 text-sm font-medium ${goal === "job" ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Get My First Tech Job</button>
-          <button type="button" onClick={() => setGoal("single")} className={`rounded-full px-4 py-2 text-sm font-medium ${goal === "single" ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Learn a Single Language</button>
+    <main className="mx-auto max-w-6xl px-4 pb-28 pt-6 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden rounded-3xl border border-ledger-line bg-gradient-to-br from-white via-slate-50 to-amber-50/40 p-6 shadow-sm sm:p-10">
+        <div className="max-w-3xl">
+          <p className="mb-3 inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-900">Official store guide</p>
+          <h1 className="font-serif text-3xl font-extrabold leading-tight text-ink sm:text-5xl">GUVI Official Learning — Career Tracks & Coding Courses</h1>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft sm:text-lg">Choose a GUVI program by your learning goal, compare tracks and formats, then check live curriculum, schedules and enrollment options on the official site.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={heroHref} target="_blank" rel={GO_REL} className="btn btn-cta inline-flex items-center gap-2">Explore GUVI programs → <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
+            <a href="#guvi-matcher" className="inline-flex items-center rounded-full border border-ledger-line bg-white px-5 py-3 text-sm font-semibold text-ink hover:bg-slate-50">Find what fits</a>
+          </div>
+          <p className="mt-4 text-xs text-ink-soft">We link you to the official store to check live price, availability and current terms.</p>
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {["Tamil", "Hindi", "Telugu", "English"].map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setLang(l)}
-              className={`rounded-full px-3 py-1 text-xs font-medium ${lang === l ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}
-            >
-              {l}
+      </section>
+
+      <TrustStats {...stats} />
+
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl font-bold text-ink sm:text-3xl">Why learn with GUVI direct</h2>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {ADVANTAGES.map((a, i) => {
+            const Icon = [Shield, Truck, Wrench, CreditCard, Zap, Home, BadgeCheck, Sparkles][i % 8];
+            return (
+              <div key={a.title} className="rounded-2xl border border-ledger-line bg-white p-5 shadow-sm">
+                <Icon className="h-5 w-5 text-amber-700" aria-hidden="true" />
+                <h3 className="mt-3 font-semibold text-ink">{a.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{a.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+        <p className="mt-3 text-xs text-ink-soft">Benefits, availability and terms are determined by the official store and may vary by product, location or time.</p>
+      </section>
+
+      <section id="guvi-matcher" className="mt-12 scroll-mt-24">
+        <h2 className="font-serif text-2xl font-bold text-ink sm:text-3xl">Choose the right GUVI path</h2>
+        <p className="mt-2 max-w-3xl text-sm text-ink-soft">Pick your goal to get a checklist, then view the matching GUVI track and live details on the official site.</p>
+        <div role="tablist" aria-label="GUVI matcher" className="mt-5 flex flex-wrap gap-2">
+          {MATCHERS.map((m) => (
+            <button key={m.id} type="button" role="tab" aria-selected={active === m.id} onClick={() => setActive(m.id)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${active === m.id ? "bg-ink text-white" : "border border-ledger-line bg-white text-ink hover:bg-slate-50"}`}>
+              {m.label}
             </button>
           ))}
         </div>
-        {recommended && (
-          <div className="mt-4 rounded-xl border border-ledger-line bg-paper-alt p-4">
-            <p className="font-semibold text-ink">Recommended: {recommended.name}</p>
-            <p className="mt-1 text-sm text-ink-soft">{recommended.specs}</p>
-            <a href={link(recommended.targetUrl, recommended.subId)} target="_blank" rel="nofollow sponsored noopener" className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
-              Start Learning on GUVI
-            </a>
+        {current && (
+          <div className="mt-5 grid gap-5 rounded-2xl border border-ledger-line bg-white p-5 shadow-sm lg:grid-cols-[1.2fr_1fr]">
+            <div>
+              <h3 className="text-xl font-bold text-ink">{current.headline}</h3>
+              <ul className="mt-4 space-y-2 text-sm text-ink-soft">
+                {current.bullets.map((b) => (<li key={b} className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />{b}</li>))}
+              </ul>
+            </div>
+            <div className="flex flex-col justify-between rounded-xl bg-slate-50 p-4">
+              <p className="text-sm text-ink-soft">Browse the matching range on the official GUVI store to compare live options, pricing and availability.</p>
+              <a href={storeGoHref("guvi", current.src)} target="_blank" rel={GO_REL} className="btn btn-cta mt-4 inline-flex items-center justify-center gap-2">{current.cta} <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
+            </div>
           </div>
         )}
-      </div>
+      </section>
 
-      {offers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {offers.map((o) => (
-            <OfferCard
-              key={o.code}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={link(o.targetUrl, o.subId)}
-              expiresAt={o.expiresAt}
-            />
+      <section className="mt-12">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Programs & courses</p>
+        <h2 className="mt-1 font-serif text-2xl font-bold text-ink sm:text-3xl">Explore GUVI by track</h2>
+        <p className="mt-2 max-w-3xl text-sm text-ink-soft">Browse popular GUVI learning tracks and confirm live curriculum, schedules and pricing on the official site.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {LINEUP.map((item) => (
+            <a key={item.title} href={storeGoHref("guvi", item.src)} target="_blank" rel={GO_REL} className="group rounded-2xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <p className="text-xs font-semibold uppercase tracking-wider text-amber-800">{item.badge}</p>
+              <h3 className="mt-2 text-lg font-bold text-ink group-hover:text-inkblue">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{item.copy}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ink">View on official store <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></span>
+            </a>
           ))}
         </div>
-      ) : (
-        <ExploreStoreCta storeName="GUVI Geek Networks" href={ctaHref} />
-      )}
+      </section>
 
-      <StackingExample
-        title="How people stack savings on GUVI"
-        lead="Enrol in a multi-course tech combo instead of separate courses:"
-        lines={[
-          { label: "Multi-course tech combo", value: "₹4,499" },
-          { label: "Apply CAREER25 (up to 25% off)", value: "− ₹1,125*" },
-          { label: "Free live demo class (Zen)", value: "₹0" }
-        ]}
-        total={{ label: "You pay", value: "≈ ₹3,374" }}
-        saving="You could save ₹1,125+ vs buying separately"
-        note="*Illustrative — course-wise pricing varies by cohort and city; check the current price before enrolling."
-      />
+      <div className="mt-10"><AffiliateDisclosure /></div>
 
-            <ProductDealRouter
-        title="Vernacular Tech Career Matcher"
-        offers={offers}
-        products={products}
-        tabs={tabs}
-        concern={concern}
-        onConcern={setConcern}
-        storeName="guvi"
-        columns={2}
-      />
-
-            <FaqSection eyebrow="GUVI Geek Networks FAQs" items={faqs} />
-
+      <section className="mt-10">
+        <p className="mb-2 max-w-3xl text-sm text-ink-soft">Program inclusions, placement assistance, schedules and pricing vary by track — always confirm current details and terms on guvi.in.</p>
+        <FaqSection eyebrow="GUVI FAQs" items={faqs} />
+      </section>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a
-          href={topOffer ? link(topOffer.targetUrl, topOffer.subId) : ctaHref}
-          target="_blank"
-          rel="nofollow sponsored noopener noreferrer"
-          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-        >
+        <a href={mobileHref} target="_blank" rel={GO_REL} className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white">
           <span className="min-w-0">
-            {topOffer?.code ? (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Code {topOffer.code}
-              </span>
-            ) : (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Official store
-              </span>
-            )}
-            <span className="block truncate text-xs font-semibold">
-              {topOffer ? topOffer.title : `Check live range & offers on GUVI Geek Networks`}
-            </span>
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">Official store</span>
+            <span className="block truncate text-xs font-semibold">Check live range & offers on GUVI</span>
           </span>
-          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-            Shop
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          </span>
+          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">Shop <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
         </a>
       </div>
-    </div>
+    </main>
   );
 }

@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import TheManCompanyClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "The Man Company Coupons, Beard Growth & Blanc Perfume Deals";
-const description = "The Man Company promo codes, 15% off code TMC15, and best deals on Derma Roller beard kits, Blanc EDP, and charcoal face care.";
+const title = "The Man Company Official Store \u2014 Grooming, Fragrance & Gifts | Durza";
+const description = "Explore The Man Company grooming, fragrances and gift sets by routine. Check live ranges and availability on the official store.";
 const canonical = "/stores/the-man-company";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How long does The Man Company Beard Growth Oil take to show results?", answer: "Most users report softer, thicker-looking growth in 4–8 weeks of nightly use with the Derma Roller twice a week. Results vary by genetics and consistency — combine oil with the roller for best outcomes." },
-  { question: "What is the difference between gas deodorants and Blanc EDP?", answer: "Deodorants only mask sweat odour for hours. Blanc Eau de Parfum is an 8H+ fragrance with lemon, birch, lavender and patchouli notes layered for office and gym wear — it projects without overpowering." },
-  { question: "What is the minimum order for free shipping?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — the Beard Growth Oil alone is enough to qualify." },
+  { question: "Why buy The Man Company products from the official store?", answer: "The official store offers the full current range, combos and curated gift sets with product details provided by the brand. Check live availability and checkout terms on themancompany.com." },
+  { question: "How do I choose a fragrance or grooming routine?", answer: "Pick products based on your scent preference, skin type and routine needs. Consider discovery sets for fragrances and patch-test new skincare/beard products if you have sensitive skin." },
+  { question: "Are gift sets available?", answer: "Yes, curated gift sets and combos are offered on the official store, with contents varying by set. Check the listing for included items, packaging and availability." },
+  { question: "What about returns and delivery?", answer: "Delivery timelines and return/replacement eligibility depend on The Man Company\u2019s current policies and product condition. Review policy details on the official store before ordering." },
+  { question: "Where can I check current prices and availability?", answer: "Live prices, variants and availability are shown on themancompany.com. Use this page to find the right category and confirm current details." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("the-man-company", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("the-man-company", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("the-man-company") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.themancompany.com";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "The Man Company", path: "/stores/the-man-company" },
+          { name: "The Man Company", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <TheManCompanyClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="the-man-company" />
     </>
   );

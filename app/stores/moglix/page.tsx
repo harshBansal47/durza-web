@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import MoglixClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Moglix Coupons, Power Tools & Pressure Washer Deals";
-const description = "Moglix promo codes, ₹250 off code TOOLS250, and best deals on Bosch drill kits, high-pressure car washers, safety shoes and GST-invoice supplies.";
+const title = "Moglix Official Store \u2014 Tools, Electricals & Industrial Supplies | Durza";
+const description = "Shop Moglix for power tools, safety gear, electricals and industrial supplies. Compare specs and check live prices, GST invoicing and bulk options on the official store.";
 const canonical = "/stores/moglix";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I download a GST tax invoice on Moglix?", answer: "Enter your GSTIN at checkout or save it in your Moglix business profile — every order then ships with a compliant GST tax invoice, downloadable from My Orders." },
-  { question: "What warranty covers Bosch and Stanley power tools?", answer: "Genuine Bosch and Stanley tools carry the manufacturer warranty (typically 1 year), serviceable at authorised centres. Keep your Moglix invoice as proof of purchase." },
-  { question: "How does bulk quote pricing work?", answer: "Add items to your cart, choose the bulk/quote option, and the Moglix B2B team sends volume-based pricing with delivery timelines — ideal for workshops, contractors and facility managers." },
+  { question: "Can I get a GST invoice on Moglix?", answer: "GST-compliant invoices are available for eligible orders when you provide valid GST details at checkout. Confirm invoice/GST applicability for your specific purchase on the order and product pages." },
+  { question: "Does Moglix support bulk or business purchases?", answer: "Many products offer quantity-based pricing and bulk quote/RFQ options. Availability and terms depend on the product and order size \u2014 check the listing and bulk options on Moglix." },
+  { question: "How do I choose the right power tool or electrical component?", answer: "Match specifications (power, size, ratings, certifications and compatibility) to your task. Review the detailed specs, warranty and return eligibility on the official product page before ordering." },
+  { question: "What about delivery and returns on Moglix?", answer: "Delivery timelines depend on PIN-code serviceability and the seller/product. Return eligibility varies by category (some industrial/consumable items may be non-returnable) \u2014 check the product page and Moglix policies." },
+  { question: "Where can I see live prices and availability?", answer: "Live prices, stock, GST details and checkout options are shown on moglix.com. Use this page to find the right category and confirm current details on the official store." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("moglix", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("moglix", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("moglix") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.moglix.com";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Moglix", path: "/stores/moglix" },
+          { name: "Moglix", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <MoglixClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="moglix" />
     </>
   );

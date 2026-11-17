@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Boult Coupons, Gaming Earbuds & Smartwatch Deals";
-const description = "Boult promo codes, BOULT100 flat ₹100 off and best deals on gaming earbuds, neckbands and smartwatches at goboult.co.in.";
+const title = "Boult Official Store \u2014 Earbuds, Smartwatches & Audio | Durza";
+const description = "Explore Boult TWS earbuds, smartwatches and audio by use case. Compare features and check live models, pricing and availability on the official Boult store.";
 const canonical = "/stores/boult";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I apply coupon code BOULT100 at checkout?", answer: "Add any earbuds, smartwatch, or audio accessory worth ₹999 or more to your cart on goboult.co.in. At the payment step, enter BOULT100 in the discount coupon box to receive an instant ₹100 deduction." },
-  { question: "What does Combat Mode™ mean in Boult gaming earbuds?", answer: "Combat Mode™ optimizes the Bluetooth audio transmission to deliver ultra-low latency down to 40 milliseconds, ensuring in-game footsteps and gunshots sync in real time without audio delay." },
-  { question: "Do Boult products purchased via these deals come with brand warranty?", answer: "Yes. All purchases made through official store links on goboult.co.in include Boult's official 1-year replacement warranty, which you can register on their website using your invoice." },
+  { question: "Why buy Boult products from the official store?", answer: "The official store lists current models and variants and supports manufacturer warranty processes as per Boult\u2019s terms. Check warranty registration/support details on boultaudio.com and the product page." },
+  { question: "How do I choose between ANC, ENC and gaming modes?", answer: "ANC helps reduce ambient noise for listening, ENC/mic features focus on call clarity, and low-latency modes are useful for gaming. Compare the specific features listed for each model on the official store." },
+  { question: "Are Boult smartwatches water resistant?", answer: "Water/sweat resistance ratings vary by model (e.g. IP ratings listed on the product page). Check the exact rating and usage limitations for the specific watch before purchase." },
+  { question: "What about warranty and replacements?", answer: "Boult products typically include manufacturer warranty covering manufacturing defects as per brand terms and exclusions. Review the warranty policy and claim process on the official site." },
+  { question: "Where can I check current prices and availability?", answer: "Live prices, variants and availability are shown on the official Boult store. Use this page to find the right category and confirm current details." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("boult", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("boult", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("boult") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.boultaudio.com";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Boult", path: "/stores/boult" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Boult", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="boult" />
     </>
   );

@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Beast Life Coupons, Whey Protein & Creatine Deals";
-const description = "Beast Life promo codes, BEAST10 offers and best deals on whey protein, creatine and pre-workout from beastlife.in. Free delivery ₹999+.";
+const title = "BeastLife Official Store \u2014 Whey, Creatine & Performance | Durza";
+const description = "Explore BeastLife sports nutrition by training goal \u2014 whey, creatine and stacks. Check product information and live availability on the official store.";
 const canonical = "/stores/beast-life";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I verify the authenticity of my Beast Life supplement?", answer: "Every Beast Life product comes with a scratch-off authentication QR code on the packaging seal. Scan the code to verify batch authenticity, lab testing reports, and manufacturing dates directly on beastlife.in." },
-  { question: "Can coupon code BEAST10 be combined with prepaid UPI discounts?", answer: "Yes. First enter coupon code BEAST10 on beastlife.in during checkout. When you select UPI or debit/credit card payment, an additional 5% instant discount is calculated on the remaining balance." },
-  { question: "What is the minimum spend for free shipping on Beast Life?", answer: "Beast Life offers free doorstep shipping on all orders totaling ₹999 or more across India. A single tub of Whey Protein or a Pre-Workout + Creatine combo automatically crosses this threshold." },
+  { question: "Why buy BeastLife from the official store?", answer: "Ordering direct gives you access to the current BeastLife range, flavors and pack options, along with product information provided by the brand. Check live availability and terms on beastlife.in." },
+  { question: "How do I choose between whey, creatine and stacks?", answer: "Choose based on your training goal and diet. Protein supports daily intake/recovery, creatine is commonly used for strength routines, and stacks bundle items \u2014 always follow label directions and consult a professional if unsure." },
+  { question: "Are there lab tests or quality details available?", answer: "BeastLife shares product and quality/testing information on its site for customers to review. Check the relevant product pages on the official store for the latest details." },
+  { question: "Can I combine pre-workout with other supplements?", answer: "Be cautious about overlapping stimulants or ingredients. Read labels carefully, assess tolerance and consult a qualified professional, especially if you have health conditions or take medication." },
+  { question: "Where can I check current prices and flavors?", answer: "Live prices, flavors, combos and availability are shown on beastlife.in. Browse the relevant category via this page to confirm current details." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("beast-life", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("beast-life", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("beast-life") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://beastlife.in";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Beast Life", path: "/stores/beast-life" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "BeastLife", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="beast-life" />
     </>
   );

@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import NilkamalFurnitureClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Nilkamal Furniture Coupons, Office Chair & Wardrobe Deals";
-const description = "Nilkamal Furniture promo codes, ₹1,000 off code BEDROOM1000, and best deals on ergonomic chairs, wardrobes and beds.";
+const title = "Nilkamal Furniture Official Store \u2014 Beds, Chairs & Storage | Durza";
+const description = "Explore Nilkamal furniture by room \u2014 chairs, desks, beds, sofas and storage. Check live prices, delivery and installation availability on the official store.";
 const canonical = "/stores/nilkamalfurniture";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How does Nilkamal carpenter assembly work?", answer: "Eligible large furniture — wardrobes, beds and tables — is delivered and assembled by a Nilkamal-trained carpenter at no extra cost in covered cities. The slot is scheduled after delivery confirmation; keep the invoice handy for the team." },
-  { question: "What are the return and warranty terms on plastic and wood furniture?", answer: "Structural frames carry 1–5 year manufacturer warranties against defects. Returns are accepted within the standard return window with the original invoice and packaging, subject to Nilkamal's terms." },
-  { question: "Can NILKAMAL500 stack with the 5% UPI discount?", answer: "Yes. Apply NILKAMAL500 at checkout for flat ₹500 off above ₹4,999, then pay via UPI or card for an extra 5% instant deduction on the remaining balance. BEDROOM1000 works the same above ₹9,999." },
+  { question: "Does Nilkamal offer delivery and assembly?", answer: "Delivery and assembly/installation support are offered on eligible furniture items and depend on PIN-code serviceability. Check the product page for delivery timelines, assembly availability and conditions before ordering." },
+  { question: "What warranty comes with Nilkamal furniture?", answer: "Nilkamal products carry manufacturer warranty against manufacturing defects as per category/product terms. Review the warranty period and coverage on the specific listing." },
+  { question: "How do I make sure the furniture fits my home?", answer: "Measure your room, doorways and elevator access and compare them with the dimensions on the Nilkamal product page. For beds and wardrobes, confirm mattress size and clearance requirements." },
+  { question: "Can I pay using EMI?", answer: "EMI and other payment options may be available on eligible orders depending on cart value and payment method. Check live options at checkout on the official store." },
+  { question: "Where can I check current prices and availability?", answer: "Live prices, configurations and PIN-code serviceability are shown on nilkamalfurniture.com. Browse the relevant range via this page and confirm details before purchase." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("nilkamalfurniture", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("nilkamalfurniture", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("nilkamalfurniture") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.nilkamalfurniture.com";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Nilkamal Furniture", path: "/stores/nilkamalfurniture" },
+          { name: "Nilkamal Furniture", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <NilkamalFurnitureClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="nilkamalfurniture" />
     </>
   );

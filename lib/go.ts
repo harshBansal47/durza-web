@@ -39,6 +39,6 @@ export function isValidStoreSlug(slug: string): boolean {
 }
 
 /** The neutral redirect path for a store, tagged with where the click came from. */
-export function storeGoHref(slug: string, src: GoSource = "site"): string {
+export function storeGoHref(slug: string, src: string = "site"): string {
   return `/go/${encodeURIComponent(slug)}?src=${encodeURIComponent(src)}`;
 }

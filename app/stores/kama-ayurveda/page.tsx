@@ -6,10 +6,10 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { admitadLogoForSlug, storeLogoUrl } from "@/lib/storeLogos";
 
-const title = "Kama Ayurveda Coupons, Kumkumadi & Bringadi Deals";
-const description = "Kama Ayurveda promo codes, KAMA10 10% off and best luxury deals on Kumkumadi night serum, Bringadi oil and rose water.";
+const title = "Kama Ayurveda Official Store \u2014 Ayurvedic Skin & Hair Care | Durza";
+const description = "Explore Kama Ayurveda skincare, haircare and gifting by concern. Check authentic ranges and live availability on the official Kama Ayurveda store.";
 const canonical = "/stores/kama-ayurveda";
 
 export const metadata: Metadata = {
@@ -21,32 +21,39 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I choose my 3 complimentary samples?", answer: "An interactive sample selector appears at checkout, letting you handpick 3 luxury trial sizes across cleansers, oils, and moisturizers." },
-  { question: "Is Kama Kumkumadi Oil suitable for oily or acne-prone skin?", answer: "Yes, but apply only 2–3 drops onto damp skin and leave on for 30 minutes before wiping with a warm cotton cloth." },
-  { question: "What is the minimum threshold for free shipping?", answer: "Free express delivery on all domestic orders totaling ₹1,499 or more." },
+  { question: "Why buy Kama Ayurveda from the official store?", answer: "Shopping direct helps you access authentic Kama Ayurveda ranges, current collections and official product information. Any samples, consultations or checkout benefits are subject to the terms shown on kamaayurveda.in." },
+  { question: "How do I choose the right Kama Ayurveda product for my concern?", answer: "Start with your skin or hair concern and pick gentle, suitable formulations. Patch-test new products (especially oils/actives) and follow the usage directions on the official product page or seek professional advice if needed." },
+  { question: "Are consultations or samples available?", answer: "Kama Ayurveda may offer consultation options and complimentary samples on qualifying orders. Availability and terms can vary \u2014 check the latest details on the official site." },
+  { question: "What about shipping and returns?", answer: "Shipping thresholds and return/replacement eligibility depend on the order and item condition and are governed by Kama Ayurveda\u2019s policies. Review current shipping/returns information on the official store before ordering." },
+  { question: "Where can I check live availability and pricing?", answer: "Live product availability, pricing and checkout offers are shown on kamaayurveda.in. Browse the relevant collection via this page to confirm current details." }
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("kama-ayurveda", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("kama-ayurveda", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
+  const heroImageUrl = admitadLogoForSlug("kama-ayurveda") ?? storeLogoUrl(destination?.store);
+  const storeUrl = destination?.store.website_url ?? "https://www.kamaayurveda.in";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Kama Ayurveda", path: "/stores/kama-ayurveda" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Kama Ayurveda", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="kama-ayurveda" />
     </>
   );
