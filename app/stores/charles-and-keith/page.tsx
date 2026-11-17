@@ -2,14 +2,11 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import LuxuryStoreClient from "@/components/store/LuxuryStoreClient";
-import { resilient } from "@/lib/api";
-import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { CHARLES_AND_KEITH_SLOTS } from "@/lib/luxury-images";
+import CharlesKeithLuxuryStore from "./CharlesKeithLuxuryPage";
 
-const title = "Charles & Keith India — Luxury Editorial Showcase & Official Collection";
+const title = "Charles & Keith India — The Architectural Edit | Official Boutique Access";
 const description =
-  "Charles & Keith's most considered picks for Indian wardrobes — structured top-handle bags, signature sculpt heels, timeless leather totes. Shop the official collection via Durza's curated editorial showcase.";
+  "A private editorial edit of Charles & Keith India — sculpted bags, architectural heels, loafers, work totes and gilded finishing pieces. Direct access to the official charleskeith.in boutique.";
 const canonical = "/stores/charles-and-keith";
 
 export const metadata: Metadata = {
@@ -21,20 +18,26 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "Who does Charles & Keith design for in India?", answer: "Women across price points who want architectural, not flashy, accessories — leather top-handle bags, sculpt heels and leather totes at an accessible luxury price. Design language from Singapore, retail presence in Delhi, Mumbai and Bengaluru." },
-  { question: "Does Durza charge the shopper for using the affiliate link?", answer: "No. Prices and returns on Charles & Keith are set by Charles & Keith. Durza earns a small commission on qualifying purchases made via the outbound link; it never affects your basket value or returns." },
-  { question: "Is Durza affiliated with Charles & Keith India?", answer: "Durza is a publisher partner — the link goes through the advertising affiliate program; nothing about the catalogue, checkout or warranty is on Durza. Prices, sizes, stock, returns and exchanges are all the store's own." },
+  {
+    question: "Why acquire directly from the official Charles & Keith India store?",
+    answer:
+      "Shopping directly via the official boutique guarantees access to limited-edition runway capsules, full EU sizing (35–41), and signature branded presentation boxes with protective dust bags—items rarely stocked on third-party marketplaces.",
+  },
+  {
+    question: "How often do new seasonal capsules arrive in India?",
+    answer:
+      "New architectural bags, metallic evening edits, and resort footwear drop monthly alongside global Singapore and European releases on charleskeith.in.",
+  },
+  {
+    question: "How are packaging, authenticity, and size exchanges handled?",
+    answer:
+      "All orders are fulfilled directly by Charles & Keith's authorized India flagship operations with boutique-grade packaging and streamlined size exchanges within the store's return window.",
+  },
 ];
 
 export const revalidate = 3600;
 
-export default async function Page() {
-  const destination = await resilient.getStoreDestination("charles-keith", { skip: 0, limit: 10 });
-  const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? "https://charleskeith.in/in";
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
-
+export default function Page() {
   return (
     <>
       <Breadcrumbs
@@ -45,19 +48,7 @@ export default async function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <LuxuryStoreClient
-        storeName="Charles & Keith"
-        tagline="Editorial showcase — silk meets structured leather. No discount language, only the collection."
-        storeSlug="charles-keith"
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        storeUrl={storeUrl}
-        faqs={FAQS}
-        stats={stats}
-        slots={CHARLES_AND_KEITH_SLOTS}
-        showcaseEyebrow="Charles & Keith · The 2026 Edit"
-        showcaseLead="Bags that hold a lifetime commute in a 2-litre silhouette; heels that carry boardrooms and barstools."
-      />
+      <CharlesKeithLuxuryStore />
     </>
   );
 }
