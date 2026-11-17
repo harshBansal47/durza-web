@@ -314,6 +314,8 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "Full HD 1080p webcam with autofocus and dual built-in microphones for widescreen video calling and recording — compatible with desktop PCs and laptops.",
     bestFor: "Clear video calls, meetings and basic streaming without a separate mic.",
     url: "https://link.amazon/B07JIGYtz",
+    image: "/stores/amazon-in/logitech-c920.jpg",
+    imageAlt: "Logitech C920 HD Pro Webcam, 1080p full HD",
   },
   {
     badge: "USB — ON-BOARD CONTROLS",
@@ -323,6 +325,8 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "USB microphone with on-board controls, LED lighting, quick-release shock mount and built-in arm/stand mount — works with PC, Mac, PS5 and PS4 over USB-C.",
     bestFor: "Streaming, podcasts and calls where voice clarity matters more than a laptop mic.",
     url: "https://link.amazon/B0aBYLzMb",
+    image: "/stores/amazon-in/hyperx-quadcast2.jpg",
+    imageAlt: "HyperX QuadCast 2 USB microphone, black",
   },
   {
     badge: "2 PCs — 4 PORTS",
@@ -332,6 +336,8 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "USB 2.0 sharing switch that lets two PCs share up to four peripherals — mouse, keyboard, scanner, printer, USB stick or hard drive. Compatible with Windows and Mac OS 8.6 and above.",
     bestFor: "Swapping one keyboard/mouse set between a work laptop and a personal PC.",
     url: "https://link.amazon/B0b3cEHEY",
+    image: "/stores/amazon-in/ugreen-usb-switch.jpg",
+    imageAlt: "UGREEN 4-port USB 2.0 switch for 2 PCs",
   },
   {
     badge: "FULL-SIZE — SPILL RESISTANT",
@@ -341,6 +347,8 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "Full-size wired keyboard with USB plug-and-play, chiclet keys, spill resistance and hot keys for volume, mute, play/pause and track controls — with three indicator lights.",
     bestFor: "A reliable, no-fuss wired keyboard for long typing sessions at a desk.",
     url: "https://link.amazon/B02Wdjg8G",
+    image: "/stores/amazon-in/dell-kb216.jpg",
+    imageAlt: "Dell KB216 wired multimedia keyboard",
   },
   {
     badge: "13–30 INCH — VESA MOUNT",
@@ -350,6 +358,8 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "Height-adjustable single monitor arm with cable management, full-motion tilt and 360° rotation — fits 13–30 inch monitors via VESA desk mounting.",
     bestFor: "Freeing desk space and getting your screen to eye level on a fixed table.",
     url: "https://link.amazon/B05KtbpPp",
+    image: "/stores/amazon-in/amazon-basics-monitor-arm.jpg",
+    imageAlt: "Amazon Basics single monitor arm, height adjustable VESA desk mount",
   },
   {
     badge: "HIGH BACK — ERGONOMIC",
@@ -359,6 +369,8 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "High-back ergonomic executive chair with leatherette upholstery, a spacious cushion seat and a heavy-duty metal base — designed for home-office use.",
     bestFor: "All-day sitting where a basic chair starts to complain before you do.",
     url: "https://link.amazon/B07beeAUB",
+    image: "/stores/amazon-in/green-soul-vienna-chair.jpg",
+    imageAlt: "Green Soul Vienna premium leatherette high-back office chair, black and tan",
   },
 ];
 
@@ -1038,13 +1050,26 @@ export default function AmazonStorePage({
                   rel="nofollow sponsored noopener noreferrer"
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
                 >
-                  <span className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 bg-[radial-gradient(ellipse_at_center,#1e293b_0%,#0b1220_100%)] p-6">
-                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-500">{item.brand}</span>
-                    <span className="text-center font-serif text-2xl font-black leading-tight text-white">WFH</span>
-                    <span className="rounded-full border border-slate-500/60 bg-slate-500/10 px-4 py-1 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-                      {item.badge}
+                  {item.image ? (
+                    <span className="relative block aspect-[4/3] w-full overflow-hidden bg-white">
+                      <Image
+                        src={item.image}
+                        alt={item.imageAlt ?? item.name}
+                        width={800}
+                        height={800}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                        className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                      />
                     </span>
-                  </span>
+                  ) : (
+                    <span className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 bg-[radial-gradient(ellipse_at_center,#1e293b_0%,#0b1220_100%)] p-6">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-500">{item.brand}</span>
+                      <span className="text-center font-serif text-2xl font-black leading-tight text-white">WFH</span>
+                      <span className="rounded-full border border-slate-500/60 bg-slate-500/10 px-4 py-1 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-300">
+                        {item.badge}
+                      </span>
+                    </span>
+                  )}
                   <span className="flex flex-1 flex-col p-4">
                     <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
                     <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{item.brand}</span>
