@@ -304,19 +304,65 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
   },
 ];
 
-const SECTIONS: SectionDef[] = [
+/** Work-from-home picks — hand-picked, images to be added later. */
+const WORK_FROM_HOME_PICKS: CuratedPick[] = [
   {
-    id: "desk",
-    title: "Work from home that actually works",
-    lead: "Laptop stands, monitoring gear, notebooks and chairs — what you need to sit at a desk for eight hours and stay sane.",
-    picks: [
-      { id: "59bcd4c8-8177-4495-beb2-d5110c5fddd7", badge: "FRONT-OF-CAMERA" },
-      { id: "386ca36a-e97b-492c-bbc7-ec9f71fd50d2", badge: "DUAL-MONITOR PICK" },
-      { id: "8fdfd6e8-48af-4571-957a-b9e4ce95c2e0", badge: "TOP PICK" },
-      { id: "4341bdd4-562e-4efd-aac3-aff19c6ee624", badge: "SIT FOR 8 HOURS" },
-      { id: "455fd1f8-ed12-4b27-997b-932e71310b20", badge: "FRIDGE-REMINDER" },
-    ],
+    badge: "1080P — DUAL MICROPHONES",
+    brand: "Logitech",
+    name: "C920 HD Pro Webcam — 1080p Full HD Streaming Camera (Black)",
+    blurb:
+      "Full HD 1080p webcam with autofocus and dual built-in microphones for widescreen video calling and recording — compatible with desktop PCs and laptops.",
+    bestFor: "Clear video calls, meetings and basic streaming without a separate mic.",
+    url: "https://link.amazon/B07JIGYtz",
   },
+  {
+    badge: "USB — ON-BOARD CONTROLS",
+    brand: "HyperX",
+    name: "QuadCast 2 USB Microphone for Gaming, Streaming and Podcasting (Black)",
+    blurb:
+      "USB microphone with on-board controls, LED lighting, quick-release shock mount and built-in arm/stand mount — works with PC, Mac, PS5 and PS4 over USB-C.",
+    bestFor: "Streaming, podcasts and calls where voice clarity matters more than a laptop mic.",
+    url: "https://link.amazon/B0aBYLzMb",
+  },
+  {
+    badge: "2 PCs — 4 PORTS",
+    brand: "UGREEN",
+    name: "4 Ports USB 2.0 Switch (2 in 4 Out) with 2 USB 2.0 Cables",
+    blurb:
+      "USB 2.0 sharing switch that lets two PCs share up to four peripherals — mouse, keyboard, scanner, printer, USB stick or hard drive. Compatible with Windows and Mac OS 8.6 and above.",
+    bestFor: "Swapping one keyboard/mouse set between a work laptop and a personal PC.",
+    url: "https://link.amazon/B0b3cEHEY",
+  },
+  {
+    badge: "FULL-SIZE — SPILL RESISTANT",
+    brand: "Dell",
+    name: "KB216 Wired Multimedia Keyboard",
+    blurb:
+      "Full-size wired keyboard with USB plug-and-play, chiclet keys, spill resistance and hot keys for volume, mute, play/pause and track controls — with three indicator lights.",
+    bestFor: "A reliable, no-fuss wired keyboard for long typing sessions at a desk.",
+    url: "https://link.amazon/B02Wdjg8G",
+  },
+  {
+    badge: "13–30 INCH — VESA MOUNT",
+    brand: "Amazon Basics",
+    name: "Single Monitor Arm — Height Adjustable VESA Desk Mount (Steel, Black)",
+    blurb:
+      "Height-adjustable single monitor arm with cable management, full-motion tilt and 360° rotation — fits 13–30 inch monitors via VESA desk mounting.",
+    bestFor: "Freeing desk space and getting your screen to eye level on a fixed table.",
+    url: "https://link.amazon/B05KtbpPp",
+  },
+  {
+    badge: "HIGH BACK — ERGONOMIC",
+    brand: "Green Soul",
+    name: "Vienna Premium Leatherette Office Chair (Black & Tan)",
+    blurb:
+      "High-back ergonomic executive chair with leatherette upholstery, a spacious cushion seat and a heavy-duty metal base — designed for home-office use.",
+    bestFor: "All-day sitting where a basic chair starts to complain before you do.",
+    url: "https://link.amazon/B07beeAUB",
+  },
+];
+
+const SECTIONS: SectionDef[] = [
   {
     id: "components",
     title: "PC components & upgrades",
@@ -966,6 +1012,63 @@ export default function AmazonStorePage({
 
 
       <div className="mt-8 space-y-12">
+        <section id="desk" aria-labelledby="desk-heading" className="rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
+          <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+            <div className="max-w-2xl">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Home office</p>
+              <h2 id="desk-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+                Work from home that actually works
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">
+                Webcam, mic, USB switch, keyboard, monitor arm and a chair — the basics for a desk you can sit at for hours without fighting your setup.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+              <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+              Editor&apos;s picks
+            </span>
+          </div>
+
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {WORK_FROM_HOME_PICKS.map((item) => (
+              <li key={item.url}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="nofollow sponsored noopener noreferrer"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+                >
+                  <span className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 bg-[radial-gradient(ellipse_at_center,#1e293b_0%,#0b1220_100%)] p-6">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-500">{item.brand}</span>
+                    <span className="text-center font-serif text-2xl font-black leading-tight text-white">WFH</span>
+                    <span className="rounded-full border border-slate-500/60 bg-slate-500/10 px-4 py-1 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-300">
+                      {item.badge}
+                    </span>
+                  </span>
+                  <span className="flex flex-1 flex-col p-4">
+                    <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
+                    <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{item.brand}</span>
+                    <span className="mt-1 font-serif text-[16px] font-bold leading-snug text-ink">{item.name}</span>
+                    <span className="mt-2 text-[12px] leading-6 text-ink-soft">{item.blurb}</span>
+                    <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                      <span className="font-semibold text-ink">Best for: </span>
+                      {item.bestFor}
+                    </span>
+                    <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                      View on Amazon
+                      <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+            Specs and compatibility are taken from the listings — confirm the live Amazon page (system support, VESA size, chair dimensions) before you buy. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
+          </p>
+        </section>
+
         {sectioned.map((section) =>
           section.items.length === 0 ? null : (
             <section key={section.id} id={section.id} aria-labelledby={`${section.id}-heading`}>
