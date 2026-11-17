@@ -20,7 +20,7 @@ export interface AdmitadProgram {
 export const ADMITAD_PROGRAMS: Record<string, AdmitadProgram> = {
   palmonas: { id: "124942", slug: "palmonas", displayName: "Palmonas", market: "IN" },
   firstcry: { id: "14719", slug: "firstcry", displayName: "FirstCry", market: "IN" },
-  milton: { id: "141228", slug: "milton-in", displayName: "Milton", market: "IN" },
+  milton: { id: "141228", slug: "milton", displayName: "Milton", market: "IN" },
   adidas: { id: "34208", slug: "adidas", displayName: "Adidas India", market: "IN" },
   bewakoof: { id: "42616", slug: "bewakoof", displayName: "Bewakoof", market: "IN" },
   acer: { id: "24575", slug: "acer", displayName: "Acer India", market: "IN" },
