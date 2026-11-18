@@ -452,29 +452,6 @@ const AUDIO_PICKS = [
 
 const SECTIONS: SectionDef[] = [
   {
-    id: "living",
-    title: "Living room — TV, Echo & Kindle",
-    lead: "Streamer boxes, smart displays and a Kindle. Pick one or pick them all — they all sit behind the same remote anyway.",
-    picks: [
-      { id: "de5c0687-7676-4e3a-b0df-c60040cfd0c8", badge: "NO-CLUTTER PICK" },
-      { id: "97d92d40-08c8-423d-9827-0cf90cb70236", badge: "BEST-SELLER" },
-      { id: "024b4583-d9b4-4419-bf64-74c278a11978", badge: "MOST LOVED" },
-      { id: "b6455df2-da9a-41ab-bbe0-8dcf134f6141", badge: "PAPER-LIKE" },
-      { id: "aea66452-612c-4fab-83b6-a442bb1decbc", badge: "TV UPGRADE" },
-    ],
-  },
-  {
-    id: "personal-care",
-    title: "Personal care — tested clean",
-    lead: "Indian skincare that doesn't silt its way into your bathroom cabinet — three months of gentle, effective mornings included.",
-    picks: [
-      { id: "c28b016f-7671-45f2-8a32-bb204106c02d", badge: "NIACINAMIDE 10" },
-      { id: "fd3de9e5-d266-45c3-bac1-507ecc3ccf35", badge: "2% SALICYLIC" },
-      { id: "fe232386-d3af-4679-a4c1-e20c02819dcc", badge: "APPLE CIDER" },
-      { id: "0576e2ba-ee9d-483e-9d8a-233e3aa474e4", badge: "ARGAN OIL" },
-    ],
-  },
-  {
     id: "luggage",
     title: "Luggage & travel",
     lead: "Cabin trolleys and backpacks India trusts past airport security and onto trains. Sizes are tested against Indian airlines' cabin limits.",
@@ -551,7 +528,7 @@ export default function AmazonStorePage({
       <StoreHero
         name="Amazon"
         heading="Amazon — hand-picked best"
-        subtitle="Work-from-home, components, audio, kitchen, home gym, personal care and health — curated picks from Amazon India, every card brand-backed and professionally chosen."
+        subtitle="Work-from-home, components, audio, kitchen, home gym, personal care devices and health — curated picks from Amazon India, every card brand-backed and professionally chosen."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}

@@ -3048,7 +3048,321 @@ const RAW_GUIDES_K: StaticGuide[] = [
     },
     auditedOn: "2026-11-17",
   },
+  {
+    slug: "amazon-living-room-tv-echo-kindle-guide",
+    storeSlug: "amazon-in",
+    category: "Electronics",
+    featured: false,
+    seo: {
+      title: "Amazon Living Room & Smart Home Guide (2026): Fire TV Stick, Echo Smart Speakers & Kindle Compared",
+      description:
+        "Compare Amazon Fire TV Stick 4K, Echo smart speakers, and Kindle e-readers for Indian homes—specs, power/Wi-Fi requirements, and what to check before ordering.",
+    },
+    summary:
+      "A practical guide to choosing Fire TV, Echo, and Kindle devices for Indian living rooms—what each device does best, what Wi-Fi/power setup it needs, and what to check before you buy.",
+    faqs: [
+      {
+        question: "Do Fire TV Stick and Echo devices work on Indian Wi-Fi and power sockets?",
+        answer:
+          "Most Amazon devices sold on Amazon.in are configured for India, but always confirm the listing’s power adapter type, voltage support, and Wi-Fi standards before ordering. For smooth 4K streaming on Fire TV, a stable broadband connection and dual-band Wi-Fi (2.4 GHz/5 GHz, as supported by your router and device) are recommended.",
+      },
+      {
+        question: "Which Kindle should I buy for reading at night?",
+        answer:
+          "If you read mostly in bed or low light, a front-lit e-reader like Kindle Paperwhite is usually more comfortable than a basic model without adjustable warm/front lighting (features vary by model). Check the current model’s screen size, lighting, storage, and waterproof rating on the live Amazon listing.",
+      },
+      {
+        question: "Can I use Echo speakers without other smart home devices?",
+        answer:
+          "Yes. Echo speakers work on their own for music, alarms, timers, weather, reminders, and Alexa voice queries. Smart-home controls (lights, plugs, TVs) are optional and depend on compatible devices and setup.",
+      },
+      {
+        question: "Should I buy during a sale or at regular price?",
+        answer:
+          "Amazon device prices and bundles change often during sale events. Compare the final checkout price, included subscriptions/bundles, and bank offers on the product page before ordering. Avoid relying on old price screenshots.",
+      },
+    ],
+    blocks: [
+      {
+        type: "callout",
+        text:
+          "Quick verdict: pick a Fire TV Stick if you want to turn any HDMI TV into a streaming TV, choose Echo for hands-free music/voice help (Echo Show if you also want a screen), and choose Kindle if you want distraction-free reading. Always check the exact model’s Wi-Fi, storage, and power/plug details on the live Amazon.in listing before ordering.",
+      },
+      {
+        type: "heading",
+        heading: "Picks carried over from the Amazon store living room section",
+      },
+      {
+        type: "paragraph",
+        text:
+          "These are the same living-room device picks previously featured on /stores/amazon-in, preserved here so you can compare them in one place. Product availability, variants, and live prices are set by Amazon—use the tracked links below to check the current listing details.",
+      },
+      {
+        type: "table",
+        headers: ["Pick", "What it’s best for", "What to check before ordering"],
+        rows: [
+          [
+            "NO-CLUTTER PICK — Fire TV Stick (HD/Lite-class streaming)",
+            "Turning a regular TV into a streaming setup for Prime Video, YouTube, and other apps with a simple remote experience.",
+            "HDMI port availability, Wi-Fi strength near the TV, supported apps, remote features, and whether you need HD or 4K.",
+          ],
+          [
+            "BEST-SELLER — Echo smart speaker (compact)",
+            "Music, alarms, timers, reminders, and quick Alexa answers in bedrooms or small living spaces.",
+            "Power adapter/plug type, Wi-Fi compatibility, audio size expectations, and whether you need a clock or larger speaker.",
+          ],
+          [
+            "MOST LOVED — Echo Show / smart display",
+            "Voice assistance with a screen for timers, weather, video calls (where supported), and smart-home glances.",
+            "Screen size, camera/privacy controls, placement space, Wi-Fi quality, and supported calling/features in India.",
+          ],
+          [
+            "PAPER-LIKE — Kindle e-reader",
+            "Comfortable, distraction-free reading with long battery life compared to phones/tablets.",
+            "Screen size, front light/warm light, storage, waterproofing, and whether you want Kindle Unlimited or buy books individually.",
+          ],
+          [
+            "TV UPGRADE — Fire TV Stick 4K-class streaming",
+            "Sharper streaming on 4K TVs with better performance/features than basic sticks (model dependent).",
+            "TV 4K/HDR support, HDMI port, Wi-Fi speed/router quality, Dolby/Atmos compatibility, and remote/app support.",
+          ],
+        ],
+      },
+      {
+        type: "heading",
+        heading: "Side-by-side comparison",
+      },
+      {
+        type: "table",
+        headers: ["Device type", "Main use", "Setup needs", "Best fit"],
+        rows: [
+          [
+            "Fire TV Stick",
+            "Streaming apps on a TV",
+            "HDMI TV port, Wi-Fi, power outlet, Amazon account",
+            "Homes that want a simple TV streaming upgrade",
+          ],
+          [
+            "Echo speaker",
+            "Voice assistant + audio",
+            "Wi-Fi, power outlet, Alexa app setup",
+            "Hands-free timers/music/help in daily routines",
+          ],
+          [
+            "Echo Show",
+            "Voice assistant + screen",
+            "Wi-Fi, power outlet, space near eye level",
+            "Kitchens/living rooms where a visual display helps",
+          ],
+          [
+            "Kindle",
+            "Reading",
+            "Wi-Fi for downloads/sync (usage dependent), charging",
+            "Readers who want fewer distractions than phones/tablets",
+          ],
+        ],
+      },
+      {
+        type: "heading",
+        heading: "Practical India checks before you order",
+      },
+      {
+        type: "list",
+        items: [
+          "Confirm the exact model/variant on the Amazon.in listing (HD vs 4K, Echo model, Kindle generation/storage).",
+          "Check Wi-Fi compatibility and place the router/device for stable signal—especially for 4K streaming.",
+          "Verify power adapter, cable requirements, and HDMI availability (for Fire TV).",
+          "Review warranty, return window, and included subscriptions/bundles on the live product page.",
+          "Compare final checkout price during sales, including bank/card offers if available.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text:
+          "Related reading: compare device/store deal timing and checkout value on /stores/amazon-in, /compare/amazon-vs-flipkart-electronics-2026, and /compare/black-friday-2026-india-best-deals-vs-regular-sale.",
+      },
+    ],
+    relatedStores: ["amazon-in"],
+    primaryCta: {
+      kind: "amazon",
+      badge: "OFFICIAL",
+      headline: "Check Fire TV, Echo & Kindle deals on Amazon.in",
+      eligibility: "Live prices, variants, and offers as shown on Amazon",
+      targetUrl: "https://www.amazon.in/?tag=durza02-21",
+      subId: "guide-living-room",
+    },
+    auditedOn: "2026-11-18",
+  },
+  {
+    slug: "indian-skincare-actives-haircare-guide",
+    storeSlug: "amazon-in",
+    category: "Beauty & Grooming",
+    featured: false,
+    seo: {
+      title: "Beginner's Guide to Skincare Actives & Sulfate-Free Shampoos in India (2026): Niacinamide, Salicylic Acid & Scalp Care",
+      description:
+        "How to choose between 10% Niacinamide and 2% Salicylic Acid serums, plus sulfate-free Apple Cider Vinegar vs. Argan Oil shampoos for Indian humidity—without irritating your skin barrier.",
+    },
+    summary:
+      "A beginner-friendly guide to using niacinamide and salicylic acid safely, and choosing the right sulfate-free shampoo for oily buildup or dry, frizz-prone hair in Indian conditions.",
+    faqs: [
+      {
+        question: "Can I use niacinamide and salicylic acid together?",
+        answer:
+          "Some routines can include both, but beginners should introduce one active at a time and monitor skin tolerance. If using salicylic acid, start slowly (2–3 nights/week), keep the rest of the routine gentle, and use sunscreen in the morning. If irritation, peeling, or burning occurs, stop and consult a dermatologist.",
+      },
+      {
+        question: "How often should I use a 2% salicylic acid serum?",
+        answer:
+          "For most beginners, 2–3 nights per week is a safer starting point than daily use. Do not layer multiple strong actives on day one, and always use broad-spectrum sunscreen the next morning because exfoliating routines can increase sun sensitivity.",
+      },
+      {
+        question: "Is apple cider vinegar shampoo for daily use?",
+        answer:
+          "Clarifying shampoos are often better used as a reset wash (for example 1–2 times per week), especially if you have buildup or hard-water residue. Daily use may feel too drying for some hair types—adjust frequency based on scalp oiliness and dryness.",
+      },
+      {
+        question: "Do I need to patch test new skincare products?",
+        answer:
+          "Yes. Do a 24-hour inner-arm patch test before first use, especially with active serums. Introduce new products one at a time so you can identify what causes irritation.",
+      },
+    ],
+    blocks: [
+      {
+        type: "callout",
+        text:
+          "Quick verdict & routine rule: don’t layer strong actives all at once on Day 1. Pick 10% Niacinamide for oil balance, dark marks, and barrier support; pick 2% Salicylic Acid (BHA) for clogged pores, blackheads, and active acne. Start slow, patch test, and use sunscreen every morning when using exfoliating acids.",
+      },
+      {
+        type: "heading",
+        heading: "Part 1: Face serums — how to pick & layer actives safely",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Transferred picks from /stores/amazon-in (personal care): Minimalist 10% Niacinamide Face Serum (30ml) and Minimalist 2% Salicylic Acid Face Serum (30ml). Live prices and availability are set by Amazon—check the current listing before ordering.",
+      },
+      {
+        type: "table",
+        headers: ["Product", "Badge / target", "How to use (beginner-safe)", "Best for"],
+        rows: [
+          [
+            "Minimalist 10% Niacinamide Face Serum (30ml)",
+            "10% NIACINAMIDE + ZINC · OIL & MARKS",
+            "Vitamin B3 can help regulate excess sebum in humid weather and support fading post-acne marks without being an exfoliating acid. If sensitive or new to niacinamide, start 3x/week before daily use and patch test first.",
+            "Oily/combination skin, uneven tone, post-acne marks, barrier-support routines.",
+          ],
+          [
+            "Minimalist 2% Salicylic Acid Face Serum (30ml)",
+            "2% BHA EXFOLIANT · BLACKHEADS & PORES",
+            "Oil-soluble BHA can help dissolve sebum inside pores. Do-not-overuse rule: apply 2–3 nights a week only (never every morning/night on Day 1) and always pair with broad-spectrum SPF 50 sunscreen the next morning.",
+            "Clogged pores, blackheads, and acne-prone skin that tolerates gentle exfoliation.",
+          ],
+        ],
+      },
+      {
+        type: "heading",
+        heading: "Part 2: Sulfate-free shampoos — clarifying vs. moisture",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Transferred picks from /stores/amazon-in (personal care): WOW Skin Science Apple Cider Vinegar Shampoo (300ml) and WOW Skin Science Moroccan Argan Oil Shampoo (300ml). Choose based on scalp buildup/oiliness versus dryness/frizz, not just brand popularity.",
+      },
+      {
+        type: "table",
+        headers: ["Product", "Badge / target", "How to use", "Best for"],
+        rows: [
+          [
+            "WOW Skin Science Apple Cider Vinegar Shampoo (300ml)",
+            "CLARIFYING · HARD WATER & BUILDUP",
+            "Best used 1–2x/week as a reset wash for oily scalps, dandruff buildup, or hard-water residue rather than as an everyday moisturizing shampoo for everyone.",
+            "Oily scalp, product buildup, hard-water residue, occasional clarifying needs.",
+          ],
+          [
+            "WOW Skin Science Moroccan Argan Oil Shampoo (300ml)",
+            "SULFATE-FREE · DRY & FRIZZY HAIR",
+            "Gentle cleansing option for dry, heat-styled, or frizz-prone hair; follow with conditioner/mask as needed to avoid stripping natural scalp oils.",
+            "Dry, frizzy, or heat-styled hair needing softer cleansing.",
+          ],
+        ],
+      },
+      {
+        type: "heading",
+        heading: "Which one belongs in your bathroom?",
+      },
+      {
+        type: "table",
+        headers: ["Product", "Primary target", "How often to use", "Best skin/hair type", "Think twice if"],
+        rows: [
+          [
+            "Minimalist 10% Niacinamide (30ml)",
+            "Oil balance, marks, barrier support",
+            "Start 3x/week, increase if tolerated",
+            "Oily/combination, post-acne marks",
+            "You’re using many new actives at once or have active irritation—introduce slowly.",
+          ],
+          [
+            "Minimalist 2% Salicylic Acid (30ml)",
+            "Clogged pores, blackheads, acne",
+            "2–3 nights/week to start",
+            "Acne-prone/oily skin with congestion",
+            "Your skin barrier is already peeling, sunburned, or very sensitive; avoid overuse and use SPF.",
+          ],
+          [
+            "WOW Apple Cider Vinegar Shampoo (300ml)",
+            "Buildup, oily scalp, hard-water residue",
+            "1–2x/week reset wash (adjust as needed)",
+            "Oily scalp or frequent styling/product use",
+            "Your hair/scalp is very dry—clarifying too often can feel stripping.",
+          ],
+          [
+            "WOW Moroccan Argan Oil Shampoo (300ml)",
+            "Dryness, frizz, gentle cleansing",
+            "As needed; pair with conditioner",
+            "Dry/frizz-prone or heat-styled hair",
+            "You need heavy clarifying for buildup—use a reset wash occasionally instead.",
+          ],
+        ],
+      },
+      {
+        type: "heading",
+        heading: "Beginner safety & patch-test checklist",
+      },
+      {
+        type: "list",
+        items: [
+          "Patch test new products on the inner arm for 24 hours before facial/scalp use.",
+          "Introduce one new active at a time so you can identify irritation triggers.",
+          "Use broad-spectrum SPF 50 every morning when using BHA/salicylic acid exfoliants.",
+          "Do not apply strong actives on broken, peeling, or sunburned skin.",
+          "Verify batch/expiry dates, seals, and seller details on the Amazon.in listing before use.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text:
+          "Educational skincare guidance only — consult a dermatologist for persistent cystic acne, eczema, or scalp conditions. Every product link/check on Amazon is via tracked Durza links (including Amazon Associates where applicable, tag=durza02-21) and supports Durza at no extra cost to you. Live prices are set by Amazon.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Related links: /stores/amazon-in, /stores/dot-and-key, /stores/indus-valley, /guides/dot-and-key-skin-active-guide, and /compare/kama-ayurveda-vs-forest-essentials-vs-indus-valley.",
+      },
+    ],
+    relatedStores: ["amazon-in", "dot-and-key", "indus-valley"],
+    primaryCta: {
+      kind: "amazon",
+      badge: "OFFICIAL",
+      headline: "Check skincare & haircare picks on Amazon.in",
+      eligibility: "Live prices, variants, and seller details as shown on Amazon",
+      targetUrl: "https://www.amazon.in/?tag=durza02-21",
+      subId: "guide-skincare-actives",
+    },
+    auditedOn: "2026-11-18",
+  },
 ];
+
 
 const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F, ...RAW_GUIDES_G, ...RAW_GUIDES_H, ...RAW_GUIDES_I, ...RAW_GUIDES_J, ...RAW_GUIDES_K];
 

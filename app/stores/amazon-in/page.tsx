@@ -11,7 +11,7 @@ import type { CouponPublic } from "@/lib/types";
 
 const title = "Amazon India Offers & Best Deals (2026) — Curated Professional Picks";
 const description =
-  "Hand-picked Amazon India picks Curated by the Durza editor — work-from-home gear, PC components, audio, kitchen, home gym and personal care. Refreshed with live Check dates.";
+  "Hand-picked Amazon India picks curated by the Durza editor — work-from-home gear, PC components, audio, kitchen, home gym, personal care devices and health. Refreshed with live check dates.";
 const canonical = "/stores/amazon-in";
 
 export const metadata: Metadata = {
