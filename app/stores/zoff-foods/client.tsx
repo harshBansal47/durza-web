@@ -130,6 +130,7 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
         onConcern={setConcern}
         storeName="zoff-foods"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="ZOFF Foods FAQs" items={faqs} />

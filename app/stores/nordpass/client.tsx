@@ -107,6 +107,7 @@ export default function NordPassClient({ offers, products, faqs, stats, heroImag
           onConcern={setConcern}
           storeName="NordPass"
           columns={2}
+          getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
         />
       )}
 

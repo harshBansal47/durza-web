@@ -104,6 +104,7 @@ export default function WonderchefClient({ offers, products, faqs, stats, heroIm
         onConcern={setConcern}
         storeName="wonderchef"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Wonderchef FAQs" items={faqs} />

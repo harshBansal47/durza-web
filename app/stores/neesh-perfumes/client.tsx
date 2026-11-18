@@ -108,6 +108,7 @@ export default function NeeshPerfumesClient({ offers, products, faqs, stats, her
         onConcern={setConcern}
         storeName="neesh-perfumes"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Neesh Perfumes FAQs" items={faqs} />

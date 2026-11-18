@@ -104,6 +104,7 @@ export default function LifeChangingAstroClient({ offers, products, faqs, stats,
         onConcern={setConcern}
         storeName="life-changing-astro"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Life Changing Astro FAQs" items={faqs} />

@@ -108,6 +108,7 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
         onConcern={setConcern}
         storeName="the-bear-house"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="The Bear House FAQs" items={faqs} />

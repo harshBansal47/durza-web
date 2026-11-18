@@ -84,6 +84,7 @@ export default function HiraFragrancePage({ offers, products, faqs, stats, heroI
         onConcern={setConcern}
         storeName="hirafragrance"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
             <FaqSection eyebrow="Hira Fragrance FAQs" items={faqs} />
 

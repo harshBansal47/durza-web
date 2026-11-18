@@ -107,6 +107,7 @@ export default function MiltonClient({ offers, products, faqs, stats, heroImageU
         onConcern={setConcern}
         storeName="milton"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Milton India FAQs" items={faqs} />

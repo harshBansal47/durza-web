@@ -102,6 +102,7 @@ export default function AlpinoStorePage({ offers, products, faqs, stats, heroIma
         onConcern={setConcern}
         storeName="alpino"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Alpino Health Foods FAQs" items={faqs} />

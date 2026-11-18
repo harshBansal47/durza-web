@@ -152,7 +152,8 @@ export default function ProductDealRouter({
         ) : (
           products.map((p, idx) => {
             const href = getHref ? getHref(p, idx) : p.targetUrl;
-            const cta = getCtaLabel ? getCtaLabel(p, concern, displayName) : `Shop ${displayName}'s ${concern || "collection"} ↗`;
+            const defaultCta = `Shop ${p.name} ↗`;
+            const cta = getCtaLabel ? getCtaLabel(p, concern, displayName) : defaultCta;
             return (
             <div
               key={`${p.name}-${p.targetUrl}-${idx}`}
@@ -188,8 +189,7 @@ export default function ProductDealRouter({
                 {promo?.code ? <CopyCodePill code={promo.code} /> : <span className="font-mono font-bold text-ink">SALE</span>}
                 {promo?.description ? (
                   <span className="text-ink-soft"> ({promo.description})</span>
-                ) : null}{" "}
-                + 5% UPI discount
+                ) : null}
               </div>
               <p className="mt-1.5 text-[10px] text-ink-soft">
                 Min-cart rules from {displayName} apply. Code auto-validated at checkout — if the collection isn&apos;t live, the next tab below is.

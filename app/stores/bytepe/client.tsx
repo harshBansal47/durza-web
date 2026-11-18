@@ -101,6 +101,7 @@ export default function BytePeStorePage({ offers, products, faqs, stats, heroIma
         onConcern={setConcern}
         storeName="bytepe"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="BytePe FAQs" items={faqs} />

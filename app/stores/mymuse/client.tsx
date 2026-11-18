@@ -104,6 +104,7 @@ export default function MyMuseClient({ offers, products, faqs, stats, heroImageU
         onConcern={setConcern}
         storeName="mymuse"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="MyMuse India FAQs" items={faqs} />

@@ -105,6 +105,7 @@ export default function NourishMantraClient({ offers, products, faqs, stats, her
         onConcern={setConcern}
         storeName="nourish-mantra"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Nourish Mantra FAQs" items={faqs} />

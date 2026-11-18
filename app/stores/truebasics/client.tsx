@@ -111,6 +111,7 @@ export default function TrueBasicsClient({ offers, products, faqs, stats, heroIm
         onConcern={setConcern}
         storeName="truebasics"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="TrueBasics FAQs" items={faqs} />

@@ -101,6 +101,7 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
         storeName="igp"
         storeDisplayName="IGP (Indian Gifts Portal)"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
       <section aria-labelledby="igp-related-links" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
         <h2 id="igp-related-links" className="text-lg font-bold text-ink">Related gifting picks on Durza</h2>

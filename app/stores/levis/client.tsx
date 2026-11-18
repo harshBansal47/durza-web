@@ -111,6 +111,7 @@ export default function LevisClient({ offers, products, faqs, stats, heroImageUr
         onConcern={setConcern}
         storeName="levis"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Levi's India FAQs" items={faqs} />

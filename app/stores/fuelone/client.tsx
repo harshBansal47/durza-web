@@ -9,6 +9,7 @@ import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 import { ArrowUpRight } from "lucide-react";
+import { getAffiliateLink } from "@/lib/affiliate";
 
 interface Props {
   offers: StoreOfferCard[];
@@ -54,8 +55,10 @@ export default function FuelOneStorePage({ offers, products, faqs, stats, heroIm
           tabs={tabs}
           concern={active}
           onConcern={setActive}
-          storeName="Fuel One"
+          storeName="fuelone"
+          storeDisplayName="Fuel One"
           columns={3}
+          getHref={(p, idx) => getAffiliateLink("fuelone", p.targetUrl, p.subId || `matcher_${idx}`)}
         />
       )}
             <FaqSection eyebrow="Fuel One FAQs" items={faqs} />

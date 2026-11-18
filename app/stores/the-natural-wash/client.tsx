@@ -111,6 +111,7 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
         onConcern={setConcern}
         storeName="the-natural-wash"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="The Natural Wash FAQs" items={faqs} />

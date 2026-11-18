@@ -114,6 +114,7 @@ export default function FitspireStorePage({ offers, products, faqs, stats, heroI
         onConcern={setConcern}
         storeName="fitspire"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Fitspire FAQs" items={faqs} />

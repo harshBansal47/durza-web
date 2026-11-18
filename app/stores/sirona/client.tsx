@@ -107,6 +107,7 @@ export default function SironaClient({ offers, products, faqs, stats, heroImageU
         onConcern={setConcern}
         storeName="sirona"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Sirona Hygiene FAQs" items={faqs} />

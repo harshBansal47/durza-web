@@ -89,6 +89,7 @@ export default function IbaCosmeticsPage({ offers, products, faqs, stats, heroIm
         storeName="iba-cosmetics"
         storeDisplayName="Iba Cosmetics"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
       <section aria-labelledby="iba-related-guides" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
         <h2 id="iba-related-guides" className="text-lg font-bold text-ink">Related clean beauty guides & stores</h2>

@@ -89,6 +89,7 @@ export default function BrillareStorePage({ offers, products, faqs, stats, heroI
         onConcern={setConcern}
         storeName="brillare"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Brillare Science FAQs" items={faqs} />

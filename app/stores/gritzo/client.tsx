@@ -90,6 +90,7 @@ export default function GritzoStorePage({ offers, products, faqs, stats, heroIma
         onConcern={setConcern}
         storeName="gritzo"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="Gritzo FAQs" items={faqs} />

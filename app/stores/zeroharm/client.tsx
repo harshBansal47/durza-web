@@ -106,6 +106,7 @@ export default function ZeroHarmClient({ offers, products, faqs, stats, heroImag
         onConcern={setConcern}
         storeName="zeroharm"
         columns={2}
+        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
       />
 
             <FaqSection eyebrow="ZeroHarm Sciences FAQs" items={faqs} />
