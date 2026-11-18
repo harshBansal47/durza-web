@@ -7,10 +7,23 @@ import { metaDescription, absoluteUrl } from "@/lib/seo";
 import { staticGuideBySlug } from "@/data/store-guides";
 import { getComparisonBySlug } from "@/data/comparisons";
 import StaticGuidePage, { staticGuideMetadata } from "@/components/guides/StaticGuidePage";
+import { getGuideCoverImage, isStoreLogoPath } from "@/lib/guide-cover";
 
-function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null) {
+function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null, title?: string, summary?: string) {
   const guide = type === "guide" ? staticGuideBySlug(slug) : undefined;
-  return guide?.heroImageLayout === "editorial" && guide.heroImage ? guide.heroImage : fallback;
+  if (guide) {
+    return getGuideCoverImage({
+      slug,
+      title: guide.seo.title,
+      summary: guide.summary,
+      category: guide.category,
+      image: guide.heroImage ?? fallback ?? null,
+    });
+  }
+  if (type === "guide") {
+    return getGuideCoverImage({ slug, title, summary, category: "Buying guide", image: fallback ?? null });
+  }
+  return fallback;
 }
 
 function staticComparisonMetadata(slug: string): Metadata | null {
@@ -47,7 +60,7 @@ export async function editorialMetadata(type: EditorialType, slug: string): Prom
   if (!content) return { title: "Content not found", robots: { index: false, follow: false } };
   const canonical = content.canonical_url ?? editorialPath(content);
   const title = content.seo_title ?? content.title;
-  const heroImage = guideHeroImage(type, slug, content.hero_image_url);
+  const heroImage = guideHeroImage(type, slug, content.hero_image_url, content.title, content.summary ?? content.meta_description ?? undefined);
   // Either field can be missing; the first one that says something becomes a
   // single-line description the result page can show in full.
   const description = metaDescription(content.meta_description) ?? metaDescription(content.summary);
@@ -81,7 +94,7 @@ export async function renderEditorialPage(type: EditorialType, slug: string) {
   }
   if (!content) notFound();
   const { default: EditorialArticle } = await import("@/components/editorial/EditorialComponents");
-  const heroImage = guideHeroImage(type, slug, content.hero_image_url);
+  const heroImage = guideHeroImage(type, slug, content.hero_image_url, content.title, content.summary ?? content.meta_description ?? undefined);
   return (
     <EditorialArticle
       content={heroImage === content.hero_image_url ? content : { ...content, hero_image_url: heroImage ?? null }}

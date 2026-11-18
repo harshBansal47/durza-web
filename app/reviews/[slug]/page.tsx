@@ -1,20 +1,44 @@
 import type { Metadata } from "next";
-import { editorialMetadata, renderEditorialPage } from "@/lib/editorial-pages";
+import { notFound } from "next/navigation";
+import ReviewArticle from "@/components/reviews/ReviewArticle";
+import { REVIEWS, getReviewBySlug } from "@/data/reviews";
+import { absoluteUrl } from "@/lib/seo";
 
-export const revalidate = 3600;
-
-// Without this export a dynamic route is rendered on every request and `revalidate` is ignored
-// for the page (it goes out `private, no-store`). Returning nothing keeps builds from needing
-// the API; pages are rendered on first request, then cached and refreshed. See stores/[slug].
-export function generateStaticParams() {
-  return [];
-}
 type Props = { params: Promise<{ slug: string }> };
 
+export function generateStaticParams() {
+  return REVIEWS.map((r) => ({ slug: r.slug }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return editorialMetadata("review", (await params).slug);
+  const { slug } = await params;
+  const entry = getReviewBySlug(slug);
+  if (!entry) return { title: "Review not found", robots: { index: false, follow: false } };
+  const canonical = absoluteUrl(`/reviews/${entry.slug}`);
+  return {
+    title: entry.seoTitle,
+    description: entry.metaDescription,
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+    openGraph: {
+      title: entry.seoTitle,
+      description: entry.metaDescription,
+      url: canonical,
+      type: "article",
+      images: [entry.heroImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: entry.seoTitle,
+      description: entry.metaDescription,
+      images: [entry.heroImage],
+    },
+  };
 }
 
 export default async function ReviewPage({ params }: Props) {
-  return renderEditorialPage("review", (await params).slug);
+  const { slug } = await params;
+  const entry = getReviewBySlug(slug);
+  if (!entry) notFound();
+  return <ReviewArticle entry={entry} />;
 }

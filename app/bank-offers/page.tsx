@@ -10,6 +10,7 @@ import type { CouponPublic } from "@/lib/types";
 import { formatDiscount, successRateLabel, expiryLabel } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import JsonLd from "@/components/JsonLd";
+import BankCardMatcher from "@/components/bank-offers/BankCardMatcher";
 
 export const revalidate = 1800;
 
@@ -24,75 +25,117 @@ async function fetchLiveCoupons(maxPages = 3): Promise<CouponPublic[]> {
   return items;
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const [coupons, stores] = await Promise.all([
-    fetchLiveCoupons(),
-    resilient.listStores({ limit: 100 }),
-  ]);
-  const groups = buildBankGroups(coupons, stores.items);
-  const offerCount = groups.reduce((sum, group) => sum + group.coupons.length, 0);
-  const title = offerCount > 0 ? `Bank & Card Offers: ${offerCount} Live Credit Card Deals` : "Bank & Card Offers in India";
-  const description = offerCount > 0
-    ? `Live ${offerCount} credit card and bank offers across ${groups.length} banks — HDFC, SBI, ICICI, Axis and more — each read from the store or bank page it was published on.`
-    : "Compare credit card and bank offers across Indian stores — how instant discounts, no-cost EMI, cashback and rewards stack, and what each bank typically runs.";
-  const canonical = absoluteUrl("/bank-offers");
-  return {
-    title,
-    description,
-    alternates: { canonical },
-    openGraph: { title, description, url: canonical, type: "website" },
-    twitter: { card: "summary_large_image", title, description },
-  };
-}
+export const metadata: Metadata = {
+  title: "Credit Card & Bank Instant Discount Offers India (Nov 2026) | Durza",
+  description:
+    "Compare live credit card and bank instant discount offers in India (Nov 2026), co-branded cashback caps, and No-Cost EMI rules before you pay at checkout.",
+  alternates: { canonical: absoluteUrl("/bank-offers") },
+  openGraph: {
+    title: "Credit Card & Bank Instant Discount Offers India (Nov 2026) | Durza",
+    description:
+      "Compare live credit card and bank instant discount offers in India, co-branded cashback caps, and No-Cost EMI rules before checkout.",
+    url: absoluteUrl("/bank-offers"),
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Credit Card & Bank Instant Discount Offers India (Nov 2026) | Durza",
+    description:
+      "Compare live credit card and bank instant discount offers in India, co-branded cashback caps, and No-Cost EMI rules before checkout.",
+  },
+};
 
 const HOW_IT_WORKS = [
   {
     icon: BadgePercent,
     title: "Instant discount",
-    body: "A percentage taken off at the payment page when you pay with an eligible card and meet a minimum spend. The strongest benefit for a single large purchase.",
+    body: "A percentage or flat amount taken off at the payment page when you pay with an eligible card and meet a minimum spend. The strongest benefit for a single large purchase.",
   },
   {
     icon: Layers,
     title: "No-cost EMI",
-    body: "Spread a big-ticket purchase over months without interest. Check for a processing fee before assuming it is free.",
+    body: "Spread a big-ticket purchase over months without interest. Always check for processing fees, GST treatment on interest/fees, and eligibility before assuming it is free.",
   },
   {
     icon: Wallet,
     title: "Cashback & rewards",
-    body: "Money or points returned after the purchase. Valuable for smaller buys and for shoppers who already hold a rewards card.",
+    body: "Money or points returned after the purchase (often on co-branded or cashback cards). Valuable for frequent online spending, but monthly/quarterly caps and exclusions apply.",
   },
   {
     icon: ShieldCheck,
     title: "Eligibility rules",
-    body: "Most offers have a minimum spend, a discount cap, and exclusions for sale items, corporate cards or specific brands.",
+    body: "Most offers have a minimum spend, a discount cap, card-type exclusions (including some co-branded cards), and exclusions for EMI, gift cards, or specific categories.",
   },
 ];
 
 const FAQS = [
   {
-    question: "Which bank gives the best instant discount on electronics?",
+    question: "What’s the difference between an instant bank discount and a cashback/co-branded card benefit?",
     answer:
-      "The best instant discount is whichever offer is live at the store you are buying from. Compare the rupee value of each live offer on your actual cart rather than choosing by bank brand.",
+      "An instant bank discount reduces your payable amount at checkout when you meet the offer conditions (eligible card, minimum spend, non-excluded categories). Cashback or co-branded card benefits are usually earned after the transaction (as statement cashback or points) and may have monthly/quarterly caps, merchant exclusions, and separate rules for EMI orders.",
+  },
+  {
+    question: "Why are co-branded cards sometimes excluded from instant-discount sale banners?",
+    answer:
+      "Co-branded cards (like Amazon Pay ICICI, Cashback SBI, or Flipkart Axis) often have their own ongoing reward structures, so banks and merchants commonly exclude them from separate 10% instant-discount sale campaigns. Always read the offer’s eligible-card list and exclusions on the payment page before assuming the banner applies.",
+  },
+  {
+    question: "Is No-Cost EMI really free? What about GST and fees?",
+    answer:
+      "No-Cost EMI removes interest in many cases, but it is not always completely free. Some offers include processing/convenience fees, and taxes (such as GST on interest components or fees, depending on how the offer is structured) may apply. Check the final EMI breakup, total payable amount, and fee disclosures at checkout before choosing EMI over a full swipe.",
   },
   {
     question: "Can I combine a bank offer with a store coupon?",
     answer:
-      "Often, yes. A store coupon reduces the cart before payment, and a bank instant discount applies at the payment page to the resulting amount, provided the minimum spend is still met.",
+      "Often, yes. A store coupon or sale price can reduce the cart first, and an eligible bank instant discount may apply at the payment page to the resulting amount—if the minimum spend and exclusions are still satisfied. Confirm the final discount lines in the order summary.",
   },
   {
-    question: "Do bank offers work on already-discounted products?",
+    question: "How do I know a bank offer actually applied?",
     answer:
-      "Sometimes. Some banks apply the discount to the final price, while others exclude clearance or sale items. Always read the exclusion list on the bank's offer page.",
+      "The order summary should show a separate discount line for the bank/card offer before you pay. If it’s missing, recheck card eligibility, minimum spend, EMI vs non-EMI selection, and category exclusions on the checkout and offer terms.",
+  },
+];
+
+const ACTIVE_ISSUER_IDS = new Set([
+  "hdfc",
+  "icici",
+  "sbi",
+  "axis",
+  "kotak",
+  "idfc",
+  "rbl",
+  "indusind",
+  "federal",
+  "yes",
+  "hsbc",
+  "sc",
+  "bob",
+]);
+
+const CO_BRANDED_CHEAT_SHEET = [
+  {
+    card: "Amazon Pay ICICI Bank",
+    rate: "5% on Amazon.in & Amazon Pay Travel (Prime) · 3% (Non-Prime)",
+    caveat:
+      "Unlimited (no monthly cap), ₹0 annual fee; excluded from core ICICI instant-discount sale banners and EMI orders",
   },
   {
-    question: "Is no-cost EMI really free?",
-    answer:
-      "No-cost EMI removes the interest, but some banks or retailers add a processing or convenience fee. Add any fee to the total before comparing it with paying upfront.",
+    card: "Cashback SBI Card",
+    rate: "5% across eligible online merchants",
+    caveat:
+      "Capped at ₹2,000/statement cycle (₹40,000 spend) since Apr 2026; excluded from SBI 10% instant-discount offers, EMI, utilities & gift cards",
   },
   {
-    question: "How do I know a bank offer applied?",
-    answer:
-      "The order summary shows a separate discount line for the bank offer. If it is missing, confirm the offer was selected at the payment page and that you met the minimum spend.",
+    card: "Flipkart Axis Bank",
+    rate: "7.5% on Myntra · 5% on Flipkart & Cleartrip",
+    caveat:
+      "Capped at ₹4,000 per statement quarter per merchant; converting any order to EMI forfeits 100% of cashback",
+  },
+  {
+    card: "HDFC Bank Millennia",
+    rate: "5% CashPoints on 10 partner apps (Amazon, Flipkart, Myntra, Swiggy, Zomato, etc.)",
+    caveat:
+      "Capped at 1,000 CashPoints/calendar month (₹20,000 spend); non-EMI transactions only",
   },
 ];
 
@@ -189,6 +232,7 @@ export default async function BankOffersPage() {
   const groups = buildBankGroups(coupons, storesPage.items);
   const offerCount = groups.reduce((sum, group) => sum + group.coupons.length, 0);
   const bankChips = groups.map((group) => group.bank);
+  const glanceBanks = BANKS.filter((b) => ACTIVE_ISSUER_IDS.has(b.id));
 
   const faqJsonLd = faqPageJsonLd(FAQS);
   const offerItemListJsonLd = itemListJsonLd(
@@ -223,7 +267,6 @@ export default async function BankOffersPage() {
       </div>
 
       <div className="relative">
-        {/* Hero */}
         <section className="px-6 pb-10 pt-14 sm:pb-14 sm:pt-20">
           <div className="mx-auto max-w-4xl">
             <nav aria-label="Breadcrumb" className="mb-5 text-sm text-ink-soft">
@@ -240,9 +283,7 @@ export default async function BankOffersPage() {
             </p>
             <PageTitle className="mt-3 leading-tight">Credit card deals that actually stack</PageTitle>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-ink-soft">
-              Every live bank offer on Durza, grouped by the bank that published it. Each one shows
-              the store it works at, the discount it gives, and when it was last checked — so you can
-              compare the real rupee value before you pay.
+              Live bank and card offers grouped by issuer, plus practical guidance on instant discounts, co-branded cashback caps, and No-Cost EMI rules—so you can compare the real payable value before checkout.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
@@ -262,7 +303,6 @@ export default async function BankOffersPage() {
 
         <section className="px-6 pb-20">
           <div className="mx-auto max-w-6xl">
-            {/* How bank offers work */}
             <section aria-labelledby="how-heading" className="mt-4">
               <div className="mb-6 max-w-2xl">
                 <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">
@@ -272,8 +312,7 @@ export default async function BankOffersPage() {
                   How bank offers work
                 </h2>
                 <p className="mt-2 text-ink-soft">
-                  A bank offer is a discount the bank gives you for paying with its card. It is
-                  separate from the store&apos;s own sale, which is why the two usually combine.
+                  A bank offer is a discount or benefit tied to the card and payment method you choose. It is separate from the store&apos;s own sale, which is why the two can often stack—when eligibility rules allow.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -292,7 +331,8 @@ export default async function BankOffersPage() {
               </div>
             </section>
 
-            {/* Live offers */}
+            <BankCardMatcher />
+
             <section id="live-offers" aria-labelledby="live-heading" className="mt-14 scroll-mt-24">
               <div className="mb-4 max-w-2xl">
                 <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">
@@ -342,7 +382,6 @@ export default async function BankOffersPage() {
               )}
             </section>
 
-            {/* Comparison table */}
             <section aria-labelledby="compare-heading" className="mt-14">
               <div className="mb-6 max-w-2xl">
                 <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">
@@ -367,7 +406,7 @@ export default async function BankOffersPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {BANKS.map((bank) => {
+                    {glanceBanks.map((bank) => {
                       const group = groups.find((candidate) => candidate.bank.id === bank.id);
                       return (
                         <tr key={bank.id} className="border-t border-ledger-line">
@@ -391,7 +430,38 @@ export default async function BankOffersPage() {
               </div>
             </section>
 
-            {/* Stacking guide */}
+            <section aria-labelledby="cobranded-heading" className="mt-10">
+              <div className="mb-4 max-w-3xl">
+                <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">2026 reference</p>
+                <h2 id="cobranded-heading" className="mt-2 font-serif text-2xl font-extrabold text-ink sm:text-3xl">
+                  2026 Co-Branded Cashback Card Cheat-Sheet
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">
+                  Quick reference for popular co-branded cards. Rates, caps, and exclusions can change—confirm live terms with your bank/store before checkout.
+                </p>
+              </div>
+              <div className="overflow-x-auto rounded-2xl border border-ledger-line bg-white">
+                <table className="min-w-full text-left text-sm">
+                  <thead className="bg-paper">
+                    <tr>
+                      <th scope="col" className="px-4 py-3 font-bold text-ink">Card</th>
+                      <th scope="col" className="px-4 py-3 font-bold text-ink">Reward rate</th>
+                      <th scope="col" className="px-4 py-3 font-bold text-ink">Cap &amp; caveat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {CO_BRANDED_CHEAT_SHEET.map((row) => (
+                      <tr key={row.card} className="border-t border-ledger-line">
+                        <th scope="row" className="px-4 py-3 align-top font-semibold text-ink">{row.card}</th>
+                        <td className="px-4 py-3 align-top text-ink-soft">{row.rate}</td>
+                        <td className="px-4 py-3 align-top text-ink-soft">{row.caveat}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
             <section aria-labelledby="stack-heading" className="mt-14">
               <div className="mb-6 max-w-2xl">
                 <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">
@@ -407,13 +477,13 @@ export default async function BankOffersPage() {
                   ["Clip the store coupon", "Apply any product or cart coupon before you reach the payment page."],
                   ["Select the bank offer", "Choose your bank at payment and confirm you meet the minimum spend."],
                   ["Check the final summary", "Make sure the bank discount line appears before you pay."],
-                ].map(([title, body], index) => (
-                  <li key={title} className="info-card flex gap-4 p-5">
+                ].map(([titleText, body], index) => (
+                  <li key={titleText} className="info-card flex gap-4 p-5">
                     <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-ink text-sm font-bold text-white">
                       {index + 1}
                     </span>
                     <div>
-                      <h3 className="font-serif text-lg font-bold text-ink">{title}</h3>
+                      <h3 className="font-serif text-lg font-bold text-ink">{titleText}</h3>
                       <p className="mt-1 text-sm leading-6 text-ink-soft">{body}</p>
                     </div>
                   </li>
@@ -421,7 +491,6 @@ export default async function BankOffersPage() {
               </ol>
             </section>
 
-            {/* FAQ */}
             <section aria-labelledby="faq-heading" className="mt-14">
               <h2 id="faq-heading" className="font-serif text-2xl font-extrabold text-ink">
                 Frequently asked questions
@@ -436,12 +505,11 @@ export default async function BankOffersPage() {
               </dl>
             </section>
 
-            {/* Deeper editorial reads */}
             <section aria-labelledby="deeper-reads-heading" className="mt-14">
               <h2 id="deeper-reads-heading" className="font-serif text-2xl font-extrabold text-ink">
                 Deeper reads
               </h2>
-              <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {[
                   {
                     href: "/guides/icici-bank-offers-india-2026",
@@ -458,6 +526,16 @@ export default async function BankOffersPage() {
                     title: "Best online-shopping card 2026",
                     note: "The 5-step framework for picking the card per cart.",
                   },
+                  {
+                    href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india",
+                    title: "Instant Discount vs No-Cost EMI",
+                    note: "Hidden GST, fees, and when each payment option actually saves more.",
+                  },
+                  {
+                    href: "/compare/black-friday-2026-india-best-deals-vs-regular-sale",
+                    title: "Black Friday vs Regular Sales",
+                    note: "Which categories drop, how card caps behave, and what to compare at checkout.",
+                  },
                 ].map((guide) => (
                   <li key={guide.href}>
                     <Link
@@ -466,7 +544,7 @@ export default async function BankOffersPage() {
                     >
                       <span className="font-serif font-bold text-ink">{guide.title}</span>
                       <span className="mt-1 text-xs leading-5 text-ink-soft">{guide.note}</span>
-                      <span className="mt-auto pt-3 text-xs font-semibold text-accent">Read the guide →</span>
+                      <span className="mt-auto pt-3 text-xs font-semibold text-accent">Read more →</span>
                     </Link>
                   </li>
                 ))}

@@ -12,6 +12,7 @@ import AdidasStyleCompare from "@/components/guides/AdidasStyleCompare";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { toolHref } from "@/data/store-glossary";
+import { getGuideCoverImage, isStoreLogoPath } from "@/lib/guide-cover";
 
 /**
  * Renders a statically authored buying guide — used only when the DB editorial
@@ -45,7 +46,7 @@ export function StaticGuideJsonLd({ guide }: { guide: StaticGuide }) {
           datePublished: guide.auditedOn ?? "2026-11-14",
           dateModified: guide.auditedOn ?? "2026-11-14",
           mainEntityOfPage: url,
-          ...(guide.heroImage ? { image: [`${SITE_URL}${guide.heroImage}`] } : {}),
+          image: [(() => { const h = getGuideCoverImage({ slug: guide.slug, title: guide.seo.title, summary: guide.summary, category: guide.category, image: guide.heroImage ?? null }); return h.startsWith("http") ? h : `${SITE_URL}${h}`; })()],
         }}
       />
       <JsonLd
@@ -60,22 +61,39 @@ export function StaticGuideJsonLd({ guide }: { guide: StaticGuide }) {
   );
 }
 
-export const staticGuideMetadata = (guide: StaticGuide): Metadata => ({
-  title: guide.seo.title,
-  description: guide.seo.description,
-  alternates: { canonical: `/guides/${guide.slug}` },
-  openGraph: {
+export const staticGuideMetadata = (guide: StaticGuide): Metadata => {
+  const heroImage = getGuideCoverImage({
+    slug: guide.slug,
+    title: guide.seo.title,
+    summary: guide.summary,
+    category: guide.category,
+    image: guide.heroImage ?? null,
+  });
+  return {
     title: guide.seo.title,
     description: guide.seo.description,
-    url: `${SITE_URL}/guides/${guide.slug}`,
-    type: "article",
-    ...(guide.heroImage ? { images: [{ url: `${SITE_URL}${guide.heroImage}` }] } : {}),
-  },
-});
+    alternates: { canonical: `/guides/${guide.slug}` },
+    openGraph: {
+      title: guide.seo.title,
+      description: guide.seo.description,
+      url: `${SITE_URL}/guides/${guide.slug}`,
+      type: "article",
+      ...(heroImage ? { images: [{ url: heroImage.startsWith("http") ? heroImage : `${SITE_URL}${heroImage}` }] } : {}),
+    },
+  };
+};
 
 export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
   const storeName = storeDisplayName(guide.storeSlug);
   const toolLink = guide.interactiveTool ? toolHref(guide.storeSlug) : undefined;
+  const heroImage = getGuideCoverImage({
+    slug: guide.slug,
+    title: guide.seo.title,
+    summary: guide.summary,
+    category: guide.category,
+    image: guide.heroImage ?? null,
+  });
+  const heroImageIsEditorial = true;
   // Ad units mirror the editorial article layout: for an article this length
   // (< 900 words) Google placements are the top unit before the body and the
   // end unit before the footer — same as the editorial 2-ad word-count case.
@@ -95,19 +113,19 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
       </h1>
       <p className="mt-3 text-base leading-7 text-ink-soft">{guide.summary}</p>
 
-      {guide.heroImage && (
+      {heroImage && (
         <div
           className={`relative mt-6 w-full overflow-hidden rounded-2xl border border-ledger-line bg-paper-raised ${
-            guide.heroImageLayout === "editorial" ? "aspect-[16/9]" : "h-44 sm:h-56"
+            heroImageIsEditorial ? "aspect-[16/9]" : "h-44 sm:h-56"
           }`}
         >
           <Image
-            src={guide.heroImage}
-            alt={guide.heroImageAlt ?? `${storeName} logo`}
+            src={heroImage}
+            alt=""
             fill
             priority
             sizes="(max-width: 768px) 100vw, 896px"
-            className={guide.heroImageLayout === "editorial" ? "object-cover" : "object-contain p-6"}
+            className={heroImageIsEditorial ? "object-cover" : "object-contain p-6"}
           />
         </div>
       )}
