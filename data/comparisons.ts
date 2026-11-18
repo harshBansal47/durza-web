@@ -580,7 +580,7 @@ export const COMPARISONS: CompareEntry[] = [
       { storeSlug: "vero-moda", storeName: "Vero Moda", bullets: ["Good for current-season women’s fashion and consistent sizing info.", "Useful when you want brand-direct stock and packaging."] },
       { storeSlug: "aldo-new", storeName: "ALDO", bullets: ["Brand-direct footwear and accessories with fresh inventory.", "Better for gifting and specific size availability."] },
       { storeSlug: "charles-keith", storeName: "Charles & Keith", bullets: ["Reliable for latest bags/shoes and complete presentation.", "Helpful when marketplace boxes or extras are a concern."] },
-      { storeSlug: "ajio", storeName: "AJIO", bullets: ["Strong for multi-brand deals and seasonal discounts.", "Compare final price and return terms before buying premium pieces."] },
+      { storeSlug: "ajio-com-ecommerce-cps-india", storeName: "AJIO", bullets: ["Strong for multi-brand deals and seasonal discounts.", "Compare final price and return terms before buying premium pieces."] },
     ],
     faqs: [
       { question: "Is it safer to buy branded fashion from official websites?", answer: "For current-season items, gifting, and hard-to-find sizes, official brand stores often provide fresher stock and consistent packaging. Aggregators can still be great for deals—just check seller/listing details and return policies.", sort_order: 0 },
@@ -598,7 +598,7 @@ export const COMPARISONS: CompareEntry[] = [
     ],
     relatedReviewsStores: [
       { href: "/stores/vero-moda", label: "Vero Moda store hub" },
-      { href: "/stores/aldo-new", label: "ALDO store hub" },
+      { href: "/stores/aldo-shoes", label: "ALDO store hub" },
       { href: "/stores/charles-and-keith", label: "Charles & Keith store hub" },
     ],
     keywords: ["Myntra vs Ajio vs brand store India", "Charles and Keith India authentic", "ALDO Vero Moda official site", "fashion sizing returns India"],
