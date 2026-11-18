@@ -462,18 +462,6 @@ const SECTIONS: SectionDef[] = [
       { id: "58e49ea9-87b5-477f-b656-1bf9e50c6d8a", badge: "LAPTOP BAG" },
     ],
   },
-  {
-    id: "home",
-    title: "Kitchen & home must-haves",
-    lead: "Cookware, hot-water storage, mixers and the things people replace after Indian summers finally win.",
-    picks: [
-      { id: "488ccc0e-f9cc-4517-a6b3-54cb2800ddff", badge: "HOT WATER" },
-      { id: "569a132f-075e-4861-9a46-71925659a856", badge: "4-PIECE SET" },
-      { id: "4136bd9f-5c87-4859-aabb-f3ffe3661adc", badge: "PRESSURE CLASSIC" },
-      { id: "610ba4c0-77a6-404a-a114-d2274313c4e5", badge: "3-JAR GRINDER" },
-      { id: "4697b0cd-f1d6-4e8b-8e4d-c7cb95871746", badge: "BEACH-SIDE BLANKET" },
-    ],
-  },
 ];
 
 interface Props {
