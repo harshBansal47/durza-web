@@ -31,6 +31,27 @@ const CUSTOM_STORE_SLUGS = new Set([
 ]);
 
 /**
+ * Store slugs that permanently redirect to a canonical store URL.
+ * Keep them out of the sitemap so crawlers don't see redirecting/duplicate doorway URLs.
+ */
+const REDIRECTED_STORE_ALIAS_SLUGS = new Set([
+  "aldo-new",
+  "bath-body-works",
+  "bliss-club",
+  "charles-keith",
+  "lenovo-india",
+  "milton-in",
+  "pepperfry-com-cps-india",
+  "perforacare-com-ecommerce-cps-india",
+  "purevpn-com-utility-cpa-worldwide",
+  "rforrabbit-com-ecommerce-cps-india",
+  "salty-co-in-ecommerce-cps-india",
+  "sanskrutihomes-in-ecommerce-cps-india",
+  "shoptupperware-in-ecommerce-cps-india",
+  "veromoda",
+]);
+
+/**
  * A coupon with many recent, mostly-positive reports is more likely to still
  * be valid than one with none — so it's worth a crawler's attention sooner.
  * Unverified coupons still get a reasonable baseline priority; this nudges,
@@ -186,6 +207,7 @@ async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.S
     return stores
       .filter(
         (store) =>
+          !REDIRECTED_STORE_ALIAS_SLUGS.has(store.slug) &&
           isIndexableStore(store.offer_count, store.description) &&
           isHomepageIndiaRelevant(store.slug),
       )
