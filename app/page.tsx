@@ -12,6 +12,8 @@ import VerifiedDealsExplorer from "@/components/home/VerifiedDealsExplorer";
 import HowItWorks from "@/components/home/HowItWorks";
 import { api } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/format";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import { categoryNameMap, popularStores as pickPopularStores, toHeroDeal, toHeroStore } from "@/lib/home-hero";
 import { absoluteUrl } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
@@ -134,7 +136,15 @@ export default async function HomePage() {
   // Plain id → identity lookup for the explorer cards (serialisable across the
   // client boundary): logo + name + slug + website, keyed by store_id.
   const storesById = Object.fromEntries(
-    stores.items.map((s) => [s.id, { name: s.name, slug: s.slug, logo_url: s.logo_url, website_url: s.website_url }]),
+    stores.items.map((s) => [
+      s.id,
+      {
+        name: formatStoreDisplayName({ slug: s.slug, name: s.name }),
+        slug: s.slug,
+        logo_url: s.logo_url,
+        website_url: s.website_url,
+      },
+    ]),
   );
 
   const relevantStoreIds = new Set(
@@ -182,16 +192,16 @@ export default async function HomePage() {
     return picked;
   };
 
-  // The hero's "Featured right now" panel: the first four relevant offers in the backend's
-  // recommended order. Taking them here keeps each offer unique across the page.
-  const featuredCoupons = take(coupons.items.filter(isHomepageRelevant), 4);
+  // The hero's "Featured right now" panel: single spotlight card (deduped).
+  const featuredCoupons = take(
+    dedupeCoupons(coupons.items.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c))),
+    1,
+  );
   const recentlyVerifiedItems = take(recentlyVerified.items.filter(isHomepageRelevant), 8);
-  // Tab pools for the unified Verified Deals Explorer. The shared `shown` set
-  // keeps every offer unique across the page: nothing that landed in the hero
-  // or an earlier tab reappears in a later one.
+  // Tab pools for the unified Verified Deals Explorer. Sanitize/dedupe for clean display.
   const fill = (pool: CouponPublic[], limit = 6): CouponPublic[] => {
     const picked: CouponPublic[] = [];
-    for (const item of pool) {
+    for (const item of dedupeCoupons(pool.map((c) => sanitizeCouponForDisplay(c)))) {
       if (shown.has(item.id)) continue;
       shown.add(item.id);
       picked.push(item);
@@ -201,7 +211,7 @@ export default async function HomePage() {
   };
   const backfill = (picked: CouponPublic[]): CouponPublic[] => {
     const extra: CouponPublic[] = [];
-    for (const item of coupons.items.filter(isHomepageRelevant)) {
+    for (const item of dedupeCoupons(coupons.items.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c)))) {
       if (picked.length + extra.length >= 6) break;
       if (shown.has(item.id)) continue;
       shown.add(item.id);
@@ -247,14 +257,33 @@ export default async function HomePage() {
 
   // Hero view-model. Search pool = every relevant offer already fetched for this page (deduped,
   // capped to keep the client payload small); stores are the full list so any store is findable.
-  const heroStores = stores.items.filter((s) => isHomepageIndiaRelevant(s.slug)).map(toHeroStore);
+  const REDIRECTED_HERO_STORE_SLUGS = new Set([
+    "aldo-new",
+    "bath-body-works",
+    "bliss-club",
+    "charles-keith",
+    "lenovo-india",
+    "milton-in",
+    "pepperfry-com-cps-india",
+    "perforacare-com-ecommerce-cps-india",
+    "purevpn-com-utility-cpa-worldwide",
+    "rforrabbit-com-ecommerce-cps-india",
+    "salty-co-in-ecommerce-cps-india",
+    "sanskrutihomes-in-ecommerce-cps-india",
+    "shoptupperware-in-ecommerce-cps-india",
+    "tata-cliq",
+    "veromoda",
+  ]);
+  const heroStores = stores.items
+    .filter((s) => isHomepageIndiaRelevant(s.slug) && !REDIRECTED_HERO_STORE_SLUGS.has(s.slug))
+    .map(toHeroStore);
   const heroStoreById = new Map(stores.items.map((s) => [s.id, toHeroStore(s)]));
   const heroCategoryNames = categoryNameMap(categories.items);
   const heroPool = new Map<string, CouponPublic>();
   for (const list of [coupons.items, bestCoupons.items, latestDeals.items, newest.items, recentlyVerified.items, endingSoon.items]) {
     for (const coupon of list) {
       if (heroPool.size >= 40) break;
-      if (isHomepageRelevant(coupon) && !heroPool.has(coupon.id)) heroPool.set(coupon.id, coupon);
+      if (isHomepageRelevant(coupon) && !heroPool.has(coupon.id)) heroPool.set(coupon.id, sanitizeCouponForDisplay(coupon));
     }
   }
   const heroDeals = [...heroPool.values()].flatMap((coupon) => {
@@ -352,6 +381,7 @@ export default async function HomePage() {
             items={[...staticFeaturedGuides(1), ...editorial.guides.slice(0, 2), ...staticFeaturedGuides(3).slice(1)].slice(0, 3)}
             href="/guides"
             label="All guides"
+            eyebrow="Researched buying guides"
             wideFirst={REDESIGN_ENABLED}
           />
 
@@ -360,6 +390,7 @@ export default async function HomePage() {
             items={latestComparisons.items}
             href="/compare"
             label="All comparisons"
+            eyebrow="Side-by-side verdicts"
           />
 
           <section className="mt-8 rounded-2xl border border-verified/15 bg-verified-soft/50 px-5 py-5 sm:px-7" aria-label="Our deal standards">
@@ -379,6 +410,7 @@ export default async function HomePage() {
             items={recentReviews.items}
             href="/reviews"
             label="All reviews"
+            eyebrow="Honest audits & math"
           />
 
           {editorial.collections.length > 0 && (
@@ -398,6 +430,25 @@ export default async function HomePage() {
               </div>
             </section>
           )}
+
+          <section className="mt-12" aria-labelledby="tools-curated-kits-heading">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Discover more ways to save</p>
+            <h2 id="tools-curated-kits-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">Tools &amp; Curated Kits</h2>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <Link href="/collections" className="group rounded-2xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Curated sets</p>
+                <h3 className="mt-2 text-lg font-semibold text-ink group-hover:text-inkblue">Curated Buying Kits</h3>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">Multi-store setups built for WFH desks, humidity skincare, home gyms, and festive gifting.</p>
+                <span className="mt-4 inline-flex items-center text-sm font-semibold text-durza-deep">Browse collections <ArrowRight aria-hidden="true" className="ml-1 h-4 w-4" strokeWidth={2} /></span>
+              </Link>
+              <Link href="/bank-offers" className="group rounded-2xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Payment savings</p>
+                <h3 className="mt-2 text-lg font-semibold text-ink group-hover:text-inkblue">Bank &amp; Credit Card Offers</h3>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">Check core instant-discount rules, co-branded cashback caps, and No-Cost EMI terms before paying.</p>
+                <span className="mt-4 inline-flex items-center text-sm font-semibold text-durza-deep">View bank offers <ArrowRight aria-hidden="true" className="ml-1 h-4 w-4" strokeWidth={2} /></span>
+              </Link>
+            </div>
+          </section>
 
           <section className="mt-16">
             <SectionTitle icon={Compass}>How it works</SectionTitle>

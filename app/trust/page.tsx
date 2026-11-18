@@ -47,11 +47,11 @@ const PROCESS = [
 
 export default function TrustPage() {
   return (
-    <main className="bg-[#FAF8F5] text-[#141413]">
+    <div className="bg-[#FAF8F5] text-[#141413]">
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
         <section className="max-w-3xl">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
-            Trust &amp; Verification
+            How Durza Checks Offers
           </p>
           <h1 className="mt-3 font-serif text-4xl font-extrabold leading-tight tracking-tight text-[#141413] sm:text-5xl">
             How Durza checks offers.
@@ -64,14 +64,14 @@ export default function TrustPage() {
               href="/deals"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#141413] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#2a2a27]"
             >
-              Browse Verified Deals <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              Browse Checked Deals <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </div>
         </section>
 
         <section aria-labelledby="trust-process" className="mt-12">
           <h2 id="trust-process" className="sr-only">
-            How offers are sourced and verified
+            How offers are sourced and checked
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {PROCESS.map((item) => {
@@ -115,7 +115,33 @@ export default function TrustPage() {
             </p>
           </div>
         </section>
+
+        <nav className="mt-12" aria-label="Keep reading">
+          <h2 className="font-serif text-xl font-bold text-[#141413]">Keep reading</h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            <li>
+              <Link href="/guides/how-durza-verifies-offers-methodology-2026" className="inline-flex min-h-11 items-center rounded-full border border-[#141413]/15 bg-white px-4 text-sm font-semibold text-[#141413] transition-colors hover:border-[#141413]/40">
+                Crawl, restore &amp; audit methodology (2026)
+              </Link>
+            </li>
+            <li>
+              <Link href="/affiliate-disclosure" className="inline-flex min-h-11 items-center rounded-full border border-[#141413]/15 bg-white px-4 text-sm font-semibold text-[#141413] transition-colors hover:border-[#141413]/40">
+                Affiliate disclosure
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="inline-flex min-h-11 items-center rounded-full border border-[#141413]/15 bg-white px-4 text-sm font-semibold text-[#141413] transition-colors hover:border-[#141413]/40">
+                About Durza
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="inline-flex min-h-11 items-center rounded-full border border-[#141413]/15 bg-white px-4 text-sm font-semibold text-[#141413] transition-colors hover:border-[#141413]/40">
+                Contact &amp; report a broken code
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </main>
+    </div>
   );
 }

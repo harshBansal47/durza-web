@@ -9,6 +9,7 @@ import { api } from "@/lib/api";
 import { categoryLabel } from "@/lib/catalog";
 import { daysUntil, formatDiscountHeading, formatRelativeTime, stripStorePrefix } from "@/lib/format";
 import { getRequirements, requirementLabels, sourceLine } from "@/lib/requirements";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import type { CouponPublic } from "@/lib/types";
 
@@ -56,7 +57,7 @@ export interface StoreInput {
 export function toHeroStore(store: StoreInput): HeroStore {
   return {
     id: store.id,
-    name: store.name,
+    name: formatStoreDisplayName({ slug: store.slug, name: store.name }),
     slug: store.slug,
     logoUrl: storeLogoUrl(store),
     accent: storeAccent(store.slug),

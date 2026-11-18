@@ -5,6 +5,7 @@ import { Flame, TicketPercent, Zap, Clock4 } from "lucide-react";
 import OfferCard from "@/components/OfferCard";
 import type { CouponPublic } from "@/lib/types";
 import { formatDiscountHeading } from "@/lib/format";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import { api } from "@/lib/api";
 
 /**
@@ -89,7 +90,7 @@ export default function VerifiedDealsExplorer({
                   store
                     ? {
                         id: coupon.store_id,
-                        name: store.name,
+                        name: formatStoreDisplayName({ slug: store.slug, name: store.name }),
                         slug: store.slug,
                         logo_url: store.logo_url ?? null,
                         website_url: store.website_url ?? null,
@@ -101,7 +102,6 @@ export default function VerifiedDealsExplorer({
                 title={coupon.title}
                 description={coupon.description}
                 ctaHref={api.goUrl(coupon.id, goSrc)}
-                verified={coupon.verification_status === "verified"}
                 expiresAt={coupon.expires_at}
               />
             );

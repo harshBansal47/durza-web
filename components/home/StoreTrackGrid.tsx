@@ -1,5 +1,6 @@
 import Image from "next/image";
 import PendingLink from "@/components/ui/PendingLink";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 interface TrackStore {
@@ -12,11 +13,14 @@ interface TrackStore {
 }
 
 /**
- * Stores we track — upgraded logo grid. Pins Durza's highest-utility stores
- * (the ones with interactive tools) first, then fills from the live catalogue
- * by offer count, so the grid is always showcase, never stale sample.
+ * Stores we track — upgraded logo grid. Pins flagship/high-utility stores
+ * first, then fills from the live catalogue by offer count.
  */
 const PINNED = [
+  "amazon-in",
+  "lenovo",
+  "asus",
+  "dot-and-key",
   "healthkart",
   "kapiva",
   "nilkamalfurniture",
@@ -56,6 +60,7 @@ export default function StoreTrackGrid({ stores }: { stores: TrackStore[] }) {
       {picked.map((store) => {
         const logo = storeLogoUrl(store);
         const count = typeof store.offer_count === "number" ? store.offer_count : null;
+        const displayName = formatStoreDisplayName({ slug: store.slug, name: store.name });
         return (
           <li key={store.id}>
             <PendingLink
@@ -77,21 +82,21 @@ export default function StoreTrackGrid({ stores }: { stores: TrackStore[] }) {
                   />
                 ) : (
                   <span className="text-sm font-bold text-ink-soft">
-                    {store.name.slice(0, 2).toUpperCase()}
+                    {displayName.slice(0, 2).toUpperCase()}
                   </span>
                 )}
               </span>
               <span className="mt-2.5 text-sm font-semibold leading-tight text-slate-900">
-                {store.name}
+                {displayName}
               </span>
               <span
                 className={`mt-1.5 inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${
                   count && count > 0
                     ? "bg-emerald-50 text-emerald-700"
-                    : "bg-slate-100 text-slate-500"
+                    : "bg-slate-100 text-slate-600"
                 }`}
               >
-                {count && count > 0 ? `${count} offer${count === 1 ? "" : "s"}` : "Offers soon"}
+                {count && count > 0 ? `${count} offer${count === 1 ? "" : "s"}` : "Official Store Guide"}
               </span>
             </PendingLink>
           </li>

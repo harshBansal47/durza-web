@@ -128,12 +128,14 @@ export function EditorialSection({
   items,
   href,
   label,
+  eyebrow = "Make a confident choice",
   wideFirst = false,
 }: {
   title: string;
   items: EditorialContent[];
   href: string;
   label: string;
+  eyebrow?: string;
   wideFirst?: boolean;
 }) {
   if (items.length === 0) return null;
@@ -142,7 +144,7 @@ export function EditorialSection({
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
-            Make a confident choice
+            {eyebrow}
           </p>
           <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">{title}</h2>
         </div>

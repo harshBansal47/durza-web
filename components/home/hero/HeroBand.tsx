@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { CalendarCheck, ShieldCheck, TimerOff } from "lucide-react";
 import PendingLink from "@/components/ui/PendingLink";
 import type { HeroStore } from "@/lib/home-hero";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import StoreMark from "./StoreMark";
 import { usePrefersReducedMotion } from "./hooks";
 
@@ -94,7 +95,7 @@ export default function HeroBand({
               {popular.map((store) => (
                 <PendingLink key={store.id} href={`/stores/${store.slug}`} className="hx-popchip">
                   <StoreMark store={store} size={20} />
-                  {store.name}
+                  {formatStoreDisplayName({ slug: store.slug, name: store.name })}
                 </PendingLink>
               ))}
               {moreStores > 0 && (

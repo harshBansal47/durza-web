@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Durza is a deals platform where every coupon and offer shows the store page it was read from, the date it was last checked, and the commission we earn.",
+  alternates: { canonical: "https://durza.in/about" },
 };
 
 const HIGHLIGHTS = [
@@ -74,6 +75,13 @@ export default function AboutPage() {
           affiliate disclosure
         </Link>{" "}
         for the full picture, including how we rank offers.
+      </p>
+      <p>
+        Durza is edited and maintained in India with a focus on clear sourcing and reader-first guidance.
+        If you have a question or need help, contact us at{" "}
+        <a href="mailto:hello@durza.in" className="text-inkblue underline underline-offset-2">
+          hello@durza.in
+        </a>.
       </p>
     </LegalPage>
   );
