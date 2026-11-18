@@ -54,10 +54,15 @@ function sortKey(c: CouponPublic): number {
   return intOrMax(restrictionsOf(c).sort);
 }
 
-/** The four evergreen promo cards rendered on each brand page (has a code). */
+/** Promo/offer cards rendered on brand store pages. Includes ingested coupons
+ * that have a code but no explicit restrictions.kind (treated as offers, not products). */
 export function toOfferCards(coupons: CouponPublic[]): StoreOfferCard[] {
   return coupons
-    .filter((c) => c.code && restrictionsOf(c).kind === "offer")
+    .filter((c) => {
+      if (!c.code) return false;
+      const kind = restrictionsOf(c).kind;
+      return kind === "offer" || kind == null;
+    })
     .map((c) => {
       const r = restrictionsOf(c);
       return {
