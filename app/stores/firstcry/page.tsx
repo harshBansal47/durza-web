@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 const FAQS = [
   { question: "How are FirstCry coupons on Durza kept current?", answer: "Deals listed here are refreshed from firstcry.com campaign pages; codes apply at checkout on the official site. Codes are re-checked regularly — see the verification strip when it has data for a check." },
-  { question: "How does the FirstCry Club calculator estimate savings?", answer: "It models member pricing plus coupon stacking against the ₹499 or ₹999 fee using your monthly spend — actual savings vary by category." },
+  { question: "How does the FirstCry Club calculator estimate savings?", answer: "It estimates potential savings based on your spend and the current membership plan. Actual savings vary by category and offers." },
   { question: "What is the return policy on baby gear?", answer: "Most baby gear is returnable within 7 days of delivery in original condition; check the individual product page for eligibility." },
 ];
 

@@ -18,6 +18,7 @@ import { groupSimilar } from "@/lib/grouping";
 import { parseRupeePrice } from "@/lib/price";
 import { cleanStoreDescription } from "@/lib/seo";
 import { isShowcaseStore } from "@/lib/showcase-stores";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import type { CouponPublic, Store } from "@/lib/types";
 import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 import { ArrowUpRight } from "lucide-react";
@@ -58,14 +59,31 @@ export default function StorePageClient({
   productCategoriesLoadFailed = false,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
-  const topCoupon = Object.values(tabs).flatMap((tab) => tab.items).find((coupon) => coupon.code) ?? null;
+  const sanitizedTabs = useMemo(() => {
+    const clean = (items: CouponPublic[] | undefined) =>
+      dedupeCoupons((items ?? []).map((c) => sanitizeCouponForDisplay(c)));
+    return {
+      best: tabs.best ? { ...tabs.best, items: clean(tabs.best.items) } : tabs.best,
+      latest: tabs.latest ? { ...tabs.latest, items: clean(tabs.latest.items) } : tabs.latest,
+      expiring: tabs.expiring ? { ...tabs.expiring, items: clean(tabs.expiring.items) } : tabs.expiring,
+    };
+  }, [tabs]);
+  const topCoupon = Object.values(sanitizedTabs).flatMap((tab) => tab?.items ?? []).find((coupon) => coupon.code) ?? null;
   const websiteHost = hostnameOf(store.website_url);
   const website = Boolean(websiteHost);
   const hasVotes = stats.totalReports > 0;
+  const globalStoreSlugs = new Set([
+    "adguard-many-geos",
+    "italiarail-many-geos",
+    "italojewerly",
+    "nordpass",
+    "invideo",
+  ]);
+  const isGlobalMultiCurrencyStore = globalStoreSlugs.has(store.slug);
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState("all");
   const filteredTabs = useMemo(() => {
-    const match = (item: (typeof tabs.best.items)[number]) => {
+    const match = (item: CouponPublic) => {
       if (filter === "all") return true;
       if (filter === "under500") {
         const price = parseRupeePrice(item.restrictions?.deal_price);
@@ -74,11 +92,11 @@ export default function StorePageClient({
       return true;
     };
     return {
-      best: tabs.best ? { ...tabs.best, items: tabs.best.items.filter(match) } : tabs.best,
-      latest: tabs.latest ? { ...tabs.latest, items: tabs.latest.items.filter(match) } : tabs.latest,
-      expiring: tabs.expiring ? { ...tabs.expiring, items: tabs.expiring.items.filter(match) } : tabs.expiring,
+      best: sanitizedTabs.best ? { ...sanitizedTabs.best, items: sanitizedTabs.best.items.filter(match) } : sanitizedTabs.best,
+      latest: sanitizedTabs.latest ? { ...sanitizedTabs.latest, items: sanitizedTabs.latest.items.filter(match) } : sanitizedTabs.latest,
+      expiring: sanitizedTabs.expiring ? { ...sanitizedTabs.expiring, items: sanitizedTabs.expiring.items.filter(match) } : sanitizedTabs.expiring,
     };
-  }, [tabs, filter]);
+  }, [sanitizedTabs, filter]);
   // The tabs are the same offers in different orders, so the offers on the page are the size of
   // the biggest tab. Adding the tabs up would count every offer two or three times.
   const offersShown = Math.max(0, ...Object.values(filteredTabs).map((tab) => tab?.items.length ?? 0));
@@ -151,6 +169,14 @@ export default function StorePageClient({
         collections={productCollections}
         categoriesLoadFailed={productCategoriesLoadFailed}
       />
+
+      {isGlobalMultiCurrencyStore && (
+        <section className="rounded-2xl border border-ledger-line bg-paper-raised p-4 text-sm leading-6 text-ink-soft">
+          <p>
+            <strong className="font-semibold text-ink">International checkout:</strong> pricing, currency, taxes, and payment methods for {store.name} may vary by region. Check the final amount and terms on the official checkout page before purchasing.
+          </p>
+        </section>
+      )}
 
       <section aria-labelledby="store-coupons-heading">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">

@@ -58,15 +58,12 @@ export default function FitspireStorePage({ offers, products, faqs, stats, heroI
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
         <h2 className="text-xl font-bold text-ink">Smart Shopper&apos;s Stacking Calculator</h2>
         <label className="mt-4 block text-sm font-medium text-ink">
-          Cart total: ₹{cartTotal.toLocaleString("en-IN")}
+          Cart total: calculated from your selections
           <input type="range" min={500} max={5000} step={100} value={cartTotal} onChange={(e) => setCartTotal(Number(e.target.value))} className="mt-2 w-full" />
         </label>
         <div className="mt-4 space-y-1 text-sm text-ink-soft">
-          <p>Baseline Cart: ₹{cartTotal.toLocaleString("en-IN")}</p>
-          <p>Code FIT20 (-₹{fit20.toLocaleString("en-IN")})</p>
-          <p>Extra Prepaid Discount (-5% = -₹{prepaid.toLocaleString("en-IN")})</p>
-          <p>Free Delivery (Saved ₹{shipping})</p>
-          <p className="font-bold text-ink">Final Estimated Price: ₹{final.toLocaleString("en-IN")} (Total Savings: ₹{(cartTotal - final).toLocaleString("en-IN")})</p>
+          <p>Apply any eligible promo code and review shipping/payment offers at checkout.</p>
+          <p className="font-bold text-ink">Final payable amount and savings are shown on the official checkout page.</p>
         </div>
         <a href={link("https://fitspire.online", "stacking_calc")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
           Apply This Stacking Formula on Fitspire
@@ -96,13 +93,13 @@ export default function FitspireStorePage({ offers, products, faqs, stats, heroI
         title="How people stack savings on Fitspire"
         lead="Monthly gummy vitamins and probiotics restock:"
         lines={[
-          { label: "Monthly gummy restock", value: "₹1,499" },
-          { label: "Apply FIT20 (above ₹1,499)", value: "− ₹300" },
-          { label: "Free delivery above ₹499", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,199" }}
-        saving="You could save ₹300+ per month"
-        note="*Illustrative — B2G1 applies to marked probiotic lines only; FIT20 needs ₹1,499+ cart value."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

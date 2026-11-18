@@ -62,7 +62,7 @@ export default function SironaClient({ offers, products, faqs, stats, heroImageU
           <p className="text-sm font-semibold text-ink">Recommended: {size.size}</p>
           <p className="mt-1 text-sm text-ink-soft">{size.detail}</p>
         </div>
-        <p className="mt-3 text-xs font-medium text-ink">Switching to a cup saves roughly ₹15,000 in disposable pad expenses over 5 years — the cup costs ₹299 and lasts a decade.</p>
+        <p className="mt-3 text-xs font-medium text-ink">Reusable products may reduce long-term costs for some users. Check product durability, care instructions, and current pricing on the official Sirona page.</p>
         <a href={link(size.url, size.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop Size {size.id.toUpperCase()} Cup on Sirona</a>
       </div>
 
@@ -89,13 +89,13 @@ export default function SironaClient({ offers, products, faqs, stats, heroImageU
         title="How people stack savings on Sirona"
         lead="A menstrual-cup + sterilizer starter kit:"
         lines={[
-          { label: "Menstrual cup + sterilizer kit", value: "₹899" },
-          { label: "Apply SIRONA15 (15% off)", value: "− ₹135*" },
-          { label: "Free shipping above ₹399", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹764" }}
-        saving="You could save ₹135+ on the kit"
-        note="*Illustrative — cup bundles have separate CUPFREE pricing; check both offers."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

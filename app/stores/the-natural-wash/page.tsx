@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "Why are raw potato and beetroot effective in skincare?", answer: "Potato starch contains natural catecholase enzymes that fade dark spots and blemishes; beetroot is rich in betalain antioxidants that tint and nourish chapped lips without synthetic dyes." },
   { question: "Does TNW lip balm contain artificial dyes?", answer: "No. The Beetroot Lip Balm gets its tint entirely from pure beetroot extract with shea and cocoa butter — zero artificial colorants or parabens." },
-  { question: "What is the shipping policy?", answer: "Free doorstep delivery across India on all orders of ₹450 or more; a small flat shipping fee applies below ₹450." },
+  { question: "What is the shipping policy?", answer: "Check the current shipping threshold and delivery charges on The Natural Wash at checkout." },
 ];
 
 export const revalidate = 3600;

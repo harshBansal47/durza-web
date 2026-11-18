@@ -8,8 +8,8 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
-const title = "NordPass Coupons, Password Manager Deals & Free Trial";
-const description = "NordPass promo codes, up to 50% off on 2-year plans, and best deals on encrypted zero-knowledge password management and family suites.";
+const title = "NordPass Official Store Guide, Plans & Offers";
+const description = "Compare NordPass password manager plans, features, and current offers on the official store. Pricing and billing terms vary by region and are shown at checkout.";
 const canonical = "/stores/nordpass";
 
 export const metadata: Metadata = {

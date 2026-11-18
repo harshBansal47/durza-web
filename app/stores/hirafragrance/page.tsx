@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Hira Fragrance Coupons, Extrait de Parfum & Attar Deals";
-const description = "Hira Fragrance promo codes and best deals on Extrait de Parfum, Oud and alcohol-free attars. Free shipping ₹599+.";
+const description = "Explore Hira Fragrance perfumes, oud, and attars with current offers and shipping terms shown on the official store.";
 const canonical = "/stores/hirafragrance";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "What is the difference between Eau de Parfum and Extrait de Parfum?", answer: "Extrait de Parfum has a much higher fragrance oil concentration, giving stronger projection and longer longevity (8–12 hours) than standard Eau de Parfum." },
   { question: "How long do non-alcoholic Attars last?", answer: "Pure Attars are highly concentrated and can last 8–12 hours on skin and even longer on fabric." },
-  { question: "What are the shipping details?", answer: "Free insured shipping across India on prepaid orders above ₹599." },
+  { question: "What are the shipping details?", answer: "Shipping options, thresholds, and charges vary by order and location. Check the current shipping details on Hira Fragrance at checkout." },
 ];
 
 export const revalidate = 3600;

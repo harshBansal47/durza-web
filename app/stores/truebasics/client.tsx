@@ -93,13 +93,13 @@ export default function TrueBasicsClient({ offers, products, faqs, stats, heroIm
         title="How people stack savings on TrueBasics"
         lead="A 90-day clinical omega-3 + ashwagandha regimen:"
         lines={[
-          { label: "90-day clinical regimen", value: "₹2,199" },
-          { label: "Apply CLINICAL20 (60/90-day)", value: "− ₹440*" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,759" }}
-        saving="You could save ₹440+ on the regimen"
-        note="*Illustrative — CLINICAL20 applies to 60/90-day bundles only; TRUE10 to individual bottles."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

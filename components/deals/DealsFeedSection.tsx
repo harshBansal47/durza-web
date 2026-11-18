@@ -19,6 +19,7 @@ import SpotlightDeal from "@/components/deals/SpotlightDeal";
 import { parseDealFilters, resolveDealFacets, toDealQuery } from "@/lib/deal-discovery";
 import { allowedStoreIds } from "@/lib/homepage-curation";
 import { pickSpotlightDeal } from "@/lib/deal-feed";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import { absoluteUrl } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
@@ -50,7 +51,7 @@ export default async function DealsFeedSection({
   const indiaRelevantIds = resolved.store_ids.length === 0 ? allowedStoreIds(stores) : [];
   if (indiaRelevantIds.length) query.store_ids = indiaRelevantIds;
 
-  const [coupons, priceDrops] = await Promise.all([
+  const [rawCoupons, priceDrops] = await Promise.all([
     resolved.unresolved
       ? Promise.resolve({ items: [], total: 0, skip, limit: PAGE_SIZE })
       : resilient.listCoupons(query),
@@ -60,6 +61,10 @@ export default async function DealsFeedSection({
       ? Promise.resolve({ items: [], total: 0, skip: 0, limit: 50 })
       : resilient.listProducts({ limit: 20 }),
   ]);
+  const coupons = {
+    ...rawCoupons,
+    items: dedupeCoupons(rawCoupons.items.map((c) => sanitizeCouponForDisplay(c))),
+  };
 
   const total = coupons.total;
   const page = Math.floor(skip / PAGE_SIZE) + 1;

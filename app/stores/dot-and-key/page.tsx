@@ -35,7 +35,7 @@ const FAQS = [
   {
     question: "What is the free shipping threshold on Dot & Key?",
     answer:
-      "Free shipping thresholds on dotandkey.com vary between ₹299 and ₹999 depending on whether a sitewide B2G2 sale is active—check the progress bar inside your cart drawer before checkout.",
+      "Free shipping thresholds on dotandkey.com can vary by promotion. Check the progress bar in your cart before checkout.",
   },
   {
     question: "What is Dot & Key's return and refund policy?",

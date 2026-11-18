@@ -48,8 +48,8 @@ export default function DiaperCostTrackerPage() {
               <tr key={i} className="border-b border-ledger-line">
                 <td className="py-2">{d.brand}</td>
                 <td className="py-2">{d.pack}</td>
-                <td className="py-2">₹{d.price}</td>
-                <td className="py-2 font-semibold">₹{(d.price / d.pack).toFixed(2)}</td>
+                <td className="py-2">{d.price}</td>
+                <td className="py-2 font-semibold">{(d.price / d.pack).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

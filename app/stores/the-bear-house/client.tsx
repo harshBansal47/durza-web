@@ -13,7 +13,6 @@ import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
 import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("the-bear-house", url, sub);
-const BUNDLE = { shirt: 1399, chino: 1699, code: 500, upiRate: 0.05 };
 interface Props {
   offers: StoreOfferCard[];
   products: StoreProductCard[];
@@ -28,10 +27,7 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [qty, setQty] = useState({ shirt: true, chino: true });
-  const subtotal = (qty.shirt ? BUNDLE.shirt : 0) + (qty.chino ? BUNDLE.chino : 0);
-  const bundleOff = subtotal >= 2999 ? BUNDLE.code : 0;
-  const upiOff = Math.round((subtotal - bundleOff) * BUNDLE.upiRate);
-  const net = subtotal - bundleOff - upiOff;
+  const selectedCount = [qty.shirt, qty.chino].filter(Boolean).length;
   const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
@@ -40,7 +36,7 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="The Bear House"
-        subtitle="Crafted For Comfort • Premium Textured Casual Shirts, Linen & Tailored Menswear"
+        subtitle="Premium shirts, chinos, and menswear essentials with live offers and direct links to the official store."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -50,21 +46,18 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
       <TrustStats {...stats} />
       <AffiliateDisclosure />
 
-
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Smart 2-Item Wardrobe Multiplier</h2>
-        <p className="mt-1 text-sm text-ink-soft">Pick a complete head-to-toe workwear look and watch BUNDLE500 + 5% UPI stack.</p>
+        <h2 className="text-xl font-bold text-ink">Build a 2-piece outfit</h2>
+        <p className="mt-1 text-sm text-ink-soft">Select items to plan a bundle, then apply any eligible promo code and review payment offers shown at checkout on The Bear House.</p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <button type="button" onClick={() => setQty((q) => ({ ...q, shirt: !q.shirt }))} className={`rounded-full px-4 py-2 text-sm font-medium ${qty.shirt ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Oxford Shirt (₹1,399)</button>
-          <button type="button" onClick={() => setQty((q) => ({ ...q, chino: !q.chino }))} className={`rounded-full px-4 py-2 text-sm font-medium ${qty.chino ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Stretch Chino (₹1,699)</button>
+          <button type="button" onClick={() => setQty((q) => ({ ...q, shirt: !q.shirt }))} className={`rounded-full px-4 py-2 text-sm font-medium ${qty.shirt ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Oxford Shirt</button>
+          <button type="button" onClick={() => setQty((q) => ({ ...q, chino: !q.chino }))} className={`rounded-full px-4 py-2 text-sm font-medium ${qty.chino ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Stretch Chino</button>
         </div>
-        <div className="mt-4 rounded-xl border border-ledger-line p-4 text-sm">
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">Subtotal</span><span className="font-semibold text-ink">₹{subtotal.toLocaleString("en-IN")}</span></div>
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">BUNDLE500 {subtotal < 2999 && "(needs ₹2,999+)"}</span><span className="font-semibold text-ink">− ₹{bundleOff}</span></div>
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">5% UPI instant deduction</span><span className="font-semibold text-ink">− ₹{upiOff}</span></div>
-          <div className="flex items-center justify-between py-2"><span className="font-semibold text-ink">Net you pay</span><span className="text-lg font-bold text-ink">₹{net.toLocaleString("en-IN")}</span></div>
+        <div className="mt-4 rounded-xl border border-ledger-line p-4 text-sm text-ink-soft">
+          <p><span className="font-semibold text-ink">Selected items:</span> {selectedCount}</p>
+          <p className="mt-2">Final price, shipping, promo eligibility, and any payment offers are shown on the official checkout page.</p>
         </div>
-        <a href={link("https://thebearhouse.com/collections/best-sellers", "wardrobe_multiplier")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Build My 2-Piece Look</a>
+        <a href={link("https://thebearhouse.com/collections/best-sellers", "wardrobe_multiplier")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Explore best sellers on The Bear House</a>
       </div>
 
       {offers.length > 0 ? (
@@ -87,16 +80,16 @@ export default function TheBearHouseClient({ offers, products, faqs, stats, hero
       )}
 
       <StackingExample
-        title="How people stack savings on The Bear House"
-        lead="Three cotton polos for the office rotation:"
+        title="How to check savings on The Bear House"
+        lead="Review bundle value and checkout terms before placing an order:"
         lines={[
-          { label: "3-cotton-polo bundle", value: "₹3,199" },
-          { label: "Apply BUNDLE500 (above ₹2,999)", value: "− ₹500" },
-          { label: "Free shipping above ₹999", value: "included" }
+          { label: "Add eligible items to your cart", value: "Build bundle" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹2,699" }}
-        saving="You could save ₹500+ on a rotation bundle"
-        note="*Illustrative — BEAR10 adds on eligible polos; sale styles may be excluded."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

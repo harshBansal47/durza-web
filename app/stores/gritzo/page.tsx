@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 const FAQS = [
   { question: "How is Gritzo SuperMilk different from traditional malt drinks?", answer: "Traditional malt drinks contain up to 50%–70% refined sugar and minimal protein. Gritzo SuperMilk contains zero refined sugar, zero preservatives, and provides 6g to 13g of clean, natural milk/whey protein per serving calibrated for specific age groups." },
-  { question: "How do I get free shipping on Gritzo orders?", answer: "Gritzo provides free doorstep shipping on all orders totaling ₹499 or more across India. A single 400g tub or 1kg jar easily meets this threshold." },
+  { question: "How do I get free shipping on Gritzo orders?", answer: "Check the current free-shipping threshold and eligibility on Gritzo at checkout." },
   { question: "Can coupon code SUPER10 be applied to 1kg and 2kg value packs?", answer: "Yes. Code SUPER10 provides an additional 10% discount on top of already-discounted 1kg and 2kg bulk economy jars." },
 ];
 

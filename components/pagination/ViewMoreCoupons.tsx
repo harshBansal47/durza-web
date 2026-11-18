@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { CouponCard, type CouponCardStore } from "@/components/CouponCard";
 import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
 import { api } from "@/lib/api";
 import type { CouponListParams } from "@/lib/api";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import type { CouponPublic } from "@/lib/types";
 
 /**
@@ -32,11 +33,15 @@ export default function ViewMoreCoupons({
   limit?: number;
   gridClassName?: string;
 }) {
-  const [items, setItems] = useState<CouponPublic[]>(initialCoupons);
+  const initialClean = useMemo(
+    () => dedupeCoupons(initialCoupons.map((c) => sanitizeCouponForDisplay(c))),
+    [initialCoupons],
+  );
+  const [items, setItems] = useState<CouponPublic[]>(initialClean);
   const [nextSkip, setNextSkip] = useState(initialSkip + initialCoupons.length);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const seen = useRef(new Set(initialCoupons.map((coupon) => coupon.id)));
+  const seen = useRef(new Set(initialClean.map((coupon) => coupon.id)));
 
   const hasMore = items.length < total;
   const storeById = new Map(stores.map((store) => [store.id, store]));
@@ -47,9 +52,10 @@ export default function ViewMoreCoupons({
     setError(false);
     try {
       const result = await api.listCoupons({ ...query, skip: nextSkip, limit });
-      const fresh = result.items.filter((coupon) => !seen.current.has(coupon.id));
+      const sanitized = dedupeCoupons(result.items.map((coupon) => sanitizeCouponForDisplay(coupon)));
+      const fresh = sanitized.filter((coupon) => !seen.current.has(coupon.id));
       for (const coupon of fresh) seen.current.add(coupon.id);
-      setItems((previous) => [...previous, ...fresh]);
+      setItems((previous) => dedupeCoupons([...previous, ...fresh]));
       setNextSkip(nextSkip + result.items.length);
     } catch {
       setError(true);

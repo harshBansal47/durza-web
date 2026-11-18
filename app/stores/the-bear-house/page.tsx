@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "The Bear House Coupons, Linen Shirts & Chinos Deals";
-const description = "The Bear House promo codes, ₹500 off code BUNDLE500, and best deals on 100% pure linen shirts, textured oxfords and chinos.";
+const description = "Explore The Bear House shirts, chinos, and menswear essentials with current offers and checkout terms on the official store.";
 const canonical = "/stores/the-bear-house";
 
 export const metadata: Metadata = {

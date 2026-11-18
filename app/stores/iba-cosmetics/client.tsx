@@ -71,13 +71,13 @@ export default function IbaCosmeticsPage({ offers, products, faqs, stats, heroIm
         title="How people stack savings on IBA Cosmetics"
         lead="A clean-beauty face trio (cleanser + serum + sunscreen):"
         lines={[
-          { label: "Clean-beauty face trio", value: "₹1,299" },
-          { label: "Apply IBA15 (15% off)", value: "− ₹195*" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,104" }}
-        saving="You could save ₹195+ on one order"
-        note="*Illustrative — IBA15 applies to marked clean-beauty ranges; check the card for exclusions."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
             <ProductDealRouter
         title="Clean Certification & Makeup Matcher"

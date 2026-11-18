@@ -14,9 +14,9 @@ import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("the-natural-wash", url, sub);
 const CART_FILLERS = [
-  { id: "potato", label: "Potato Wax (₹380)", amount: 380 },
-  { id: "beetroot", label: "Beetroot Lip Balm (₹220)", amount: 220 },
-  { id: "rose", label: "Rose Water (₹299)", amount: 299 },
+  { id: "potato", label: "Hair removal wax" },
+  { id: "beetroot", label: "Lip balm" },
+  { id: "rose", label: "Rose water" },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -32,9 +32,7 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [cart, setCart] = useState<string[]>(["potato"]);
-  const subtotal = CART_FILLERS.filter((c) => cart.includes(c.id)).reduce((s, c) => s + c.amount, 0);
-  const tnw15 = Math.round(subtotal * 0.15);
-  const freeShip = subtotal >= 450;
+  const selectedCount = CART_FILLERS.filter((c) => cart.includes(c.id)).length;
   const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
@@ -43,7 +41,7 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="The Natural Wash"
-        subtitle="Pure Natural Care • Authentic Ayurveda with Potent Natural Kitchen Actives"
+        subtitle="Natural personal care products with live offers and direct links to the official store."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -55,19 +53,18 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
 
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Clean Beauty Cart-Filler Assistant</h2>
-        <p className="mt-1 text-sm text-ink-soft">Tap items to see when you cross ₹450 for free shipping and qualify for TNW15.</p>
+        <h2 className="text-xl font-bold text-ink">Build a simple cart</h2>
+        <p className="mt-1 text-sm text-ink-soft">Select items to plan your order, then check live prices, promo eligibility, and shipping terms at checkout.</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {CART_FILLERS.map((c) => (
             <button key={c.id} type="button" onClick={() => setCart((cur) => cur.includes(c.id) ? cur.filter((x) => x !== c.id) : [...cur, c.id])} className={`rounded-full px-4 py-2 text-sm font-medium ${cart.includes(c.id) ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{c.label}</button>
           ))}
         </div>
-        <div className="mt-4 rounded-xl border border-ledger-line p-4 text-sm">
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">Cart subtotal</span><span className="font-semibold text-ink">₹{subtotal}</span></div>
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">TNW15 (15% off)</span><span className="font-semibold text-ink">− ₹{tnw15}</span></div>
-          <div className="flex items-center justify-between py-2"><span className="text-ink-soft">Free shipping (₹450+)</span><span className="font-semibold text-ink">{freeShip ? "Unlocked" : `Add ₹${450 - subtotal} more`}</span></div>
+        <div className="mt-4 rounded-xl border border-ledger-line p-4 text-sm text-ink-soft">
+          <p><span className="font-semibold text-ink">Selected items:</span> {selectedCount}</p>
+          <p className="mt-2">Final prices, promo eligibility, and shipping offers are shown on the official checkout page.</p>
         </div>
-        <a href={link("https://www.thenaturalwash.com/collections/best-sellers", "cart_filler")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop Best Sellers on TNW</a>
+        <a href={link("https://www.thenaturalwash.com/collections/best-sellers", "cart_filler")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop best sellers on The Natural Wash</a>
       </div>
 
       {offers.length > 0 ? (
@@ -93,13 +90,13 @@ export default function TheNaturalWashClient({ offers, products, faqs, stats, he
         title="How people stack savings on The Natural Wash"
         lead="A lip-and-skin essentials trio (vegan, no-paraben):"
         lines={[
-          { label: "Lip & skin trio", value: "₹1,199" },
-          { label: "Apply TNW15 (15% off)", value: "− ₹180*" },
-          { label: "Free shipping above ₹450", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,019" }}
-        saving="You could save ₹180+ on one order"
-        note="*Illustrative — TNW15 applies to marked natural-care lines; B2G1 selects from lip & skin."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

@@ -6,6 +6,7 @@ import DealFeed from "@/components/deals/DealFeed";
 import type { DealCardStore } from "@/components/DealCard";
 import { api } from "@/lib/api";
 import { toDealQuery, type DealFilters } from "@/lib/deal-discovery";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import type { CouponPublic } from "@/lib/types";
 
 /**
@@ -63,13 +64,14 @@ export default function LoadMoreDeals({
       const query = toDealQuery(filters, facets, { skip: loadedCount, limit }, storeIds);
       if (keyword) query.search = keyword;
       const page = await api.listCoupons(query);
+      const sanitized = dedupeCoupons(page.items.map((coupon) => sanitizeCouponForDisplay(coupon)));
       const seen = new Set([...serverIds, ...items.map((coupon) => coupon.id)]);
-      const fresh = page.items.filter((coupon) => !seen.has(coupon.id));
+      const fresh = sanitized.filter((coupon) => !seen.has(coupon.id));
       if (fresh.length === 0) {
         setExhausted(true);
         return;
       }
-      setItems((previous) => [...previous, ...fresh]);
+      setItems((previous) => dedupeCoupons([...previous, ...fresh]));
     } catch {
       setError("Couldn't load more deals. Check your connection and try again.");
     } finally {

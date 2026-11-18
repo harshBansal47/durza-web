@@ -14,12 +14,12 @@ import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("zoff-foods", url, sub);
 const RESTOCK_ITEMS = [
-  { id: "masala", label: "Essential Masala Combo (₹499)", amount: 499 },
-  { id: "almonds", label: "Almonds & Cardamom Combo (₹599)", amount: 599 },
+  { id: "masala", label: "Essential masala combo" },
+  { id: "almonds", label: "Dry fruits & spice combo" },
 ];
 const GRINDING = [
-  { id: "traditional", label: "Traditional Chakki / Hammer Mills", points: ["Generates up to 95°C heat during grinding", "Volatile essential oils burn off — dull, bitter spices", "Preservative-free powders go stale within months", "Color fades; curcumin and capsaicin degrade"] },
-  { id: "coolgrind", label: "ZOFF Cool-Grinding Tech", points: ["Spices ground at sub-zero temperatures", "Locks in up to 95% of natural essential oils", "Vibrant natural color without artificial dyes", "Medicinal curcumin and capsaicin stay potent"] },
+  { id: "traditional", label: "Traditional grinding", points: ["Higher grinding temperatures can affect aroma over time", "Flavor and freshness depend on processing and storage", "Compare product details and pack sizes before buying"] },
+  { id: "coolgrind", label: "Cool-grinding process", points: ["ZOFF highlights cool-grinding to help preserve aroma and freshness", "Check individual product pages for ingredients and pack details", "Review current offers and shipping terms at checkout"] },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -36,11 +36,7 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [tech, setTech] = useState(GRINDING[1]);
   const [restock, setRestock] = useState<string[]>(["masala", "almonds"]);
-  const subtotal = RESTOCK_ITEMS.filter((r) => restock.includes(r.id)).reduce((s, r) => s + r.amount, 0);
-  const pantry20 = Math.round(subtotal * 0.2);
-  const upi = Math.round((subtotal - pantry20) * 0.05);
-  const net = subtotal - pantry20 - upi;
-  const freeShip = subtotal >= 499;
+  const selectedCount = RESTOCK_ITEMS.filter((r) => restock.includes(r.id)).length;
   const topOffer = offers[0] ?? null;
   const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
   const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
@@ -49,7 +45,7 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
         name="ZOFF Foods"
-        subtitle="Zone Of Fresh Food • Cool-Grinding Technology for 100% Natural Aroma & Purity"
+        subtitle="Spices and pantry essentials with live offers and direct links to the official store."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -59,9 +55,8 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
       <TrustStats {...stats} />
       <AffiliateDisclosure />
 
-
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Why Cool-Grinding Matters</h2>
+        <h2 className="text-xl font-bold text-ink">Spice processing at a glance</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {GRINDING.map((t) => (
             <button key={t.id} type="button" onClick={() => setTech(t)} className={`rounded-full px-4 py-2 text-sm font-medium ${tech.id === t.id ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{t.label}</button>
@@ -73,20 +68,18 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
       </div>
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Smart Restock Hack — Full Monthly Pantry</h2>
-        <p className="mt-1 text-sm text-ink-soft">Tap items to build your combo; PANTRY20 + 5% UPI apply at checkout.</p>
+        <h2 className="text-xl font-bold text-ink">Plan a pantry restock</h2>
+        <p className="mt-1 text-sm text-ink-soft">Select combos to plan your cart, then apply any eligible promo code and review shipping/payment offers at checkout.</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {RESTOCK_ITEMS.map((r) => (
             <button key={r.id} type="button" onClick={() => setRestock((cur) => cur.includes(r.id) ? cur.filter((x) => x !== r.id) : [...cur, r.id])} className={`rounded-full px-4 py-2 text-sm font-medium ${restock.includes(r.id) ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>{r.label}</button>
           ))}
         </div>
-        <div className="mt-4 rounded-xl border border-ledger-line p-4 text-sm">
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">Subtotal</span><span className="font-semibold text-ink">₹{subtotal.toLocaleString("en-IN")}</span></div>
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">PANTRY20 (20% off)</span><span className="font-semibold text-ink">− ₹{pantry20}</span></div>
-          <div className="flex items-center justify-between border-b border-ledger-line py-2"><span className="text-ink-soft">5% UPI instant deduction</span><span className="font-semibold text-ink">− ₹{upi}</span></div>
-          <div className="flex items-center justify-between py-2"><span className="font-semibold text-ink">Net you pay (free ship ₹499+)</span><span className="text-lg font-bold text-ink">₹{net.toLocaleString("en-IN")}</span></div>
+        <div className="mt-4 rounded-xl border border-ledger-line p-4 text-sm text-ink-soft">
+          <p><span className="font-semibold text-ink">Selected combos:</span> {selectedCount}</p>
+          <p className="mt-2">Final prices, promo eligibility, shipping thresholds, and any payment offers are shown on the official checkout page.</p>
         </div>
-        <a href={link("https://zofffoods.com/collections/combos", "restock_hack")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop Pantry Combos on ZOFF</a>
+        <a href={link("https://zofffoods.com/collections/combos", "restock_hack")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop combos on ZOFF Foods</a>
       </div>
 
       {offers.length > 0 ? (
@@ -109,16 +102,16 @@ export default function ZoffFoodsClient({ offers, products, faqs, stats, heroIma
       )}
 
       <StackingExample
-        title="How people stack savings on ZOFF Foods"
-        lead="A monthly kitchen masala box, 3 months upfront:"
+        title="How to check savings on ZOFF Foods"
+        lead="Compare cart total and offers before placing an order:"
         lines={[
-          { label: "Monthly Kitchen Masala Box × 3", value: "₹3,897" },
-          { label: "Apply PANTRY20 (20% off)", value: "− ₹780*" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible combos or products to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹3,117" }}
-        saving="You could save ₹780+ over 3 months"
-        note="*Illustrative — PANTRY20 applies to monthly masala boxes; PREPAID5 (UPI) may combine."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

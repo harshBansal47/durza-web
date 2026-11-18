@@ -60,6 +60,7 @@ const DISPLAY_OVERRIDES: Record<string, string> = {
   "skullcandy-in-ecommerce-cps-india": "Skullcandy India",
   "store-jeenasikho-com-ecommerce-cps-india": "Jeena Sikho",
   "tatacliq-com-ecommerce-cps-india": "Tata CLiQ",
+  "tata-cliq": "Tata CLiQ",
 };
 
 function stripFeedSuffixes(value: string): string {

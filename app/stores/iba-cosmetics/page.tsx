@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "What does Halal Certified mean in Iba Cosmetics?", answer: "Halal certification ensures all ingredients are free from animal fat, alcohol, and prohibited byproducts like carmine, with strict hygiene standards." },
   { question: "How do I activate the Buy 2 Get 1 Free deal on Breathable Nail Colors?", answer: "Add any 3 shades of Iba Breathable Nail Enamel to your basket and apply code B2G1 at checkout; the third bottle is deducted automatically." },
-  { question: "What is the minimum order threshold for free delivery?", answer: "Free doorstep delivery across all PIN codes in India for orders totaling ₹499 or more." },
+  { question: "What is the minimum order threshold for free delivery?", answer: "Check the current free-delivery threshold and eligibility on Iba Cosmetics at checkout." },
 ];
 
 export const revalidate = 3600;

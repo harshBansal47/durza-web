@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "What is BFF500?", answer: "Myntra's headline code for new customers — up to ₹500 off your first full-price order (not valid on all catalogues, commonly on fashion above a minimum cart). Enter it at checkout on your first purchase." },
+  { question: "What is BFF500?", answer: "Myntra may offer new-customer promo codes from time to time. Check the current code, eligibility, and cart conditions at checkout." },
   { question: "Does Myntra offer free delivery?", answer: "Yes — free delivery on most pin-codes for orders above the app's threshold (it varies). Frequent free-shipping days around festivals too." },
   { question: "What's Myntra's return/exchange policy?", answer: "Generous compared with most — most fashion carries an extended return/exchange window. Eligibility and window length are listed on the PDP — final say stays with the product page." },
   { question: "Myntra bank offers — do they stack?", answer: "Bank 10%-style offers usually replace coupon codes rather than stack with them. Either code or bank deal — the cart shows the best applicable saving." },

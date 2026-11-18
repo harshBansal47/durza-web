@@ -339,7 +339,7 @@ export default async function HomePage() {
             <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-orange-700">Smart Stacking</p>
             <h2 id="smart-stacking-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Don&apos;t just copy codes — stack them.</h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-soft sm:text-base">
-              Use Durza&apos;s interactive store matchers to combine base store discounts, verified promo codes, and extra 5% UPI prepaid savings.
+              Use Durza&apos;s interactive store matchers to compare eligible promo codes, store offers, and any payment discounts shown at checkout.
             </p>
             <Link href="/stores" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
               Explore Smart Store Guides

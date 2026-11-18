@@ -77,17 +77,16 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
       )}
 
       <StackingExample
-        title="How people stack savings on Tata CLiQ"
-        lead="A ₹2,499 polo and sneakers, paid with a partner card. Here's a typical stack:"
+        title="How to check savings on Tata CLiQ"
+        lead="Review eligible offers and checkout terms before placing an order:"
         lines={[
-          { label: "Polo + sneakers", value: "₹2,499" },
-          { label: "Kotak/BOB instant (TCFKOTAK-style, ~10%)", value: "− ₹250*" },
-          { label: "NeuCoins on Tata-brand items", value: "coins after delivery*" },
-          { label: "Free shipping (Tata CLiQ delivery)", value: "varies by seller" }
+          { label: "Add eligible products to cart", value: "Build cart" },
+          { label: "Apply any eligible promo or bank offer", value: "If available" },
+          { label: "Review NeuCoins, shipping, and seller terms", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹2,249" }}
-        saving="≈ ₹250 instantly, plus NeuCoins on Tata-brand pieces"
-        note="*Illustrative — card eligibility and NeuCoin rates are shown at checkout. Bank codes don't combine with other codes."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Promo codes, bank offers, NeuCoins, and shipping terms vary by product, seller, and payment method. Always verify details at checkout."
       />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
@@ -107,7 +106,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
           </li>
           <li key="g3" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
-            <span>Tata CLiQ Pass (membership) only pays off for regular shoppers — a ₹999-ish fee weighed against your yearly spend.</span>
+            <span>Tata CLiQ Pass (membership) may be worth considering for regular shoppers — compare the current membership fee with your expected yearly spend.</span>
           </li>
           <li key="g4" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />

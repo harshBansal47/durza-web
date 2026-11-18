@@ -174,7 +174,7 @@ export default function IndusValleyStorePage({ offers, faqs, stats, heroImageUrl
         <ul className="mt-3 space-y-2 text-sm text-ink-soft">
           <li>
             <span className="font-semibold text-ink">Free shipping:</span> Free standard shipping across India on
-            orders meeting the live cart threshold on buyindusvalley.in (typically ₹399–₹499; verify in cart drawer
+            orders meeting the live cart threshold shown on buyindusvalley.in (verify in cart drawer
             before checkout).
           </li>
           <li>

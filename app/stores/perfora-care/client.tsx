@@ -44,7 +44,7 @@ export default function PerforaCareClient({ faqs, stats, heroImageUrl, offerCoun
         <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">The three product families at Perfora</h2>
         <ul className="mt-5 grid gap-4 sm:grid-cols-3">
           {[
-            { icon: Droplet, name: "Smart Electric Brush", note: "AI-tracked bristles, 40K strokes/min, pressure sensor, 4-mode app — India's most advanced toothbrush under ₹4,000." },
+            { icon: Droplet, name: "Smart Electric Brush", note: "Electric toothbrush with app-guided brushing modes and pressure-sensing features. Check live specs and pricing on the official Perfora page." },
             { icon: Sparkles, name: "Teeth Whitening Serum", note: "Low-H2O2 whitening with potassium nitrate — dental-clinic level results, clinic-safe daily applicator." },
             { icon: Waves, name: "Water Flosser", note: "Cordless water flosser, 4 pressure settings, 300ml tank — braces, implants and gum pockets." },
           ].map(({ icon: Icon, name, note }) => (

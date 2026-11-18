@@ -80,14 +80,13 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         title="How people save on a Nykaa beauty cart"
         lead="A skincare trio, one cart, one card — typical maths on an ordinary Nykaa day:"
         lines={[
-          { label: "Face wash + serum + sunscreen (₹1,999)", value: "that's your basket" },
-          { label: "Bank-partner card (~10% instant)", value: "− ₹180*" },
-          { label: "Nykaa Prive coins (if you're a member)", value: "coins → wallet*" },
-          { label: "Free shipping (Nykaa beauty ship threshold)", value: "₹0*" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,819" }}
-        saving="≈ ₹180 instantly, plus Prive coins toward your next cart"
-        note="*Illustrative — bank eligibility and coin rates are decided at checkout. Nykaa rarely publishes blanket coupon codes."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">

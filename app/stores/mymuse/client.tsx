@@ -86,13 +86,13 @@ export default function MyMuseClient({ offers, products, faqs, stats, heroImageU
         title="How people stack savings on MyMuse"
         lead="A couples' starter kit — privacy guaranteed:"
         lines={[
-          { label: "Curated couples' starter kit", value: "₹1,799" },
-          { label: "Apply BUNDLE20 (up to 20% off)", value: "− ₹360*" },
-          { label: "Free 100% plain-box shipping", value: "always, no questions" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,439" }}
-        saving="You could save ₹360+ on one order"
-        note="*Illustrative — plain-box shipping is free on every order; BUNDLE applies to marked starter kits."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

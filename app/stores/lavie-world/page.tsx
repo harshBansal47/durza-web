@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Lavie World Coupons, Handbags, Totes & Sling Deals";
-const description = "Lavie World promo codes, extra 10% off code LAVIE10, and up to 65% off on office totes, satchel bags, slings, and bridal clutches.";
+const description = "Explore Lavie World handbags, totes, slings, and clutches with current offers, buying guidance, and direct links to the official store.";
 const canonical = "/stores/lavie-world";
 
 export const metadata: Metadata = {
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "What does the 6-month manufacturer warranty cover?", answer: "Lavie covers manufacturing defects in zips, hardware and stitching for 6 months from delivery. Register your invoice on lavieworld.com to claim repairs or replacement." },
-  { question: "How do I clean my faux leather handbag?", answer: "Wipe with a soft, dry or slightly damp microfibre cloth. Avoid harsh detergents and direct sunlight; use a mild soap solution for stubborn spots and air-dry naturally." },
-  { question: "Can I stack LAVIE10 with the 5% UPI discount?", answer: "Yes. Apply LAVIE10 at checkout first, then pay via UPI or card for an extra 5% instant discount on the remaining balance." },
+  { question: "What does the manufacturer warranty cover?", answer: "Warranty coverage depends on the product and Lavie's current policy. Check the product page and invoice details for coverage on defects, repairs, and claim steps." },
+  { question: "How do I clean a faux leather handbag?", answer: "Wipe with a soft, dry or slightly damp microfibre cloth. Avoid harsh detergents and prolonged direct sunlight; use a mild soap solution for stubborn spots and air-dry naturally." },
+  { question: "Can I use a promo code with payment offers?", answer: "If a promo code is eligible, apply it in the cart first and then review any payment offers shown at checkout. Final eligibility and savings depend on Lavie's checkout terms." },
 ];
 
 export const revalidate = 3600;

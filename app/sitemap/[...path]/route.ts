@@ -48,6 +48,7 @@ const REDIRECTED_STORE_ALIAS_SLUGS = new Set([
   "salty-co-in-ecommerce-cps-india",
   "sanskrutihomes-in-ecommerce-cps-india",
   "shoptupperware-in-ecommerce-cps-india",
+  "tata-cliq",
   "veromoda",
 ]);
 
@@ -73,9 +74,8 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/black-friday`, changeFrequency: "weekly", priority: 0.9 },
   { url: `${SITE_URL}/stores`, changeFrequency: "daily", priority: 0.8 },
   { url: `${SITE_URL}/stores/firstcry`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/stores/lenovo-india`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/stores/adidas`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/stores/asus`, changeFrequency: "daily", priority: 0.7 },
+  { url: `${SITE_URL}/stores/adidas`, changeFrequency: "weekly", priority: 0.85 },
+  { url: `${SITE_URL}/stores/asus`, changeFrequency: "weekly", priority: 0.85 },
   { url: `${SITE_URL}/stores/charles-and-keith`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/stores/victorias-secret`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/stores/aldo-shoes`, changeFrequency: "weekly", priority: 0.8 },
@@ -83,8 +83,6 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/stores/bath-and-body-works`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/stores/palmonas`, changeFrequency: "weekly", priority: 0.85 },
   { url: `${SITE_URL}/stores/lenovo`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/asus`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/adidas`, changeFrequency: "weekly", priority: 0.85 },
   { url: `${SITE_URL}/stores/ajio-com-ecommerce-cps-india`, changeFrequency: "daily", priority: 0.9 },
   { url: `${SITE_URL}/stores/purevpn`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/stores/sanskruti-homes`, changeFrequency: "weekly", priority: 0.7 },

@@ -50,13 +50,13 @@ export default function AlpinoStorePage({ offers, products, faqs, stats, heroIma
 
 
       <div className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-6" id="protein-decoder">
-        <h2 className="text-xl font-bold text-ink">Protein-Per-Rupee Stacking Calculator</h2>
+        <h2 className="text-xl font-bold text-ink">Build a breakfast or protein stack</h2>
         <div className="mt-4 space-y-2 text-sm text-ink-soft">
-          <p>Alpino All-Natural 1kg (₹449) delivers 300g pure plant protein → Just ~₹1.49 per gram of clean protein.</p>
-          <p>Add 1kg Natural PB (₹449) + 1kg Rolled Oats (₹299) = ₹748. Unlock Free Shipping + Flat 10% with ALPINO10 + 5% UPI savings.</p>
+          <p>Compare combos such as peanut butter, oats, and other Alpino staples based on your nutrition goals and serving needs.</p>
+          <p>Check live product prices, combo eligibility, shipping thresholds, and any payment offers on the official Alpino checkout page before ordering.</p>
         </div>
-        <a href={link("https://alpino.store/collections/combos", "breakfast_stack")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
-          Shop Breakfast Stack on Alpino
+        <a href={link("https://alpino.store/collections/combos", "breakfast_stack")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+          Shop combos on Alpino
         </a>
       </div>
 
@@ -80,17 +80,16 @@ export default function AlpinoStorePage({ offers, products, faqs, stats, heroIma
       )}
 
       <StackingExample
-        title="How people stack savings on Alpino"
-        lead="Grab a 2.5 kg Mega Saver Tub and a rolled-oats combo for a weekly stock-up:"
+        title="How to check savings on Alpino"
+        lead="Compare product combos and checkout offers before ordering:"
         lines={[
-          { label: "2.5 kg Mega Saver Tub", value: "₹1,299" },
-          { label: "Apply BULK20 (20% off)", value: "− ₹260*" },
-          { label: "UPI / instant checkout offer", value: "− ₹50*" },
-          { label: "Free doorstep shipping", value: "above ₹499" }
+          { label: "Add eligible products or combos to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹989" }}
-        saving="You could save ₹310+ on one stock-up"
-        note="*Illustrative — exact discount shown at checkout. Offers don't always combine; the biggest single-cart total decides eligibility."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 const FAQS = [
   { question: "How is a BLDC fan different from a regular ceiling fan?", answer: "Regular fans use AC induction motors (60–110W). BLDC (Brushless DC) fans use electronic DC motors (18–42W) with precise speed control, converting much more electricity into airflow and far less into heat and noise." },
-  { question: "How much money does a BLDC fan actually save?", answer: "At 16 hours of daily use and ₹7 per unit, switching a 75W regular fan to a 28W BLDC model saves roughly ₹1,900 per year — over ₹19,000 across 10 years, usually more than the price difference within two to three years." },
+  { question: "How much money does a BLDC fan actually save?", answer: "Savings depend on usage hours, electricity tariff, and the efficiency difference between fans. Use the calculator as an estimate and verify current product specs and pricing on Havells." },
   { question: "Does a BLDC fan work without remote control or inverter?", answer: "Yes. BLDC fans work directly on mains power and pair well with inverters — a 28W fan draws about a third of a regular fan during a power cut, extending inverter runtime significantly." },
 ];
 

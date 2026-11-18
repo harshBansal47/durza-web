@@ -31,7 +31,7 @@ const MATCHES: Record<
     headline: "Ultraboost 5 / Light — daily road cushion",
     highlight:
       "Continental™ Rubber wet-grip for Indian monsoon and asphalt roads, with responsive Boost energy return for smooth everyday miles.",
-    price: "₹13,999–₹17,999",
+    price: "Check live price on adidas India",
     detail: "Built for humid, heat-heavy pavement runs where grip, rebound and comfort need to stay consistent.",
   },
   street: {
@@ -39,7 +39,7 @@ const MATCHES: Record<
     headline: "Samba / Gazelle — terrace-born street icons",
     highlight:
       "Low-profile gum soles, suede T-toe heritage and café-to-concert versatility that pairs as easily with denim as with relaxed tailoring.",
-    price: "₹9,999–₹12,999",
+    price: "Check live price on adidas India",
     detail: "Timeless Originals silhouettes for everyday rotation, from daytime plans to late-night sets.",
   },
   race: {
@@ -47,7 +47,7 @@ const MATCHES: Record<
     headline: "Adizero — built for race day and tempo",
     highlight:
       "Lightstrike Pro foam and EnergyRods tuned for 10K and Half-Marathon PBs, delivering propulsive efficiency when pace matters most.",
-    price: "₹15,999–₹24,999",
+    price: "Check live price on adidas India",
     detail: "A fast, snappy ride for structured workouts, tempo sessions and start-line efforts.",
   },
   gym: {
@@ -55,7 +55,7 @@ const MATCHES: Record<
     headline: "Dropset 3 — stable base for strength and HIIT",
     highlight:
       "Dual-density heel stability for confident squats and HIIT, keeping you planted through heavy sets and explosive transitions.",
-    price: "₹9,999–₹12,999",
+    price: "Check live price on adidas India",
     detail: "Purpose-built gym support with a grounded platform for lifting, circuits and conditioning.",
   },
 };
@@ -67,42 +67,42 @@ const LINEUP = [
     title: "Adidas Originals: Samba, Gazelle & Spezial",
     badge: "Terrace Icon",
     image: "/stores/adidas/samba.jpg",
-    price: "₹9,999–₹12,999",
+    price: "Check live price on adidas India",
     note: "Gum-soled heritage silhouettes with suede texture and everyday streetwear ease.",
   },
   {
     title: "Ultraboost 5 & Light",
     badge: "Daily Road Cushion",
     image: "/stores/adidas/ultraboost.jpg",
-    price: "₹13,999–₹17,999",
+    price: "Check live price on adidas India",
     note: "Boost cushioning and Continental™ grip tuned for Indian heat, humidity and tarmac.",
   },
   {
     title: "Adizero Boston & Adios Pro",
     badge: "Marathon Speed",
     image: "/stores/adidas/adizero.jpg",
-    price: "₹15,999–₹24,999",
+    price: "Check live price on adidas India",
     note: "Lightstrike Pro foam with EnergyRods for tempo sessions, 10Ks and marathon goals.",
   },
   {
     title: "Dropset & Gym Trainers",
     badge: "Strength & HIIT",
     image: "/stores/adidas/dropset.jpg",
-    price: "₹9,999–₹12,999",
+    price: "Check live price on adidas India",
     note: "Dual-density stability for planted squats, heavy lifts and high-intensity circuits.",
   },
   {
     title: "Stan Smith & Superstar",
     badge: "Court Classics",
     image: "/stores/adidas/stansmith.jpg",
-    price: "₹8,999–₹11,999",
+    price: "Check live price on adidas India",
     note: "Crisp court DNA in clean monochrome — timeless pairs that finish any off-duty fit.",
   },
   {
     title: "Team India Cricket & Originals Apparel",
     badge: "Official Kits",
     image: "/stores/adidas/apparel.jpg",
-    price: "₹1,999–₹7,999",
+    price: "Check live price on adidas India",
     note: "Official kits and Originals layers built for match-day pride and everyday comfort.",
   },
 ];

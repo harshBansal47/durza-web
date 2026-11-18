@@ -22,6 +22,14 @@ export const HOMEPAGE_EXCLUDED_STORE_SLUGS = new Set([
   "glasseslit", // US-only eyeglasses retailer, prices in USD — off-target for Indian shoppers
   "movavi", // Russian/East-European video editor — off-target for Indian shoppers; stays visible on its own hub
   "italojewerly", // US-focused jewellery retailer — off-target for Indian shoppers; stays visible on its own hub
+  // Explicitly excluded from public grids/sitemaps/listings pending backend deactivation.
+  "ixigo",
+  "ixigo-com-travel-cps-india",
+  "makemytrip",
+  "make-my-trip",
+  "mmt",
+  "swiggy",
+  "zomato",
 ]);
 
 export function isHomepageIndiaRelevant(storeSlug: string | null | undefined): boolean {

@@ -80,14 +80,13 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         title="How people stack savings on Myntra"
         lead="A new user's first Indian fashion haul — with the classic new-user stack:"
         lines={[
-          { label: "Two kurtis + trousers (first order)", value: "₹2,400" },
-          { label: "BFF500 (new user, up to ₹500 off)", value: "− ₹500*" },
-          { label: "Bank card instant (10%-ish on eligible cards)", value: "− ₹190*" },
-          { label: "Free delivery (order threshold)", value: "₹0*" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,710" }}
-        saving="≈ ₹690 saved on your first order — that's Myntra new-user logic"
-        note="*Illustrative — BFF500 is first-order only; bank-card eligibility and savings caps are shown at checkout."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">

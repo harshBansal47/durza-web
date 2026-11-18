@@ -48,7 +48,7 @@ function daysUntil(iso: string | null | undefined): number | null {
 /**
  * The high-density store offer card shared by the generic store template and
  * every custom brand page. Coded offers get a dashed copy box + "Use Code";
- * auto-applied deals get an "Auto-applied" status + "Activate Deal". All CTAs
+ * no-code offers are shown as offer pages with a clear "View Offer" CTA. All CTAs
  * are nofollow sponsored noopener noreferrer.
  */
 export default function OfferCard({
@@ -163,7 +163,7 @@ export default function OfferCard({
         ) : (
           <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700">
             <Zap aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-            Auto-applied at checkout
+            Offer page
           </span>
         )}
 
@@ -173,7 +173,7 @@ export default function OfferCard({
           rel="nofollow sponsored noopener noreferrer"
           className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-slate-800"
         >
-          {ctaLabel ?? (isCoded ? "Use Code" : "Activate Deal")}
+          {ctaLabel ?? (isCoded ? "Use Code" : "View Offer")}
           {isCoded ? (
             <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
           ) : (

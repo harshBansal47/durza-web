@@ -8,12 +8,10 @@ import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
  * Deal & stacking router — replaces static product catalog cards on custom brand pages.
  *
  * Every card:
- *   1. opens with a verified savings badge sourced from the live offer (never invented);
+ *   1. opens with a savings badge sourced from the live offer (never invented);
  *   2. names the use-case recommendation (the tab bucket) for the need;
- *   3. shows the promo code + a one-line stack formula with the UPI discount;
- *   4. CTAs straight to the merchant's discounted collection through our vCommission
- *      deep link (sub-id/p1 preserved by the merchant tracking template — clicks always
- *      tagged with the placement, never re-routed).
+ *   3. shows the promo code and checkout guidance based on available offer details;
+ *   4. CTAs straight to the merchant's collection through a tracked destination link.
  */
 
 interface DealRouterProps {

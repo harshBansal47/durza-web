@@ -39,7 +39,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
       <StoreHero
         name="Lenskart"
         heading="Lenskart Coupons & Offers"
-        subtitle="Eyewear, lenses and sunglasses — DEAL70 frames at ₹600 and Home Try-on, refreshed regularly."
+        subtitle="Eyewear, lenses, and sunglasses with live Lenskart offers, practical buying tips, and direct links to the official store."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -77,17 +77,17 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
       )}
 
       <StackingExample
-        title="How people save on a Lenskart cart"
-        lead="First-time wearer, full-order maths — how the savings could land:"
+        title="How to check Lenskart savings at checkout"
+        lead="A simple way to compare the final payable amount before placing an order:"
         lines={[
-          { label: "Frame from ₹600 offer (free lenses)", value: "₹600" },
-          { label: "Blue-light/AR coating (recommended for screen work)", value: "+ ₹200*" },
-          { label: "Prepaid/UPI instant (Lenskart runs payment offers)", value: "− ₹60*" },
-          { label: "Free home-fitting by optician (eligible orders)", value: "₹0*" }
+          { label: "Choose eligible frame/lens combination", value: "Base cart" },
+          { label: "Apply any eligible promo code first", value: "If available" },
+          { label: "Review lens upgrades and add-ons", value: "Optional" },
+          { label: "Check payment offers shown at checkout", value: "If eligible" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹740" }}
-        saving="≈ ₹300+ vs full-price purchase of a branded spec frame"
-        note="*Illustrative — offer eligibility varies by frame, city and lens choice; check the PDP before paying."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer terms on the Lenskart checkout page"
+        note="Offer eligibility, pricing, and add-on costs vary by product, prescription, and location. Always verify details on the product and checkout pages."
       />
 
       <section aria-labelledby="brand-guidance" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
@@ -95,7 +95,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         <ul className="mt-3 grid gap-2 text-sm text-ink-soft sm:grid-cols-2">
           <li key="g0" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
-            <span>Desk workers: get the blue-light/AR coating — it&apos;s the single best ~₹150–₹200 upgrade for digital eye strain.</span>
+            <span>For long screen hours, consider lens coatings such as anti-reflective or blue-light options if they suit your prescription and comfort needs.</span>
           </li>
           <li key="g1" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
@@ -111,7 +111,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
           </li>
           <li key="g4" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
-            <span>Buy 1 Get 1 and 'single from ₹800' run as flash offers — check the offers strip on the homepage every week.</span>
+            <span>Promotional offers can change frequently — review the current offer details on the product and checkout pages before placing your order.</span>
           </li>
           <li key="g5" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />

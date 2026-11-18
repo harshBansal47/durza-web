@@ -14,9 +14,9 @@ import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("milton", url, sub);
 const NEEDS = [
-  { id: "hot", label: "Need 24H Boiling Hot Tea/Coffee?", result: "Vacuum Thermosteel (Flip Lid 1000ml)", detail: "A double-walled vacuum flask keeps tea, coffee or dal at boiling temperature for up to 24 hours. Pre-heat with hot water for 5 minutes first.", note: "₹849 • 25% OFF + extra 10% with MILTON10", url: "https://www.milton.in/collections/thermosteel-flasks", sub: "need_hot" },
-  { id: "lunch", label: "Need Piping Hot Office Lunch Without Microwave?", result: "Plug-in Electric Tiffin (Futuron)", detail: "Three stainless containers with auto cut-off heating warm your home meal in about 30 minutes — no office kitchen required.", note: "₹1,399 • 30% OFF + eligible for OFFICE15", url: "https://www.milton.in/collections/electric-lunch-boxes", sub: "need_lunch" },
-  { id: "copper", label: "Overnight Ayurvedic Copper Water?", result: "99.9% Pure Copper Bottle", detail: "Store room-temperature or cool water overnight for the traditional tamra jal Ayurvedic practice.", note: "Never pour hot or boiling water into a copper bottle — it can leach excess copper and damage the lacquer.", url: "https://www.milton.in/collections/copper-bottles", sub: "need_copper" },
+  { id: "hot", label: "Need 24H hot tea or coffee?", result: "Vacuum Thermosteel flask", detail: "A double-walled vacuum flask can help keep beverages hot for longer. Pre-heating the flask may improve performance.", note: "Check current price, capacity, and offers on the official Milton page.", url: "https://www.milton.in/collections/thermosteel-flasks", sub: "need_hot" },
+  { id: "lunch", label: "Need a hot office lunch without a microwave?", result: "Electric lunch box", detail: "Electric tiffins can warm meals at your desk. Review heating time, capacity, and safety features on the product page.", note: "Check live price and any eligible offers at checkout.", url: "https://www.milton.in/collections/electric-lunch-boxes", sub: "need_lunch" },
+  { id: "copper", label: "Looking for a copper water bottle?", result: "Copper bottle", detail: "Store room-temperature or cool water as per product guidance. Follow care instructions provided by Milton.", note: "Avoid using hot or boiling water unless the product page explicitly allows it.", url: "https://www.milton.in/collections/copper-bottles", sub: "need_copper" },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -63,7 +63,7 @@ export default function MiltonClient({ offers, products, faqs, stats, heroImageU
           <p className="mt-1 text-sm text-ink-soft">{need.detail}</p>
           <p className="mt-2 text-xs font-medium text-ink">{need.note}</p>
         </div>
-        <a href={link(need.url, need.sub)} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop {need.result}</a>
+        <a href={link(need.url, need.sub)} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop {need.result} on Milton</a>
       </div>
 
       {offers.length > 0 ? (
@@ -89,13 +89,13 @@ export default function MiltonClient({ offers, products, faqs, stats, heroImageU
         title="How people stack savings on Milton"
         lead="A Thermosteel flask and tiffin combo for daily office:"
         lines={[
-          { label: "Thermosteel flask + tiffin combo", value: "₹1,299" },
-          { label: "OFFICE15 (office combos)", value: "− ₹195*" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,104" }}
-        saving="You could save ₹195+ on one order"
-        note="*Illustrative — MILTON10 applies to Thermosteel lines; OFFICE15 to marked lunch combos."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

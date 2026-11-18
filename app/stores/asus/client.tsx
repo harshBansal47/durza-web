@@ -84,7 +84,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
                 <p className="text-sm font-semibold text-[#F8FAFC]">Official Warranty Bundles</p>
               </div>
               <p className="mt-2 text-sm leading-6 text-[#94a3b8]">
-                ₹999 Extended Warranty &amp; LADP upgrades at checkout
+                Extended warranty and protection add-ons may be available at checkout (availability and pricing vary by model).
               </p>
             </div>
             <div className="rounded-xl border border-[#223047] bg-[#111827]/60 p-4">
@@ -93,7 +93,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
                 <p className="text-sm font-semibold text-[#F8FAFC]">Instant Bank &amp; EMI</p>
               </div>
               <p className="mt-2 text-sm leading-6 text-[#94a3b8]">
-                Up to ₹10,000 cashback + No-Cost EMI on major cards
+                Bank cashback and EMI offers may be available on eligible cards; check live terms at checkout.
               </p>
             </div>
             <div className="rounded-xl border border-[#223047] bg-[#111827]/60 p-4">

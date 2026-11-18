@@ -63,8 +63,8 @@ export default function NeeshPerfumesClient({ offers, products, faqs, stats, her
             {concentration.points.map((pt) => <li key={pt}>{pt}</li>)}
           </ul>
         </div>
-        <p className="mt-3 text-xs text-ink-soft">Testing first? The Discovery Set (flat ₹300 off with DISCOVERY) lets you sample the flagship five scents with full credit toward your first full bottle — no blind buys.</p>
-        <a href={link("https://neeshperfumes.com/collections/discovery-sets", "concentration_guide")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop Discovery Sets</a>
+        <p className="mt-3 text-xs text-ink-soft">If you want to test scents first, check the discovery sets on the official site and confirm any current offers at checkout.</p>
+        <a href={link("https://neeshperfumes.com/collections/discovery-sets", "concentration_guide")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop discovery sets on Neesh</a>
       </div>
 
       {offers.length > 0 ? (
@@ -90,13 +90,13 @@ export default function NeeshPerfumesClient({ offers, products, faqs, stats, her
         title="How people stack savings on Neesh"
         lead="A Luxe perfume gift box for the festive season:"
         lines={[
-          { label: "Luxe gift box (2-3 extrait de parfum)", value: "₹2,499" },
-          { label: "Apply LUXE20 (20% off)", value: "− ₹500*" },
-          { label: "Free insured delivery above ₹999", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,999" }}
-        saving="You could save ₹500+ on one order"
-        note="*Illustrative — discovery sets have a separate ₹300 off; individual full bottles differ in eligibility."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

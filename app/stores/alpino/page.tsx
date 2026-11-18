@@ -9,7 +9,7 @@ import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Alpino Coupons, Peanut Butter & Protein Deals";
-const description = "Alpino promo codes and best deals on all-natural peanut butter, high-protein oats and healthy snacks with free delivery above ₹499.";
+const description = "Explore Alpino peanut butter, oats, and healthy snacks with current offers and shipping terms shown on the official store.";
 const canonical = "/stores/alpino";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "Why does oil separate on top of Alpino All-Natural Peanut Butter?", answer: "Oil separation is natural proof that Alpino contains zero hydrogenated vegetable oil, stabilizers, or chemical emulsifiers. The oil on top is 100% natural peanut oil. Simply stir it with a clean spoon before use." },
   { question: "Can coupon code ALPINO10 be combined with prepaid UPI checkout discounts?", answer: "Yes. First apply coupon code ALPINO10 on alpino.store during checkout. When you select UPI or debit/credit card payment, an additional 5% instant discount is calculated on the remaining balance." },
-  { question: "What is the minimum cart value for free shipping on Alpino?", answer: "Alpino provides free doorstep shipping on all orders totaling ₹499 or more across India. A single 1kg Dark Chocolate PB or combining 1kg Natural PB with Rolled Oats easily hits this mark." },
+  { question: "What is the minimum cart value for free shipping on Alpino?", answer: "Free-shipping thresholds can vary by promotion and location. Check the current cart threshold and eligibility on Alpino at checkout." },
 ];
 
 export const revalidate = 3600;

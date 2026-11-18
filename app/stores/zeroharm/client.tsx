@@ -88,13 +88,13 @@ export default function ZeroHarmClient({ offers, products, faqs, stats, heroImag
         title="How people stack savings on ZeroHarm"
         lead="A 90-day nano-nutraceutical wellness course:"
         lines={[
-          { label: "90-day nano-nutraceutical course", value: "₹2,499" },
-          { label: "Apply NANO25 (25% off)", value: "− ₹625*" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,874" }}
-        saving="You could save ₹625+ on the course"
-        note="*Illustrative — NANO25 applies to marked 90-day courses; ZERO15 is the all-catalogue 15% offer."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

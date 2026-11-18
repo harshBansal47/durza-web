@@ -65,6 +65,8 @@ const nextConfig: NextConfig = {
             { source: "/stores/sanskrutihomes-in-ecommerce-cps-india", destination: "/stores/sanskruti-homes", permanent: true },
             { source: "/stores/shoptupperware-in-ecommerce-cps-india", destination: "/stores/shop-tupperware", permanent: true },
             { source: "/stores/veromoda", destination: "/stores/vero-moda", permanent: true },
+            // Canonicalized duplicate Tata CLiQ route (raw-suffix canonical kept).
+            { source: "/stores/tata-cliq", destination: "/stores/tatacliq-com-ecommerce-cps-india", permanent: true },
           ];
         },
         async headers() {

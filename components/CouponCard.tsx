@@ -120,6 +120,7 @@ export function CouponCard({
   const rating = typeof r.rating === "string" ? r.rating : null;
   const reviewsCount = typeof r.reviews_count === "string" ? r.reviews_count : null;
   const ctaText = typeof r.cta_text === "string" ? r.cta_text : null;
+  const autoApplied = !coupon.code;
   const discountHeading =
     resolved === "price-drop"
       ? "Price ↓"
@@ -320,34 +321,34 @@ export function CouponCard({
           {resolved !== "price-drop" && resolved !== "free-shipping" && (
             <div className="@container/coupon-card-code min-w-0">
               <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-soft">
-                {coupon.code ? (() => {
+                {(() => {
                   const raw = (coupon.code || "").trim();
-                  const autoApplied = /^(AUTO|FRE|EXT)/i.test(raw) || /auto[- ]?appl/i.test(coupon.title || "") || /auto[- ]?appl/i.test(coupon.description || "");
-                  if (autoApplied) {
+                  const autoLike =
+                    !raw ||
+                    /^(AUTO|FRE|EXT|DEAL|OFFER)$/i.test(raw) ||
+                    /auto[- ]?appl/i.test(coupon.title || "") ||
+                    /auto[- ]?appl/i.test(coupon.description || "");
+                  if (!autoLike) {
                     return (
-                      <span className="inline-flex items-center rounded-full border border-ledger-line bg-paper px-2.5 py-1 text-[11px] font-semibold text-ink-soft">
-                        Auto-applied at store
-                      </span>
+                      <>
+                        <span className="text-ink-soft">Code</span>
+                        <code className="break-anywhere rounded-md border border-dashed border-ink/30 bg-paper px-2 py-1 font-mono text-xs font-medium text-ink">
+                          {maskCode(raw) ?? raw}
+                        </code>
+                        <span className="basis-full text-[11px] text-ink-soft @min-[300px]/coupon-card-code:basis-auto">
+                          Tap to reveal on the offer page
+                        </span>
+                      </>
                     );
                   }
-                  return (
-                    <>
-                      <span className="text-ink-soft">Code</span>
-                      <code className="break-anywhere rounded-md border border-dashed border-ink/30 bg-paper px-2 py-1 font-mono text-xs font-medium text-ink">
-                        {maskCode(raw) ?? raw}
-                      </code>
-                      <span className="basis-full text-[11px] text-ink-soft @min-[300px]/coupon-card-code:basis-auto">
-                        Tap View code to reveal
-                      </span>
-                    </>
+                  return requirement ? (
+                    requirement
+                  ) : (
+                    <span className="inline-flex items-center rounded-full border border-ledger-line bg-paper px-2.5 py-1 text-[11px] font-semibold text-ink-soft">
+                      Offer page
+                    </span>
                   );
-                })() : requirement ? (
-                  requirement
-                ) : (
-                  <span className="inline-flex items-center rounded-full border border-ledger-line bg-paper px-2.5 py-1 text-[11px] font-semibold text-ink-soft">
-                    Auto-applied at store
-                  </span>
-                )}
+                })()}
               </div>
             </div>
           )}
@@ -378,8 +379,14 @@ export function CouponCard({
             aria-disabled={expired}
             onClick={async () => {
               if (expired) return;
-              if (coupon.code) {
-                try { await navigator.clipboard.writeText(coupon.code); } catch {}
+              const raw = (coupon.code || "").trim();
+              const autoLike =
+                !raw ||
+                /^(AUTO|FRE|EXT|DEAL|OFFER)$/i.test(raw) ||
+                /auto[- ]?appl/i.test(coupon.title || "") ||
+                /auto[- ]?appl/i.test(coupon.description || "");
+              if (!autoLike) {
+                try { await navigator.clipboard.writeText(raw); } catch {}
               }
             }}
             target="_blank"
@@ -391,10 +398,17 @@ export function CouponCard({
               if (ctaText) return ctaText;
               if (expired) return "No longer valid";
               const raw = (coupon.code || "").trim();
-              const autoApplied = raw ? (/^(AUTO|FRE|EXT)/i.test(raw) || /auto[- ]?appl/i.test(coupon.title || "") || /auto[- ]?appl/i.test(coupon.description || "")) : true;
-              if (!raw || autoApplied) return "Activate Deal →";
-              if (/free trial|trial/i.test(coupon.title)) return "Start Free Trial";
-              if (/credit card|emi|cashback|upi|pay/i.test(coupon.title)) return "Activate Offer";
+              const autoLike =
+                !raw ||
+                /^(AUTO|FRE|EXT|DEAL|OFFER)$/i.test(raw) ||
+                /auto[- ]?appl/i.test(coupon.title || "") ||
+                /auto[- ]?appl/i.test(coupon.description || "");
+              if (autoLike) {
+                const storeName = store ? formatStoreDisplayName(store) : null;
+                return storeName ? `View Offer on ${storeName} →` : "View Offer →";
+              }
+              if (/free trial|trial/i.test(coupon.title)) return "View code";
+              if (/credit card|emi|cashback|upi|pay/i.test(coupon.title)) return "View code";
               return "View code";
             })()}
           </Link>

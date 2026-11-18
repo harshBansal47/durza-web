@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "What does Cool-Grinding technology do to spice aroma?", answer: "Traditional mills generate up to 95°C heat that burns off volatile essential oils. ZOFF grinds at sub-zero temperatures, preserving up to 95% of natural essential oils — so Haldi smells like Haldi, and Kashmiri Mirchi keeps its natural crimson." },
   { question: "How do the 5-layer zip-lock pouches prevent clumping in monsoon humidity?", answer: "Each pouch is a multi-layer vapour barrier with a resealable zip lock, keeping moisture out so spices stay free-flowing, bright and potent even through Indian monsoons." },
-  { question: "What is the free shipping threshold?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — the Essential Kitchen Masala Combo alone qualifies." },
+  { question: "What is the free shipping threshold?", answer: "Free-shipping thresholds and eligibility can vary. Check the current shipping terms on ZOFF Foods at checkout." },
 ];
 
 export const revalidate = 3600;

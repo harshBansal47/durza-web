@@ -102,9 +102,9 @@ export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offer
       </section>
 
       <section className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 className="text-lg font-bold text-ink">Paying for USD SaaS plans from India</h2>
+        <h2 className="text-lg font-bold text-ink">International checkout and billing</h2>
         <p className="mt-2 text-sm leading-6 text-ink-soft">
-          InVideo subscriptions are typically billed in USD. Indian creators should check the live checkout total, GST/tax handling where shown, and consider using a zero-forex-markup credit card when available to reduce conversion and markup costs.
+          InVideo subscriptions are sold internationally and plan pricing may be shown in USD or other currencies depending on region and checkout. Review the live plan total, billing currency, taxes, and renewal terms on the official checkout page before subscribing.
         </p>
       </section>
 

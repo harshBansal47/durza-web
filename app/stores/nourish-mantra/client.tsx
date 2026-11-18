@@ -14,9 +14,9 @@ import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("nourish-mantra", url, sub);
 const CONFIDENCE = [
-  { title: "Vedic Modernity", detail: "Traditional herbs like Ashwagandha and Gotu Kola fused with clinical actives — Peptides and Niacinamide — in one formula." },
-  { title: "Clean Guarantee", detail: "Zero parabens, phthalates, synthetic sulphates, or animal derivatives. PETA-certified cruelty-free and 100% vegan; plastic-neutral packaging." },
-  { title: "Stacking Formula", detail: "Catalog discount + GLOW20 (flat 20% off above ₹1,499) + 5% instant UPI deduction = maximum savings on clean beauty." },
+  { title: "Ingredients & formulation", detail: "Review each product page for ingredients, usage guidance, and suitability for your skin type." },
+  { title: "Brand claims", detail: "Check the official Nourish Mantra listing for current certifications, packaging, and product details." },
+  { title: "Checkout savings", detail: "Apply any eligible promo code first, then review shipping and payment offers shown at checkout for the final payable amount." },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -61,7 +61,7 @@ export default function NourishMantraClient({ offers, products, faqs, stats, her
             </li>
           ))}
         </ol>
-        <a href={link("https://nourishmantra.in/collections/combos", "confidence_card")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Build My Clean Routine</a>
+        <a href={link("https://nourishmantra.in/collections/combos", "confidence_card")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Explore routines on Nourish Mantra</a>
       </div>
 
       {offers.length > 0 ? (
@@ -84,16 +84,16 @@ export default function NourishMantraClient({ offers, products, faqs, stats, her
       )}
 
       <StackingExample
-        title="How people stack savings on Nourish Mantra"
-        lead="A clean-skincare serum and moisturiser duo:"
+        title="How to check savings on Nourish Mantra"
+        lead="Compare cart value and checkout offers before placing an order:"
         lines={[
-          { label: "Serum + moisturiser duo", value: "₹1,499" },
-          { label: "Apply GLOW20 (above ₹1,499)", value: "− ₹300" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible products to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,199" }}
-        saving="You could save ₹300+ on one order"
-        note="*Illustrative — GLOW20 needs ₹1,499+; MANTRA15 applies to marked serums."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

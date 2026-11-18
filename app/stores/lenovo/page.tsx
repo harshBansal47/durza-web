@@ -35,7 +35,7 @@ const FAQS = [
   {
     question: "Can I buy Lenovo laptops on Amazon too?",
     answer:
-      "Yes, Lenovo laptops appear on Amazon India and Flipkart — but ordering on lenovo.com/in often delivers more value: factory-fresh Custom-To-Order (CTO) builds with your exact RAM/SSD/GPU, ₹999 3-Year Premium Care and Accidental Damage Protection (ADP) bundle pricing versus ₹7,000+ for similar add-ons on marketplaces, and stackable SheerID Student/Corporate verification, MyLenovo Rewards and eligible credit card cashback at checkout.",
+      "Yes, Lenovo laptops appear on Amazon India and Flipkart — but ordering on lenovo.com/in often delivers more value: custom-to-order configurations, official warranty/protection options, and eligible student/corporate, rewards, or bank offers shown at checkout. Compare final value and terms before purchasing.",
   },
   {
     question: "What is Lenovo's warranty and service network in India?",

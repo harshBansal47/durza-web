@@ -30,7 +30,7 @@ const FAQS = [
   {
     question: "How do I get free shipping on Indus Valley orders?",
     answer:
-      "Free standard shipping across India on orders meeting the live cart threshold on buyindusvalley.in (typically ₹399–₹499; verify in cart drawer before checkout).",
+      "Free standard shipping across India may apply on orders meeting the live cart threshold shown on buyindusvalley.in. Verify the current threshold and eligibility in the cart before checkout.",
   },
   {
     question: "Can the FIRST10 coupon code be used on bundles and kits?",

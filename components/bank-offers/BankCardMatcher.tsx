@@ -37,7 +37,7 @@ const CONTENT: Record<TabId, { bestMove: string; trap?: string; ctas: { href: st
   },
   travel: {
     bestMove:
-      "Apply bank promo codes from ICICI, RBL, Axis, or IndusInd directly on ixigo or MakeMyTrip (10%–15% instant off up to ₹1,000–₹2,500)—or use Amazon Pay ICICI (5% unlimited for Prime) on Amazon Pay Flights & Hotels when promo codes are capped.",
+      "Compare bank promo codes and card offers on travel booking sites, and check the final payable amount on the checkout page. Terms, caps, and eligible cards vary by campaign and booking type.",
     ctas: [{ href: "#live-offers", label: "Jump to Live Travel Bank Codes ↓", external: false, down: true }],
   },
   home: {

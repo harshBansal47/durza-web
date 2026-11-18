@@ -83,13 +83,13 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
         title="How people stack savings on IGP"
         lead="A custom photo cake and candles for a birthday:"
         lines={[
-          { label: "Custom photo cake + candles", value: "₹999" },
-          { label: "Apply CAKE15 (15% off)", value: "− ₹150*" },
-          { label: "Free standard delivery", value: "non-perishable gifts" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹849" }}
-        saving="You could save ₹150+ on the celebration"
-        note="*Illustrative — fresh cakes are perishable and may follow separate delivery/eligibility rules."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
             <ProductDealRouter
         title="Occasion & Gift Matcher"

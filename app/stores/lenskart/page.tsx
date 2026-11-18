@@ -8,8 +8,8 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import type { CouponPublic } from "@/lib/types";
 
-const title = "Lenskart Coupons & Offers – Frames from ₹600";
-const description = "Live Lenskart codes: frames from ₹600 with code DEAL70, sunglasses from ₹800, plus free home eye tests.";
+const title = "Lenskart Coupons, Offers & Eyewear Guide";
+const description = "Browse live Lenskart coupon codes and offers for frames, lenses, and sunglasses, plus practical tips on coatings, home eye tests, and checkout terms.";
 const canonical = "/stores/lenskart";
 
 export const metadata: Metadata = {
@@ -21,11 +21,11 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "What does DEAL70 get me?", answer: "Lenskart's ₹600 frame deal with free powered lenses on any frame marked with the offer badge. Valid on selected frames only." },
-  { question: "Does Lenskart do free home eye tests?", answer: "Yes — in many cities, Lenskart sends a technician for an in-home eye exam (often free with a frames purchase or a nominal fee otherwise). Ask when you enter your pin-code at checkout." },
-  { question: "Can I return Lenskart eyewear?", answer: "Yes — 14-day returns on eyewear, with lenses re-cut or exchanged per the brand's policy. The exact window and eligibility are on the product page and in your order invoice." },
-  { question: "What does coupon code SINGLE cover?", answer: "SINGLE is the Sunglasses entry-offer code — ₹800 sunglasses on marked SKUs. A distinct offer from eyewear deals; don't mix them up at checkout." },
-  { question: "Are Lenskart powered lenses reliable?", answer: "Yes — lens quality is made to your prescription; ask about AR coating, blue-light filters and photochromic options which upgrade power lenses for desk work." },
+  { question: "How do Lenskart coupon codes and offers work?", answer: "Check the offer details on the card and the final price on Lenskart at checkout. Some promotions apply only to selected frames, lenses, or categories, and terms can vary by product." },
+  { question: "Does Lenskart offer home eye tests?", answer: "In many cities, Lenskart offers home eye tests or in-store eye exams. Availability, fees, and eligibility can vary by pin code, so confirm the option shown during booking or checkout." },
+  { question: "Can I return or exchange Lenskart eyewear?", answer: "Lenskart provides return and exchange options on many eyewear orders, but the window and conditions depend on the product type and order details. Check the product page and your order terms before buying." },
+  { question: "What does coupon code SINGLE cover?", answer: "Coupon eligibility can change over time. If a code like SINGLE is listed, use it only on eligible products shown in the offer details and confirm the discount in your cart before payment." },
+  { question: "Which lens upgrades are worth considering?", answer: "Lens add-ons such as anti-reflective, blue-light, photochromic, or thinner lens options can improve comfort and usability, but suitability depends on your prescription and usage. Review the options on the product page." },
 ];
 
 export const revalidate = 3600;

@@ -50,14 +50,13 @@ export default function BytePeStorePage({ offers, products, faqs, stats, heroIma
 
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Platform Fee Transparency Calculator</h2>
+        <h2 className="text-xl font-bold text-ink">Check fees and offers before you pay</h2>
         <div className="mt-4 space-y-2 text-sm text-ink-soft">
-          <p>Other payment apps charge ₹2 to ₹5 platform fee per mobile recharge.</p>
-          <p>BytePe Charges: ₹0 Platform Fee + Gives up to 5% instant cashback with code RECHARGE10.</p>
-          <p>Net Saving Highlight: Save ₹150–₹300/year just by eliminating convenience fees on everyday utility bills.</p>
+          <p>Compare platform fees, convenience charges, and any cashback or promo offers shown in the app or checkout flow before completing a payment.</p>
+          <p>Offer availability, cashback eligibility, and fees can vary by biller, payment method, and time. Review the latest terms on BytePe before paying.</p>
         </div>
-        <a href={link("https://bytepe.com", "fee_calculator")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
-          Calculate My Bill Savings on BytePe
+        <a href={link("https://bytepe.com", "fee_calculator")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+          Check BytePe offers
         </a>
       </div>
 
@@ -84,12 +83,13 @@ export default function BytePeStorePage({ offers, products, faqs, stats, heroIma
         title="How Bytepe saves you money"
         lead="Pay your first electricity or gas bill with Bytepe this month:"
         lines={[
-          { label: "First bill via Bytepe", value: "₹250" },
-          { label: "FIRSTBILL cashback", value: "− ₹50" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "₹200" }}
-        saving="You save ₹50 on your first bill"
-        note="Also consider: recharge/Fastag/voucher discounts stack across months — up to 5–8% on supported categories."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

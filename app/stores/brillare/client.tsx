@@ -71,13 +71,13 @@ export default function BrillareStorePage({ offers, products, faqs, stats, heroI
         title="How people stack savings on Brillare"
         lead="Brillare's gentle scalp-care regimen (shampoo + conditioner + oil):"
         lines={[
-          { label: "Scalp-care regimen combo", value: "₹1,899" },
-          { label: "Apply FLAT20 (buy any 2)", value: "− ₹380*" },
-          { label: "Free shipping above ₹499", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,519" }}
-        saving="You could save ₹380+ on one order"
-        note="*Illustrative — B2G1 and WELCOME10 have different conditions; B2G1 selects from marked products only."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

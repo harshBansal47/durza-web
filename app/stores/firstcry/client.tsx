@@ -112,14 +112,13 @@ export default function FirstCryStorePage({
         title="How Club members stack savings on FirstCry"
         lead="A diaper-and-wipes stock-up for the month with Club benefits stacked:"
         lines={[
-          { label: "Diaper + wipes stock-up", value: "₹1,299" },
-          { label: "Apply SPARSH45 (skincare %)", value: "− ₹200*" },
-          { label: "Club member price", value: "− extra*" },
-          { label: "Free delivery on diapers", value: "₹0" },
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,099" }}
-        saving="You could save ₹200+ on the monthly stock-up"
-        note="*Illustrative — Club member price depends on your tier and category; check the FirstCry product page for your exact price."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
       <FaqSection eyebrow="FirstCry FAQs" items={faqs} />

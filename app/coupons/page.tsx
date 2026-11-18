@@ -14,6 +14,7 @@ import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import { filterCount, parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { allowedStoreIds } from "@/lib/homepage-curation";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import ListingHero from "@/components/listing/ListingHero";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
@@ -69,9 +70,13 @@ export default async function CouponsPage({
 
   // A slug the catalogue doesn't know is not "no filter" — it is an empty page,
   // otherwise a typo silently shows every coupon under a chip that claims a store.
-  const coupons = resolved.unresolved
+  const rawCoupons = resolved.unresolved
     ? { items: [], total: 0, skip, limit: PAGE_SIZE }
     : await resilient.listCoupons(query);
+  const coupons = {
+    ...rawCoupons,
+    items: dedupeCoupons(rawCoupons.items.map((c) => sanitizeCouponForDisplay(c))),
+  };
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   const categoryName = categories.find((c) => c.slug === filters.category)?.name;

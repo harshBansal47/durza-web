@@ -14,9 +14,9 @@ import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("wonderchef", url, sub);
 const ADVISOR = [
-  { title: "100% PFOA & Lead-Free", detail: "Wonderchef Granite coatings use non-toxic mineral layers safe for high-heat Indian tadka — no leaching, no flaking fumes." },
-  { title: "Induction + Gas Dual Base", detail: "All granite pans carry a magnetic stainless steel base plate, fully compatible with both induction cooktops and gas stoves." },
-  { title: "Stacking Formula", detail: "Catalog 49% off + code CHEF10 (extra 10%) + 5% instant UPI deduction = maximum savings on chef-grade kitchenware." },
+  { title: "Cookware materials", detail: "Review the product page for coating/material details, compatibility, and care instructions before buying." },
+  { title: "Cooktop compatibility", detail: "Check whether each pan, kadai, or appliance supports gas, induction, or both on the official listing." },
+  { title: "Checkout savings", detail: "Apply any eligible promo code first, then review shipping and payment offers shown at checkout for the final payable amount." },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -60,7 +60,7 @@ export default function WonderchefClient({ offers, products, faqs, stats, heroIm
             </li>
           ))}
         </ol>
-        <a href={link("https://www.wonderchef.com/collections/cookware-sets", "safety_advisor")} target="_blank" rel="nofollow sponsored noopener" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop Granite Cookware Sets</a>
+        <a href={link("https://www.wonderchef.com/collections/cookware-sets", "safety_advisor")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Shop cookware sets on Wonderchef</a>
       </div>
 
       {offers.length > 0 ? (
@@ -83,16 +83,16 @@ export default function WonderchefClient({ offers, products, faqs, stats, heroIm
       )}
 
       <StackingExample
-        title="How people stack savings on Wonderchef"
-        lead="A pressure-cooker + cookware upgrade for the kitchen:"
+        title="How to check savings on Wonderchef"
+        lead="Compare cart value and checkout offers before placing an order:"
         lines={[
-          { label: "Wonderchef cookware combo", value: "₹3,999" },
-          { label: "Apply KITCHEN500 (above ₹3,999)", value: "− ₹500" },
-          { label: "Free shipping above ₹999", value: "included" }
+          { label: "Add eligible cookware or appliances to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹3,499" }}
-        saving="You could save ₹500+ plus cash-back*"
-        note="*Illustrative — Nutri-Blends often carry CHEF10 (10% extra); PREPAID5 may combine at checkout."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

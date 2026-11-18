@@ -67,13 +67,13 @@ export default function HiraFragrancePage({ offers, products, faqs, stats, heroI
         title="How people stack savings on Hira Fragrance"
         lead="A luxury oud & amber regimen set for the season:"
         lines={[
-          { label: "Luxury oud & amber regimen", value: "₹1,999" },
-          { label: "Apply OUD20 (20% off)", value: "− ₹400*" },
-          { label: "Free insured shipping above ₹599", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹1,599" }}
-        saving="You could save ₹400+ on one order"
-        note="*Illustrative — discovery sets have separate ₹200 off offer."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
             <ProductDealRouter
         title="Occasion & Scent Profile Matcher"

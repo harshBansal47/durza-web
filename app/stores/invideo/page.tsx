@@ -10,7 +10,7 @@ import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
 const title = "InVideo Coupons, Plans & AI Video Offers";
 const description =
-  "InVideo offers for creators: compare InVideo AI (prompt-to-script, voiceover, stock footage) and InVideo Studio (timeline editing), and check USD plan checkout tips for Indian buyers.";
+  "InVideo guide for creators: compare InVideo AI and InVideo Studio, explore current plans and offers on the official site, and review international (multi-currency/USD) checkout details before subscribing.";
 const canonical = "/stores/invideo";
 
 export const metadata: Metadata = {

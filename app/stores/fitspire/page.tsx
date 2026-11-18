@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "Can I stack coupon code FIT10 or FIT20 with UPI checkout discounts?", answer: "Yes. First apply coupon code FIT10 or FIT20 in your Fitspire shopping cart. When you proceed to the payment gateway and choose UPI or prepaid cards, Fitspire applies an additional 5% instant deduction on the discounted subtotal." },
   { question: "Is Fitspire Collagen sourced from animals or fish?", answer: "No. Fitspire collagen is 100% plant-based, using natural plant extracts like Sesbania Agati, Acerola Cherry, and Bamboo Shoot that stimulate the body's natural collagen synthesis without marine or bovine derivatives." },
-  { question: "What is the easiest cart-filler to hit the ₹499 free shipping mark?", answer: "If your cart is around ₹350–₹450, adding an all-natural high protein peanut butter tub or an effervescent drink tube is more cost-effective than paying the standard ₹70 doorstep shipping fee." },
+  { question: "How can I check free shipping eligibility on Fitspire?", answer: "Check the current free-shipping threshold and cart suggestions on Fitspire at checkout, as terms and fees may vary." },
 ];
 
 export const revalidate = 3600;

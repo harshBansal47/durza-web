@@ -9,6 +9,8 @@ function tileLogo(slug: string): string | null {
   return storeLogoUrl({ slug, logo_url: null, website_url: null });
 }
 
+import { formatStoreDisplayName } from "@/lib/store-display";
+
 function monogram(name: string): string {
   const words = name.trim().split(/\s+/).filter(Boolean);
   const letters = words.length === 1 ? words[0].slice(0, 2) : words[0][0] + words[words.length - 1][0];
@@ -19,6 +21,10 @@ interface RelatedStore {
   slug: string;
   name: string;
   hook: string;
+}
+
+function displayStoreName(store: RelatedStore): string {
+  return formatStoreDisplayName({ slug: store.slug, name: store.name });
 }
 
 /** An editorial `/guides/<slug>` link rendered alongside the store cross-links. */
@@ -314,6 +320,7 @@ export default function RelatedGuides({
           <ul className="mt-4 flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-3">
             {items.map((item) => {
               const logo = tileLogo(item.slug);
+              const name = displayStoreName(item);
               return (
                 <li key={item.slug} className="w-52 shrink-0 sm:w-auto">
                   <Link
@@ -324,16 +331,16 @@ export default function RelatedGuides({
                       {logo ? (
                         <Image
                           src={logo}
-                          alt={`${item.name} logo`}
+                          alt={`${name} logo`}
                           width={40}
                           height={40}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
-                        monogram(item.name)
+                        monogram(name)
                       )}
                     </span>
-                    <p className="mt-3 font-semibold text-ink">{item.name}</p>
+                    <p className="mt-3 font-semibold text-ink">{name}</p>
                     <p className="mt-1 text-xs text-ink-soft">{item.hook}</p>
                     <span className="mt-3 inline-block text-xs font-medium text-accent">
                       Visit store →

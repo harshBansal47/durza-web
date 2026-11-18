@@ -39,7 +39,7 @@ export default function BldcCalculatorClient() {
           <input type="range" min={4} max={24} step={1} value={hoursPerDay} onChange={(e) => setHoursPerDay(Number(e.target.value))} className="mt-2 w-full" />
         </label>
         <label className="block text-sm font-medium text-ink">
-          Electricity tariff: ₹{tariff}/unit
+          Electricity tariff: {tariff} per unit
           <input type="range" min={3} max={15} step={0.5} value={tariff} onChange={(e) => setTariff(Number(e.target.value))} className="mt-2 w-full" />
         </label>
       </div>
@@ -47,15 +47,15 @@ export default function BldcCalculatorClient() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-ledger-line bg-paper p-5 text-center">
           <p className="text-xs text-ink-soft">Monthly savings</p>
-          <p className="mt-1 text-3xl font-bold text-verified">₹{Math.round(monthlySavings).toLocaleString("en-IN")}</p>
+          <p className="mt-1 text-3xl font-bold text-verified">{Math.round(monthlySavings).toLocaleString("en-IN")}</p>
         </div>
         <div className="rounded-2xl border border-ledger-line bg-paper p-5 text-center">
           <p className="text-xs text-ink-soft">Yearly savings</p>
-          <p className="mt-1 text-3xl font-bold text-verified">₹{Math.round(yearlySavings).toLocaleString("en-IN")}</p>
+          <p className="mt-1 text-3xl font-bold text-verified">{Math.round(yearlySavings).toLocaleString("en-IN")}</p>
         </div>
         <div className="rounded-2xl border border-ledger-line bg-paper p-5 text-center">
           <p className="text-xs text-ink-soft">10-year savings</p>
-          <p className="mt-1 text-3xl font-bold text-ink">₹{Math.round(tenYearSavings).toLocaleString("en-IN")}</p>
+          <p className="mt-1 text-3xl font-bold text-ink">{Math.round(tenYearSavings).toLocaleString("en-IN")}</p>
         </div>
         <div className="rounded-2xl border border-ledger-line bg-paper p-5 text-center">
           <p className="text-xs text-ink-soft">Units saved per year</p>
@@ -67,7 +67,7 @@ export default function BldcCalculatorClient() {
         <p className="font-semibold text-ink">Payback check</p>
         {paybackMonths !== null ? (
           <p className="mt-1">
-            Assuming a ₹{FAN_PREMIUM.toLocaleString("en-IN")} price difference between a similar regular fan
+            Assuming an estimated price difference between a similar regular fan
             and a BLDC model, the upgrade pays for itself in about{" "}
             <span className="font-semibold text-ink">{Math.ceil(paybackMonths)} months</span> of typical use.
           </p>
@@ -86,7 +86,7 @@ export default function BldcCalculatorClient() {
       <section className="space-y-3">
         <h2 className="text-xl font-bold text-ink">FAQ</h2>
         <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How is a BLDC fan different from a regular ceiling fan?</summary><p className="mt-2 text-sm text-ink-soft">Regular fans use AC induction motors (60–110W). BLDC (Brushless DC) fans use electronic DC motors (18–42W) with precise speed control, converting much more electricity into airflow and far less into heat and noise.</p></details>
-        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How much money does a BLDC fan actually save?</summary><p className="mt-2 text-sm text-ink-soft">At 16 hours of daily use and ₹7 per unit, switching a 75W regular fan to a 28W BLDC model saves roughly ₹1,900 per year — over ₹19,000 across 10 years, usually more than the price difference within two to three years.</p></details>
+        <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">How much money does a BLDC fan actually save?</summary><p className="mt-2 text-sm text-ink-soft">Savings depend on your usage, tariff, and fan efficiency. Use this calculator as an estimate and verify product specs and pricing on Havells.</p></details>
         <details className="rounded-xl border border-ledger-line bg-white p-4"><summary className="font-medium text-ink">Does a BLDC fan work without remote control or inverter?</summary><p className="mt-2 text-sm text-ink-soft">Yes. BLDC fans work directly on mains power and pair well with inverters — a 28W fan draws about a third of a regular fan during a power cut, extending inverter runtime significantly.</p></details>
       </section>
     </div>

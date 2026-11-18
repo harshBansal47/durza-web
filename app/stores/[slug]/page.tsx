@@ -11,6 +11,7 @@ import { cleanStoreDescription, faqPageJsonLd, metaDescription } from "@/lib/seo
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import { formatStoreDisplayName } from "@/lib/store-display";
+import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import JsonLd from "@/components/JsonLd";
@@ -97,17 +98,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const codeOffers = destination.coupons.length;
   const countedAll = listed >= total;
 
-  const title = `${storeName} Coupons & Offers${total > 0 ? `: ${total} Live Offers` : ""}`;
+  const title =
+    total > 0
+      ? `${storeName} Coupons & Offers: ${total} Live ${total === 1 ? "Offer" : "Offers"}`
+      : `${storeName} Official Store Guide & Lineup`;
 
   let description: string;
   if (total === 0) {
-    // No live list to count. A short store-written blurb is still the best copy
-    // available; the long ones would only be cut off by the search result, so
-    // they get a page-specific summary instead. The summary states the sourcing
-    // policy rather than counting offers, because there are none to count.
     description =
       metaDescription(store.description) ??
-      `${storeName} coupon codes and deals are read from ${storeName}'s own pages — every offer shows its source page and last-checked date, with commissions disclosed.`;
+      `Explore ${storeName}'s official store lineup, buying guidance, and direct store links on Durza. Live pricing, availability, and checkout terms are shown on the merchant site.`;
   } else if (countedAll && codeOffers > 0 && codeOffers < total) {
     description = `${total} live ${storeName} offers — ${codeOffers} promo codes and ${total - codeOffers} auto-applied deals — each read from ${storeName}'s own pages with its last-checked date.`;
   } else if (countedAll && codeOffers === total) {
@@ -151,15 +151,19 @@ export default async function StorePage({ params, searchParams }: Props) {
   const displayStore = { ...store, name: storeName };
   const storefront = await loadProductCollections(store.id);
 
-  // Every live offer, once. The two buckets split on `code IS NULL`, so they are disjoint and
-  // exhaustive (a test on the API pins that); the id filter is a guard, not a repair.
+  // Every live offer, once. Sanitize feed text and conservatively dedupe render-time duplicates.
   const seen = new Set<string>();
-  const items = [...destination.deals, ...destination.coupons].filter((offer) => {
-    if (seen.has(offer.id)) return false;
-    seen.add(offer.id);
-    return true;
-  });
-  const totalPages = Math.ceil((destination.offer_total ?? items.length) / PAGE_SIZE);
+  const items = dedupeCoupons(
+    [...destination.deals, ...destination.coupons]
+      .filter((offer) => {
+        if (seen.has(offer.id)) return false;
+        seen.add(offer.id);
+        return true;
+      })
+      .map((offer) => sanitizeCouponForDisplay(offer)),
+  );
+  const offerTotal = Math.max(destination.offer_total ?? items.length, items.length);
+  const totalPages = Math.ceil(offerTotal / PAGE_SIZE);
 
   // Sort orders are chosen to put evidence first, not popularity.
   const byBest = [...items].sort(
@@ -264,7 +268,7 @@ export default async function StorePage({ params, searchParams }: Props) {
             latest: { label: "Recently added", items: byLatest },
             expiring: { label: "Ending soon", items: byExpiring },
           }}
-          stats={{ total: destination.offer_total ?? items.length, verified: verifiedCount, avgRate, totalReports, latestCheck }}
+          stats={{ total: offerTotal, verified: verifiedCount, avgRate, totalReports, latestCheck }}
           relatedStores={related}
           currency={store.currency}
           pagination={{

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "How does the Nourish Mantra Urban Rani Youth Serum work?", answer: "Urban Rani Youth Serum blends modern actives like Niacinamide with traditional botanical extracts like Fortunella fruit and Okra. It works as an intensive cellular hydrator and pollution shield, reducing fine lines and evening skin texture without clogging pores." },
   { question: "Can MANTRA15 or GLOW20 be combined with prepaid UPI discounts?", answer: "Yes. First enter coupon code MANTRA15 or GLOW20 on nourishmantra.in during checkout. When you proceed to the payment gateway and choose UPI or prepaid cards, an extra 5% instant discount is calculated on the remaining balance." },
-  { question: "What is the minimum order threshold for free delivery on Nourish Mantra?", answer: "Nourish Mantra provides free doorstep delivery across India on all orders of ₹499 or more. A single under-eye gel or serum can qualify your order for free shipping." },
+  { question: "What is the minimum order threshold for free delivery on Nourish Mantra?", answer: "Delivery thresholds and eligibility can vary. Check the current free-delivery terms on Nourish Mantra at checkout." },
 ];
 
 export const revalidate = 3600;

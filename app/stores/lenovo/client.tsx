@@ -33,28 +33,28 @@ const TABS: Record<
     label: "College & Coding (IdeaPad Slim 5)",
     headline: "IdeaPad Slim 5 — dependable for college and coding",
     spec: "16GB RAM / 512GB SSD / Ryzen 7 or Core Ultra 5",
-    price: "₹48,000 – ₹75,000",
+    price: "Check live price on Lenovo India",
     note: "A balanced everyday build for lectures, development, multitasking and long study sessions with efficient performance.",
   },
   gaming: {
     label: "Heavy Gaming (Legion / LOQ)",
     headline: "Legion & LOQ — high-FPS power, your way",
     spec: "RTX 4060/4070 / 165Hz+ Display / Custom CTO",
-    price: "₹68,000 – ₹2,20,000",
+    price: "Check live price on Lenovo India",
     note: "Dial in GPU, memory and storage with Custom-To-Order options for competitive play and demanding AAA titles.",
   },
   founders: {
     label: "Founders & Linux Devs (ThinkPad)",
     headline: "ThinkPad — built for founders and Linux developers",
     spec: "X1 Carbon / T14 / Ubuntu-certified / 3-Yr Premier Support",
-    price: "₹85,000 – ₹1,95,000",
+    price: "Check live price on Lenovo India",
     note: "Legendary keyboards, dependable build quality, and enterprise-ready support for engineering and leadership workflows.",
   },
   design: {
     label: "Design & Touch (Yoga OLED)",
     headline: "Yoga OLED — vivid 2-in-1 creativity",
     spec: "2.8K OLED / 100% DCI-P3 / 2-in-1 Pen",
-    price: "₹82,000 – ₹1,50,000",
+    price: "Check live price on Lenovo India",
     note: "Color-accurate OLED touch with pen support and flexible 360° modes for design, illustration and presentations.",
   },
 };
@@ -65,7 +65,7 @@ const LINEUP = [
   {
     slug: "legion-pro-slim",
     title: "Legion Pro & Slim Gaming",
-    badge: "Flagship RTX · ₹1.15L–₹2.60L",
+    badge: "Flagship RTX",
     copy: "ColdFront vapor-chamber cooling, NVIDIA RTX 40/50-series high-TGP GPUs, and 240Hz PureSight gaming displays built for competitive FPS.",
     image: "/stores/lenovo/legion-pro-slim.jpg",
     alt: "Lenovo Legion flagship gaming laptop",
@@ -73,7 +73,7 @@ const LINEUP = [
   {
     slug: "thinkpad-x1-t-series",
     title: "ThinkPad X1 Carbon & T-Series",
-    badge: "Executive & Dev · ₹95K–₹2.10L",
+    badge: "Executive & Dev",
     copy: "MIL-STD-810H carbon-fiber chassis, legendary tactile keyboards, Linux-ready firmware, and Intel vPro reliability for founders & engineers.",
     image: "/stores/lenovo/thinkpad-x1.jpg",
     alt: "Lenovo ThinkPad business laptop on a desk",
@@ -81,7 +81,7 @@ const LINEUP = [
   {
     slug: "loq-gaming",
     title: "LOQ Gaming Series",
-    badge: "High-FPS Value · ₹62K–₹1.05L",
+    badge: "High-FPS Value",
     copy: "Lenovo's highest-value RTX gaming lineup with AI Engine+ thermal tuning, MUX switches, and custom CTO RAM/SSD upgrades on Lenovo.com.",
     image: "/stores/lenovo/loq-gaming.jpg",
     alt: "Lenovo LOQ gaming laptop",
@@ -89,7 +89,7 @@ const LINEUP = [
   {
     slug: "yoga-pro-oled",
     title: "Yoga Pro & 2-in-1 OLED",
-    badge: "Creators & Touch · ₹82K–₹1.55L",
+    badge: "Creators & Touch",
     copy: "360-degree convertible touchscreens with Lenovo Digital Pen support, Dolby Vision OLED panels, and ultra-slim aluminum unibodies.",
     image: "/stores/lenovo/yoga-oled.jpg",
     alt: "Lenovo Yoga OLED convertible laptop",
@@ -97,7 +97,7 @@ const LINEUP = [
   {
     slug: "ideapad-slim",
     title: "IdeaPad Slim 5 & Pro",
-    badge: "Students & Daily · ₹45K–₹78K",
+    badge: "Students & Daily",
     copy: "All-day battery life, 16GB LPDDR5X memory options, and lightweight metal builds engineered for college lectures, coding, and hybrid work.",
     image: "/stores/lenovo/ideapad-slim.jpg",
     alt: "Lenovo IdeaPad Slim laptop for students and daily work",
@@ -105,7 +105,7 @@ const LINEUP = [
   {
     slug: "legion-go-thinkvision",
     title: "Legion Go Handheld & ThinkVision Monitors",
-    badge: "Console & Desk · ₹45K–₹89K",
+    badge: "Console & Desk",
     copy: "Detachable TrueStrike controllers with 8.8-inch QHD+ 144Hz gaming display, alongside color-accurate USB-C monitors for dual-screen setups.",
     image: "/stores/lenovo/legion-go-thinkvision.jpg",
     alt: "Lenovo Legion Go handheld and ThinkVision monitor setup",
@@ -136,7 +136,7 @@ export default function LenovoClient({ faqs, stats, storeUrl }: Props) {
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#d1d5db] sm:text-lg">
             Configure custom-to-order ThinkPads, RTX Legion gaming rigs, and OLED Yoga ultrabooks—and stack official
-            Lenovo.com student/corporate privileges, card cashback, and ₹999 ADP warranty packs.
+            Lenovo.com student/corporate privileges, eligible card offers, and warranty/protection options shown at checkout.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
@@ -172,13 +172,13 @@ export default function LenovoClient({ faqs, stats, storeUrl }: Props) {
                   <p className="text-sm font-semibold text-[#F5F5F5]">Stackable Savings</p>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-[#9ca3af]">
-                  Combine MyLenovo Rewards, SheerID Student/Corporate IDs &amp; up to ₹10,000 credit card cashback
+                  Combine eligible MyLenovo Rewards, student/corporate verification, and card offers shown at checkout
                 </p>
               </div>
               <div className="rounded-xl border border-[#2b313c] bg-[#141820] p-4">
                 <div className="flex items-center gap-2 text-[#E2231A]">
                   <ShieldCheck className="h-5 w-5" aria-hidden="true" strokeWidth={1.5} />
-                  <p className="text-sm font-semibold text-[#F5F5F5]">₹999 Warranty &amp; ADP</p>
+                  <p className="text-sm font-semibold text-[#F5F5F5]">Warranty &amp; ADP options</p>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-[#9ca3af]">
                   Unlock 3-Year Premium Care + Accidental Damage Protection at checkout
@@ -345,7 +345,7 @@ export default function LenovoClient({ faqs, stats, storeUrl }: Props) {
             <p className="font-mono text-xs font-bold text-[#E2231A]">Step 3</p>
             <p className="mt-1 font-semibold text-ink">Protect &amp; pay smart</p>
             <p className="mt-1 text-sm leading-6 text-ink-soft">
-              Add the ₹999 3-Year ADP bundle and apply eligible credit card cashback at payment.
+              Review warranty/protection options and apply eligible card offers at checkout.
             </p>
           </li>
         </ol>

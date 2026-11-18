@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "How do I determine the correct menstrual cup size?", answer: "Pick Size S if you are under 25 and have never given birth; Size M for most women with normal flow; Size L if you have given birth vaginally or have a heavy flow. Still unsure? Start with M — it fits the majority." },
   { question: "How do PeeBuddy funnels prevent UTIs in public restrooms?", answer: "PeeBuddy lets you stand and urinate without contacting soiled toilet seats, avoiding the cross-contamination that causes urinary tract infections during travel and in dirty public washrooms." },
-  { question: "What are the free delivery terms?", answer: "Free express delivery across India on all orders of ₹399 or more — a single PeeBuddy pack or heat patches cross the threshold." },
+  { question: "What are the free delivery terms?", answer: "Check the current free-delivery threshold and eligibility on Sirona at checkout." },
 ];
 
 export const revalidate = 3600;

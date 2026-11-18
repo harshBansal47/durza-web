@@ -14,9 +14,9 @@ import { ArrowUpRight } from "lucide-react";
 import ProductDealRouter from "@/components/store/ProductDealRouter";
 const link = (url: string, sub: string): string => getAffiliateLink("levis", url, sub);
 const CARTS = [
-  { id: "solo", label: "1 × 511™ Jeans (₹2,599)", total: "₹2,599", outcome: "No flat coupon applied yet — add the Batwing Tee to cross ₹3,499.", sub: "cart_solo", url: "https://www.levi.in" },
-  { id: "plus_tee", label: "511™ Jeans + Batwing Tee", total: "₹3,598", outcome: "Unlocks LEVIS500 — effectively ₹499 for the ₹1,499 tee.", sub: "cart_plus_tee", url: "https://www.levi.in/sale" },
-  { id: "bundle", label: "501® + Trucker Jacket (₹7,598)", total: "₹7,598", outcome: "Unlocks LEVIS1000 — flat ₹1,000 off the whole wardrobe.", sub: "cart_bundle", url: "https://www.levi.in/sale" },
+  { id: "solo", label: "511™ Jeans", total: "Single item", outcome: "Add more eligible items if needed to meet promo thresholds shown at checkout.", sub: "cart_solo", url: "https://www.levi.in" },
+  { id: "plus_tee", label: "Jeans + tee bundle", total: "Bundle", outcome: "Check whether your cart meets the current promo code threshold at checkout.", sub: "cart_plus_tee", url: "https://www.levi.in/sale" },
+  { id: "bundle", label: "Jeans + jacket bundle", total: "Bundle", outcome: "Review eligible promo codes and final cart total at checkout.", sub: "cart_bundle", url: "https://www.levi.in/sale" },
 ];
 interface Props {
   offers: StoreOfferCard[];
@@ -93,13 +93,13 @@ export default function LevisClient({ offers, products, faqs, stats, heroImageUr
         title="How people stack savings on Levi's"
         lead="A pair of 502 jeans and a belt for gifting:"
         lines={[
-          { label: "502 jeans + belt", value: "₹3,499" },
-          { label: "Apply LEVIS500 (above ₹3,499)", value: "− ₹500" },
-          { label: "Free shipping above ₹999", value: "included" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹2,999" }}
-        saving="You could save ₹500+ on one order"
-        note="*Illustrative — LEVIS1000 needs a ₹5,999+ cart; sale styles may be excluded."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

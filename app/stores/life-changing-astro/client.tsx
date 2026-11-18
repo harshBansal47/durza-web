@@ -86,13 +86,13 @@ export default function LifeChangingAstroClient({ offers, products, faqs, stats,
         title="How people book at the best price"
         lead="A Vedic Kundli consultation for a major life decision:"
         lines={[
-          { label: "1-on-1 Vedic Kundli consultation", value: "₹2,999" },
-          { label: "Apply ASTRO15 (15% off)", value: "− ₹450*" },
-          { label: "Free insured doorstep shipping", value: "for Rudraksha/gemstones" }
+          { label: "Add eligible items to cart", value: "Build cart" },
+          { label: "Apply any eligible promo code", value: "If available" },
+          { label: "Review shipping and payment offers at checkout", value: "As shown" }
         ]}
-        total={{ label: "You pay", value: "≈ ₹2,549" }}
-        saving="You could save ₹450+ on the consultation"
-        note="*Illustrative — consultation prices vary by consultant; Rudraksha/gemstone offers are separate (see offer cards)."
+        total={{ label: "Final amount", value: "Shown at checkout" }}
+        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
+        note="Prices, promo eligibility, shipping thresholds, and payment offers vary by product and time. Always verify details at checkout."
       />
 
             <ProductDealRouter

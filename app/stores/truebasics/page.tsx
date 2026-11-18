@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQS = [
   { question: "Why does enteric coating in TrueBasics Omega-3 prevent fishy burps?", answer: "The enteric coat is pH-sensitive: it survives stomach acid and dissolves only in the small intestine, so the fish oil is absorbed where it acts — never releasing fishy odour in the stomach." },
   { question: "What makes KSM-66 clinically superior to raw root powders?", answer: "KSM-66 is a root-only, full-spectrum extract standardized to 5% withanolides with 22 published human trials. Raw powders vary wildly in withanolide content and may include leaf alkaloids." },
-  { question: "How do I qualify for free delivery?", answer: "Free doorstep delivery across India on all orders of ₹499 or more — a single bottle of KSM-66 Ashwagandha already qualifies." },
+  { question: "How do I qualify for free delivery?", answer: "Free-delivery thresholds and eligibility can vary. Check the current shipping terms on TrueBasics at checkout." },
 ];
 
 export const revalidate = 3600;
