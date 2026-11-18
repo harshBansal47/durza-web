@@ -1,33 +1,39 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { EditorialListing } from "@/components/editorial/EditorialComponents";
-import PageTitle from "@/components/ui/PageTitle";
-import { resilient } from "@/lib/api";
+import { COMPARISONS } from "@/data/comparisons";
+import CompareHub from "@/components/compare/CompareHub";
+import { absoluteUrl } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-// Thin-page safety: sections with no published comparisons are kept out of the
-// index (follow stays open so crawlers still reach the linked articles).
-export async function generateMetadata(): Promise<Metadata> {
-  const result = await resilient.listEditorial({ content_type: "comparison", limit: 1 }).catch(() => null);
-  const isEmpty = !result || result.total === 0;
-  return {
-    title: "Comparisons — Features, Pricing & Trade-offs",
-    description: "Compare Indian products and online services side by side — features, pricing and trade-offs — before you decide what to buy.",
-    alternates: { canonical: "/compare" },
-    ...(isEmpty ? { robots: { index: false, follow: true } } : {}),
-  };
-}
+export const metadata: Metadata = {
+  title: "Side-by-Side Buying Comparisons for India | Durza",
+  description:
+    "Practical comparisons for Indian shoppers: Amazon vs Flipkart, laptops, smartphones, fashion, supplements, appliances, card offers and more—focused on real checkout value.",
+  alternates: { canonical: absoluteUrl("/compare") },
+  openGraph: {
+    title: "Side-by-Side Buying Comparisons for India | Durza",
+    description:
+      "Practical comparisons for Indian shoppers with clear verdicts, real checkout math, and direct links to official stores.",
+    url: absoluteUrl("/compare"),
+    type: "website",
+  },
+};
 
-export default async function ComparisonsPage() {
-  const comparisons = await resilient.listEditorial({ content_type: "comparison", limit: 60 });
+export default function ComparisonsPage() {
   return (
-    <div className="page-shell">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-soft"><Link href="/" className="hover:text-inkblue">Home</Link><span className="px-2" aria-hidden="true">/</span>Comparisons</nav>
-      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">Side by side</p>
-      <PageTitle className="mt-2">Comparisons</PageTitle>
-      <p className="mt-4 max-w-2xl text-base leading-7 text-ink-soft">See the meaningful differences in features, pricing, and trade-offs before you decide.</p>
-      <div className="mt-8"><EditorialListing items={comparisons.items} /></div>
-    </div>
+    <main className="bg-[#FAF8F5] text-[#141413]">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Durza comparisons</p>
+        <h1 className="mt-3 font-serif text-4xl font-extrabold leading-tight tracking-tight text-[#141413] sm:text-5xl">
+          Side-by-Side Buying Comparisons
+        </h1>
+        <p className="mt-4 max-w-3xl text-lg leading-8 text-[#3f3b35]">
+          Clear, India-first comparisons to help you pick the better option before checkout—based on real pricing patterns, delivery and warranty trade-offs, and bank offer math.
+        </p>
+        <div className="mt-8">
+          <CompareHub items={COMPARISONS} />
+        </div>
+      </div>
+    </main>
   );
 }

@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import { resilient } from "@/lib/api";
 import type { EditorialType } from "@/lib/types";
 import { editorialPath } from "@/lib/editorial-path";
-import { metaDescription } from "@/lib/seo";
+import { metaDescription, absoluteUrl } from "@/lib/seo";
 import { staticGuideBySlug } from "@/data/store-guides";
+import { getComparisonBySlug } from "@/data/comparisons";
 import StaticGuidePage, { staticGuideMetadata } from "@/components/guides/StaticGuidePage";
 
 function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null) {
@@ -12,7 +13,31 @@ function guideHeroImage(type: EditorialType, slug: string, fallback?: string | n
   return guide?.heroImageLayout === "editorial" && guide.heroImage ? guide.heroImage : fallback;
 }
 
+function staticComparisonMetadata(slug: string): Metadata | null {
+  const entry = getComparisonBySlug(slug);
+  if (!entry) return null;
+  const canonical = absoluteUrl(`/compare/${entry.slug}`);
+  return {
+    title: entry.seoTitle,
+    description: entry.metaDescription,
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+    openGraph: {
+      title: entry.seoTitle,
+      description: entry.metaDescription,
+      url: canonical,
+      type: "article",
+      images: [entry.heroImage],
+    },
+    twitter: { card: "summary_large_image", title: entry.seoTitle, description: entry.metaDescription, images: [entry.heroImage] },
+  };
+}
+
 export async function editorialMetadata(type: EditorialType, slug: string): Promise<Metadata> {
+  if (type === "comparison") {
+    const meta = staticComparisonMetadata(slug);
+    if (meta) return meta;
+  }
   const content = await resilient.getEditorial(type, slug);
   // Store buying guides authored in data/store-guides.ts fall through here.
   if (!content && type === "guide") {
@@ -42,6 +67,13 @@ export async function editorialMetadata(type: EditorialType, slug: string): Prom
 }
 
 export async function renderEditorialPage(type: EditorialType, slug: string) {
+  if (type === "comparison") {
+    const entry = getComparisonBySlug(slug);
+    if (entry) {
+      const { default: ComparisonArticle } = await import("@/components/compare/ComparisonArticle");
+      return <ComparisonArticle entry={entry} />;
+    }
+  }
   const content = await resilient.getEditorial(type, slug);
   if (!content && type === "guide") {
     const staticGuide = staticGuideBySlug(slug);
