@@ -474,18 +474,6 @@ const SECTIONS: SectionDef[] = [
       { id: "4697b0cd-f1d6-4e8b-8e4d-c7cb95871746", badge: "BEACH-SIDE BLANKET" },
     ],
   },
-  {
-    id: "fitness",
-    title: "Fitness & home gym",
-    lead: "Dumbbells, mats and ropes — the Indian home gym, built for one corner, one budget.",
-    picks: [
-      { id: "981c4300-aecc-4044-8d92-35e3b9ff4b3c", badge: "20KG KIT" },
-      { id: "f8424dc0-7864-4912-9b07-5c3eff346238", badge: "COMBO UP" },
-      { id: "40a08e20-e77f-4570-bf3e-73da1ec0195f", badge: "WITH STRAP" },
-      { id: "206403a0-16c1-4aa9-988c-b580f920697c", badge: "WITH BEARINGS" },
-      { id: "de8c6b0a-4087-42c3-aae7-bdf46ea31006", badge: "COURT READY" },
-    ],
-  },
 ];
 
 interface Props {
