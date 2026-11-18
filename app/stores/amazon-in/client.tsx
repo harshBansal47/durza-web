@@ -450,19 +450,7 @@ const AUDIO_PICKS = [
   },
 ];
 
-const SECTIONS: SectionDef[] = [
-  {
-    id: "luggage",
-    title: "Luggage & travel",
-    lead: "Cabin trolleys and backpacks India trusts past airport security and onto trains. Sizes are tested against Indian airlines' cabin limits.",
-    picks: [
-      { id: "f2e50869-b678-4e6e-83de-d24079eee07f", badge: "FAMILY FAVOURITE" },
-      { id: "6bfea447-726f-41b1-abaa-2862ff04e1c8", badge: "CABIN-SIZE" },
-      { id: "4e86264d-c654-4f8c-9c49-6f854d852653", badge: "CABIN TOO" },
-      { id: "58e49ea9-87b5-477f-b656-1bf9e50c6d8a", badge: "LAPTOP BAG" },
-    ],
-  },
-];
+const SECTIONS: SectionDef[] = [];
 
 interface Props {
   offers: CouponPublic[];
