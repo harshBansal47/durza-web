@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { GeistSans, GeistMono } from "geist/font";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -135,6 +136,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <InstallPrompt />
               <ConsentBanner />
               <AnalyticsPageView />
+              <Analytics />
             </ToastProvider>
           </SessionProvider>
         </QueryProvider>
