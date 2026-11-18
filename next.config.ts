@@ -31,7 +31,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     // Store logos / ad images are admin-supplied URLs from arbitrary hosts.
-    remotePatterns: [{ protocol: "https", hostname: "**" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "**" },
+      { protocol: "https", hostname: "m.media-amazon.com" },
+    ],
     unoptimized: process.env.CAPACITOR_BUILD === "true",
   },
   // `headers()` is not supported by a static export (the Capacitor build), so it is only

@@ -374,19 +374,50 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
   },
 ];
 
-const SECTIONS: SectionDef[] = [
+const PC_COMPONENT_PICKS = [
   {
-    id: "components",
-    title: "PC components & upgrades",
-    lead: "SSDs, RAM and the bits a desktop still needs first. No flavour, no filler — just the upgrades that matter.",
-    picks: [
-      { id: "1b3136bc-8686-46fc-83d8-5ebf863e7793", badge: "NEW BUILD" },
-      { id: "38fd4634-9d63-429f-a072-bce0f2643420", badge: "230 GB TIER" },
-      { id: "556fa97a-ca82-449c-b000-d2a190a0aaaa", badge: "3200MHz" },
-      { id: "4f015458-2f9c-45f1-a645-450341661345", badge: "128GB MICROSD" },
-      { id: "43bc56d4-66bd-46e5-bf02-9718fff177dd", badge: "COLD STORAGE" },
-    ],
+    name: "Crucial BX500 500GB 3D NAND SATA 2.5-inch Internal SSD",
+    badge: "2.5\" SATA · UP TO 540 MB/S",
+    brand: "Crucial",
+    blurb:
+      "Turns a sluggish hard-drive desktop or older laptop into a 15-second boot machine. Ideal 500GB sweet spot for Windows 11, daily apps, and local files with Crucial's 3-year limited warranty.",
+    bestFor: "Reviving older 2.5-inch bay laptops and secondary desktop storage.",
+    url: "https://link.amazon/B0irTZ1MT",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/41t2uPN1ayL._SX679_.jpg",
   },
+  {
+    name: "Kingston A400 240GB SATA 2.5-inch Internal SSD",
+    badge: "240 GB · BUDGET OS DRIVE",
+    brand: "Kingston",
+    blurb:
+      "Entry-level 2.5-inch SATA SSD with up to 500 MB/s read speeds—built as a dedicated Windows/Linux boot drive for billing PCs, home desktops, or Linux homelabs.",
+    bestFor: "Light office desktops and secondary boot drives where 240GB is enough.",
+    url: "https://link.amazon/B012OBaCe",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71JLh+nx3bL._SX679_.jpg",
+  },
+  {
+    name: "Crucial 8GB DDR4 3200MHz Laptop Memory (SODIMM)",
+    badge: "LAPTOP SODIMM · DDR4-3200",
+    brand: "Crucial",
+    blurb:
+      "Single-stick 8GB DDR4-3200 (CL22, 1.2V) SODIMM module that eliminates browser-tab lag and upgrades 8GB laptops to dual-channel 16GB multitasking.",
+    bestFor: "DDR4 laptops with a free RAM slot (not compatible with desktops or DDR5 laptops).",
+    url: "https://link.amazon/B01jCjHAv",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71u3IlSgb5L._SX679_.jpg",
+  },
+  {
+    name: "Samsung EVO Plus 128GB MicroSDXC Card (with Adapter)",
+    badge: "128GB · U3 / V30 · 4K VIDEO",
+    brand: "Samsung",
+    blurb:
+      "Sustained U3/V30 write speeds with a bundled full-size SD adapter—built for 4K video, dashcams, and reliable Android storage expansion backed by Samsung's 10-year limited warranty.",
+    bestFor: "4K recording, dashcams, and smartphones with microSD slots.",
+    url: "https://link.amazon/B04dUuPIr",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51w4EkTy-oL._SY450_.jpg",
+  },
+];
+
+const SECTIONS: SectionDef[] = [
   {
     id: "audio",
     title: "Audio — headphones and speakers",
@@ -544,6 +575,13 @@ export default function AmazonStorePage({
           className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
         >
           Home &amp; kitchen
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
+        <a
+          href="#components"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          PC components
           <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
         </a>
 
@@ -1091,6 +1129,105 @@ export default function AmazonStorePage({
 
           <p className="mt-4 text-[11px] leading-5 text-ink-soft">
             Specs and compatibility are taken from the listings — confirm the live Amazon page (system support, VESA size, chair dimensions) before you buy. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
+          </p>
+        </section>
+
+        <section id="components" aria-labelledby="components-heading" className="rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
+          <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+            <div className="max-w-2xl">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">PC upgrades</p>
+              <h2 id="components-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+                PC components &amp; upgrades
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">
+                Four practical upgrades for older laptops and desktops — SSDs, laptop RAM, and reliable storage. Check compatibility before you buy.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+              <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+              Editor&apos;s picks
+            </span>
+          </div>
+
+          <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {PC_COMPONENT_PICKS.map((item) => (
+              <li key={item.url}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="nofollow sponsored noopener noreferrer"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+                >
+                  <span className="relative block aspect-[4/5] w-full overflow-hidden bg-white">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={679}
+                      height={679}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 280px"
+                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </span>
+                  <span className="flex flex-1 flex-col p-4">
+                    <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
+                    <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{item.brand}</span>
+                    <span className="mt-1 font-serif text-[16px] font-bold leading-snug text-ink">{item.name}</span>
+                    <span className="mt-2 text-[12px] leading-6 text-ink-soft">{item.blurb}</span>
+                    <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                      <span className="font-semibold text-ink">Best for: </span>
+                      {item.bestFor}
+                    </span>
+                    <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                      View on Amazon
+                      <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 overflow-x-auto rounded-xl border border-ledger-line">
+            <table className="min-w-full divide-y divide-ledger-line bg-white text-left text-[12px] leading-5">
+              <thead className="bg-paper-alt">
+                <tr>
+                  <th scope="col" className="px-4 py-2.5 font-mono text-[9px] font-semibold uppercase tracking-widest text-ink-soft">Side by side</th>
+                  <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Interface</th>
+                  <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Best for</th>
+                  <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Check before buying</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-ledger-line">
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">Crucial BX500 (500GB)</th>
+                  <td className="px-4 py-2 text-ink">2.5&quot; SATA III</td>
+                  <td className="px-4 py-2 text-ink">Primary OS + apps on older laptops/desktops</td>
+                  <td className="px-4 py-2 text-ink">Confirm your laptop has a 2.5&quot; SATA bay (not M.2-only)</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">Kingston A400 (240GB)</th>
+                  <td className="px-4 py-2 text-ink">2.5&quot; SATA III</td>
+                  <td className="px-4 py-2 text-ink">Basic office/Linux boot drive</td>
+                  <td className="px-4 py-2 text-ink">Windows 11 + apps use ~65GB; pick 500GB if storing media</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">Crucial 8GB DDR4 RAM</th>
+                  <td className="px-4 py-2 text-ink">260-Pin SODIMM</td>
+                  <td className="px-4 py-2 text-ink">Doubling an 8GB DDR4 laptop to 16GB</td>
+                  <td className="px-4 py-2 text-ink">Check Task Manager -&gt; Performance -&gt; Memory for DDR4 &amp; free slots</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">Samsung EVO Plus (128GB)</th>
+                  <td className="px-4 py-2 text-ink">UHS-I MicroSDXC</td>
+                  <td className="px-4 py-2 text-ink">4K video, dashcams &amp; phone expansion</td>
+                  <td className="px-4 py-2 text-ink">Buy only from Amazon-fulfilled / authorized brand sellers</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+            Specs and compatibility are taken from the product listings — confirm your device&apos;s supported interface, slot type, and capacity limits on the live Amazon page before buying. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
           </p>
         </section>
 
