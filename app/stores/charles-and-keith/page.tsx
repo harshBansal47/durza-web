@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import CharlesKeithLuxuryStore from "./CharlesKeithLuxuryPage";
+import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
+import { resilient } from "@/lib/api";
+import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Charles & Keith India — The Architectural Edit | Official Boutique Access";
+const title = "Charles & Keith India Store Guide — Bags & Footwear | Durza";
 const description =
-  "A private editorial edit of Charles & Keith India — sculpted bags, architectural heels, loafers, work totes and gilded finishing pieces. Direct access to the official charleskeith.in boutique.";
+  "Explore Charles & Keith India's Gabine saddle bags, structured laptop totes, loafers, and wedding block heels. Check official store perks on Durza.";
 const canonical = "/stores/charles-and-keith";
 
 export const metadata: Metadata = {
@@ -19,25 +23,28 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    question: "Why acquire directly from the official Charles & Keith India store?",
+    question: "Are orders on charleskeith.in shipped within India?",
     answer:
-      "Shopping directly via the official boutique guarantees access to limited-edition runway capsules, full EU sizing (35–41), and signature branded presentation boxes with protective dust bags—items rarely stocked on third-party marketplaces.",
+      "Yes—orders on the official India storefront ship domestically in INR with no international customs duties.",
   },
   {
-    question: "How often do new seasonal capsules arrive in India?",
+    question: "How do I care for Charles & Keith faux leather in Indian humidity?",
     answer:
-      "New architectural bags, metallic evening edits, and resort footwear drop monthly alongside global Singapore and European releases on charleskeith.in.",
-  },
-  {
-    question: "How are packaging, authenticity, and size exchanges handled?",
-    answer:
-      "All orders are fulfilled directly by Charles & Keith's authorized India flagship operations with boutique-grade packaging and streamlined size exchanges within the store's return window.",
+      "Store bags stuffed with tissue inside their dust bag away from direct sunlight, and wipe with a dry microfiber cloth after humid commutes.",
   },
 ];
 
 export const revalidate = 3600;
 
-export default function Page() {
+export default async function Page() {
+  const destination = await resilient.getStoreDestination("charles-keith", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
+  const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
+  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const storeUrl = destination?.store.website_url ?? "https://www.charleskeith.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
@@ -48,7 +55,15 @@ export default function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <CharlesKeithLuxuryStore />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
+      <RelatedGuides slug="charles-keith" />
     </>
   );
 }

@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import WonderchefClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Wonderchef Coupons, Nutri-Blend & Granite Cookware Deals";
-const description = "Wonderchef codes, CHEF10 extra 10% off, best deals on Nutri-Blend grinders, PFOA-free granite cookware and Regalia coffee makers.";
+const title = "Wonderchef Official Store Guide — Nutri-Blend & Cookware";
+const description =
+  "Compare Wonderchef Nutri-Blend mixer grinders, PFOA-free granite cookware, cold-press juicers, and espresso makers. Check kitchen guides on Durza.";
 const canonical = "/stores/wonderchef";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How is the Wonderchef Nutri-Blend different from a standard mixer grinder?", answer: "The Nutri-Blend runs a 22,000 RPM copper motor with unbreakable jars built for smoothies and masala grinding in seconds, with juicer and chopper attachments — standard mixers lack the RPM and jar ecosystem." },
-  { question: "Does granite cookware work on induction stoves?", answer: "Yes. Wonderchef granite pans feature a stainless magnetic base, making them fully induction and gas compatible with even, fast heating across both cooktop types." },
-  { question: "How do I claim the warranty?", answer: "Register your appliance or cookware on wonderchef.com with the invoice to activate the 2-year on-site / replacement warranty, then raise a service request through support." },
+  {
+    question: "Do Wonderchef granite cookware pans work on induction stoves?",
+    answer:
+      "Most Wonderchef forged granite pans feature a magnetic stainless-steel induction base—check the base compatibility icon on each product page before ordering.",
+  },
+  {
+    question: "How do I extend the life of non-stick granite cookware?",
+    answer:
+      "Cook on low-to-medium flame, use wooden or silicone spatulas instead of metal spoons, and let the pan cool completely before washing with a soft sponge.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("wonderchef", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("wonderchef", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.wonderchef.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Wonderchef", path: "/stores/wonderchef" },
+          { name: "Wonderchef", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <WonderchefClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="wonderchef" />
     </>
   );

@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import MyMuseClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "MyMuse Coupons, Couple Kits & Intimate Wellness Deals";
-const description = "MyMuse.in promo codes, MUSE10 extra 10% off and discreet deals on couple kits, waterproof massagers and natural lubricants.";
+const title = "MyMuse Official Store Guide — Intimate Wellness & Care | Durza";
+const description =
+  "Explore MyMuse's body-safe silicone wellness devices, water-based lubricants, and discreetly shipped kits in India. Check care and privacy FAQs on Durza.";
 const canonical = "/stores/mymuse";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How discreet is the packaging upon delivery?", answer: "Every order ships in a plain brown or grey box with no brand name, logo, or product description anywhere on the parcel. The courier invoice shows a neutral descriptor, and billing appears under a generic company name." },
-  { question: "Is water-based Glide safe with latex condoms and silicone products?", answer: "Yes. MyMuse Glide is water-based, pH-balanced, glycerin-free and paraben-free, making it safe with latex condoms and most silicone products. It washes off easily and does not stain." },
-  { question: "How does the 1-year warranty replacement work?", answer: "MyMuse offers a 1-year replacement warranty on massagers and electronic products. Reach out to support with your order ID and a short video/photo of the defect, and a replacement ships after verification." },
+  {
+    question: "How discreet is MyMuse packaging and billing?",
+    answer:
+      "Orders ship inside plain brown outer boxes with no product descriptions or explicit branding on the shipping label.",
+  },
+  {
+    question: "How do I clean and store body-safe silicone devices?",
+    answer:
+      "Wash before and after each use with warm water and mild antibacterial toy cleaner or fragrance-free soap, pat dry with a lint-free cloth, and store separately in a breathable pouch.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("mymuse", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("mymuse", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://mymuse.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "MyMuse India", path: "/stores/mymuse" },
+          { name: "MyMuse", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <MyMuseClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="mymuse" />
     </>
   );

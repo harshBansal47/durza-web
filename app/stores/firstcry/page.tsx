@@ -8,8 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "FirstCry Coupons, Baby Products & Diaper Deals";
-const description = "FirstCry coupons and live deals on baby gear, diapers, clothing and feeding — plus Club break-even and diaper cost tools.";
+const title = "FirstCry Official Store Guide — Diapers, Baby Gear & Fashion";
+const description =
+  "Shop FirstCry direct for diapers, wipes, strollers, car seats, and kids' apparel. Compare FirstCry Club perks and monthly restock tools on Durza.";
 const canonical = "/stores/firstcry";
 
 export const metadata: Metadata = {
@@ -21,20 +22,28 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How are FirstCry coupons on Durza kept current?", answer: "Deals listed here are refreshed from firstcry.com campaign pages; codes apply at checkout on the official site. Codes are re-checked regularly — see the verification strip when it has data for a check." },
-  { question: "How does the FirstCry Club calculator estimate savings?", answer: "It estimates potential savings based on your spend and the current membership plan. Actual savings vary by category and offers." },
-  { question: "What is the return policy on baby gear?", answer: "Most baby gear is returnable within 7 days of delivery in original condition; check the individual product page for eligibility." },
+  {
+    question: "Is FirstCry Club membership worth it for parents?",
+    answer:
+      "If you order diapers, wipes, bath essentials, and growing kids' clothes every month, FirstCry Club unlocks member-only catalog discounts and shipping perks—test your monthly spend in Durza's FirstCry Club Calculator first.",
+  },
+  {
+    question: "How do I avoid buying the wrong diaper size in bulk?",
+    answer:
+      "Babies grow out of Newborn and Small sizes within weeks—buy single packs for the first two months, and switch to jumbo monthly boxes once your baby settles into Medium or Large.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("firstcry", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const destination = await resilient.getStoreDestination("firstcry", { skip: 0, limit: 10 }).catch(() => null);
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.firstcry.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
     <>
@@ -42,7 +51,7 @@ export default async function Page() {
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "FirstCry", path: "/stores/firstcry" },
+          { name: "FirstCry", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />

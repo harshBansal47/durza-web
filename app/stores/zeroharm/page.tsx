@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import ZeroHarmClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "ZeroHarm Coupons, Plant Vitamin B12 & Narie PCOS Deals";
-const description = "ZeroHarm promo codes, ZERO15 15% off and best deals on nano-formulated Plant Vitamin B12, Vegan D3+K2, Liver Detox and Narie PCOS care.";
+const title = "ZeroHarm Official Store Guide — Nano Plant Nutraceuticals";
+const description =
+  "Explore ZeroHarm's nano-formulated Curcumin, plant-based Iron, Vitamin D3+K2, and Milk Thistle supplements. Check bioavailability insights on Durza.";
 const canonical = "/stores/zeroharm";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How does ZeroHarm extract Vitamin B12 purely from plants?", answer: "ZeroHarm derives methylcobalamin from Spirulina and Chlorella through gentle water extraction, then nano-encapsulates it for direct intestinal absorption — no animal derivatives, no synthetic B12." },
-  { question: "Why do smaller nano dosages work faster than bulky 1000mg pills?", answer: "Bioavailability, not milligram weight, drives results. Nano lipid spheres carry plant actives past stomach acid into the small intestine, so your body absorbs far more per tablet than from an unabsorbed bulk dose." },
-  { question: "Can I stack NANO25 with prepaid UPI discounts?", answer: "Yes. Apply NANO25 for flat 25% off 90-day combo courses, then pay via UPI or card for an extra 5% instant deduction on the discounted balance." },
+  {
+    question: "Why are ZeroHarm supplements paired with Vitamin D3 + K2 together?",
+    answer:
+      "Vitamin D3 helps your body absorb calcium from food, while Vitamin K2 (MK-7) activates proteins that bind that calcium into bone matrix.",
+  },
+  {
+    question: "Are ZeroHarm capsules free from animal gelatin?",
+    answer:
+      "Yes—ZeroHarm uses plant-derived cellulose capsules and vegan botanical extracts across its product lineup.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("zeroharm", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("zeroharm", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.zeroharm.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "ZeroHarm Sciences", path: "/stores/zeroharm" },
+          { name: "ZeroHarm", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <ZeroHarmClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="zeroharm" />
     </>
   );

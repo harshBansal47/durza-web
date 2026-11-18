@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
@@ -8,7 +9,9 @@ import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
 import OfferCard from "@/components/OfferCard";
+import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import type { StoreOfferCard } from "@/lib/store-offers";
+import { GO_REL, storeGoHref } from "@/lib/go";
 
 interface Props {
   offers: StoreOfferCard[];
@@ -19,259 +22,214 @@ interface Props {
   storeUrl?: string;
 }
 
-type Concern = "all" | "colour" | "scalp" | "glow";
+type Concern = "grey" | "henna" | "scalp" | "skin";
 
-type Product = {
-  id: string;
+type Match = {
+  label: string;
   name: string;
-  specs: string;
+  detail: string;
   cta: string;
   src: string;
-  targetUrl: string;
-  concern: Exclude<Concern, "all">;
 };
 
-const REL = "nofollow sponsored noopener noreferrer";
+const MATCHES: Record<Concern, Match> = {
+  grey: {
+    label: "Sensitive Scalp Grey Coverage",
+    name: "Damage-Free Gel Hair Color (No Ammonia, No PPD)",
+    detail: "Enriched with aloe vera, jojoba, and orange oil for comfortable home coloring.",
+    cta: "Shop Gel Hair Color",
+    src: "matcher-gel-color",
+  },
+  henna: {
+    label: "100% Herbal Henna & Indigo",
+    name: "Bio-Organic 100% Botanical Henna & Indigo Powder",
+    detail: "Two-step natural black/brown conditioning without synthetic metallic salts.",
+    cta: "Shop Henna & Indigo",
+    src: "matcher-henna-indigo",
+  },
+  scalp: {
+    label: "Hair Fall & Scalp Care",
+    name: "Growout Onion & Bhringraj Hair Oil + Cold-Pressed Castor/Argan",
+    detail: "Unrefined carrier oils for weekly root massage.",
+    cta: "Shop Hair & Scalp Oils",
+    src: "matcher-scalp-care",
+  },
+  skin: {
+    label: "Natural Skin & Face Packs",
+    name: "Bio-Organic Sandalwood, Multani Mitti & Rose Water",
+    detail: "Micro-fine herbal powders free from synthetic fragrance.",
+    cta: "Shop Skin & Face Packs",
+    src: "matcher-face-packs",
+  },
+};
 
-const vcomLink = (targetUrl: string, p1: string): string =>
-  `https://track.vcommission.com/click?campaign_id=12859&pub_id=133499&url=${encodeURIComponent(targetUrl)}&p1=${encodeURIComponent(p1)}`;
+const TABS = (Object.keys(MATCHES) as Concern[]).map((key) => ({ id: key, label: MATCHES[key].label }));
 
-const PRODUCTS: Product[] = [
-  {
-    id: "gel-colour",
-    name: "Indus Valley Damage-Free Gel Hair Colour",
-    specs: "Ammonia-free, hydrogen peroxide-free & bleach-free gel colour with aloe vera and organic herb base",
-    cta: "Shop Damage-Free Gel Hair Colour ↗",
-    src: "matcher_gel_colour",
-    targetUrl: "https://www.buyindusvalley.in/products/gel-hair-colour",
-    concern: "colour",
-  },
-  {
-    id: "henna-indigo",
-    name: "Indus Valley Bio-Organic Henna & Indigo Powder Combo",
-    specs: "100% botanical, completely PPD-free henna & indigo powders for natural hair colouring",
-    cta: "Shop 100% Botanical Henna & Indigo ↗",
-    src: "matcher_henna_indigo",
-    targetUrl: "https://www.buyindusvalley.in/products/bio-organic-henna-indigo-powder-combo",
-    concern: "colour",
-  },
-  {
-    id: "aqua-colour",
-    name: "Indus Valley 100% Botanical Aqua Hair Colour",
-    specs: "Completely PPD-free botanical aqua colour for strict PPD-sensitive users (patch test recommended)",
-    cta: "Shop PPD-Free Aqua Hair Colour ↗",
-    src: "matcher_aqua_colour",
-    targetUrl: "https://www.buyindusvalley.in/products/aqua-hair-colour",
-    concern: "colour",
-  },
-  {
-    id: "growout-combo",
-    name: "Indus Valley Growout Hairfall Control Oil & Shampoo Combo",
-    specs: "Hairfall control oil and shampoo regimen for scalp care and stronger-feeling hair",
-    cta: "Shop Hairfall Control Regimen ↗",
-    src: "matcher_growout",
-    targetUrl: "https://www.buyindusvalley.in/products/growout-hair-oil-shampoo-combo",
-    concern: "scalp",
-  },
-  {
-    id: "depigmentation-gel",
-    name: "Indus Valley Brightening Depigmentation Gel",
-    specs: "Targeted depigmentation and pigmentation-care gel for brighter-looking skin",
-    cta: "Shop Depigmentation & Pigmentation Care ↗",
-    src: "matcher_depigmentation",
-    targetUrl: "https://www.buyindusvalley.in/products/brightening-depigmentation-gel",
-    concern: "glow",
-  },
-  {
-    id: "pigmentation-regime",
-    name: "Indus Valley AM to PM Complete Pigmentation Removal Regime",
-    specs: "4-step AM to PM pigmentation care regimen kit for a complete routine",
-    cta: "Shop 4-Step Pigmentation Kit ↗",
-    src: "matcher_depigmentation",
-    targetUrl: "https://www.buyindusvalley.in/products/pigmentation-regime",
-    concern: "glow",
-  },
-  {
-    id: "hair-spa-mask",
-    name: "Indus Valley Deep Nourishing Hair Ultima Spa Mask",
-    specs: "Deep nourishing hair spa mask for repair, softness and scalp pampering",
-    cta: "Shop Hair Spa & Repair Masks ↗",
-    src: "matcher_hair_spa",
-    targetUrl: "https://www.buyindusvalley.in/products/hair-ultima-spa-mask",
-    concern: "scalp",
-  },
-];
-
-const TABS: { id: Concern; label: string }[] = [
-  { id: "all", label: "All Best-Sellers" },
-  { id: "colour", label: "Ammonia-Free Hair Color" },
-  { id: "scalp", label: "Hairfall & Scalp Spa" },
-  { id: "glow", label: "Depigmentation & Glow" },
-];
-
-export default function IndusValleyStorePage({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
-  const [concern, setConcern] = useState<Concern>("all");
-  const topOffer = offers[0] ?? null;
-  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : "buyindusvalley.in";
-  const hubHref = vcomLink(storeUrl ?? "https://www.buyindusvalley.in", "store_hub");
-
-  const visible = useMemo(
-    () => (concern === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.concern === concern)),
-    [concern],
+function BotanicalIcon() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-16 w-16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M18 46c10-2 16-8 18-18 8 2 14 8 16 18-8 4-24 6-34 0Z" />
+      <path d="M36 28c6-8 12-12 18-14-2 8-6 14-14 18" />
+      <path d="M14 50h36" />
+      <path d="M28 50v-8" />
+      <path d="M44 14c0 6-2 10-6 14" />
+      <path d="M24 34c-4 4-6 8-6 12" />
+    </svg>
   );
+}
 
-  const mobileHref = vcomLink(
-    topOffer?.targetUrl ?? storeUrl ?? "https://www.buyindusvalley.in",
-    "mobile_sticky",
-  );
+export default function IndusValleyClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+  const [active, setActive] = useState<Concern>("grey");
+  const match = useMemo(() => MATCHES[active], [active]);
+
+  const domain = (() => {
+    try {
+      return (storeUrl ?? "https://buyindusvalley.in/").replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "");
+    } catch {
+      return "buyindusvalley.in";
+    }
+  })();
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 pb-24 md:pb-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <StoreHero
-        name="Indus Valley Bio-Organic"
-        subtitle="Ammonia-Free Gel Hair Colors, 100% Botanical Henna & Indigo, and Organic Skin Care"
+        name="Indus Valley"
+        subtitle="Doctor-recommended botanical hair colors, triple-sifted Rajasthani henna, and cold-pressed oils formulated without harsh PPD or ammonia fumes."
         domain={domain}
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        ctaHref={hubHref}
-        ctaLabel="Shop Indus Valley"
+        heroImageUrl={heroImageUrl ?? "/stores/indus-valley.webp"}
+        offerCount={offerCount ?? offers.length}
+        ctaHref={storeGoHref("indus-valley", "store-page")}
+        ctaLabel="Visit Official Store"
         offers={offers}
-        perks={[
-          { label: "Top Code", value: topOffer?.code ?? "Check live offers" },
-          { label: "Shipping", value: "Free above live cart threshold" },
-          { label: "Checkout", value: "Single code per order" },
-        ]}
       />
+
       <TrustStats {...stats} />
-      <AffiliateDisclosure />
 
-      {offers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {offers.map((o) => (
-            <OfferCard
-              key={o.id || o.code}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={vcomLink(o.targetUrl, o.code ? `offer_${o.code.toLowerCase().replace(/[^a-z0-9]+/g, "_")}` : "offer_card")}
-              expiresAt={o.expiresAt}
-            />
-          ))}
-        </div>
-      ) : (
-        <ExploreStoreCta storeName="Indus Valley Bio-Organic" href={hubHref} />
-      )}
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="indus-hook">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Official Store Guide</p>
+        <h1 id="indus-hook" className="mt-1 font-serif text-3xl font-extrabold text-ink sm:text-4xl">
+          Indus Valley — Ammonia-Free Gel Hair Color &amp; Bio-Organic Botanicals
+        </h1>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-ink-soft">
+          Doctor-recommended botanical hair colors, triple-sifted Rajasthani henna, and cold-pressed oils formulated without
+          harsh PPD or ammonia fumes.
+        </p>
+        <p className="mt-4 max-w-3xl rounded-xl border border-amber-100 bg-amber-50/70 p-4 text-sm leading-7 text-ink">
+          <strong className="font-semibold">Context:</strong> Unlike conventional box dyes that swell the hair cuticle with
+          ammonia, a pH-balanced botanical gel coats greys gently while keeping strands soft.
+        </p>
+      </section>
 
-      <section
-        aria-labelledby="shipping-coupon-guidance"
-        className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6"
-      >
-        <h2 id="shipping-coupon-guidance" className="text-lg font-bold text-ink">
-          Shipping & Coupon Guidance on buyindusvalley.in
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="indus-matcher">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Botanical Matcher</p>
+        <h2 id="indus-matcher" className="mt-1 font-serif text-2xl font-extrabold text-ink">
+          Choose your hair or skin need
         </h2>
-        <ul className="mt-3 space-y-2 text-sm text-ink-soft">
-          <li>
-            <span className="font-semibold text-ink">Free shipping:</span> Free standard shipping across India on
-            orders meeting the live cart threshold shown on buyindusvalley.in (verify in cart drawer
-            before checkout).
-          </li>
-          <li>
-            <span className="font-semibold text-ink">Coupon stacking:</span> Only one promo code applies per Shopify
-            checkout. FIRST10 is designed for first-time shoppers, while AC10 targets combos and regimens—test which
-            code yields the lowest final total alongside any automatic prepaid UPI discount shown at checkout.
-          </li>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-ink-soft">
+          Select a tab to find the right Indus Valley botanical routine. Every CTA opens the official store via a tracked link.
+        </p>
+
+        <div role="tablist" aria-label="Indus Valley matcher" className="mt-5 flex flex-wrap gap-2">
+          {TABS.map((tab) => {
+            const selected = tab.id === active;
+            return (
+              <button
+                key={tab.id}
+                id={`indus-tab-${tab.id}`}
+                role="tab"
+                type="button"
+                aria-selected={selected}
+                aria-controls={`indus-panel-${tab.id}`}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => setActive(tab.id)}
+                className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors ${
+                  selected ? "border-[#4b5d2a] bg-[#4b5d2a] text-white" : "border-ledger-line bg-white text-ink hover:border-[#4b5d2a]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          id={`indus-panel-${active}`}
+          role="tabpanel"
+          aria-labelledby={`indus-tab-${active}`}
+          className="mt-6 rounded-xl border border-ledger-line bg-[#f8faf3] p-5"
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+            <div className="inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-lime-200 bg-white text-lime-800">
+              <BotanicalIcon />
+              <span className="sr-only">No Ammonia · Triple-Sifted Botanicals</span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lime-800">{match.label}</p>
+              <h3 className="mt-1 text-lg font-semibold text-ink">{match.name}</h3>
+              <p className="mt-2 text-sm leading-7 text-ink-soft">{match.detail}</p>
+              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">No Ammonia · Triple-Sifted Botanicals</p>
+              <a
+                href={storeGoHref("indus-valley", match.src)}
+                rel={GO_REL}
+                target="_blank"
+                className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[#4b5d2a] px-5 text-sm font-semibold text-white transition hover:bg-[#3f4f23]"
+              >
+                {match.cta}
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Curated Links</p>
+        <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Explore related guides and stores</h2>
+        <div className="mt-4">
+          <StoreGuideLink slug="indus-valley" />
+        </div>
+        <ul className="mt-2 grid gap-3 text-sm sm:grid-cols-2">
+          <li><Link href="/guides/indian-skincare-actives-haircare-guide" className="font-medium text-durza-deep hover:underline">Indian skincare actives &amp; haircare guide</Link></li>
+          <li><Link href="/stores/kama-ayurveda" className="font-medium text-durza-deep hover:underline">Kama Ayurveda store guide</Link></li>
+          <li><Link href="/stores/brillare" className="font-medium text-durza-deep hover:underline">Brillare store guide</Link></li>
+          <li><Link href="/categories/beauty" className="font-medium text-durza-deep hover:underline">Beauty category</Link></li>
         </ul>
       </section>
 
-      <section
-        id="tool"
-        aria-labelledby="hair-skin-matcher"
-        className="scroll-mt-24 rounded-2xl border border-ledger-line bg-white p-5 sm:p-6"
-      >
-        <p className="font-mono text-[10px] uppercase tracking-widest text-inkblue">Shop by need</p>
-        <h2 id="hair-skin-matcher" className="mt-1 text-lg font-bold text-ink">
-          Hair &amp; Skin Solution Matcher
-        </h2>
-        <p className="mt-1 text-sm text-ink-soft">
-          Choose a concern to filter Indus Valley best-sellers, then shop the matching range on the official store.
-        </p>
+      {offers.length > 0 && (
+        <section className="mt-10" aria-labelledby="live-offers">
+          <h2 id="live-offers" className="font-serif text-2xl font-extrabold text-ink">Live offers from our feed</h2>
+          <p className="mt-1 text-sm text-ink-soft">Offers below are synced from our affiliate feed when available. Always confirm final pricing and terms on buyindusvalley.in.</p>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {offers.map((offer) => (
+              <li key={offer.id} className="min-h-0">
+                <OfferCard
+                  bookmarkId={offer.id}
+                  code={offer.code}
+                  badge={offer.badge}
+                  title={offer.title}
+                  description={offer.description}
+                  ctaHref={offer.targetUrl || storeGoHref("indus-valley", "offer-card")}
+                  expiresAt={offer.expiresAt}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-        <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label="Shop by need">
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={concern === t.id}
-              onClick={() => setConcern(t.id)}
-              className={`min-h-11 rounded-full px-4 py-2 text-sm font-medium transition ${
-                concern === t.id
-                  ? "bg-ink text-white"
-                  : "bg-white text-ink-soft ring-1 ring-ledger-line hover:text-ink"
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
+      <ExploreStoreCta
+        storeName="Indus Valley"
+        href={storeGoHref("indus-valley", "store-page-bottom")}
+        description="Browse the full Indus Valley range and check live availability, current combos, and terms directly on the official store."
+      />
 
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          {visible.map((p) => (
-            <article
-              key={p.id}
-              className="flex h-full flex-col rounded-2xl border border-ledger-line bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-inkblue hover:shadow-sm"
-            >
-              <h3 className="text-sm font-semibold leading-snug text-ink">{p.name}</h3>
-              <p className="mt-1 text-xs leading-5 text-ink-soft">{p.specs}</p>
-              <a
-                href={vcomLink(p.targetUrl, p.src)}
-                target="_blank"
-                rel={REL}
-                className="mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-xl bg-ink px-4 py-2.5 text-[11px] font-semibold text-white transition-colors hover:bg-slate-800"
-              >
-                {p.cta}
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-              </a>
-            </article>
-          ))}
-        </div>
-        <p className="mt-3 text-[10px] text-ink-soft">
-          Product availability, formulations and pricing are shown on buyindusvalley.in — confirm live details and
-          perform a 48-hour patch test before applying any hair colour.
-        </p>
-      </section>
+      <FaqSection eyebrow="Indus Valley FAQs" items={faqs} />
 
-      <FaqSection eyebrow="Indus Valley Bio-Organic FAQs" items={faqs} />
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a
-          href={mobileHref}
-          target="_blank"
-          rel={REL}
-          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-        >
-          <span className="min-w-0">
-            {topOffer?.code ? (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Code {topOffer.code}
-              </span>
-            ) : (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Official store
-              </span>
-            )}
-            <span className="block truncate text-xs font-semibold">
-              {topOffer ? topOffer.title : "Check live range & offers on Indus Valley"}
-            </span>
-          </span>
-          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-            Shop
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          </span>
-        </a>
-      </div>
+      <p className="mt-8 text-xs leading-6 text-ink-faint">
+        Durza may earn a commission from purchases made via our affiliate links to Indus Valley (buyindusvalley.in). Product availability and terms are subject to change on the official store.
+      </p>
+      <AffiliateDisclosure />
     </div>
   );
 }

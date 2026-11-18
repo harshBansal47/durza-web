@@ -6,10 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Fuel One Coupons, Whey Protein & Creatine Deals";
-const description = "Fuel One deals on whey isolate, creatine and pre-workout with live prices vs MRP and free delivery across India.";
+const title = "Fuel One Official Store Guide — Whey Max & Creatine | Durza";
+const description =
+  "Compare Fuel One Whey Max, Iso-Max, and Creatine Monohydrate from the makers of MuscleBlaze. Check lab-test authenticity and pack sizes on Durza.";
 const canonical = "/stores/fuelone";
 
 export const metadata: Metadata = {
@@ -21,33 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How are Fuel One prices on Durza shown?", answer: "Prices and MRP reflect the official fuelone.in listing at the time of page update — supplement and creatine prices shift with promotions." },
-  { question: "Are Fuel One supplements FSSAI certified?", answer: "Yes. Fuel One sells FSSAI-licensed sports nutrition directly from its official warehouse with batch and best-before details on every pack." },
-  { question: "Does Fuel One offer free delivery?", answer: "Free delivery is available on eligible orders on the official site; the cart page at checkout shows the current threshold." },
-  { question: "Where do Fuel One creatine monohydrate deals show up — is there always a code?", answer: "Fuel One creatine prices move with promotions. When a creatine-specific code exists it appears in the offers panel above this answer until its expiry — some weeks have one, others rely on the auto-applied promotion price in the cart instead. The panel is the weekly source of truth." },
+  {
+    question: "How is Fuel One different from MuscleBlaze Biozyme?",
+    answer:
+      "Both come from the same parent company (Bright Lifecare) with the same lab-testing standards; Fuel One strips away fancy packaging and specialty enzyme blends to focus on clean, high-protein-per-scoop value.",
+  },
+  {
+    question: "How do I verify my Fuel One tub is genuine?",
+    answer:
+      "Scratch the unique code on the neck seal and verify it on the official Fuel One / MuscleBlaze authentication portal before breaking the inner seal.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("fuelone", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("fuelone", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://fuelone.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Fuel One", path: "/stores/fuelone" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Fuel One", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="fuelone" />
     </>
   );

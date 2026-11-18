@@ -8,9 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "ItaliaRail Coupons & Italy Train Booking Offers";
+const title = "ItaliaRail Official Guide — Trenitalia & Italy Rail Tickets";
 const description =
-  "ItaliaRail is an authorized English-language booking partner for Trenitalia and Italo high-speed trains across Italy, with multi-currency checkout (EUR/USD/GBP) and instant e-tickets.";
+  "Book Trenitalia Frecciarossa high-speed trains and regional routes across Rome, Florence, Venice, and Milan in English with multi-currency checkout.";
 const canonical = "/stores/italiarail-many-geos";
 
 export const metadata: Metadata = {
@@ -23,31 +23,27 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    question: "Is ItaliaRail an authorized booking partner for Italian trains?",
+    question: "Do I need to print ItaliaRail e-tickets before boarding?",
     answer:
-      "ItaliaRail is an authorized English-language booking partner for Trenitalia and Italo high-speed trains across Italy, including routes connecting Rome, Florence, Venice, and Milan.",
+      "For high-speed Frecciarossa and Intercity trains with reserved seats, showing the PNR/QR code on your phone to the conductor is valid—regional tickets may require online check-in before departure.",
   },
   {
-    question: "What currency options does ItaliaRail support?",
+    question: "Which currency should Indian travelers pay in on ItaliaRail?",
     answer:
-      "ItaliaRail supports multi-currency checkout options such as EUR, USD, and GBP (availability may vary at checkout) and provides instant e-tickets for eligible bookings.",
-  },
-  {
-    question: "How can Indian travelers save on international rail bookings?",
-    answer:
-      "Compare live fares and booking terms on ItaliaRail, then consider using a bank card with low or zero foreign exchange markup and checking applicable card offers on Durza's bank offers page before paying.",
+      "ItaliaRail supports EUR, USD, and GBP checkout; paying in EUR with a zero-forex-markup credit card typically avoids dynamic currency conversion markups.",
   },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("italiarail-many-geos", { skip: 0, limit: 50 }).catch(() => null);
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const destination = await resilient.getStoreDestination("italiarail-many-geos", { skip: 0, limit: 10 }).catch(() => null);
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.italiarail.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
     <>
@@ -55,11 +51,18 @@ export default async function Page() {
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "ItaliaRail", path: "/stores/italiarail-many-geos" },
+          { name: "ItaliaRail", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="italiarail-many-geos" />
     </>
   );

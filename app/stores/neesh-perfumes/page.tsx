@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import NeeshPerfumesClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Neesh Perfumes Coupons, Glaze Extrait & Luxury Attar Deals";
-const description = "Neesh Perfumes promo codes, NEESH10 extra 10% off, and best deals on Glaze Extrait de Parfum, Milky Way and high-sillage attars.";
+const title = "Neesh Perfumes Official Store Guide — Extrait de Parfum | Durza";
+const description =
+  "Explore Neesh Perfumes' high-concentration Extrait de Parfum collection and discovery sample sets crafted for Indian weather. Compare scent notes on Durza.";
 const canonical = "/stores/neesh-perfumes";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "What is the difference between Eau de Parfum and Extrait de Parfum?", answer: "Standard EDP carries 15%–18% perfume oil; Neesh Extrait packs 25%–30%. That is why Extrait survives Indian heat and humidity with 12H+ sillage instead of fading in 2–3 hours." },
-  { question: "How long do Neesh scents last on clothing?", answer: "On fabric, Neesh Extrait and pure attars hold 12–24 hours. Mist pulse points and a light spray on clothing (from 30cm away) for the strongest, longest-lasting projection." },
-  { question: "How do I apply NEESH10?", answer: "Add your chosen bottles or discovery set to the cart on neeshperfumes.com, enter NEESH10 at checkout for an extra 10% off — no minimum order value, stackable with sale prices." },
+  {
+    question: "Why start with a Neesh Discovery Set before buying a full bottle?",
+    answer:
+      "High-concentration Extraits evolve across top, heart, and base notes over 6–8 hours—testing a sample vial on your own skin shows how the dry-down performs in your local humidity.",
+  },
+  {
+    question: "How should I store Extrait de Parfum bottles in India?",
+    answer:
+      "Keep bottles inside a cool, dark cupboard rather than a steamy bathroom shelf, as heat and direct sunlight oxidize delicate fragrance oils.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("neesh-perfumes", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("neesh-perfumes", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://neeshperfumes.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Neesh Perfumes", path: "/stores/neesh-perfumes" },
+          { name: "Neesh Perfumes", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <NeeshPerfumesClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="neesh-perfumes" />
     </>
   );

@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import AldoShoesLuxuryPage from "./AldoShoesLuxuryPage";
+import StoreClient from "./client";
+import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { ALDO_SHOES_SLOTS } from "@/lib/luxury-images";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "ALDO — The Architectural Footwear & Bag Edit | Durza";
+const title = "ALDO India Official Store Guide — Pillow Walk & Bags | Durza";
 const description =
-  "An editorial lookbook of ALDO India: sculpted heels, boardroom loafers, butter-soft sandals, structured bags and suede boots — curated for the modern wardrobe.";
+  "Shop ALDO India direct for Pillow Walk cushioned heels, men's dress loafers, sneakers, and handbags. Check sizing and official store terms on Durza.";
 const canonical = "/stores/aldo-shoes";
 
 export const metadata: Metadata = {
@@ -22,19 +23,14 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    question: "What sizes does ALDO India stock?",
+    question: "What is ALDO Pillow Walk technology?",
     answer:
-      "ALDO India stocks EU sizes 35–42 in women's footwear and 6–12 in men's footwear most seasons; narrow and wide fits vary by collection. Refer to the size guide on each product page before ordering.",
+      "It is a built-in dual-density foam insole integrated into select ALDO heels, flats, and men's dress shoes to absorb heel and forefoot impact.",
   },
   {
-    question: "Does Durza earn commission on ALDO returns?",
+    question: "Can I exchange sizes ordered on aldoshoes.in?",
     answer:
-      "No — commission applies to completed, non-returned orders. If you return a product, the affiliate attribution forfeits automatically; Durza only benefits when the purchase sticks.",
-  },
-  {
-    question: "Are ALDO India prices the same as ALDO Europe?",
-    answer:
-      "No. Prices on aldoshoes.in are India-specific, inclusive of GST and duties, and set by the India licensee. Collections are also localised — not every European style is stocked.",
+      "Yes—check the size-exchange and return window listed on each product page before removing tags or wearing shoes outdoors.",
   },
 ];
 
@@ -42,8 +38,12 @@ export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("aldo-new", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
+  const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? "https://www.aldoshoes.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
     <>
@@ -55,7 +55,15 @@ export default async function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <AldoShoesLuxuryPage storeUrl={storeUrl} faqs={FAQS} stats={stats} slots={ALDO_SHOES_SLOTS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
+      <RelatedGuides slug="aldo-new" />
     </>
   );
 }

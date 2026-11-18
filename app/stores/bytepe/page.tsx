@@ -6,10 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "BytePe Coupons, Bill Payment Cashback Deals";
-const description = "BytePe cashback codes, FIRSTBILL offers and best deals on BBPS bill payments, recharges and instant digital gift vouchers.";
+const title = "BytePe Official Guide — Smartphone Subscription & Upgrades";
+const description =
+  "Understand how BytePe's smartphone subscription, damage protection, and annual upgrade model works in India. Compare terms and FAQs on Durza.";
 const canonical = "/stores/bytepe";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "Does BytePe charge convenience fees on mobile and electricity bill payments?", answer: "Platform fees and convenience charges can vary by app, biller, and payment method. Review the current charges and terms shown on BytePe before making a payment." },
-  { question: "How does the FIRSTBILL cashback code work?", answer: "Create your BytePe account, choose your state electricity or piped gas provider under the BBPS section, check the current offer terms, minimum amount (if any), and cashback conditions on BytePe before applying a code." },
-  { question: "How fast do brand digital gift vouchers get delivered?", answer: "Gift vouchers purchased on BytePe are delivered instantly via SMS and email within seconds of transaction confirmation, ready to redeem on Amazon, Flipkart, or food delivery apps." },
+  {
+    question: "What happens at the end of a BytePe subscription term?",
+    answer:
+      "Depending on your chosen plan terms on bytepe.com, you can typically upgrade to a newer device, extend/buy out the phone at the residual value, or return it in good working condition.",
+  },
+  {
+    question: "What documents and checks are required for approval?",
+    answer:
+      "BytePe runs standard KYC and credit/eligibility checks during onboarding—review exact eligibility, security deposit (if any), and damage policy terms on bytepe.com before confirming.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("bytepe", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("bytepe", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://bytepe.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "BytePe", path: "/stores/bytepe" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "BytePe", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="bytepe" />
     </>
   );

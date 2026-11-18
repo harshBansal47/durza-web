@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import LevisClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Levi's India Coupons, 511 & 501 Jeans Deals & Sale Offers";
-const description = "Explore Levi’s jeans and apparel with current offers and promo code eligibility shown on the official store.";
+const title = "Levi's India Official Store Guide — 501, 511 & Fit Decoder";
+const description =
+  "Compare Levi's 501 Original, 511 Slim, 512 Slim Taper, and Trucker Jackets on levi.in. Check fit differences, inseam lengths, and Red Tab perks on Durza.";
 const canonical = "/stores/levis";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "What is the difference between the Levi's 511™ and 512™ fits?", answer: "511™ is a slim fit through the thigh and leg. 512™ keeps the slim thigh but tapers the ankle opening — a slim-taper silhouette best paired with sneakers or Chelsea boots." },
-  { question: "How does the 15-day size exchange and return work?", answer: "Unworn Levi's purchases can be exchanged or returned within 15 days of delivery. Start a request on levi.in with your invoice; reverse pickup and refund are handled by their courier partners." },
-  { question: "Can LEVIS1000 be applied on sale items?", answer: "Promo code eligibility, minimum cart values, and product exclusions can vary. Check the current terms and apply eligible codes at checkout on Levi.in." },
+  {
+    question: "What is the main difference between Levi's 511 and 512 jeans?",
+    answer:
+      "Both share the same waist and thigh cut, but the 512 narrows aggressively from the knee down to a smaller leg opening, whereas the 511 stays uniform from knee to hem.",
+  },
+  {
+    question: "How should I wash raw or dark-indigo Levi's denim to prevent fading?",
+    answer:
+      "Turn jeans inside out, wash cold with minimal detergent only when needed, and air-dry in the shade—avoiding hot water and tumble dryers.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("levis", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("levis", { skip: 0, limit: 10 }).catch(() => null);
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.levi.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Levi's India", path: "/stores/levis" },
+          { name: "Levi's India", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <LevisClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="levis" />
     </>
   );

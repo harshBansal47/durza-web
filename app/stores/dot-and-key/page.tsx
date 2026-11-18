@@ -8,9 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Dot & Key Skincare — Official Store Guide & Deals";
+const title = "Dot & Key Official Store Guide — Sunscreens & Serums | Durza";
 const description =
-  "Shop Dot & Key sunscreens, serums and moisturizers by skin concern. Check live prices, combos and current offers on the official Dot & Key store.";
+  "Shop Dot & Key direct for Watermelon Cooling Sunscreen, Ceramide Barrier Repair, and Vitamin C serums. Check official combos and skincare tips on Durza.";
 const canonical = "/stores/dot-and-key";
 
 export const metadata: Metadata = {
@@ -23,37 +23,28 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    question: "How does the Dot & Key Buy 2 Get 2 Free (B2G2) offer work?",
+    question: "Why order from dotandkey.com instead of marketplaces?",
     answer:
-      "Dot & Key runs B2G2 and other sitewide promotions from time to time. When active, eligible items and the applicable code/auto-discount are shown on dotandkey.com — add the required items to your cart and confirm the final discount in the cart/checkout before paying.",
+      "Official site carries the newest batch dates, full travel-size trial kits, and sitewide multi-product combo tiers.",
   },
   {
-    question: "Which Dot & Key sunscreen is best for oily and acne-prone skin?",
+    question: "How do I layer Dot & Key actives safely?",
     answer:
-      "The Watermelon Hyaluronic Cooling Sunscreen SPF 50+ is positioned as a lightweight, oil-free gel with no white cast, making it a popular pick for oily or humid-weather routines. Check the current ingredients, SPF details and suitability on the official product page.",
-  },
-  {
-    question: "What is the free shipping threshold on Dot & Key?",
-    answer:
-      "Free shipping thresholds on dotandkey.com can vary by promotion. Check the progress bar in your cart before checkout.",
-  },
-  {
-    question: "What is Dot & Key's return and refund policy?",
-    answer:
-      "Dot & Key accepts return or replacement requests within 48 hours of delivery strictly for transit-damaged, defective, or incorrect sealed items (with photo proof via customercare@dotandkey.com). Prepaid refunds process within 7 working days, while COD refunds take up to 14 working days.",
+      "Apply watery serums (Vitamin C or Niacinamide) on clean skin first, lock in with Ceramide moisturizer, and finish with two fingers' worth of SPF 50 every morning.",
   },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("dot-and-key", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const destination = await resilient.getStoreDestination("dot-and-key", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? "https://www.dotandkey.com";
+  const storeUrl = destination?.store.website_url ?? "https://www.dotandkey.com/";
   const offerCount =
     destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
@@ -66,11 +57,11 @@ export default async function Page() {
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient
         offers={offers}
+        faqs={FAQS}
+        stats={stats}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         storeUrl={storeUrl}
-        stats={stats}
-        faqs={FAQS}
       />
       <RelatedGuides slug="dot-and-key" />
     </>

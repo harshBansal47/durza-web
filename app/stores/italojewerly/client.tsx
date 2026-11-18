@@ -1,50 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
-import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
+import OfferCard from "@/components/OfferCard";
+import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import type { StoreOfferCard } from "@/lib/store-offers";
-
-const REL = "nofollow sponsored noopener noreferrer";
-
-type Tab = "engagement" | "wedding" | "everyday";
-const TABS: Record<Tab, { label: string; title: string; points: string[]; cta: string }> = {
-  engagement: {
-    label: "Engagement Sets",
-    title: "Lab-created stones for engagement styles",
-    points: [
-      "Explore lab-created sapphire and moissanite engagement ring designs.",
-      "Review 925 sterling silver settings and stone specifications on the product page.",
-      "Confirm ring sizing, shipping timelines, and international checkout terms before ordering.",
-    ],
-    cta: "/go/italojewerly?src=matcher-engagement",
-  },
-  wedding: {
-    label: "Wedding Sets",
-    title: "Coordinated wedding and bridal sets",
-    points: [
-      "Look for matching engagement/wedding sets with lab-created stones.",
-      "Check metal purity, finish, and care instructions listed by Italo Jewelry.",
-      "International USD pricing and duties may affect the final landed cost in India.",
-    ],
-    cta: "/go/italojewerly?src=matcher-wedding",
-  },
-  everyday: {
-    label: "Everyday Silver",
-    title: "Sterling silver pieces for daily wear",
-    points: [
-      "Browse 925 sterling silver jewellery options for everyday styling.",
-      "Verify dimensions, plating/finish details, and return policies on Italo Jewelry.",
-      "Use tracked links to check current availability and live pricing at checkout.",
-    ],
-    cta: "/go/italojewerly?src=matcher-everyday",
-  },
-};
+import { GO_REL, storeGoHref } from "@/lib/go";
 
 interface Props {
   offers: StoreOfferCard[];
@@ -55,112 +22,156 @@ interface Props {
   storeUrl?: string;
 }
 
-export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, offerCount }: Props) {
-  const [tab, setTab] = useState<Tab>("engagement");
-  const active = TABS[tab];
-  const topOffer = offers[0] ?? null;
-  const storeHref = "/go/italojewerly?src=store-page";
+type Tab = "bridal" | "everyday" | "gemstone" | "gifts";
+
+const MATCHES: Record<Tab, { label: string; name: string; detail: string; cta: string; src: string }> = {
+  bridal: {
+    label: "Bridal & Engagement Sets",
+    name: "Two-Piece & Three-Piece Halo & Solitaire Ring Sets",
+    detail: "Matching engagement rings and contoured wedding bands in 925 sterling silver.",
+    cta: "Shop Bridal Sets",
+    src: "matcher-bridal-sets",
+  },
+  everyday: {
+    label: "Everyday Promise & Eternity Bands",
+    name: "Stackable Eternity Bands & Minimalist Solitaires",
+    detail: "Low-profile settings built for comfortable daily wear.",
+    cta: "Shop Everyday Bands",
+    src: "matcher-everyday-bands",
+  },
+  gemstone: {
+    label: "Colored Gemstone Statements",
+    name: "Lab-Created Sapphire, Emerald & Morganite Cuts",
+    detail: "Oval, pear, and cushion-cut centerpieces with pavé side stones.",
+    cta: "Shop Gemstone Jewelry",
+    src: "matcher-gemstones",
+  },
+  gifts: {
+    label: "Earrings, Necklaces & Gift Boxes",
+    name: "Drop Earrings, Pendants & Velvet Presentation Packaging",
+    detail: "Coordinated jewelry sets ready for milestone gifting.",
+    cta: "Shop Gifts & Sets",
+    src: "matcher-gifts",
+  },
+};
+
+const TABS = (Object.keys(MATCHES) as Tab[]).map((id) => ({ id, label: MATCHES[id].label }));
+
+function GemIcon() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-16 w-16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M20 18h24l10 10-22 24L10 28l10-10Z" />
+      <path d="M10 28h44M20 18l12 10 12-10M32 28v24M20 18l6 10M44 18l-6 10" />
+      <circle cx="18" cy="50" r="6" />
+      <circle cx="46" cy="50" r="6" />
+    </svg>
+  );
+}
+
+export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+  const [active, setActive] = useState<Tab>("bridal");
+  const match = useMemo(() => MATCHES[active], [active]);
+  const domain = (() => {
+    try {
+      return (storeUrl ?? "https://www.italojewelry.com/").replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "");
+    } catch {
+      return "italojewelry.com";
+    }
+  })();
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 pb-24 md:pb-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <StoreHero
         name="Italo Jewelry"
-        subtitle="Lab-created sapphire, moissanite, and 925 sterling silver engagement and wedding sets."
-        domain="italojewelry.com"
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        ctaHref={storeHref}
-        ctaLabel="Shop Italo Jewelry →"
+        subtitle="Hand-set lab-created white sapphire, emerald, and moissanite bridal sets crafted in rhodium-plated 925 sterling silver with international delivery."
+        domain={domain}
+        heroImageUrl={heroImageUrl ?? "/stores/italojewerly.webp"}
+        offerCount={offerCount ?? offers.length}
+        ctaHref={storeGoHref("italojewerly", "store-page")}
+        ctaLabel="Visit Official Store"
         offers={offers}
       />
       <TrustStats {...stats} />
-      <AffiliateDisclosure />
 
-      <section className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 className="text-xl font-bold text-ink">International checkout notes for Indian buyers</h2>
-        <p className="mt-2 text-sm leading-6 text-ink-soft">
-          Italo Jewelry orders ship internationally in USD. Indian buyers should check the live total at checkout, prefer a zero-foreign-exchange-markup credit card where available, and account for standard Indian import duties/taxes and courier charges that may apply to the final landed cost.
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="ij-hook">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Official Store Guide</p>
+        <h1 id="ij-hook" className="mt-1 font-serif text-3xl font-extrabold text-ink sm:text-4xl">
+          Italo Jewelry — Lab-Created Gemstones &amp; 925 Sterling Silver Ring Sets
+        </h1>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-ink-soft">
+          Hand-set lab-created white sapphire, emerald, and moissanite bridal sets crafted in rhodium-plated 925 sterling silver with international delivery.
+        </p>
+        <p className="mt-4 max-w-3xl rounded-xl border border-rose-100 bg-rose-50/70 p-4 text-sm leading-7 text-ink">
+          <strong className="font-semibold">Context:</strong> Rhodium electroplating over 925 sterling silver gives rings the bright, mirror-white luster of platinum while slowing down natural silver tarnishing.
+        </p>
+        <p className="mt-3 text-sm leading-7 text-ink-soft">
+          Global checkout: orders are typically billed in USD with international courier shipping. Review live totals, shipping timelines, and applicable customs duties before ordering—no local UPI assumptions apply.
         </p>
       </section>
 
-      <section aria-labelledby="italojewerly-matcher" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Jewellery matcher</p>
-        <h2 id="italojewerly-matcher" className="mt-1 text-xl font-bold text-ink">Find the right Italo Jewelry style</h2>
-        <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label="Italo Jewelry style matcher">
-          {(Object.keys(TABS) as Tab[]).map((id) => (
-            <button
-              key={id}
-              type="button"
-              role="tab"
-              aria-selected={tab === id}
-              aria-controls="italojewerly-matcher-panel"
-              onClick={() => setTab(id)}
-              className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors ${tab === id ? "border-ink bg-ink text-white" : "border-ledger-line bg-white text-ink-soft hover:border-inkblue hover:text-ink"}`}
-            >
-              {TABS[id].label}
-            </button>
-          ))}
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="ij-matcher">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Jewelry Matcher</p>
+        <h2 id="ij-matcher" className="mt-1 font-serif text-2xl font-extrabold text-ink">Choose your Italo Jewelry style</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-ink-soft">Select a tab to explore styles and sets. Every CTA opens the official store via a tracked link.</p>
+        <div role="tablist" aria-label="Italo Jewelry matcher" className="mt-5 flex flex-wrap gap-2">
+          {TABS.map((tab) => {
+            const selected = tab.id === active;
+            return (
+              <button key={tab.id} id={`ij-tab-${tab.id}`} role="tab" type="button" aria-selected={selected} aria-controls={`ij-panel-${tab.id}`} tabIndex={selected ? 0 : -1} onClick={() => setActive(tab.id)} className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors ${selected ? "border-rose-700 bg-rose-700 text-white" : "border-ledger-line bg-white text-ink hover:border-rose-700"}`}>
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
-        <div id="italojewerly-matcher-panel" role="tabpanel" className="mt-4 rounded-xl border border-ledger-line bg-paper-raised p-4 sm:p-5">
-          <h3 className="text-lg font-bold text-ink">{active.title}</h3>
-          <ul className="mt-3 space-y-2 text-sm text-ink-soft">
-            {active.points.map((point) => (
-              <li key={point} className="flex items-start gap-2">
-                <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-verified" strokeWidth={2} />
-                <span>{point}</span>
+        <div id={`ij-panel-${active}`} role="tabpanel" aria-labelledby={`ij-tab-${active}`} className="mt-6 rounded-xl border border-ledger-line bg-rose-50/40 p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+            <div className="inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-rose-200 bg-white text-rose-700">
+              <GemIcon />
+              <span className="sr-only">925 Sterling Silver · Rhodium Finish · Global Shipping</span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-700">{match.label}</p>
+              <h3 className="mt-1 text-lg font-semibold text-ink">{match.name}</h3>
+              <p className="mt-2 text-sm leading-7 text-ink-soft">{match.detail}</p>
+              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">925 Sterling Silver · Rhodium Finish · Global Shipping</p>
+              <a href={storeGoHref("italojewerly", match.src)} rel={GO_REL} target="_blank" className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-rose-700 px-5 text-sm font-semibold text-white transition hover:bg-rose-800">
+                {match.cta}
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Curated Links</p>
+        <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Related guides and collections</h2>
+        <div className="mt-4"><StoreGuideLink slug="italojewerly" /></div>
+        <ul className="mt-2 grid gap-3 text-sm sm:grid-cols-2">
+          <li><Link href="/stores/palmonas" className="font-medium text-durza-deep hover:underline">Palmonas store guide</Link></li>
+          <li><Link href="/collections/wedding-and-festive-luxury-gifting-edit-india" className="font-medium text-durza-deep hover:underline">Wedding &amp; festive luxury gifting edit (India)</Link></li>
+          <li><Link href="/categories/gifts" className="font-medium text-durza-deep hover:underline">Gifts category</Link></li>
+        </ul>
+      </section>
+
+      {offers.length > 0 && (
+        <section className="mt-10" aria-labelledby="live-offers">
+          <h2 id="live-offers" className="font-serif text-2xl font-extrabold text-ink">Live offers from our feed</h2>
+          <p className="mt-1 text-sm text-ink-soft">Offers below are synced from our affiliate feed when available. Always confirm final pricing, currency, shipping, and duties on italojewelry.com.</p>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {offers.map((offer) => (
+              <li key={offer.id} className="min-h-0">
+                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={offer.targetUrl || storeGoHref("italojewerly", "offer-card")} expiresAt={offer.expiresAt} />
               </li>
             ))}
           </ul>
-          <a href={active.cta} target="_blank" rel={REL} className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
-            Explore {TABS[tab].label} on Italo Jewelry <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          </a>
-        </div>
-      </section>
-
-      {offers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {offers.map((o, idx) => (
-            <OfferCard
-              key={o.id || idx}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={o.targetUrl.startsWith("/go/") ? `${o.targetUrl}${o.targetUrl.includes("?") ? "&" : "?"}src=offer-card` : `/go/italojewerly?src=offer-card`}
-              expiresAt={o.expiresAt}
-            />
-          ))}
-        </div>
-      ) : (
-        <ExploreStoreCta storeName="Italo Jewelry" href={storeHref} />
+        </section>
       )}
 
-      <section aria-labelledby="italojewerly-related" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 id="italojewerly-related" className="text-lg font-bold text-ink">Related jewellery & gifting picks</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="/stores/palmonas" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
-            <p className="font-semibold text-ink">Palmonas</p>
-            <p className="mt-1 text-sm text-ink-soft">Demi-fine jewellery and everyday accessories in India</p>
-          </a>
-          <a href="/collections/wedding-and-festive-luxury-gifting-edit-india" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
-            <p className="font-semibold text-ink">Wedding & Festive Luxury Gifting Edit</p>
-            <p className="mt-1 text-sm text-ink-soft">Curated gifting ideas for weddings and celebrations</p>
-          </a>
-        </div>
-      </section>
-
+      <ExploreStoreCta storeName="Italo Jewelry" href={storeGoHref("italojewerly", "store-page-bottom")} description="Browse the full Italo Jewelry range and check live USD pricing, international shipping, and terms directly on the official store." />
       <FaqSection eyebrow="Italo Jewelry FAQs" items={faqs} />
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a href={topOffer ? (topOffer.targetUrl.startsWith("/go/") ? topOffer.targetUrl : storeHref) : storeHref} target="_blank" rel={REL} className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white">
-          <span className="min-w-0">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">{topOffer?.code ? `Code ${topOffer.code}` : "Official store"}</span>
-            <span className="block truncate text-xs font-semibold">{topOffer ? topOffer.title : "Check current Italo Jewelry range"}</span>
-          </span>
-          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">Open <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
-        </a>
-      </div>
+      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Italo Jewelry (italojewelry.com). Pricing, currency, shipping, and terms are subject to change on the official store.</p>
+      <AffiliateDisclosure />
     </div>
   );
 }

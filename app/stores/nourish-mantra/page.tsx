@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import NourishMantraClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Nourish Mantra Coupons, Urban Rani & Clean Skincare Deals";
-const description = "Nourish Mantra promo codes, GLOW20 20% off, and best deals on 100% vegan Urban Rani Youth Serum, Cosmic Sutra Eye Gel, and Redensyl serums.";
+const title = "Nourish Mantra Official Store Guide — Vegan Skincare | Durza";
+const description =
+  "Shop Nourish Mantra direct for Urban Rani Youth Preserve Facial Oil, Mystic Indian Rose Mist, and vegan clay masks. Check ingredient guides on Durza.";
 const canonical = "/stores/nourish-mantra";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How does the Nourish Mantra Urban Rani Youth Serum work?", answer: "Urban Rani Youth Serum blends modern actives like Niacinamide with traditional botanical extracts like Fortunella fruit and Okra. It works as an intensive cellular hydrator and pollution shield, reducing fine lines and evening skin texture without clogging pores." },
-  { question: "Can MANTRA15 or GLOW20 be combined with prepaid UPI discounts?", answer: "Yes. First enter coupon code MANTRA15 or GLOW20 on nourishmantra.in during checkout. When you proceed to the payment gateway and choose UPI or prepaid cards, an extra 5% instant discount is calculated on the remaining balance." },
-  { question: "What is the minimum order threshold for free delivery on Nourish Mantra?", answer: "Delivery thresholds and eligibility can vary. Check the current free-delivery terms on Nourish Mantra at checkout." },
+  {
+    question: "Are all Nourish Mantra formulations 100% vegan?",
+    answer:
+      "Yes—the brand is PETA-certified vegan and cruelty-free, avoiding beeswax, lanolin, carmine, SLS, and parabens across its catalog.",
+  },
+  {
+    question: "Where does a facial oil go in a skincare routine?",
+    answer:
+      "Always apply facial oil as the final evening step after water-based serums and moisturizer so it locks hydration in rather than blocking water-based actives.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("nourish-mantra", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("nourish-mantra", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://nourishmantra.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Nourish Mantra", path: "/stores/nourish-mantra" },
+          { name: "Nourish Mantra", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <NourishMantraClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="nourish-mantra" />
     </>
   );

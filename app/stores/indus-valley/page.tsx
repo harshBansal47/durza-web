@@ -8,9 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Indus Valley — Ammonia-Free Hair Colour & Organic Care | Durza";
+const title = "Indus Valley Official Store Guide — Botanical Hair Care | Durza";
 const description =
-  "Explore Indus Valley ammonia-free gel hair colours, botanical henna & indigo, and organic skin care. Check live prices and current offers on the official store.";
+  "Explore Indus Valley Damage-Free Gel Hair Color, Bio-Organic Henna, and cold-pressed carrier oils. Compare herbal hair care options on Durza.";
 const canonical = "/stores/indus-valley";
 
 export const metadata: Metadata = {
@@ -23,32 +23,28 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    question: "How is Indus Valley Gel Hair Colour different from regular dyes?",
+    question: "Do I still need a patch test with botanical hair color?",
     answer:
-      "Indus Valley Damage-Free Gel Hair Colour is 100% free from ammonia, hydrogen peroxide, and harsh bleach, using a soothing aloe vera and organic herb base. If you have a strict PPD allergy, choose Indus Valley's 100% Botanical Aqua Colour or Bio-Organic Henna & Indigo powders, which are completely PPD-free (always perform a 48-hour skin patch test before applying any hair color).",
+      "Yes—even natural plant extracts can trigger sensitivities, so always test behind the ear 48 hours before full application.",
   },
   {
-    question: "How do I get free shipping on Indus Valley orders?",
+    question: "How do Henna and Indigo work together for dark brown/black hair?",
     answer:
-      "Free standard shipping across India may apply on orders meeting the live cart threshold shown on buyindusvalley.in. Verify the current threshold and eligibility in the cart before checkout.",
-  },
-  {
-    question: "Can the FIRST10 coupon code be used on bundles and kits?",
-    answer:
-      "FIRST10 is designed for first-time shoppers on buyindusvalley.in, while AC10 targets combos and regimens. Only one promo code applies per Shopify checkout—test which code yields the lowest final total alongside any automatic prepaid UPI discount.",
+      "Apply pure organic henna first for a copper-red base, rinse, and follow with indigo powder so the two plant pigments bind naturally.",
   },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("indus-valley", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const destination = await resilient.getStoreDestination("indus-valley", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? "https://www.buyindusvalley.in";
+  const storeUrl = destination?.store.website_url ?? "https://buyindusvalley.in/";
   const offerCount =
     destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
@@ -61,11 +57,11 @@ export default async function Page() {
       <JsonLd data={faqPageJsonLd(FAQS)} />
       <StoreClient
         offers={offers}
+        faqs={FAQS}
+        stats={stats}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         storeUrl={storeUrl}
-        stats={stats}
-        faqs={FAQS}
       />
       <RelatedGuides slug="indus-valley" />
     </>

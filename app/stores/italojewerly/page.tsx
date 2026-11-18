@@ -8,9 +8,9 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Italo Jewelry Coupons & Lab-Created Jewellery Offers";
+const title = "Italo Jewelry Store Guide — Moissanite & 925 Silver Rings";
 const description =
-  "Italo Jewelry offers on lab-created sapphire, moissanite, and 925 sterling silver engagement and wedding sets. International USD checkout notes for Indian buyers included.";
+  "Explore Italo Jewelry's lab-created sapphire, moissanite, and 925 sterling silver engagement and wedding sets. Check international shipping on Durza.";
 const canonical = "/stores/italojewerly";
 
 export const metadata: Metadata = {
@@ -23,31 +23,27 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    question: "What does Italo Jewelry specialize in?",
+    question: "How are orders from Italo Jewelry billed and shipped to India?",
     answer:
-      "Italo Jewelry highlights lab-created sapphire, moissanite, and 925 sterling silver engagement and wedding sets. Check each product page for stone details, metal specs, and sizing information.",
+      "Italo Jewelry processes orders in USD with international courier shipping—check live transit times and standard Indian customs import duty rules before placing high-value orders.",
   },
   {
-    question: "Does Italo Jewelry ship internationally to India?",
+    question: "How do I keep rhodium-plated 925 sterling silver sparkling?",
     answer:
-      "Orders are typically shipped internationally in USD. Indian buyers should review shipping timelines, total checkout cost, and potential import duties or taxes before placing an order.",
-  },
-  {
-    question: "How can Indian buyers reduce checkout costs on USD orders?",
-    answer:
-      "Consider using a credit card with zero foreign exchange markup where available and review your bank's international transaction charges. Final landed cost depends on duties, taxes, and courier fees applicable to your order.",
+      "Remove rings before swimming in chlorinated pools or applying harsh lotions, and wipe gently with a soft jewelry polishing cloth.",
   },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("italojewerly", { skip: 0, limit: 50 }).catch(() => null);
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
+  const destination = await resilient.getStoreDestination("italojewerly", { skip: 0, limit: 10 }).catch(() => null);
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.italojewelry.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
     <>
@@ -55,11 +51,18 @@ export default async function Page() {
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Italo Jewelry", path: "/stores/italojewerly" },
+          { name: "Italo Jewelry", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="italojewerly" />
     </>
   );

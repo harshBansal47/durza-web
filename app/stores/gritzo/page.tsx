@@ -6,10 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Gritzo Coupons, SuperMilk & Kids Nutrition Deals";
-const description = "Gritzo promo codes, SUPER10 extra 10% off and best deals on SuperMilk protein drinks and growth nutrition for kids.";
+const title = "Gritzo Official Store Guide — Personalized Kids' SuperMilk";
+const description =
+  "Compare Gritzo SuperMilk Height+, Genius, and Teen Protein personalized by age (4–17y) and gender. Check clean-label ingredients and FAQs on Durza.";
 const canonical = "/stores/gritzo";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How is Gritzo SuperMilk different from traditional malt drinks?", answer: "Traditional malt drinks contain up to 50%–70% refined sugar and minimal protein. Gritzo SuperMilk contains zero refined sugar, zero preservatives, and provides 6g to 13g of clean, natural milk/whey protein per serving calibrated for specific age groups." },
-  { question: "How do I get free shipping on Gritzo orders?", answer: "Check the current free-shipping threshold and eligibility on Gritzo at checkout." },
-  { question: "Can coupon code SUPER10 be applied to 1kg and 2kg value packs?", answer: "Yes. Code SUPER10 provides an additional 10% discount on top of already-discounted 1kg and 2kg bulk economy jars." },
+  {
+    question: "Why does Gritzo separate formulas for boys and girls?",
+    answer:
+      "Starting around age 8–13, boys and girls develop different micronutrient needs—such as higher iron requirements for adolescent girls and distinct zinc/calcium ratios—so each tub adjusts its vitamin-mineral blend accordingly.",
+  },
+  {
+    question: "How is Gritzo SuperMilk sweetened if it has zero refined sugar?",
+    answer:
+      "Gritzo uses unrefined jaggery powder or natural fruit/cocoa extracts instead of white table sugar or artificial sucralose—check the exact nutrition label on each tub on gritzo.com.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("gritzo", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("gritzo", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://gritzo.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Gritzo", path: "/stores/gritzo" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Gritzo", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="gritzo" />
     </>
   );

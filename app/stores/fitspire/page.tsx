@@ -6,10 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Fitspire Coupons, Collagen & Weight Care Deals";
-const description = "Fitspire promo codes, FIT10 and FIT20 offers and best deals on plant-based collagen and apple cider vinegar.";
+const title = "Fitspire Official Store Guide — Plant Protein & Gummies | Durza";
+const description =
+  "Explore Fitspire's vegan plant protein powders, pectin hair & sleep gummies, and daily wellness combos. Check ingredient profiles and FAQs on Durza.";
 const canonical = "/stores/fitspire";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "Can I stack coupon code FIT10 or FIT20 with UPI checkout discounts?", answer: "Yes. First apply coupon code FIT10 or FIT20 in your Fitspire shopping cart. When you proceed to the payment gateway and choose UPI or prepaid cards, Fitspire applies an additional 5% instant deduction on the discounted subtotal." },
-  { question: "Is Fitspire Collagen sourced from animals or fish?", answer: "No. Fitspire collagen is 100% plant-based, using natural plant extracts like Sesbania Agati, Acerola Cherry, and Bamboo Shoot that stimulate the body's natural collagen synthesis without marine or bovine derivatives." },
-  { question: "How can I check free shipping eligibility on Fitspire?", answer: "Check the current free-shipping threshold and cart suggestions on Fitspire at checkout, as terms and fees may vary." },
+  {
+    question: "Are Fitspire gummies vegetarian?",
+    answer:
+      "Yes—Fitspire uses fruit-derived pectin rather than animal gelatin, making its gummy range 100% vegetarian.",
+  },
+  {
+    question: "How should I mix plant protein for the smoothest texture?",
+    answer:
+      "Use 250–300 ml of chilled water or almond milk in a shaker bottle—plant proteins absorb slightly more liquid than whey isolate.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("fitspire", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("fitspire", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://fitspire.online/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Fitspire", path: "/stores/fitspire" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Fitspire", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="fitspire" />
     </>
   );

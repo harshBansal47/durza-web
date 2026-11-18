@@ -1,26 +1,20 @@
 "use client";
 
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
-import StackingExample from "@/components/store/StackingExample";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
 import OfferCard from "@/components/OfferCard";
-import { useState } from "react";
-import { getAffiliateLink } from "@/lib/affiliate";
-import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
-import { ArrowUpRight } from "lucide-react";
-import ProductDealRouter from "@/components/store/ProductDealRouter";
-const link = (url: string, sub: string): string => getAffiliateLink("nourish-mantra", url, sub);
-const CONFIDENCE = [
-  { title: "Ingredients & formulation", detail: "Review each product page for ingredients, usage guidance, and suitability for your skin type." },
-  { title: "Brand claims", detail: "Check the official Nourish Mantra listing for current certifications, packaging, and product details." },
-  { title: "Checkout savings", detail: "Apply any eligible promo code first, then review shipping and payment offers shown at checkout for the final payable amount." },
-];
+import StoreGuideLink from "@/components/stores/StoreGuideLink";
+import type { StoreOfferCard } from "@/lib/store-offers";
+import { GO_REL, storeGoHref } from "@/lib/go";
+
 interface Props {
   offers: StoreOfferCard[];
-  products: StoreProductCard[];
   faqs: FaqItem[];
   stats: TrustStatsProps;
   heroImageUrl?: string | null;
@@ -28,116 +22,213 @@ interface Props {
   storeUrl?: string;
 }
 
-export default function NourishMantraClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
-  const tabs = Array.from(new Set(products.map((p) => p.tab)));
-  const [concern, setConcern] = useState(tabs[0] ?? "");
-  const topOffer = offers[0] ?? null;
-  const domain = storeUrl ? new URL(storeUrl).hostname.replace(/^www\./, "") : undefined;
-  const ctaHref = storeUrl ? link(storeUrl, "store_hub") : "#";
+type Tab = "dryness" | "detox" | "hydration" | "gift";
+
+type Match = {
+  label: string;
+  name: string;
+  detail: string;
+  cta: string;
+  src: string;
+};
+
+const MATCHES: Record<Tab, Match> = {
+  dryness: {
+    label: "Dryness & Overnight Glow",
+    name: "Urban Rani Youth Preserve Facial Oil & Moringa Range",
+    detail: "Lightweight botanical oil blend for nighttime barrier nourishment.",
+    cta: "Shop Facial Oils",
+    src: "matcher-overnight-glow",
+  },
+  detox: {
+    label: "City Pollution & Deep Detox",
+    name: "Holy Basil & Neem Clay Masks + Cucumber Cleansers",
+    detail: "Draws out PM2.5 grime and excess oil without tight over-drying.",
+    cta: "Shop Detox Masks & Cleansers",
+    src: "matcher-detox",
+  },
+  hydration: {
+    label: "Instant Hydration & Toning",
+    name: "Mystic Indian Rose & Vetiver Facial Mists",
+    detail: "Steam-distilled floral hydrosols for mid-day desk refreshment.",
+    cta: "Shop Facial Mists",
+    src: "matcher-hydration",
+  },
+  gift: {
+    label: "Clean Vegan Gift Sets",
+    name: "Curated Skincare & Body Care Ritual Boxes",
+    detail: "Paraben-free, SLS-free sets ready for gifting.",
+    cta: "Shop Gift Sets",
+    src: "matcher-gift-sets",
+  },
+};
+
+const TABS = (Object.keys(MATCHES) as Tab[]).map((key) => ({ id: key, label: MATCHES[key].label }));
+
+function LotusOilIcon() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-16 w-16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M32 46c10 0 18-6 18-14-6 0-12 2-18 8-6-6-12-8-18-8 0 8 8 14 18 14Z" />
+      <path d="M32 40c0-10 4-16 10-20-2 8-4 14-10 20Z" />
+      <path d="M32 40c0-10-4-16-10-20 2 8 4 14 10 20Z" />
+      <path d="M32 18v10" />
+      <path d="M32 10c3 2 4 4 4 6s-1 4-4 6c-3-2-4-4-4-6s1-4 4-6Z" />
+    </svg>
+  );
+}
+
+export default function NourishMantraClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+  const [active, setActive] = useState<Tab>("dryness");
+  const match = useMemo(() => MATCHES[active], [active]);
+
+  const domain = (() => {
+    try {
+      return (storeUrl ?? "https://nourishmantra.in/").replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "");
+    } catch {
+      return "nourishmantra.in";
+    }
+  })();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <StoreHero
         name="Nourish Mantra"
-        subtitle="Modern Clean Skincare Rooted in Vedic Wisdom • 100% Vegan & Plastic Neutral"
+        subtitle="100% vegan, PETA-certified cruelty-free cleansers, moringa-and-hemp facial oils, and rose hydrosol mists formulated for city pollution and dry AC skin."
         domain={domain}
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        ctaHref={ctaHref}
+        heroImageUrl={heroImageUrl ?? "/stores/nourish-mantra.webp"}
+        offerCount={offerCount ?? offers.length}
+        ctaHref={storeGoHref("nourish-mantra", "store-page")}
+        ctaLabel="Visit Official Store"
         offers={offers}
       />
+
       <TrustStats {...stats} />
-      <AffiliateDisclosure />
 
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="nm-hook">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Official Store Guide</p>
+        <h1 id="nm-hook" className="mt-1 font-serif text-3xl font-extrabold text-ink sm:text-4xl">
+          Nourish Mantra — Vegan Ayurvedic Botanicals for Urban Skin Stress
+        </h1>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-ink-soft">
+          100% vegan, PETA-certified cruelty-free cleansers, moringa-and-hemp facial oils, and rose hydrosol mists
+          formulated for city pollution and dry AC skin.
+        </p>
+        <p className="mt-4 max-w-3xl rounded-xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm leading-7 text-ink">
+          <strong className="font-semibold">Context:</strong> Cold-pressed moringa and hemp seed oils mimic skin&apos;s natural
+          sebum lipid profile—sealing in moisture after serums without clogging pores like heavy mineral oils.
+        </p>
+      </section>
 
-      <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Clean Formulation Confidence Card</h2>
-        <p className="mt-1 text-sm text-ink-soft">Why Nourish Mantra formulas convert — and how to stack the discounts.</p>
-        <ol className="mt-4 space-y-3">
-          {CONFIDENCE.map((item, i) => (
-            <li key={item.title} className="flex items-start gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-bold text-white">{i + 1}</span>
-              <span className="text-sm"><span className="font-semibold text-ink">{item.title}: </span><span className="text-ink-soft">{item.detail}</span></span>
-            </li>
-          ))}
-        </ol>
-        <a href={link("https://nourishmantra.in/collections/combos", "confidence_card")} target="_blank" rel="nofollow sponsored noopener noreferrer" className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">Explore routines on Nourish Mantra</a>
-      </div>
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="nm-matcher">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Skincare Matcher</p>
+        <h2 id="nm-matcher" className="mt-1 font-serif text-2xl font-extrabold text-ink">
+          Choose your Nourish Mantra routine
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-ink-soft">
+          Select a tab to find the right botanical routine. Every CTA opens the official Nourish Mantra store via a tracked link.
+        </p>
 
-      {offers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {offers.map((o) => (
-            <OfferCard
-              key={o.code}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={link(o.targetUrl, o.subId)}
-              expiresAt={o.expiresAt}
-            />
-          ))}
+        <div role="tablist" aria-label="Nourish Mantra matcher" className="mt-5 flex flex-wrap gap-2">
+          {TABS.map((tab) => {
+            const selected = tab.id === active;
+            return (
+              <button
+                key={tab.id}
+                id={`nm-tab-${tab.id}`}
+                role="tab"
+                type="button"
+                aria-selected={selected}
+                aria-controls={`nm-panel-${tab.id}`}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => setActive(tab.id)}
+                className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors ${
+                  selected ? "border-emerald-700 bg-emerald-700 text-white" : "border-ledger-line bg-white text-ink hover:border-emerald-700"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
-      ) : (
-        <ExploreStoreCta storeName="Nourish Mantra" href={ctaHref} />
+
+        <div
+          id={`nm-panel-${active}`}
+          role="tabpanel"
+          aria-labelledby={`nm-tab-${active}`}
+          className="mt-6 rounded-xl border border-ledger-line bg-emerald-50/40 p-5"
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+            <div className="inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-emerald-200 bg-white text-emerald-700">
+              <LotusOilIcon />
+              <span className="sr-only">100% Vegan · PETA Cruelty-Free · Paraben-Free</span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">{match.label}</p>
+              <h3 className="mt-1 text-lg font-semibold text-ink">{match.name}</h3>
+              <p className="mt-2 text-sm leading-7 text-ink-soft">{match.detail}</p>
+              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">100% Vegan · PETA Cruelty-Free · Paraben-Free</p>
+              <a
+                href={storeGoHref("nourish-mantra", match.src)}
+                rel={GO_REL}
+                target="_blank"
+                className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800"
+              >
+                {match.cta}
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Curated Links</p>
+        <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Related collections and guides</h2>
+        <div className="mt-4">
+          <StoreGuideLink slug="nourish-mantra" />
+        </div>
+        <ul className="mt-2 grid gap-3 text-sm sm:grid-cols-2">
+          <li><Link href="/collections/indian-humidity-and-monsoon-skincare-kit" className="font-medium text-durza-deep hover:underline">Indian humidity &amp; monsoon skincare kit</Link></li>
+          <li><Link href="/guides/indian-skincare-actives-haircare-guide" className="font-medium text-durza-deep hover:underline">Indian skincare actives &amp; haircare guide</Link></li>
+          <li><Link href="/stores/kama-ayurveda" className="font-medium text-durza-deep hover:underline">Kama Ayurveda store guide</Link></li>
+          <li><Link href="/categories/beauty" className="font-medium text-durza-deep hover:underline">Beauty category</Link></li>
+        </ul>
+      </section>
+
+      {offers.length > 0 && (
+        <section className="mt-10" aria-labelledby="live-offers">
+          <h2 id="live-offers" className="font-serif text-2xl font-extrabold text-ink">Live offers from our feed</h2>
+          <p className="mt-1 text-sm text-ink-soft">Offers below are synced from our affiliate feed when available. Always confirm final pricing and terms on nourishmantra.in.</p>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {offers.map((offer) => (
+              <li key={offer.id} className="min-h-0">
+                <OfferCard
+                  bookmarkId={offer.id}
+                  code={offer.code}
+                  badge={offer.badge}
+                  title={offer.title}
+                  description={offer.description}
+                  ctaHref={offer.targetUrl || storeGoHref("nourish-mantra", "offer-card")}
+                  expiresAt={offer.expiresAt}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
-      <StackingExample
-        title="How to check savings on Nourish Mantra"
-        lead="Compare cart value and checkout offers before placing an order:"
-        lines={[
-          { label: "Add eligible products to cart", value: "Build cart" },
-          { label: "Apply any eligible promo code", value: "If available" },
-          { label: "Review shipping and payment offers at checkout", value: "As shown" }
-        ]}
-        total={{ label: "Final amount", value: "Shown at checkout" }}
-        saving="Confirm the final payable amount and offer eligibility on the official checkout page"
-        note="Prices, promo eligibility, and payment offers vary by product and time. Always verify details at checkout."
+      <ExploreStoreCta
+        storeName="Nourish Mantra"
+        href={storeGoHref("nourish-mantra", "store-page-bottom")}
+        description="Browse the full Nourish Mantra range and check live availability, ingredient details, and terms directly on the official store."
       />
 
-            <ProductDealRouter
-        title="Vedic Activism &amp; Clean Concern Matcher"
-        offers={offers}
-        products={products}
-        tabs={tabs}
-        concern={concern}
-        onConcern={setConcern}
-        storeName="nourish-mantra"
-        columns={2}
-        getHref={(p, idx) => link(p.targetUrl, p.subId || `matcher_${idx}`)}
-      />
+      <FaqSection eyebrow="Nourish Mantra FAQs" items={faqs} />
 
-            <FaqSection eyebrow="Nourish Mantra FAQs" items={faqs} />
-
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a
-          href={topOffer ? link(topOffer.targetUrl, topOffer.subId) : ctaHref}
-          target="_blank"
-          rel="nofollow sponsored noopener noreferrer"
-          className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white"
-        >
-          <span className="min-w-0">
-            {topOffer?.code ? (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Code {topOffer.code}
-              </span>
-            ) : (
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                Official store
-              </span>
-            )}
-            <span className="block truncate text-xs font-semibold">
-              {topOffer ? topOffer.title : `Check live range & offers on Nourish Mantra`}
-            </span>
-          </span>
-          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">
-            Shop
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          </span>
-        </a>
-      </div>
+      <p className="mt-8 text-xs leading-6 text-ink-faint">
+        Durza may earn a commission from purchases made via our affiliate links to Nourish Mantra (nourishmantra.in). Product availability and terms are subject to change on the official store.
+      </p>
+      <AffiliateDisclosure />
     </div>
   );
 }

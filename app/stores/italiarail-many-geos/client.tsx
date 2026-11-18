@@ -1,38 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
-import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
+import OfferCard from "@/components/OfferCard";
+import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import type { StoreOfferCard } from "@/lib/store-offers";
-
-const REL = "nofollow sponsored noopener noreferrer";
-
-type RouteTab = "rome-florence" | "rome-venice" | "milan-florence";
-const ROUTES: Record<RouteTab, { label: string; title: string; text: string; cta: string }> = {
-  "rome-florence": {
-    label: "Rome ↔ Florence",
-    title: "Fast connections on popular Italy routes",
-    text: "Compare Trenitalia and Italo high-speed options on ItaliaRail for Rome–Florence journeys with English-language booking and instant e-tickets on eligible fares.",
-    cta: "/go/italiarail-many-geos?src=matcher-rome-florence",
-  },
-  "rome-venice": {
-    label: "Rome ↔ Venice",
-    title: "Plan longer intercity trips with e-tickets",
-    text: "Use ItaliaRail to review schedules and fare types for Rome–Venice travel, then confirm seat selection and ticket conditions at checkout.",
-    cta: "/go/italiarail-many-geos?src=matcher-rome-venice",
-  },
-  "milan-florence": {
-    label: "Milan ↔ Florence",
-    title: "Compare operators and fare classes",
-    text: "Check available Trenitalia and Italo services for Milan–Florence on ItaliaRail, with multi-currency checkout options such as EUR, USD, or GBP where available.",
-    cta: "/go/italiarail-many-geos?src=matcher-milan-florence",
-  },
-};
+import { GO_REL, storeGoHref } from "@/lib/go";
 
 interface Props {
   offers: StoreOfferCard[];
@@ -43,115 +22,158 @@ interface Props {
   storeUrl?: string;
 }
 
-export default function ItaliaRailClient({ offers, faqs, stats, heroImageUrl, offerCount }: Props) {
-  const [tab, setTab] = useState<RouteTab>("rome-florence");
-  const active = ROUTES[tab];
-  const topOffer = offers[0] ?? null;
-  const storeHref = "/go/italiarail-many-geos?src=store-page";
+type Tab = "highspeed" | "multicity" | "daytrips" | "family";
+
+const MATCHES: Record<Tab, { label: string; name: string; detail: string; cta: string; src: string }> = {
+  highspeed: {
+    label: "Rome ↔ Florence ↔ Venice ↔ Milan",
+    name: "Frecciarossa High-Speed Point-to-Point Tickets",
+    detail: "City-center-to-city-center rail travel at up to 300 km/h with reserved seating.",
+    cta: "Book High-Speed Tickets",
+    src: "matcher-highspeed",
+  },
+  multicity: {
+    label: "Multi-City Italy Itinerary",
+    name: "Trenitalia Pass & Multi-Leg Trip Planner",
+    detail: "Compare flexible multi-day rail passes against individual point-to-point tickets.",
+    cta: "Plan Multi-City Trip",
+    src: "matcher-multicity",
+  },
+  daytrips: {
+    label: "Day Trips (Cinque Terre / Pisa / Como)",
+    name: "Regionale & Intercity Connections",
+    detail: "Direct regional connections to coastal and lake towns.",
+    cta: "Find Day Trip Routes",
+    src: "matcher-daytrips",
+  },
+  family: {
+    label: "Group & Family Seating",
+    name: "Reserved Coach & Seat-Selection Booking",
+    detail: "Keep family seats together in Standard, Premium, Business, or Executive coaches.",
+    cta: "Book Family Seats",
+    src: "matcher-family-seating",
+  },
+};
+
+const TABS = (Object.keys(MATCHES) as Tab[]).map((id) => ({ id, label: MATCHES[id].label }));
+
+function TrainIcon() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-16 w-16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 38h36l-4-16a6 6 0 0 0-6-4H24a6 6 0 0 0-6 4l-4 16Z" />
+      <path d="M18 38v8M46 38v8M22 46h20" />
+      <circle cx="24" cy="46" r="3" />
+      <circle cx="40" cy="46" r="3" />
+      <path d="M26 24h12M10 54h44" />
+      <rect x="46" y="12" width="10" height="10" rx="1.5" />
+      <path d="M49 15h4M49 18h4" />
+    </svg>
+  );
+}
+
+export default function ItaliaRailClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+  const [active, setActive] = useState<Tab>("highspeed");
+  const match = useMemo(() => MATCHES[active], [active]);
+  const domain = (() => {
+    try {
+      return (storeUrl ?? "https://www.italiarail.com/").replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "");
+    } catch {
+      return "italiarail.com";
+    }
+  })();
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 pb-24 md:pb-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <StoreHero
         name="ItaliaRail"
-        subtitle="Authorized English-language booking partner for Trenitalia and Italo high-speed trains across Italy."
-        domain="italiarail.com"
-        heroImageUrl={heroImageUrl}
-        offerCount={offerCount}
-        ctaHref={storeHref}
-        ctaLabel="Book on ItaliaRail →"
+        subtitle="Reserve seat-assigned Frecciarossa high-speed tickets between Rome, Florence, Venice, and Milan with multi-currency checkout and instant mobile e-tickets."
+        domain={domain}
+        heroImageUrl={heroImageUrl ?? "/stores/italiarail.webp"}
+        offerCount={offerCount ?? offers.length}
+        ctaHref={storeGoHref("italiarail-many-geos", "store-page")}
+        ctaLabel="Visit Official Store"
         offers={offers}
       />
       <TrustStats {...stats} />
-      <AffiliateDisclosure />
 
-      <section className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 className="text-xl font-bold text-ink">Book Italy trains in English with confidence</h2>
-        <ul className="mt-3 grid gap-2 text-sm text-ink-soft sm:grid-cols-2">
-          {[
-            "Authorized English-language booking partner for Trenitalia and Italo high-speed trains.",
-            "Plan routes across Rome, Florence, Venice, Milan and other Italian cities.",
-            "Multi-currency checkout options (EUR/USD/GBP) may be available at checkout.",
-            "Instant e-tickets are provided for eligible bookings; confirm fare rules before purchase.",
-          ].map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-verified" strokeWidth={2} />
-              <span>{item}</span>
-            </li>
-          ))}
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="ir-hook">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Official Store Guide</p>
+        <h1 id="ir-hook" className="mt-1 font-serif text-3xl font-extrabold text-ink sm:text-4xl">
+          ItaliaRail — English-Language Booking for High-Speed Italian Trains
+        </h1>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-ink-soft">
+          Reserve seat-assigned Frecciarossa high-speed tickets between Rome, Florence, Venice, and Milan with multi-currency checkout and instant mobile e-tickets.
+        </p>
+        <p className="mt-4 max-w-3xl rounded-xl border border-sky-100 bg-sky-50/70 p-4 text-sm leading-7 text-ink">
+          <strong className="font-semibold">Context:</strong> Italian high-speed Frecciarossa tickets include mandatory reserved seats and spike in price closer to departure—booking point-to-point tickets early locks in Base, Economy, or Super Economy fare tiers.
+        </p>
+        <p className="mt-3 text-sm leading-7 text-ink-soft">
+          Global multi-currency checkout: ItaliaRail supports currencies such as EUR, USD, and GBP (availability may vary). No local UPI assumptions apply.
+        </p>
+      </section>
+
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7" aria-labelledby="ir-matcher">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Route Matcher</p>
+        <h2 id="ir-matcher" className="mt-1 font-serif text-2xl font-extrabold text-ink">Choose your Italy rail journey</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-ink-soft">Select a tab to find the right route or pass option. Every CTA opens the official store via a tracked link.</p>
+        <div role="tablist" aria-label="ItaliaRail matcher" className="mt-5 flex flex-wrap gap-2">
+          {TABS.map((tab) => {
+            const selected = tab.id === active;
+            return (
+              <button key={tab.id} id={`ir-tab-${tab.id}`} role="tab" type="button" aria-selected={selected} aria-controls={`ir-panel-${tab.id}`} tabIndex={selected ? 0 : -1} onClick={() => setActive(tab.id)} className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors ${selected ? "border-sky-700 bg-sky-700 text-white" : "border-ledger-line bg-white text-ink hover:border-sky-700"}`}>
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+        <div id={`ir-panel-${active}`} role="tabpanel" aria-labelledby={`ir-tab-${active}`} className="mt-6 rounded-xl border border-ledger-line bg-sky-50/40 p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+            <div className="inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-sky-200 bg-white text-sky-700">
+              <TrainIcon />
+              <span className="sr-only">Official Trenitalia Partner · Multi-Currency · E-Tickets</span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">{match.label}</p>
+              <h3 className="mt-1 text-lg font-semibold text-ink">{match.name}</h3>
+              <p className="mt-2 text-sm leading-7 text-ink-soft">{match.detail}</p>
+              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">Official Trenitalia Partner · Multi-Currency · E-Tickets</p>
+              <a href={storeGoHref("italiarail-many-geos", match.src)} rel={GO_REL} target="_blank" className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-sky-700 px-5 text-sm font-semibold text-white transition hover:bg-sky-800">
+                {match.cta}
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Curated Links</p>
+        <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Related guides and pages</h2>
+        <div className="mt-4"><StoreGuideLink slug="italiarail-many-geos" /></div>
+        <ul className="mt-2 grid gap-3 text-sm sm:grid-cols-2">
+          <li><Link href="/bank-offers" className="font-medium text-durza-deep hover:underline">Bank offers</Link></li>
+          <li><Link href="/categories/travel" className="font-medium text-durza-deep hover:underline">Travel category</Link></li>
         </ul>
       </section>
 
-      <section aria-labelledby="italiarail-matcher" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Route matcher</p>
-        <h2 id="italiarail-matcher" className="mt-1 text-xl font-bold text-ink">Popular Italy rail routes on ItaliaRail</h2>
-        <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label="ItaliaRail route matcher">
-          {(Object.keys(ROUTES) as RouteTab[]).map((id) => (
-            <button
-              key={id}
-              type="button"
-              role="tab"
-              aria-selected={tab === id}
-              aria-controls="italiarail-matcher-panel"
-              onClick={() => setTab(id)}
-              className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors ${tab === id ? "border-ink bg-ink text-white" : "border-ledger-line bg-white text-ink-soft hover:border-inkblue hover:text-ink"}`}
-            >
-              {ROUTES[id].label}
-            </button>
-          ))}
-        </div>
-        <div id="italiarail-matcher-panel" role="tabpanel" className="mt-4 rounded-xl border border-ledger-line bg-paper-raised p-4 sm:p-5">
-          <h3 className="text-lg font-bold text-ink">{active.title}</h3>
-          <p className="mt-2 text-sm leading-6 text-ink-soft">{active.text}</p>
-          <a href={active.cta} target="_blank" rel={REL} className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
-            Check {ROUTES[tab].label} on ItaliaRail <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          </a>
-        </div>
-      </section>
-
-      {offers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {offers.map((o, idx) => (
-            <OfferCard
-              key={o.id || idx}
-              bookmarkId={o.id}
-              code={o.code}
-              badge={o.badge}
-              title={o.title}
-              description={o.description}
-              ctaHref={o.targetUrl.startsWith("/go/") ? `${o.targetUrl}${o.targetUrl.includes("?") ? "&" : "?"}src=offer-card` : `/go/italiarail-many-geos?src=offer-card`}
-              expiresAt={o.expiresAt}
-            />
-          ))}
-        </div>
-      ) : (
-        <ExploreStoreCta storeName="ItaliaRail" href={storeHref} />
+      {offers.length > 0 && (
+        <section className="mt-10" aria-labelledby="live-offers">
+          <h2 id="live-offers" className="font-serif text-2xl font-extrabold text-ink">Live offers from our feed</h2>
+          <p className="mt-1 text-sm text-ink-soft">Offers below are synced from our affiliate feed when available. Always confirm final fares, currency, and ticket terms on italiarail.com.</p>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {offers.map((offer) => (
+              <li key={offer.id} className="min-h-0">
+                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={offer.targetUrl || storeGoHref("italiarail-many-geos", "offer-card")} expiresAt={offer.expiresAt} />
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
-      <section aria-labelledby="italiarail-related" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
-        <h2 id="italiarail-related" className="text-lg font-bold text-ink">Plan smarter for international travel</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="/categories/travel" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
-            <p className="font-semibold text-ink">Travel category</p>
-            <p className="mt-1 text-sm text-ink-soft">Browse travel stores, bookings, and trip-planning offers</p>
-          </a>
-          <a href="/bank-offers" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
-            <p className="font-semibold text-ink">Bank offers</p>
-            <p className="mt-1 text-sm text-ink-soft">Check card discounts and payment offers before international checkout</p>
-          </a>
-        </div>
-      </section>
-
+      <ExploreStoreCta storeName="ItaliaRail" href={storeGoHref("italiarail-many-geos", "store-page-bottom")} description="Browse Italy rail routes and check live fares, multi-currency checkout, and ticket terms directly on the official store." />
       <FaqSection eyebrow="ItaliaRail FAQs" items={faqs} />
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a href={topOffer ? (topOffer.targetUrl.startsWith("/go/") ? topOffer.targetUrl : storeHref) : storeHref} target="_blank" rel={REL} className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white">
-          <span className="min-w-0">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">{topOffer?.code ? `Code ${topOffer.code}` : "Official store"}</span>
-            <span className="block truncate text-xs font-semibold">{topOffer ? topOffer.title : "Check ItaliaRail routes & fares"}</span>
-          </span>
-          <span className="flex shrink-0 items-center gap-1 text-xs font-bold">Open <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
-        </a>
-      </div>
+      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to ItaliaRail (italiarail.com). Fares, currency options, and ticket terms are subject to change on the official store.</p>
+      <AffiliateDisclosure />
     </div>
   );
 }

@@ -6,11 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import type { CouponPublic } from "@/lib/types";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "BlissClub — Ultimate Leggings, Flares & Activewear for Indian Women | Durza";
+const title = "BlissClub Official Store Guide — Activewear & Leggings | Durza";
 const description =
-  "BlissClub India activewear showcase: Ultimate Leggings, flares, joggers, sports bras, tanks and co-ord sets — find your fit and shop official BlissClub store.";
+  "Explore BlissClub's Ultimate Leggings with 4 pockets, Cloud9 sports bras, and flared yoga pants tailored for Indian body types on the official store.";
 const canonical = "/stores/blissclub";
 
 export const metadata: Metadata = {
@@ -22,20 +22,28 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How does BlissClub sizing compare to Nike women's?", answer: "BlissClub runs narrow — size up if you sit between XS and S. Their Ultimate Legging has a high-rise waist and sculpting fit; Nike's comparable leggings are looser through the thigh and faster-drying for high-sweat workouts." },
-  { question: "Are BlissClub's fabrics sweat-wicking for Indian summer?", answer: "Yes — BlissClub's patented Ultrasoft fabric is engineered for India's 35–45 °C summer workouts. Mesh ventilation zones and fade-resistant dyeing keep the fabric dry through hot yoga and HIIT." },
-  { question: "Can I return BlissClub activewear if it doesn't fit?", answer: "Yes — BlissClub offers 15-day returns on full-price products from blissclub.com. The exchange process, reverse-pickup windows and refund turnaround vary by city; check the specific product page." },
+  {
+    question: "Are BlissClub Ultimate Leggings squat-proof?",
+    answer:
+      "Yes—the high-density nylon-spandex weave is opaque under deep squats and stretches four ways without sheering out.",
+  },
+  {
+    question: "How do I pick the right size on blissclub.com?",
+    answer:
+      "Measure your natural waist and fullest hip against BlissClub's Indian size chart on each PDP; size down only if you prefer high compression.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("bliss-club", { skip: 0, limit: 10 });
-  const offers: CouponPublic[] = destination?.deals ?? [];
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? "https://blissclub.com/";
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (
     <>
@@ -47,7 +55,14 @@ export default async function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} faqs={FAQS} stats={stats} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="bliss-club" />
     </>
   );

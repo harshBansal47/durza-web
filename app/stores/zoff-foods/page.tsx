@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import ZoffFoodsClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "ZOFF Foods Coupons, Cool-Ground Spices & Masala Combo Deals";
-const description = "ZOFF Foods promo codes, PANTRY20 20% off and best deals on Cool-Ground Haldi, Kashmiri Mirchi, Garam Masala combos and pure whole spices.";
+const title = "ZOFF Foods Store Guide — Cool-Ground Spices & Dry Fruits";
+const description =
+  "Explore ZOFF Foods' cool-ground Indian masalas, whole spices, and zip-lock dry fruits that lock in natural essential oils. Check pantry guides on Durza.";
 const canonical = "/stores/zoff-foods";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "What does Cool-Grinding technology do to spice aroma?", answer: "Traditional mills generate up to 95°C heat that burns off volatile essential oils. ZOFF grinds at sub-zero temperatures, preserving up to 95% of natural essential oils — so Haldi smells like Haldi, and Kashmiri Mirchi keeps its natural crimson." },
-  { question: "How do the 5-layer zip-lock pouches prevent clumping in monsoon humidity?", answer: "Each pouch is a multi-layer vapour barrier with a resealable zip lock, keeping moisture out so spices stay free-flowing, bright and potent even through Indian monsoons." },
-  { question: "What is the free shipping threshold?", answer: "Free-shipping thresholds and eligibility can vary. Check the current shipping terms on ZOFF Foods at checkout." },
+  {
+    question: "What is Cool Grinding Technology in ZOFF spices?",
+    answer:
+      "Instead of overheating spices during high-friction grinding, Air Classifying Mills (ACM) maintain low temperatures during milling so natural essential oils, pungency, and color remain intact.",
+  },
+  {
+    question: "How do ZOFF's zip-lock pouches keep spices fresh in humid kitchens?",
+    answer:
+      "Each multi-layer pouch blocks moisture and UV light and reseals tightly after every use—eliminating the need to transfer spices into separate jars immediately.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("zoff-foods", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("zoff-foods", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://zofffoods.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "ZOFF Foods", path: "/stores/zoff-foods" },
+          { name: "ZOFF Foods", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <ZoffFoodsClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="zoff-foods" />
     </>
   );

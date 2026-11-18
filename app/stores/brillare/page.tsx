@@ -6,10 +6,11 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "Brillare Coupons, Oil Shots & Hair Care Deals";
-const description = "Brillare promo codes, FLAT20 offers and best deals on oil shots and hair care with current offers and shipping terms shown at checkout.";
+const title = "Brillare Official Store Guide — Hair Oil Shots & Concentrates";
+const description =
+  "Explore Brillare's 100% zero-dilution Hair Fall Control Oil Shots, Dandruff Control range, and botanical face serums. Check scalp routines on Durza.";
 const canonical = "/stores/brillare";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "How do I apply the Brillare FLAT20 promo code?", answer: "Add any 2 items to your basket on the official Brillare site and apply FLAT20 during checkout. If paying online, an extra 5% discount stacks automatically." },
-  { question: "How long does one box of Brillare Oil Shots last?", answer: "Each box contains 8 single-dose vials of 6ml each, designed for a 24-day intensive regimen applying every 3 days." },
-  { question: "What is the minimum order for free shipping on Brillare?", answer: "Check the current free-shipping threshold and delivery terms on Brillare at checkout." },
+  {
+    question: "How do you use Brillare Oil Shots?",
+    answer:
+      "Part your hair into sections, apply the single-dose vial directly onto the scalp, massage gently for 3–5 minutes, and leave on overnight or for at least 2 hours before washing.",
+  },
+  {
+    question: "Are Brillare products suitable for color-treated hair?",
+    answer:
+      "Yes—Brillare cleansers use mild sulfate-free surfactants that clean the scalp without stripping hair color.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("brillare", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("brillare", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.brillare.co.in/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Brillare", path: "/stores/brillare" },
+          { name: "Home", path: "/" },
+          { name: "Stores", path: "/stores" },
+          { name: "Brillare", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="brillare" />
     </>
   );

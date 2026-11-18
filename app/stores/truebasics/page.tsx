@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
-import TrueBasicsClient from "./client";
+import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
+import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
-const title = "TrueBasics Coupons, Triple Strength Omega-3 & KSM-66 Deals";
-const description = "TrueBasics promo codes, 20% off code CLINICAL20, and best deals on Triple Strength Omega-3, KSM-66 Ashwagandha and clinical multivitamins.";
+const title = "TrueBasics Official Store Guide — Clinical Omega-3 & Multis";
+const description =
+  "Explore TrueBasics Triple-Strength Omega-3, KSM-66 Ashwagandha, and targeted multivitamins formulated with patented clinical ingredients on Durza.";
 const canonical = "/stores/truebasics";
 
 export const metadata: Metadata = {
@@ -21,32 +22,47 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { question: "Why does enteric coating in TrueBasics Omega-3 prevent fishy burps?", answer: "The enteric coat is pH-sensitive: it survives stomach acid and dissolves only in the small intestine, so the fish oil is absorbed where it acts — never releasing fishy odour in the stomach." },
-  { question: "What makes KSM-66 clinically superior to raw root powders?", answer: "KSM-66 is a root-only, full-spectrum extract standardized to 5% withanolides with 22 published human trials. Raw powders vary wildly in withanolide content and may include leaf alkaloids." },
-  { question: "How do I qualify for free delivery?", answer: "Free-delivery thresholds and eligibility can vary. Check the current shipping terms on TrueBasics at checkout." },
+  {
+    question: "Why does TrueBasics specify KSM-66® instead of generic Ashwagandha powder?",
+    answer:
+      "KSM-66® is a standardized, full-spectrum root-only extract backed by published human clinical trials for consistent withanolide potency across every batch.",
+  },
+  {
+    question: "Should Omega-3 and fat-soluble vitamins (D3, E, K2) be taken with meals?",
+    answer:
+      "Yes—taking softgels alongside a meal containing healthy fats significantly improves absorption compared to taking them on an empty stomach.",
+  },
 ];
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("truebasics", { skip: 0, limit: 50 });
-  const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
-  const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
+  const destination = await resilient.getStoreDestination("truebasics", { skip: 0, limit: 10 });
+  const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = destination?.store.hero_image_url ?? null;
-  const storeUrl = destination?.store.website_url ?? undefined;
-  const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const storeUrl = destination?.store.website_url ?? "https://www.truebasics.com/";
+  const offerCount =
+    destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+
   return (
     <>
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "TrueBasics", path: "/stores/truebasics" },
+          { name: "TrueBasics", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <TrueBasicsClient offers={offers} products={products} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl}  stats={stats} faqs={FAQS} />
+      <StoreClient
+        offers={offers}
+        faqs={FAQS}
+        stats={stats}
+        heroImageUrl={heroImageUrl}
+        offerCount={offerCount}
+        storeUrl={storeUrl}
+      />
       <RelatedGuides slug="truebasics" />
     </>
   );
