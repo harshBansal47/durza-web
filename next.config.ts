@@ -45,6 +45,7 @@ const nextConfig: NextConfig = {
         async redirects() {
           return [
             { source: "/affiliate-campaigns", destination: "/", permanent: true },
+            { source: "/how-it-works", destination: "/trust", permanent: true },
             // Consolidated duplicate store rows (see stores deduped 2026-11).
             { source: "/stores/pepperfry-com-cps-india", destination: "/stores/pepperfry-com-ecommerce-cps-india", permanent: true },
             { source: "/stores/salty-co-in-ecommerce-cps-india", destination: "/stores/salty", permanent: true },

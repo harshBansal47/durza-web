@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
 /**
@@ -49,9 +48,6 @@ export default function PromoStrip() {
           {paused ? "Play" : "Pause"}
           <span className="sr-only">{paused ? " announcements" : " announcement ticker"}</span>
         </button>
-        <Link href="/how-it-works" className="shrink-0 text-xs font-semibold text-accent underline-offset-2 hover:underline">
-          How it works
-        </Link>
       </div>
     </div>
   );

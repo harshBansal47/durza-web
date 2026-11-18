@@ -19,32 +19,33 @@ function columns(hasComparisons: boolean) {
   const dealsLinks = [
     { href: "/coupons", label: "Coupons" },
     { href: "/deals", label: "Today's deals" },
-    { href: "/black-friday", label: "Black Friday 2026" },
-    { href: "/bank-offers", label: "Bank & card offers" },
     { href: "/stores", label: "Stores" },
-    { href: "/tools", label: "Shopping tools" },
     { href: "/categories", label: "Categories" },
+    { href: "/bank-offers", label: "Bank & card offers" },
     { href: "/guides", label: "Buying guides" },
-    { href: "/reviews", label: "Reviews" },
     ...(hasComparisons ? [{ href: "/compare", label: "Comparisons" }] : []),
+    { href: "/reviews", label: "Reviews" },
     { href: "/collections", label: "Collections" },
+    { href: "/tools", label: "Shopping tools" },
+    { href: "/black-friday", label: "Black Friday 2026" },
   ];
   return [
     { title: "Deals", links: dealsLinks },
     {
       title: "Popular categories",
       links: [
-        { href: "/categories/travel", label: "Travel deals" },
-        { href: "/categories/fashion", label: "Fashion deals" },
+        { href: "/categories/fashion", label: "Fashion" },
         { href: "/categories/electronics", label: "Electronics" },
-        { href: "/categories/software", label: "Software" },
+        { href: "/categories/beauty", label: "Beauty & Grooming" },
+        { href: "/categories/supplements", label: "Supplements & Fitness" },
+        { href: "/categories/home-kitchen", label: "Home & Kitchen" },
+        { href: "/categories/travel", label: "Travel" },
       ],
     },
     {
       title: "Company",
       links: [
         { href: "/about", label: "About" },
-        { href: "/how-it-works", label: "How it works" },
         { href: "/contact", label: "Contact" },
       ],
     },
@@ -59,7 +60,7 @@ function columns(hasComparisons: boolean) {
     {
       title: "Trust",
       links: [
-        { href: "/trust", label: "How Durza Works" },
+        { href: "/trust", label: "Trust & Verification" },
         { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
         { href: "/privacy", label: "Privacy" },
         { href: "/terms", label: "Terms" },

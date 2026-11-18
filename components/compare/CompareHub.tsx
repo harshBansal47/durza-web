@@ -4,15 +4,39 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { CompareCategory, CompareEntry } from "@/data/comparisons";
-import { COMPARE_CATEGORIES } from "@/data/comparisons";
+import type { CompareEntry } from "@/data/comparisons";
 
-const FILTERS: CompareCategory[] = ["All", ...COMPARE_CATEGORIES];
+type Filter = "All Comparisons" | "Electronics & Laptops" | "Smartphones" | "Sale Events";
+const FILTERS: Filter[] = ["All Comparisons", "Electronics & Laptops", "Smartphones", "Sale Events"];
+
+function matchesFilter(item: CompareEntry, filter: Filter): boolean {
+  if (filter === "All Comparisons") return true;
+  if (filter === "Sale Events") return item.category === "Sale & Card Math";
+  return item.category === filter;
+}
+
+function vsBadge(item: CompareEntry): string {
+  const map: Record<string, string> = {
+    "black-friday-2026-india-best-deals-vs-regular-sale": "Black Friday vs Regular Sale",
+    "best-smartphone-deals-india-amazon-vs-flipkart-2026": "Amazon vs Flipkart",
+    "best-laptop-deals-india-amazon-vs-flipkart-2026": "Amazon vs Flipkart vs Brand eStores",
+    "amazon-vs-flipkart-electronics-2026": "Amazon vs Flipkart",
+    "official-brand-store-vs-amazon-flipkart-laptops-india": "Brand Stores vs Amazon & Flipkart",
+    "myntra-vs-ajio-vs-brand-stores-fashion-india": "Myntra vs Ajio vs Brand Stores",
+    "kama-ayurveda-vs-forest-essentials-vs-indus-valley": "Kama vs Forest Essentials vs Indus Valley",
+    "kapiva-vs-hkvitals-vs-healthkart-supplements-india": "Kapiva vs HK Vitals vs HealthKart",
+    "adidas-vs-nike-vs-asics-running-shoes-india": "Adidas vs Nike vs ASICS",
+    "havells-vs-ao-smith-vs-crompton-water-heaters-india": "Havells vs AO Smith vs Crompton",
+    "credit-card-instant-discount-vs-no-cost-emi-india": "Instant Discount vs No-Cost EMI",
+    "boat-vs-boult-vs-oneplus-tws-under-2000-india": "boAt vs Boult vs OnePlus",
+  };
+  return map[item.slug] ?? `${item.verdict.optionA} vs ${item.verdict.optionB}`;
+}
 
 export default function CompareHub({ items }: { items: CompareEntry[] }) {
-  const [active, setActive] = useState<CompareCategory>("All");
+  const [active, setActive] = useState<Filter>("All Comparisons");
   const filtered = useMemo(
-    () => (active === "All" ? items : items.filter((i) => i.category === active)),
+    () => items.filter((i) => matchesFilter(i, active)),
     [active, items],
   );
 
@@ -53,12 +77,15 @@ export default function CompareHub({ items }: { items: CompareEntry[] }) {
                   <span className="rounded-full bg-[#f3efe8] px-2.5 py-1 font-semibold text-[#141413]">{item.category}</span>
                   <span className="rounded-full border border-[#141413]/10 px-2.5 py-1 font-medium text-[#5a564f]">{item.updatedLabel}</span>
                 </div>
-                <h2 className="mt-3 font-serif text-xl font-extrabold leading-snug text-[#141413] sm:text-2xl">
+                <div className="mt-3 inline-flex items-center rounded-md border border-[#141413]/10 bg-[#FAF8F5] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-[#141413]">
+                  VS · {vsBadge(item)}
+                </div>
+                <h2 className="mt-3 text-lg font-semibold leading-snug text-[#141413]">
                   {item.title}
                 </h2>
                 <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#5a564f] sm:text-base">{item.summary}</p>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8a4b12]">
-                  Read Comparison <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  Read Full Comparison <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </span>
               </div>
             </Link>

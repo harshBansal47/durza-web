@@ -268,7 +268,6 @@ export default function Header({
             <MobileNav
               links={[
                 ...links,
-                { href: "/how-it-works", label: "How it works" },
                 // The phone tab bar already owns "Saved"; the hamburger
                 // repeating it is the duplicate this menu used to show.
                 ...moreLinks.filter((link) => link.href !== "/saved"),
@@ -336,13 +335,6 @@ export default function Header({
                 )}
               </div>
             )}
-            <Link
-              href="/how-it-works"
-              aria-current={isActive("/how-it-works") ? "page" : undefined}
-              className={`relative ml-auto flex h-10 items-center  px-4 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-accent ${isActive("/how-it-works") ? "bg-ink/[0.06] text-slate-700" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
-            >
-              How it works
-            </Link>
           </nav>
         </div>
       </header>

@@ -69,7 +69,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Not every Black Friday banner in India is a real deal. Big-ticket electronics often get fresh Q4 bank caps, while fashion and groceries usually don’t beat regular sale pricing.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Black Friday (Nov 25–30)",
       optionB: "Regular sales / EoRS",
@@ -169,7 +169,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Flipkart can look cheaper with a big exchange bump, but doorstep deductions can erase it. Amazon often wins on flat card discounts and cleaner non-exchange pricing—especially if your old phone isn’t mint.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Amazon",
       optionB: "Flipkart",
@@ -262,7 +262,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Two laptops with the same CPU/RAM label can be very different machines. Marketplaces can be cheaper upfront, but official stores often win on RAM upgrades, warranty protection, and student pricing.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Amazon / Flipkart",
       optionB: "Lenovo / ASUS official stores",
@@ -367,7 +367,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
     summary:
       "For electronics, the safest buy is often the one with the right seller, clear invoice, and inspection at delivery—not just the lowest price. Both platforms have tightened returns on phones, laptops, and many appliances.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Amazon",
       optionB: "Flipkart",
@@ -454,7 +454,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Official brand stores can look ₹2,000 costlier upfront, but custom configs, cheaper ADP, and verified discounts often make them better value over 3 years. Marketplaces still win for speed and some card deals.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Lenovo / ASUS official stores",
       optionB: "Amazon / Flipkart",
@@ -533,7 +533,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Aggregators are great for variety and markdowns, but current-season pieces, gifting, and hard-to-find sizes are often safer to buy direct from brand stores for fresher stock and complete packaging.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Myntra / Ajio",
       optionB: "Official brand stores",
@@ -613,7 +613,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=80",
     summary:
       "“Ayurvedic” can mean very different things. Choose based on formulation style and routine: classical oils and distillates, luxury sensorial care, or everyday botanical hair color—then buy from trusted sources to avoid near-expiry stock.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Kama Ayurveda / Forest Essentials",
       optionB: "Indus Valley / Dot & Key (by need)",
@@ -692,7 +692,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Supplements are a trust purchase. Before chasing discounts, verify batch reports, authentication codes, and dietary markers—then buy from official or clearly authorized channels.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Kapiva / HK Vitals",
       optionB: "HealthKart / BeastLife",
@@ -771,7 +771,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Indian concrete, broken footpaths, and monsoon-slick tiles punish the wrong shoes. Pick based on grip and support for your use, get sizing right in CM, and buy from trusted channels for popular models.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Adidas / ASICS",
       optionB: "Nike (and when to choose what)",
@@ -846,7 +846,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
     summary:
       "A geyser isn’t just litres and stars. In Indian apartments, pressure rating (8-bar), water quality, and proper installation decide whether your heater lasts through winters or leaks early.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Havells / AO Smith",
       optionB: "Crompton (budget/value)",
@@ -920,7 +920,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80",
     summary:
       "“No-Cost EMI” is often not zero-cost once you include GST on the interest component and processing fees—and it can make you ineligible for a flat instant discount. Do the final payable math before choosing.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Instant bank discount (full pay)",
       optionB: "No-Cost EMI",
@@ -1000,7 +1000,7 @@ export const COMPARISONS: CompareEntry[] = [
     heroImage: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Under ₹2,000, big “ANC” numbers don’t guarantee clear calls. For Indian commutes, mic/ENC performance, fit, and reliable warranty support often matter more than marketing dB claims.",
-    updatedLabel: "Updated Nov 2026",
+    updatedLabel: "Updated 18/11/2026",
     verdict: {
       optionA: "Boult / boAt",
       optionB: "OnePlus (Nord Buds range, when in budget)",

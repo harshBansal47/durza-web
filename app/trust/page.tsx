@@ -1,614 +1,121 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, BadgeCheck, CalendarCheck2, Fingerprint, Store } from "lucide-react";
 import { absoluteUrl } from "@/lib/seo";
-import PageTitle from "@/components/ui/PageTitle";
 
 export const metadata: Metadata = {
-  title: "How Durza Works",
+  title: "Trust & Verification | Durza",
   description:
-    "Where offers come from — program feeds and store-page reads — plus how votes, ranking and commissions are disclosed.",
+    "How Durza checks offers: direct source links, last-checked dates, shopper votes, and direct store checkout.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },
   openGraph: {
-    title: "How Durza Works",
+    title: "Trust & Verification | Durza",
     description:
-      "How Durza finds coupons and deals, how offers are checked, and how commissions are disclosed.",
+      "Every coupon and deal on Durza comes from an official store page or affiliate feed, tagged with a check date and real shopper votes.",
     url: absoluteUrl("/trust"),
   },
 };
 
-/* ─────────────────────────────────────────────────────────────
-   Icons
-   ───────────────────────────────────────────────────────────── */
-
-type IconProps = {
-  className?: string;
-};
-
-const IconSearch = ({ className }: IconProps) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={className}
-    aria-hidden
-  >
-    <circle
-      cx="11"
-      cy="11"
-      r="6.5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    />
-    <path
-      d="m16 16 5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-const IconTag = ({ className }: IconProps) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={className}
-    aria-hidden
-  >
-    <path
-      d="M4 4.5h6.2L20 14.3 14.3 20 4.5 10.2V4.5Z"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinejoin="round"
-    />
-    <circle cx="8.2" cy="8.2" r="1.2" fill="currentColor" />
-  </svg>
-);
-
-const IconExternal = ({ className }: IconProps) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={className}
-    aria-hidden
-  >
-    <path
-      d="M14 5h5v5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="m19 5-8 8"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-    <path
-      d="M19 13.5V18a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 18V6a1.5 1.5 0 0 1 1.5-1.5H10"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-const IconWallet = ({ className }: IconProps) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={className}
-    aria-hidden
-  >
-    <rect
-      x="3.5"
-      y="5"
-      width="17"
-      height="14"
-      rx="2"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    />
-    <path
-      d="M16 12h4.5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-    <circle cx="16" cy="12" r="0.8" fill="currentColor" />
-    <path
-      d="M3.5 8h17"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    />
-  </svg>
-);
-
-const IconShield = ({ className }: IconProps) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={className}
-    aria-hidden
-  >
-    <path
-      d="M12 2.5 5 5v6.2c0 4.5 3 8.4 7 9.8 4-1.4 7-5.3 7-9.8V5l-7-2.5Z"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinejoin="round"
-    />
-    <path
-      d="m8.5 12 2.3 2.3 4.7-4.8"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const IconArrow = ({ className }: IconProps) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={className}
-    aria-hidden
-  >
-    <path
-      d="M5 12h14"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <path
-      d="m14 7 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-/* ─────────────────────────────────────────────────────────────
-   Data
-   ───────────────────────────────────────────────────────────── */
-
-const STEPS = [
+const PROCESS = [
   {
-    number: "01",
-    icon: IconSearch,
-    title: "Find a store",
+    icon: BadgeCheck,
+    title: "Direct Source Links",
     description:
-      "Search for a store you shop with or browse the deals available on Durza.",
+      "Offers are pulled from official merchant pages or direct affiliate networks (Admitad, vCommission) with a source reference.",
   },
   {
-    number: "02",
-    icon: IconTag,
-    title: "Choose an offer",
+    icon: CalendarCheck2,
+    title: "Real Last-Checked Dates",
     description:
-      "Review the coupon or deal details and choose the offer that suits you.",
+      "Each listing shows when it was last checked. Expired codes are automatically retired and never recycled.",
   },
   {
-    number: "03",
-    icon: IconExternal,
-    title: "Visit the store",
+    icon: Fingerprint,
+    title: "Salted-Hash Shopper Votes",
     description:
-      "Use the offer on the store's website and complete your purchase there.",
+      "Worked / Didn't Work votes are limited to 1 per visitor per day using a salted IP hash—no fake percentages before real votes arrive.",
   },
   {
-    number: "04",
-    icon: IconWallet,
-    title: "Save",
+    icon: Store,
+    title: "Direct Store Checkout",
     description:
-      "If the offer applies to your purchase, you get the savings offered by the store.",
+      "You always pay the merchant directly on their official website. Durza never marks up prices or processes payments.",
   },
 ];
-
-const FEATURES = [
-  {
-    title: "Useful offers",
-    description:
-      "We organize coupons and deals so you can spend less time searching for savings.",
-  },
-  {
-    title: "Clear details",
-    description:
-      "Important offer information is presented before you leave Durza for the store.",
-  },
-  {
-    title: "Fresh listings",
-    description:
-      "We work to keep our listings useful and remove offers when we identify that they are no longer relevant.",
-  },
-  {
-    title: "No extra cost",
-    description:
-      "When a store pays Durza a commission on a qualifying purchase, that does not add to the price you pay.",
-  },
-];
-
-/* ─────────────────────────────────────────────────────────────
-   Page
-   ───────────────────────────────────────────────────────────── */
 
 export default function TrustPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-paper text-ink antialiased">
-      {/* Background */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 overflow-hidden"
-      >
-        <div
-          className="absolute inset-0 opacity-[0.45]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #0a0a0a0a 1px, transparent 1px), linear-gradient(to bottom, #0a0a0a0a 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 100%)",
-          }}
-        />
-
-        <div className="absolute -top-40 left-1/2 h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(45,122,79,0.10),transparent)] blur-3xl" />
-
-        <div className="absolute top-96 -left-40 h-[360px] w-[360px] rounded-full bg-[radial-gradient(closest-side,rgba(122,102,51,0.06),transparent)] blur-3xl" />
-
-        <div className="absolute top-[700px] -right-40 h-[420px] w-[420px] rounded-full bg-[radial-gradient(closest-side,rgba(238,90,11,0.06),transparent)] blur-3xl" />
-      </div>
-
-      <div className="relative">
-
-        {/* ══════════════════════════════════════════════════════
-             HERO
-            ══════════════════════════════════════════════════════ */}
-
-        <section className="px-6 pb-16 pt-20 sm:pb-20 sm:pt-28">
-          <div className="mx-auto max-w-3xl text-center">
-
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-ledger-line bg-white/80 px-3.5 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-verified-soft0" />
-              How Durza works
-            </div>
-
-            <PageTitle>
-              Find better deals,
-              <span className="block text-verified">
-                without the hassle.
-              </span>
-            </PageTitle>
-
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-soft sm:text-lg">
-              Durza helps you discover coupons, deals, and offers from
-              online stores so you can find potential savings before you shop.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                href="/deals"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent hover:shadow-md"
-              >
-                Browse deals
-                <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-
-              <Link
-                href="#how-it-works"
-                className="inline-flex items-center rounded-full border border-ledger-line bg-white px-5 py-2.5 text-sm font-medium text-ink shadow-sm transition-colors hover:bg-paper-alt"
-              >
-                See how it works
-              </Link>
-            </div>
-
+    <main className="bg-[#FAF8F5] text-[#141413]">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+        <section className="max-w-3xl">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
+            Trust &amp; Verification
+          </p>
+          <h1 className="mt-3 font-serif text-4xl font-extrabold leading-tight tracking-tight text-[#141413] sm:text-5xl">
+            How Durza checks offers.
+          </h1>
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-[#3f3b35]">
+            Every coupon and deal on Durza comes from an official store page or affiliate feed, tagged with a check date and real shopper votes.
+          </p>
+          <div className="mt-7">
+            <Link
+              href="/deals"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#141413] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#2a2a27]"
+            >
+              Browse Verified Deals <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════
-             HOW IT WORKS
-            ══════════════════════════════════════════════════════ */}
-
-        <section
-          id="how-it-works"
-          className="scroll-mt-24 px-6 py-16 sm:py-20"
-        >
-          <div className="mx-auto max-w-5xl">
-
-            <div className="mb-10 max-w-2xl">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-verified">
-                Simple by design
-              </div>
-
-              <h2 className="text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-                Four simple steps
-              </h2>
-
-              <p className="mt-3 text-ink-soft">
-                Find an offer, check the details, and shop with the store.
-                That&apos;s it.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {STEPS.map((step) => {
-                const Icon = step.icon;
-
-                return (
-                  <article
-                    key={step.number}
-                    className="rounded-md border border-ledger-line bg-white p-6 shadow-[var(--shadow-hairline)]"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-white">
-                        <Icon className="h-5 w-5" />
-                      </div>
-
-                      <span className="text-xs font-medium tracking-wider text-ink-soft">
-                        {step.number}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-5 text-lg font-medium text-ink">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                      {step.description}
-                    </p>
-                  </article>
-                );
-              })}
-            </div>
-
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-             WHAT YOU CAN EXPECT
-            ══════════════════════════════════════════════════════ */}
-
-        <section className="px-6 py-16 sm:py-20">
-          <div className="mx-auto max-w-5xl">
-
-            <div className="mb-10 text-center">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-verified">
-                What you can expect
-              </div>
-
-              <h2 className="text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-                Built around the shopper
-              </h2>
-
-              <p className="mx-auto mt-3 max-w-xl text-ink-soft">
-                We want finding a useful offer to be quick, clear, and
-                straightforward.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {FEATURES.map((feature) => (
+        <section aria-labelledby="trust-process" className="mt-12">
+          <h2 id="trust-process" className="sr-only">
+            How offers are sourced and verified
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {PROCESS.map((item) => {
+              const Icon = item.icon;
+              return (
                 <article
-                  key={feature.title}
-                  className="rounded-md border border-ledger-line bg-white p-6 shadow-[var(--shadow-hairline)] transition-all hover:border-slate-300 hover:shadow-[0_8px_24px_-12px_rgba(15,23,42,0.15)]"
+                  key={item.title}
+                  className="rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-6"
                 >
-                  <div className="flex items-start gap-4">
-
-                    <div className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-verified-soft text-verified">
-                      <IconShield className="h-4 w-4" />
-                    </div>
-
-                    <div>
-                      <h3 className="font-medium text-ink">
-                        {feature.title}
-                      </h3>
-
-                      <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                        {feature.description}
-                      </p>
-                    </div>
-
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#141413] text-white">
+                    <Icon aria-hidden="true" className="h-5 w-5" />
                   </div>
+                  <h3 className="mt-4 text-lg font-semibold text-[#141413]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-[#3f3b35] sm:text-base">{item.description}</p>
                 </article>
-              ))}
-            </div>
-
+              );
+            })}
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════
-             HOW Durza MAKES MONEY
-            ══════════════════════════════════════════════════════ */}
-
-        <section className="px-6 py-16 sm:py-20">
-          <div className="mx-auto max-w-3xl">
-
-            <div className="rounded-lg border border-ledger-line bg-white p-7 shadow-[var(--shadow-hairline)] sm:p-10">
-
-              <div className="flex items-start gap-4">
-
-                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-verified-soft text-verified">
-                  <IconWallet className="h-5 w-5" />
-                </div>
-
-                <div>
-                  <div className="text-xs font-medium uppercase tracking-wider text-verified">
-                    A quick note
-                  </div>
-
-                  <h2 className="mt-1 text-2xl font-medium tracking-tight text-ink">
-                    How Durza makes money
-                  </h2>
-                </div>
-
-              </div>
-
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink-soft">
-                <p>
-                  Durza may earn a commission when you use certain links
-                  and complete a qualifying purchase with a store.
-                </p>
-
-                <p>
-                  <strong className="font-medium text-ink">
-                    This does not add to the price you pay.
-                  </strong>{" "}
-                  The store determines the price and terms of your purchase.
-                </p>
-
-                <p>
-                  Expected commission earnings are one weighted input in how
-                  offers are ordered — alongside verification status and
-                  shopper success rates — and that weighting is fixed in our
-                  ranking configuration rather than negotiated per merchant
-                  or per deal.
-                </p>
-
-                <p>
-                  Some placements may also be sponsored or promotional. When
-                  that applies, we identify them clearly.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-             HOW VOTES ARE COUNTED
-            ══════════════════════════════════════════════════════ */}
-
-        <section className="px-6 py-16 sm:py-20">
-          <div className="mx-auto max-w-3xl">
-
-            <div className="rounded-lg border border-ledger-line bg-white p-7 shadow-[var(--shadow-hairline)] sm:p-10">
-
-              <div className="flex items-start gap-4">
-
-                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-verified-soft text-verified">
-                  <IconShield className="h-5 w-5" />
-                </div>
-
-                <div>
-                  <div className="text-xs font-medium uppercase tracking-wider text-verified">
-                    Straight answers
-                  </div>
-
-                  <h2 className="mt-1 text-2xl font-medium tracking-tight text-ink">
-                    How votes are counted
-                  </h2>
-                </div>
-
-              </div>
-
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink-soft">
-                <p>
-                  Each offer has a <strong className="font-medium text-ink">worked / didn&apos;t work</strong>{" "}
-                  vote. One vote per visitor per offer per day, keyed by a salted
-                  IP hash — enough to stop ballot-stuffing without keeping a raw
-                  identity.
-                </p>
-
-                <p>
-                  The success rate is simply worked votes divided by total votes.
-                  Until at least one person has voted, no rate is shown at all —
-                  you will see &ldquo;No votes yet&rdquo; instead of a fabricated
-                  number.
-                </p>
-
-                <p>
-                  Offers come in one of two ways: directly from the merchant&rsquo;s own affiliate program feed (Admitad, vCommission and similar) as published, or from us reading the store&rsquo;s own pages by hand — either way each offer carries a source link and last-checked date. We have no business claiming every code is tested by hand; codes we have not independently checked are labelled as such, and the votes below are exactly what other shoppers did with them.
-                </p>
-
-                <p>
-                  Offers expire on their stated date and are removed from listings; a retired code can only come back if the store republishes it, because we do not restore deleted rows.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-             SIMPLE TRUST MESSAGE
-            ══════════════════════════════════════════════════════ */}
-
-        <section className="px-6 py-16 sm:py-20">
-          <div className="mx-auto max-w-4xl">
-
-            <div className="relative overflow-hidden rounded-lg border border-ledger-line bg-gradient-to-b from-paper-raised to-paper-alt p-8 text-center shadow-[var(--shadow-hairline)] sm:p-12">
-
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(45,122,79,0.12),transparent)] blur-3xl"
-              />
-
-              <div className="relative">
-
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-md bg-verified-soft text-verified">
-                  <IconShield className="h-6 w-6" />
-                </div>
-
-                <h2 className="mt-5 text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-                  Keep it simple.
-                </h2>
-
-                <p className="mx-auto mt-3 max-w-xl text-ink-soft">
-                  Search for a store, find an offer, check the details, and
-                  shop. Durza is here to make the search for savings easier.
-                </p>
-
-                <div className="mt-7">
-                  <Link
-                    href="/deals"
-                    className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent hover:shadow-md"
-                  >
-                    Browse deals
-                    <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-             FINAL CTA
-            ══════════════════════════════════════════════════════ */}
-
-        <section className="px-6 pb-24 pt-4">
-          <div className="mx-auto max-w-2xl text-center">
-
-            <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-              Ready to find a deal?
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-md text-ink-soft">
-              Search for your favorite store and see what&apos;s available.
+        <section aria-labelledby="votes-sources" className="mt-10 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-7">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
+            How votes &amp; sources work
+          </p>
+          <h2 id="votes-sources" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">
+            Clear signals, no made-up numbers
+          </h2>
+          <div className="mt-4 space-y-4 text-sm leading-7 text-[#3f3b35] sm:text-base">
+            <p>
+              Each offer can be marked <strong className="font-medium text-[#141413]">worked</strong> or{" "}
+              <strong className="font-medium text-[#141413]">didn&apos;t work</strong>. The success rate is calculated as{" "}
+              <strong className="font-medium text-[#141413]">worked / total votes</strong>. Until real votes exist, we show{" "}
+              <strong className="font-medium text-[#141413]">&ldquo;No votes yet&rdquo;</strong> instead of a percentage.
             </p>
-
-            <div className="mt-6">
-              <Link
-                href="/deals"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent hover:shadow-md"
-              >
-                Browse coupons & deals
-                <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-
+            <p>
+              Votes are limited to one per visitor per offer per day using a salted IP hash to reduce spam without storing raw identities.
+              Offers come from official merchant pages or affiliate network feeds (such as Admitad and vCommission) with a source reference and last-checked date.
+            </p>
+            <p>
+              Expired offers are retired from listings and are not recycled. A retired code only reappears if the store republishes it with a valid source.
+            </p>
           </div>
         </section>
-
       </div>
-    </div>
+    </main>
   );
 }
