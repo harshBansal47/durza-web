@@ -47,7 +47,7 @@ function thresholdOf(title: string | null): string | null {
 /**
  * Derives the three footer perks straight from the store's coded offers, so the
  * strip always reflects live DB data: top code, free-shipping threshold, and the
- * prepaid/UPI stacking code.
+ * detected payment/prepaid offer code when available.
  */
 export function deriveStoreHeroPerks(offers: ReadonlyArray<{ code: string | null; title?: string | null }> | undefined): [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk] {
   const top = offers?.[0];
@@ -57,7 +57,7 @@ export function deriveStoreHeroPerks(offers: ReadonlyArray<{ code: string | null
   return [
     { label: "Top Code", value: top?.code ?? "Welcome10" },
     { label: "Free Shipping", value: freeShipValue ? `Above ${freeShipValue}` : "On eligible orders" },
-    { label: "Prepaid Savings", value: prepaid?.code ?? "5% UPI off" },
+    { label: "Payment Offers", value: prepaid?.code ?? "Check at checkout" },
   ];
 }
 

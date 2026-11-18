@@ -53,7 +53,7 @@ export default async function Page() {
         items={[
           { name: "Home", path: "/" },
           { name: "Stores", path: "/stores" },
-          { name: "Tatacliq.com", path: canonical },
+          { name: "Tata CLiQ", path: canonical },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />

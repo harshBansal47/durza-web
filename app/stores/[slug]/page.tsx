@@ -10,6 +10,7 @@ import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { cleanStoreDescription, faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import StorePageClient from "@/components/store/StorePageClient";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import JsonLd from "@/components/JsonLd";
@@ -85,6 +86,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     notFound();
   }
   const store = destination.store;
+  const storeName = formatStoreDisplayName(store);
 
   // The numbers below come from the same live list the page renders, so the
   // snippet never claims an offer the page cannot show. The code/deal split is
@@ -95,7 +97,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const codeOffers = destination.coupons.length;
   const countedAll = listed >= total;
 
-  const title = `${store.name} Coupons & Offers${total > 0 ? `: ${total} Live Offers` : ""}`;
+  const title = `${storeName} Coupons & Offers${total > 0 ? `: ${total} Live Offers` : ""}`;
 
   let description: string;
   if (total === 0) {
@@ -105,15 +107,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // policy rather than counting offers, because there are none to count.
     description =
       metaDescription(store.description) ??
-      `${store.name} coupon codes and deals are read from ${store.name}'s own pages — every offer shows its source page and last-checked date, with commissions disclosed.`;
+      `${storeName} coupon codes and deals are read from ${storeName}'s own pages — every offer shows its source page and last-checked date, with commissions disclosed.`;
   } else if (countedAll && codeOffers > 0 && codeOffers < total) {
-    description = `${total} live ${store.name} offers — ${codeOffers} promo codes and ${total - codeOffers} auto-applied deals — each read from ${store.name}'s own pages with its last-checked date.`;
+    description = `${total} live ${storeName} offers — ${codeOffers} promo codes and ${total - codeOffers} auto-applied deals — each read from ${storeName}'s own pages with its last-checked date.`;
   } else if (countedAll && codeOffers === total) {
-    description = `${total} live ${store.name} promo codes, each read from ${store.name}'s own pages with its last-checked date.`;
+    description = `${total} live ${storeName} promo codes, each read from ${storeName}'s own pages with its last-checked date.`;
   } else if (countedAll && codeOffers === 0) {
-    description = `${total} live ${store.name} deals, each read from ${store.name}'s own pages with its last-checked date.`;
+    description = `${total} live ${storeName} deals, each read from ${storeName}'s own pages with its last-checked date.`;
   } else {
-    description = `${total} live ${store.name} coupons and deals, each read from ${store.name}'s own pages with its last-checked date.`;
+    description = `${total} live ${storeName} coupons and deals, each read from ${storeName}'s own pages with its last-checked date.`;
   }
 
   const canonical = `/stores/${store.slug}`;
@@ -145,6 +147,8 @@ export default async function StorePage({ params, searchParams }: Props) {
   const destination = await loadStore(slug, skip);
   if (!destination || !destination.store.is_active) notFound();
   const store = destination.store;
+  const storeName = formatStoreDisplayName(store);
+  const displayStore = { ...store, name: storeName };
   const storefront = await loadProductCollections(store.id);
 
   // Every live offer, once. The two buckets split on `code IS NULL`, so they are disjoint and
@@ -203,16 +207,16 @@ export default async function StorePage({ params, searchParams }: Props) {
   const crumbs = [
     { name: "Home", path: "/" },
     { name: "Stores", path: "/stores" },
-    { name: store.name, path: `/stores/${store.slug}` },
+    { name: storeName, path: `/stores/${store.slug}` },
   ];
   const faqs = [
     ...destination.faqs,
     {
-      question: `How are the ${store.name} codes on Durza kept current?`,
+      question: `How are the ${storeName} codes on Durza kept current?`,
       answer:
         totalReports > 0
           ? `${verifiedCount} of the current ${items.length} listed offers have shopper reports from the last 30 days, with an average reported success rate of ${Math.round(avgRate * 100)}%.`
-          : `Not yet — no shopper has reported trying these codes yet. All ${items.length} offers were read from ${store.name}'s own pages${latestCheck ? ` and last checked on ${formatDate(latestCheck)}` : ""}. Shopper reports will update this answer as they arrive.`,
+          : `Not yet — no shopper has reported trying these codes yet. All ${items.length} offers were read from ${storeName}'s own pages${latestCheck ? ` and last checked on ${formatDate(latestCheck)}` : ""}. Shopper reports will update this answer as they arrive.`,
     },
     {
       question: "How does Durza make money?",
@@ -238,7 +242,7 @@ export default async function StorePage({ params, searchParams }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: store.name,
+    name: storeName,
     url: `${SITE_URL}/stores/${store.slug}`,
     ...(store.website_url ? { sameAs: store.website_url } : {}),
     ...(storeLogoUrlAbsolute ? { logo: storeLogoUrlAbsolute } : {}),
@@ -252,7 +256,7 @@ export default async function StorePage({ params, searchParams }: Props) {
         <Breadcrumbs items={crumbs} />
         <StorePageClient
           key={store.id}
-          store={store}
+          store={displayStore}
           productCollections={storefront.collections}
           productCategoriesLoadFailed={storefront.categoriesLoadFailed}
           tabs={{
@@ -272,7 +276,7 @@ export default async function StorePage({ params, searchParams }: Props) {
         />
         {store.pricing_summary && Object.keys(store.pricing_summary).length > 0 && (
           <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-6" aria-labelledby="pricing-heading">
-            <h2 id="pricing-heading" className="font-serif text-2xl font-extrabold text-ink">{store.name} pricing</h2>
+            <h2 id="pricing-heading" className="font-serif text-2xl font-extrabold text-ink">{storeName} pricing</h2>
             {store.pricing_checked_at && (
               <p className="mt-1 text-xs text-ink-soft">Pricing checked {new Date(store.pricing_checked_at).toLocaleDateString("en-IN")}</p>
             )}
@@ -291,10 +295,10 @@ export default async function StorePage({ params, searchParams }: Props) {
         <StoreGuideLink slug={store.slug} />
         <StoreBannerAds slug={store.slug} />
         {destination.related_content.length ? (
-          <section className="mt-12" aria-label={`Buying content related to ${store.name}`}>
+          <section className="mt-12" aria-label={`Buying content related to ${storeName}`}>
             <div className="mb-5">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Make a confident choice</p>
-              <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Guides, reviews and comparisons for {store.name}</h2>
+              <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink">Guides, reviews and comparisons for {storeName}</h2>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {destination.related_content.slice(0, 6).map((content) => <EditorialCard key={content.id} content={content} />)}
@@ -303,7 +307,7 @@ export default async function StorePage({ params, searchParams }: Props) {
         ) : null}
         <section className="mt-12 border-t border-ledger-line pt-8">
           <h2 className="mb-4 font-serif text-xl text-ink">
-            {store.name} code FAQ
+            {storeName} code FAQ
           </h2>
           <div className="space-y-4">
             {faqs.map((faq) => (

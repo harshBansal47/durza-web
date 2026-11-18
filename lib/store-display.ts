@@ -8,6 +8,7 @@ const DISPLAY_OVERRIDES: Record<string, string> = {
   "aldo-new": "ALDO",
   "bath-and-body-works": "Bath & Body Works",
   "amantelingerie-in-ecommerce-cps-india": "Amanté",
+  "amantelingerie-in-cps-india": "Amanté",
   "ajio-com-ecommerce-cps-india": "AJIO",
   "beast-life": "BeastLife",
   "beastlife-in-ecommerce-cps-india": "BeastLife",
@@ -42,33 +43,59 @@ const DISPLAY_OVERRIDES: Record<string, string> = {
   "guvi": "GUVI",
   "kama-ayurveda": "Kama Ayurveda",
   "the-man-company": "The Man Company",
+  "adguard-many-geos": "AdGuard",
+  "baccabucci-com-ecommerce-cps-india": "Bacca Bucci",
+  "blabliblulife-com-ecommerce-cps-india": "Blabliblu Life",
+  "muscleblaze-com-ecommerce-cps-india": "MuscleBlaze",
+  "nuawoman-com-ecommerce-cps-india": "Nua",
+  "pepperfry-com-ecommerce-cps-india": "Pepperfry",
+  "perforacare-com-ecommerce-cps-india": "Perfora",
+  "perfora-care": "Perfora",
+  "rforrabbit-com-ecommerce-cps-india": "R for Rabbit",
+  "r-for-rabbit": "R for Rabbit",
+  "sanskrutihomes-in-ecommerce-cps-india": "Sanskruti Homes",
+  "sanskruti-homes": "Sanskruti Homes",
+  "shoptupperware-in-ecommerce-cps-india": "Tupperware India",
+  "shop-tupperware": "Tupperware India",
+  "skullcandy-in-ecommerce-cps-india": "Skullcandy India",
+  "store-jeenasikho-com-ecommerce-cps-india": "Jeena Sikho",
+  "tatacliq-com-ecommerce-cps-india": "Tata CLiQ",
 };
 
-function titleCaseFromSlug(slug: string): string {
-  return slug
-    .replace(/-many-geos$/i, "")
-    .replace(/-(com|in|co-in|store|online|tel)-.*$/i, "")
-    .replace(/-com-ecommerce-cps-india$/i, "")
-    .split("-")
-    .filter(Boolean)
-    .map((w) => (w.length <= 3 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
-    .join(" ");
+function stripFeedSuffixes(value: string): string {
+  return value
+    .replace(/\s*-?\s*many[- ]geos$/i, "")
+    .replace(/[- ]+(com|co\.in|in)[- ]+ecommerce[- ]+cps[- ]+india$/i, "")
+    .replace(/[- ]+ecommerce[- ]+cps[- ]+india$/i, "")
+    .replace(/[- ]+in[- ]+cps[- ]+india$/i, "")
+    .replace(/[- ]+cps[- ]+india$/i, "")
+    .replace(/[- ]+utility[- ]+cpa[- ]+worldwide$/i, "")
+    .replace(/[- ]+many[- ]+geos$/i, "")
+    .replace(/\.(com|co\.in|store|online|in)$/i, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-function cleanRawName(name: string): string {
-  let n = name.trim();
-  n = n.replace(/\s*-many-geos$/i, "");
-  n = n.replace(/\.?in$/i, (m) => (name.includes(".") ? "" : m));
-  n = n.replace(/\.(com|co\.in|store|online|tel)$/i, "");
-  n = n.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
-  return n;
+function titleCaseFromSlug(slug: string): string {
+  const cleaned = stripFeedSuffixes(slug.replace(/-/g, " "));
+  if (!cleaned) return slug;
+  return cleaned
+    .split(" ")
+    .filter(Boolean)
+    .map((w) => {
+      if (/^[a-z]{2,3}$/i.test(w)) return w.toUpperCase();
+      if (/^[A-Z0-9]+$/.test(w) && w.length <= 5) return w;
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    })
+    .join(" ");
 }
 
 export function formatStoreDisplayName(store: Pick<Store, "slug" | "name"> | { slug: string; name: string }): string {
   const bySlug = DISPLAY_OVERRIDES[store.slug];
   if (bySlug) return bySlug;
 
-  const name = store.name || "";
+  const name = (store.name || "").trim();
   const lower = name.toLowerCase();
   if (lower === "buyindusvalley.in" || lower.includes("buyindusvalley")) return "Indus Valley";
   if (lower === "dotandkey.com" || lower === "dotandkey") return "Dot & Key";
@@ -81,17 +108,21 @@ export function formatStoreDisplayName(store: Pick<Store, "slug" | "name"> | { s
   if (lower.startsWith("brillare")) return "Brillare";
   if (lower.startsWith("goboult")) return "Boult";
 
-  // Strip raw feed suffixes for display
-  if (/many-geos/i.test(name)) return cleanRawName(name).replace(/\s*many geos/i, "").trim() || titleCaseFromSlug(store.slug);
-  if (/\.(com|co\.in|store|online|in)$/i.test(name)) {
-    const cleaned = cleanRawName(name);
-    // special domain-like names
+  if (/many-geos|ecommerce-cps-india|cps-india|\.(com|co\.in|store|online)$/i.test(name)) {
+    const cleaned = stripFeedSuffixes(name);
     if (/^buyindusvalley$/i.test(cleaned.replace(/\s+/g, ""))) return "Indus Valley";
     if (/^dotandkey$/i.test(cleaned.replace(/\s+/g, ""))) return "Dot & Key";
-    return cleaned || titleCaseFromSlug(store.slug);
+    if (cleaned) {
+      // Preserve known short brand casings if they survived cleaning
+      if (/^ajio$/i.test(cleaned)) return "AJIO";
+      if (/^igp$/i.test(cleaned)) return "IGP";
+      if (/^guvi$/i.test(cleaned)) return "GUVI";
+      return cleaned;
+    }
   }
 
-  return name || titleCaseFromSlug(store.slug);
+  if (name) return name;
+  return titleCaseFromSlug(store.slug);
 }
 
 export function storeSortKey(name: string): string {
