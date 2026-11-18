@@ -417,19 +417,40 @@ const PC_COMPONENT_PICKS = [
   },
 ];
 
-const SECTIONS: SectionDef[] = [
+const AUDIO_PICKS = [
   {
-    id: "audio",
-    title: "Audio — headphones and speakers",
-    lead: "Noise-killing travel cans, monitor-grade wired sets and honest portables. No audiophile snobbery, just what sounds good on a monthly salary.",
-    picks: [
-      { id: "4af2ea87-0277-43d3-b41c-069dfa37e51e", badge: "BATTERY-LEADER" },
-      { id: "e00fb12c-a8e2-43da-974c-3b40a82b020e", badge: "TRAVEL PICK" },
-      { id: "bec5e778-f291-43e6-b1d8-96be05d0ddd4", badge: "BUDGET MONITOR" },
-      { id: "9794f9c2-5dd2-4506-b57f-2979f3c5bcf1", badge: "NEED FOR SPEED" },
-      { id: "db2cea40-5384-454b-ba8f-df14e769e3e0", badge: "FOLDABLE" },
-    ],
+    name: "Sony WH-CH520 Wireless Bluetooth Headphones",
+    badge: "50-HR BATTERY · MULTIPOINT + APP EQ",
+    brand: "Sony",
+    blurb:
+      "Up to 50 hours of playback on a single USB-C charge, dual-device multipoint pairing (laptop + phone simultaneously), and custom EQ tuning via the Sony Headphones Connect app.",
+    bestFor: "All-week WFH calls, commuting, and switching effortlessly between laptop and phone.",
+    url: "https://link.amazon/B0fLYREmW",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/41lArSiD5hL._SX425_.jpg",
   },
+  {
+    name: "JBL Tune 510BT Wireless On-Ear Headphones",
+    badge: "40-HR BATTERY · FOLDABLE PURE BASS",
+    brand: "JBL",
+    blurb:
+      "Punchy JBL Pure Bass 32mm drivers, 40-hour wireless battery with 5-minute USB-C speed charge (adds 2 hours), and lightweight foldable earcups for backpack travel.",
+    bestFor: "Bass-forward playlists, travel bags, and quick-charge everyday listening.",
+    url: "https://link.amazon/B0ctYdr5p",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61kFL7ywsZS._SX425_.jpg",
+  },
+  {
+    name: "Sennheiser HD 206 Lightweight Over-Ear Wired Headphones",
+    badge: "WIRED OVER-EAR · ZERO LATENCY",
+    brand: "Sennheiser",
+    blurb:
+      "Closed-back over-ear wired headphones with balanced, crisp vocal clarity, rich low-end response, and a 3m cable with 3.5mm + 6.3mm adapter—zero battery charging or Bluetooth lag.",
+    bestFor: "Desktop editing, late-night movies, and zero-latency PC gaming on a budget.",
+    url: "https://link.amazon/B0fzS7cZX",
+    image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71VyFqoiikL._SX425_.jpg",
+  },
+];
+
+const SECTIONS: SectionDef[] = [
   {
     id: "living",
     title: "Living room — TV, Echo & Kindle",
@@ -582,6 +603,13 @@ export default function AmazonStorePage({
           className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
         >
           PC components
+          <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+        </a>
+        <a
+          href="#audio"
+          className="inline-flex items-center gap-1.5 rounded-full border border-ledger-line bg-white px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-inkblue hover:text-inkblue"
+        >
+          Audio
           <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
         </a>
 
@@ -1228,6 +1256,99 @@ export default function AmazonStorePage({
 
           <p className="mt-4 text-[11px] leading-5 text-ink-soft">
             Specs and compatibility are taken from the product listings — confirm your device&apos;s supported interface, slot type, and capacity limits on the live Amazon page before buying. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
+          </p>
+        </section>
+
+        <section id="audio" aria-labelledby="audio-heading" className="rounded-2xl border border-ledger-line bg-paper-raised p-5 sm:p-7">
+          <div className="flex flex-wrap items-start justify-between gap-3 border-b border-ledger-line pb-4">
+            <div className="max-w-2xl">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Headphones &amp; speakers</p>
+              <h2 id="audio-heading" className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+                Audio — headphones and speakers
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-ink-soft">
+                Three practical picks for calls, travel, and zero-latency listening — choose by connection type, battery life, and fit.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
+              <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
+              Editor&apos;s picks
+            </span>
+          </div>
+
+          <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {AUDIO_PICKS.map((item) => (
+              <li key={item.url}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="nofollow sponsored noopener noreferrer"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white transition hover:border-inkblue hover:shadow-md"
+                >
+                  <span className="relative block aspect-[4/5] w-full overflow-hidden bg-white">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={425}
+                      height={425}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 360px"
+                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </span>
+                  <span className="flex flex-1 flex-col p-4">
+                    <span className="font-mono text-[9px] font-semibold uppercase tracking-widest text-inkblue">{item.badge}</span>
+                    <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft/80">{item.brand}</span>
+                    <span className="mt-1 font-serif text-[16px] font-bold leading-snug text-ink">{item.name}</span>
+                    <span className="mt-2 text-[12px] leading-6 text-ink-soft">{item.blurb}</span>
+                    <span className="mt-3 text-[11px] font-medium leading-5 text-ink-soft/90">
+                      <span className="font-semibold text-ink">Best for: </span>
+                      {item.bestFor}
+                    </span>
+                    <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-inkblue transition-colors group-hover:underline">
+                      View on Amazon
+                      <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 overflow-x-auto rounded-xl border border-ledger-line">
+            <table className="min-w-full divide-y divide-ledger-line bg-white text-left text-[12px] leading-5">
+              <thead className="bg-paper-alt">
+                <tr>
+                  <th scope="col" className="px-4 py-2.5 font-mono text-[9px] font-semibold uppercase tracking-widest text-ink-soft">Side by side</th>
+                  <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Connection &amp; Battery</th>
+                  <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Fit &amp; Sound</th>
+                  <th scope="col" className="px-4 py-2.5 font-semibold text-ink">Think twice if</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-ledger-line">
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">Sony WH-CH520</th>
+                  <td className="px-4 py-2 text-ink">Bluetooth 5.2 Multipoint · 50 hrs</td>
+                  <td className="px-4 py-2 text-ink">On-ear · Customizable EQ via Sony App</td>
+                  <td className="px-4 py-2 text-ink">You need active noise cancellation (ANC) or a wired 3.5mm backup jack</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">JBL Tune 510BT</th>
+                  <td className="px-4 py-2 text-ink">Bluetooth 5.0 Multipoint · 40 hrs</td>
+                  <td className="px-4 py-2 text-ink">On-ear foldable · Warm, punchy bass</td>
+                  <td className="px-4 py-2 text-ink">You wear glasses for 4+ hours straight (snug on-ear clamp)</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-4 py-2 font-medium text-ink">Sennheiser HD 206</th>
+                  <td className="px-4 py-2 text-ink">Wired 3.5mm (3m cable) · No battery</td>
+                  <td className="px-4 py-2 text-ink">Over-ear · Balanced, clean vocals</td>
+                  <td className="px-4 py-2 text-ink">You want wireless phone calls (no built-in inline mic)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-[11px] leading-5 text-ink-soft">
+            Specs and compatibility are taken from the product listings — confirm Bluetooth codecs, mic support, and connector compatibility on the live Amazon page before buying. No prices or “was” anchors are shown here. Every card is an Amazon Associates link (tag=durza02-21) and Durza earns a referral on qualifying purchases at no extra cost to you.
           </p>
         </section>
 
