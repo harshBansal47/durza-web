@@ -1,19 +1,45 @@
 import type { Metadata } from "next";
-import { editorialMetadata, renderEditorialPage } from "@/lib/editorial-pages";
+import { notFound } from "next/navigation";
+import CollectionArticle from "@/components/collections/CollectionArticle";
+import { COLLECTIONS, getCollectionBySlug } from "@/data/collections";
+import { absoluteUrl } from "@/lib/seo";
 
-export const revalidate = 3600;
-
-// Without this export a dynamic route is rendered on every request and `revalidate` is ignored
-// for the page (it goes out `private, no-store`). See stores/[slug] for the full note.
-export function generateStaticParams() {
-  return [];
-}
 type Props = { params: Promise<{ slug: string }> };
 
+export function generateStaticParams() {
+  return COLLECTIONS.map((c) => ({ slug: c.slug }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return editorialMetadata("collection", (await params).slug);
+  const { slug } = await params;
+  const entry = getCollectionBySlug(slug);
+  if (!entry) return { title: "Collection not found", robots: { index: false, follow: false } };
+  const canonical = absoluteUrl(`/collections/${entry.slug}`);
+  return {
+    title: entry.seoTitle,
+    description: entry.metaDescription,
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+    keywords: entry.keywords,
+    openGraph: {
+      title: entry.seoTitle,
+      description: entry.metaDescription,
+      url: canonical,
+      type: "article",
+      images: [entry.heroImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: entry.seoTitle,
+      description: entry.metaDescription,
+      images: [entry.heroImage],
+    },
+  };
 }
 
 export default async function CollectionPage({ params }: Props) {
-  return renderEditorialPage("collection", (await params).slug);
+  const { slug } = await params;
+  const entry = getCollectionBySlug(slug);
+  if (!entry) notFound();
+  return <CollectionArticle entry={entry} />;
 }
