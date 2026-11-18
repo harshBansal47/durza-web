@@ -11,12 +11,23 @@ import JsonLd from "@/components/JsonLd";
 export const revalidate = 3600;
 
 const loadStores = cache(async () => {
-  // Fetch enough to cover the full directory (95+ stores) for instant search/A-Z.
-  for (const limit of [200, 500]) {
-    const res = await resilient.listStores({ limit });
-    if (res.items.length >= res.total || res.items.length < limit) return res;
+  // Fetch the full directory for instant search/A-Z. API may cap page size (often 100).
+  const limit = 100;
+  let skip = 0;
+  let total = Number.POSITIVE_INFINITY;
+  const items: Awaited<ReturnType<typeof resilient.listStores>>["items"] = [];
+  while (items.length < total) {
+    const res = await resilient.listStores({ skip, limit });
+    // If the request failed, resilient returns an empty page.
+    if (res.items.length === 0 && res.total === 0 && skip === 0) return res;
+    if (res.items.length === 0) break;
+    items.push(...res.items);
+    total = typeof res.total === "number" && res.total > 0 ? res.total : items.length;
+    skip += res.items.length;
+    if (res.items.length < limit) break;
+    if (skip > 1000) break; // safety bound
   }
-  return resilient.listStores({ limit: 500 });
+  return { items, total: Number.isFinite(total) ? total : items.length, skip: 0, limit: items.length };
 });
 
 export async function generateMetadata(): Promise<Metadata> {
