@@ -1,18 +1,23 @@
 import { cache } from "react";
 import type { Metadata } from "next";
 import { resilient } from "@/lib/api";
-import { Search } from "lucide-react";
 import ListingHero from "@/components/listing/ListingHero";
 import EmptyState from "@/components/EmptyState";
-import StoresBrowser from "@/components/stores/StoresBrowser";
+import StoresDirectoryClient from "@/components/stores/StoresDirectoryClient";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import { allowedStoreIds } from "@/lib/homepage-curation";
 import JsonLd from "@/components/JsonLd";
 
 export const revalidate = 3600;
 
-const PAGE_SIZE = 24;
-const loadStores = cache(() => resilient.listStores({ limit: PAGE_SIZE }));
+const loadStores = cache(async () => {
+  // Fetch enough to cover the full directory (95+ stores) for instant search/A-Z.
+  for (const limit of [200, 500]) {
+    const res = await resilient.listStores({ limit });
+    if (res.items.length >= res.total || res.items.length < limit) return res;
+  }
+  return resilient.listStores({ limit: 500 });
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const stores = await loadStores();
@@ -38,18 +43,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function StoresIndexPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | undefined>>;
-}) {
-  const { q, page: pageParam } = await searchParams;
-  const page = Math.max(1, Number(pageParam) || 1);
-  const skip = (page - 1) * PAGE_SIZE;
+export default async function StoresIndexPage() {
   const HIDDEN_STORE_SLUGS = new Set(["salty-co-in-ecommerce-cps-india", "swiggy", "zomato"]);
-  const result = (q || page > 1)
-    ? await resilient.listStores({ search: q, limit: PAGE_SIZE, skip })
-    : await loadStores();
+  const result = await loadStores();
   const items = result.items
     .filter((s) => !HIDDEN_STORE_SLUGS.has(s.slug))
     .map((s) => (s.slug === "fuelone" ? { ...s, offer_count: 10 } : s));
@@ -60,7 +56,7 @@ export default async function StoresIndexPage({
     { name: "Stores", path: "/stores" },
   ]);
   const itemList = itemListJsonLd(
-    items.map((store) => ({ name: store.name, path: `/stores/${store.slug}` })),
+    items.slice(0, 100).map((store) => ({ name: store.name, path: `/stores/${store.slug}` })),
   );
 
   return (
@@ -71,20 +67,13 @@ export default async function StoresIndexPage({
         eyebrow={`${total.toLocaleString("en-IN")} ${total === 1 ? "store" : "stores"} tracked`}
         title="Stores"
         lead="Every store we track, with the offers we found on its own pages — not a directory of everything that exists."
-        controls={
-          <form action="/stores" role="search" className="relative min-w-0">
-            <label htmlFor="store-filter" className="sr-only">Filter stores</label>
-            <Search aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" strokeWidth={2} />
-            <input id="store-filter" name="q" type="search" defaultValue={q ?? ""} placeholder="Filter stores…" />
-          </form>
-        }
         stats={total > 0 ? [{ value: total.toLocaleString("en-IN"), label: "Stores tracked" }] : undefined}
       />
 
       {items.length === 0 ? (
         <EmptyState title="No stores found." body="Try a different filter." cta={{ href: "/stores", label: "All stores" }} />
       ) : (
-        <StoresBrowser initialStores={items} total={total} q={q ?? ""} />
+        <StoresDirectoryClient stores={items} />
       )}
     </div>
   );

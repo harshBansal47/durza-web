@@ -4,6 +4,9 @@ import { resilient } from "@/lib/api";
 import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
+import DiscoveryStrip from "@/components/DiscoveryStrip";
+import { isShowcaseStore } from "@/lib/showcase-stores";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import CouponFilterPanel from "@/components/filters/CouponFilterPanel";
 import FilterChips from "@/components/filters/FilterChips";
 import FilterLayout from "@/components/filters/FilterLayout";
@@ -73,6 +76,20 @@ export default async function CouponsPage({
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   const categoryName = categories.find((c) => c.slug === filters.category)?.name;
 
+  const showcaseFallbackStores = (() => {
+    if (coupons.items.length > 0) return [];
+    const q = (filters.q || filters.store || "").trim().toLowerCase();
+    if (!q) return [];
+    const matched = stores.filter((s) => {
+      if (!isShowcaseStore(s.slug)) return false;
+      const display = formatStoreDisplayName(s).toLowerCase();
+      return display.includes(q) || s.name.toLowerCase().includes(q) || s.slug.toLowerCase().includes(q);
+    });
+    // unique by slug, prefer exact-ish matches first
+    const seen = new Set<string>();
+    return matched.filter((s) => (seen.has(s.slug) ? false : (seen.add(s.slug), true))).slice(0, 3);
+  })();
+
   const total = coupons.total;
   const heading = filters.q
     ? `Results for "${filters.q}"`
@@ -95,7 +112,7 @@ export default async function CouponsPage({
         lead="Codes from the store's own pages — checked date shown on every card."
         controls={
           <Suspense fallback={null}>
-            <KeywordForm size="bar" placeholder="Search coupons by keyword…" label="Search coupons by keyword" />
+            <KeywordForm size="bar" placeholder="Search promo codes by store or category..." label="Search promo codes by store or category" />
           </Suspense>
         }
         chips={categories.slice(0, 7).map((c) => ({ href: `/coupons?category=${c.slug}`, label: c.name }))}
@@ -131,25 +148,41 @@ export default async function CouponsPage({
         </div>
 
         {coupons.items.length === 0 ? (
-          <EmptyState
-            title={
-              resolved.unresolved === "store"
-                ? `We don't know the store "${filters.store}".`
-                : resolved.unresolved === "category"
-                  ? `We don't know the category "${filters.category}".`
-                  : filters.q || filterCount(filters) > 0
-                    ? "Nothing matches those filters."
-                    : "Nothing matches yet."
-            }
-            body={
-              resolved.unresolved
-                ? "It may have been renamed or removed since you last visited."
-                : "Loosen a filter above, or check back soon — new codes land daily."
-            }
-            cta={{ href: "/coupons", label: "Browse all coupons" }}
-          >
-            <PopularChips stores={stores} categories={categoriesPage.items} />
-          </EmptyState>
+          <>
+            {showcaseFallbackStores.length > 0 && (
+              <div className="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {showcaseFallbackStores.map((s) => (
+                  <a key={s.id} href={`/stores/${s.slug}`} className="rounded-2xl border border-ledger-line bg-white p-4 shadow-sm transition hover:border-inkblue/30 hover:shadow-md">
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Official Store Guide</p>
+                    <p className="mt-2 font-serif text-lg font-extrabold text-ink">{formatStoreDisplayName(s)} Buying Guide &amp; Perks</p>
+                    <p className="mt-1 text-sm text-ink-soft">This brand uses an editorial store page instead of coupon-feed rows. Browse its live perks, buying advice, and tracked store links.</p>
+                    <span className="mt-3 inline-block text-sm font-semibold text-inkblue">Open store guide →</span>
+                  </a>
+                ))}
+              </div>
+            )}
+            <EmptyState
+              title={
+                resolved.unresolved === "store"
+                  ? `We don't know the store "${filters.store}".`
+                  : resolved.unresolved === "category"
+                    ? `We don't know the category "${filters.category}".`
+                    : filters.q || filterCount(filters) > 0
+                      ? "Nothing matches those filters."
+                      : "Nothing matches yet."
+              }
+              body={
+                resolved.unresolved
+                  ? "It may have been renamed or removed since you last visited."
+                  : showcaseFallbackStores.length > 0
+                    ? "No coupon-feed rows matched, but you can explore the official store guide above."
+                    : "Loosen a filter above, or check back soon — new codes land daily."
+              }
+              cta={{ href: "/coupons", label: "Browse all coupons" }}
+            >
+              <PopularChips stores={stores} categories={categoriesPage.items} />
+            </EmptyState>
+          </>
         ) : (
           <ViewMoreCoupons
             initialCoupons={coupons.items}
@@ -169,6 +202,7 @@ export default async function CouponsPage({
           />
         )}
 
+        <DiscoveryStrip />
       </FilterLayout>
     </div>
   );

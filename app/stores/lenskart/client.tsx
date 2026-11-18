@@ -44,7 +44,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         ctaHref={ctaHref}
-        ctaLabel="Go"
+        ctaLabel="Shop Lenskart →"
         offers={offers}
       />
       <TrustStats {...stats} />
@@ -86,7 +86,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
           { label: "Free home-fitting by optician (eligible orders)", value: "₹0*" }
         ]}
         total={{ label: "You pay", value: "≈ ₹740" }}
-        saving="≈ ₹3oo+ vs full-price purchase of a branded spec frame"
+        saving="≈ ₹300+ vs full-price purchase of a branded spec frame"
         note="*Illustrative — offer eligibility varies by frame, city and lens choice; check the PDP before paying."
       />
 
@@ -111,16 +111,34 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
           </li>
           <li key="g4" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
-            <span>Buy 1 Get 1 and ‘single from ₹800’ run as flash offers — check the offers strip on the homepage every week.</span>
+            <span>Buy 1 Get 1 and 'single from ₹800' run as flash offers — check the offers strip on the homepage every week.</span>
           </li>
           <li key="g5" className="flex items-start gap-2">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2} />
-            <span>Sunglasses with powered lenses: ask the store for fussed-edge finish — the line where lens meets frame should be smooth, no bubbles.</span>
+            <span>Sunglasses with powered lenses: ask the store for fused-edge finish — the line where lens meets frame should be smooth, no bubbles.</span>
           </li>
         </ul>
         <p className="mt-3 border-t border-slate-100 pt-3 text-[11px] text-ink-soft">
           Shopping guidance only — prices, eligibility and exclusions change; the checkout always wins.
         </p>
+      </section>
+
+      <section aria-labelledby="related-store-guides" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
+        <h2 id="related-store-guides" className="text-lg font-bold text-ink">Related Smart Store Guides</h2>
+        <p className="mt-1 text-sm text-ink-soft">Explore more lifestyle and accessories store guides on Durza.</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {[
+            { href: "/stores/palmonas", name: "Palmonas", note: "Demi-fine jewellery and everyday accessories" },
+            { href: "/stores/charles-and-keith", name: "Charles & Keith", note: "Bags, footwear and polished accessories" },
+            { href: "/stores/aldo-shoes", name: "ALDO", note: "Footwear and fashion accessories" },
+          ].map((s) => (
+            <a key={s.href} href={s.href} className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+              <p className="font-semibold text-ink">{s.name}</p>
+              <p className="mt-1 text-sm text-ink-soft">{s.note}</p>
+              <span className="mt-3 inline-block text-sm font-semibold text-inkblue">Open guide →</span>
+            </a>
+          ))}
+        </div>
       </section>
 
       <FaqSection eyebrow="Lenskart.com FAQs" items={faqs} />

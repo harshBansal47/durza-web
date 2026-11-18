@@ -25,6 +25,12 @@ interface DealRouterProps {
   title: string;
   eyebrow?: string;
   storeName: string;
+  /** Optional display name for copy (defaults to storeName). */
+  storeDisplayName?: string;
+  /** Optional CTA label per product (overrides default). */
+  getCtaLabel?: (product: StoreProductCard, concern: string, storeDisplayName: string) => string;
+  /** Optional href transform per product (e.g. tracking wrap). */
+  getHref?: (product: StoreProductCard, index: number) => string;
   /** Number of columns in the card grid. */
   columns?: 2 | 3 | 4;
 }
@@ -85,9 +91,13 @@ export default function ProductDealRouter({
   title,
   eyebrow,
   storeName,
+  storeDisplayName,
+  getCtaLabel,
+  getHref,
   columns = 2,
 }: DealRouterProps) {
   const promo = bestOffer(offers);
+  const displayName = storeDisplayName ?? storeName;
   const gridClass =
     columns === 4
       ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
@@ -104,7 +114,7 @@ export default function ProductDealRouter({
           ) : null}
           <h2 id="deal-router-heading" className="mt-1 text-lg font-bold text-ink">{title}</h2>
           <p className="mt-0.5 text-xs text-ink-soft">
-            Use-case picks from {storeName}&apos;s live catalogue. Prices change on the merchant side; the badge and code are the ones we know are live today.
+            Use-case picks from {displayName}&apos;s live catalogue. Prices change on the merchant side; the badge and code are the ones we know are live today.
           </p>
         </div>
         {promo && (
@@ -140,9 +150,12 @@ export default function ProductDealRouter({
             Nothing in this bucket right now — switch tabs or look at the coupons above.
           </p>
         ) : (
-          products.map((p) => (
+          products.map((p, idx) => {
+            const href = getHref ? getHref(p, idx) : p.targetUrl;
+            const cta = getCtaLabel ? getCtaLabel(p, concern, displayName) : `Shop ${displayName}'s ${concern || "collection"} ↗`;
+            return (
             <div
-              key={`${p.name}-${p.targetUrl}`}
+              key={`${p.name}-${p.targetUrl}-${idx}`}
               className="group flex h-full flex-col rounded-2xl border border-ledger-line bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-inkblue hover:shadow-sm"
             >
               {/* 1 · Discount anchor header — badge from the DB, never invented */}
@@ -179,27 +192,28 @@ export default function ProductDealRouter({
                 + 5% UPI discount
               </div>
               <p className="mt-1.5 text-[10px] text-ink-soft">
-                Min-cart rules from {storeName} apply. Code auto-validated at checkout — if the collection isn&apos;t live, the next tab below is.
+                Min-cart rules from {displayName} apply. Code auto-validated at checkout — if the collection isn&apos;t live, the next tab below is.
               </p>
 
               {/* 4 · Deep link CTA — merchant decides pricing */}
               <a
-                href={p.targetUrl}
+                href={href}
                 target="_blank"
-                rel="nofollow sponsored noopener"
-                aria-label={`Shop ${storeName}'s ${concern || "collection"} collection: ${p.name}`}
+                rel="nofollow sponsored noopener noreferrer"
+                aria-label={cta.replace(/\s*↗\s*$/, "")}
                 className="mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-xl bg-ink px-4 py-2.5 text-[11px] font-semibold text-white transition-colors hover:bg-slate-800"
               >
-                Shop {storeName}&apos;s {concern || "collection"} ↗
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                {cta}
+                {!/↗/.test(cta) && <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />}
               </a>
             </div>
-          ))
+            );
+          })
         )}
       </div>
 
       <p className="mt-3 text-[10px] text-ink-soft">
-        Live pricing on {storeName} — refreshed at checkout. The badge and code above are the ones currently running on the merchant site.
+        Live pricing on {displayName} — refreshed at checkout. The badge and code above are the ones currently running on the merchant site.
       </p>
     </section>
   );

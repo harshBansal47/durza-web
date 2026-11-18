@@ -4,6 +4,9 @@ import { resilient } from "@/lib/api";
 import type { DealCardStore } from "@/components/DealCard";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
+import DiscoveryStrip from "@/components/DiscoveryStrip";
+import { isShowcaseStore } from "@/lib/showcase-stores";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import SectionTitle from "@/components/SectionTitle";
 import DealsFilterPanel from "@/components/filters/DealsFilterPanel";
 import DealsSortControl from "@/components/filters/DealsSortControl";
@@ -108,6 +111,19 @@ export default async function DealsFeedSection({
   }
   nextPageParams.set("skip", String(skip + PAGE_SIZE));
   const nextPageHref = `/deals?${nextPageParams.toString()}`;
+  const showcaseFallbackStores = (() => {
+    if (coupons.items.length > 0) return [];
+    const q = (keyword || filters.stores.join(" ") || "").trim().toLowerCase();
+    if (!q) return [];
+    const matched = stores.filter((s) => {
+      if (!isShowcaseStore(s.slug)) return false;
+      const display = formatStoreDisplayName(s).toLowerCase();
+      return display.includes(q) || s.name.toLowerCase().includes(q) || s.slug.toLowerCase().includes(q);
+    });
+    const seen = new Set<string>();
+    return matched.filter((s) => (seen.has(s.slug) ? false : (seen.add(s.slug), true))).slice(0, 3);
+  })();
+
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -162,13 +178,27 @@ export default async function DealsFeedSection({
         )}
 
         {coupons.items.length === 0 ? (
-          <EmptyState
-            title={keyword || activeFilterCount > 0 ? "No deals match those filters." : "No deals right now."}
-            body="New codes land through the day — loosen a filter, or check back soon."
-            cta={{ href: "/deals", label: "All deals" }}
-          >
-            <PopularChips stores={stores} categories={categoriesPage.items} />
-          </EmptyState>
+          <>
+            {showcaseFallbackStores.length > 0 && (
+              <div className="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {showcaseFallbackStores.map((s) => (
+                  <Link key={s.id} href={`/stores/${s.slug}`} className="rounded-2xl border border-ledger-line bg-white p-4 shadow-sm transition hover:border-inkblue/30 hover:shadow-md">
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Official Store Guide</p>
+                    <p className="mt-2 font-serif text-lg font-extrabold text-ink">{formatStoreDisplayName(s)} Buying Guide &amp; Perks</p>
+                    <p className="mt-1 text-sm text-ink-soft">This brand uses an editorial store page instead of coupon-feed rows. Browse its live perks, buying advice, and tracked store links.</p>
+                    <span className="mt-3 inline-block text-sm font-semibold text-inkblue">Open store guide →</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+            <EmptyState
+              title={keyword || activeFilterCount > 0 ? "No deals match those filters." : "No deals right now."}
+              body={showcaseFallbackStores.length > 0 ? "No deal-feed rows matched, but you can explore the official store guide above." : "New codes land through the day — loosen a filter, or check back soon."}
+              cta={{ href: "/deals", label: "All deals" }}
+            >
+              <PopularChips stores={stores} categories={categoriesPage.items} />
+            </EmptyState>
+          </>
         ) : (
           <>
             {spotlight ? (
@@ -238,6 +268,7 @@ export default async function DealsFeedSection({
             <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
           </Link>
         </p>
+        <DiscoveryStrip />
       </FilterLayout>
     </>
   );

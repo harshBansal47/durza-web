@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
@@ -7,7 +6,6 @@ import JsonLd from "@/components/JsonLd";
 import ListingHero from "@/components/listing/ListingHero";
 import KeywordForm from "@/components/filters/KeywordForm";
 import DealsFeedSection from "@/components/deals/DealsFeedSection";
-import DealsFeedSkeleton from "@/components/deals/DealsFeedSkeleton";
 
 export const revalidate = 1800;
 
@@ -50,12 +48,10 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
         eyebrow="Live deals · check date on every card"
         title="Today's deals in India"
         lead="Live offers on the stores shoppers use daily — Oppo, Flipkart, Nykaa, Amazon — with store page, terms and last-checked date."
-        controls={<KeywordForm size="bar" placeholder="Search today's deals…" label="Search today's deals" />}
+        controls={<KeywordForm size="bar" placeholder="Search deals by brand or product (e.g., earbuds, protein, skincare)..." label="Search today's deals" />}
       />
 
-      <Suspense fallback={<DealsFeedSkeleton />}>
-        <DealsFeedSection searchParams={searchParams} />
-      </Suspense>
+      <DealsFeedSection searchParams={searchParams} />
     </div>
   );
 }

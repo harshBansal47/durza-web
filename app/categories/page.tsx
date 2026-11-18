@@ -4,7 +4,8 @@ import { absoluteUrl } from "@/lib/seo";
 import { resilient } from "@/lib/api";
 import { categoryLabel } from "@/lib/catalog";
 import ListingHero from "@/components/listing/ListingHero";
-import CategoriesHub, { categorySubtitle, type CategoryCardData } from "@/components/categories/CategoriesHub";
+import CategoriesHub, { type CategoryCardData } from "@/components/categories/CategoriesHub";
+import { categorySubtitle } from "@/lib/category-subtitle";
 import type { CouponPublic, Store } from "@/lib/types";
 
 export const revalidate = 3600;

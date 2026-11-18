@@ -8,8 +8,8 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
-const title = "IGP Coupons, Cake & Personalized Gift Delivery Deals";
-const description = "IGP.com coupon codes, IGP10 10% off and best deals on same-day cakes, personalized photo gifts and floral bouquets.";
+const title = "IGP (Indian Gifts Portal) Coupons, Cakes & Gifting Deals";
+const description = "IGP (Indian Gifts Portal) coupons and offers for same-day cakes and flowers in major Indian metros, personalized hampers, and international gift delivery for NRIs sending gifts to India."
 const canonical = "/stores/igp";
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default async function Page() {
         items={[
     { name: "Home", path: "/" },
     { name: "Stores", path: "/stores" },
-    { name: "IGP.com", path: "/stores/igp" },
+    { name: "IGP (Indian Gifts Portal)", path: "/stores/igp" },
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />

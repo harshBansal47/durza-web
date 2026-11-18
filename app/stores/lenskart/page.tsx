@@ -24,7 +24,7 @@ const FAQS = [
   { question: "What does DEAL70 get me?", answer: "Lenskart's ₹600 frame deal with free powered lenses on any frame marked with the offer badge. Valid on selected frames only." },
   { question: "Does Lenskart do free home eye tests?", answer: "Yes — in many cities, Lenskart sends a technician for an in-home eye exam (often free with a frames purchase or a nominal fee otherwise). Ask when you enter your pin-code at checkout." },
   { question: "Can I return Lenskart eyewear?", answer: "Yes — 14-day returns on eyewear, with lenses re-cut or exchanged per the brand's policy. The exact window and eligibility are on the product page and in your order invoice." },
-  { question: "SUINGLE/SINGLE — what is that?", answer: "SINGLE is the Sunglasses entry-offer code — ₹800 sunglasses on marked SKUs. A distinct offer from eyewear deals; don't mix them up at checkout." },
+  { question: "What does coupon code SINGLE cover?", answer: "SINGLE is the Sunglasses entry-offer code — ₹800 sunglasses on marked SKUs. A distinct offer from eyewear deals; don't mix them up at checkout." },
   { question: "Are Lenskart powered lenses reliable?", answer: "Yes — lens quality is made to your prescription; ask about AR coating, blue-light filters and photochromic options which upgrade power lenses for desk work." },
 ];
 

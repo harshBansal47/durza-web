@@ -25,6 +25,29 @@ export default function DealsCategoryPills({
 }) {
   if (categories.length === 0) return null;
 
+  const normalized = (() => {
+    const seen = new Set<string>();
+    const out: PillCategory[] = [];
+    for (const c of categories) {
+      const isVpn = c.slug === "vpn" || c.slug === "vpn-security";
+      const key = isVpn ? "vpn-security" : c.slug;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      if (isVpn) {
+        out.push({ ...c, slug: "vpn-security", name: "VPN & Security" });
+      } else {
+        out.push(c);
+      }
+    }
+    out.sort((a, b) => {
+      const ao = a.slug === "other" || /other/i.test(a.name) ? 1 : 0;
+      const bo = b.slug === "other" || /other/i.test(b.name) ? 1 : 0;
+      if (ao !== bo) return ao - bo;
+      return a.name.localeCompare(b.name);
+    });
+    return out;
+  })();
+
   function hrefFor(slug: string): string {
     const next = new URLSearchParams();
     for (const [key, value] of Object.entries(params)) {
@@ -46,11 +69,11 @@ export default function DealsCategoryPills({
       <Pill href={hrefFor("")} active={active.length === 0}>
         All
       </Pill>
-      {categories.map((category) => (
+      {normalized.map((category) => (
         <Pill
           key={category.id}
           href={hrefFor(category.slug)}
-          active={active.includes(category.slug)}
+          active={category.slug === "vpn-security" ? (active.includes("vpn") || active.includes("vpn-security")) : active.includes(category.slug)}
         >
           {category.name}
         </Pill>

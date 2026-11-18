@@ -1,14 +1,10 @@
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import { staticGuideForStore } from "@/data/store-guides";
+import { formatStoreDisplayName } from "@/lib/store-display";
 
 export function guideStoreDisplayName(slug: string): string {
-  return slug
-    .replace(/-com-ecommerce-cps-india$/, "")
-    .split("-")
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+  return formatStoreDisplayName({ slug, name: slug });
 }
 
 /**
@@ -19,7 +15,7 @@ export function guideStoreDisplayName(slug: string): string {
 export default function StoreGuideLink({ slug }: { slug: string }) {
   const guide = staticGuideForStore(slug);
   if (!guide) return null;
-  const name = guideStoreDisplayName(slug);
+  const name = formatStoreDisplayName({ slug, name: slug });
   return (
     <Link
       href={`/guides/${guide.slug}`}

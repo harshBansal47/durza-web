@@ -28,7 +28,7 @@ export default function StoreClient({ faqs, stats }: Props) {
   const mobileHref = storeGoHref("hkvitals", "mobile-sticky");
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-28 pt-6 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 pb-28 pt-6 sm:px-6 lg:px-8">
       <section className="relative overflow-hidden rounded-3xl border border-ledger-line bg-gradient-to-br from-white via-slate-50 to-amber-50/40 p-6 shadow-sm sm:p-10">
         <div className="max-w-3xl">
           <p className="mb-3 inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-900">Official store guide</p>
@@ -119,6 +119,6 @@ export default function StoreClient({ faqs, stats }: Props) {
           <span className="flex shrink-0 items-center gap-1 text-xs font-bold">Shop <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
         </a>
       </div>
-    </main>
+    </div>
   );
 }

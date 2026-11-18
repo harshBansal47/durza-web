@@ -34,8 +34,8 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 space-y-8 pb-24 md:pb-8">
       <StoreHero
-        name="IGP.com"
-        subtitle="Cakes, flowers, personalised gifts and hampers — delivered with same-day options in most cities."
+        name="IGP (Indian Gifts Portal)"
+        subtitle="Same-day delivery in major Indian metros for cakes and flowers, personalized hampers, and international gift delivery for NRIs sending gifts to India."
         domain={domain}
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
@@ -46,7 +46,8 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
       <AffiliateDisclosure />
 
       <div className="rounded-2xl border border-ledger-line bg-white p-6">
-        <h2 className="text-xl font-bold text-ink">Delivery Slot & Timing Advisor</h2>
+        <h2 className="text-xl font-bold text-ink">Delivery & Gifting Guide</h2>
+        <p className="mt-2 text-sm text-ink-soft">IGP (Indian Gifts Portal) offers same-day delivery in major Indian metros for cakes and flowers, plus personalized hampers and international gift delivery options for NRIs sending gifts to India. Check live slot availability and eligibility at checkout.</p>
         <div className="mt-4 flex flex-wrap gap-2">
           <button type="button" onClick={() => setSlot("midnight")} className={`rounded-full px-4 py-2 text-sm font-medium ${slot === "midnight" ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Tonight at 12:00 AM</button>
           <button type="button" onClick={() => setSlot("sameday")} className={`rounded-full px-4 py-2 text-sm font-medium ${slot === "sameday" ? "bg-accent text-white" : "bg-gray-100 text-ink-soft"}`}>Today in 2-3 Hours</button>
@@ -75,7 +76,7 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
           ))}
         </div>
       ) : (
-        <ExploreStoreCta storeName="IGP.com" href={ctaHref} />
+        <ExploreStoreCta storeName="IGP (Indian Gifts Portal)" href={ctaHref} />
       )}
 
       <StackingExample
@@ -98,9 +99,29 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
         concern={concern}
         onConcern={setConcern}
         storeName="igp"
+        storeDisplayName="IGP (Indian Gifts Portal)"
         columns={2}
       />
-            <FaqSection eyebrow="IGP.com FAQs" items={faqs} />
+      <section aria-labelledby="igp-related-links" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
+        <h2 id="igp-related-links" className="text-lg font-bold text-ink">Related gifting picks on Durza</h2>
+        <p className="mt-1 text-sm text-ink-soft">Explore curated festive gifting, fragrance, and wellness options.</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <a href="/collections/wedding-and-festive-luxury-gifting-edit-india" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+            <p className="font-semibold text-ink">Wedding & Festive Luxury Gifting Edit</p>
+            <p className="mt-1 text-sm text-ink-soft">Curated gifting ideas for celebrations in India</p>
+          </a>
+          <a href="/stores/bath-and-body-works" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+            <p className="font-semibold text-ink">Bath & Body Works</p>
+            <p className="mt-1 text-sm text-ink-soft">Fragrance mists, candles, and gift-ready body care</p>
+          </a>
+          <a href="/stores/kama-ayurveda" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+            <p className="font-semibold text-ink">Kama Ayurveda</p>
+            <p className="mt-1 text-sm text-ink-soft">Ayurvedic skincare and wellness gifting staples</p>
+          </a>
+        </div>
+      </section>
+
+      <FaqSection eyebrow="IGP.com FAQs" items={faqs} />
 
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
@@ -121,7 +142,7 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
               </span>
             )}
             <span className="block truncate text-xs font-semibold">
-              {topOffer ? topOffer.title : `Check live range & offers on IGP.com`}
+              {topOffer ? topOffer.title : `Check live range & offers on IGP`}
             </span>
           </span>
           <span className="flex shrink-0 items-center gap-1 text-xs font-bold">

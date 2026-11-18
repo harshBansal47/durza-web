@@ -3,6 +3,7 @@ import type { ImpressionPageType } from "@/lib/analytics";
 import Image from "next/image";
 import Link from "next/link";
 import { storeInitials } from "@/lib/catalog";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import {
   daysUntil,
@@ -57,6 +58,7 @@ function initials(name: string) {
 
 function StoreLine({ store }: { store: CouponCardStore }) {
   const logo = storeLogoUrl(store);
+  const displayName = formatStoreDisplayName(store);
   return (
     <Link
       href={`/stores/${store.slug}`}
@@ -66,10 +68,10 @@ function StoreLine({ store }: { store: CouponCardStore }) {
         <Image src={logo} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-lg border border-ledger-line bg-white object-contain" />
       ) : (
         <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-ledger-line bg-paper font-mono text-xs font-medium text-ink-soft">
-          {initials(store.name)}
+          {initials(displayName)}
         </span>
       )}
-      <span className="max-w-[18ch] truncate">{store.name}</span>
+      <span className="max-w-[18ch] truncate">{displayName}</span>
     </Link>
   );
 }
@@ -318,20 +320,33 @@ export function CouponCard({
           {resolved !== "price-drop" && resolved !== "free-shipping" && (
             <div className="@container/coupon-card-code min-w-0">
               <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-soft">
-                {coupon.code ? (
-                  <>
-                    <span className="text-ink-soft">Code</span>
-                    <code className="break-anywhere rounded-md border border-dashed border-ink/30 bg-paper px-2 py-1 font-mono text-xs font-medium text-ink">
-                      {maskCode(coupon.code) ?? coupon.code}
-                    </code>
-                    <span className="basis-full text-[11px] text-ink-soft @min-[300px]/coupon-card-code:basis-auto">
-                      Tap View code to reveal
-                    </span>
-                  </>
-                ) : requirement ? (
+                {coupon.code ? (() => {
+                  const raw = (coupon.code || "").trim();
+                  const autoApplied = /^(AUTO|FRE|EXT)/i.test(raw) || /auto[- ]?appl/i.test(coupon.title || "") || /auto[- ]?appl/i.test(coupon.description || "");
+                  if (autoApplied) {
+                    return (
+                      <span className="inline-flex items-center rounded-full border border-ledger-line bg-paper px-2.5 py-1 text-[11px] font-semibold text-ink-soft">
+                        Auto-applied at store
+                      </span>
+                    );
+                  }
+                  return (
+                    <>
+                      <span className="text-ink-soft">Code</span>
+                      <code className="break-anywhere rounded-md border border-dashed border-ink/30 bg-paper px-2 py-1 font-mono text-xs font-medium text-ink">
+                        {maskCode(raw) ?? raw}
+                      </code>
+                      <span className="basis-full text-[11px] text-ink-soft @min-[300px]/coupon-card-code:basis-auto">
+                        Tap View code to reveal
+                      </span>
+                    </>
+                  );
+                })() : requirement ? (
                   requirement
                 ) : (
-                  "No code needed — the offer applies at checkout"
+                  <span className="inline-flex items-center rounded-full border border-ledger-line bg-paper px-2.5 py-1 text-[11px] font-semibold text-ink-soft">
+                    Auto-applied at store
+                  </span>
                 )}
               </div>
             </div>
@@ -371,10 +386,17 @@ export function CouponCard({
             rel="noopener sponsored"
             className={`btn relative z-10 w-full justify-center ${expired ? "pointer-events-none border border-ledger-line bg-transparent text-ink-soft" : "btn-cta"}`}
           >
-            {ctaLabel ?? ctaText ?? (expired ? "No longer valid" : coupon.code ? "View code" :
-              /free trial|trial/i.test(coupon.title) ? "Start Free Trial" :
-              /credit card|emi|cashback|upi|pay/i.test(coupon.title) ? "Activate Offer" :
-              "Activate Deal")}
+            {(() => {
+              if (ctaLabel) return ctaLabel;
+              if (ctaText) return ctaText;
+              if (expired) return "No longer valid";
+              const raw = (coupon.code || "").trim();
+              const autoApplied = raw ? (/^(AUTO|FRE|EXT)/i.test(raw) || /auto[- ]?appl/i.test(coupon.title || "") || /auto[- ]?appl/i.test(coupon.description || "")) : true;
+              if (!raw || autoApplied) return "Activate Deal →";
+              if (/free trial|trial/i.test(coupon.title)) return "Start Free Trial";
+              if (/credit card|emi|cashback|upi|pay/i.test(coupon.title)) return "Activate Offer";
+              return "View code";
+            })()}
           </Link>
         </div>
       </article>

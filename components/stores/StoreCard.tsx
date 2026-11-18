@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { storeInitials } from "@/lib/catalog";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import { storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 import { isShowcaseStore } from "@/lib/showcase-stores";
 import type { Store } from "@/lib/types";
@@ -14,6 +15,8 @@ import type { Store } from "@/lib/types";
 export default function StoreCard({ store }: { store: Store }) {
   const logo = storeLogoUrl(store);
   const accent = storeAccent(store.slug);
+  const displayName = formatStoreDisplayName(store);
+  const isShowcase = isShowcaseStore(store.slug);
 
   let host: string | null = null;
   if (store.website_url) {
@@ -23,6 +26,9 @@ export default function StoreCard({ store }: { store: Store }) {
       host = null;
     }
   }
+
+  const showOfferPill = typeof store.offer_count === "number";
+  const hasLiveOffers = (store.offer_count ?? 0) > 0;
 
   return (
     <Link
@@ -37,7 +43,7 @@ export default function StoreCard({ store }: { store: Store }) {
           aria-hidden="true"
           className="flex h-12 w-12 items-center justify-center rounded-full border border-ledger-line bg-paper font-serif text-base text-ink-soft"
         >
-          {storeInitials(store.name)}
+          {storeInitials(displayName)}
         </span>
         {logo ? (
         <Image
@@ -52,22 +58,19 @@ export default function StoreCard({ store }: { store: Store }) {
       ) : null}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[15px] font-semibold text-ink">{store.name}</span>
+        <span className="block truncate text-[15px] font-semibold text-ink">{displayName}</span>
         <span className="block truncate text-xs text-ink-soft">
           {host ?? "Offers and coupon codes"}
         </span>
-        {typeof store.offer_count === "number" &&
-          (store.offer_count > 0 || !isShowcaseStore(store.slug)) && (
-            <span
-              className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
-                store.offer_count > 0 ? "bg-accent-faint text-accent" : "bg-paper text-ink-soft"
-              }`}
-            >
-              {store.offer_count > 0
-                ? `${store.offer_count} live ${store.offer_count === 1 ? "offer" : "offers"}`
-                : "No live offers right now"}
-            </span>
-          )}
+        {showOfferPill && hasLiveOffers ? (
+          <span className="mt-1 inline-flex rounded-full bg-accent-faint px-2 py-0.5 text-xs font-semibold text-accent">
+            {store.offer_count} live {store.offer_count === 1 ? "offer" : "offers"}
+          </span>
+        ) : showOfferPill && !hasLiveOffers && isShowcase ? (
+          <span className="mt-1 inline-flex rounded-full border border-ledger-line bg-paper-raised px-2 py-0.5 text-xs font-semibold text-ink-soft">
+            Official Store Guide
+          </span>
+        ) : null}
       </span>
       <ArrowRight
         aria-hidden="true"

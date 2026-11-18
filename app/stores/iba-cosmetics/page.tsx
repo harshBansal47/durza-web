@@ -8,8 +8,8 @@ import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
-const title = "Iba Cosmetics Coupons, Halal Makeup & Wudhu Nail Deals";
-const description = "Iba Cosmetics codes, IBA15 extra 15% off and best deals on Halal lipsticks, Wudhu-friendly nail polish and vegan skincare.";
+const title = "Iba Cosmetics Coupons, Vegan & Halal Beauty Deals";
+const description = "Iba Cosmetics coupons and offers on PETA-certified vegan, cruelty-free and Halal-certified beauty, including liquid lipsticks, alcohol-free attars/perfumes, and everyday skin tints."
 const canonical = "/stores/iba-cosmetics";
 
 export const metadata: Metadata = {
