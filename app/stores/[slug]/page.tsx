@@ -231,11 +231,7 @@ export default async function StorePage({ params, searchParams }: Props) {
           ? `${verifiedCount} of the current ${items.length} listed offers have shopper reports from the last 30 days, with an average reported success rate of ${Math.round(avgRate * 100)}%.`
           : `Not yet — no shopper has reported trying these codes yet. All ${items.length} offers were read from ${storeName}'s own pages${latestCheck ? ` and last checked on ${formatDate(latestCheck)}` : ""}. Shopper reports will update this answer as they arrive.`,
     },
-    {
-      question: "How does Durza make money?",
-      answer:
-        "When you use a link on this page, we may earn a commission from the store. Expected commission earnings are one weighted input in how offers are ordered, alongside verification status and shopper success rates. Paid placements are always labelled as sponsored.",
-    },
+
     {
       question: "What if a code does not work?",
       answer:

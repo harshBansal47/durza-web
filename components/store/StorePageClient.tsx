@@ -349,7 +349,7 @@ export default function StorePageClient({
 
       {website && (
         <p className="text-xs text-ink-soft">
-          We may earn a commission from some links.{" "}
+  
           <Link href="/affiliate-disclosure" className="text-inkblue underline-offset-2 hover:underline">
             Here is how we make money
           </Link>
