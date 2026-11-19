@@ -26,8 +26,8 @@ export interface StoreHeroProps {
   ctaTrackingId?: string;
   /** Hide the offer/update indicators when this page has no live status to report. */
   showStatus?: boolean;
-  /** Three quick-scan highlights for the footer strip. Derived from offers when not passed. */
-  perks?: [StoreHeroPerk, StoreHeroPerk];
+  /** Quick-scan highlights for the footer strip. Derived from offers when not passed. */
+  perks?: readonly StoreHeroPerk[];
   /** Coded offers for the store — used to derive perks when perks is not passed. */
   offers?: ReadonlyArray<{ code: string | null; title?: string | null }>;
 }
