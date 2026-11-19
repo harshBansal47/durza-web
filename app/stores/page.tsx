@@ -55,11 +55,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function StoresIndexPage() {
-  const HIDDEN_STORE_SLUGS = new Set(["salty-co-in-ecommerce-cps-india", "swiggy", "zomato"]);
+  const HIDDEN_STORE_SLUGS = new Set(["swiggy", "zomato"]);
   const result = await loadStores();
   const items = result.items
     .filter((s) => !HIDDEN_STORE_SLUGS.has(s.slug))
-    .map((s) => (s.slug === "fuelone" ? { ...s, offer_count: 10 } : s));
+    .map((s) => {
+      if (s.slug === "fuelone") return { ...s, offer_count: 10 };
+      if (s.slug === "salty-co-in-ecommerce-cps-india") return { ...s, slug: "salty" };
+      return s;
+    });
   const total = Math.max(0, result.total - result.items.filter((s) => HIDDEN_STORE_SLUGS.has(s.slug)).length);
 
   const breadcrumb = breadcrumbJsonLd([
