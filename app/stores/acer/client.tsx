@@ -51,7 +51,7 @@ const PRODUCTS: Product[] = [
     ],
     ctaLabel: "Claim Deal Now",
     couponCode: "NITRO20",
-    offerInfo: "₹500 off tablets",
+    offerInfo: "₹3,000 off gaming laptops",
     accent: "orange",
   },
   {
@@ -198,7 +198,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
       {/* Urgency */}
       <div className="sticky top-0 z-40 border-y border-amber-200 bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100/95 shadow-sm backdrop-blur">
         <div className="mx-auto max-w-7xl px-4 py-3 text-center text-sm font-semibold text-amber-950 sm:px-6 sm:text-base">
-          ⚡ Limited-Time Offer: These exclusive Admitad coupon codes are valid for a short period.
+          ⚡ Limited-Time Offer: These exclusive coupon codes are valid for a short period.
           Don&apos;t miss out!
         </div>
       </div>
