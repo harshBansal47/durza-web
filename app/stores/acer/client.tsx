@@ -86,28 +86,31 @@ function accentStyles(accent: Product["accent"]) {
   switch (accent) {
     case "blue":
       return {
-        ring: "hover:ring-blue-500/40",
-        glow: "hover:shadow-[0_0_30px_rgba(59,130,246,0.35)]",
-        cta: "bg-blue-600 hover:bg-blue-500 shadow-[0_10px_30px_rgba(37,99,235,0.35)] hover:shadow-[0_16px_40px_rgba(59,130,246,0.45)]",
-        badge: "text-blue-300 border-blue-500/30 bg-blue-500/10",
-        code: "text-blue-200",
+        card: "hover:border-blue-200",
+        badge: "text-blue-700 border-blue-200 bg-blue-50",
+        cta: "bg-blue-600 text-white shadow-[0_10px_24px_rgba(37,99,235,0.22)] hover:bg-blue-700 hover:shadow-[0_16px_34px_rgba(37,99,235,0.32)]",
+        code: "text-blue-700",
+        copyIdle: "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200",
+        check: "text-blue-600",
       };
     case "orange":
       return {
-        ring: "hover:ring-orange-500/40",
-        glow: "hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]",
-        cta: "bg-orange-500 hover:bg-orange-400 text-black shadow-[0_10px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_16px_40px_rgba(251,146,60,0.45)]",
-        badge: "text-orange-300 border-orange-500/30 bg-orange-500/10",
-        code: "text-orange-200",
+        card: "hover:border-orange-200",
+        badge: "text-orange-700 border-orange-200 bg-orange-50",
+        cta: "bg-orange-500 text-white shadow-[0_10px_24px_rgba(234,88,12,0.22)] hover:bg-orange-600 hover:shadow-[0_16px_34px_rgba(234,88,12,0.32)]",
+        code: "text-orange-700",
+        copyIdle: "bg-orange-50 text-orange-700 hover:bg-orange-100 border-orange-200",
+        check: "text-orange-600",
       };
     case "cyan":
     default:
       return {
-        ring: "hover:ring-cyan-400/40",
-        glow: "hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]",
-        cta: "bg-cyan-500 hover:bg-cyan-400 text-black shadow-[0_10px_30px_rgba(34,211,238,0.25)] hover:shadow-[0_16px_40px_rgba(34,211,238,0.4)]",
-        badge: "text-cyan-300 border-cyan-500/30 bg-cyan-500/10",
-        code: "text-cyan-200",
+        card: "hover:border-cyan-200",
+        badge: "text-cyan-700 border-cyan-200 bg-cyan-50",
+        cta: "bg-cyan-600 text-white shadow-[0_10px_24px_rgba(8,145,178,0.22)] hover:bg-cyan-700 hover:shadow-[0_16px_34px_rgba(8,145,178,0.32)]",
+        code: "text-cyan-700",
+        copyIdle: "bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border-cyan-200",
+        check: "text-cyan-600",
       };
   }
 }
@@ -147,35 +150,28 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#07090d] text-zinc-100">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-blue-600/20 blur-3xl" />
-        <div className="absolute top-[30rem] -left-24 h-80 w-80 rounded-full bg-orange-500/10 blur-3xl" />
-        <div className="absolute top-[60rem] -right-20 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_45%)]" />
-      </div>
-
+    <div className="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_45%,#f8fafc_100%)] text-ink">
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-4 pt-10 pb-10 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
+      <section className="mx-auto max-w-7xl px-4 pt-8 pb-10 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
             <Zap aria-hidden="true" className="h-4 w-4" />
             Acer Exclusive Partner Deals
           </p>
-          <h1 className="font-sans text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-[1.05]">
+          <h1 className="font-sans text-4xl font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl lg:leading-[1.05]">
             Unlock Elite Performance: Acer&apos;s Latest Lineup with{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 bg-clip-text text-transparent">
               Exclusive Discounts
             </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-zinc-300 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-ink-soft sm:text-lg">
             From the world&apos;s fastest 360Hz gaming displays to AI-powered ultrabooks. Use our
             verified Admitad coupon codes for the best prices online.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="#deals"
-              className="inline-flex min-h-14 items-center justify-center rounded-full bg-blue-600 px-8 text-base font-bold text-white shadow-[0_12px_35px_rgba(37,99,235,0.45)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-[0_18px_45px_rgba(59,130,246,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              className="inline-flex min-h-14 items-center justify-center rounded-full bg-blue-600 px-8 text-base font-bold text-white shadow-[0_12px_30px_rgba(37,99,235,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_18px_40px_rgba(37,99,235,0.38)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               See Current Deals &amp; Codes
             </a>
@@ -185,10 +181,10 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
             {TRUST_BADGES.map(({ icon: Icon, label }) => (
               <div
                 key={label}
-                className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3 text-left text-xs font-medium text-zinc-200 sm:text-sm"
+                className="flex items-center justify-center gap-2 rounded-xl border border-ledger-line bg-white px-3 py-3 text-left text-xs font-medium text-ink shadow-[var(--shadow-hairline)] sm:text-sm"
               >
-                <Icon aria-hidden="true" className="h-4 w-4 shrink-0 text-emerald-400" />
-                <span>{label}</span>
+                <Icon aria-hidden="true" className="h-4 w-4 shrink-0 text-emerald-600" />
+                <span className="leading-snug">{label}</span>
               </div>
             ))}
           </div>
@@ -196,20 +192,21 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
       </section>
 
       {/* Urgency */}
-      <div className="sticky top-0 z-40 border-y border-orange-400/30 bg-gradient-to-r from-orange-600 via-amber-500 to-orange-600 shadow-[0_8px_30px_rgba(249,115,22,0.25)]">
-        <div className="mx-auto max-w-7xl px-4 py-3 text-center text-sm font-bold text-black sm:px-6 sm:text-base">
+      <div className="sticky top-0 z-40 border-y border-amber-200 bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100/95 shadow-sm backdrop-blur">
+        <div className="mx-auto max-w-7xl px-4 py-3 text-center text-sm font-semibold text-amber-950 sm:px-6 sm:text-base">
           ⚡ Limited-Time Offer: These exclusive Admitad coupon codes are valid for a short period.
           Don&apos;t miss out!
         </div>
       </div>
 
       {/* Products */}
-      <section id="deals" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <div className="mb-10 text-center sm:mb-14">
-          <h2 className="font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+      <section id="deals" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mb-10 text-center sm:mb-12">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-inkblue">Curated Offers</p>
+          <h2 className="mt-2 font-sans text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
             Curated Acer Picks &amp; Verified Codes
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-zinc-400">
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink-soft">
             Handpicked laptops for gamers, creators, and professionals — each with an exclusive
             coupon to maximize your savings.
           </p>
@@ -222,9 +219,9 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
             return (
               <article
                 key={product.id}
-                className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 ring-1 ring-transparent backdrop-blur-sm transition duration-300 hover:-translate-y-1 ${styles.ring} ${styles.glow}`}
+                className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-ledger-line bg-white shadow-[var(--shadow-hairline)] transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-raised)] ${styles.card}`}
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                   <Image
                     src={product.image}
                     alt={product.alt}
@@ -233,7 +230,6 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                     className="object-cover transition duration-500 group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent" />
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
@@ -242,15 +238,15 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                   >
                     Exclusive Deal
                   </span>
-                  <h3 className="font-sans text-2xl font-bold leading-tight text-white">
+                  <h3 className="font-sans text-2xl font-bold leading-tight text-ink">
                     {product.headline}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-sm leading-6 text-zinc-300">
+                  <ul className="mt-4 space-y-3 text-sm leading-6 text-ink-soft">
                     {product.points.map((point) => (
                       <li key={point} className="flex gap-2.5">
                         <Check
                           aria-hidden="true"
-                          className="mt-1 h-4 w-4 shrink-0 text-emerald-400"
+                          className={`mt-1 h-4 w-4 shrink-0 ${styles.check}`}
                         />
                         <span>{point}</span>
                       </li>
@@ -262,26 +258,26 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                       href={outHref(`${product.id}-cta`)}
                       target="_blank"
                       rel={GO_REL}
-                      className={`inline-flex min-h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-bold transition duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 ${styles.cta}`}
+                      className={`inline-flex min-h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-bold transition duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${styles.cta}`}
                     >
                       {product.ctaLabel}
                     </a>
 
-                    <div className="mt-4 rounded-xl border border-dashed border-white/20 bg-black/30 p-3">
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                         Coupon Code
                       </p>
-                      <div className="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-zinc-950/80 px-3 py-2.5">
+                      <div className="flex items-center justify-between gap-3 rounded-lg border border-ledger-line bg-white px-3 py-2.5">
                         <code className={`font-mono text-sm font-bold tracking-wider sm:text-base ${styles.code}`}>
                           {product.couponCode}
                         </code>
                         <button
                           type="button"
                           onClick={() => copyCode(product.couponCode)}
-                          className={`inline-flex min-h-9 items-center gap-1.5 rounded-md px-3 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
+                          className={`inline-flex min-h-9 items-center gap-1.5 rounded-md border px-3 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
                             copied
-                              ? "bg-emerald-500/20 text-emerald-300"
-                              : "bg-white/10 text-zinc-100 hover:bg-white/20"
+                              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                              : styles.copyIdle
                           }`}
                           aria-label={`Copy coupon code ${product.couponCode}`}
                         >
@@ -306,6 +302,15 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           })}
         </div>
       </section>
+
+      {/* Footer disclosure (page-level) */}
+      <footer className="border-t border-ledger-line bg-white/70">
+        <div className="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
+          <p className="mx-auto max-w-3xl text-sm leading-7 text-ink-soft">
+            As an affiliate, we may earn a commission from qualifying purchases at no extra cost to you.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
