@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { BadgeCheck, Check, Copy, Cpu, Lock, ShieldCheck, Zap } from "lucide-react";
-import { storeGoHref } from "@/lib/go";
+import { ArrowUpRight, BadgeCheck, Check, Copy, Cpu, Lock, ShieldCheck, Zap } from "lucide-react";
+import { GO_REL, storeGoHref } from "@/lib/go";
 
 interface Props {
   forcedStoreHref?: string | null;
@@ -71,6 +71,11 @@ const PRODUCTS: Product[] = [
   },
 ];
 
+const TABLET_COUPON = {
+  code: "TABLET500",
+  offerInfo: "₹500 off tablets",
+};
+
 const TRUST_BADGES = [
   { icon: BadgeCheck, label: "Verified Official Partner" },
   { icon: Lock, label: "100% Secure Checkout" },
@@ -126,9 +131,8 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
     };
   }, []);
 
-  // Keep CPS/tracked link available for any future use while the coupon UI is copy-only.
-  void storeGoHref;
-  void forcedStoreHref;
+  const outHref = (src: string) => storeGoHref("acer", src, forcedStoreHref ?? undefined);
+  const officialStoreHref = outHref("official-store");
 
   const copyCode = async (code: string) => {
     try {
@@ -172,12 +176,21 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
             From the world&apos;s fastest 360Hz gaming displays to AI-powered ultrabooks. Use our
             verified Admitad coupon codes for the best prices online.
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href="#deals"
               className="inline-flex min-h-14 items-center justify-center rounded-full bg-blue-600 px-8 text-base font-bold text-white shadow-[0_12px_30px_rgba(37,99,235,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_18px_40px_rgba(37,99,235,0.38)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               See Current Deals &amp; Codes
+            </a>
+            <a
+              href={officialStoreHref}
+              target="_blank"
+              rel={GO_REL}
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-ledger-line bg-white px-8 text-base font-bold text-ink shadow-[var(--shadow-hairline)] transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[var(--shadow-raised)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Visit Official Store
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
 
@@ -296,6 +309,92 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
               </article>
             );
           })}
+        </div>
+
+        {/* Tablet coupon */}
+        <div className="mt-12">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-ledger-line bg-white p-6 shadow-[var(--shadow-hairline)] sm:p-8">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div className="flex-1">
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-inkblue">Tablet Offer</p>
+                <h3 className="mt-2 font-sans text-2xl font-bold text-ink">{TABLET_COUPON.offerInfo}</h3>
+                <p className="mt-1 text-sm text-ink-soft">Save on Acer tablets with this exclusive coupon.</p>
+              </div>
+              <a
+                href={officialStoreHref}
+                target="_blank"
+                rel={GO_REL}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-ledger-line bg-white px-5 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[var(--shadow-raised)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                Check Acer Store
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="mt-6 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
+              <p className="mb-2 text-sm font-semibold text-ink sm:text-base">{TABLET_COUPON.offerInfo}</p>
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                Coupon Code
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <div className="flex-1 rounded-lg border border-ledger-line bg-white px-3 py-3">
+                  <code className="font-mono text-base font-bold tracking-[0.18em] text-violet sm:text-lg">
+                    {maskCode(TABLET_COUPON.code)}
+                  </code>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyCode(TABLET_COUPON.code)}
+                  className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-bold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 sm:min-w-[180px] ${
+                    copiedCode === TABLET_COUPON.code
+                      ? "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]"
+                      : "bg-violet text-white shadow-[0_10px_24px_rgba(124,58,237,0.22)] hover:-translate-y-0.5 hover:bg-violet/90 hover:shadow-[0_16px_34px_rgba(124,58,237,0.32)]"
+                  }`}
+                  aria-label="Copy tablet coupon code"
+                >
+                  {copiedCode === TABLET_COUPON.code ? (
+                    <>
+                      <Check aria-hidden="true" className="h-4 w-4" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy aria-hidden="true" className="h-4 w-4" />
+                      <span>Copy Code</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Official store CTA */}
+        <div className="mt-12 rounded-2xl border border-ledger-line bg-white p-6 text-center shadow-[var(--shadow-hairline)] sm:p-10">
+          <h3 className="font-sans text-2xl font-extrabold text-ink sm:text-3xl">Ready to shop at Acer?</h3>
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink-soft">
+            Browse the latest laptops, desktops, monitors, and tablets directly on Acer&apos;s official store.
+          </p>
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={officialStoreHref}
+              target="_blank"
+              rel={GO_REL}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-blue-600 px-7 text-sm font-bold text-white shadow-[0_12px_30px_rgba(37,99,235,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_18px_40px_rgba(37,99,235,0.38)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Visit Official Acer Store
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+            <a
+              href={officialStoreHref}
+              target="_blank"
+              rel={GO_REL}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ledger-line bg-white px-7 text-sm font-bold text-ink transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[var(--shadow-raised)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Check Acer Store
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </section>
 
