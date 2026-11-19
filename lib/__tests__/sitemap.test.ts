@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { GET } from "@/app/sitemap/[...path]/route";
 import { SITEMAP_CHUNK_SIZE, BACKEND_MAX_LIMIT, sitemapIds } from "@/lib/sitemap-groups";
+import { sitemapCounts, STATIC_PAGES } from "@/lib/sitemap-entries";
 import { ApiError, api } from "@/lib/api";
 import type { CouponPublic } from "@/lib/types";
 
@@ -295,6 +296,25 @@ describe("sitemap shards (D1)", () => {
       skip: 0,
       limit: 100,
     });
+    // A category is only sitemapped when it has a live offer from an
+    // India-relevant store (same verdict as the category page's metadata).
+    listStores.mockResolvedValue({
+      ...emptyPage,
+      items: [{
+        id: "s1",
+        name: "Example Store",
+        slug: "example-store",
+        offer_count: 2,
+        description: null,
+      }] as never,
+      total: 1,
+    });
+    listCoupons.mockImplementation(async (params = {}) => {
+      if (params.category_id === "cat1") {
+        return { ...emptyPage, items: [makeCoupons(1)[0]], total: 1 };
+      }
+      return emptyPage;
+    });
 
     const storeResponse = await shardRequest("stores-0");
     expect(storeResponse.status).toBe(200);
@@ -392,5 +412,98 @@ describe("sitemap shards (D1)", () => {
   it("unknown shard id returns 404", async () => {
     const response = await shardRequest("nope-9");
     expect(response.status).toBe(404);
+  });
+
+  it("does not duplicate a URL the static shard already owns", async () => {
+    // `firstcry` is a curated static page and may also appear in the store
+    // catalogue; `best-acer-...` is both a static guide and an editorial row.
+    // Both must be submitted exactly once (from the static shard).
+    listStores.mockResolvedValue({
+      items: [{
+        id: "firstcry-id",
+        name: "FirstCry",
+        slug: "firstcry",
+        offer_count: 3,
+        description: "A real shopper-facing description.",
+      }] as never,
+      total: 1,
+      skip: 0,
+      limit: 100,
+    });
+    listEditorial.mockResolvedValue({
+      items: [{
+        id: "g1",
+        content_type: "guide",
+        status: "published",
+        title: "Acer deals",
+        slug: "best-acer-laptop-deals-promo-codes",
+        summary: null,
+        content_blocks: [],
+        structured_data: {},
+        hero_image_url: null,
+        author_name: null,
+        market: "IN",
+        seo_title: null,
+        meta_description: null,
+        canonical_url: "http://localhost:3000/guides/best-acer-laptop-deals-promo-codes",
+        is_indexable: true,
+        is_featured: false,
+        published_at: "2026-01-01T00:00:00Z",
+        created_at: "2026-01-01T00:00:00Z",
+        updated_at: "2026-01-02T00:00:00Z",
+        relations: [],
+        entity_links: [],
+        faqs: [],
+        adsense_eligible: true,
+      }] as never,
+      total: 1,
+      skip: 0,
+      limit: 100,
+    });
+
+    const staticBody = await (await shardRequest("static")).text();
+    const storesBody = await (await shardRequest("stores-0")).text();
+    const guidesBody = await (await shardRequest("guides-0")).text();
+
+    expect(staticBody).toContain("/stores/firstcry");
+    expect(staticBody).toContain("/guides/best-acer-laptop-deals-promo-codes");
+    expect(storesBody).not.toContain("/stores/firstcry");
+    expect(guidesBody).not.toContain("/guides/best-acer-laptop-deals-promo-codes");
+  });
+
+  it("excludes a store whose description is only Admitad boilerplate and has no live offers", async () => {
+    // The store page marks this `noindex` (thin + cleaned description is empty),
+    // so the sitemap must not submit it. This is the bewakoof/bewakoof-class case.
+    listStores.mockResolvedValue({
+      items: [{
+        id: "bewakoof-id",
+        name: "Bewakoof",
+        slug: "bewakoof",
+        offer_count: 0,
+        description: "Company Description - A fashion brand. (Program description from Admitad.)",
+      }] as never,
+      total: 1,
+      skip: 0,
+      limit: 100,
+    });
+
+    const body = await (await shardRequest("stores-0")).text();
+    expect(body).not.toContain("/stores/bewakoof");
+  });
+
+  it("reports a URL count that matches the URLs it actually publishes", async () => {
+    listStores.mockResolvedValue(emptyPage);
+    listCategories.mockResolvedValue(emptyPage);
+    const ids = await sitemapIds();
+    const counts = await sitemapCounts(ids);
+
+    // With an empty backend the only URLs are the curated static pages and
+    // the hand-authored store guides (published by the guides shard even when
+    // the editorial API is unavailable).
+    expect(counts.byShard.static).toBe(STATIC_PAGES.length);
+    expect(counts.total).toBe(
+      counts.byShard.static + counts.byShard["guides-0"],
+    );
+    expect(counts.duplicatesRemoved).toBe(0);
   });
 });

@@ -1,267 +1,8 @@
+import { sitemapIds } from "@/lib/sitemap-groups";
+import { shardEntries } from "@/lib/sitemap-entries";
 import type { MetadataRoute } from "next";
-import { api } from "@/lib/api";
-import { SITE_URL } from "@/lib/site";
-import {
-  EDITORIAL_SITEMAP_TYPES,
-  isEditorialEndpointUnavailable,
-  sitemapIds,
-  SITEMAP_CHUNK_SIZE,
-  BACKEND_MAX_LIMIT,
-  type SitemapId,
-} from "@/lib/sitemap-groups";
-import { isIndexableStore } from "@/lib/store-indexing";
-import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
-import type { CouponPublic, EditorialContent } from "@/lib/types";
-import { editorialPath } from "@/lib/editorial-path";
-import { CUSTOM_STORE_SLUGS } from "@/lib/custom-store-pages";
 
 export const revalidate = 3600;
-
-/**
- * Store slugs that permanently redirect to a canonical store URL.
- * Keep them out of the sitemap so crawlers don't see redirecting/duplicate doorway URLs.
- */
-const REDIRECTED_STORE_ALIAS_SLUGS = new Set([
-  "aldo-new",
-  "bath-body-works",
-  "bliss-club",
-  "charles-keith",
-  "lenovo-india",
-  "milton-in",
-  "pepperfry-com-cps-india",
-  "perforacare-com-ecommerce-cps-india",
-  "purevpn-com-utility-cpa-worldwide",
-  "rforrabbit-com-ecommerce-cps-india",
-  "salty-co-in-ecommerce-cps-india",
-  "sanskrutihomes-in-ecommerce-cps-india",
-  "shoptupperware-in-ecommerce-cps-india",
-  "tata-cliq",
-  "veromoda",
-]);
-
-/**
- * A coupon with many recent, mostly-positive reports is more likely to still
- * be valid than one with none — so it's worth a crawler's attention sooner.
- * Unverified coupons still get a reasonable baseline priority; this nudges,
- * it doesn't bury them.
- */
-function couponPriority(coupon: CouponPublic): number {
-  const total = coupon.success_count + coupon.fail_count;
-  if (total === 0) return 0.6;
-  const confidence = Math.min(total / 10, 1); // more reports = more confidence, caps at 10
-  const quality = coupon.success_rate ?? 0;
-  return Math.round((0.6 + confidence * quality * 0.3) * 100) / 100; // 0.6 - 0.9
-}
-
-const STATIC_PAGES: MetadataRoute.Sitemap = [
-  { url: SITE_URL, changeFrequency: "hourly", priority: 1 },
-  { url: `${SITE_URL}/coupons`, changeFrequency: "hourly", priority: 0.9 },
-  { url: `${SITE_URL}/deals`, changeFrequency: "hourly", priority: 0.9 },
-  { url: `${SITE_URL}/bank-offers`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/black-friday`, changeFrequency: "weekly", priority: 0.9 },
-  { url: `${SITE_URL}/stores`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/stores/firstcry`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/stores/adidas`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/asus`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/charles-and-keith`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/victorias-secret`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/aldo-shoes`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/vero-moda`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/bath-and-body-works`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/palmonas`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/lenovo`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/ajio-com-ecommerce-cps-india`, changeFrequency: "daily", priority: 0.9 },
-  { url: `${SITE_URL}/stores/purevpn`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/sanskruti-homes`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/stores/shop-tupperware`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/stores/r-for-rabbit`, changeFrequency: "weekly", priority: 0.75 },
-  { url: `${SITE_URL}/stores/perfora-care`, changeFrequency: "weekly", priority: 0.75 },
-  { url: `${SITE_URL}/stores/blissclub`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/stores/digihaat`, changeFrequency: "weekly", priority: 0.75 },
-  { url: `${SITE_URL}/stores/hokmakeup`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/wearyourwords`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/stores/firstcry/club-calculator`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/stores/firstcry/diaper-cost-tracker`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/stores/firstcry/baby-gear-finder`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/stores/havells/bldc-calculator`, changeFrequency: "weekly", priority: 0.75 },
-  { url: `${SITE_URL}/categories`, changeFrequency: "daily", priority: 0.8 },
-  { url: `${SITE_URL}/guides`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/best-acer-laptop-deals-promo-codes`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/guides/lenovo-laptop-offers-india-2026`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/guides/adidas-sale-india-2026`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/amazon-flipkart-sale-dates-2026`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/guides/icici-bank-offers-india-2026`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/rbl-bank-offers-india-2026`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/best-credit-card-online-shopping-india-2026`, changeFrequency: "weekly", priority: 0.85 },
-  // Utility/legal pages are intentionally NOT in the sitemap — they are crawled
-  // via the footer and carry no standalone search demand.
-  { url: `${SITE_URL}/reviews`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/compare`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${SITE_URL}/collections`, changeFrequency: "weekly", priority: 0.7 },
-];
-
-/**
- * Page through the backend in batches of BACKEND_MAX_LIMIT, accumulating up to
- * SITEMAP_CHUNK_SIZE entries. The backend rejects requests above its maximum
- * page size (limit le=100), so a single large request would 422. Batching
- * keeps each individual request within the backend's contract while still
- * allowing shards to cover the full catalogue.
- *
- * This uses the raw `api` client, not `resilient`: a sitemap that silently
- * swallows an API failure would publish an empty shard, and a crawler would
- * read "no coupons exist". Surfacing the error (HTTP 500) makes crawlers
- * retry later and makes the failure visible in monitoring.
- */
-async function fetchBatch<T>(
-  fetcher: (skip: number, limit: number) => Promise<{ items: T[]; total: number }>,
-  skip: number,
-  maxItems: number,
-): Promise<T[]> {
-  const items: T[] = [];
-  let cursor = skip;
-  while (items.length < maxItems) {
-    const remaining = maxItems - items.length;
-    const limit = Math.min(BACKEND_MAX_LIMIT, remaining);
-    const page = await fetcher(cursor, limit);
-    items.push(...page.items);
-    // Stop when the backend returns fewer items than requested (end of data)
-    // or when we have accumulated enough for this shard.
-    if (page.items.length < limit || items.length >= maxItems) break;
-    cursor += page.items.length;
-  }
-  return items;
-}
-
-async function shardEntries({ kind, chunk }: SitemapId): Promise<MetadataRoute.Sitemap> {
-  const skip = chunk * SITEMAP_CHUNK_SIZE;
-  if (kind === "static") return STATIC_PAGES;
-  if (kind === "coupons") {
-    // Fetch the allowed store IDs once so we can filter coupons from non-India stores.
-    // HOMEPAGE_EXCLUDED_STORE_SLUGS excludes global/non-India programs from listing pages;
-    // the sitemap must respect the same boundary so we don't submit URLs that the
-    // audience and the page's own store filter already exclude.
-    // The backend caps page size at 100 — a single larger request would 422,
-    // and the sitemap would silently ship no coupons. Page through instead.
-    const allStores = await fetchBatch(
-      (skip, limit) => api.listStores({ skip, limit }),
-      0,
-      Number.MAX_SAFE_INTEGER,
-    );
-    const allowedStoreIds = new Set(
-      allStores
-        .filter((s) => isHomepageIndiaRelevant(s.slug))
-        .map((s) => s.id),
-    );
-
-    const coupons = await fetchBatch(
-      (s, l) => api.listCoupons({ skip: s, limit: l, active_only: true }),
-      skip,
-      SITEMAP_CHUNK_SIZE,
-    );
-    const now = Date.now();
-    // Match the page's own robots verdict: page says is_indexable === false → not sitemapped.
-    // Also exclude coupons from non-India stores so we don't waste crawl budget on
-    // global/off-topic programs that are already excluded from listing pages.
-    // Also exclude offers Google would read as garbage: no active status, auto-suppressed,
-    // or already expired — those pages carry the "deal unavailable" state and would sit
-    // in the index as soft-404s.
-    const indexable = coupons.filter(
-      (coupon) =>
-        coupon.is_indexable !== false &&
-        !coupon.auto_suppressed &&
-        coupon.is_active !== false &&
-        (!coupon.expires_at || new Date(coupon.expires_at).getTime() > now) &&
-        allowedStoreIds.has(coupon.store_id),
-    );
-    return indexable.map((coupon) => ({
-      url: `${SITE_URL}/coupons/${coupon.slug}`,
-      // "last content touched" — feed re-checks or shopper action. Never a fake fresh date.
-      lastModified: coupon.last_checked_at ?? coupon.last_verified_at ?? coupon.created_at,
-      changeFrequency: "daily" as const,
-      priority: couponPriority(coupon),
-    }));
-  }
-  if (kind === "stores") {
-    const stores = await fetchBatch(
-      (s, l) => api.listStores({ skip: s, limit: l }),
-      skip,
-      SITEMAP_CHUNK_SIZE,
-    );
-    // Only stores the page itself would index: see lib/store-indexing.ts.
-    // Also exclude non-India / global stores (same exclusion list as the homepage
-    // and listing pages) so the sitemap only advertises URLs that are relevant to
-    // the India audience Google associates with durza.in.
-    return stores
-      .filter(
-        (store) =>
-          !REDIRECTED_STORE_ALIAS_SLUGS.has(store.slug) &&
-          isIndexableStore(store.offer_count, store.description) &&
-          isHomepageIndiaRelevant(store.slug),
-      )
-      .map((store) => {
-        const custom = CUSTOM_STORE_SLUGS.has(store.slug);
-        return {
-          url: `${SITE_URL}/stores/${store.slug}`,
-          // No honest per-page "last changed" signal exists for stores — so no lastmod.
-          changeFrequency: "weekly" as const,
-          // Custom-built brand pages carry unique tools and FAQs; give them the
-          // same weight as the editorial pages in /sitemap/guides.xml.
-          priority: custom ? 0.8 : 0.6,
-        };
-      });
-  }
-  if (kind === "sales") {
-    const series = await api.listSales();
-    return series.map((item) => ({
-      url: `${SITE_URL}/sales/${item.slug}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }));
-  }
-  const contentType = EDITORIAL_SITEMAP_TYPES[kind];
-  if (contentType) {
-    let items: EditorialContent[];
-    try {
-      items = await fetchBatch(
-        (s, l) => api.listEditorial({ content_type: contentType, skip: s, limit: l }),
-        skip,
-        SITEMAP_CHUNK_SIZE,
-      );
-    } catch (error) {
-      if (isEditorialEndpointUnavailable(error)) items = [];
-      else throw error;
-    }
-    const entries: MetadataRoute.Sitemap = items.filter((content) => content.is_indexable).map((content) => ({
-      url: content.canonical_url ?? `${SITE_URL}${editorialPath(content)}`,
-      lastModified: content.updated_at,
-      changeFrequency: "monthly" as const,
-      priority: content.is_featured ? 0.75 : 0.65,
-    }));
-    if (kind === "guides") {
-      // Hand-authored static buying guides -- same weight as flagship guides.
-      const { STORE_GUIDES } = await import("@/data/store-guides");
-      entries.push(
-        ...STORE_GUIDES.map((guide) => ({
-          url: `${SITE_URL}/guides/${guide.slug}`,
-          lastModified: guide.auditedOn ? new Date(guide.auditedOn) : undefined,
-          changeFrequency: "weekly" as const,
-          priority: 0.85,
-        })),
-      );
-    }
-    return entries;
-  }
-  const categories = await fetchBatch(
-    (s, l) => api.listCategories({ skip: s, limit: l, live_only: true }),
-    skip,
-    SITEMAP_CHUNK_SIZE,
-  );
-  return categories.map((category) => ({
-    url: `${SITE_URL}/categories/${category.slug}`,
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
-  }));
-}
 
 function escapeXml(value: string): string {
   return value
@@ -295,6 +36,8 @@ function renderUrlSet(entries: MetadataRoute.Sitemap): string {
  * Serves each sitemap shard at /sitemap/{id}.xml (id from sitemapIds:
  * "static", "coupons-0", "stores-1", ...). The /sitemap.xml index lists
  * exactly these ids, and both sides derive from the same sitemapIds() call.
+ * URL construction/dedupe lives in lib/sitemap-entries.ts so the index can
+ * report the exact same counts this route publishes.
  */
 export async function GET(
   _request: Request,
@@ -307,7 +50,13 @@ export async function GET(
   const shard = (await sitemapIds()).find((candidate) => candidate.id === id);
   if (!shard) return new Response("Not Found", { status: 404 });
 
-  return new Response(renderUrlSet(await shardEntries(shard)), {
-    headers: { "Content-Type": "application/xml; charset=utf-8" },
+  const entries = await shardEntries(shard);
+  return new Response(renderUrlSet(entries), {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      // Machine-readable count so monitoring can reconcile the index against
+      // the child documents without parsing every URL.
+      "X-Sitemap-URL-Count": String(entries.length),
+    },
   });
 }

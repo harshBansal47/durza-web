@@ -64,7 +64,7 @@ export async function sitemapIds(): Promise<SitemapId[]> {
   const [coupons, stores, categories, guides, reviews, comparisons, collections] = await Promise.all([
     api.listCoupons({ limit: 1 }),
     api.listStores({ limit: 1 }),
-    api.listCategories({ limit: 1 }),
+    api.listCategories({ limit: 1, live_only: true }),
     editorialTotal("guide"),
     editorialTotal("review"),
     editorialTotal("comparison"),
