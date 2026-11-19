@@ -2,18 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-  BadgeCheck,
-  Check,
-  Copy,
-  Cpu,
-  ExternalLink,
-  Loader2,
-  Lock,
-  ShieldCheck,
-  Zap,
-} from "lucide-react";
-import { GO_REL, storeGoHref } from "@/lib/go";
+import { BadgeCheck, Check, Copy, Cpu, Lock, ShieldCheck, Zap } from "lucide-react";
+import { storeGoHref } from "@/lib/go";
 
 interface Props {
   forcedStoreHref?: string | null;
@@ -27,6 +17,7 @@ type Product = {
   points: string[];
   ctaLabel: string;
   couponCode: string;
+  offerInfo: string;
   accent: "blue" | "orange" | "cyan";
 };
 
@@ -44,6 +35,7 @@ const PRODUCTS: Product[] = [
     ],
     ctaLabel: "Buy at Best Price",
     couponCode: "PREDATOR10",
+    offerInfo: "₹3,000 off gaming laptops",
     accent: "blue",
   },
   {
@@ -59,6 +51,7 @@ const PRODUCTS: Product[] = [
     ],
     ctaLabel: "Claim Deal Now",
     couponCode: "NITRO20",
+    offerInfo: "₹500 off tablets",
     accent: "orange",
   },
   {
@@ -73,6 +66,7 @@ const PRODUCTS: Product[] = [
     ],
     ctaLabel: "Upgrade Your Workflow",
     couponCode: "SWIFT5",
+    offerInfo: "₹2,000 off non-gaming laptops",
     accent: "cyan",
   },
 ];
@@ -92,6 +86,7 @@ function accentStyles(accent: Product["accent"]) {
         badge: "text-blue-700 border-blue-200 bg-blue-50",
         cta: "bg-blue-600 text-white shadow-[0_10px_24px_rgba(37,99,235,0.22)] hover:bg-blue-700 hover:shadow-[0_16px_34px_rgba(37,99,235,0.32)]",
         ctaCopied: "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]",
+        code: "text-blue-700",
         check: "text-blue-600",
       };
     case "orange":
@@ -100,6 +95,7 @@ function accentStyles(accent: Product["accent"]) {
         badge: "text-orange-700 border-orange-200 bg-orange-50",
         cta: "bg-orange-500 text-white shadow-[0_10px_24px_rgba(234,88,12,0.22)] hover:bg-orange-600 hover:shadow-[0_16px_34px_rgba(234,88,12,0.32)]",
         ctaCopied: "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]",
+        code: "text-orange-700",
         check: "text-orange-600",
       };
     case "cyan":
@@ -109,32 +105,37 @@ function accentStyles(accent: Product["accent"]) {
         badge: "text-cyan-700 border-cyan-200 bg-cyan-50",
         cta: "bg-cyan-600 text-white shadow-[0_10px_24px_rgba(8,145,178,0.22)] hover:bg-cyan-700 hover:shadow-[0_16px_34px_rgba(8,145,178,0.32)]",
         ctaCopied: "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]",
+        code: "text-cyan-700",
         check: "text-cyan-600",
       };
   }
 }
 
+function maskCode(code: string): string {
+  if (code.length <= 2) return code;
+  return `${code.slice(0, 2)}${"•".repeat(code.length - 2)}`;
+}
+
 export default function AcerStorePageClient({ forcedStoreHref }: Props) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [redirectingCode, setRedirectingCode] = useState<string | null>(null);
-  const redirectTimeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {
-      if (redirectTimeoutRef.current) window.clearTimeout(redirectTimeoutRef.current);
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     };
   }, []);
 
-  const outHref = (src: string) => storeGoHref("acer", src, forcedStoreHref ?? undefined);
+  // Keep CPS/tracked link available for any future use while the coupon UI is copy-only.
+  void storeGoHref;
+  void forcedStoreHref;
 
-  const copyAndVisit = async (product: Product) => {
-    if (redirectingCode) return;
-    const { couponCode, id } = product;
+  const copyCode = async (code: string) => {
     try {
-      await navigator.clipboard.writeText(couponCode);
+      await navigator.clipboard.writeText(code);
     } catch {
       const textarea = document.createElement("textarea");
-      textarea.value = couponCode;
+      textarea.value = code;
       textarea.style.position = "fixed";
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
@@ -147,14 +148,9 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
       }
     }
 
-    setCopiedCode(couponCode);
-    setRedirectingCode(couponCode);
-
-    const destination = outHref(`${id}-coupon-cta`);
-    if (redirectTimeoutRef.current) window.clearTimeout(redirectTimeoutRef.current);
-    redirectTimeoutRef.current = window.setTimeout(() => {
-      window.location.href = destination;
-    }, 1200);
+    setCopiedCode(code);
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => setCopiedCode(null), 2000);
   };
 
   return (
@@ -224,7 +220,6 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           {PRODUCTS.map((product) => {
             const styles = accentStyles(product.accent);
             const copied = copiedCode === product.couponCode;
-            const redirecting = redirectingCode === product.couponCode;
             return (
               <article
                 key={product.id}
@@ -264,43 +259,37 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
 
                   <div className="mt-auto pt-6">
                     <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
-                      <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                        Exclusive Coupon
+                      <p className="mb-2 text-sm font-semibold text-ink sm:text-base">{product.offerInfo}</p>
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                        Coupon Code
                       </p>
-                      <p className="text-sm text-ink-soft">
-                        Code hidden to keep it exclusive. Copy it and we&apos;ll take you to Acer via our secure partner link.
-                      </p>
+                      <div className="rounded-lg border border-ledger-line bg-white px-3 py-3">
+                        <code className={`font-mono text-base font-bold tracking-[0.18em] sm:text-lg ${styles.code}`}>
+                          {maskCode(product.couponCode)}
+                        </code>
+                      </div>
                       <button
                         type="button"
-                        onClick={() => copyAndVisit(product)}
-                        disabled={Boolean(redirectingCode)}
-                        className={`mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-90 ${
-                          copied || redirecting
+                        onClick={() => copyCode(product.couponCode)}
+                        className={`mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                          copied
                             ? styles.ctaCopied
                             : `${styles.cta} hover:-translate-y-0.5`
                         }`}
-                        aria-label={`Copy hidden coupon code and visit Acer store for ${product.headline}`}
+                        aria-label={`Copy coupon code for ${product.headline}`}
                       >
-                        {copied || redirecting ? (
+                        {copied ? (
                           <>
-                            {redirecting ? (
-                              <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <Check aria-hidden="true" className="h-4 w-4" />
-                            )}
-                            <span>Copied! Redirecting…</span>
+                            <Check aria-hidden="true" className="h-4 w-4" />
+                            <span>Copied!</span>
                           </>
                         ) : (
                           <>
                             <Copy aria-hidden="true" className="h-4 w-4" />
-                            <span>Copy Code &amp; Visit Store</span>
-                            <ExternalLink aria-hidden="true" className="h-4 w-4 opacity-90" />
+                            <span>Copy Code</span>
                           </>
                         )}
                       </button>
-                      <p className="mt-2 text-center text-xs text-slate-500">
-                        {copied || redirecting ? "Code copied to clipboard" : "Tap to copy code and continue to Acer"}
-                      </p>
                     </div>
                   </div>
                 </div>
