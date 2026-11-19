@@ -20,6 +20,7 @@ interface Props {
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
+  forcedStoreHref?: string | null;
 }
 
 type Tab = "personal" | "family" | "dns" | "vpn";
@@ -69,9 +70,10 @@ function ShieldIcon() {
   );
 }
 
-export default function AdGuardClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function AdGuardClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl, forcedStoreHref }: Props) {
   const [active, setActive] = useState<Tab>("personal");
   const match = useMemo(() => MATCHES[active], [active]);
+  const outHref = (src: string, fallback?: string) => forcedStoreHref ?? fallback ?? storeGoHref("adguard-many-geos", src);
   const domain = (() => {
     try {
       return (storeUrl ?? "https://adguard.com/").replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "");
@@ -88,7 +90,7 @@ export default function AdGuardClient({ offers, faqs, stats, heroImageUrl, offer
         domain={domain}
         heroImageUrl={heroImageUrl ?? "/stores/adguard.webp"}
         offerCount={offerCount ?? offers.length}
-        ctaHref={storeGoHref("adguard-many-geos", "store-page")}
+        ctaHref={outHref("store-page")}
         ctaLabel="Visit Official Store"
         offers={offers}
       />
@@ -135,7 +137,7 @@ export default function AdGuardClient({ offers, faqs, stats, heroImageUrl, offer
               <h3 className="mt-1 text-lg font-semibold text-ink">{match.name}</h3>
               <p className="mt-2 text-sm leading-7 text-ink-soft">{match.detail}</p>
               <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">System-Wide Filtering · 3 or 9 Devices · Multi-Currency</p>
-              <a href={storeGoHref("adguard-many-geos", match.src)} rel={GO_REL} target="_blank" className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800">
+              <a href={outHref(match.src)} rel={GO_REL} target="_blank" className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800">
                 {match.cta}
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
               </a>
@@ -162,14 +164,14 @@ export default function AdGuardClient({ offers, faqs, stats, heroImageUrl, offer
           <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {offers.map((offer) => (
               <li key={offer.id} className="min-h-0">
-                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={offer.targetUrl || storeGoHref("adguard-many-geos", "offer-card")} expiresAt={offer.expiresAt} />
+                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={outHref("offer-card", offer.targetUrl || storeGoHref("adguard-many-geos", "offer-card"))} expiresAt={offer.expiresAt} />
               </li>
             ))}
           </ul>
         </section>
       )}
 
-      <ExploreStoreCta storeName="AdGuard" href={storeGoHref("adguard-many-geos", "store-page-bottom")} description="Browse AdGuard plans and check live pricing, multi-currency checkout, and terms directly on the official store." />
+      <ExploreStoreCta storeName="AdGuard" href={outHref("store-page-bottom")} description="Browse AdGuard plans and check live pricing, multi-currency checkout, and terms directly on the official store." />
       <FaqSection eyebrow="AdGuard FAQs" items={faqs} />
       <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to AdGuard (adguard.com). Product availability, pricing currency, and terms are subject to change on the official store.</p>
       <AffiliateDisclosure />

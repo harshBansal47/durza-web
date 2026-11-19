@@ -44,6 +44,7 @@ export default async function Page() {
   const storeUrl = destination?.store.website_url ?? "https://www.italojewelry.com/";
   const offerCount =
     destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const forcedStoreHref = destination?.admitad_store_cps_url ?? null;
 
   return (
     <>
@@ -62,6 +63,7 @@ export default async function Page() {
         heroImageUrl={heroImageUrl}
         offerCount={offerCount}
         storeUrl={storeUrl}
+        forcedStoreHref={forcedStoreHref}
       />
       <RelatedGuides slug="italojewerly" />
     </>

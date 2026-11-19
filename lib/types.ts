@@ -148,6 +148,10 @@ export interface StoreDestination {
   related_content: EditorialContent[];
   /** Every live offer, not only the (up to 100 + 100) listed. Absent on an older API. */
   offer_total?: number;
+  /** When true, this store has Admitad-sourced coupons and only those are shown. */
+  admitad_only?: boolean;
+  /** When set, store-page links should use this Admitad CPS affiliate link (approved program, no Admitad coupons). */
+  admitad_store_cps_url?: string | null;
 }
 
 export type DiscountType = "percentage" | "fixed" | "deal";

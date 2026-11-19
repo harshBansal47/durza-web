@@ -20,6 +20,7 @@ interface Props {
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
+  forcedStoreHref?: string | null;
 }
 
 type Tab = "bridal" | "everyday" | "gemstone" | "gifts";
@@ -68,9 +69,10 @@ function GemIcon() {
   );
 }
 
-export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl, forcedStoreHref }: Props) {
   const [active, setActive] = useState<Tab>("bridal");
   const match = useMemo(() => MATCHES[active], [active]);
+  const outHref = (src: string, fallback?: string) => forcedStoreHref ?? fallback ?? storeGoHref("italojewerly", src);
   const domain = (() => {
     try {
       return (storeUrl ?? "https://www.italojewelry.com/").replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "");
@@ -87,7 +89,7 @@ export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, 
         domain={domain}
         heroImageUrl={heroImageUrl ?? "/stores/italojewerly.webp"}
         offerCount={offerCount ?? offers.length}
-        ctaHref={storeGoHref("italojewerly", "store-page")}
+        ctaHref={outHref("store-page")}
         ctaLabel="Visit Official Store"
         offers={offers}
       />
@@ -134,7 +136,7 @@ export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, 
               <h3 className="mt-1 text-lg font-semibold text-ink">{match.name}</h3>
               <p className="mt-2 text-sm leading-7 text-ink-soft">{match.detail}</p>
               <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">925 Sterling Silver · Rhodium Finish · Global Shipping</p>
-              <a href={storeGoHref("italojewerly", match.src)} rel={GO_REL} target="_blank" className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-rose-700 px-5 text-sm font-semibold text-white transition hover:bg-rose-800">
+              <a href={outHref(match.src)} rel={GO_REL} target="_blank" className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-rose-700 px-5 text-sm font-semibold text-white transition hover:bg-rose-800">
                 {match.cta}
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
               </a>
@@ -161,14 +163,14 @@ export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, 
           <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {offers.map((offer) => (
               <li key={offer.id} className="min-h-0">
-                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={offer.targetUrl || storeGoHref("italojewerly", "offer-card")} expiresAt={offer.expiresAt} />
+                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={outHref("offer-card", offer.targetUrl || storeGoHref("italojewerly", "offer-card"))} expiresAt={offer.expiresAt} />
               </li>
             ))}
           </ul>
         </section>
       )}
 
-      <ExploreStoreCta storeName="Italo Jewelry" href={storeGoHref("italojewerly", "store-page-bottom")} description="Browse the full Italo Jewelry range and check live USD pricing, international shipping, and terms directly on the official store." />
+      <ExploreStoreCta storeName="Italo Jewelry" href={outHref("store-page-bottom")} description="Browse the full Italo Jewelry range and check live USD pricing, international shipping, and terms directly on the official store." />
       <FaqSection eyebrow="Italo Jewelry FAQs" items={faqs} />
       <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Italo Jewelry (italojewelry.com). Pricing, currency, shipping, and terms are subject to change on the official store.</p>
       <AffiliateDisclosure />

@@ -41,6 +41,8 @@ const DISPLAY_OVERRIDES: Record<string, string> = {
   "hkvitals": "HK Vitals",
   "havells": "Havells",
   "guvi": "GUVI",
+  "hokmakeup": "HOK Makeup",
+  "hok-makeup": "HOK Makeup",
   "kama-ayurveda": "Kama Ayurveda",
   "the-man-company": "The Man Company",
   "adguard-many-geos": "AdGuard",
@@ -61,6 +63,7 @@ const DISPLAY_OVERRIDES: Record<string, string> = {
   "store-jeenasikho-com-ecommerce-cps-india": "Jeena Sikho",
   "tatacliq-com-ecommerce-cps-india": "Tata CLiQ",
   "tata-cliq": "Tata CLiQ",
+  "wearyourwords": "Wear Your Words",
 };
 
 function stripFeedSuffixes(value: string): string {

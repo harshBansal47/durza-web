@@ -38,7 +38,12 @@ export function isValidStoreSlug(slug: string): boolean {
   return STORE_SLUG.test(slug);
 }
 
-/** The neutral redirect path for a store, tagged with where the click came from. */
-export function storeGoHref(slug: string, src: string = "site"): string {
+/** The neutral redirect path for a store, tagged with where the click came from.
+ *
+ * When `forcedHref` is provided (approved Admitad program, no Admitad coupons),
+ * every store-page link must use that Admitad CPS affiliate link.
+ */
+export function storeGoHref(slug: string, src: string = "site", forcedHref?: string | null): string {
+  if (forcedHref) return forcedHref;
   return `/go/${encodeURIComponent(slug)}?src=${encodeURIComponent(src)}`;
 }

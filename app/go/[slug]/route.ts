@@ -12,6 +12,22 @@ const HEADERS = {
 
 const REDIRECTS = new Set([301, 302, 303, 307, 308]);
 
+/** Immediate CPS fallbacks for stores that may not yet have backend campaign/store records. */
+const CPS_FALLBACKS: Record<string, string> = {
+  hokmakeup:
+    process.env.HOKMAKEUP_CPS_URL ||
+    process.env.NEXT_PUBLIC_HOKMAKEUP_CPS_URL ||
+    "https://track.vcommission.com/click?campaign_id=13937&pub_id=133499",
+  "hok-makeup":
+    process.env.HOKMAKEUP_CPS_URL ||
+    process.env.NEXT_PUBLIC_HOKMAKEUP_CPS_URL ||
+    "https://track.vcommission.com/click?campaign_id=13937&pub_id=133499",
+  wearyourwords:
+    process.env.WEARYOURWORDS_CPS_URL ||
+    process.env.NEXT_PUBLIC_WEARYOURWORDS_CPS_URL ||
+    "https://track.vcommission.com/click?campaign_id=13943&pub_id=133499",
+};
+
 function redirect(url: string | URL): NextResponse {
   return NextResponse.redirect(url, { status: 302, headers: HEADERS });
 }
@@ -66,8 +82,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     // Only ever relay a web address the API produced; anything else is treated as a failure.
     if (REDIRECTS.has(response.status) && isHttp(location)) return redirect(location);
   } catch {
-    // network error or timeout: fall through to the store page
+    // network error or timeout: fall through to CPS fallback / store page
   }
+  const cps = CPS_FALLBACKS[slug];
+  if (isHttp(cps ?? null)) return redirect(cps as string);
   return redirect(fallback);
 }
 

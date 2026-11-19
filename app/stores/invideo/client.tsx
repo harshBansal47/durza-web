@@ -43,13 +43,14 @@ interface Props {
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
+  forcedStoreHref?: string | null;
 }
 
-export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offerCount }: Props) {
+export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offerCount, forcedStoreHref }: Props) {
   const [tab, setTab] = useState<Tab>("ai");
   const active = TABS[tab];
   const topOffer = offers[0] ?? null;
-  const storeHref = "/go/invideo?src=store-page";
+  const storeHref = forcedStoreHref ?? "/go/invideo?src=store-page";
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 pb-24 md:pb-8">
@@ -95,7 +96,7 @@ export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offer
               </li>
             ))}
           </ul>
-          <a href={active.cta} target="_blank" rel={REL} className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
+          <a href={forcedStoreHref ?? active.cta} target="_blank" rel={REL} className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
             Explore {TABS[tab].label} on InVideo <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
           </a>
         </div>
@@ -118,7 +119,7 @@ export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offer
               badge={o.badge}
               title={o.title}
               description={o.description}
-              ctaHref={o.targetUrl.startsWith("/go/") ? `${o.targetUrl}${o.targetUrl.includes("?") ? "&" : "?"}src=offer-card` : `/go/invideo?src=offer-card`}
+              ctaHref={forcedStoreHref ?? (o.targetUrl.startsWith("/go/") ? `${o.targetUrl}${o.targetUrl.includes("?") ? "&" : "?"}src=offer-card` : `/go/invideo?src=offer-card`)}
               expiresAt={o.expiresAt}
             />
           ))}
@@ -144,7 +145,7 @@ export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offer
       <FaqSection eyebrow="InVideo FAQs" items={faqs} />
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur md:hidden">
-        <a href={topOffer ? (topOffer.targetUrl.startsWith("/go/") ? topOffer.targetUrl : storeHref) : storeHref} target="_blank" rel={REL} className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white">
+        <a href={forcedStoreHref ?? (topOffer ? (topOffer.targetUrl.startsWith("/go/") ? topOffer.targetUrl : storeHref) : storeHref)} target="_blank" rel={REL} className="mx-auto flex max-w-lg items-center justify-between gap-3 rounded-xl bg-ink px-4 py-3 text-white">
           <span className="min-w-0">
             <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-400">{topOffer?.code ? `Code ${topOffer.code}` : "Official store"}</span>
             <span className="block truncate text-xs font-semibold">{topOffer ? topOffer.title : "Check current InVideo plans & offers"}</span>

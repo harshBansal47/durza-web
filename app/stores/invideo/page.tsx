@@ -48,6 +48,7 @@ export default async function Page() {
   const heroImageUrl = destination?.store.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
+  const forcedStoreHref = destination?.admitad_store_cps_url ?? null;
 
   return (
     <>
@@ -59,7 +60,7 @@ export default async function Page() {
         ]}
       />
       <JsonLd data={faqPageJsonLd(FAQS)} />
-      <StoreClient offers={offers} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} stats={stats} faqs={FAQS} />
+      <StoreClient offers={offers} heroImageUrl={heroImageUrl} offerCount={offerCount} storeUrl={storeUrl} stats={stats} faqs={FAQS} forcedStoreHref={forcedStoreHref} />
       <RelatedGuides slug="invideo" />
     </>
   );

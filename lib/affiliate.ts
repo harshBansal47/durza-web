@@ -158,12 +158,15 @@ export function logAffiliateConfigWarnings(): void {
  * @param brand   key into VCOMMISSION_CAMPAIGNS
  * @param targetUrl destination on the advertiser's site (any https URL)
  * @param subId   per-placement tag ("store_hub", "offer_card", "hero_cta", …)
+ * @param forcedHref when set (rule 2), use this Admitad CPS store link for every store-page link
  */
 export function getAffiliateLink(
   brand: AffiliateBrand,
   targetUrl: string,
   subId: string,
+  forcedHref?: string | null,
 ): string {
+  if (forcedHref) return forcedHref;
   logAffiliateConfigWarnings();
   const campaignId = campaignIdFor(brand);
   return (
