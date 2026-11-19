@@ -18,6 +18,7 @@ import JsonLd from "@/components/JsonLd";
 import StoreGuideLink from "@/components/stores/StoreGuideLink";
 import StoreBannerAds from "@/components/store/StoreBannerAds";
 import type { StoreProductCollection } from "@/components/store/Storefront";
+import { hasCustomStorePage } from "@/lib/custom-store-pages";
 
 // Pagination reads request-time searchParams, so the page itself cannot be ISR-cached.
 // The API reads remain cached independently by apiFetch.
@@ -73,6 +74,10 @@ async function loadProductCollections(storeId: string): Promise<{
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  // Never serve the generic template for a brand that has a designed custom store page.
+  if (hasCustomStorePage(slug)) {
+    notFound();
+  }
   // Use the same lookup the page uses: a real 404 from the API throws ApiError(404)
   // which orNotFound converts to null. Any other failure also throws and surfaces as
   // an error page. We must call notFound() here too — if only the page component
@@ -138,6 +143,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function StorePage({ params, searchParams }: Props) {
   const { slug } = await params;
+  // Never serve the generic template for a brand that has a designed custom store page.
+  if (hasCustomStorePage(slug)) {
+    notFound();
+  }
   const sp = await searchParams;
   const pageParam = Array.isArray(sp.page) ? sp.page[0] : sp.page;
   const requestedPage = Number(pageParam);

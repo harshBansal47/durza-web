@@ -13,22 +13,9 @@ import { isIndexableStore } from "@/lib/store-indexing";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import type { CouponPublic, EditorialContent } from "@/lib/types";
 import { editorialPath } from "@/lib/editorial-path";
+import { CUSTOM_STORE_SLUGS } from "@/lib/custom-store-pages";
 
 export const revalidate = 3600;
-
-/**
- * Custom-built brand store pages (app/stores/<slug>/page.tsx). They carry unique
- * matchers/calculators and full FAQ blocks, so they outrank the generic template.
- */
-const CUSTOM_STORE_SLUGS = new Set([
-  "alpino", "beast-life", "boldfit", "boult", "brillare", "bytepe", "dot-and-key",
-  "firstcry", "fitspire", "fuelone", "gritzo", "guvi", "havells", "healthkart",
-  "hirafragrance", "hkvitals", "iba-cosmetics", "igp", "indus-valley",
-  "kama-ayurveda", "kapiva", "lavie-world", "levis", "life-changing-astro",
-  "milton", "moglix", "mymuse", "neesh-perfumes", "nilkamalfurniture", "nordpass",
-  "nourish-mantra", "sirona", "the-bear-house", "the-man-company",
-  "the-natural-wash", "truebasics", "wonderchef", "zeroharm", "zoff-foods",
-]);
 
 /**
  * Store slugs that permanently redirect to a canonical store URL.
@@ -91,6 +78,8 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/stores/perfora-care`, changeFrequency: "weekly", priority: 0.75 },
   { url: `${SITE_URL}/stores/blissclub`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${SITE_URL}/stores/digihaat`, changeFrequency: "weekly", priority: 0.75 },
+  { url: `${SITE_URL}/stores/hokmakeup`, changeFrequency: "weekly", priority: 0.85 },
+  { url: `${SITE_URL}/stores/wearyourwords`, changeFrequency: "weekly", priority: 0.85 },
   { url: `${SITE_URL}/stores/firstcry/club-calculator`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/stores/firstcry/diaper-cost-tracker`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/stores/firstcry/baby-gear-finder`, changeFrequency: "weekly", priority: 0.7 },
