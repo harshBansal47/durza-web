@@ -375,7 +375,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink-soft">
             Browse the latest laptops, desktops, monitors, and tablets directly on Acer&apos;s official store.
           </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-6 flex justify-center">
             <a
               href={officialStoreHref}
               target="_blank"
@@ -383,15 +383,6 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-blue-600 px-7 text-sm font-bold text-white shadow-[0_12px_30px_rgba(37,99,235,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_18px_40px_rgba(37,99,235,0.38)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               Visit Official Acer Store
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-            </a>
-            <a
-              href={officialStoreHref}
-              target="_blank"
-              rel={GO_REL}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ledger-line bg-white px-7 text-sm font-bold text-ink transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[var(--shadow-raised)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            >
-              Check Acer Store
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
@@ -402,7 +393,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
       <footer className="border-t border-ledger-line bg-white/70">
         <div className="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
           <p className="mx-auto max-w-3xl text-sm leading-7 text-ink-soft">
-            As an affiliate, we may earn a commission from qualifying purchases at no extra cost to you.
+            Disclaimer: The coupon codes and offers listed can not guarantee availability or pricing. All offers are subject to change and may be limited in quantity. Please verify the details on the official Acer store before making a purchase.
           </p>
         </div>
       </footer>
