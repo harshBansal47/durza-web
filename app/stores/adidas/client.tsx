@@ -223,9 +223,7 @@ export default function AdidasClient({ offers, faqs, stats, heroImageUrl, offerC
 
       <FaqSection eyebrow="Adidas India FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to Adidas India (adidas.co.in). Product availability, sizing, and terms are subject to change on the official store.
-      </p>
+    
       <AffiliateDisclosure />
     </div>
   );

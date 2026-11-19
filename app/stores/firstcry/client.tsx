@@ -168,7 +168,7 @@ export default function FirstCryClient({ offers, faqs, stats, heroImageUrl, offe
 
       <ExploreStoreCta storeName="FirstCry" href={storeGoHref("firstcry", "store-page-bottom")} description="Browse the full FirstCry range and check live availability, Club perks, and terms directly on the official store." />
       <FaqSection eyebrow="FirstCry FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to FirstCry (firstcry.com). Availability and terms are subject to change on the official store.</p>
+
       <AffiliateDisclosure />
     </div>
   );

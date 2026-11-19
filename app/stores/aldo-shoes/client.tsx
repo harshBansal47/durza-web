@@ -223,9 +223,7 @@ export default function AldoShoesClient({ offers = [], faqs, stats, heroImageUrl
 
       <FaqSection eyebrow="ALDO India FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to ALDO India (aldoshoes.in). Product availability, sizing, and terms are subject to change on the official store.
-      </p>
+
       <AffiliateDisclosure />
     </div>
   );

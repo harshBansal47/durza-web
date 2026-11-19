@@ -171,7 +171,7 @@ export default function CromaClient({ offers, faqs, stats, heroImageUrl, offerCo
 
       <ExploreStoreCta storeName="Croma" href={storeGoHref("croma", "store-page-bottom")} description="Browse the full Croma range and check live availability, exchange values, and terms directly on the official store." />
       <FaqSection eyebrow="Croma FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Croma (croma.com). Availability and terms are subject to change on the official store.</p>
+
       <AffiliateDisclosure />
     </div>
   );

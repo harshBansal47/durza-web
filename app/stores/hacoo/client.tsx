@@ -167,7 +167,7 @@ export default function HacooClient({ offers, faqs, stats, heroImageUrl, offerCo
 
       <ExploreStoreCta storeName="Hacoo" href={storeGoHref("hacoo", "store-page-bottom")} description="Browse Hacoo listings and check live availability, shipping eligibility, and buyer terms directly on the official platform." />
       <FaqSection eyebrow="Hacoo FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Hacoo. Availability, shipping, and terms are subject to change on the official platform.</p>
+
       <AffiliateDisclosure />
     </div>
   );

@@ -174,7 +174,6 @@ export default function ItaliaRailClient({ offers, faqs, stats, heroImageUrl, of
 
       <ExploreStoreCta storeName="ItaliaRail" href={outHref("store-page-bottom")} description="Browse Italy rail routes and check live fares, multi-currency checkout, and ticket terms directly on the official store." />
       <FaqSection eyebrow="ItaliaRail FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to ItaliaRail (italiarail.com). Fares, currency options, and ticket terms are subject to change on the official store.</p>
       <AffiliateDisclosure />
     </div>
   );

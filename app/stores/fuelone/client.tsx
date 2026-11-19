@@ -226,9 +226,7 @@ export default function FuelOneClient({ offers, faqs, stats, heroImageUrl, offer
 
       <FaqSection eyebrow="Fuel One FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to Fuel One (fuelone.in). Product availability and terms are subject to change on the official store.
-      </p>
+
       <AffiliateDisclosure />
     </div>
   );

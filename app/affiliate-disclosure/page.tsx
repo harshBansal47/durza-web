@@ -14,8 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Affiliate Disclosure",
     description:
-      "Durza may earn a commission when you use certain links and complete a qualifying purchase.",
-    url: absoluteUrl("/affiliate-disclosure"),
+    "",url: absoluteUrl("/affiliate-disclosure"),
   },
 };
 

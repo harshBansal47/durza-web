@@ -98,7 +98,6 @@ export default function OfferDrawer({ deal, onClose }: { deal: HeroDeal; onClose
           {deal.sourceText && (
             <>
               <div className="hx-sect">Source</div>
-              <p className="hx-source">{deal.sourceText}. Durza may earn a commission if you buy through our link — your price never changes.</p>
             </>
           )}
 

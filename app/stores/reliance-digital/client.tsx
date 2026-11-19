@@ -168,7 +168,6 @@ export default function RelianceDigitalClient({ offers, faqs, stats, heroImageUr
 
       <ExploreStoreCta storeName="Reliance Digital" href={storeGoHref("reliance-digital", "store-page-bottom")} description="Browse the full Reliance Digital range and check live availability, bank offers, and service terms directly on the official store." />
       <FaqSection eyebrow="Reliance Digital FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Reliance Digital (reliancedigital.in). Availability and terms are subject to change on the official store.</p>
       <AffiliateDisclosure />
     </div>
   );

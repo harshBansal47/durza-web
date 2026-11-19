@@ -220,7 +220,6 @@ export default function HokMakeupClient({ offers, faqs, stats, heroImageUrl, off
       </section>
 
       <ExploreStoreCta storeName="HOK Makeup" href={href("store-page-bottom")} description="Browse authentic global beauty brands, combos, and kits directly on HOK Makeup and confirm batch details and checkout terms on the official store." />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to HOK Makeup (hokmakeup.com). Product availability and terms are subject to change on the official store.</p>
       <AffiliateDisclosure />
     </div>
   );

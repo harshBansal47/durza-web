@@ -306,15 +306,6 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           })}
         </div>
       </section>
-
-      {/* Footer disclosure (page-level) */}
-      <footer className="border-t border-white/10 bg-black/30">
-        <div className="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
-          <p className="mx-auto max-w-3xl text-sm leading-7 text-zinc-400">
-            As an affiliate, we may earn a commission from qualifying purchases at no extra cost to you.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -227,9 +227,7 @@ export default function TrueBasicsClient({ offers, faqs, stats, heroImageUrl, of
 
       <FaqSection eyebrow="TrueBasics FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to TrueBasics (truebasics.com). Product availability and terms are subject to change on the official store.
-      </p>
+
       <AffiliateDisclosure />
     </div>
   );

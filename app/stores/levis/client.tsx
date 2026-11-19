@@ -168,7 +168,6 @@ export default function LevisClient({ offers, faqs, stats, heroImageUrl, offerCo
 
       <ExploreStoreCta storeName="Levi's India" href={storeGoHref("levis", "store-page-bottom")} description="Browse the full Levi's range and check live availability, fits, and terms directly on the official store." />
       <FaqSection eyebrow="Levi's India FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Levi&apos;s India (levi.in). Product availability and terms are subject to change on the official store.</p>
       <AffiliateDisclosure />
     </div>
   );

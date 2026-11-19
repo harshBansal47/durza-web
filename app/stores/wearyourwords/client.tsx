@@ -220,7 +220,7 @@ export default function WearYourWordsClient({ offers, faqs, stats, heroImageUrl,
       </section>
 
       <ExploreStoreCta storeName="Wear Your Words" href={href("store-page-bottom")} description="Browse statement denim, check sizing guidance, and confirm wash-care and checkout terms directly on Wear Your Words." />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Wear Your Words (wearyourwords.in). Product availability and terms are subject to change on the official store.</p>
+      
       <AffiliateDisclosure />
     </div>
   );

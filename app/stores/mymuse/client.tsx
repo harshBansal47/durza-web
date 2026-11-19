@@ -223,9 +223,7 @@ export default function MyMuseClient({ offers, faqs, stats, heroImageUrl, offerC
 
       <FaqSection eyebrow="MyMuse FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to MyMuse (mymuse.in). Product availability and terms are subject to change on the official store.
-      </p>
+
       <AffiliateDisclosure />
     </div>
   );

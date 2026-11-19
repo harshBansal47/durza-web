@@ -225,9 +225,6 @@ export default function CharlesKeithClient({ offers = [], faqs, stats, heroImage
 
       <FaqSection eyebrow="Charles & Keith India FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to Charles &amp; Keith India (charleskeith.in). Product availability and terms are subject to change on the official store.
-      </p>
       <AffiliateDisclosure />
     </div>
   );

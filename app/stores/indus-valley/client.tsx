@@ -226,9 +226,7 @@ export default function IndusValleyClient({ offers, faqs, stats, heroImageUrl, o
 
       <FaqSection eyebrow="Indus Valley FAQs" items={faqs} />
 
-      <p className="mt-8 text-xs leading-6 text-ink-faint">
-        Durza may earn a commission from purchases made via our affiliate links to Indus Valley (buyindusvalley.in). Product availability and terms are subject to change on the official store.
-      </p>
+
       <AffiliateDisclosure />
     </div>
   );

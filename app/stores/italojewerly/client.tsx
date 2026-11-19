@@ -172,7 +172,7 @@ export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, 
 
       <ExploreStoreCta storeName="Italo Jewelry" href={outHref("store-page-bottom")} description="Browse the full Italo Jewelry range and check live USD pricing, international shipping, and terms directly on the official store." />
       <FaqSection eyebrow="Italo Jewelry FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Italo Jewelry (italojewelry.com). Pricing, currency, shipping, and terms are subject to change on the official store.</p>
+
       <AffiliateDisclosure />
     </div>
   );

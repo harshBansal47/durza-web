@@ -78,9 +78,7 @@ export default function AdidasStyleCompare() {
           );
         })}
       </div>
-      <p className="mt-4 text-xs leading-5 text-slate-500">
-        Durza may earn a commission if you buy through these links; your price does not change.
-      </p>
+
     </section>
   );
 }

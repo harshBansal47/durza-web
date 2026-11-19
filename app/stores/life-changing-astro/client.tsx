@@ -164,7 +164,6 @@ export default function LifeChangingAstroClient({ offers, faqs, stats, heroImage
 
       <ExploreStoreCta storeName="Life Changing Astro" href={storeGoHref("life-changing-astro", "store-page-bottom")} description="Browse consultations and certified items and check live booking, certification, and terms directly on the official store." />
       <FaqSection eyebrow="Life Changing Astro FAQs" items={faqs} />
-      <p className="mt-8 text-xs leading-6 text-ink-faint">Durza may earn a commission from purchases made via our affiliate links to Life Changing Astro (lifechangingastro.com). Service availability and terms are subject to change on the official store.</p>
       <AffiliateDisclosure />
     </div>
   );
