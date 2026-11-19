@@ -7,6 +7,8 @@ import {
   Check,
   Copy,
   Cpu,
+  ExternalLink,
+  Loader2,
   Lock,
   ShieldCheck,
   Zap,
@@ -89,8 +91,7 @@ function accentStyles(accent: Product["accent"]) {
         card: "hover:border-blue-200",
         badge: "text-blue-700 border-blue-200 bg-blue-50",
         cta: "bg-blue-600 text-white shadow-[0_10px_24px_rgba(37,99,235,0.22)] hover:bg-blue-700 hover:shadow-[0_16px_34px_rgba(37,99,235,0.32)]",
-        code: "text-blue-700",
-        copyIdle: "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200",
+        ctaCopied: "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]",
         check: "text-blue-600",
       };
     case "orange":
@@ -98,8 +99,7 @@ function accentStyles(accent: Product["accent"]) {
         card: "hover:border-orange-200",
         badge: "text-orange-700 border-orange-200 bg-orange-50",
         cta: "bg-orange-500 text-white shadow-[0_10px_24px_rgba(234,88,12,0.22)] hover:bg-orange-600 hover:shadow-[0_16px_34px_rgba(234,88,12,0.32)]",
-        code: "text-orange-700",
-        copyIdle: "bg-orange-50 text-orange-700 hover:bg-orange-100 border-orange-200",
+        ctaCopied: "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]",
         check: "text-orange-600",
       };
     case "cyan":
@@ -108,8 +108,7 @@ function accentStyles(accent: Product["accent"]) {
         card: "hover:border-cyan-200",
         badge: "text-cyan-700 border-cyan-200 bg-cyan-50",
         cta: "bg-cyan-600 text-white shadow-[0_10px_24px_rgba(8,145,178,0.22)] hover:bg-cyan-700 hover:shadow-[0_16px_34px_rgba(8,145,178,0.32)]",
-        code: "text-cyan-700",
-        copyIdle: "bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border-cyan-200",
+        ctaCopied: "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]",
         check: "text-cyan-600",
       };
   }
@@ -117,22 +116,25 @@ function accentStyles(accent: Product["accent"]) {
 
 export default function AcerStorePageClient({ forcedStoreHref }: Props) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const timeoutRef = useRef<number | null>(null);
+  const [redirectingCode, setRedirectingCode] = useState<string | null>(null);
+  const redirectTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      if (redirectTimeoutRef.current) window.clearTimeout(redirectTimeoutRef.current);
     };
   }, []);
 
   const outHref = (src: string) => storeGoHref("acer", src, forcedStoreHref ?? undefined);
 
-  const copyCode = async (code: string) => {
+  const copyAndVisit = async (product: Product) => {
+    if (redirectingCode) return;
+    const { couponCode, id } = product;
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(couponCode);
     } catch {
       const textarea = document.createElement("textarea");
-      textarea.value = code;
+      textarea.value = couponCode;
       textarea.style.position = "fixed";
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
@@ -144,9 +146,15 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
         document.body.removeChild(textarea);
       }
     }
-    setCopiedCode(code);
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(() => setCopiedCode(null), 2000);
+
+    setCopiedCode(couponCode);
+    setRedirectingCode(couponCode);
+
+    const destination = outHref(`${id}-coupon-cta`);
+    if (redirectTimeoutRef.current) window.clearTimeout(redirectTimeoutRef.current);
+    redirectTimeoutRef.current = window.setTimeout(() => {
+      window.location.href = destination;
+    }, 1200);
   };
 
   return (
@@ -207,8 +215,8 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
             Curated Acer Picks &amp; Verified Codes
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink-soft">
-            Handpicked laptops for gamers, creators, and professionals — each with an exclusive
-            coupon to maximize your savings.
+            Handpicked laptops for gamers, creators, and professionals — unlock an exclusive
+            coupon at checkout to maximize your savings.
           </p>
         </div>
 
@@ -216,6 +224,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           {PRODUCTS.map((product) => {
             const styles = accentStyles(product.accent);
             const copied = copiedCode === product.couponCode;
+            const redirecting = redirectingCode === product.couponCode;
             return (
               <article
                 key={product.id}
@@ -254,46 +263,44 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                   </ul>
 
                   <div className="mt-auto pt-6">
-                    <a
-                      href={outHref(`${product.id}-cta`)}
-                      target="_blank"
-                      rel={GO_REL}
-                      className={`inline-flex min-h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-bold transition duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${styles.cta}`}
-                    >
-                      {product.ctaLabel}
-                    </a>
-
-                    <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                        Coupon Code
+                    <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
+                      <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                        Exclusive Coupon
                       </p>
-                      <div className="flex items-center justify-between gap-3 rounded-lg border border-ledger-line bg-white px-3 py-2.5">
-                        <code className={`font-mono text-sm font-bold tracking-wider sm:text-base ${styles.code}`}>
-                          {product.couponCode}
-                        </code>
-                        <button
-                          type="button"
-                          onClick={() => copyCode(product.couponCode)}
-                          className={`inline-flex min-h-9 items-center gap-1.5 rounded-md border px-3 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
-                            copied
-                              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                              : styles.copyIdle
-                          }`}
-                          aria-label={`Copy coupon code ${product.couponCode}`}
-                        >
-                          {copied ? (
-                            <>
+                      <p className="text-sm text-ink-soft">
+                        Code hidden to keep it exclusive. Copy it and we&apos;ll take you to Acer via our secure partner link.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => copyAndVisit(product)}
+                        disabled={Boolean(redirectingCode)}
+                        className={`mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-90 ${
+                          copied || redirecting
+                            ? styles.ctaCopied
+                            : `${styles.cta} hover:-translate-y-0.5`
+                        }`}
+                        aria-label={`Copy hidden coupon code and visit Acer store for ${product.headline}`}
+                      >
+                        {copied || redirecting ? (
+                          <>
+                            {redirecting ? (
+                              <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
+                            ) : (
                               <Check aria-hidden="true" className="h-4 w-4" />
-                              Copied!
-                            </>
-                          ) : (
-                            <>
-                              <Copy aria-hidden="true" className="h-4 w-4" />
-                              Copy
-                            </>
-                          )}
-                        </button>
-                      </div>
+                            )}
+                            <span>Copied! Redirecting…</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy aria-hidden="true" className="h-4 w-4" />
+                            <span>Copy Code &amp; Visit Store</span>
+                            <ExternalLink aria-hidden="true" className="h-4 w-4 opacity-90" />
+                          </>
+                        )}
+                      </button>
+                      <p className="mt-2 text-center text-xs text-slate-500">
+                        {copied || redirecting ? "Code copied to clipboard" : "Tap to copy code and continue to Acer"}
+                      </p>
                     </div>
                   </div>
                 </div>
