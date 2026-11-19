@@ -24,7 +24,7 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     id: "predator",
-    image: "/images/acer/predator.jpg",
+    image: "/images/acer/predator.webp",
     alt: "Acer Predator Helios 300 gaming laptop with high-refresh display",
     headline: "Dominate the Competition: Predator Helios 300",
     points: [
