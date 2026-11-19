@@ -21,6 +21,8 @@ type Product = {
   accent: "blue" | "orange" | "cyan";
 };
 
+// Coupon codes below are sourced from Acer's Admitad program feed/mappings
+// (see couponza-web/lib/affiliate.ts ADMITAD_ACER_CAMPAIGNS and the Acer deals guide).
 const PRODUCTS: Product[] = [
   {
     id: "predator",
@@ -34,7 +36,7 @@ const PRODUCTS: Product[] = [
       "Powered by high-performance processors and PCIe Gen 4 SSDs for instant load times.",
     ],
     ctaLabel: "Buy at Best Price",
-    couponCode: "PREDATOR10",
+    couponCode: "AD233KGL",
     offerInfo: "₹3,000 off gaming laptops",
     accent: "blue",
   },
@@ -50,7 +52,7 @@ const PRODUCTS: Product[] = [
       "Powerful Intel Core H-series processors.",
     ],
     ctaLabel: "Claim Deal Now",
-    couponCode: "NITRO20",
+    couponCode: "AD233KGL",
     offerInfo: "₹3,000 off gaming laptops",
     accent: "orange",
   },
@@ -65,7 +67,7 @@ const PRODUCTS: Product[] = [
       "Lightweight design (1.3kg) with a stunning OLED display for vibrant visuals on the go.",
     ],
     ctaLabel: "Upgrade Your Workflow",
-    couponCode: "SWIFT5",
+    couponCode: "AD232KL",
     offerInfo: "₹2,000 off non-gaming laptops",
     accent: "cyan",
   },
@@ -123,18 +125,25 @@ function maskCode(code: string): string {
 
 export default function AcerStorePageClient({ forcedStoreHref }: Props) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const timeoutRef = useRef<number | null>(null);
+  const copiedTimeoutRef = useRef<number | null>(null);
+  const redirectTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      if (copiedTimeoutRef.current) window.clearTimeout(copiedTimeoutRef.current);
+      if (redirectTimeoutRef.current) window.clearTimeout(redirectTimeoutRef.current);
     };
   }, []);
 
   const outHref = (src: string) => storeGoHref("acer", src, forcedStoreHref ?? undefined);
   const officialStoreHref = outHref("official-store");
 
-  const copyCode = async (code: string) => {
+  const copyAndRedirect = async (code: string, src: string) => {
+    // Open a blank tab synchronously on user click to avoid popup blockers,
+    // then navigate it to the CPS/tracked link after the copy feedback delay.
+    const popup = window.open("", "_blank", "noopener,noreferrer");
+    const href = outHref(src);
+
     try {
       await navigator.clipboard.writeText(code);
     } catch {
@@ -153,8 +162,21 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
     }
 
     setCopiedCode(code);
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(() => setCopiedCode(null), 2000);
+    if (copiedTimeoutRef.current) window.clearTimeout(copiedTimeoutRef.current);
+    copiedTimeoutRef.current = window.setTimeout(() => setCopiedCode(null), 2500);
+
+    if (redirectTimeoutRef.current) window.clearTimeout(redirectTimeoutRef.current);
+    redirectTimeoutRef.current = window.setTimeout(() => {
+      try {
+        if (popup && !popup.closed) {
+          popup.location.href = href;
+        } else {
+          window.open(href, "_blank", "noopener,noreferrer");
+        }
+      } catch {
+        window.open(href, "_blank", "noopener,noreferrer");
+      }
+    }, 1500);
   };
 
   return (
@@ -283,7 +305,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                       </div>
                       <button
                         type="button"
-                        onClick={() => copyCode(product.couponCode)}
+                        onClick={() => copyAndRedirect(product.couponCode, `coupon-${product.id}`)}
                         className={`mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
                           copied
                             ? styles.ctaCopied
@@ -294,7 +316,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                         {copied ? (
                           <>
                             <Check aria-hidden="true" className="h-4 w-4" />
-                            <span>Copied!</span>
+                            <span>Copied! Redirecting...</span>
                           </>
                         ) : (
                           <>
@@ -344,7 +366,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                 </div>
                 <button
                   type="button"
-                  onClick={() => copyCode(TABLET_COUPON.code)}
+                  onClick={() => copyAndRedirect(TABLET_COUPON.code, "coupon-tablet")}
                   className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-bold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 sm:min-w-[180px] ${
                     copiedCode === TABLET_COUPON.code
                       ? "bg-emerald-600 text-white shadow-[0_10px_24px_rgba(5,150,105,0.28)]"
@@ -355,7 +377,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
                   {copiedCode === TABLET_COUPON.code ? (
                     <>
                       <Check aria-hidden="true" className="h-4 w-4" />
-                      <span>Copied!</span>
+                      <span>Copied! Redirecting...</span>
                     </>
                   ) : (
                     <>
