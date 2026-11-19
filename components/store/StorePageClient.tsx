@@ -158,8 +158,7 @@ export default function StorePageClient({
         ctaHref={websiteHost ? storeGoHref(store.slug, "store-page") : undefined}
         perks={[
           { label: "Live Offers", value: `${stats.total} verified` },
-          { label: "Sourced From", value: "Official pages" },
-          { label: "Affiliation", value: "Commission disclosed" },
+          { label: "Sourced From", value: "Official pages" }
         ]}
       />
 

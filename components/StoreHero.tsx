@@ -27,7 +27,7 @@ export interface StoreHeroProps {
   /** Hide the offer/update indicators when this page has no live status to report. */
   showStatus?: boolean;
   /** Three quick-scan highlights for the footer strip. Derived from offers when not passed. */
-  perks?: [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk];
+  perks?: [StoreHeroPerk, StoreHeroPerk];
   /** Coded offers for the store — used to derive perks when perks is not passed. */
   offers?: ReadonlyArray<{ code: string | null; title?: string | null }>;
 }
