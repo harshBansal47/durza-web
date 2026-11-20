@@ -103,6 +103,12 @@ export const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/compare`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/collections`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit`, changeFrequency: "weekly", priority: 0.8 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit/college-daily`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit/office-ready`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit/party-glam`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit/wedding-festive`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit/budget-beauty`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit/everyday-essentials`, changeFrequency: "weekly", priority: 0.7 },
 ];
 
 /**

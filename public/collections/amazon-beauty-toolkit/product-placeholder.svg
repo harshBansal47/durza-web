@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6EFE7"/>
+      <stop offset="50%" stop-color="#ECDDD0"/>
+      <stop offset="100%" stop-color="#E4D2C3"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="120" y1="120" x2="280" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C89A7B"/>
+      <stop offset="100%" stop-color="#8A5A44"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" rx="32" fill="url(#bg)"/>
+  <circle cx="200" cy="170" r="74" fill="url(#accent)" opacity="0.18"/>
+  <path d="M200 120c22 0 40 18 40 40 0 18-10 30-22 40-10 8-18 16-18 30v4" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="200" cy="252" r="6" fill="#8A5A44"/>
+  <path d="M132 300h136" stroke="#C8B4A2" stroke-width="8" stroke-linecap="round"/>
+  <path d="M156 324h88" stroke="#D8C8BA" stroke-width="8" stroke-linecap="round"/>
+  <text x="200" y="360" text-anchor="middle" font-family="Georgia, serif" font-size="20" fill="#7A6358" letter-spacing="2">PRODUCT IMAGE</text>
+</svg>

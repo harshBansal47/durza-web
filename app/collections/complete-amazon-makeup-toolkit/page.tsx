@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
-import { AMAZON_BEAUTY_STAGES, BEAUTY_FAQS } from "@/data/amazon-beauty-toolkit";
+import { ALL_BEAUTY_PRODUCTS, BEAUTY_FAQS, BEAUTY_SHOP_CATEGORIES } from "@/data/amazon-beauty-toolkit";
 import BeautyToolkitClient from "./client";
 
 const slug = "complete-amazon-makeup-toolkit";
 const canonical = `/collections/${slug}`;
-const title = "Your Beauty Makeup Toolkit — Curated Amazon India Edit | Durza";
+const title = "Beauty & Makeup Store — Shop by Category on Amazon India | Durza";
 const description =
-  "Discover a premium, step-by-step makeup toolkit: prep, base, sculpt, eyes, lips, and finishing essentials on Amazon India. Explore by budget, occasion, and look.";
+  "Browse relatable beauty categories for Indian shoppers—college, office, party, wedding, budget, and everyday essentials. Discover curated makeup picks and shop on Amazon.in.";
 
 export const metadata: Metadata = {
   title,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: absoluteUrl(canonical),
-    type: "article",
+    type: "website",
     images: [{ url: "/collections/amazon-beauty-toolkit/hero-vanity.webp" }],
   },
   twitter: {
@@ -33,28 +33,43 @@ export default function Page() {
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Beauty & Makeup Discovery Toolkit",
+    name: "Beauty & Makeup Categories",
     description,
-    itemListOrder: "https://schema.org/ItemListOrderAscending",
-    numberOfItems: AMAZON_BEAUTY_STAGES.reduce((acc, stage) => acc + stage.categories.length, 0),
-    itemListElement: AMAZON_BEAUTY_STAGES.flatMap((stage) => stage.categories).map((category, index) => ({
+    itemListOrder: "https://schema.org/ItemListUnordered",
+    numberOfItems: BEAUTY_SHOP_CATEGORIES.length,
+    itemListElement: BEAUTY_SHOP_CATEGORIES.map((category, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: category.title,
-      description: `${category.whatItIs} ${category.oneLineFact}`,
+      description: category.description,
+      url: absoluteUrl(`${canonical}/${category.slug}`),
+    })),
+  };
+
+  const productList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Featured Beauty Picks",
+    numberOfItems: ALL_BEAUTY_PRODUCTS.length,
+    itemListElement: ALL_BEAUTY_PRODUCTS.slice(0, 24).map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: `${product.brand} ${product.name}`,
+      url: product.amazonUrl,
     })),
   };
 
   return (
-    <main className="bg-[#F7F3EE] text-[#1C1714]">
+    <main className="bg-[#120F0D] text-[#F7F1E8]">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Collections", path: "/collections" },
-          { name: "Beauty Makeup Toolkit", path: canonical },
+          { name: "Beauty Makeup Store", path: canonical },
         ])}
       />
       <JsonLd data={itemList} />
+      <JsonLd data={productList} />
       <JsonLd data={faqPageJsonLd(BEAUTY_FAQS)} />
       <BeautyToolkitClient />
     </main>
