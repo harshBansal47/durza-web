@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { AMAZON_BEAUTY_STAGES, BEAUTY_FAQS } from "@/data/amazon-beauty-toolkit";
@@ -7,9 +6,9 @@ import BeautyToolkitClient from "./client";
 
 const slug = "complete-amazon-makeup-toolkit";
 const canonical = `/collections/${slug}`;
-const title = "Complete Makeup Toolkit on Amazon India — Step-by-Step Guide";
+const title = "Your Beauty Makeup Toolkit — Curated Amazon India Edit | Durza";
 const description =
-  "Build your complete makeup kit on Amazon India from primer to setting spray. Compare Everyday, Cult & Luxe picks with one-line occasion guides on Durza.";
+  "Discover a premium, step-by-step makeup toolkit: prep, base, sculpt, eyes, lips, and finishing essentials on Amazon India. Explore by budget, occasion, and look.";
 
 export const metadata: Metadata = {
   title,
@@ -34,33 +33,25 @@ export default function Page() {
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Complete Amazon Beauty & Makeup Toolkit",
+    name: "Beauty & Makeup Discovery Toolkit",
     description,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
     numberOfItems: AMAZON_BEAUTY_STAGES.reduce((acc, stage) => acc + stage.categories.length, 0),
-    itemListElement: AMAZON_BEAUTY_STAGES.flatMap((stage) => stage.categories)
-      .map((category, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: category.title,
-        description: category.oneLineFact,
-      })),
+    itemListElement: AMAZON_BEAUTY_STAGES.flatMap((stage) => stage.categories).map((category, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: category.title,
+      description: `${category.whatItIs} ${category.oneLineFact}`,
+    })),
   };
 
   return (
-    <main className="bg-[#FAF7F5] text-[#1F1918]">
-      <Breadcrumbs
-        items={[
-          { name: "Home", path: "/" },
-          { name: "Collections", path: "/collections" },
-          { name: "Complete Makeup Toolkit", path: canonical },
-        ]}
-      />
+    <main className="bg-[#F7F3EE] text-[#1C1714]">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Collections", path: "/collections" },
-          { name: "Complete Makeup Toolkit", path: canonical },
+          { name: "Beauty Makeup Toolkit", path: canonical },
         ])}
       />
       <JsonLd data={itemList} />
