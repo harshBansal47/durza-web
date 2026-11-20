@@ -29,15 +29,22 @@ interface Props {
   heroImageUrl?: string | null;
   offerCount?: number | null;
   storeUrl?: string;
+  forcedStoreHref?: string | null;
 }
 
-function affiliateHref(placement: GoSource): string {
-  return storeGoHref("asus", placement);
+const ASUS_ADMITAD_PROGRAM = "36176";
+
+function asusOutHref(targetUrl: string, src: string): string {
+  return `/out?program=${ASUS_ADMITAD_PROGRAM}&ulp=${encodeURIComponent(targetUrl)}&src=${encodeURIComponent(src)}`;
 }
 
-const HERO_HREF = "/go/asus?src=asus-india-hero";
-const MATCHER_HREF = "/go/asus?src=asus-india-matcher";
-const MOBILE_HREF = "/go/asus?src=asus-india-mobile";
+function affiliateHref(placement: string, forcedStoreHref?: string | null): string {
+  return storeGoHref("asus", placement, forcedStoreHref ?? undefined);
+}
+
+const HERO_SRC = "asus-india-hero";
+const MATCHER_SRC = "asus-india-matcher";
+const MOBILE_SRC = "asus-india-mobile";
 
 const PROMO_START = new Date("2026-11-18T00:00:00+05:30").getTime();
 const PROMO_END = new Date("2026-11-30T23:59:59.999+05:30").getTime();
@@ -50,7 +57,8 @@ type AsusDeal = {
   savings: number;
   image: string;
   alt: string;
-  href: string;
+  targetUrl: string;
+  src: string;
   cta: string;
 };
 
@@ -63,7 +71,8 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     savings: 61000,
     image: "/stores/asus-deals/vivobook-x1607.webp",
     alt: "ASUS Vivobook 16 X1607 laptop",
-    href: "https://www.asus.com/in/laptops/for-home/vivobook/asus-vivobook-16-x1607/",
+    targetUrl: "https://www.asus.com/in/laptops/for-home/vivobook/asus-vivobook-16-x1607/",
+    src: "asus-deal-vivobook-x1607aa-mb038ws",
     cta: "View Vivobook 16 on ASUS",
   },
   {
@@ -74,7 +83,8 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     savings: 59000,
     image: "/stores/asus-deals/tuf-gaming-a15-2021.webp",
     alt: "ASUS TUF Gaming A15 laptop (FA506NCQ-IN081WS)",
-    href: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    targetUrl: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    src: "asus-deal-tuf-a15-fa506ncq-in081ws",
     cta: "View TUF Gaming A15 on ASUS",
   },
   {
@@ -85,7 +95,8 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     savings: 45000,
     image: "/stores/asus-deals/tuf-gaming-a15-2021.webp",
     alt: "ASUS TUF Gaming A15 laptop (FA506NCG-HN192WS)",
-    href: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    targetUrl: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    src: "asus-deal-tuf-a15-fa506ncg-hn192ws",
     cta: "View TUF Gaming A15 on ASUS",
   },
   {
@@ -96,10 +107,13 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     savings: 58000,
     image: "/stores/asus-deals/tuf-gaming-a15-2021.webp",
     alt: "ASUS TUF Gaming A15 laptop (FA506NCQ-IN080W)",
-    href: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    targetUrl: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    src: "asus-deal-tuf-a15-fa506ncq-in080w",
     cta: "View TUF Gaming A15 on ASUS",
   },
 ];
+
+const ASUS_ADOBE_TARGET_URL = "https://www.asus.com/in/content/asus-offers-adobe-creative-cloud/";
 
 function formatINR(value: number): string {
   return `₹${value.toLocaleString("en-IN")}`;
@@ -110,7 +124,7 @@ function savingsPercent(savings: number, original: number): number {
   return Math.round((savings / original) * 100);
 }
 
-export default function AsusClient({ faqs, stats, storeUrl }: Props) {
+export default function AsusClient({ faqs, stats, storeUrl, forcedStoreHref }: Props) {
   const [active, setActive] = useState<AsusMatchId>("gaming");
   const [isPromoActive, setIsPromoActive] = useState(false);
 
@@ -118,6 +132,10 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
     const now = Date.now();
     setIsPromoActive(now >= PROMO_START && now <= PROMO_END);
   }, []);
+
+  const heroHref = affiliateHref(HERO_SRC as GoSource, forcedStoreHref);
+  const matcherHref = affiliateHref(MATCHER_SRC as GoSource, forcedStoreHref);
+  const mobileHref = affiliateHref(MOBILE_SRC as GoSource, forcedStoreHref);
 
   const domain = (() => {
     try {
@@ -167,7 +185,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
-              href={HERO_HREF}
+              href={heroHref}
               rel={GO_REL}
               target="_blank"
               className="inline-flex items-center gap-2 rounded-lg bg-[#22d3ee] px-6 py-3 text-sm font-bold tracking-wide text-[#0D1117] transition hover:bg-[#67e8f9]"
@@ -273,7 +291,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
                       <p className="mt-1 text-sm font-semibold text-emerald-300">You save {formatINR(deal.savings)}</p>
 
                       <a
-                        href={deal.href}
+                        href={asusOutHref(deal.targetUrl, deal.src)}
                         target="_blank"
                         rel={GO_REL}
                         className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-400 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
@@ -299,7 +317,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
                 <p className="mt-2 text-xs font-medium text-slate-400">Promotional period shown on this page: 18–30 November 2026</p>
               </div>
               <a
-                href="https://www.asus.com/in/content/asus-offers-adobe-creative-cloud/"
+                href={asusOutHref(ASUS_ADOBE_TARGET_URL, "asus-adobe-creative-cloud")}
                 target="_blank"
                 rel={GO_REL}
                 className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-violet-300/40 bg-violet-400/10 px-5 py-2.5 text-sm font-bold text-violet-100 transition hover:bg-violet-400/20"
@@ -339,7 +357,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
           {ASUS_LINEUP.map((item) => (
             <li key={item.slug} className="min-h-0">
               <a
-                href={`/go/asus?src=lineup-${item.slug}`}
+                href={affiliateHref(`asus-india-lineup-${item.slug}`, forcedStoreHref)}
                 rel={GO_REL}
                 target="_blank"
                 className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-shadow hover:shadow-[0_12px_40px_rgba(15,23,42,0.12)]"
@@ -442,7 +460,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
             <strong className="text-ink">Indicative range:</strong> {match.budget}
           </p>
           <a
-            href={MATCHER_HREF}
+            href={matcherHref}
             rel={GO_REL}
             target="_blank"
             data-affiliate-click="asus-india-matcher"
@@ -495,7 +513,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
                   <td className="whitespace-nowrap px-4 py-4 text-ink-soft">{product.budget}</td>
                   <td className="px-4 py-4">
                     <a
-                      href={affiliateHref(`asus-india-compare-${product.id}` as GoSource)}
+                      href={affiliateHref(`asus-india-compare-${product.id}`, forcedStoreHref)}
                       rel={GO_REL}
                       target="_blank"
                       data-affiliate-click={`asus-india-compare-${product.id}`}
@@ -521,7 +539,7 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
           <span className="truncate text-xs font-medium text-[#e2e8f0]">ASUS Official India Store</span>
           <a
-            href={MOBILE_HREF}
+            href={mobileHref}
             rel={GO_REL}
             target="_blank"
             className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-[#22d3ee] px-4 py-2 text-xs font-bold text-[#0D1117]"
