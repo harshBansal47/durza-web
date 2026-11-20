@@ -3,428 +3,402 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Sparkles } from "lucide-react";
 import { GO_REL } from "@/lib/go";
 import {
   BEAUTY_CHAPTERS,
   BEAUTY_FAQS,
-  type BeautyCategory,
+  BRAND_SHOWCASE,
+  BUDGET_EDITS,
+  EVERYDAY_MAKEUP_BAG,
+  OCCASION_COLLECTIONS,
+  type BeautyChapter,
   type BudgetTier,
-  type OccasionTag,
 } from "@/data/amazon-beauty-toolkit";
 
-type BudgetFilter = "all" | BudgetTier;
-type OccasionFilter = "all" | OccasionTag;
-type LookFilter = "all" | "natural" | "glam";
-
-const BUDGET_OPTIONS: { id: BudgetFilter; label: string; note: string }[] = [
-  { id: "all", label: "All Budgets", note: "Compare every tier side by side" },
-  { id: "Everyday Value", label: "Everyday Value", note: "Affordable everyday beauty" },
-  { id: "Mid-Range Cult", label: "Mid-Range Cult", note: "Beloved, best-balance picks" },
-  { id: "Luxe Splurge", label: "Luxe Splurge", note: "Worth-the-investment icons" },
-];
-
-const OCCASION_OPTIONS: { id: OccasionFilter; label: string; note: string }[] = [
-  { id: "all", label: "Every Occasion", note: "See the full edit" },
-  { id: "5-Min Everyday", label: "5-Min Everyday", note: "Effortless, quick routines" },
-  { id: "Humidity-Proof", label: "Humidity-Proof", note: "For heat, sweat, and long days" },
-  { id: "Wedding & Party Glam", label: "Wedding & Party Glam", note: "Show-stopping, lasting looks" },
-];
-
-const LOOK_OPTIONS: { id: LookFilter; label: string }[] = [
-  { id: "all", label: "Any look" },
-  { id: "natural", label: "Natural & polished" },
-  { id: "glam", label: "Glam & defined" },
-];
-
-const KIT_PRESETS = [
-  {
-    id: "everyday-natural",
-    title: "The 5-Minute Everyday Kit",
-    desc: "Fresh skin, soft definition, effortless color.",
-    budget: "Everyday Value" as BudgetTier,
-    occasion: "5-Min Everyday" as OccasionTag,
-    look: "natural" as LookFilter,
-  },
-  {
-    id: "humidity-office",
-    title: "The Humidity-Proof Kit",
-    desc: "Grip, set, and stay comfortable through long days.",
-    budget: "Mid-Range Cult" as BudgetTier,
-    occasion: "Humidity-Proof" as OccasionTag,
-    look: "natural" as LookFilter,
-  },
-  {
-    id: "wedding-glam",
-    title: "The Wedding & Party Glam Kit",
-    desc: "Luminous base, defined eyes, lasting color.",
-    budget: "Luxe Splurge" as BudgetTier,
-    occasion: "Wedding & Party Glam" as OccasionTag,
-    look: "glam" as LookFilter,
-  },
-];
-
-function tierTone(tier: BudgetTier) {
-  if (tier === "Everyday Value") return { badge: "bg-[#E8F1EA] text-[#24543A] border-[#CFE3D5]", panel: "bg-[#FBFDFB] border-[#DCE9E1]" };
-  if (tier === "Mid-Range Cult") return { badge: "bg-[#F6EFE3] text-[#6B4A1E] border-[#E7D7BF]", panel: "bg-[#FFFCF7] border-[#EADCC8]" };
-  return { badge: "bg-[#F3E8E8] text-[#5A2F3B] border-[#E6D1D6]", panel: "bg-[#FFFBFA] border-[#EBD8DC]" };
+function formatInr(value?: number) {
+  if (typeof value !== "number") return null;
+  return `₹${value.toLocaleString("en-IN")}`;
 }
 
-function accentSurface(accent: "ivory" | "rose" | "champagne" | "cocoa") {
-  if (accent === "rose") return "bg-[#F3EAE6]";
-  if (accent === "champagne") return "bg-[#EFE7DA]";
-  if (accent === "cocoa") return "bg-[#EAE3DC]";
-  return "bg-[#F4EFE8]";
+function tierStyles(tier: BudgetTier) {
+  if (tier === "Everyday Value") return "bg-emerald-50 text-emerald-800 border-emerald-200";
+  if (tier === "Mid-Range Cult") return "bg-amber-50 text-amber-800 border-amber-200";
+  return "bg-rose-50 text-rose-800 border-rose-200";
 }
 
-function matchesDiscovery(cat: BeautyCategory, occasion: OccasionFilter, look: LookFilter) {
-  if (occasion !== "all" && cat.occasionTag !== occasion) return false;
-  if (look === "natural") return cat.occasionTag !== "Wedding & Party Glam" || /blush|mascara|lip gloss|toner|concealer|brow|compact/i.test(cat.title);
-  if (look === "glam") return cat.occasionTag === "Wedding & Party Glam" || /foundation|eyeshadow|highlighter|lipstick|liner|contour|setting powder|fixer/i.test(cat.title);
-  return true;
+function chapterTheme(chapter: BeautyChapter) {
+  if (chapter.accent === "rose") return { wrap: "bg-[#F7EFEC]", panel: "bg-[#fffaf8]", ink: "text-[#4a2f35]" };
+  if (chapter.accent === "champagne") return { wrap: "bg-[#F5F0E6]", panel: "bg-[#fffdf8]", ink: "text-[#4a3b22]" };
+  if (chapter.accent === "cocoa") return { wrap: "bg-[#1E1A17] text-[#F7F1E8]", panel: "bg-[#2A241F]", ink: "text-[#E8D8C7]" };
+  return { wrap: "bg-[#F6F2EC]", panel: "bg-white", ink: "text-[#3f372f]" };
 }
+
+const HERO_LINKS = [
+  { href: "#occasions", label: "Shop by Occasion" },
+  { href: "#budget", label: "Shop by Budget" },
+  { href: "#makeup-bag", label: "Everyday Makeup Bag" },
+  { href: "#brands", label: "Explore Brands" },
+];
 
 export default function BeautyToolkitClient() {
-  const [budget, setBudget] = useState<BudgetFilter>("all");
-  const [occasion, setOccasion] = useState<OccasionFilter>("all");
-  const [look, setLook] = useState<LookFilter>("all");
-  const [openTip, setOpenTip] = useState<string | null>(BEAUTY_FAQS[0]?.question ?? null);
-
-  const totalProducts = BEAUTY_CHAPTERS.reduce((acc, ch) => acc + ch.categories.length * 3, 0);
-
-  const curated = useMemo(() => {
-    return BEAUTY_CHAPTERS.map((chapter) => {
-      const categories = chapter.categories.filter((c) => matchesDiscovery(c, occasion, look));
-      return { ...chapter, categories };
-    }).filter((c) => c.categories.length > 0);
-  }, [occasion, look]);
-
-  const visibleCount = curated.reduce((acc, ch) => acc + ch.categories.length, 0);
-
-  function applyPreset(p: (typeof KIT_PRESETS)[number]) {
-    setBudget(p.budget);
-    setOccasion(p.occasion);
-    setLook(p.look);
-    const el = document.getElementById("discovery");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  const [openFaq, setOpenFaq] = useState<string | null>(BEAUTY_FAQS[0]?.question ?? null);
+  const bagKnownPrices = useMemo(() => EVERYDAY_MAKEUP_BAG.filter((i) => typeof i.priceInr === "number"), []);
+  const bagTotal = bagKnownPrices.reduce((sum, i) => sum + (i.priceInr ?? 0), 0);
 
   return (
-    <div className="overflow-x-hidden">
-      {/* Hero */}
-      <section className="relative isolate min-h-[88svh] overflow-hidden bg-[#15110E] text-[#F8F3EC]">
+    <div className="bg-[#FBF8F4] text-[#1A1714]">
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-[#120F0D] text-[#FAF6F0]">
         <div className="absolute inset-0">
           <Image
             src="/collections/amazon-beauty-toolkit/hero-vanity.webp"
-            alt="Luxury beauty campaign flatlay with makeup palettes, lipsticks, brushes, and cosmetics"
+            alt="Premium beauty vanity with makeup products, brushes, and palettes"
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-70"
+            className="object-cover opacity-55"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#120E0B]/85 via-[#1A1411]/55 to-[#1A1411]/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#120E0B]/70 via-transparent to-[#120E0B]/20" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(232,210,186,0.25),transparent_35%),linear-gradient(to_right,rgba(12,10,9,0.88),rgba(18,15,13,0.55),rgba(18,15,13,0.25))]" />
         </div>
-
-        <div className="relative mx-auto flex min-h-[88svh] max-w-7xl flex-col justify-end px-5 pb-14 pt-28 sm:px-8 lg:px-10 lg:pb-20">
-          <div className="max-w-3xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#F3E7D8] backdrop-blur-sm">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> Beauty &amp; Makeup Discovery
+        <div className="relative mx-auto grid min-h-[92svh] max-w-7xl items-end gap-10 px-5 pb-14 pt-28 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:pb-20">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#F0E2CF] backdrop-blur-sm">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> Amazon.in Beauty Edit for Indian Shoppers
             </p>
-            <h1 className="mt-6 font-serif text-[2.6rem] font-semibold leading-[0.95] tracking-[-0.02em] text-[#FFFBF5] sm:text-6xl lg:text-[5.2rem]">
-              Your Beauty.
+            <h1 className="mt-6 font-serif text-[2.8rem] font-semibold leading-[0.93] tracking-[-0.02em] sm:text-6xl lg:text-[5.4rem]">
+              Makeup for every mood,
               <br />
-              Your Rules.
+              every budget,
               <br />
-              <span className="italic text-[#E7D3BF]">Your Perfect Makeup Kit.</span>
+              <span className="italic text-[#E7CDB0]">every Indian girl.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-8 text-[#E9DED1] sm:text-lg">
-              From everyday essentials to show-stopping glam, discover the products that make every look possible—curated across budgets, occasions, and routines on Amazon.
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[#E8DDD0] sm:text-lg">
+              From college-day kajal to wedding-ready glam—discover what to buy, what it does, and what fits your occasion and budget. A friendly beauty destination, not a confusing product dump.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href="#discovery" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#F7F1E8] px-7 text-sm font-semibold text-[#1C1714] transition hover:bg-white">
-                Start Your Discovery <ArrowDown className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <a href="#chapters" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-7 text-sm font-semibold text-[#F8F3EC] backdrop-blur-sm transition hover:bg-white/10">
-                Explore the Toolkit <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <Link href="/collections" className="inline-flex min-h-12 items-center justify-center gap-2 px-2 text-sm font-medium text-[#E9DED1] underline-offset-4 hover:text-white hover:underline">
-                All Collections
-              </Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {HERO_LINKS.map((link) => (
+                <a key={link.href} href={link.href} className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 text-sm font-semibold text-[#FAF6F0] backdrop-blur-sm transition hover:bg-white/20">
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
-
-          <div className="mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
             {[
-              { k: `${BEAUTY_CHAPTERS.reduce((a, c) => a + c.categories.length, 0)} categories`, v: "Face, eyes, lips & finishing" },
-              { k: `${totalProducts} curated picks`, v: "Everyday to luxe tiers" },
-              { k: "3 occasions", v: "Everyday, humidity-proof, glam" },
-              { k: "Amazon only", v: "Genuine products, easy link swaps" },
-            ].map((item) => (
-              <div key={item.k} className="rounded-2xl border border-white/15 bg-white/8 p-4 backdrop-blur-sm">
-                <p className="text-sm font-semibold text-[#FFFBF5] sm:text-base">{item.k}</p>
-                <p className="mt-1 text-xs leading-5 text-[#D9CBB8] sm:text-sm">{item.v}</p>
+              { title: "What can I buy?", text: "Face, eyes, lips, finishing, tools, and removal—explained simply." },
+              { title: "What suits my occasion?", text: "College, everyday glow, office, party, or wedding & festive." },
+              { title: "What fits my budget?", text: "Affordable finds to premium picks, with live prices on Amazon.in." },
+            ].map((card, i) => (
+              <div key={card.title} className={`rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur-sm ${i === 1 ? "sm:translate-x-4 lg:translate-x-0" : ""}`}>
+                <p className="font-serif text-2xl text-[#FFF8EF]">{card.title}</p>
+                <p className="mt-2 text-sm leading-7 text-[#E2D5C5]">{card.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Editorial intro */}
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div>
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7A5A45]">A curated beauty destination</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-[#1C1714] sm:text-5xl">
-              Makeup is not one routine. <span className="italic text-[#6B4A3A]">It’s a mood, a moment, a way of showing up.</span>
-            </h2>
+      {/* OCCASIONS */}
+      <section id="occasions" className="scroll-mt-24 bg-[#F6F1EA] py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A5A44]">Shop by real life</p>
+              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] tracking-tight text-[#1A1714] sm:text-6xl">What’s the Occasion, Girl?</h2>
+            </div>
+            <p className="max-w-xl text-base leading-8 text-[#4A433C] sm:text-lg">
+              Pick the moment, not the jargon. Whether it’s a rushed college morning or a full wedding function, start with looks and products that actually make sense for you.
+            </p>
           </div>
-          <p className="max-w-xl text-base leading-8 text-[#4A433C] sm:text-lg">
-            This toolkit is designed to help you understand what each product does, choose by budget and occasion, and build a kit that feels personal—whether you’re getting ready in five minutes or preparing for a night that deserves extra sparkle.
-          </p>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-6">
+            {OCCASION_COLLECTIONS.map((col, idx) => {
+              const span = idx === 0 ? "md:col-span-4" : idx === 1 ? "md:col-span-2" : idx === 2 ? "md:col-span-2" : idx === 3 ? "md:col-span-2" : "md:col-span-2";
+              const tall = idx === 0 || idx === 4;
+              return (
+                <article key={col.id} className={`group overflow-hidden rounded-[2rem] border border-[#DCCFC1] bg-white shadow-sm ${span}`}>
+                  <div className={`relative ${tall ? "aspect-[16/10] md:aspect-[16/9]" : "aspect-[4/3]"} overflow-hidden`}>
+                    <Image src={col.image} alt={col.imageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#171310]/70 via-[#171310]/10 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F0E2CF]">{col.vibe}</p>
+                      <h3 className="mt-1 font-serif text-3xl text-white sm:text-4xl">{col.title}</h3>
+                    </div>
+                  </div>
+                  <div className="p-5 sm:p-6">
+                    <p className="text-sm leading-7 text-[#4A433C] sm:text-base">{col.description}</p>
+                    <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                      {col.picks.map((p) => (
+                        <a key={p.name} href={p.affiliateUrl} target="_blank" rel={GO_REL} className="rounded-xl border border-[#E5DAD0] bg-[#FFFCF8] p-3 transition hover:border-[#CDBBA8] hover:bg-white">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-[#8A5A44]">{p.brand}</p>
+                          <p className="mt-0.5 text-sm font-semibold leading-5 text-[#1A1714]">{p.name}</p>
+                          <p className="mt-1 text-xs leading-5 text-[#5A524B]">{p.reason}</p>
+                          <p className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#1A1714]">
+                            {formatInr(p.priceInr) ?? "Check live price"} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                          </p>
+                        </a>
+                      ))}
+                    </div>
+                    <a href="#chapters" className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#1A1714] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#332B25]">
+                      Explore Collection <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Discovery */}
-      <section id="discovery" className="scroll-mt-24 border-y border-[#D9CEC1] bg-[#F3EEE7]">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:px-10 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+      {/* BUDGET */}
+      <section id="budget" className="scroll-mt-24 bg-[#1A1714] py-16 text-[#F7F1E8] sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end">
             <div>
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7A5A45]">Interactive discovery</p>
-              <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-[#1C1714] sm:text-5xl">Discover your kit, your way.</h2>
-              <p className="mt-4 max-w-lg text-base leading-8 text-[#4A433C]">
-                Explore by occasion, budget, or the kind of look you want. We’ll curate the chapters and categories that fit—so discovery feels intuitive, not overwhelming.
-              </p>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D8C4AA]">Beauty for every budget</p>
+              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] sm:text-6xl">Little price. Big beauty energy.</h2>
+            </div>
+            <p className="max-w-xl text-base leading-8 text-[#D9CCBC] sm:text-lg">
+              Indian shoppers shouldn’t have to guess what’s affordable. Explore budget-friendly finds and premium splurges—always check the <strong className="text-white">live INR price</strong>, shade, and seller on Amazon.in before buying.
+            </p>
+          </div>
 
-              <div className="mt-8 space-y-5">
-                <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#6A5C52]">Occasion</p>
-                  <div className="flex flex-wrap gap-2">
-                    {OCCASION_OPTIONS.map((o) => (
-                      <button key={o.id} type="button" onClick={() => setOccasion(o.id)} className={`rounded-full border px-4 py-2 text-sm transition ${occasion === o.id ? "border-[#1C1714] bg-[#1C1714] text-white" : "border-[#CFC3B6] bg-white/70 text-[#2A2521] hover:border-[#8A7868]"}`}>
-                        {o.label}
-                      </button>
+          <div className="mt-10 grid gap-5 lg:grid-cols-12">
+            {BUDGET_EDITS.map((edit, i) => {
+              const span = i === 0 ? "lg:col-span-4" : i === 1 ? "lg:col-span-8" : i === 2 ? "lg:col-span-5" : i === 3 ? "lg:col-span-7" : "lg:col-span-12";
+              const dark = i % 2 === 1;
+              return (
+                <article key={edit.id} className={`rounded-[2rem] border p-5 sm:p-6 ${span} ${dark ? "border-[#3A332D] bg-[#241F1B]" : "border-[#3A332D] bg-[#F7F1E8] text-[#1A1714]"}`}>
+                  <p className={`font-mono text-[10px] font-semibold uppercase tracking-[0.2em] ${dark ? "text-[#D8C4AA]" : "text-[#8A5A44]"}`}>{edit.subtitle}</p>
+                  <h3 className={`mt-2 font-serif text-3xl leading-tight sm:text-4xl ${dark ? "text-[#FFF8EF]" : "text-[#1A1714]"}`}>{edit.title}</h3>
+                  <p className={`mt-2 text-sm leading-7 ${dark ? "text-[#D9CCBC]" : "text-[#4A433C]"}`}>{edit.note}</p>
+                  <div className={`mt-5 grid gap-3 ${i === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2"}`}>
+                    {edit.picks.map((p) => (
+                      <a key={p.name} href={p.affiliateUrl} target="_blank" rel={GO_REL} className={`rounded-2xl border p-4 transition hover:-translate-y-0.5 ${dark ? "border-[#413932] bg-[#1A1714] hover:border-[#5A4E43]" : "border-[#E5DAD0] bg-white hover:border-[#CDBBA8]"}`}>
+                        <p className={`text-xs font-semibold uppercase tracking-wide ${dark ? "text-[#D8C4AA]" : "text-[#8A5A44]"}`}>{p.brand}</p>
+                        <p className={`mt-1 text-sm font-semibold leading-6 ${dark ? "text-[#FFF8EF]" : "text-[#1A1714]"}`}>{p.name}</p>
+                        <p className={`mt-1 text-xs leading-5 ${dark ? "text-[#CFC0AE]" : "text-[#5A524B]"}`}>{p.reason}</p>
+                        <span className={`mt-3 inline-flex items-center gap-1 text-xs font-semibold ${dark ? "text-[#F0E2CF]" : "text-[#1A1714]"}`}>
+                          {formatInr(p.priceInr) ?? "Check live price on Amazon.in"} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                      </a>
                     ))}
                   </div>
-                </div>
-                <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#6A5C52]">Budget lens</p>
-                  <div className="flex flex-wrap gap-2">
-                    {BUDGET_OPTIONS.map((b) => (
-                      <button key={b.id} type="button" onClick={() => setBudget(b.id)} className={`rounded-full border px-4 py-2 text-sm transition ${budget === b.id ? "border-[#6B4A3A] bg-[#6B4A3A] text-white" : "border-[#CFC3B6] bg-white/70 text-[#2A2521] hover:border-[#8A7868]"}`}>
-                        {b.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#6A5C52]">Look</p>
-                  <div className="flex flex-wrap gap-2">
-                    {LOOK_OPTIONS.map((l) => (
-                      <button key={l.id} type="button" onClick={() => setLook(l.id)} className={`rounded-full border px-4 py-2 text-sm transition ${look === l.id ? "border-[#1C1714] bg-[#1C1714] text-white" : "border-[#CFC3B6] bg-white/70 text-[#2A2521] hover:border-[#8A7868]"}`}>
-                        {l.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* MAKEUP BAG */}
+      <section id="makeup-bag" className="scroll-mt-24 bg-[#EFE7DC] py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div className="relative overflow-hidden rounded-[2.2rem] border border-[#D8CCBF] bg-[#FBF7F1] p-6 shadow-sm sm:p-8 lg:sticky lg:top-24">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A5A44]">Beginner-friendly curation</p>
+              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] text-[#1A1714] sm:text-5xl">Your Everyday Makeup Bag</h2>
+              <p className="mt-4 max-w-xl text-base leading-8 text-[#4A433C]">
+                A simple, practical kit for an everyday look—easy to carry, easy to use, and easy to build on. Pick the items you need and check live prices on Amazon.in.
+              </p>
+              <div className="mt-6 rounded-2xl border border-[#E5DAD0] bg-white p-5">
+                <p className="text-sm font-semibold text-[#1A1714]">Estimated combined cost</p>
+                {bagKnownPrices.length > 0 ? (
+                  <>
+                    <p className="mt-1 font-serif text-3xl text-[#1A1714]">~{formatInr(bagTotal)}</p>
+                    <p className="mt-1 text-xs leading-6 text-[#5A524B]">Based on {bagKnownPrices.length} item(s) with available prices. Other items vary—check live prices on Amazon.in.</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="mt-1 font-serif text-2xl text-[#1A1714]">Check live prices on Amazon.in</p>
+                    <p className="mt-1 text-xs leading-6 text-[#5A524B]">Prices vary by brand, size, shade, and seller. Add items to see the current total on Amazon.in.</p>
+                  </>
+                )}
               </div>
-
-              <p className="mt-6 text-sm leading-7 text-[#4A433C]">
-                Showing <strong className="text-[#1C1714]">{visibleCount}</strong> curated categories. Budget lens highlights your preferred tier while keeping all Amazon picks easy to compare.
-              </p>
+              <div className="mt-6 flex flex-wrap gap-2 text-xs">
+                {["Beginner-friendly", "6 practical essentials", "Amazon.in picks", "No fixed bundle"].map((chip) => (
+                  <span key={chip} className="rounded-full border border-[#D8CCBF] bg-[#F6F1EA] px-3 py-1.5 font-medium text-[#3E3832]">{chip}</span>
+                ))}
+              </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-              {KIT_PRESETS.map((p, i) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => applyPreset(p)}
-                  className={`group rounded-3xl border border-[#D8CCBF] bg-white/80 p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${i === 1 ? "xl:translate-y-6" : ""}`}
-                >
-                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A5A45]">Curated kit</p>
-                  <h3 className="mt-2 font-serif text-2xl leading-tight text-[#1C1714]">{p.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#4A433C]">{p.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#6B4A3A]">
-                    Apply this edit <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
-                  </span>
-                </button>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {EVERYDAY_MAKEUP_BAG.map((item, idx) => (
+                <article key={item.name} className={`rounded-3xl border border-[#D8CCBF] bg-white p-5 shadow-sm ${idx % 3 === 0 ? "sm:col-span-2" : ""}`}>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8A5A44]">Everyday essential</p>
+                      <h3 className="mt-1 font-serif text-2xl leading-tight text-[#1A1714]">{item.name}</h3>
+                      <p className="mt-1 text-sm font-medium text-[#5A524B]">{item.brand}</p>
+                    </div>
+                    <span className="rounded-full bg-[#F6F1EA] px-3 py-1 text-xs font-semibold text-[#3E3832]">{formatInr(item.priceInr) ?? "Live price on Amazon"}</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-[#4A433C]">{item.role}</p>
+                  <a href={item.affiliateUrl} target="_blank" rel={GO_REL} className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1A1714] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#332B25]">
+                    View on Amazon.in <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                </article>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Chapters */}
-      <div id="chapters" className="mx-auto max-w-7xl space-y-20 px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-        {curated.length === 0 && (
-          <div className="rounded-3xl border border-dashed border-[#CFC3B6] bg-white p-10 text-center text-[#4A433C]">
-            No categories match this combination yet. Try a different occasion or look.
-          </div>
-        )}
-
-        {curated.map((chapter, chapterIndex) => (
-          <section key={chapter.id} className="scroll-mt-24">
-            <div className={`grid gap-8 lg:grid-cols-12 lg:items-end ${chapterIndex % 2 === 1 ? "" : ""}`}>
-              <div className={`lg:col-span-7 ${chapterIndex % 2 === 1 ? "lg:order-2" : ""}`}>
-                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7A5A45]">{chapter.step}</p>
-                <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] tracking-tight text-[#1C1714] sm:text-6xl">
-                  {chapter.title}
-                </h2>
-                <p className="mt-2 font-serif text-xl italic text-[#6B4A3A] sm:text-2xl">{chapter.subtitle}</p>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-[#4A433C] sm:text-lg">{chapter.intro}</p>
-              </div>
-              <div className={`lg:col-span-5 ${chapterIndex % 2 === 1 ? "lg:order-1" : ""}`}>
-                <div className={`relative overflow-hidden rounded-[2rem] border border-[#D8CCBF] ${accentSurface(chapter.accent)} p-3 shadow-sm`}>
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-[1.4rem]">
-                    <Image src={chapter.image} alt={chapter.imageAlt} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+      {/* CHAPTERS */}
+      <div id="chapters" className="scroll-mt-24">
+        {BEAUTY_CHAPTERS.map((chapter, chapterIndex) => {
+          const theme = chapterTheme(chapter);
+          const dark = chapter.accent === "cocoa";
+          return (
+            <section key={chapter.id} className={`${theme.wrap} py-16 sm:py-20 lg:py-24`}>
+              <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+                <div className={`grid gap-8 lg:grid-cols-12 lg:items-end ${chapterIndex % 2 === 1 ? "" : ""}`}>
+                  <div className={`lg:col-span-7 ${chapterIndex % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <p className={`font-mono text-[11px] font-semibold uppercase tracking-[0.22em] ${dark ? "text-[#D8C4AA]" : "text-[#8A5A44]"}`}>{chapter.step}</p>
+                    <h2 className={`mt-3 font-serif text-4xl font-semibold leading-[0.98] tracking-tight sm:text-6xl ${dark ? "text-[#FFF8EF]" : "text-[#1A1714]"}`}>{chapter.title}</h2>
+                    <p className={`mt-2 font-serif text-xl italic sm:text-2xl ${dark ? "text-[#E0CDB5]" : "text-[#6B4A3A]"}`}>{chapter.subtitle}</p>
+                    <p className={`mt-4 max-w-2xl text-base leading-8 sm:text-lg ${dark ? "text-[#D9CCBC]" : "text-[#4A433C]"}`}>{chapter.intro}</p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 space-y-8">
-              {chapter.categories.map((category, idx) => {
-                const tiers = budget === "all" ? category.tiers : category.tiers.filter((t) => t.tier === budget);
-                const featured = category.tiers[1] ?? category.tiers[0];
-                const isEditorial = idx % 2 === 0;
-                return (
-                  <article key={category.id} className="rounded-[2rem] border border-[#DDD2C6] bg-[#FFFCF8] p-5 shadow-[0_10px_30px_rgba(28,23,20,0.04)] sm:p-7">
-                    <div className={`grid gap-6 ${isEditorial ? "lg:grid-cols-[0.9fr_1.1fr]" : "lg:grid-cols-[1.1fr_0.9fr]"}`}>
-                      <div className={`${isEditorial ? "" : "lg:order-2"}`}>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="rounded-full border border-[#D8CCBF] bg-[#F6F0E8] px-3 py-1 text-xs font-semibold text-[#4A433C]">{chapter.step}</span>
-                          <span className="rounded-full border border-[#E3D4D7] bg-[#F8F1F2] px-3 py-1 text-xs font-semibold text-[#6B4A53]">{category.occasionTag}</span>
-                        </div>
-                        <h3 className="mt-3 font-serif text-2xl font-semibold leading-tight text-[#1C1714] sm:text-4xl">{category.title}</h3>
-                        <p className="mt-2 font-serif text-lg italic text-[#6B4A3A] sm:text-xl">{category.editorialHeadline}</p>
-
-                        <div className="mt-5 space-y-3">
-                          <div className="rounded-2xl border border-[#E4D9CC] bg-[#F8F3EC] p-4">
-                            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7A5A45]">What it is</p>
-                            <p className="mt-1 text-sm leading-7 text-[#3E3832] sm:text-base">{category.whatItIs}</p>
-                          </div>
-                          <div className="rounded-2xl border border-[#E4D9CC] bg-white p-4">
-                            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7A5A45]">When it shines</p>
-                            <p className="mt-1 text-sm leading-7 text-[#3E3832] sm:text-base">{category.oneLineFact}</p>
-                          </div>
-                        </div>
-
-                        {budget === "all" && (
-                          <div className="mt-5 rounded-2xl border border-[#1C1714]/10 bg-[#1C1714] p-4 text-[#F8F3EC]">
-                            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#D9CBB8]">Editor’s spotlight</p>
-                            <p className="mt-1 text-sm leading-7 text-[#F3EBDD]"><strong className="text-white">{featured.brand} {featured.name}</strong> — {featured.whyPick} <span className="text-[#D9CBB8]">({featured.tier})</span></p>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className={`${isEditorial ? "" : "lg:order-1"}`}>
-                        {tiers.length === 0 ? (
-                          <div className="flex h-full items-center rounded-2xl border border-dashed border-[#D8CCBF] bg-[#FAF7F2] p-6 text-sm leading-7 text-[#4A433C]">
-                            No picks shown for the selected budget lens. Choose <strong className="mx-1 text-[#1C1714]">All Budgets</strong> to compare every tier for this category.
-                          </div>
-                        ) : (
-                          <div className={`grid gap-3 ${tiers.length === 3 ? "sm:grid-cols-2 xl:grid-cols-3" : tiers.length === 2 ? "sm:grid-cols-2" : ""}`}>
-                            {tiers.map((t, tIdx) => {
-                              const tone = tierTone(t.tier);
-                              const featuredCard = budget === "all" && tiers.length === 3 && tIdx === 1;
-                              return (
-                                <div key={`${category.id}-${t.tier}-${t.name}`} className={`group rounded-2xl border p-4 transition hover:-translate-y-0.5 hover:shadow-md ${tone.panel} ${featuredCard ? "sm:col-span-2 xl:col-span-1 xl:-translate-y-1" : ""}`}>
-                                  <div className="flex flex-wrap items-center justify-between gap-2">
-                                    <span className={`rounded-full border px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide ${tone.badge}`}>{t.tier}</span>
-                                    <span className="text-xs font-medium text-[#6A5C52]">{t.brand}</span>
-                                  </div>
-                                  <h4 className="mt-3 font-serif text-xl leading-snug text-[#1C1714]">{t.name}</h4>
-                                  <p className="mt-2 text-sm leading-6 text-[#4A433C]">{t.whyPick}</p>
-                                  <a
-                                    href={t.affiliateUrl}
-                                    target="_blank"
-                                    rel={GO_REL}
-                                    className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#1C1714] px-4 py-2.5 text-sm font-semibold text-[#F8F3EC] transition hover:bg-[#332B25]"
-                                  >
-                                    View on Amazon <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                                  </a>
-                                  <p className="mt-2 text-[11px] leading-5 text-[#6A5C52]">Search: {t.amazonSearchQuery}</p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
+                  <div className={`lg:col-span-5 ${chapterIndex % 2 === 1 ? "lg:order-1" : ""}`}>
+                    <div className={`relative overflow-hidden rounded-[2rem] border p-3 shadow-sm ${dark ? "border-[#3A332D] bg-[#241F1B]" : "border-[#D8CCBF] bg-white/70"}`}>
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.4rem]">
+                        <Image src={chapter.image} alt={chapter.imageAlt} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
                       </div>
                     </div>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-        ))}
+                  </div>
+                </div>
+
+                <div className="mt-10 grid gap-6">
+                  {chapter.categories.map((category, idx) => (
+                    <article key={category.id} className={`rounded-[2rem] border p-5 sm:p-7 ${dark ? "border-[#3A332D] bg-[#241F1B]" : "border-[#DDD2C6] bg-[#FFFCF8]"}`}>
+                      <div className={`grid gap-6 lg:grid-cols-12 ${idx % 2 === 1 ? "" : ""}`}>
+                        <div className={`lg:col-span-5 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${dark ? "border-[#4A413A] bg-[#1A1714] text-[#E0CDB5]" : "border-[#D8CCBF] bg-[#F6F0E8] text-[#4A433C]"}`}>{category.occasionTag}</span>
+                          </div>
+                          <h3 className={`mt-3 font-serif text-3xl font-semibold leading-tight sm:text-4xl ${dark ? "text-[#FFF8EF]" : "text-[#1A1714]"}`}>{category.title}</h3>
+                          <p className={`mt-2 font-serif text-lg italic sm:text-xl ${dark ? "text-[#E0CDB5]" : "text-[#6B4A3A]"}`}>{category.editorialHeadline}</p>
+                          <div className="mt-5 space-y-3">
+                            <div className={`rounded-2xl border p-4 ${dark ? "border-[#3A332D] bg-[#1A1714]" : "border-[#E4D9CC] bg-[#F8F3EC]"}`}>
+                              <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${dark ? "text-[#D8C4AA]" : "text-[#8A5A44]"}`}>What it does</p>
+                              <p className={`mt-1 text-sm leading-7 sm:text-base ${dark ? "text-[#D9CCBC]" : "text-[#3E3832]"}`}>{category.whatItIs}</p>
+                            </div>
+                            <div className={`rounded-2xl border p-4 ${dark ? "border-[#3A332D] bg-[#2A241F]" : "border-[#E4D9CC] bg-white"}`}>
+                              <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${dark ? "text-[#D8C4AA]" : "text-[#8A5A44]"}`}>When to use it</p>
+                              <p className={`mt-1 text-sm leading-7 sm:text-base ${dark ? "text-[#D9CCBC]" : "text-[#3E3832]"}`}>{category.oneLineFact}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className={`lg:col-span-7 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+                          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                            {category.tiers.map((t, tIdx) => (
+                              <div key={`${category.id}-${t.tier}-${t.name}`} className={`rounded-2xl border p-4 transition hover:-translate-y-0.5 hover:shadow-md ${dark ? "border-[#3A332D] bg-[#1A1714]" : "border-[#E5DAD0] bg-white"} ${tIdx === 1 ? "sm:col-span-2 xl:col-span-1" : ""}`}>
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                  <span className={`rounded-full border px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide ${tierStyles(t.tier)}`}>{t.tier}</span>
+                                  <span className={`text-xs font-medium ${dark ? "text-[#CFC0AE]" : "text-[#6A5C52]"}`}>{t.brand}</span>
+                                </div>
+                                <h4 className={`mt-3 font-serif text-xl leading-snug ${dark ? "text-[#FFF8EF]" : "text-[#1A1714]"}`}>{t.name}</h4>
+                                <p className={`mt-2 text-sm leading-6 ${dark ? "text-[#D9CCBC]" : "text-[#4A433C]"}`}>{t.whyPick}</p>
+                                <div className="mt-3 flex items-center justify-between gap-3">
+                                  <span className={`text-sm font-semibold ${dark ? "text-[#F0E2CF]" : "text-[#1A1714]"}`}>{formatInr(t.priceInr) ?? "Live price on Amazon.in"}</span>
+                                </div>
+                                <a href={t.affiliateUrl} target="_blank" rel={GO_REL} className={`mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition ${dark ? "bg-[#F7F1E8] text-[#1A1714] hover:bg-white" : "bg-[#1A1714] text-white hover:bg-[#332B25]"}`}>
+                                  View on Amazon.in <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                                </a>
+                                <p className={`mt-2 text-[11px] leading-5 ${dark ? "text-[#AFA292]" : "text-[#6A5C52]"}`}>Search: {t.amazonSearchQuery}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        })}
       </div>
 
-      {/* Editorial notes / education */}
-      <section className="border-y border-[#D9CEC1] bg-[#F3EEE7]">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:py-24">
-          <div>
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7A5A45]">Beauty, explained beautifully</p>
-            <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-[#1C1714] sm:text-5xl">Little knowledge. Big confidence.</h2>
-            <p className="mt-4 max-w-lg text-base leading-8 text-[#4A433C]">
-              Makeup becomes easier when every product has a purpose. Tap through quick explanations and practical answers—designed to be helpful even if you’re just starting out.
+      {/* BRANDS */}
+      <section id="brands" className="scroll-mt-24 bg-[#F4EEE6] py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end">
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A5A44]">Brand discovery</p>
+              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] text-[#1A1714] sm:text-6xl">The names Indian makeup bags know.</h2>
+            </div>
+            <p className="max-w-xl text-base leading-8 text-[#4A433C] sm:text-lg">
+              Explore familiar, loved beauty brands available on Amazon.in—from budget-friendly favorites to premium picks. Open a brand to browse its current products and live prices.
             </p>
-            <div className="mt-8 rounded-3xl border border-[#D8CCBF] bg-white/70 p-5">
-              <p className="font-serif text-2xl text-[#1C1714]">“A Little Glam Never Hurt.”</p>
-              <p className="mt-2 text-sm leading-7 text-[#4A433C]">But the best kit is the one that fits your life—your budget, your climate, your occasions, your rules.</p>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {BRAND_SHOWCASE.map((brand, idx) => (
+              <a key={brand.name} href={brand.affiliateUrl} target="_blank" rel={GO_REL} className={`group relative overflow-hidden rounded-[2rem] border border-[#D8CCBF] p-6 transition hover:-translate-y-0.5 hover:shadow-md ${idx % 3 === 0 ? "bg-[#1A1714] text-[#F7F1E8] lg:col-span-2" : "bg-white text-[#1A1714]"}`}>
+                <div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full blur-2xl ${idx % 3 === 0 ? "bg-[#C9A97E]/20" : "bg-[#EBDDCB]"}`} aria-hidden="true" />
+                <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${idx % 3 === 0 ? "text-[#D8C4AA]" : "text-[#8A5A44]"}`}>{brand.tagline}</p>
+                <h3 className={`mt-3 font-serif text-3xl leading-tight sm:text-4xl ${idx % 3 === 0 ? "text-[#FFF8EF]" : "text-[#1A1714]"}`}>{brand.name}</h3>
+                <p className={`mt-3 max-w-md text-sm leading-7 sm:text-base ${idx % 3 === 0 ? "text-[#D9CCBC]" : "text-[#4A433C]"}`}>{brand.focus}</p>
+                <span className={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${idx % 3 === 0 ? "text-[#F0E2CF]" : "text-[#1A1714]"}`}>
+                  Explore on Amazon.in <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-[#FBF8F4] py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+          <div>
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A5A44]">Makeup, made simple</p>
+            <h2 className="mt-3 font-serif text-4xl font-semibold leading-tight text-[#1A1714] sm:text-5xl">New to makeup? You’re in the right place.</h2>
+            <p className="mt-4 max-w-lg text-base leading-8 text-[#4A433C]">
+              Short, friendly explanations to help you shop with confidence. No complicated jargon—just what each product does and when it helps.
+            </p>
+            <div className="mt-8 rounded-3xl border border-[#D8CCBF] bg-[#F6F1EA] p-6">
+              <p className="font-serif text-2xl text-[#1A1714]">Beauty Finds Worth Your Money.</p>
+              <p className="mt-2 text-sm leading-7 text-[#4A433C]">Start small, learn what you love, and build a kit that fits your routine and your budget.</p>
             </div>
           </div>
           <div className="space-y-3">
             {BEAUTY_FAQS.map((faq) => {
-              const open = openTip === faq.question;
+              const open = openFaq === faq.question;
               return (
-                <div key={faq.question} className="overflow-hidden rounded-2xl border border-[#D8CCBF] bg-white/80">
-                  <button
-                    type="button"
-                    onClick={() => setOpenTip(open ? null : faq.question)}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                    aria-expanded={open}
-                  >
-                    <span className="font-serif text-xl leading-snug text-[#1C1714] sm:text-2xl">{faq.question}</span>
+                <div key={faq.question} className="overflow-hidden rounded-2xl border border-[#D8CCBF] bg-white">
+                  <button type="button" onClick={() => setOpenFaq(open ? null : faq.question)} className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left" aria-expanded={open}>
+                    <span className="font-serif text-xl leading-snug text-[#1A1714] sm:text-2xl">{faq.question}</span>
                     <ChevronDown className={`h-5 w-5 shrink-0 text-[#6A5C52] transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
                   </button>
                   {open && <p className="border-t border-[#E4D9CC] px-5 py-4 text-sm leading-7 text-[#4A433C] sm:text-base">{faq.answer}</p>}
                 </div>
               );
             })}
-            <p className="pt-2 text-xs leading-6 text-[#6A5C52]">
-              Educational notes are general guidance. Check product details, shades, ingredients, and suitability on Amazon before purchase.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Closing */}
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-        <div className="relative overflow-hidden rounded-[2.2rem] border border-[#D8CCBF] bg-[#1C1714] px-6 py-12 text-[#F8F3EC] sm:px-10 lg:px-14">
-          <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#6B4A3A]/30 blur-3xl" aria-hidden="true" />
-          <div className="absolute bottom-0 left-0 h-56 w-56 rounded-full bg-[#D9CBB8]/10 blur-3xl" aria-hidden="true" />
-          <div className="relative grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+      {/* FOOTER NOTE / CLOSING */}
+      <section className="bg-[#120F0D] py-14 text-[#F7F1E8] sm:py-16">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D9CBB8]">The edit continues</p>
-              <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-5xl">Beauty finds worth your time, your budget, and your moment.</h2>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-[#E3D7C8]">
-                Explore Amazon picks across everyday essentials and luxe icons, compare by occasion, and build a makeup kit that feels considered—not complicated.
-              </p>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D8C4AA]">Your beauty destination</p>
+              <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight sm:text-5xl">Ready for college, office, parties, and every celebration in between.</h2>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-start">
-              <a href="#discovery" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#F7F1E8] px-7 text-sm font-semibold text-[#1C1714] transition hover:bg-white">
-                Refine Your Discovery <Check className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <a href="#chapters" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-7 text-sm font-semibold text-[#F8F3EC] transition hover:bg-white/10">
-                Browse Chapters <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+            <div className="flex flex-wrap gap-3">
+              <a href="#occasions" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F7F1E8] px-6 text-sm font-semibold text-[#1A1714] transition hover:bg-white">Shop by Occasion</a>
+              <a href="#budget" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 px-6 text-sm font-semibold text-[#F7F1E8] transition hover:bg-white/10">Shop by Budget</a>
+              <Link href="/collections" className="inline-flex min-h-12 items-center justify-center px-2 text-sm font-medium text-[#D9CCBC] underline-offset-4 hover:text-white hover:underline">All Collections</Link>
             </div>
           </div>
+          <p className="mt-8 max-w-4xl border-t border-white/10 pt-6 text-xs leading-6 text-[#BFB3A3]">
+            Amazon.in products only. Product information is provided to help you discover and compare; <strong className="text-[#F0E2CF]">live prices, availability, shades, and offers can change</strong> on Amazon.in. No discounts, prices, ratings, or popularity claims are invented. Affiliate/tracked links are used and can be replaced with direct affiliate URLs per product.
+          </p>
         </div>
-        <p className="mt-6 text-xs leading-6 text-[#6A5C52]">
-          Amazon-only product recommendations shown with genuine product information. Live prices, shades, availability, and seller details are determined on Amazon and may change. Affiliate/tracked links are used and can be updated with direct affiliate URLs per product as needed. No discounts, ratings, or popularity claims are invented.
-        </p>
       </section>
     </div>
   );
