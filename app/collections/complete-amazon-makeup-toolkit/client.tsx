@@ -117,7 +117,7 @@ export default function BeautyToolkitClient() {
               <Link
                 key={category.slug}
                 href={`${BASE}/${category.slug}`}
-                className="group relative isolate block overflow-hidden rounded-b-[1.5rem] rounded-t-[11rem] bg-[#4A1D3F] shadow-[0_18px_40px_-20px_rgba(74,29,63,0.55)] outline-none ring-[#D6336C] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_50px_-18px_rgba(214,51,108,0.45)] focus-visible:ring-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:[&:nth-child(3n+2)]:mt-10"
+                className="group relative isolate block overflow-hidden rounded-b-[1.5rem] rounded-t-[11rem] bg-[#FFF3F0] shadow-[0_18px_40px_-20px_rgba(74,29,63,0.55)] outline-none ring-[#D6336C] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_50px_-18px_rgba(214,51,108,0.45)] focus-visible:ring-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:[&:nth-child(3n+2)]:mt-10"
               >
                 <div className="relative aspect-[3/4]">
                   <Image
