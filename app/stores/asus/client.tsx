@@ -133,20 +133,20 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
       {isPromoActive && (
         <a
           href="#asus-november-deals"
-          className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-amber-300/40 bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-cyan-500/10 px-4 py-3 text-left transition hover:border-amber-300/70"
+          className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-amber-400/50 bg-slate-900 px-4 py-3 text-left shadow-sm transition hover:border-amber-300/70 hover:bg-slate-800"
         >
           <div className="flex min-w-0 items-center gap-3">
-            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-400/20 text-amber-200">
+            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-400/20 text-amber-300 ring-1 ring-amber-400/30">
               <Tag aria-hidden="true" className="h-4 w-4" />
             </span>
             <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-200">ASUS November Deals</p>
-              <p className="truncate text-sm font-medium text-slate-100 sm:text-base">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">ASUS November Deals</p>
+              <p className="truncate text-sm font-medium text-white sm:text-base">
                 Save up to ₹61,000 on select ASUS laptops • Valid 18–30 November 2026
               </p>
             </div>
           </div>
-          <span className="hidden shrink-0 items-center gap-1 text-sm font-semibold text-cyan-200 sm:inline-flex">
+          <span className="hidden shrink-0 items-center gap-1 text-sm font-semibold text-cyan-300 sm:inline-flex">
             View deals <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
           </span>
         </a>
