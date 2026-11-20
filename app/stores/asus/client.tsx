@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   ArrowUpRight,
   BadgePercent,
+  CalendarDays,
   CheckCircle2,
   GraduationCap,
   ShieldCheck,
+  Tag,
 } from "lucide-react";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
@@ -37,8 +39,86 @@ const HERO_HREF = "/go/asus?src=asus-india-hero";
 const MATCHER_HREF = "/go/asus?src=asus-india-matcher";
 const MOBILE_HREF = "/go/asus?src=asus-india-mobile";
 
+const PROMO_START = new Date("2026-11-18T00:00:00+05:30").getTime();
+const PROMO_END = new Date("2026-11-30T23:59:59.999+05:30").getTime();
+
+type AsusDeal = {
+  name: string;
+  model: string;
+  dealPrice: number;
+  originalPrice: number;
+  savings: number;
+  image: string;
+  alt: string;
+  href: string;
+  cta: string;
+};
+
+const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
+  {
+    name: "ASUS Vivobook 16 (X1607)",
+    model: "X1607AA-MB038WS",
+    dealPrice: 98990,
+    originalPrice: 159990,
+    savings: 61000,
+    image: "/stores/asus-deals/vivobook-x1607.webp",
+    alt: "ASUS Vivobook 16 X1607 laptop",
+    href: "https://www.asus.com/in/laptops/for-home/vivobook/asus-vivobook-16-x1607/",
+    cta: "View Vivobook 16 on ASUS",
+  },
+  {
+    name: "ASUS TUF Gaming A15",
+    model: "FA506NCQ-IN081WS",
+    dealPrice: 105990,
+    originalPrice: 164990,
+    savings: 59000,
+    image: "/stores/asus-deals/tuf-gaming-a15-2021.webp",
+    alt: "ASUS TUF Gaming A15 laptop (FA506NCQ-IN081WS)",
+    href: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    cta: "View TUF Gaming A15 on ASUS",
+  },
+  {
+    name: "ASUS TUF Gaming A15",
+    model: "FA506NCG-HN192WS",
+    dealPrice: 110990,
+    originalPrice: 155990,
+    savings: 45000,
+    image: "/stores/asus-deals/tuf-gaming-a15-2021.webp",
+    alt: "ASUS TUF Gaming A15 laptop (FA506NCG-HN192WS)",
+    href: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    cta: "View TUF Gaming A15 on ASUS",
+  },
+  {
+    name: "ASUS TUF Gaming A15",
+    model: "FA506NCQ-IN080W",
+    dealPrice: 103990,
+    originalPrice: 161990,
+    savings: 58000,
+    image: "/stores/asus-deals/tuf-gaming-a15-2021.webp",
+    alt: "ASUS TUF Gaming A15 laptop (FA506NCQ-IN080W)",
+    href: "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/2021-asus-tuf-gaming-a15/",
+    cta: "View TUF Gaming A15 on ASUS",
+  },
+];
+
+function formatINR(value: number): string {
+  return `₹${value.toLocaleString("en-IN")}`;
+}
+
+function savingsPercent(savings: number, original: number): number {
+  if (original <= 0) return 0;
+  return Math.round((savings / original) * 100);
+}
+
 export default function AsusClient({ faqs, stats, storeUrl }: Props) {
   const [active, setActive] = useState<AsusMatchId>("gaming");
+  const [isPromoActive, setIsPromoActive] = useState(false);
+
+  useEffect(() => {
+    const now = Date.now();
+    setIsPromoActive(now >= PROMO_START && now <= PROMO_END);
+  }, []);
+
   const domain = (() => {
     try {
       return new URL(storeUrl ?? "https://asus.com/in/").hostname.replace(/^www\./, "");
@@ -50,6 +130,28 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 pb-28 sm:px-6 sm:py-12 md:pb-8">
+      {isPromoActive && (
+        <a
+          href="#asus-november-deals"
+          className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-amber-300/40 bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-cyan-500/10 px-4 py-3 text-left transition hover:border-amber-300/70"
+        >
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-400/20 text-amber-200">
+              <Tag aria-hidden="true" className="h-4 w-4" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-200">ASUS November Deals</p>
+              <p className="truncate text-sm font-medium text-slate-100 sm:text-base">
+                Save up to ₹61,000 on select ASUS laptops • Valid 18–30 November 2026
+              </p>
+            </div>
+          </div>
+          <span className="hidden shrink-0 items-center gap-1 text-sm font-semibold text-cyan-200 sm:inline-flex">
+            View deals <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+          </span>
+        </a>
+      )}
+
       {/* Hero — dark precision hardware */}
       <section className="overflow-hidden rounded-3xl border border-[#1f2937] bg-[#0D1117] shadow-sm">
         <div className="px-6 py-10 sm:px-10 sm:py-14">
@@ -108,6 +210,111 @@ export default function AsusClient({ faqs, stats, storeUrl }: Props) {
           </div>
         </div>
       </section>
+
+      {isPromoActive && (
+        <section
+          id="asus-november-deals"
+          aria-labelledby="asus-november-deals-heading"
+          className="mt-8 scroll-mt-24 overflow-hidden rounded-3xl border border-[#334155] bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#0b1220] p-5 shadow-[0_20px_60px_rgba(2,6,23,0.45)] sm:p-7"
+        >
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-300">
+                Limited-time ASUS promotions
+              </p>
+              <h2 id="asus-november-deals-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+                ASUS November Deals – Save Up to ₹61,000
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
+                Real promotional pricing on select ASUS laptops. No coupon codes required for these listed deals — check the official ASUS product pages for live availability, final checkout price, and terms.
+              </p>
+            </div>
+            <div className="inline-flex w-fit items-center gap-2 rounded-xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-sm font-semibold text-amber-100">
+              <CalendarDays aria-hidden="true" className="h-4 w-4" />
+              Validity: 18–30 November 2026
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            {ASUS_NOVEMBER_DEALS.map((deal) => {
+              const percent = savingsPercent(deal.savings, deal.originalPrice);
+              return (
+                <article
+                  key={deal.model}
+                  className="group overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-900/60 transition hover:border-cyan-400/40 hover:shadow-[0_16px_40px_rgba(8,145,178,0.15)]"
+                >
+                  <div className="grid sm:grid-cols-[180px_1fr]">
+                    <div className="relative aspect-[4/3] bg-slate-950 sm:aspect-auto sm:min-h-full">
+                      <Image
+                        src={deal.image}
+                        alt={deal.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 180px"
+                        className="object-contain p-4 transition duration-300 group-hover:scale-[1.02]"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-4 sm:p-5">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-emerald-500/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-300">
+                          Save {percent}%
+                        </span>
+                        <span className="rounded-full bg-cyan-500/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-cyan-200">
+                          {formatINR(deal.savings)} off
+                        </span>
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold leading-snug text-white">{deal.name}</h3>
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Model: {deal.model}</p>
+
+                      <div className="mt-4 flex flex-wrap items-end gap-x-3 gap-y-1">
+                        <p className="text-2xl font-extrabold text-white">{formatINR(deal.dealPrice)}</p>
+                        <p className="text-sm font-medium text-slate-400 line-through">{formatINR(deal.originalPrice)}</p>
+                      </div>
+                      <p className="mt-1 text-sm font-semibold text-emerald-300">You save {formatINR(deal.savings)}</p>
+
+                      <a
+                        href={deal.href}
+                        target="_blank"
+                        rel={GO_REL}
+                        className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-400 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
+                      >
+                        {deal.cta}
+                        <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-violet-300/25 bg-violet-500/10 p-5 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-200">Additional ASUS benefit</p>
+                <h3 className="mt-1 text-xl font-bold text-white">ASUS Adobe Creative Cloud 1-month bundle</h3>
+                <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-300">
+                  ASUS is also promoting an Adobe Creative Cloud 1-month bundle offer. Check the official ASUS offer page for eligibility, redemption steps, and terms.
+                </p>
+                <p className="mt-2 text-xs font-medium text-slate-400">Promotional period shown on this page: 18–30 November 2026</p>
+              </div>
+              <a
+                href="https://www.asus.com/in/content/asus-offers-adobe-creative-cloud/"
+                target="_blank"
+                rel={GO_REL}
+                className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-violet-300/40 bg-violet-400/10 px-5 py-2.5 text-sm font-bold text-violet-100 transition hover:bg-violet-400/20"
+              >
+                View Adobe Bundle Offer
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          <p className="mt-4 text-xs leading-6 text-slate-400">
+            Deal details shown above are based on the promotional information provided for 18–30 November 2026. Prices, model availability, and offer terms may change on ASUS. Verify final details on the official ASUS pages before purchase.
+          </p>
+        </section>
+      )}
 
       <div className="mt-4">
         <TrustStats {...stats} />
