@@ -37,7 +37,7 @@ function HeroDecor() {
 
 export default function BeautyToolkitClient() {
   return (
-    <div className="bg-[#120F0D] text-[#F7F1E8]">
+    <div className="overflow-x-hidden bg-[#120F0D] text-[#F7F1E8]">
       {/* HERO */}
       <section className="relative isolate min-h-[88svh] overflow-hidden">
         <div className="absolute inset-0">

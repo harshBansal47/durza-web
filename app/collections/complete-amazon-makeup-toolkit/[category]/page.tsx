@@ -120,7 +120,7 @@ export default async function CategoryPage({ params }: Props) {
   };
 
   return (
-    <main className="bg-[#FBF7F2] text-[#1A1714]">
+    <main className="overflow-x-hidden bg-[#FBF7F2] text-[#1A1714]">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -160,11 +160,11 @@ export default async function CategoryPage({ params }: Props) {
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="max-w-3xl">
-              <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] backdrop-blur-sm" style={{ color: entry.theme.accent }}>
-                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> {entry.eyebrow}
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/25 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#FFF8F0] backdrop-blur-sm">
+                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" style={{ color: entry.theme.accent }} /> {entry.eyebrow}
               </p>
-              <h1 className="mt-5 font-serif text-4xl font-semibold leading-[0.95] tracking-tight sm:text-5xl lg:text-6xl">{entry.title}</h1>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-[#F1E6D9] sm:text-lg">{entry.description}</p>
+              <h1 className="mt-5 font-serif text-4xl font-semibold leading-[0.95] tracking-tight text-[#FFF8F0] drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-5xl lg:text-6xl">{entry.title}</h1>
+              <p className="mt-4 max-w-2xl text-base leading-8 text-[#F6EBDD] sm:text-lg">{entry.description}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:max-w-md lg:ml-auto">
@@ -185,8 +185,8 @@ export default async function CategoryPage({ params }: Props) {
       </section>
 
       {/* PRODUCTS */}
-      <section className="relative py-12 sm:py-16 lg:py-20">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+      <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-[-10%] top-0 h-72 w-72 rounded-full bg-[#EEDFCC] opacity-40 blur-3xl" />
           <div className="absolute right-[-8%] top-40 h-80 w-80 rounded-full bg-[#E6D5C5] opacity-35 blur-3xl" />
         </div>
