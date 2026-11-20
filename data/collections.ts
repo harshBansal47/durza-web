@@ -883,6 +883,82 @@ export const COLLECTIONS: CollectionEntry[] = [
       { href: "/stores/amazon-in", label: "Amazon India" },
     ],
   },
+  {
+    slug: "complete-amazon-makeup-toolkit",
+    category: "Beauty & Grooming",
+    title: "Complete Makeup Toolkit on Amazon India — Step-by-Step Guide",
+    seoTitle: "Complete Makeup Toolkit on Amazon India — Step-by-Step Guide",
+    metaDescription:
+      "Build your complete makeup kit on Amazon India from primer to setting spray. Compare Everyday, Cult & Luxe picks with one-line occasion guides on Durza.",
+    heroImage: "/collections/amazon-beauty-toolkit/hero-vanity.webp",
+    summary:
+      "A premium, step-by-step Amazon India beauty toolkit from prep to setting spray, with Everyday, Mid-Range, and Luxe picks for every routine stage.",
+    updatedLabel: "Updated Nov 2026",
+    itemCountLabel: "20 Categories · 60 Picks",
+    kitSummary:
+      "Designed as a self-speaking beauty matchmaker: follow the 6-stage routine order, compare Everyday Value, Mid-Range Cult, and Luxe Splurge options, and choose by occasion (5-minute everyday, humidity-proof, or wedding/party glam). Check live prices, shades, and availability on Amazon before buying.",
+    keywords: [
+      "complete makeup kit Amazon India",
+      "makeup toolkit step by step",
+      "beginner makeup essentials India",
+      "Amazon beauty products India",
+    ],
+    picks: [
+      {
+        name: "Pore-Blurring & Gripping Primer (Prep Stage)",
+        storeBadge: "Amazon India",
+        tier: "Essential First Buy",
+        why: "Smooths skin and helps base makeup grip better through humidity and long wear, making it a high-impact first step in any routine.",
+        skipIf: "You already own a primer that works well for your skin type and climate.",
+        ctaLabel: "Explore the Toolkit on Durza",
+        ctaHref: "/collections/complete-amazon-makeup-toolkit#toolkit",
+        external: false,
+      },
+      {
+        name: "Foundation, Concealer & Setting Powder (Base Stage)",
+        storeBadge: "Amazon India",
+        tier: "Daily Non-Negotiable",
+        why: "Compare Everyday, Mid-Range, and Luxe base picks by finish and occasion so you can build coverage that suits office days, humidity, or events.",
+        skipIf: "You only need a minimal routine and prefer skin tints or no base makeup.",
+        ctaLabel: "Compare Base Picks",
+        ctaHref: "/collections/complete-amazon-makeup-toolkit#toolkit",
+        external: false,
+      },
+      {
+        name: "Eyes, Lips, Lock & Tools (Finish Stages)",
+        storeBadge: "Amazon India",
+        tier: "Sweet-Spot Upgrade",
+        why: "Round out your kit with brows, mascara/liner, lip color, setting spray, brushes, and makeup removal essentials across all budget tiers.",
+        skipIf: "You already have a complete finish-and-tools setup and only need to refill one category.",
+        ctaLabel: "View Full Step-by-Step Guide",
+        ctaHref: "/collections/complete-amazon-makeup-toolkit",
+        external: false,
+      },
+    ],
+    faqs: [
+      {
+        question: "What’s the difference between primer and strobe cream?",
+        answer:
+          "Primer helps smooth skin and improve makeup grip and wear, while strobe cream adds glow and radiance. You can use primer for longevity and strobe cream for a luminous finish depending on the look.",
+      },
+      {
+        question: "Loose powder vs compact powder: which one should I choose?",
+        answer:
+          "Loose powder is great for setting and reducing creasing at home, while compact powder is convenient for quick touch-ups on the go. Many people use both for different moments.",
+      },
+      {
+        question: "How do I choose makeup finishes for Indian humidity?",
+        answer:
+          "Use lightweight layers, grip-focused prep, and setting products where you get oily. Smudge-resistant eye/lip options can help, but comfort and shade match should guide your final choice on Amazon.",
+      },
+    ],
+    relatedCollections: ["indian-monsoon-humidity-skincare-haircare-kit", "wedding-and-festive-luxury-gifting-edit-india"],
+    relatedGuides: [],
+    relatedCompares: [],
+    relatedStores: [
+      { href: "/stores/amazon-in", label: "Amazon India" },
+    ],
+  },
 ];
 
 export function getCollectionBySlug(slug: string): CollectionEntry | undefined {

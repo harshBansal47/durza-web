@@ -102,6 +102,7 @@ export const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/reviews`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/compare`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/collections`, changeFrequency: "weekly", priority: 0.7 },
+  { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit`, changeFrequency: "weekly", priority: 0.8 },
 ];
 
 /**

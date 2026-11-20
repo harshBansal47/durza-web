@@ -5,21 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { CollectionCategory, CollectionEntry } from "@/data/collections";
+import { COLLECTION_CATEGORIES } from "@/data/collections";
 
 type Filter = "All" | CollectionCategory;
 
-const FILTERS: { label: string; value: Filter }[] = [
-  { label: "All (8)", value: "All" },
-  { label: "Work & Tech", value: "Work & Tech" },
-  { label: "Beauty & Grooming", value: "Beauty & Grooming" },
-  { label: "Fitness & Nutrition", value: "Fitness & Nutrition" },
-  { label: "Fashion & Accessories", value: "Fashion & Accessories" },
-  { label: "Gifting & Lifestyle", value: "Gifting & Lifestyle" },
-  { label: "Home & Appliances", value: "Home & Appliances" },
-];
-
 export default function CollectionsHub({ items }: { items: CollectionEntry[] }) {
   const [active, setActive] = useState<Filter>("All");
+
+  const filters = useMemo(() => {
+    const all: { label: string; value: Filter }[] = [{ label: `All (${items.length})`, value: "All" }];
+    for (const category of COLLECTION_CATEGORIES) {
+      const count = items.filter((i) => i.category === category).length;
+      if (count > 0) all.push({ label: `${category} (${count})`, value: category });
+    }
+    return all;
+  }, [items]);
 
   const filtered = useMemo(
     () => (active === "All" ? items : items.filter((i) => i.category === active)),
@@ -41,7 +41,7 @@ export default function CollectionsHub({ items }: { items: CollectionEntry[] }) 
       </header>
 
       <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Collection categories">
-        {FILTERS.map((f) => {
+        {filters.map((f) => {
           const selected = active === f.value;
           return (
             <button
