@@ -38,6 +38,7 @@ const HERO_LINKS = [
   { href: "#occasions", label: "Shop by Occasion" },
   { href: "#budget", label: "Shop by Budget" },
   { href: "#makeup-bag", label: "Everyday Makeup Bag" },
+  { href: "#skin-climate", label: "Skin & Climate Tips" },
   { href: "#brands", label: "Explore Brands" },
 ];
 
@@ -157,7 +158,7 @@ export default function BeautyToolkitClient() {
           <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end">
             <div>
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D8C4AA]">Beauty for every budget</p>
-              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] sm:text-6xl">Little price. Big beauty energy.</h2>
+              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] text-[#FFF8EF] sm:text-6xl">Little price. Big beauty energy.</h2>
             </div>
             <p className="max-w-xl text-base leading-8 text-[#D9CCBC] sm:text-lg">
               Indian shoppers shouldn’t have to guess what’s affordable. Explore budget-friendly finds and premium splurges—always check the <strong className="text-white">live INR price</strong>, shade, and seller on Amazon.in before buying.
@@ -241,6 +242,93 @@ export default function BeautyToolkitClient() {
                 </article>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SKIN TONE & CLIMATE */}
+      <section id="skin-climate" className="scroll-mt-24 bg-[#F2ECE4] py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A5A44]">Made for you</p>
+              <h2 className="mt-3 font-serif text-4xl font-semibold leading-[0.98] text-[#1A1714] sm:text-6xl">Skin tone &amp; Indian weather, decoded.</h2>
+              <p className="mt-4 max-w-xl text-base leading-8 text-[#4A433C] sm:text-lg">
+                The right shade and the right texture can change everything. Use these simple tips to choose makeup that looks natural on your skin and holds up in your city’s climate.
+              </p>
+            </div>
+            <div className="rounded-[2rem] border border-[#D8CCBF] bg-[#1A1714] p-6 text-[#F7F1E8] sm:p-8">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D8C4AA]">Quick shade-matching tip</p>
+              <p className="mt-3 font-serif text-2xl leading-snug text-[#FFF8EF] sm:text-3xl">Check foundation/concealer in natural daylight on your jawline—not your hand.</p>
+              <p className="mt-3 text-sm leading-7 text-[#D9CCBC]">Swatch 2–3 close shades, let them sit for a minute, and pick the one that disappears into your skin. When in doubt, check shade guides and reviews on Amazon.in.</p>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            <article className="rounded-[2rem] border border-[#D8CCBF] bg-white p-6 shadow-sm sm:p-8">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8A5A44]">Skin tone &amp; undertone guidance</p>
+              <h3 className="mt-2 font-serif text-3xl leading-tight text-[#1A1714] sm:text-4xl">Find shades that flatter you</h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {[
+                  {
+                    title: "Warm undertones",
+                    text: "Skin may look golden/peachy in sunlight. Gold jewellery often complements well. Try foundations with golden/warm/yellow hints and lip colors like corals, warm reds, and peachy nudes.",
+                  },
+                  {
+                    title: "Cool undertones",
+                    text: "Skin may show pink/rosy hints. Silver jewellery can complement well. Look for cool/rosy/neutral-cool shades and lip colors like berry, mauve, and blue-based reds.",
+                  },
+                  {
+                    title: "Neutral undertones",
+                    text: "A mix of warm and cool—many shades can work. If a foundation looks too yellow or too pink, try a neutral option. Test in daylight for the best match.",
+                  },
+                  {
+                    title: "Olive undertones",
+                    text: "Skin can have a green/golden balance and sometimes looks ashy in very pink bases. Look for olive/golden-neutral shades where available and avoid overly pink tones if they look grey.",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-2xl border border-[#E5DAD0] bg-[#FFFCF8] p-4">
+                    <h4 className="font-serif text-xl text-[#1A1714]">{item.title}</h4>
+                    <p className="mt-2 text-sm leading-7 text-[#4A433C]">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm leading-7 text-[#4A433C]">
+                <strong className="text-[#1A1714]">For Indian skin tones:</strong> many people fall across fair-to-deep ranges with warm, neutral, or olive undertones. Prioritize undertone over just “fair/medium/dusky” labels, and use swatches/reviews to confirm.
+              </p>
+            </article>
+
+            <article className="rounded-[2rem] border border-[#3A332D] bg-[#241F1B] p-6 text-[#F7F1E8] shadow-sm sm:p-8">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D8C4AA]">Climate-smart makeup</p>
+              <h3 className="mt-2 font-serif text-3xl leading-tight text-[#FFF8EF] sm:text-4xl">Choose textures for your weather</h3>
+              <div className="mt-6 space-y-4">
+                {[
+                  {
+                    title: "Hot & humid / monsoon",
+                    text: "Go lightweight and breathable: gripping primer, thin base layers, compact/loose powder on oily areas, smudge-resistant kajal/liner/mascara, and a setting spray. Blot and touch up instead of piling on more product.",
+                    tone: "bg-[#1A1714] border-[#3A332D]",
+                  },
+                  {
+                    title: "Dry winter / AC-heavy days",
+                    text: "Prep with hydration and choose comfortable, creamy textures (cream blush, hydrating lip products). If skin feels tight, avoid over-powdering—set only where needed to keep a fresh finish.",
+                    tone: "bg-[#1A1714] border-[#3A332D]",
+                  },
+                  {
+                    title: "Sunny days & outdoor events",
+                    text: "Keep makeup comfortable and long-wearing. Use SPF in your skincare routine during the day, and prefer smudge-resistant eye/lip products for heat and sweat. Reapply touch-ups thoughtfully as needed.",
+                    tone: "bg-[#1A1714] border-[#3A332D]",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className={`rounded-2xl border p-4 ${item.tone}`}>
+                    <h4 className="font-serif text-xl text-[#FFF8EF]">{item.title}</h4>
+                    <p className="mt-2 text-sm leading-7 text-[#D9CCBC]">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-xs leading-6 text-[#BFB3A3]">
+                Everyone’s skin behaves differently. Patch-test new products, check ingredients/shades on Amazon.in, and adjust textures based on how your skin feels in your local weather.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -387,7 +475,7 @@ export default function BeautyToolkitClient() {
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D8C4AA]">Your beauty destination</p>
-              <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight sm:text-5xl">Ready for college, office, parties, and every celebration in between.</h2>
+              <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-[#FFF8EF] sm:text-5xl">Ready for college, office, parties, and every celebration in between.</h2>
             </div>
             <div className="flex flex-wrap gap-3">
               <a href="#occasions" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F7F1E8] px-6 text-sm font-semibold text-[#1A1714] transition hover:bg-white">Shop by Occasion</a>
