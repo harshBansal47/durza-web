@@ -92,6 +92,9 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       p("tr-lip-oil","Dear Darling Oil Tint (06 Pink Oil, 4.2ml)","Etude","Glossy tint-oil finish that gives lips color with a comfortable, juicy look.","Trending · Nov 2026","amazon-beauty-trending-etude-dear-darling-oil-tint",{
         image:"/collections/amazon-beauty-toolkit/products/etude-dear-darling-oil-tint.webp",
         amazonUrl:"https://link.amazon/B019J3PvV",
+        priceLabel:"₹600",
+        mrpLabel:"₹750",
+        discountLabel:"20% off",
       }),
       p("tr-liquid-blush","Liquid Blush","MARS","Blendable liquid blush for a quick, natural flush that’s easy to build.","Trending · Nov 2026","amazon-beauty-trending-mars-liquid-blush",{
         image:"/collections/amazon-beauty-toolkit/products/mars-liquid-blush.webp",
@@ -101,8 +104,9 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
         image:"/collections/amazon-beauty-toolkit/products/typsy-silk-cushion-blush.webp",
         amazonUrl:"https://www.amazon.in/dp/B0CM3PR7L6",
       }),
-      p("tr-lip-cheek-tint","Blush and Juicy Lip and Cheek Tint","Blue Heaven","One product for lips and cheeks when you want a fast, coordinated look.","Trending · Nov 2026","amazon-beauty-trending-blue-heaven-lip-cheek-tint",{
-        amazonUrl:"https://www.amazon.in/dp/B0DKTB7R8P",
+      p("tr-lip-cheek-tint","Blush & Juicy Lip & Cheek Tint (Berry Juice, 9ml)","Blue Heaven","One product for lips and cheeks when you want a fast, coordinated look.","Trending · Nov 2026","amazon-beauty-trending-blue-heaven-lip-cheek-tint",{
+        image:"/collections/amazon-beauty-toolkit/products/blue-heaven-blush-juicy-tint.webp",
+        amazonUrl:"https://link.amazon/B087X0B5L",
       }),
       p("tr-jelly-tint","Summer Slush Jelly Tint","RENEE","Jelly texture gives a fresh, dewy tint for lips and cheeks.","Trending · Nov 2026","amazon-beauty-trending-renee-summer-slush-jelly-tint",{
         image:"/collections/amazon-beauty-toolkit/products/renee-summer-slush-jelly-tint.webp",
