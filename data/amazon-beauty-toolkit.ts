@@ -138,7 +138,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       p("ed-lip-cheek","9to5 Weightless Mousse Lip and Cheek Tint","Lakmé","Mousse texture works on lips and cheeks for a fast, coordinated look.","Everyday Pick","amazon-beauty-everyday-lakme-9to5-mousse-tint"),
       p("ed-kajal","NaturStudio All-Day-Wear Kohl Kajal (Black Brilliance)","Plum","Gel kajal designed for comfortable, long-wear everyday definition.","Everyday Pick","amazon-beauty-everyday-plum-naturstudio-kajal"),
       p("ed-mascara","Lash Sensational Sky High Mascara","Maybelline","Lengthening brush gives lifted lashes without a heavy routine.","Bestseller","amazon-beauty-everyday-maybelline-sky-high-mascara",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/512zBYEenoL._SL1200_.jpg",
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-sky-high-mascara.webp",
         amazonUrl:"https://link.amazon/B06HGrdAW",
         priceLabel:"₹497",
         mrpLabel:"₹646",
@@ -172,7 +172,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       p("pg-felt-liner","Felt Tip Pen Eyeliner","Swiss Beauty","Felt tip gives control for quick, clean eyeliner on busy getting-ready days.","Glam Pick","amazon-beauty-party-swiss-beauty-felt-liner"),
       p("pg-kohl","Dark Spell Kohl Kajal","Sotrue","Matte kohl for intense eye definition that suits evening looks.","Glam Pick","amazon-beauty-party-sotrue-dark-spell-kohl"),
       p("pg-waterproof-mascara","Lash Sensational Sky High Waterproof Mascara (Very Black)","Maybelline","Waterproof length and lift for lashes that hold through long events.","Bestseller","amazon-beauty-party-maybelline-sky-high-waterproof",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/512zBYEenoL._SL1200_.jpg",
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-sky-high-waterproof-mascara.webp",
         amazonUrl:"https://link.amazon/B06HGrdAW",
         priceLabel:"₹497",
         mrpLabel:"₹646",
@@ -206,7 +206,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
         discountLabel:"29% off",
       }),
       p("wf-compact","Weightless Stay Matte Finish Compact Powder (Natural Almond 06, 9g)","FACES CANADA","Matte compact for quick touch-ups to keep shine in check during events.","Wedding Pick","amazon-beauty-wedding-faces-canada-compact",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61NarR+SUNL._SX425_.jpg",
+        image:"/collections/amazon-beauty-toolkit/products/faces-canada-compact.webp",
         amazonUrl:"https://link.amazon/B07ULHHRJ",
         priceLabel:"Check price",
       }),
@@ -228,21 +228,21 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     },
     products: [
       p("st-kajal","Eyeconic Black Kajal (0.35g, Combo Pack of 2)","Lakmé","Smudge-resistant everyday kajal—an easy first step for defining eyes.","Starter Pick","amazon-beauty-starter-lakme-eyeconic-kajal",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61as79PTNHL._SY355_PIbundle-2,TopRight,0,0_AA355SH20_.jpg",
+        image:"/collections/amazon-beauty-toolkit/products/lakme-eyeconic-kajal.webp",
         amazonUrl:"https://link.amazon/A07IQZnqD",
         priceLabel:"₹228",
         mrpLabel:"₹319",
         discountLabel:"29% off",
       }),
       p("st-lip-balm","Baby Lips Lip Balm - Cherry Kiss (4g, Buy 1 Get 1)","Maybelline","Soft tint and lip comfort—simple enough for a first everyday lip pick.","Starter Pick","amazon-beauty-starter-maybelline-baby-lips",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/819j6pT42CL._SY550_.jpg",
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-baby-lips.webp",
         amazonUrl:"https://link.amazon/B0f3JqZ2b",
         priceLabel:"₹189",
         mrpLabel:"₹227",
         discountLabel:"17% off",
       }),
       p("st-compact","Weightless Stay Matte Finish Compact Powder (Natural Almond 06, 9g)","FACES CANADA","Easy matte touch-up compact for controlling shine through the day.","Starter Pick","amazon-beauty-starter-faces-canada-compact",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61NarR+SUNL._SX425_.jpg",
+        image:"/collections/amazon-beauty-toolkit/products/faces-canada-compact.webp",
         amazonUrl:"https://link.amazon/B07ULHHRJ",
         priceLabel:"Check price",
       }),
