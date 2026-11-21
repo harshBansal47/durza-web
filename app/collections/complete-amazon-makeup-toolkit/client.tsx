@@ -25,6 +25,8 @@ function SafeImage({ src, alt, sizes, className }: { src: string; alt: string; s
       fill
       sizes={sizes}
       className={className}
+      loading="lazy"
+      decoding="async"
       onError={() => setImgSrc(FALLBACK_IMAGE)}
     />
   );
@@ -44,7 +46,7 @@ function ProductCard({ product }: { product: BeautyProduct }) {
         <SafeImage
           src={product.image}
           alt={`${product.brand} ${product.name}`}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
           className="object-cover transition duration-500 group-hover:scale-[1.03]"
         />
         <span className="absolute left-3 top-3 rounded-full bg-white/92 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#3A312A] shadow-sm">
