@@ -143,7 +143,7 @@ export default function BeautyToolkitClient() {
                       />
                       {category.eyebrow}
                     </p>
-                    <h3 className={`${serif} mt-2 text-3xl font-semibold leading-tight sm:text-[2rem]`}>{category.title}</h3>
+                    <h3 className={`${serif} mt-2 text-3xl font-semibold leading-tight text-white sm:text-[2rem]`}>{category.title}</h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/85 sm:text-[15px]">{category.description}</p>
                     <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#4A1D3F] transition group-hover:bg-[#F5B83D] group-hover:text-[#1E0B1A]">
                       Explore category
@@ -159,7 +159,7 @@ export default function BeautyToolkitClient() {
           </div>
 
           <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-6 text-[#7A5A68]">
-            As an affiliate, we may earn a commission on qualifying purchases at no extra cost to you. Prices, MRP, discounts and availability are indicative. Please check the latest details on Amazon.in before buying.
+            Prices, MRP, discounts and availability are indicative. Please check the latest details on Amazon.in before buying.
           </p>
         </div>
       </section>
