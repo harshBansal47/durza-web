@@ -89,8 +89,9 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       ink: "#FFF7FB",
     },
     products: [
-      p("tr-lip-oil","Dear Darling Oil Tint","Etude","Glossy tint-oil finish that gives lips color with a comfortable, juicy look.","Trending · Nov 2026","amazon-beauty-trending-etude-dear-darling-oil-tint",{
-        amazonUrl:"https://www.amazon.in/s?k=Etude+Dear+Darling+Lip+Oil+Tint",
+      p("tr-lip-oil","Dear Darling Oil Tint (06 Pink Oil, 4.2ml)","Etude","Glossy tint-oil finish that gives lips color with a comfortable, juicy look.","Trending · Nov 2026","amazon-beauty-trending-etude-dear-darling-oil-tint",{
+        image:"/collections/amazon-beauty-toolkit/products/etude-dear-darling-oil-tint.webp",
+        amazonUrl:"https://link.amazon/B019J3PvV",
       }),
       p("tr-liquid-blush","Liquid Blush","MARS","Blendable liquid blush for a quick, natural flush that’s easy to build.","Trending · Nov 2026","amazon-beauty-trending-mars-liquid-blush",{
         image:"/collections/amazon-beauty-toolkit/products/mars-liquid-blush.webp",
