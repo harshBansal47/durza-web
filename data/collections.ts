@@ -909,7 +909,7 @@ export const COLLECTIONS: CollectionEntry[] = [
       {
         name: "College & Daily Makeup Picks",
         storeBadge: "Amazon India",
-        tier: "Everyday Basics",
+        tier: "Daily Non-Negotiable",
         why: "Light, easy picks for campus, classes, and everyday errands with quick-touch essentials.",
         skipIf: "You already have a simple daily routine and only need a specific refill.",
         ctaLabel: "Explore College & Daily",
@@ -919,7 +919,7 @@ export const COLLECTIONS: CollectionEntry[] = [
       {
         name: "Office Ready & Party Glam",
         storeBadge: "Amazon India",
-        tier: "Occasion Ready",
+        tier: "Essential First Buy",
         why: "Polished workday staples and high-impact glam picks curated for long days and evening plans.",
         skipIf: "You’re shopping only for minimal everyday basics.",
         ctaLabel: "Browse Occasion Categories",
@@ -929,7 +929,7 @@ export const COLLECTIONS: CollectionEntry[] = [
       {
         name: "Budget, Wedding & Everyday Essentials",
         storeBadge: "Amazon India",
-        tier: "Smart Curation",
+        tier: "Sweet-Spot Upgrade",
         why: "Value-friendly finds, festive/wedding-ready picks, and core staples to round out your kit.",
         skipIf: "You’re looking for a single specific product rather than a curated category.",
         ctaLabel: "View All Categories",
