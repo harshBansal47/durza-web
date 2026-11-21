@@ -8,7 +8,6 @@ import {
   BEAUTY_BUDGET_FILTERS,
   BEAUTY_PICK_CHECKED_LABEL,
   BEAUTY_SHOP_CATEGORIES,
-  BEAUTY_TRENDING_DATE_LABEL,
   parsePriceValue,
   type BeautyProduct,
 } from "@/data/amazon-beauty-toolkit";

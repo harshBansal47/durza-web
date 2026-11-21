@@ -24,16 +24,8 @@ export interface BeautyShopCategory {
   title: string;
   eyebrow: string;
   description: string;
-  coverImage: string;
-  coverAlt: string;
   /** Optional banner/date label shown in UI (e.g. Trending section). */
   updatedLabel?: string;
-  theme: {
-    gradient: string;
-    accent: string;
-    soft: string;
-    ink: string;
-  };
   products: BeautyProduct[];
 }
 
@@ -79,15 +71,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Trending Now",
     eyebrow: "What’s getting buzz",
     description: "Fresh, buzz-worthy picks people are reaching for right now—updated monthly from trending beauty finds.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-eyes-lips.webp",
-    coverAlt: "Trending beauty and makeup products",
     updatedLabel: BEAUTY_TRENDING_DATE_LABEL,
-    theme: {
-      gradient: "from-[#2A1024] via-[#7A245A]/65 to-[#F3A6C8]/25",
-      accent: "#FFD1E6",
-      soft: "rgba(255,209,230,0.18)",
-      ink: "#FFF7FB",
-    },
     products: [
       p("tr-lip-oil","Dear Darling Oil Tint (06 Pink Oil, 4.2ml)","Etude","Glossy tint-oil finish that gives lips color with a comfortable, juicy look.","Trending · Nov 2026","amazon-beauty-trending-etude-dear-darling-oil-tint",{
         image:"/collections/amazon-beauty-toolkit/products/etude-dear-darling-oil-tint.webp",
@@ -124,14 +108,6 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "5-Minute Everyday",
     eyebrow: "Quick, skin-first routine",
     description: "A simple, skin-first routine for college, office, and everyday plans—easy steps in application order.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-base.webp",
-    coverAlt: "Everyday makeup base and essentials for a quick routine",
-    theme: {
-      gradient: "from-[#2B211D] via-[#6B4A3A]/70 to-[#D9BFA8]/30",
-      accent: "#F3D9C6",
-      soft: "rgba(243,217,198,0.18)",
-      ink: "#FFF8F1",
-    },
     products: [
       p("ed-tinted-moisturiser","Tinted Moisturiser (Caramel Glint, 50ml)","RENEE","Light coverage with moisture for a quick, natural-looking base.","Everyday Pick","amazon-beauty-everyday-renee-tinted-moisturiser",{
         image:"/collections/amazon-beauty-toolkit/products/renee-tinted-moisturiser.webp",
@@ -175,14 +151,6 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Party Glam",
     eyebrow: "Bold, photo-ready picks",
     description: "High-impact picks for nights out and celebrations—bold color, shine, and long-wear finishes.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-sculpt.webp",
-    coverAlt: "Party glam makeup look with bold eyes and lips",
-    theme: {
-      gradient: "from-[#1A1029] via-[#4C1D95]/55 to-[#F472B6]/25",
-      accent: "#F5D0FE",
-      soft: "rgba(245,208,254,0.18)",
-      ink: "#FAF5FF",
-    },
     products: [
       p("pg-vinyl-ink","SuperStay Vinyl Ink Liquid Lipstick (Witty)","Maybelline","Glossy vinyl finish with long wear for bold party lips.","Glam Pick","amazon-beauty-party-maybelline-vinyl-ink",{
         image:"/collections/amazon-beauty-toolkit/products/maybelline-vinyl-ink-witty.webp",
@@ -237,14 +205,6 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Wedding & Festive",
     eyebrow: "Long-wear celebration picks",
     description: "Long-wear, photo-friendly picks for weddings and festive celebrations—built for heat, hugs, and hours.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-prep.webp",
-    coverAlt: "Wedding and festive makeup essentials",
-    theme: {
-      gradient: "from-[#3B1D1D] via-[#7C2D12]/55 to-[#FDE68A]/30",
-      accent: "#FDE68A",
-      soft: "rgba(253,230,138,0.18)",
-      ink: "#FFFBEB",
-    },
     products: [
       p(
         "wf-kohl",
@@ -313,14 +273,6 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Starter Basics",
     eyebrow: "Start here",
     description: "The simple basics many beginners start with—easy picks before you build a bigger kit.",
-    coverImage: "/collections/amazon-beauty-toolkit/hero-vanity.webp",
-    coverAlt: "Starter makeup basics for beginners",
-    theme: {
-      gradient: "from-[#1F2937] via-[#4B5563]/60 to-[#D1D5DB]/25",
-      accent: "#E5E7EB",
-      soft: "rgba(229,231,235,0.16)",
-      ink: "#F9FAFB",
-    },
     products: [
       p("st-kajal","Eyeconic Black Kajal (0.35g, Combo Pack of 2)","Lakmé","Smudge-resistant everyday kajal—an easy first step for defining eyes.","Starter Pick","amazon-beauty-starter-lakme-eyeconic-kajal",{
         image:"/collections/amazon-beauty-toolkit/products/lakme-eyeconic-kajal.webp",
@@ -365,14 +317,6 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Tools & Touch-Ups",
     eyebrow: "Keep it fresh all day",
     description: "The fixers, tools, and touch-up helpers that keep your makeup looking fresh through the day.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-tools.webp",
-    coverAlt: "Makeup tools and touch-up essentials",
-    theme: {
-      gradient: "from-[#1C1917] via-[#57534E]/60 to-[#D6D3D1]/25",
-      accent: "#E7E5E4",
-      soft: "rgba(231,229,228,0.16)",
-      ink: "#FAFAF9",
-    },
     products: [
       p(
         "tt-fixer-faces",
@@ -452,9 +396,6 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
 
 export const ALL_BEAUTY_PRODUCTS = BEAUTY_SHOP_CATEGORIES.flatMap((c) => c.products);
 
-export function getBeautyCategoryBySlug(slug: string): BeautyShopCategory | undefined {
-  return BEAUTY_SHOP_CATEGORIES.find((c) => c.slug === slug);
-}
 
 export const BEAUTY_BUDGET_FILTERS = [
   { label: "Under ₹300", max: 300 },
