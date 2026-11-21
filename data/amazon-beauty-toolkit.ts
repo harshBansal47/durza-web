@@ -106,7 +106,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "5-Minute Everyday",
     eyebrow: "Quick, skin-first routine",
     description: "A simple, skin-first routine for college, office, and everyday plans—easy steps in application order.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-base-complexion.webp",
+    coverImage: "/collections/amazon-beauty-toolkit/stage-base.webp",
     coverAlt: "Everyday makeup base and essentials for a quick routine",
     theme: {
       gradient: "from-[#2B211D] via-[#6B4A3A]/70 to-[#D9BFA8]/30",
@@ -134,7 +134,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Party Glam",
     eyebrow: "Bold, photo-ready picks",
     description: "High-impact picks for nights out and celebrations—bold color, shine, and long-wear finishes.",
-    coverImage: "/collections/amazon-beauty-toolkit/scene-outdoor.webp",
+    coverImage: "/collections/amazon-beauty-toolkit/stage-sculpt.webp",
     coverAlt: "Party glam makeup look with bold eyes and lips",
     theme: {
       gradient: "from-[#1A1029] via-[#4C1D95]/55 to-[#F472B6]/25",
@@ -168,7 +168,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Wedding & Festive",
     eyebrow: "Long-wear celebration picks",
     description: "Long-wear, photo-friendly picks for weddings and festive celebrations—built for heat, hugs, and hours.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-prep-prime.webp",
+    coverImage: "/collections/amazon-beauty-toolkit/stage-prep.webp",
     coverAlt: "Wedding and festive makeup essentials",
     theme: {
       gradient: "from-[#3B1D1D] via-[#7C2D12]/55 to-[#FDE68A]/30",
@@ -200,7 +200,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Starter Basics",
     eyebrow: "Start here",
     description: "The simple basics many beginners start with—easy picks before you build a bigger kit.",
-    coverImage: "/collections/amazon-beauty-toolkit/scene-humid.webp",
+    coverImage: "/collections/amazon-beauty-toolkit/hero-vanity.webp",
     coverAlt: "Starter makeup basics for beginners",
     theme: {
       gradient: "from-[#1F2937] via-[#4B5563]/60 to-[#D1D5DB]/25",
@@ -252,7 +252,7 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     title: "Tools & Touch-Ups",
     eyebrow: "Keep it fresh all day",
     description: "The fixers, tools, and touch-up helpers that keep your makeup looking fresh through the day.",
-    coverImage: "/collections/amazon-beauty-toolkit/stage-lock-finish.webp",
+    coverImage: "/collections/amazon-beauty-toolkit/stage-tools.webp",
     coverAlt: "Makeup tools and touch-up essentials",
     theme: {
       gradient: "from-[#1C1917] via-[#57534E]/60 to-[#D6D3D1]/25",
