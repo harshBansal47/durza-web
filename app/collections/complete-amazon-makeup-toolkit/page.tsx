@@ -6,9 +6,9 @@ import BeautyToolkitClient from "./client";
 
 const slug = "complete-amazon-makeup-toolkit";
 const canonical = `/collections/${slug}`;
-const title = "Beauty & Makeup Store — Shop by Category on Amazon India | Durza";
+const title = "Complete Makeup Toolkit on Amazon India | Durza";
 const description =
-  "Pick a look and shop it on Amazon.in. Browse 6 sections—Trending Now, 5-Minute Everyday, Party Glam, Wedding & Festive, Starter Basics, and Tools & Touch-Ups—with 36 curated picks.";
+  "Build your complete makeup kit step by step—from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.";
 
 export const metadata: Metadata = {
   title,
@@ -33,15 +33,15 @@ export default function Page() {
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Beauty & Makeup Categories",
+    name: "Makeup Toolkit Routine Steps",
     description,
-    itemListOrder: "https://schema.org/ItemListUnordered",
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
     numberOfItems: BEAUTY_SHOP_CATEGORIES.length,
     itemListElement: BEAUTY_SHOP_CATEGORIES.map((category, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: category.title,
-      description: category.description,
+      name: `${category.stepLabel}: ${category.title}`,
+      description: category.shortIntro,
       url: absoluteUrl(`${canonical}#${category.slug}`),
     })),
   };
@@ -49,7 +49,7 @@ export default function Page() {
   const productList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Featured Beauty Picks",
+    name: "Makeup Toolkit Products",
     numberOfItems: ALL_BEAUTY_PRODUCTS.length,
     itemListElement: ALL_BEAUTY_PRODUCTS.slice(0, 24).map((product, index) => ({
       "@type": "ListItem",
@@ -60,18 +60,18 @@ export default function Page() {
   };
 
   return (
-    <main className="bg-[#120F0D] text-[#F7F1E8]">
+    <>
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Collections", path: "/collections" },
-          { name: "Beauty Makeup Store", path: canonical },
+          { name: "Complete Makeup Toolkit", path: canonical },
         ])}
       />
       <JsonLd data={itemList} />
       <JsonLd data={productList} />
       <JsonLd data={faqPageJsonLd(BEAUTY_FAQS.map((f) => ({ question: f.question, answer: f.answer })))} />
       <BeautyToolkitClient />
-    </main>
+    </>
   );
 }
