@@ -15,6 +15,21 @@ import {
 } from "@/data/amazon-beauty-toolkit";
 
 const serif = "font-['Playfair_Display',Georgia,serif]";
+const FALLBACK_IMAGE = "/collections/amazon-beauty-toolkit/product-placeholder.svg";
+
+function SafeThumb({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src);
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="176px"
+      className="object-cover transition duration-300 group-hover:scale-[1.03]"
+      onError={() => setImgSrc(FALLBACK_IMAGE)}
+    />
+  );
+}
 
 function matchesBudget(product: BeautyProduct, max: number | null) {
   if (max == null) return true;
@@ -99,7 +114,7 @@ export default function BeautyToolkitClient() {
                 className="group w-44 shrink-0 rounded-2xl border border-[#ECE2D8] bg-[#FFFCF9] p-3 transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="relative aspect-square overflow-hidden rounded-xl bg-[#F3ECE4]">
-                  <Image src={product.image} alt={product.name} fill sizes="176px" className="object-cover transition duration-300 group-hover:scale-[1.03]" />
+                  <SafeThumb src={product.image} alt={product.name} />
                 </div>
                 <p className="mt-3 line-clamp-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A6A55]">{product.brand}</p>
                 <p className="mt-1 line-clamp-2 text-sm font-medium leading-5 text-[#2A211A]">{product.name}</p>

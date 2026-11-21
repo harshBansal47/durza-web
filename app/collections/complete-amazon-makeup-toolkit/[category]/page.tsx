@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -12,6 +11,7 @@ import {
   getBeautyCategoryBySlug,
   type BeautyProduct,
 } from "@/data/amazon-beauty-toolkit";
+import SafeProductImage from "./SafeProductImage";
 
 type Props = { params: Promise<{ category: string }> };
 
@@ -50,13 +50,7 @@ function ProductCard({ product }: { product: BeautyProduct }) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#E7DDD1] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="relative aspect-square overflow-hidden bg-[#F6F0E8]">
-        <Image
-          src={product.image}
-          alt={`${product.brand} ${product.name}`}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
-        />
+        <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
         <span className="absolute left-3 top-3 rounded-full bg-white/92 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#3A312A] shadow-sm">
           {product.tag}
         </span>

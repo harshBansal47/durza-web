@@ -89,11 +89,24 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       ink: "#FFF7FB",
     },
     products: [
-      p("tr-lip-oil","Dear Darling Oil Tint","Etude","Glossy tint-oil finish that gives lips color with a comfortable, juicy look.","Trending · Nov 2026","amazon-beauty-trending-etude-dear-darling-oil-tint"),
-      p("tr-liquid-blush","Liquid Blush","MARS","Blendable liquid blush for a quick, natural flush that’s easy to build.","Trending · Nov 2026","amazon-beauty-trending-mars-liquid-blush"),
-      p("tr-blush-wand","Silk Cushion Liquid Blush Wand","Typsy Beauty","Cushion applicator makes blush placement quick for on-the-go touch-ups.","Trending · Nov 2026","amazon-beauty-trending-typsy-blush-wand"),
-      p("tr-lip-cheek-tint","Blush and Juicy Lip and Cheek Tint","Blue Heaven","One product for lips and cheeks when you want a fast, coordinated look.","Trending · Nov 2026","amazon-beauty-trending-blue-heaven-lip-cheek-tint"),
-      p("tr-jelly-tint","Summer Slush Jelly Tint","RENEE","Jelly texture gives a fresh, dewy tint for lips and cheeks.","Trending · Nov 2026","amazon-beauty-trending-renee-summer-slush-jelly-tint"),
+      p("tr-lip-oil","Dear Darling Oil Tint","Etude","Glossy tint-oil finish that gives lips color with a comfortable, juicy look.","Trending · Nov 2026","amazon-beauty-trending-etude-dear-darling-oil-tint",{
+        amazonUrl:"https://www.amazon.in/s?k=Etude+Dear+Darling+Lip+Oil+Tint",
+      }),
+      p("tr-liquid-blush","Liquid Blush","MARS","Blendable liquid blush for a quick, natural flush that’s easy to build.","Trending · Nov 2026","amazon-beauty-trending-mars-liquid-blush",{
+        image:"/collections/amazon-beauty-toolkit/products/mars-liquid-blush.webp",
+        amazonUrl:"https://www.amazon.in/dp/B0D9HJXYX9",
+      }),
+      p("tr-blush-wand","Silk Cushion Liquid Blush Wand","Typsy Beauty","Cushion applicator makes blush placement quick for on-the-go touch-ups.","Trending · Nov 2026","amazon-beauty-trending-typsy-blush-wand",{
+        image:"/collections/amazon-beauty-toolkit/products/typsy-silk-cushion-blush.webp",
+        amazonUrl:"https://www.amazon.in/dp/B0CM3PR7L6",
+      }),
+      p("tr-lip-cheek-tint","Blush and Juicy Lip and Cheek Tint","Blue Heaven","One product for lips and cheeks when you want a fast, coordinated look.","Trending · Nov 2026","amazon-beauty-trending-blue-heaven-lip-cheek-tint",{
+        amazonUrl:"https://www.amazon.in/dp/B0DKTB7R8P",
+      }),
+      p("tr-jelly-tint","Summer Slush Jelly Tint","RENEE","Jelly texture gives a fresh, dewy tint for lips and cheeks.","Trending · Nov 2026","amazon-beauty-trending-renee-summer-slush-jelly-tint",{
+        image:"/collections/amazon-beauty-toolkit/products/renee-summer-slush-jelly-tint.webp",
+        amazonUrl:"https://www.amazon.in/dp/B09X7BWM97",
+      }),
       p("tr-sky-tubes","Lash Sensational Sky High Tubes Tubing Mascara (Very Black)","Maybelline","Tubing formula gives length and lift, and removes easily with warm water.","Trending · Nov 2026","amazon-beauty-trending-maybelline-sky-tubes",{
         image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/81D9tOFnxGL._SX679_.jpg",
         amazonUrl:"https://link.amazon/B0bxgK7zv",
