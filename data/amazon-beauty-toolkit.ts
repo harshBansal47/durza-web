@@ -133,10 +133,21 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       ink: "#FFF8F1",
     },
     products: [
-      p("ed-tinted-moisturiser","Tinted Moisturiser","RENEE","Light coverage with moisture for a quick, natural-looking base.","Everyday Pick","amazon-beauty-everyday-renee-tinted-moisturiser"),
-      p("ed-concealer","Fit Me Concealer","Maybelline","Easy spot coverage for under-eyes and blemishes in a quick routine.","Everyday Pick","amazon-beauty-everyday-maybelline-fit-me-concealer"),
-      p("ed-lip-cheek","9to5 Weightless Mousse Lip and Cheek Tint","Lakmé","Mousse texture works on lips and cheeks for a fast, coordinated look.","Everyday Pick","amazon-beauty-everyday-lakme-9to5-mousse-tint"),
-      p("ed-kajal","NaturStudio All-Day-Wear Kohl Kajal (Black Brilliance)","Plum","Gel kajal designed for comfortable, long-wear everyday definition.","Everyday Pick","amazon-beauty-everyday-plum-naturstudio-kajal"),
+      p("ed-tinted-moisturiser","Tinted Moisturiser (Caramel Glint, 50ml)","RENEE","Light coverage with moisture for a quick, natural-looking base.","Everyday Pick","amazon-beauty-everyday-renee-tinted-moisturiser",{
+        image:"/collections/amazon-beauty-toolkit/products/renee-tinted-moisturiser.webp",
+        amazonUrl:"https://link.amazon/B08sYF4R6",
+      }),
+      p("ed-concealer","Fit Me Concealer (36 Golden Caramel)","Maybelline","Easy spot coverage for under-eyes and blemishes in a quick routine.","Everyday Pick","amazon-beauty-everyday-maybelline-fit-me-concealer",{
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-fit-me-concealer.webp",
+        amazonUrl:"https://link.amazon/B04zfnp8V",
+      }),
+      p("ed-lip-cheek","9 to 5 Weightless Matte Mousse Lip and Cheek Tint","Lakmé","Mousse texture works on lips and cheeks for a fast, coordinated look.","Everyday Pick","amazon-beauty-everyday-lakme-9to5-mousse-tint",{
+        amazonUrl:"https://link.amazon/B02EeHby7",
+      }),
+      p("ed-kajal","NaturStudio All-Day-Wear Kohl Kajal (Black Brilliance, Pack of 2)","Plum","Gel kajal designed for comfortable, long-wear everyday definition.","Everyday Pick","amazon-beauty-everyday-plum-naturstudio-kajal",{
+        image:"/collections/amazon-beauty-toolkit/products/plum-naturstudio-kajal.webp",
+        amazonUrl:"https://link.amazon/B0aHLsvUr",
+      }),
       p("ed-mascara","Lash Sensational Sky High Mascara","Maybelline","Lengthening brush gives lifted lashes without a heavy routine.","Bestseller","amazon-beauty-everyday-maybelline-sky-high-mascara",{
         image:"/collections/amazon-beauty-toolkit/products/maybelline-sky-high-mascara.webp",
         amazonUrl:"https://link.amazon/B06HGrdAW",
@@ -144,7 +155,10 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
         mrpLabel:"₹646",
         discountLabel:"23% off",
       }),
-      p("ed-lip-balm","Lip Smooth Color Bloom Lip Balm","Maybelline","Soft color and comfort for dry lips when you want a low-effort finish.","Everyday Pick","amazon-beauty-everyday-maybelline-color-bloom"),
+      p("ed-lip-balm","Baby Lips Color Changing Lip Balm (Pink Bloom)","Maybelline","Color-changing lip balm for soft color and everyday comfort.","Everyday Pick","amazon-beauty-everyday-maybelline-color-bloom",{
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-baby-lips-pink-bloom.webp",
+        amazonUrl:"https://link.amazon/B06ItAIt6",
+      }),
     ],
   },
   {
@@ -168,8 +182,14 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
         mrpLabel:"₹559",
         discountLabel:"17% off",
       }),
-      p("pg-pen-liner","Ink Black Liquid Pen Eyeliner","MARS","Pen tip helps create sharp wings and defined party eye looks.","Glam Pick","amazon-beauty-party-mars-ink-black-liner"),
-      p("pg-felt-liner","Felt Tip Pen Eyeliner","Swiss Beauty","Felt tip gives control for quick, clean eyeliner on busy getting-ready days.","Glam Pick","amazon-beauty-party-swiss-beauty-felt-liner"),
+      p("pg-pen-liner","Ink Black Liquid Pen Eyeliner (1ml, Black)","MARS","Pen tip helps create sharp wings and defined party eye looks.","Glam Pick","amazon-beauty-party-mars-ink-black-liner",{
+        image:"/collections/amazon-beauty-toolkit/products/mars-ink-black-pen-eyeliner.webp",
+        amazonUrl:"https://link.amazon/B0c7E9WWf",
+      }),
+      p("pg-felt-liner","Waterproof Bold Felt Tip Pen Eyeliner (Black, 1.2ml)","Swiss Beauty","Felt tip gives control for quick, clean eyeliner on busy getting-ready days.","Glam Pick","amazon-beauty-party-swiss-beauty-felt-liner",{
+        image:"/collections/amazon-beauty-toolkit/products/swiss-beauty-felt-tip-eyeliner.webp",
+        amazonUrl:"https://link.amazon/B0fJEyP9f",
+      }),
       p("pg-kohl","Dark Spell Kohl Kajal","Sotrue","Matte kohl for intense eye definition that suits evening looks.","Glam Pick","amazon-beauty-party-sotrue-dark-spell-kohl"),
       p("pg-waterproof-mascara","Lash Sensational Sky High Waterproof Mascara (Very Black)","Maybelline","Waterproof length and lift for lashes that hold through long events.","Bestseller","amazon-beauty-party-maybelline-sky-high-waterproof",{
         image:"/collections/amazon-beauty-toolkit/products/maybelline-sky-high-waterproof-mascara.webp",
