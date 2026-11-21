@@ -113,8 +113,8 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
         amazonUrl:"https://www.amazon.in/dp/B09X7BWM97",
       }),
       p("tr-sky-tubes","Lash Sensational Sky High Tubes Tubing Mascara (Very Black)","Maybelline","Tubing formula gives length and lift, and removes easily with warm water.","Trending · Nov 2026","amazon-beauty-trending-maybelline-sky-tubes",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/81D9tOFnxGL._SX679_.jpg",
-        amazonUrl:"https://link.amazon/B0bxgK7zv",
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-sky-tubes.webp",
+        amazonUrl:"https://link.amazon/B0eu1LgyE",
         priceLabel:"₹850",
       }),
     ],
@@ -162,8 +162,8 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
     },
     products: [
       p("pg-vinyl-ink","SuperStay Vinyl Ink Liquid Lipstick (Witty)","Maybelline","Glossy vinyl finish with long wear for bold party lips.","Glam Pick","amazon-beauty-party-maybelline-vinyl-ink",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51o4QV3Sf7L._SL1500_.jpg",
-        amazonUrl:"https://link.amazon/B0b58xWQW",
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-vinyl-ink-witty.webp",
+        amazonUrl:"https://link.amazon/B00ZsyP8J",
         priceLabel:"₹466",
         mrpLabel:"₹559",
         discountLabel:"17% off",
@@ -198,9 +198,9 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
       p("wf-kohl","Kohl of Fame Kajal","MARS","Retractable waterproof kajal for defined eyes through long festive events.","Wedding Pick","amazon-beauty-wedding-mars-kohl-of-fame"),
       p("wf-bold-liner","Colossal Bold Liner (Black)","Maybelline","Bold, smudge-resistant liner for sharp festive eye definition.","Wedding Pick","amazon-beauty-wedding-maybelline-colossal-bold-liner"),
       p("wf-mascara","Colossal Waterproof Mascara (Black)","Maybelline","Waterproof volume that holds up through long wedding days and celebrations.","Bestseller","amazon-beauty-wedding-maybelline-colossal-waterproof-mascara"),
-      p("wf-foundation","Fit Me Matte + Poreless Liquid Foundation (310 Sun Beige, 18ml)","Maybelline","Matte, buildable base that helps control shine in warm, humid weather.","Wedding Pick","amazon-beauty-wedding-maybelline-fit-me-foundation",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51g-y9z75CL._SL1500_.jpg",
-        amazonUrl:"https://link.amazon/B0aWYSW77",
+      p("wf-foundation","Fit Me Matte + Poreless Liquid Foundation (228, 18ml)","Maybelline","Matte, buildable base that helps control shine in warm, humid weather.","Wedding Pick","amazon-beauty-wedding-maybelline-fit-me-foundation",{
+        image:"/collections/amazon-beauty-toolkit/products/maybelline-fit-me-foundation-228.webp",
+        amazonUrl:"https://link.amazon/B0drFinUS",
         priceLabel:"₹155",
         mrpLabel:"₹217",
         discountLabel:"29% off",
@@ -247,20 +247,20 @@ export const BEAUTY_SHOP_CATEGORIES: BeautyShopCategory[] = [
         priceLabel:"Check price",
       }),
       p("st-mascara","Fabulash Volumizing Mascara (12ml, Waterproof)","MARS","Affordable waterproof mascara for adding quick volume to everyday lashes.","Starter Pick","amazon-beauty-starter-mars-fabulash-mascara",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/5163nAs6jYL._SL1500_.jpg",
-        amazonUrl:"https://link.amazon/B0aypELnF",
+        image:"/collections/amazon-beauty-toolkit/products/mars-fabulash-mascara.webp",
+        amazonUrl:"https://link.amazon/B0aHPhLL7",
         priceLabel:"₹209",
         mrpLabel:"₹251",
         discountLabel:"17% off",
       }),
-      p("st-brow","Eyebrow Pencil with Spoolie Brush (Dark Brown)","Swiss Beauty","Simple brow pencil with spoolie to fill and tidy brows in one step.","Starter Pick","amazon-beauty-starter-swiss-beauty-brow-pencil",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51G7S8pfSbL._SL1500_.jpg",
-        amazonUrl:"https://link.amazon/B0d5UxmDX",
+      p("st-brow","Waterproof Eyebrow Pencil with Brush (02 Dark Brown, 1.5g)","Swiss Beauty","Smudge-proof eyebrow definer pencil with brush for quick, tidy brows.","Starter Pick","amazon-beauty-starter-swiss-beauty-brow-pencil",{
+        image:"/collections/amazon-beauty-toolkit/products/swiss-beauty-brow-pencil.webp",
+        amazonUrl:"https://link.amazon/B0dZ5dtQi",
         priceLabel:"Check price",
       }),
       p("st-bb","Skin Naturals BB Cream - Bright Complete Vitamin C (30g)","Garnier","Light base with a natural finish—easy for beginners who want minimal coverage.","Starter Pick","amazon-beauty-starter-garnier-bb-cream",{
-        image:"https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51bzbC89lmL._SL1000_.jpg",
-        amazonUrl:"https://link.amazon/B0c0xwHhq",
+        image:"/collections/amazon-beauty-toolkit/products/garnier-bb-cream.webp",
+        amazonUrl:"https://link.amazon/B0c40JHhI",
         priceLabel:"₹206",
       }),
     ],
