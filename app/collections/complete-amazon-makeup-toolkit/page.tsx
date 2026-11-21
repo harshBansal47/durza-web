@@ -8,7 +8,7 @@ const slug = "complete-amazon-makeup-toolkit";
 const canonical = `/collections/${slug}`;
 const title = "Beauty & Makeup Store — Shop by Category on Amazon India | Durza";
 const description =
-  "Browse relatable beauty categories for Indian shoppers—college, office, party, wedding, budget, and everyday essentials. Discover curated makeup picks and shop on Amazon.in.";
+  "Pick a look and shop it on Amazon.in. Browse 6 sections—Trending Now, 5-Minute Everyday, Party Glam, Wedding & Festive, Starter Basics, and Tools & Touch-Ups—with 36 curated picks.";
 
 export const metadata: Metadata = {
   title,
@@ -70,7 +70,7 @@ export default function Page() {
       />
       <JsonLd data={itemList} />
       <JsonLd data={productList} />
-      <JsonLd data={faqPageJsonLd(BEAUTY_FAQS)} />
+      <JsonLd data={faqPageJsonLd(BEAUTY_FAQS.map((f) => ({ question: f.question, answer: f.answer })))} />
       <BeautyToolkitClient />
     </main>
   );
