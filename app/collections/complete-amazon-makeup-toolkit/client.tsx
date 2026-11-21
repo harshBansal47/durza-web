@@ -169,11 +169,22 @@ export default function BeautyToolkitClient() {
               <article key={section.slug} id={section.slug} className="scroll-mt-24 rounded-2xl border border-[#E7DDD1] bg-white p-5 shadow-sm sm:p-6">
                 <h3 className={`${serif} text-xl font-semibold text-[#2A211A]`}>{section.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[#5F5247]">{section.description}</p>
-                <ul className="mt-4 space-y-2">
+                <ul className="mt-4 space-y-3">
                   {section.items.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm leading-6 text-[#4A4038]">
+                    <li key={item.label} className="flex gap-2 text-sm leading-6 text-[#4A4038]">
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#A14A2A]" aria-hidden="true" />
-                      <span>{item}</span>
+                      <span>
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel={GO_REL}
+                          className="font-medium text-[#2A211A] underline decoration-[#C9A48D] underline-offset-2 transition hover:text-[#A14A2A] hover:decoration-[#A14A2A]"
+                        >
+                          {item.label}
+                        </a>
+                        {item.priceLabel ? <span className="ml-2 whitespace-nowrap font-semibold text-[#1F7A4D]">{item.priceLabel}</span> : null}
+                        {item.note ? <span className="block text-[#6B5D52]">{item.note}</span> : null}
+                      </span>
                     </li>
                   ))}
                 </ul>

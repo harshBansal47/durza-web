@@ -330,18 +330,30 @@ export function parsePriceValue(priceLabel: string): number | null {
   return Number(m[1].replace(/,/g, ""));
 }
 
-export const BEAUTY_INFO_SECTIONS = [
+export interface BeautyInfoItem {
+  label: string;
+  note?: string;
+  href: string;
+  priceLabel?: string;
+}
+
+export const BEAUTY_INFO_SECTIONS: Array<{
+  slug: string;
+  title: string;
+  description: string;
+  items: BeautyInfoItem[];
+}> = [
   {
     slug: "trending-now",
     title: "Trending Now",
     description: "Buzz-worthy picks people are reaching for right now—refresh this list monthly from current beauty trends and best-seller signals.",
     items: [
-      "Etude Dear Darling Oil Tint — glossy tint-oil finish for juicy lips.",
-      "MARS Liquid Blush — easy blendable flush for quick makeup days.",
-      "Typsy Beauty Silk Cushion Liquid Blush Wand — cushion applicator for on-the-go blush.",
-      "Blue Heaven Blush & Juicy Lip & Cheek Tint — one product for lips and cheeks.",
-      "RENEE Summer Slush Jelly Tint — fresh jelly tint for dewy looks.",
-      "Maybelline Lash Sensational Sky High Tubes — tubing length that removes easily.",
+      { label: "Etude Dear Darling Oil Tint", note: "Glossy tint-oil finish for juicy lips", href: "https://link.amazon/B019J3PvV", priceLabel: "₹600" },
+      { label: "MARS Liquid Blush Hour", note: "Easy blendable flush for quick makeup days", href: "https://link.amazon/B02wJTXtk", priceLabel: "Check price" },
+      { label: "Typsy Beauty Silk Cushion Liquid Blush Wand", note: "Cushion applicator for on-the-go blush", href: "https://link.amazon/B051I4tdP", priceLabel: "Check price" },
+      { label: "Blue Heaven Blush & Juicy Lip & Cheek Tint", note: "One product for lips and cheeks", href: "https://link.amazon/B087X0B5L", priceLabel: "Check price" },
+      { label: "RENEE Summer Slush Jelly Tint", note: "Fresh jelly tint for dewy looks", href: "https://link.amazon/B01rdo68h", priceLabel: "Check price" },
+      { label: "Maybelline Lash Sensational Sky High Tubes", note: "Tubing length that removes easily", href: "https://link.amazon/B0eu1LgyE", priceLabel: "₹850" },
     ],
   },
   {
@@ -349,10 +361,11 @@ export const BEAUTY_INFO_SECTIONS = [
     title: "5-Minute Everyday",
     description: "A quick routine when you want to look fresh without doing a full face.",
     items: [
-      "Start with moisturizer/SPF and a light base (tinted moisturizer, BB cream, or concealer).",
-      "Add a lip & cheek tint for quick color.",
-      "Define eyes with kajal and a coat of mascara.",
-      "Finish with lip balm or a soft tint.",
+      { label: "RENEE Tinted Moisturiser", note: "Light base for a quick, natural look", href: "https://link.amazon/B08sYF4R6", priceLabel: "Check price" },
+      { label: "Lakmé 9to5 Lip & Cheek Mousse Tint", note: "One product for quick color", href: "https://link.amazon/B07g4mBCp", priceLabel: "Check price" },
+      { label: "Plum NaturStudio Kohl Kajal", note: "Define eyes in seconds", href: "https://link.amazon/B0aHLsvUr", priceLabel: "₹499" },
+      { label: "Maybelline Lash Sensational Sky High Mascara", note: "A quick coat for lifted lashes", href: "https://link.amazon/B06HGrdAW", priceLabel: "₹497" },
+      { label: "Maybelline Baby Lips Color Changing Balm", note: "Soft tint and lip comfort", href: "https://link.amazon/B06ItAIt6", priceLabel: "Check price" },
     ],
   },
   {
@@ -360,10 +373,11 @@ export const BEAUTY_INFO_SECTIONS = [
     title: "Party Glam",
     description: "High-impact picks for nights out, birthdays, and celebrations.",
     items: [
-      "Go for a longer-wear base and set with powder/spray.",
-      "Pick bold lips or dramatic eyes—one hero feature at a time.",
-      "Add waterproof mascara/liner for long events.",
-      "Use highlighter for photo-ready glow.",
+      { label: "Maybelline SuperStay Vinyl Ink Lipstick", note: "Bold lip with long-wear shine", href: "https://link.amazon/B00ZsyP8J", priceLabel: "₹466" },
+      { label: "Swiss Beauty Bold Felt Tip Eyeliner", note: "Sharp liner for dramatic eyes", href: "https://link.amazon/B0fJEyP9f", priceLabel: "Check price" },
+      { label: "Maybelline Sky High Waterproof Mascara", note: "Waterproof lashes for long events", href: "https://link.amazon/B06HGrdAW", priceLabel: "₹497" },
+      { label: "Maybelline Master Strobing Highlighter", note: "Photo-ready glow on high points", href: "https://link.amazon/B0g6sbzyN", priceLabel: "₹155" },
+      { label: "MARS Seal the Deal Makeup Fixer Spray", note: "Lock in the look for hours", href: "https://link.amazon/B04iXIkVn", priceLabel: "₹3,200" },
     ],
   },
   {
@@ -371,10 +385,11 @@ export const BEAUTY_INFO_SECTIONS = [
     title: "Wedding & Festive",
     description: "Long-wear, photo-friendly picks for shaadi functions and festive events.",
     items: [
-      "Choose long-wear base, waterproof eye products, and transfer-resistant lips.",
-      "Keep compact/blotting/fixer handy for touch-ups.",
-      "Match tones to your outfit and lighting; test shades early.",
-      "Prioritize comfort for long hours in heat and humidity.",
+      { label: "Maybelline Fit Me Matte + Poreless Foundation", note: "Long-wear base for events", href: "https://link.amazon/B0drFinUS", priceLabel: "₹155" },
+      { label: "FACES CANADA Matte Compact Powder", note: "Touch-up shine control", href: "https://link.amazon/B07ULHHRJ", priceLabel: "Check price" },
+      { label: "Maybelline Colossal Bold Eyeliner", note: "Defined eyes that last", href: "https://link.amazon/B0je2FadW", priceLabel: "₹499" },
+      { label: "Lakmé Forever Matte Liquid Lip Colour", note: "Transfer-resistant festive lip", href: "https://link.amazon/B05eel6oU", priceLabel: "₹228" },
+      { label: "RENEE Bollywood Filter Setting Spray", note: "Keep makeup fresh through functions", href: "https://link.amazon/B0ioIDQcV", priceLabel: "₹499" },
     ],
   },
   {
@@ -382,10 +397,11 @@ export const BEAUTY_INFO_SECTIONS = [
     title: "Starter Basics",
     description: "Simple essentials if you’re building your first makeup kit.",
     items: [
-      "Start with kajal, mascara, lip balm/tint, compact, and a simple base.",
-      "Add one product at a time as you learn what you actually use.",
-      "Pick easy textures: stick, mousse, tint, and pencil formats are beginner-friendly.",
-      "Check shades and undertones before buying base products.",
+      { label: "Lakmé Eyeconic Kajal (Pack of 2)", note: "Easy first step for defining eyes", href: "https://link.amazon/A07IQZnqD", priceLabel: "₹228" },
+      { label: "MARS Fabulash Volumizing Mascara", note: "Beginner-friendly lash lift", href: "https://link.amazon/B0aHPhLL7", priceLabel: "₹209" },
+      { label: "Maybelline Baby Lips Lip Balm", note: "Simple everyday lip comfort", href: "https://link.amazon/B0f3JqZ2b", priceLabel: "₹189" },
+      { label: "FACES CANADA Matte Compact Powder", note: "Easy shine control", href: "https://link.amazon/B07ULHHRJ", priceLabel: "Check price" },
+      { label: "Garnier BB Cream Vitamin C", note: "Simple base for beginners", href: "https://link.amazon/B0c40JHhI", priceLabel: "₹206" },
     ],
   },
   {
@@ -393,13 +409,14 @@ export const BEAUTY_INFO_SECTIONS = [
     title: "Tools & Touch-Ups",
     description: "Helpers that make application easier and keep makeup fresh.",
     items: [
-      "Sponge/brush for even blending.",
-      "Eyelash curler for lifted lashes.",
-      "Blotting paper/compact for midday shine control.",
-      "Setting spray for longer wear in heat and humidity.",
+      { label: "Real Techniques Miracle Complexion Sponge", note: "Smooth, even blending", href: "https://link.amazon/B0hxFgmOs", priceLabel: "₹749" },
+      { label: "Vega Eyelash Curler", note: "Lifted lashes before mascara", href: "https://link.amazon/B06LnOEez", priceLabel: "₹499" },
+      { label: "Face Blotting Paper (100pcs)", note: "Midday oil control", href: "https://link.amazon/B03zmZhzC", priceLabel: "₹499" },
+      { label: "Swiss Beauty Glow Up Makeup Fixer", note: "Setting spray for longer wear", href: "https://link.amazon/B0hrTgoE6", priceLabel: "₹299" },
+      { label: "VEGA Makeup Brush Set of 6", note: "Starter brushes for face and eyes", href: "https://link.amazon/B0iVblCLJ", priceLabel: "₹499" },
     ],
   },
-] as const;
+];
 
 
 export const BEAUTY_FAQS = [
