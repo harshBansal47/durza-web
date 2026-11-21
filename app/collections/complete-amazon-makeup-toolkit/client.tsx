@@ -48,6 +48,7 @@ function ProductCard({ product }: { product: BeautyProduct }) {
       <div className="flex flex-1 flex-col p-2.5 sm:p-3">
         <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A6A55] sm:text-[10px]">{product.brand}</p>
         <h3 className="mt-1 font-['Inter',ui-sans-serif,system-ui,sans-serif] text-xs font-medium leading-4 text-[#2A211A] sm:text-[13px] sm:leading-5">{product.name}</h3>
+        {product.shadeTip ? <p className="mt-1.5 text-[11px] leading-4 text-[#8A6A55]">{product.shadeTip}</p> : null}
 
         <div className="mt-2.5 border-t border-[#EFE6DC] pt-2.5">
           <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
