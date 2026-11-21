@@ -2,10 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, Search, Sparkles } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
+import { GO_REL } from "@/lib/go";
 import {
-  ALL_BEAUTY_PRODUCTS,
   BEAUTY_BUDGET_FILTERS,
   BEAUTY_PICK_CHECKED_LABEL,
   BEAUTY_SHOP_CATEGORIES,
@@ -17,15 +16,15 @@ import {
 const serif = "font-['Playfair_Display',Georgia,serif]";
 const FALLBACK_IMAGE = "/collections/amazon-beauty-toolkit/product-placeholder.svg";
 
-function SafeThumb({ src, alt }: { src: string; alt: string }) {
+function SafeImage({ src, alt, sizes, className }: { src: string; alt: string; sizes: string; className?: string }) {
   const [imgSrc, setImgSrc] = useState(src);
   return (
     <Image
       src={imgSrc}
       alt={alt}
       fill
-      sizes="176px"
-      className="object-cover transition duration-300 group-hover:scale-[1.03]"
+      sizes={sizes}
+      className={className}
       onError={() => setImgSrc(FALLBACK_IMAGE)}
     />
   );
@@ -37,23 +36,67 @@ function matchesBudget(product: BeautyProduct, max: number | null) {
   return value != null && value <= max;
 }
 
+function ProductCard({ product }: { product: BeautyProduct }) {
+  const hasLivePrice = product.priceLabel !== "Check price";
+  return (
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#E7DDD1] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+      <div className="relative aspect-square overflow-hidden bg-[#F6F0E8]">
+        <SafeImage
+          src={product.image}
+          alt={`${product.brand} ${product.name}`}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+        />
+        <span className="absolute left-3 top-3 rounded-full bg-white/92 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#3A312A] shadow-sm">
+          {product.tag}
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8A6A55]">{product.brand}</p>
+        <h3 className="mt-2 text-base font-semibold leading-6 text-[#2A211A] sm:text-lg">{product.name}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#5F5247]">{product.description}</p>
+
+        <div className="mt-4 border-t border-[#EFE6DC] pt-4">
+          {hasLivePrice ? (
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span className="text-xl font-bold text-[#2A211A]">{product.priceLabel}</span>
+              {product.mrpLabel ? <span className="text-sm text-[#8A7A6D] line-through">{product.mrpLabel}</span> : null}
+              {product.discountLabel ? <span className="text-sm font-semibold text-[#1F7A4D]">{product.discountLabel}</span> : null}
+            </div>
+          ) : (
+            <p className="text-sm font-semibold text-[#5F5247]">Check price</p>
+          )}
+        </div>
+
+        <a
+          href={product.amazonUrl}
+          target="_blank"
+          rel={GO_REL}
+          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2A211A] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#3B3128] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A14A2A] focus-visible:ring-offset-2"
+          aria-label={`View ${product.name} on Amazon`}
+        >
+          View on Amazon <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
+      </div>
+    </article>
+  );
+}
+
 export default function BeautyToolkitClient() {
   const [budgetMax, setBudgetMax] = useState<number | null>(null);
 
-  const trending = BEAUTY_SHOP_CATEGORIES.find((c) => c.slug === "trending-now");
-  const trendingProducts = trending?.products ?? [];
-
-  const categories = useMemo(() => {
+  const sections = useMemo(() => {
     return BEAUTY_SHOP_CATEGORIES.map((category) => {
       const filtered = category.products.filter((p) => matchesBudget(p, budgetMax));
-      return { category, filteredCount: filtered.length };
+      return { category, filtered };
     });
   }, [budgetMax]);
 
   return (
     <main className="min-h-screen bg-[#FAF7F2] text-[#2A211A]">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#FFF7F1]">
+      <section className="relative overflow-hidden bg-[#FFF7F1] border-b border-[#E7DDD1]">
         <div className="mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-14 lg:px-8">
           <div className="max-w-4xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-[#E8D5C8] bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-[#7A4A2E]">
@@ -64,7 +107,7 @@ export default function BeautyToolkitClient() {
               Pick a look. <span className="text-[#A14A2A]">Shop it on Amazon.in.</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#5F5247] sm:text-lg">
-              Six clear sections, 36 curated picks—organized by trend, occasion, starter basics, and tools. Tap a section, compare picks, and check the latest details on Amazon.
+              Six clear sections, 36 curated picks—organized by trend, occasion, starter basics, and tools. Scroll, compare, and check the latest details on Amazon.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -90,101 +133,57 @@ export default function BeautyToolkitClient() {
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Trending strip */}
-      <section className="border-y border-[#E7DDD1] bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A14A2A]">{BEAUTY_TRENDING_DATE_LABEL}</p>
-              <h2 className={`${serif} mt-1 text-2xl font-semibold text-[#2A211A] sm:text-3xl`}>Trending this week</h2>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {BEAUTY_SHOP_CATEGORIES.map((c) => (
+                <a key={c.slug} href={`#${c.slug}`} className="rounded-full border border-[#E0D2C3] bg-white px-4 py-2 text-sm font-medium text-[#3E342C] hover:border-[#A14A2A] hover:text-[#A14A2A]">
+                  {c.title}
+                </a>
+              ))}
             </div>
-            <Link href="/collections/complete-amazon-makeup-toolkit/trending-now" className="inline-flex items-center gap-1 text-sm font-semibold text-[#A14A2A] hover:underline">
-              View all <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
           </div>
-          <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
-            {trendingProducts.map((product) => (
-              <Link
-                key={product.id}
-                href="/collections/complete-amazon-makeup-toolkit/trending-now"
-                className="group w-44 shrink-0 rounded-2xl border border-[#ECE2D8] bg-[#FFFCF9] p-3 transition hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <div className="relative aspect-square overflow-hidden rounded-xl bg-[#F3ECE4]">
-                  <SafeThumb src={product.image} alt={product.name} />
+        </div>
+      </section>
+
+      {/* All sections on one page */}
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <div className="space-y-16 sm:space-y-20">
+          {sections.map(({ category, filtered }) => (
+            <section key={category.slug} id={category.slug} className="scroll-mt-24">
+              <div className="mb-8 flex flex-col gap-4 border-b border-[#E7DDD1] pb-6 sm:flex-row sm:items-end sm:justify-between">
+                <div className="max-w-3xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A14A2A]">
+                    {category.eyebrow}{category.updatedLabel ? ` · ${category.updatedLabel}` : ""}
+                  </p>
+                  <h2 className={`${serif} mt-2 text-3xl font-semibold text-[#2A211A] sm:text-4xl`}>{category.title}</h2>
+                  <p className="mt-3 text-base leading-7 text-[#5F5247]">{category.description}</p>
                 </div>
-                <p className="mt-3 line-clamp-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A6A55]">{product.brand}</p>
-                <p className="mt-1 line-clamp-2 text-sm font-medium leading-5 text-[#2A211A]">{product.name}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Wedding banner */}
-      <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <Link
-          href="/collections/complete-amazon-makeup-toolkit/wedding-festive"
-          className="group flex flex-col gap-4 rounded-3xl border border-[#E8D8BF] bg-gradient-to-r from-[#FFF8EE] via-[#FFF1DA] to-[#FCE8C8] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
-        >
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#946200]">Seasonal spotlight</p>
-            <h2 className={`${serif} mt-2 text-2xl font-semibold text-[#3A2A14] sm:text-3xl`}>Wedding season is on</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#5F4A2E] sm:text-base">Long-wear, photo-friendly picks for shaadi functions, festive events, and touch-ups that last.</p>
-          </div>
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#3A2A14] px-5 py-3 text-sm font-semibold text-[#FFF8EE] transition group-hover:bg-[#2A1E0F]">
-            Explore Wedding & Festive <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </span>
-        </Link>
-      </section>
-
-      {/* Category grid */}
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 sm:py-16">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8A6A55]">Browse by section</p>
-            <h2 className={`${serif} mt-2 text-3xl font-semibold text-[#2A211A] sm:text-4xl`}>Find your kit, your way</h2>
-          </div>
-          <p className="hidden text-sm text-[#6B5D52] sm:block">{budgetMax ? `Showing products under ₹${budgetMax.toLocaleString("en-IN")}` : "All price ranges"}</p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map(({ category, filteredCount }) => (
-            <Link
-              key={category.slug}
-              href={`/collections/complete-amazon-makeup-toolkit/${category.slug}`}
-              className="group relative overflow-hidden rounded-3xl border border-[#E7DDD1] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE5DA]">
-                <Image src={category.coverImage} alt={category.coverAlt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/85">{category.eyebrow}</p>
-                    <h3 className={`${serif} mt-1 text-2xl font-semibold text-white`}>{category.title}</h3>
-                  </div>
-                  <span className="shrink-0 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#2A211A]">
-                    {filteredCount}/{category.products.length} picks
+                <div className="flex shrink-0 items-center gap-3">
+                  <span className="rounded-full border border-[#E0D2C3] bg-white px-4 py-2 text-sm font-medium text-[#5F5247]">
+                    {filtered.length}/{category.products.length} picks
                   </span>
                 </div>
               </div>
-              <div className="p-5">
-                <p className="text-sm leading-6 text-[#5F5247]">{category.description}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#A14A2A]">
-                  Explore section <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </span>
-              </div>
-            </Link>
+
+              {filtered.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3">
+                  {filtered.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-dashed border-[#D8CFC4] bg-white/60 p-8 text-center text-sm text-[#6B5D52]">
+                  No picks in this section under the selected budget filter.
+                </div>
+              )}
+            </section>
           ))}
         </div>
 
-        <p className="mx-auto mt-10 max-w-3xl text-center text-xs leading-6 text-[#7A6A5D]">
+        <p className="mx-auto mt-14 max-w-3xl text-center text-xs leading-6 text-[#7A6A5D]">
           Prices, MRP, and discounts are indicative and may change. Check the latest price and availability on Amazon.in before buying.
         </p>
-      </section>
+      </div>
     </main>
   );
 }

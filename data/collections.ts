@@ -913,7 +913,7 @@ export const COLLECTIONS: CollectionEntry[] = [
         why: "Buzz-worthy picks and quick skin-first basics for daily routines, college, and office plans.",
         skipIf: "You already know the exact product you want to buy.",
         ctaLabel: "Explore Trending & Everyday",
-        ctaHref: "/collections/complete-amazon-makeup-toolkit/trending-now",
+        ctaHref: "/collections/complete-amazon-makeup-toolkit#trending-now",
         external: false,
       },
       {
@@ -923,7 +923,7 @@ export const COLLECTIONS: CollectionEntry[] = [
         why: "Bold, photo-ready looks and long-wear festive picks curated for celebrations and wedding season.",
         skipIf: "You’re shopping only for minimal everyday basics.",
         ctaLabel: "Browse Occasion Picks",
-        ctaHref: "/collections/complete-amazon-makeup-toolkit/wedding-festive",
+        ctaHref: "/collections/complete-amazon-makeup-toolkit#wedding-festive",
         external: false,
       },
       {
@@ -933,7 +933,7 @@ export const COLLECTIONS: CollectionEntry[] = [
         why: "Beginner-friendly essentials plus fixers and touch-up tools to build and maintain your kit.",
         skipIf: "You already have a complete kit and only need a trend refill.",
         ctaLabel: "View Starter Basics",
-        ctaHref: "/collections/complete-amazon-makeup-toolkit/starter-basics",
+        ctaHref: "/collections/complete-amazon-makeup-toolkit#starter-basics",
         external: false,
       },
     ],

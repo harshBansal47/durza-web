@@ -67,6 +67,17 @@ const nextConfig: NextConfig = {
             { source: "/stores/veromoda", destination: "/stores/vero-moda", permanent: true },
             // Canonicalized duplicate Tata CLiQ route (raw-suffix canonical kept).
             { source: "/stores/tata-cliq", destination: "/stores/tatacliq-com-ecommerce-cps-india", permanent: true },
+            // Beauty toolkit consolidated to single page (sections on one page).
+            { source: "/collections/complete-amazon-makeup-toolkit/trending-now", destination: "/collections/complete-amazon-makeup-toolkit#trending-now", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/5-minute-everyday", destination: "/collections/complete-amazon-makeup-toolkit#5-minute-everyday", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/party-glam", destination: "/collections/complete-amazon-makeup-toolkit#party-glam", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/wedding-festive", destination: "/collections/complete-amazon-makeup-toolkit#wedding-festive", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/starter-basics", destination: "/collections/complete-amazon-makeup-toolkit#starter-basics", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/tools-touch-ups", destination: "/collections/complete-amazon-makeup-toolkit#tools-touch-ups", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/college-daily", destination: "/collections/complete-amazon-makeup-toolkit", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/office-ready", destination: "/collections/complete-amazon-makeup-toolkit", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/budget-beauty", destination: "/collections/complete-amazon-makeup-toolkit", permanent: true },
+            { source: "/collections/complete-amazon-makeup-toolkit/everyday-essentials", destination: "/collections/complete-amazon-makeup-toolkit", permanent: true },
           ];
         },
         async headers() {

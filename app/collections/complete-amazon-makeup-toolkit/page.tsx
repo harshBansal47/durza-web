@@ -42,7 +42,7 @@ export default function Page() {
       position: index + 1,
       name: category.title,
       description: category.description,
-      url: absoluteUrl(`${canonical}/${category.slug}`),
+      url: absoluteUrl(`${canonical}#${category.slug}`),
     })),
   };
 
