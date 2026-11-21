@@ -32,28 +32,28 @@ function SafeImage({ src, alt, sizes, className }: { src: string; alt: string; s
 
 function ProductCard({ product }: { product: BeautyProduct }) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#E7DDD1] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-[#E7DDD1] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="relative aspect-square overflow-hidden bg-[#F6F0E8]">
         <SafeImage
           src={product.image}
           alt={`${product.brand} ${product.name}`}
-          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 280px"
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 240px"
           className="object-cover transition duration-500 group-hover:scale-[1.03]"
         />
-        <span className="absolute left-2 top-2 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#3A312A] shadow-sm sm:left-3 sm:top-3 sm:px-3 sm:text-[11px]">
+        <span className="absolute left-2 top-2 rounded-full bg-white/95 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#3A312A] shadow-sm sm:px-2.5 sm:py-1 sm:text-[10px]">
           {product.tag}
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-3 sm:p-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A6A55] sm:text-[11px]">{product.brand}</p>
-        <h3 className="mt-1.5 font-['Inter',ui-sans-serif,system-ui,sans-serif] text-[13px] font-medium leading-5 text-[#2A211A] sm:text-sm sm:leading-6">{product.name}</h3>
+      <div className="flex flex-1 flex-col p-2.5 sm:p-3">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A6A55] sm:text-[10px]">{product.brand}</p>
+        <h3 className="mt-1 font-['Inter',ui-sans-serif,system-ui,sans-serif] text-xs font-medium leading-4 text-[#2A211A] sm:text-[13px] sm:leading-5">{product.name}</h3>
 
-        <div className="mt-3 border-t border-[#EFE6DC] pt-3">
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <span className="text-base font-bold text-[#2A211A] sm:text-lg">{product.priceLabel}</span>
-            {product.mrpLabel ? <span className="text-xs text-[#8A7A6D] line-through sm:text-sm">{product.mrpLabel}</span> : null}
-            {product.discountLabel ? <span className="text-xs font-semibold text-[#1F7A4D] sm:text-sm">{product.discountLabel}</span> : null}
+        <div className="mt-2.5 border-t border-[#EFE6DC] pt-2.5">
+          <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+            <span className="text-sm font-bold text-[#2A211A] sm:text-base">{product.priceLabel}</span>
+            {product.mrpLabel ? <span className="text-[11px] text-[#8A7A6D] line-through sm:text-xs">{product.mrpLabel}</span> : null}
+            {product.discountLabel ? <span className="text-[11px] font-semibold text-[#1F7A4D] sm:text-xs">{product.discountLabel}</span> : null}
           </div>
         </div>
 
@@ -61,10 +61,10 @@ function ProductCard({ product }: { product: BeautyProduct }) {
           href={product.amazonUrl}
           target="_blank"
           rel={GO_REL}
-          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-[#2A211A] px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-[#3B3128] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A14A2A] focus-visible:ring-offset-2 sm:text-sm"
+          className="mt-2.5 inline-flex w-full items-center justify-center gap-1 rounded-full bg-[#2A211A] px-3 py-2 text-[11px] font-semibold text-white transition hover:bg-[#3B3128] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A14A2A] focus-visible:ring-offset-2 sm:text-xs"
           aria-label={`View ${product.name} on Amazon`}
         >
-          View on Amazon <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          View on Amazon <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
         </a>
       </div>
     </article>
@@ -147,7 +147,7 @@ export default function BeautyToolkitClient() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
                 {category.products.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
