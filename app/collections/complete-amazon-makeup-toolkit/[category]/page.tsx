@@ -200,7 +200,7 @@ export default async function CategoryPage({ params }: Props) {
             <p className="max-w-md text-sm leading-6 text-[#5A524B]">Small, easy-to-scan product cards. Tap any product to view full details and live pricing on Amazon.in.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3">
             {entry.products.map((product) => (
               <ProductCard key={product.id} product={product} accent={accent} />
             ))}
