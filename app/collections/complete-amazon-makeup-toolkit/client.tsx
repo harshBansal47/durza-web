@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Search, Share2, SlidersHorizontal, X } from "lucide-react";
 import { GO_REL } from "@/lib/go";
 import {
   ALL_BEAUTY_PRODUCTS,
@@ -159,6 +159,7 @@ export default function BeautyToolkitClient() {
   const [kit, setKit] = useState<Set<string>>(new Set());
   const [kitOpen, setKitOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const brands = useMemo(() => {
     const set = new Set<string>();
@@ -200,6 +201,50 @@ export default function BeautyToolkitClient() {
   const clearFilters = () => { setQ(""); setPriceIdx(0); setBrand("All brands"); setDealsOnly(false); setOccasion(""); setSort("curated"); };
 
   const hasFilters = q || priceIdx !== 0 || brand !== "All brands" || dealsOnly || occasion || sort !== "curated";
+
+  const pageUrl = typeof window !== "undefined" ? `${window.location.origin}/collections/complete-amazon-makeup-toolkit` : "https://www.durza.in/collections/complete-amazon-makeup-toolkit";
+
+  const buildChecklistText = () => {
+    const items = kitProducts.length > 0 ? kitProducts : ALL_BEAUTY_PRODUCTS;
+    const heading = kitProducts.length > 0 ? "My Amazon Makeup Toolkit" : "Complete Amazon Makeup Toolkit Checklist";
+    const lines = [heading, ""];
+    if (kitProducts.length > 0) {
+      items.forEach((p, i) => lines.push(`${i + 1}. ${p.brand} — ${p.name} (${p.priceLabel})`));
+      if (kitTotal > 0) lines.push("", `Estimated total: ₹${kitTotal.toLocaleString("en-IN")}`);
+    } else {
+      BEAUTY_SHOP_CATEGORIES.forEach((cat) => {
+        lines.push(`${cat.stepLabel}: ${cat.title}`);
+        cat.products.slice(0, 3).forEach((p) => lines.push(`- ${p.brand} — ${p.name}`));
+        if (cat.products.length > 3) lines.push(`- +${cat.products.length - 3} more`);
+        lines.push("");
+      });
+    }
+    lines.push(`Check the full list: ${pageUrl}`);
+    return lines.join("\n");
+  };
+
+  const shareWhatsApp = () => {
+    const text = encodeURIComponent(buildChecklistText());
+    window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
+  };
+
+  const copyChecklist = async () => {
+    const text = buildChecklistText();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <main className="relative min-h-screen bg-[#FAF8F5] text-[#2C2420] pb-20">
@@ -382,7 +427,10 @@ export default function BeautyToolkitClient() {
         </p>
       </div>
 
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+        <button type="button" onClick={shareWhatsApp} className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-xs font-semibold text-white shadow-[0_8px_20px_rgba(37,211,102,0.3)] transition-all duration-300 hover:bg-[#1fb857] hover:-translate-y-0.5 active:scale-[0.98]">
+          <Share2 className="h-3.5 w-3.5" /> Share on WhatsApp
+        </button>
         <button type="button" onClick={() => setKitOpen(true)} className="rounded-full bg-[#2C2420] px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(44,36,32,0.25)] transition-all duration-300 hover:bg-[#8F4E38] hover:shadow-[0_12px_28px_rgba(143,78,56,0.3)] hover:-translate-y-0.5 active:scale-[0.98]">
           Kit · {kit.size} {kit.size === 1 ? "item" : "items"}{kitTotal > 0 ? ` · ₹${kitTotal.toLocaleString("en-IN")}` : ""}
         </button>
@@ -414,8 +462,18 @@ export default function BeautyToolkitClient() {
                 ))}
               </ul>
             )}
-            <div className="mt-4 border-t border-[#E8DDD2] pt-4 text-xs leading-5 text-[#8A7A70]">
-              Tip: open each item on Amazon to check shade, size, and live price. Kit links open individual Amazon product pages.
+            <div className="mt-4 border-t border-[#E8DDD2] pt-4">
+              <div className="grid grid-cols-2 gap-2">
+                <button type="button" onClick={shareWhatsApp} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-[#1fb857] active:scale-[0.98]">
+                  <Share2 className="h-3.5 w-3.5" /> Share on WhatsApp
+                </button>
+                <button type="button" onClick={copyChecklist} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D9CABE] bg-white px-3 py-2.5 text-xs font-semibold text-[#5A4D45] transition hover:border-[#B5654A] hover:text-[#B5654A] active:scale-[0.98]">
+                  {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />} {copied ? "Copied" : kitProducts.length > 0 ? "Copy my kit" : "Copy checklist"}
+                </button>
+              </div>
+              <p className="mt-3 text-xs leading-5 text-[#8A7A70]">
+                Tip: open each item on Amazon to check shade, size, and live price. Kit links open individual Amazon product pages.
+              </p>
             </div>
           </div>
         </div>
