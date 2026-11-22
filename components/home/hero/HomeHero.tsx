@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowRight, Sparkles } from "lucide-react";
 import type { ActivityItem } from "@/components/home/ActivityTicker";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import "./hero.css";
@@ -92,6 +94,20 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
           <p className="hx-sub hx-rise" style={{ ["--i" as string]: 1 }}>
             India&apos;s verification-first coupon desk — <b>real codes, stated terms, check dates</b>, read from official store pages. No sign-up, no fake timers, ₹0 extra.
           </p>
+
+          <Link href="/collections/complete-amazon-makeup-toolkit" className="hx-beauty-promo hx-rise" style={{ ["--i" as string]: 2 }}>
+            <span className="hx-beauty-promo-icon" aria-hidden="true">
+              <Sparkles size={18} strokeWidth={2.2} />
+            </span>
+            <span className="hx-beauty-promo-body">
+              <span className="hx-beauty-promo-kicker">New · Beauty Toolkit</span>
+              <span className="hx-beauty-promo-title">The Complete Amazon Makeup Toolkit</span>
+              <span className="hx-beauty-promo-desc">108 curated picks across 18 routine steps — budget to premium.</span>
+            </span>
+            <span className="hx-beauty-promo-cta" aria-hidden="true">
+              Explore <ArrowRight size={14} strokeWidth={2.3} />
+            </span>
+          </Link>
 
           <HeroSearch
             deals={deals}

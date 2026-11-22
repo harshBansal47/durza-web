@@ -128,6 +128,27 @@
 .hx-sub { font-size: 15px; line-height: 1.6; color: var(--hx-tx2); max-width: 54ch; }
 .hx-sub b { color: var(--hx-tx); font-weight: 600; }
 
+/* ---------- beauty toolkit promo ---------- */
+.hx-beauty-promo { display: flex; align-items: center; gap: 14px; margin-top: 20px; padding: 14px 16px; border-radius: 16px; text-decoration: none; color: inherit;
+  background: linear-gradient(135deg, rgba(255,250,245,0.95), rgba(255,243,230,0.92)); border: 1px solid rgba(194,65,12,0.14);
+  box-shadow: 0 4px 16px -8px rgba(194,65,12,0.18), inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s ease, border-color 0.25s ease; }
+.hx-beauty-promo:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -10px rgba(194,65,12,0.22), inset 0 1px 0 rgba(255,255,255,0.9); border-color: rgba(194,65,12,0.28); }
+.hx-beauty-promo:focus-visible { outline: 2px solid var(--hx-orange); outline-offset: 2px; }
+.hx-beauty-promo-icon { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: #fff;
+  background: linear-gradient(135deg, #c2410c, #ee5a0b); box-shadow: 0 6px 14px -4px rgba(194,65,12,0.45); }
+.hx-beauty-promo-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.hx-beauty-promo-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hx-orange-deep); }
+.hx-beauty-promo-title { font-family: var(--hx-disp); font-size: 15px; font-weight: 700; line-height: 1.25; color: var(--hx-tx); letter-spacing: -0.01em; }
+.hx-beauty-promo-desc { font-size: 12.5px; line-height: 1.4; color: var(--hx-tx2); margin-top: 1px; }
+.hx-beauty-promo-cta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; color: var(--hx-orange-deep); padding: 8px 12px; border-radius: 99px; background: rgba(238,90,11,0.08); transition: background 0.2s, color 0.2s; }
+.hx-beauty-promo:hover .hx-beauty-promo-cta { background: rgba(238,90,11,0.14); color: #9a3412; }
+@media (max-width: 640px) {
+  .hx-beauty-promo { align-items: flex-start; gap: 12px; padding: 13px 14px; }
+  .hx-beauty-promo-cta { display: none; }
+  .hx-beauty-promo-desc { font-size: 12px; }
+}
+
 /* ---------- command search ---------- */
 .hx-searchzone { position: relative; margin-top: 22px; z-index: 40; }
 .hx-searchbox { display: flex; align-items: center; gap: 12px; height: 60px; padding: 0 14px; background: var(--hx-card); border: 1px solid var(--hx-line2); border-radius: 16px; box-shadow: var(--hx-shadow); transition: border-color 0.2s, box-shadow 0.2s; }
