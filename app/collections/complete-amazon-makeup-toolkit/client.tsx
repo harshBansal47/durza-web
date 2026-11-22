@@ -63,6 +63,7 @@ function displayBadge(tag: string): { label: string; cls: string } {
 
 function SafeImage({ src, alt, sizes, className }: { src: string; alt: string; sizes: string; className?: string }) {
   const [imgSrc, setImgSrc] = useState(src);
+  const isExternal = /^https?:\/\//.test(imgSrc);
   return (
     <Image
       src={imgSrc}
@@ -72,6 +73,7 @@ function SafeImage({ src, alt, sizes, className }: { src: string; alt: string; s
       className={className}
       loading="lazy"
       decoding="async"
+      unoptimized={isExternal}
       onError={() => setImgSrc(FALLBACK_IMAGE)}
     />
   );
@@ -87,7 +89,7 @@ function ProductCard({ product, inKit, onToggleKit }: { product: BeautyProduct; 
           src={product.image}
           alt={`${product.brand} ${product.name}`}
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 240px"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
         <span className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] sm:px-2.5 sm:py-1 sm:text-[10px] ${badge.cls}`}>
           {badge.label}
