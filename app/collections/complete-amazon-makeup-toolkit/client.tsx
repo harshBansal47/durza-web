@@ -390,9 +390,6 @@ export default function BeautyToolkitClient() {
           </div>
         </section>
 
-        <p className="mx-auto mt-12 max-w-3xl text-center text-xs leading-6 text-[#8A7A70]">
-          As an Amazon Associate, Durza earns from qualifying purchases. Prices, MRP, and discounts are indicative and may change. Check the latest price and availability on Amazon.in before buying.
-        </p>
       </div>
 
       <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
