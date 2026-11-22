@@ -156,6 +156,7 @@ export default function BeautyToolkitClient() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [kit, setKit] = useState<Set<string>>(new Set());
   const [kitOpen, setKitOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const brands = useMemo(() => {
     const set = new Set<string>();
@@ -226,13 +227,13 @@ export default function BeautyToolkitClient() {
       </section>
 
       <div className="sticky top-0 z-40 border-b border-[#E7DDD1] bg-[#FAF7F2]/96 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3">
+        <div className="mx-auto max-w-7xl px-4 py-2.5 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-2.5">
             <nav aria-label="Routine steps" className="-mx-4 overflow-x-auto px-4 lg:mx-0 lg:px-0">
-              <ul className="flex min-w-max gap-2">
+              <ul className="flex min-w-max gap-1.5 sm:gap-2">
                 {BEAUTY_SHOP_CATEGORIES.map((cat, i) => (
                   <li key={cat.slug}>
-                    <a href={`#${cat.slug}`} className="inline-flex rounded-full border border-[#E0D2C3] bg-white px-3 py-1.5 text-xs font-medium text-[#5F5247] hover:border-[#C9A48D] hover:text-[#A14A2A]">
+                    <a href={`#${cat.slug}`} className="inline-flex rounded-full border border-[#E0D2C3] bg-white px-2.5 py-1 text-[11px] font-medium text-[#5F5247] hover:border-[#C9A48D] hover:text-[#A14A2A] sm:px-3 sm:py-1.5 sm:text-xs">
                       {i + 1}. {cat.title}
                     </a>
                   </li>
@@ -240,7 +241,7 @@ export default function BeautyToolkitClient() {
               </ul>
             </nav>
 
-            <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+            <div className="flex items-center gap-2">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8A7A6D]" />
                 <input
@@ -250,6 +251,18 @@ export default function BeautyToolkitClient() {
                   className="w-full rounded-full border border-[#E0D2C3] bg-white py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#A14A2A]"
                 />
               </div>
+              <span className="shrink-0 text-[11px] text-[#7A6A5D] lg:hidden">{visibleCount}</span>
+              <button
+                type="button"
+                onClick={() => setFiltersOpen((v) => !v)}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#E0D2C3] bg-white px-3 py-2 text-xs font-medium text-[#5F5247] hover:border-[#C9A48D] lg:hidden"
+              >
+                <SlidersHorizontal className="h-3.5 w-3.5" /> Filters{hasFilters ? " •" : ""}
+              </button>
+              <span className="hidden shrink-0 text-xs text-[#7A6A5D] lg:inline">{visibleCount} shown</span>
+            </div>
+
+            <div className={`${filtersOpen ? "flex" : "hidden"} flex-col gap-2 lg:flex`}>
               <div className="flex flex-wrap items-center gap-2">
                 {PRICE_FILTERS.map((r, i) => (
                   <button key={r.label} type="button" onClick={() => setPriceIdx(i)} className={`rounded-full border px-3 py-1.5 text-xs font-medium ${priceIdx === i ? "border-[#2A211A] bg-[#2A211A] text-white" : "border-[#E0D2C3] bg-white text-[#5F5247] hover:border-[#C9A48D]"}`}>{r.label}</button>
@@ -264,17 +277,17 @@ export default function BeautyToolkitClient() {
                   <option value="ph">Price: High to low</option>
                 </select>
                 {hasFilters && <button type="button" onClick={clearFilters} className="text-xs font-medium text-[#A14A2A] underline underline-offset-2">Clear</button>}
-                <span className="text-xs text-[#7A6A5D]">{visibleCount} shown</span>
+                <span className="text-xs text-[#7A6A5D] lg:hidden">{visibleCount} shown</span>
               </div>
-            </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A6A55]"><SlidersHorizontal className="h-3.5 w-3.5" /> Occasion</span>
-              {OCCASIONS.map((o) => (
-                <button key={o.id} type="button" onClick={() => setOccasion(occasion === o.id ? "" : o.id)} className={`rounded-full border px-3 py-1.5 text-xs font-medium ${occasion === o.id ? "border-[#C9A48D] bg-[#F4E4D8] text-[#7A3D24]" : "border-[#E0D2C3] bg-white text-[#5F5247] hover:border-[#C9A48D]"}`}>
-                  {o.label}
-                </button>
-              ))}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A6A55]">Occasion</span>
+                {OCCASIONS.map((o) => (
+                  <button key={o.id} type="button" onClick={() => setOccasion(occasion === o.id ? "" : o.id)} className={`rounded-full border px-3 py-1.5 text-xs font-medium ${occasion === o.id ? "border-[#C9A48D] bg-[#F4E4D8] text-[#7A3D24]" : "border-[#E0D2C3] bg-white text-[#5F5247] hover:border-[#C9A48D]"}`}>
+                    {o.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -293,7 +306,7 @@ export default function BeautyToolkitClient() {
               const visibleProducts = isExpanded ? category.products : category.products.slice(0, 4);
               const hiddenCount = category.products.length - visibleProducts.length;
               return (
-                <section key={category.slug} id={category.slug} className="scroll-mt-44">
+                <section key={category.slug} id={category.slug} className="scroll-mt-28 lg:scroll-mt-44">
                   <div className="mb-6 flex items-start gap-3 border-b border-[#E7DDD1] pb-5 sm:mb-8">
                     <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F4E4D8]"><SectionIcon /></div>
                     <div className="max-w-3xl">
@@ -332,7 +345,7 @@ export default function BeautyToolkitClient() {
           </div>
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {BEAUTY_INFO_SECTIONS.map((section) => (
-              <article key={section.slug} id={section.slug} className="scroll-mt-44 rounded-2xl border border-[#E7DDD1] bg-white p-5 shadow-sm sm:p-6">
+              <article key={section.slug} id={section.slug} className="scroll-mt-28 lg:scroll-mt-44 rounded-2xl border border-[#E7DDD1] bg-white p-5 shadow-sm sm:p-6">
                 <h3 className={`${serif} text-xl font-semibold text-[#2A211A]`}>{section.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[#5F5247]">{section.description}</p>
                 <ul className="mt-4 space-y-3">
