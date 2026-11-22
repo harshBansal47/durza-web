@@ -356,25 +356,32 @@ export default function BeautyToolkitClient() {
         )}
 
         <section className="mt-16 border-t border-[#E8DDD2] pt-12 sm:mt-20 sm:pt-16">
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#B5654A]">Quick guides</p>
             <h2 className={`${serif} mt-2 text-3xl font-semibold text-[#2C2420] sm:text-4xl`}>Shop by occasion or need</h2>
-            <p className="mt-3 text-base leading-7 text-[#7A6A5F]">Use these guides for quick starting points. Tap an occasion chip above to filter the actual product grid.</p>
+            <p className="mt-3 text-base leading-7 text-[#7A6A5F]">Curated shortcuts for common makeup moments. Tap an occasion chip above to filter the full product grid.</p>
           </div>
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
             {BEAUTY_INFO_SECTIONS.map((section) => (
-              <article key={section.slug} id={section.slug} className="scroll-mt-28 lg:scroll-mt-44 rounded-2xl border border-[#E8DDD2] bg-white p-5 shadow-sm sm:p-6">
-                <h3 className={`${serif} text-xl font-semibold text-[#2C2420]`}>{section.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#7A6A5F]">{section.description}</p>
-                <ul className="mt-4 space-y-3">
+              <article key={section.slug} id={section.slug} className="group scroll-mt-28 lg:scroll-mt-44 flex flex-col overflow-hidden rounded-2xl border border-[#E8DDD2] bg-white shadow-[0_1px_2px_rgba(44,36,32,0.04)] transition-all duration-300 hover:shadow-[0_12px_24px_-12px_rgba(44,36,32,0.12)]">
+                <div className="border-b border-[#EFE6DC] bg-gradient-to-br from-[#FFFDFC] to-[#F7F1EB] px-5 py-5 sm:px-6">
+                  <h3 className={`${serif} text-xl font-semibold text-[#2C2420]`}>{section.title}</h3>
+                  <p className="mt-1.5 text-sm leading-6 text-[#7A6A5F]">{section.description}</p>
+                </div>
+                <ul className="flex-1 divide-y divide-[#F0E6DC] px-5 sm:px-6">
                   {section.items.map((item) => (
-                    <li key={item.label} className="flex gap-2 text-sm leading-6 text-[#5A4D45]">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#B5654A]" aria-hidden="true" />
-                      <span>
-                        <a href={item.href} target="_blank" rel={GO_REL} className="font-medium text-[#2C2420] underline decoration-[#D4B5A6] underline-offset-2 hover:text-[#B5654A] hover:decoration-[#B5654A]">{item.label}</a>
-                        {item.priceLabel ? <span className="ml-2 whitespace-nowrap font-semibold text-[#3F7A57]">{item.priceLabel}</span> : null}
-                        {item.note ? <span className="block text-[#7A6A5F]">{item.note}</span> : null}
-                      </span>
+                    <li key={item.label} className="py-3.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <a href={item.href} target="_blank" rel={GO_REL} className="text-sm font-medium leading-5 text-[#2C2420] underline decoration-transparent underline-offset-2 transition hover:text-[#B5654A] hover:decoration-[#D4B5A6]">
+                            {item.label}
+                          </a>
+                          {item.note ? <p className="mt-0.5 text-xs leading-5 text-[#8A7A70]">{item.note}</p> : null}
+                        </div>
+                        {item.priceLabel ? (
+                          <span className="shrink-0 rounded-full bg-[#F3F8F4] px-2.5 py-1 text-[11px] font-semibold text-[#3F7A57]">{item.priceLabel}</span>
+                        ) : null}
+                      </div>
                     </li>
                   ))}
                 </ul>
