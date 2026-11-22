@@ -251,7 +251,7 @@ export default function BeautyToolkitClient() {
         <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20">
           <p className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#F5D9C8]">Amazon.in Beauty Toolkit</p>
           <h1 className={`${serif} mt-6 max-w-4xl text-4xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl`}>
-            Everything you need for your <span className="block text-[#F2CDB8]">makeup routine.</span>
+            <span className="text-[#F5EBE3]/80">Everything you need for your</span> <span className="block text-[#F2CDB8]">makeup routine.</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-[#F5EBE3]/92 sm:text-lg">From essential basics to finishing touches, all in one place.</p>
         </div>
