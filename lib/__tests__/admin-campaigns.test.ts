@@ -12,22 +12,20 @@ import nextConfig from "../../next.config";
 describe("admin campaigns route", () => {
   beforeEach(() => forward.mockClear());
 
-  it("forwards only the filters the API understands, to the admin-only endpoint", async () => {
+  it("forwards only the dashboard filters, to the admin-only endpoint", async () => {
     const request = new NextRequest(
-      "http://localhost/api/admin/campaigns?search=shop&category=fashion&country=IN&needs_review=true&skip=20&limit=20&evil=1&token=x",
+      "http://localhost/api/admin/campaigns?status=needs_attention&search=shop&skip=20&limit=25&evil=1&token=x",
     );
     await GET(request);
 
     expect(forward).toHaveBeenCalledTimes(1);
     const [path, init] = forward.mock.calls[0] as unknown as [string, { query: URLSearchParams }];
-    expect(path).toBe("/vcommission/campaigns");
+    expect(path).toBe("/admin/campaigns");
     expect(Object.fromEntries(init.query)).toEqual({
+      status: "needs_attention",
       search: "shop",
-      category: "fashion",
-      country: "IN",
-      needs_review: "true",
       skip: "20",
-      limit: "20",
+      limit: "25",
     });
   });
 });

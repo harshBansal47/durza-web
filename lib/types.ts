@@ -32,10 +32,80 @@ export interface AffiliateCampaign {
   last_synced_at: string;
   /** Relative API redirect path; use api.vcommissionCampaignGoUrl for links. */
   click_url: string;
-  /** Parsed advertiser terms (admin-only; read it with `readTerms`, never directly). */
+  /** Parsed advertiser terms (admin-only; commercial data, never shopper content). */
   terms?: unknown;
   /** True when a person should read the terms before we promote this campaign. */
   needs_review?: boolean;
+}
+
+/** Admin campaign-management DTOs (mirrors app/schemas/campaign_admin.py). */
+export interface CampaignHealthCheck {
+  name: string;
+  passed: boolean;
+  reason: string;
+}
+
+export interface CampaignDashboardItem {
+  id: string;
+  external_campaign_id: string;
+  title: string;
+  merchant_name: string;
+  preview_url: string | null;
+  thumbnail_url: string | null;
+  lifecycle_state: "awaiting_approval" | "integrated" | "abandoned";
+  status: "working" | "awaiting_approval" | "needs_attention" | "abandoned";
+  is_active: boolean;
+  missed_syncs: number;
+  last_synced_at: string | null;
+  last_seen_at: string | null;
+  abandoned_at: string | null;
+  needs_review: boolean;
+  store_id: string | null;
+  store_slug: string | null;
+  store_name: string | null;
+  store_logo_url: string | null;
+  store_status: string | null;
+  store_is_active: boolean | null;
+  custom_store: boolean;
+  health_passed_all: boolean | null;
+  health_checks: CampaignHealthCheck[];
+  failure_reasons: string[];
+  last_health_check_at: string | null;
+  countries: string[];
+  categories: string[];
+}
+
+export interface CampaignSummary {
+  all: number;
+  working: number;
+  awaiting_approval: number;
+  needs_attention: number;
+  abandoned: number;
+}
+
+export interface CampaignDashboardPage extends Paginated<CampaignDashboardItem> {
+  summary: CampaignSummary;
+}
+
+export interface CampaignActionResult {
+  detail: string;
+  status: string;
+  passed_all?: boolean | null;
+  failure_reasons?: string[];
+}
+
+export interface CampaignAuditEvent {
+  id: string;
+  action: string;
+  actor: string | null;
+  details: Record<string, unknown> | null;
+  success: boolean;
+  error: string | null;
+  created_at: string | null;
+}
+
+export interface CampaignDetail extends CampaignDashboardItem {
+  audit: CampaignAuditEvent[];
 }
 
 export interface Category {

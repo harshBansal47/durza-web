@@ -205,32 +205,105 @@ export async function triggerIngestion(slugs: string[] | null): Promise<Ingestio
   return response.data;
 }
 import { clientAppUrl, clientHttp, clientRequestConfig } from "@/lib/client-http";
-import type { AffiliateCampaign, Paginated } from "@/lib/types";
+import type {
+  CampaignActionResult,
+  CampaignDashboardPage,
+  CampaignDetail,
+  CampaignSummary,
+} from "@/lib/types";
 
-export interface CampaignFilters {
+export interface CampaignDashboardFilters {
+  status?: string;
   search?: string;
-  category?: string;
-  country?: string;
-  /** true = only campaigns a person should read before we promote them. */
-  needs_review?: boolean;
   skip?: number;
   limit?: number;
 }
 
-/** Advertiser campaigns, from the admin-only catalogue. */
-export async function fetchAffiliateCampaigns(
-  filters: CampaignFilters,
+function campaignPath(path: string, params?: URLSearchParams): string {
+  const query = params?.toString();
+  return clientAppUrl(`/api/admin/campaigns${path}${query ? `?${query}` : ""}`);
+}
+
+/** The campaign lifecycle + store-integration dashboard. */
+export async function fetchCampaignDashboard(
+  filters: CampaignDashboardFilters,
   signal?: AbortSignal,
-): Promise<Paginated<AffiliateCampaign>> {
+): Promise<CampaignDashboardPage> {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(filters)) {
     if (value !== undefined && value !== "") params.set(key, String(value));
   }
-  const response = await clientHttp.get<Paginated<AffiliateCampaign>>(
-    clientAppUrl(`/api/admin/campaigns?${params}`),
+  const response = await clientHttp.get<CampaignDashboardPage>(
+    campaignPath("", params),
     clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
   );
   return response.data;
+}
+
+export async function fetchCampaignDetail(
+  id: string,
+  signal?: AbortSignal,
+): Promise<CampaignDetail> {
+  const response = await clientHttp.get<CampaignDetail>(
+    campaignPath(`/${encodeURIComponent(id)}`),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+async function campaignAction<T>(path: string, body?: unknown): Promise<T> {
+  const response = await clientHttp.post<T>(
+    campaignPath(path),
+    body ?? {},
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function approveCampaign(id: string): Promise<CampaignDetail> {
+  return campaignAction<CampaignDetail>(`/${encodeURIComponent(id)}/approve`);
+}
+
+export async function runCampaignHealthCheck(id: string): Promise<CampaignHealthCheckResult> {
+  return campaignAction<CampaignHealthCheckResult>(`/${encodeURIComponent(id)}/health-check`);
+}
+
+export async function bulkCampaignHealthCheck(limit = 100): Promise<CampaignBulkResult> {
+  return campaignAction<CampaignBulkResult>(`/health-check/bulk?limit=${limit}`);
+}
+
+export async function deactivateCampaignStore(id: string): Promise<CampaignActionResult> {
+  return campaignAction<CampaignActionResult>(`/${encodeURIComponent(id)}/deactivate-store`);
+}
+
+export async function reactivateCampaign(id: string): Promise<CampaignDetail> {
+  return campaignAction<CampaignDetail>(`/${encodeURIComponent(id)}/reactivate`);
+}
+
+export async function syncCampaignsNow(): Promise<CampaignActionResult> {
+  return campaignAction<CampaignActionResult>("/sync");
+}
+
+export async function fetchCampaignSummary(): Promise<CampaignSummary> {
+  const response = await clientHttp.get<CampaignSummary>(
+    campaignPath("/summary"),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export interface CampaignHealthCheckResult {
+  passed_all: boolean;
+  checks: Array<{ name: string; passed: boolean; reason: string }>;
+  failure_reasons: string[];
+  checked_by: string | null;
+}
+
+export interface CampaignBulkResult {
+  checked: number;
+  working: number;
+  needs_attention: number;
+  failed: string[];
 }
 
 export async function sendTelegram(couponId: string, title?: string): Promise<{ message_id: number }> {
