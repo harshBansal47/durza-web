@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Check, Copy, Search, Share2, SlidersHorizontal, X } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Share2, SlidersHorizontal, X } from "lucide-react";
 import { GO_REL } from "@/lib/go";
 import {
   ALL_BEAUTY_PRODUCTS,
@@ -13,13 +13,6 @@ import {
 
 const serif = "font-['Playfair_Display',Georgia,serif]";
 const FALLBACK_IMAGE = "/collections/amazon-beauty-toolkit/product-placeholder.svg";
-
-const PRICE_FILTERS = [
-  { label: "All prices", min: 0, max: Infinity },
-  { label: "Under ₹500", min: 0, max: 500 },
-  { label: "₹500–₹1k", min: 500, max: 1000 },
-  { label: "₹1k+", min: 1000, max: Infinity },
-] as const;
 
 const OCCASIONS = [
   { id: "trending", label: "Trending" },
@@ -149,8 +142,6 @@ function SectionIcon() {
 }
 
 export default function BeautyToolkitClient() {
-  const [q, setQ] = useState("");
-  const [priceIdx, setPriceIdx] = useState(0);
   const [brand, setBrand] = useState("All brands");
   const [dealsOnly, setDealsOnly] = useState(false);
   const [occasion, setOccasion] = useState<string>("");
@@ -167,30 +158,19 @@ export default function BeautyToolkitClient() {
     return ["All brands", ...Array.from(set).sort((a, b) => a.localeCompare(b))];
   }, []);
 
-  const priceRange = PRICE_FILTERS[priceIdx];
-  const query = q.trim().toLowerCase();
-
   const filteredCategories = useMemo(() => {
     return BEAUTY_SHOP_CATEGORIES.map((cat) => {
       let products = cat.products.filter((p) => {
         if (brand !== "All brands" && p.brand !== brand) return false;
         if (occasion && !OCCASION_SETS[occasion]?.has(p.id)) return false;
-        const price = getNumericPrice(p.priceLabel);
-        if (price !== null) {
-          if (price < priceRange.min || price >= priceRange.max) return false;
-        }
         if (dealsOnly && !discountPercent(p.priceLabel, p.mrpLabel)) return false;
-        if (query) {
-          const hay = `${p.brand} ${p.name} ${p.description} ${p.tag}`.toLowerCase();
-          if (!hay.includes(query)) return false;
-        }
         return true;
       });
       if (sort === "pl") products = [...products].sort((a, b) => (getNumericPrice(a.priceLabel) ?? 999999) - (getNumericPrice(b.priceLabel) ?? 999999));
       if (sort === "ph") products = [...products].sort((a, b) => (getNumericPrice(b.priceLabel) ?? 0) - (getNumericPrice(a.priceLabel) ?? 0));
       return { ...cat, products };
     }).filter((c) => c.products.length > 0);
-  }, [brand, priceRange, occasion, dealsOnly, query, sort]);
+  }, [brand, occasion, dealsOnly, sort]);
 
   const visibleCount = filteredCategories.reduce((n, c) => n + c.products.length, 0);
   const kitProducts = useMemo(() => ALL_BEAUTY_PRODUCTS.filter((p) => kit.has(p.id)), [kit]);
@@ -198,9 +178,9 @@ export default function BeautyToolkitClient() {
 
   const toggleExpand = (slug: string) => setExpanded((prev) => ({ ...prev, [slug]: !prev[slug] }));
   const toggleKit = (id: string) => setKit((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
-  const clearFilters = () => { setQ(""); setPriceIdx(0); setBrand("All brands"); setDealsOnly(false); setOccasion(""); setSort("curated"); };
+  const clearFilters = () => { setBrand("All brands"); setDealsOnly(false); setOccasion(""); setSort("curated"); };
 
-  const hasFilters = q || priceIdx !== 0 || brand !== "All brands" || dealsOnly || occasion || sort !== "curated";
+  const hasFilters = brand !== "All brands" || dealsOnly || occasion || sort !== "curated";
 
   const pageUrl = typeof window !== "undefined" ? `${window.location.origin}/collections/complete-amazon-makeup-toolkit` : "https://www.durza.in/collections/complete-amazon-makeup-toolkit";
 
@@ -274,12 +254,6 @@ export default function BeautyToolkitClient() {
             Everything you need for your <span className="block text-[#F2CDB8]">makeup routine.</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-[#F5EBE3]/92 sm:text-lg">From essential basics to finishing touches, all in one place.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm"><span className="font-semibold">{ALL_BEAUTY_PRODUCTS.length}</span> products</div>
-            <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm"><span className="font-semibold">{BEAUTY_SHOP_CATEGORIES.length}</span> routine steps</div>
-            <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm">Budget → Premium</div>
-          </div>
-          <p className="mt-6 max-w-3xl text-xs leading-5 text-[#F5EBE3]/72">Disclosure: As an Amazon Associate, Durza earns from qualifying purchases. Prices and availability may change on Amazon.in.</p>
         </div>
       </section>
 
@@ -298,17 +272,8 @@ export default function BeautyToolkitClient() {
               </ul>
             </nav>
 
-            <div className="flex items-center gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8A7A70]" />
-                <input
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  placeholder="Search products, brands..."
-                  className="w-full rounded-full border border-[#E0D4C8] bg-white py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#B5654A]"
-                />
-              </div>
-              <span className="shrink-0 text-[11px] text-[#8A7A70] lg:hidden">{visibleCount}</span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs text-[#8A7A70]">{visibleCount} shown</span>
               <button
                 type="button"
                 onClick={() => setFiltersOpen((v) => !v)}
@@ -316,14 +281,10 @@ export default function BeautyToolkitClient() {
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" /> Filters{hasFilters ? " •" : ""}
               </button>
-              <span className="hidden shrink-0 text-xs text-[#8A7A70] lg:inline">{visibleCount} shown</span>
             </div>
 
             <div className={`${filtersOpen ? "flex" : "hidden"} flex-col gap-2 lg:flex`}>
               <div className="flex flex-wrap items-center gap-2">
-                {PRICE_FILTERS.map((r, i) => (
-                  <button key={r.label} type="button" onClick={() => setPriceIdx(i)} className={`rounded-full border px-3 py-1.5 text-xs font-medium ${priceIdx === i ? "border-[#2A211A] bg-[#2A211A] text-white" : "border-[#E0D4C8] bg-white text-[#7A6A5F] hover:border-[#C9A08A]"}`}>{r.label}</button>
-                ))}
                 <button type="button" onClick={() => setDealsOnly((v) => !v)} className={`rounded-full border px-3 py-1.5 text-xs font-medium ${dealsOnly ? "border-[#B5654A] bg-[#FBF0EA] text-[#B5654A]" : "border-[#E0D4C8] bg-white text-[#7A6A5F] hover:border-[#C9A08A]"}`}>Deals only</button>
                 <select value={brand} onChange={(e) => setBrand(e.target.value)} className="max-w-[170px] rounded-full border border-[#E0D4C8] bg-white px-3 py-1.5 text-xs font-medium text-[#5A4D45] focus:outline-none focus:ring-2 focus:ring-[#B5654A]">
                   {brands.map((b) => <option key={b} value={b}>{b}</option>)}
@@ -373,7 +334,7 @@ export default function BeautyToolkitClient() {
                     </div>
                     <span className="ml-auto hidden shrink-0 rounded-full border border-[#E0D4C8] bg-white px-3 py-1.5 text-xs font-medium text-[#7A6A5F] sm:inline-flex">{category.products.length} picks</span>
                   </div>
-                  <div key={`${category.slug}-${q}-${priceIdx}-${brand}-${dealsOnly}-${occasion}-${sort}`} className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4 animate-[fadeIn_0.35s_ease-out]">
+                  <div key={`${category.slug}-${brand}-${dealsOnly}-${occasion}-${sort}`} className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4 animate-[fadeIn_0.35s_ease-out]">
                     {visibleProducts.map((product) => (
                       <ProductCard key={product.id} product={product} inKit={kit.has(product.id)} onToggleKit={toggleKit} />
                     ))}
