@@ -34,7 +34,7 @@ const OCCASION_SETS: Record<string, Set<string>> = {
   trending: new Set(["tr-lip-oil","tr-liquid-blush","tr-blush-wand","tr-lip-cheek-tint","tr-jelly-tint","tr-sky-tubes"]),
   everyday: new Set(["ed-tinted-moisturiser","ed-lip-cheek","ed-kajal","ed-mascara","ed-lip-balm","ed-concealer"]),
   party: new Set(["pg-vinyl-ink","pg-felt-liner","pg-pen-liner","pg-kohl","pg-waterproof-mascara","pg-strobing"]),
-  wedding: new Set(["wf-foundation","wf-compact","wf-bold-liner","wf-kohl","wf-mascara","wf-liquid-lip","tt-fixer-renee","tt-fixer-faces"]),
+  wedding: new Set(["wf-foundation","st-compact","wf-bold-liner","wf-kohl","wf-mascara","wf-liquid-lip","tt-fixer-renee","tt-fixer-faces"]),
   starter: new Set(["st-kajal","st-mascara","st-lip-balm","st-compact","st-bb","st-brow"]),
   tools: new Set(["tt-curler","tt-blotting","tt-brush","tt-sponge","tools-real-techniques-miracle-sponge","tools-vega-brush-set","spray-swiss-beauty-fixer"]),
 };
