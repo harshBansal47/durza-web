@@ -77,24 +77,16 @@ function ProductCard({ product, inKit, onToggleKit }: { product: BeautyProduct; 
   const pct = discountPercent(product.priceLabel, product.mrpLabel);
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-[#E8DDD2] bg-white/95 shadow-[0_1px_2px_rgba(44,36,32,0.04)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1 hover:shadow-[0_12px_24px_-8px_rgba(44,36,32,0.12)] hover:border-[#B5654A]/20 hover:ring-1 hover:ring-[#B5654A]/10">
-      <div className="relative aspect-square overflow-hidden bg-[#F4EFEA]">
+      <div className="relative aspect-square overflow-hidden bg-white">
         <SafeImage
           src={product.image}
           alt={`${product.brand} ${product.name}`}
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 240px"
-          className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
         <span className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] sm:px-2.5 sm:py-1 sm:text-[10px] ${badge.cls}`}>
           {badge.label}
         </span>
-        <button
-          type="button"
-          onClick={() => onToggleKit(product.id)}
-          aria-label={inKit ? `Remove ${product.name} from kit` : `Add ${product.name} to kit`}
-          className={`absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border text-sm shadow-sm transition-all duration-200 ease-out active:scale-110 ${inKit ? "border-[#B5654A] bg-[#B5654A] text-white scale-100" : "border-[#E8DDD2] bg-white/95 text-[#7A6A5F] hover:text-[#B5654A] hover:border-[#B5654A]/40 hover:bg-white"}`}
-        >
-          {inKit ? "✓" : "+"}
-        </button>
       </div>
 
       <div className="flex flex-1 flex-col p-2.5 sm:p-3">
