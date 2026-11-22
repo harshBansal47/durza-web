@@ -227,7 +227,7 @@ export default function BeautyToolkitClient() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#FAF8F5] text-[#2C2420] pb-20">
+    <main className="relative min-h-screen bg-[#F4EFEA] text-[#2C2420] pb-20">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 opacity-[0.03]" style={{backgroundImage:`url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`}} />
       <style>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -257,7 +257,7 @@ export default function BeautyToolkitClient() {
         </div>
       </section>
 
-      <div className="sticky top-0 z-40 border-b border-[rgba(232,221,210,0.6)] bg-[rgba(250,248,245,0.85)] backdrop-blur-[12px] shadow-[0_1px_0_rgba(255,255,255,0.5)]">
+      <div className="sticky top-0 z-40 border-b border-[rgba(232,221,210,0.6)] bg-[rgba(244,239,234,0.88)] backdrop-blur-[12px] shadow-[0_1px_0_rgba(255,255,255,0.5)]">
         <div className="mx-auto max-w-7xl px-4 py-2.5 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2.5">
             <nav aria-label="Routine steps" className="-mx-4 overflow-x-auto px-4 lg:mx-0 lg:px-0">
@@ -406,7 +406,7 @@ export default function BeautyToolkitClient() {
 
       {kitOpen && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/25 backdrop-blur-[2px] animate-[fadeIn_0.2s_ease-out]" role="dialog" aria-modal="true" aria-label="My kit">
-          <div className="h-full w-full max-w-md overflow-y-auto bg-[rgba(250,248,245,0.92)] backdrop-blur-[16px] p-5 shadow-[-8px_0_32px_rgba(44,36,32,0.12)] sm:p-6 animate-[slideInRight_0.4s_cubic-bezier(0.16,1,0.3,1)]">
+          <div className="h-full w-full max-w-md overflow-y-auto bg-[rgba(244,239,234,0.94)] backdrop-blur-[16px] p-5 shadow-[-8px_0_32px_rgba(44,36,32,0.12)] sm:p-6 animate-[slideInRight_0.4s_cubic-bezier(0.16,1,0.3,1)]">
             <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-center justify-between border-b border-[#E8DDD2]/80 bg-[rgba(250,248,245,0.85)] px-5 py-4 backdrop-blur-[12px] sm:-mx-6 sm:-mt-6 sm:px-6">
               <div>
                 <h2 className={`${serif} text-2xl font-semibold text-[#2C2420]`}>My Kit</h2>
