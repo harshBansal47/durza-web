@@ -83,3 +83,18 @@ Categories (all pre-existing, not introduced by Phase 2):
 
 **[decision]** No product code changed for these failures; fixing more than trivially safe copy
 assertions would risk mixing unrelated work into Phase 2 features.
+
+## T10 — Final verification
+- Backend pytest: 1154 passed, 1 skipped after adapting one scheduler test to the outbound kill switch.
+  ruff/format/mypy clean. Frontend vitest: 19 failed / 738 passed (baseline 22; three copy tests fixed,
+  no new failures). `tsc` clean; `next build` exit 0.
+- Routing/tracking diff `phase1..phase2`: backend routing files unchanged (store_router, affiliate_router,
+  affiliate, stores, vcommission, affiliate_out, click_service, locks). `lib/api.ts` gained only a
+  read-only collection-items fetch.
+- Claim sweep: only honest comments remain; no public "verified coupon", "Updated Today",
+  "verified discount" or "only list codes" claims.
+- Local dev smoke (backend down): `/`, `/collections`, `/stores/bewakoof`, `/admin/evidence`,
+  `/admin/digest`, `/admin/jobs`, `/admin/analytics` all HTTP 200. Write flows (evidence, publish gate,
+  deactivation) are proven with fixture tests against the test DB in this workspace; no dev/prod data
+  was written and no live network calls were made.
+- EDITOR_RUNBOOK.md written against the actual tools. No deployment, scheduler enablement or messaging.
