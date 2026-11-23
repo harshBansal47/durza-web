@@ -159,6 +159,9 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
                   <th scope="col" className="px-4 py-4 font-semibold sm:px-6">Factor</th>
                   <th scope="col" className="px-4 py-4 font-semibold sm:px-6">{entry.table.leftName}</th>
                   <th scope="col" className="px-4 py-4 font-semibold sm:px-6">{entry.table.rightName}</th>
+                  {entry.table.extraName && (
+                    <th scope="col" className="px-4 py-4 font-semibold sm:px-6">{entry.table.extraName}</th>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -167,6 +170,9 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
                     <th scope="row" className="px-4 py-4 align-top font-semibold text-[#141413] sm:px-6">{row.factor}</th>
                     <td className="px-4 py-4 align-top leading-7 text-[#3f3b35] sm:px-6">{row.left}</td>
                     <td className="px-4 py-4 align-top leading-7 text-[#3f3b35] sm:px-6">{row.right}</td>
+                    {entry.table.extraName && (
+                      <td className="px-4 py-4 align-top leading-7 text-[#3f3b35] sm:px-6">{row.extra ?? "—"}</td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -276,7 +282,13 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
                       <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />{g.label}
                     </Link>
                   </li>
-                )) : <li className="text-[#5a564f]">More guides coming soon.</li>}
+                )) : (
+                  <li>
+                    <Link href="/guides" className="inline-flex items-start gap-1.5 text-[#8a4b12] hover:underline">
+                      <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />Browse all buying guides
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             <div>

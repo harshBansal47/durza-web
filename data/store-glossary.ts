@@ -56,8 +56,18 @@ export const STORE_TOOL_ANCHORS = {
 
 export type StoreSlug = keyof typeof STORE_TOOL_ANCHORS;
 
-/** Returns `/stores/<slug>#<anchor>` — or `#tool` if the store isn't in the map. */
+/**
+ * Some brands publish their calculator as a dedicated route rather than an
+ * anchor on the store hub. Prefer those routes so guide CTAs never point at a
+ * fragment that does not exist.
+ */
+const STORE_TOOL_HREFS: Record<string, string> = {
+  havells: "/stores/havells/bldc-calculator",
+};
+
+/** Returns a dedicated tool route, `/stores/<slug>#<anchor>`, or `#tool` fallback. */
 export function toolHref(slug: string): string {
+  if (STORE_TOOL_HREFS[slug]) return STORE_TOOL_HREFS[slug];
   const anchor = (STORE_TOOL_ANCHORS as Record<string, string>)[slug];
   return anchor ? `/stores/${slug}#${anchor}` : `/stores/${slug}#tool`;
 }

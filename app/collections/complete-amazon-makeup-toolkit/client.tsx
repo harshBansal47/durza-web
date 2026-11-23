@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Check, Copy, Share2, SlidersHorizontal, X } from "lucide-react";
 import { GO_REL } from "@/lib/go";
+import Link from "next/link";
+import EditorialByline from "@/components/editorial/EditorialByline";
 import {
   ALL_BEAUTY_PRODUCTS,
   BEAUTY_INFO_SECTIONS,
@@ -38,6 +40,35 @@ function getNumericPrice(label: string): number | null {
   if (!m) return null;
   return Number(m[1].replace(/,/g, ""));
 }
+
+/**
+ * Kit totals are arithmetic on the prices already rendered in the grid: the
+ * cheapest listed pick in each step. They are catalogue snapshots, not live
+ * Amazon.in totals, and are labelled as such on the page.
+ */
+const KIT_TIERS = (() => {
+  const byStep = new Map(BEAUTY_SHOP_CATEGORIES.map((category) => [category.slug, category.products]));
+  const cheapestSum = (slugs: string[]) =>
+    slugs.reduce((total, slug) => {
+      const prices = (byStep.get(slug) ?? [])
+        .map((product) => getNumericPrice(product.priceLabel))
+        .filter((value): value is number => value !== null);
+      return total + (prices.length > 0 ? Math.min(...prices) : 0);
+    }, 0);
+
+  const starter = ["cleanser", "moisturizer", "sunscreen", "concealer", "lipstick-lip-tint"];
+  const party = [...starter, "primer", "foundation", "compact-powder", "eyeliner-kajal", "mascara", "setting-spray"];
+  return [
+    { name: "5-Step Everyday Starter", buyer: "College, office and first-time buyers", steps: starter.length, total: cheapestSum(starter) },
+    { name: "10-Step Party & Festive", buyer: "Weddings, festivals and long-wear days", steps: party.length, total: cheapestSum(party) },
+    {
+      name: "Full 18-Step Vanity",
+      buyer: "Bridal trousseau or a complete rebuild",
+      steps: BEAUTY_SHOP_CATEGORIES.length,
+      total: cheapestSum(BEAUTY_SHOP_CATEGORIES.map((category) => category.slug)),
+    },
+  ];
+})();
 
 function discountPercent(priceLabel?: string, mrpLabel?: string): string | null {
   const p = getNumericPrice(priceLabel || "");
@@ -243,10 +274,82 @@ export default function BeautyToolkitClient() {
         <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20">
           <p className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#F5D9C8]">Amazon.in Beauty Toolkit</p>
           <h1 className={`${serif} mt-6 max-w-4xl text-4xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl`}>
-            <span className="text-[#F5EBE3]/80">Everything you need for your</span> <span className="block text-[#F2CDB8]">makeup routine.</span>
+            <span className="text-[#F5EBE3]/80">Complete Makeup Toolkit on Amazon India</span> <span className="block text-[#F2CDB8]">18 steps, budget to luxury.</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#F5EBE3]/92 sm:text-lg">From essential basics to finishing touches, all in one place.</p>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-[#F5EBE3]/92 sm:text-lg">
+            108 curated picks in exact application order — from cleanser and sunscreen to setting spray and tools. Filter by brand, occasion or price tier instead of saving scattered reels.
+          </p>
         </div>
+      </section>
+
+      <section className="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Who this toolkit is for">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-2xl border border-[#D9CABE] bg-white p-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[#8F4E38]">Who it is for</p>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-[#5B4B42]">
+              <li>• Beginners and college/office buyers building a step-by-step kit from drugstore staples upward.</li>
+              <li>• Bridal and festive shoppers who want prep, base, eyes, lips and tools checked off in application order.</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-800">Who should skip it</p>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-[#5B4B42]">
+              <li>• Buyers needing personalised shade matching — check foundation and concealer shades on the Amazon listing first.</li>
+              <li>• Shoppers comparing live cross-store sales; check Nykaa before paying if a sale is running.</li>
+            </ul>
+          </div>
+        </div>
+
+        <EditorialByline
+          authorName="Harsh Bansal"
+          updatedAt="2026-11-24"
+          hasMethod
+        />
+
+        <div className="mt-6 rounded-2xl border border-[#E8DDD2] bg-white p-5">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8F4E38]">Quick verdict</p>
+          <h2 className={`${serif} mt-2 text-2xl font-semibold text-[#2C2420]`}>Where should you start?</h2>
+          <p className="mt-2 text-sm leading-7 text-[#7A6A5F]">
+            Do not buy all 18 steps on day one. Most everyday routines need five: cleanser, moisturiser, SPF 50, concealer or BB cream, and a lip tint. Use the “Starter” or “5-Min Everyday” filter below to hide advanced steps like contour and setting powder.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a href="/go/amazon-in?src=collection-makeup-verdict" rel={GO_REL} target="_blank" className="inline-flex min-h-11 items-center rounded-full bg-[#2C2420] px-4 text-sm font-semibold text-white hover:bg-[#8F4E38]">
+              Browse the toolkit on Amazon India →
+            </a>
+            <Link href="/guides/nykaa-coupons-and-sale-guide" className="inline-flex min-h-11 items-center rounded-full border border-[#D9CABE] px-4 text-sm font-semibold text-[#5B4B42] hover:border-[#B5654A] hover:text-[#B5654A]">
+              Compare Nykaa sale offers
+            </Link>
+            <Link href="/guides/indian-skincare-actives-haircare-guide" className="inline-flex min-h-11 items-center rounded-full border border-[#D9CABE] px-4 text-sm font-semibold text-[#5B4B42] hover:border-[#B5654A] hover:text-[#B5654A]">
+              Skincare actives guide
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-[#E8DDD2] bg-white">
+          <table className="min-w-full text-left text-sm">
+            <thead className="bg-[#F7F1EB]">
+              <tr>
+                <th scope="col" className="px-4 py-3 font-semibold text-[#2C2420]">Kit tier</th>
+                <th scope="col" className="px-4 py-3 font-semibold text-[#2C2420]">Steps</th>
+                <th scope="col" className="px-4 py-3 font-semibold text-[#2C2420]">Who it suits</th>
+                <th scope="col" className="px-4 py-3 font-semibold text-[#2C2420]">Cheapest-pick total*</th>
+              </tr>
+            </thead>
+            <tbody>
+              {KIT_TIERS.map((tier) => (
+                <tr key={tier.name} className="border-t border-[#EFE6DC]">
+                  <th scope="row" className="px-4 py-3 font-semibold text-[#2C2420]">{tier.name}</th>
+                  <td className="px-4 py-3 text-[#7A6A5F]">{tier.steps}</td>
+                  <td className="px-4 py-3 text-[#7A6A5F]">{tier.buyer}</td>
+                  <td className="px-4 py-3 font-semibold text-[#2C2420]">₹{tier.total.toLocaleString("en-IN")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-2 text-xs leading-5 text-[#8A7A70]">
+          *Each total adds the cheapest listed price in the relevant steps. Prices shown in the grid are catalogue snapshots, not live Amazon.in quotes — verify every price and shade on the listing before buying. Durza may earn a commission on qualifying purchases at no extra cost to you.
+        </p>
       </section>
 
       <div className="sticky top-0 z-40 border-b border-[rgba(232,221,210,0.6)] bg-[rgba(244,239,234,0.88)] backdrop-blur-[12px] shadow-[0_1px_0_rgba(255,255,255,0.5)]">
@@ -346,6 +449,19 @@ export default function BeautyToolkitClient() {
             })}
           </div>
         )}
+
+        <section className="mt-16 border-t border-[#E8DDD2] pt-12 sm:mt-20 sm:pt-16" aria-labelledby="selection-method">
+          <div className="mx-auto max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#B5654A]">Editorial method</p>
+            <h2 id="selection-method" className={`${serif} mt-2 text-3xl font-semibold text-[#2C2420]`}>How we selected these picks — and what this kit omits</h2>
+            <p className="mt-3 text-sm leading-7 text-[#7A6A5F]">
+              Steps follow standard application order: water-based skin prep, SPF, primer, cream or liquid base, powder, eye and lip colour, then setting spray. Within each step we shortlisted widely available brands sold through authorised Amazon.in storefronts across budget, bestseller, editor&apos;s pick and premium brackets. “Editor&apos;s pick” means routine-fit and value curation — not a wear test.
+            </p>
+            <p className="mt-3 text-sm leading-7 text-[#7A6A5F]">
+              This toolkit does not cover makeup removal, nail care, false lashes or lash glue, or shade matching for specific Indian undertones. We did not purchase, swatch or physically test these 108 products, and we have not re-verified the catalogue prices on a specific date. Check the live listing for price, shade and seller before paying.
+            </p>
+          </div>
+        </section>
 
         <section className="mt-16 border-t border-[#E8DDD2] pt-12 sm:mt-20 sm:pt-16">
           <div className="mx-auto max-w-3xl text-center">

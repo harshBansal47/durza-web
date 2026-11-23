@@ -41,7 +41,9 @@ export interface CompareEntry {
   table: {
     leftName: string;
     rightName: string;
-    rows: { factor: string; left: string; right: string }[];
+    /** Optional third brand column for three-way comparisons. */
+    extraName?: string;
+    rows: { factor: string; left: string; right: string; extra?: string }[];
   };
   insider: {
     title: string;
@@ -691,81 +693,128 @@ export const COMPARISONS: CompareEntry[] = [
   {
     slug: "kapiva-vs-hkvitals-vs-healthkart-supplements-india",
     category: "Health & Home",
-    title: "Shilajit, Collagen & Whey in India: How to Check Lab Reports & Where to Buy Safely",
-    seoTitle: "Kapiva vs HK Vitals vs HealthKart/BeastLife: Safe Supplements in India | Durza",
+    title: "Kapiva vs. HK Vitals vs. HealthKart in India (2026): Labels, Lab Reports & Safe Buying",
+    seoTitle: "Kapiva vs HK Vitals vs HealthKart India 2026: Labels, Lab Reports & Cost Per Serving | Durza",
     metaDescription:
-      "Compare Kapiva, HK Vitals, HealthKart and BeastLife in India. Learn a 30-second authenticity checklist: NABL reports, HK Verify scratch codes, batch lab reports, and veg/non-veg markers.",
+      "Compare three different supplement routes in India using published label data: Kapiva Shilajit resin, HK Vitals marine collagen and MuscleBlaze whey via HealthKart — with serving counts, cost per serving and verification checks.",
     heroImage: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=80",
     summary:
-      "Supplements are a trust purchase. Before chasing discounts, verify batch reports, authentication codes, and dietary markers—then buy from official or clearly authorized channels.",
-    updatedLabel: "Updated 18/11/2026",
+      "These are not direct substitutes: Kapiva sells Ayurvedic resins, HK Vitals sells daily nutraceuticals, and HealthKart is a multi-brand sports-nutrition marketplace. Compare label transparency, cost per serving and verification options — not headline discounts. No health or efficacy claims are made here.",
+    updatedLabel: "Updated 24/11/2026",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-24T00:00:00.000Z",
+    audience: {
+      bestFor: [
+        "Adults in India comparing an Ayurvedic resin, a daily collagen or a whey protein, and wanting to check label data and cost per serving before buying.",
+        "Shoppers who want to know which channels publish batch reports or authentication tools they can check themselves.",
+      ],
+      skipIf: [
+        "Pregnant or lactating women, anyone under 18, and people with kidney, liver or endocrine conditions or on prescription medication — speak to a qualified doctor first.",
+        "Anyone seeking treatment or disease management. Dietary supplements do not diagnose, treat, cure or prevent disease, and this page makes no efficacy claims.",
+      ],
+    },
     verdict: {
-      optionA: "Kapiva / HK Vitals",
-      optionB: "HealthKart / BeastLife",
-      text: "Choose Kapiva for Ayurveda-focused products (like Shilajit/juices) where batch test transparency matters, and HK Vitals for daily nutraceuticals with clear labeling. Choose HealthKart for multi-brand sports nutrition with authentication tools, and BeastLife when you want brand-published batch lab reports on whey/creatine—prioritize verified authenticity over the lowest price.",
+      optionA: "Kapiva Himalayan Shilajit Resin",
+      optionB: "HK Vitals Marine Collagen / MuscleBlaze whey via HealthKart",
+      text: "Pick by category, not by brand loyalty. Kapiva Himalayan Shilajit Resin 20g is ₹999 on the brand site with a 250mg serving (80 servings, ≈₹12.5 per serving) and the brand states NABL reports are available per pack. HK Vitals Skin Radiance Marine Collagen 200g is ₹909 with 5g collagen and 40mg vitamin C stated per serving (≈40 servings, ≈₹22.7 per serving) and is non-vegetarian (fish). MuscleBlaze Biozyme Performance Whey 1kg is listed at ₹3,999 with 25g protein per 36g scoop across 28 servings (≈₹142.8 per serving, ≈₹5.7 per gram of protein); the retailer states third-party certification, which you should verify on the exact batch. All figures were checked on 24 Nov 2026.",
       primaryStoreSlug: "kapiva",
       primaryStoreLabel: "Kapiva",
       secondaryStoreSlug: "healthkart",
       secondaryStoreLabel: "HealthKart",
     },
     table: {
-      leftName: "Ayurveda & daily nutraceuticals",
-      rightName: "Sports nutrition & verification",
+      leftName: "Kapiva Shilajit Resin 20g",
+      rightName: "HK Vitals Marine Collagen 200g",
+      extraName: "MuscleBlaze Biozyme Whey 1kg",
       rows: [
-        { factor: "Kapiva", left: "Ayurvedic products (e.g. Shilajit) — look for batch/NABL test info", right: "—" },
-        { factor: "HK Vitals", left: "Collagen/biotin/omega/multivitamins — check veg/non-veg markers", right: "—" },
-        { factor: "HealthKart", left: "—", right: "Multi-brand platform; use HK Verify/authentication where available" },
-        { factor: "BeastLife", left: "—", right: "Brand focus on whey/creatine; check published batch lab reports" },
-        { factor: "Safety rule", left: "Buy official/authorized, verify batch details", right: "Avoid unknown sellers even if heavily discounted" },
+        { factor: "Category", left: "Ayurvedic resin", right: "Daily nutraceutical (marine collagen)", extra: "Sports nutrition (whey protein)" },
+        { factor: "Serving size / servings", left: "250 mg / 80 servings (20 g jar)", right: "5 g collagen per scoop / ≈40 servings (200 g jar)", extra: "36 g scoop / 28 servings (1 kg tub)" },
+        { factor: "Actives stated on official/retail page", left: "Brand states 60%+ fulvic acid and 80+ minerals", right: "5 g hydrolysed marine collagen + 40 mg vitamin C per serving", extra: "25 g protein, 11.75 g EAA, 5.51 g BCAA per scoop" },
+        { factor: "Dietary / allergen marker", left: "Vegetarian; brand says not for pregnant or lactating women; 18+", right: "Non-vegetarian (fish source) — check shellfish allergy", extra: "Vegetarian dot, but contains milk and soy" },
+        { factor: "Batch / testing claim to verify", left: "Brand states NABL report with every pack — match the batch code", right: "Brand states third-party testing — ask for the batch COA", extra: "Retailer states Informed Choice / Labdoor / Trustified checks — verify the exact batch" },
+        { factor: "Price as reviewed*", left: "₹999 (MRP ₹1,199), kapiva.in, 24 Nov 2026", right: "₹909 (MRP ₹975), hkvitals.com, 24 Nov 2026", extra: "₹3,999, Amazon.in listing, 24 Nov 2026" },
+        { factor: "Cost per serving*", left: "≈₹12.5 (999 ÷ 80)", right: "≈₹22.7 (909 ÷ 40)", extra: "≈₹142.8 (3,999 ÷ 28); ≈₹5.7 per g protein" },
       ],
     },
     insider: {
       title: "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
       points: [
-        "30-second authenticity checklist: for Shilajit/herbals look for batch-level test reports (e.g. heavy metals/fulvic acid where provided), for marketplace/brand packs use scratch-code verification (like HK Verify) when available, and for whey/creatine prefer brands that publish batch lab reports.",
-        "Check dietary markers: green/red veg-nonveg dots and ingredient sources matter for collagen, omega-3, and capsules—don’t assume from the front label alone.",
-        "Counterfeits and poor storage are real risks. A verified source with a slightly higher price is usually the better buy than a deep discount from an unknown seller.",
+        "These three products are not alternatives to each other. A resin, a collagen powder and a whey tub solve different purchase questions — compare within a category, not across it.",
+        "A 'clinically proven' line on a brand page is not evidence by itself. We do not repeat efficacy claims on this page because no named study is cited in the sources we reviewed.",
+        "Batch reports must match the batch code printed on your pack. A generic certificate from a different batch is not the same thing.",
+        "*Prices are snapshots from 24 Nov 2026 and change during sales. Cost per serving divides the reviewed price by the stated servings; it is arithmetic on published data, not a measured result.",
+        "We did not purchase, consume or independently lab-test any of these products. We make no medical claims. If you have a medical condition, are pregnant, or take medication, consult a qualified professional.",
       ],
     },
     blocks: [
       {
-        heading: "Why “verified” matters more than “discounted”",
+        heading: "1. Label transparency — Winner: HK Vitals (5 g + 40 mg stated per serving)",
         paragraphs: [
-          "With supplements, the cheapest listing can be the most expensive mistake. Authenticity, batch quality, and proper storage are hard to judge from photos—so your buying channel and verification steps do the heavy lifting.",
+          "Of the three official pages we reviewed, HK Vitals states the most specific per-serving numbers for its marine collagen: 5 g collagen and 40 mg vitamin C, with a 200 g jar. MuscleBlaze states 25 g protein per 36 g scoop across 28 servings. Kapiva states 60%+ fulvic acid but dosing is a 250 mg measure by spoon, so exact daily intake depends on how level the scoop is.",
         ],
       },
       {
-        heading: "A simple way to shop safer",
+        heading: "2. Cost per serving — Winner: Kapiva (≈₹12.5 per serving)",
         paragraphs: [
-          "Pick the category first (Ayurvedic resin/juices, daily nutraceuticals, or sports nutrition), then choose a seller/channel that supports verification and clear labeling. Keep invoices and batch details for your records.",
-          "If you have medical conditions, are pregnant, or take medication, consult a qualified professional before starting supplements.",
+          "Dividing the reviewed price by stated servings gives ≈₹12.5 per Kapiva serving, ≈₹22.7 per HK Vitals serving and ≈₹142.8 per whey serving. These are not comparable benefits — they are different product categories — but the arithmetic stops a ₹999 jar from looking cheaper than it is without knowing the serving count.",
+        ],
+      },
+      {
+        heading: "3. Batch testing claims — Winner: whichever brand gives you a matching COA",
+        paragraphs: [
+          "Kapiva states NABL reports are available with every pack; HK Vitals states third-party testing; the MuscleBlaze retailer page names Informed Choice, Labdoor and Trustified checks. We have not verified any specific certificate. Ask for the report matching the batch code on your pack before you rely on it.",
+        ],
+      },
+      {
+        heading: "4. Allergens and dietary markers — Winner: no brand, check the label",
+        paragraphs: [
+          "HK Vitals collagen is explicitly non-vegetarian because it comes from fish. The whey carries a vegetarian dot but contains milk and soy. Kapiva's resin is labelled vegetarian and the brand says it is not for pregnant or lactating women and is for adults over 18. Read the back panel of the exact SKU rather than the front-of-pack claim.",
+        ],
+      },
+      {
+        heading: "5. Purchase channel — Winner: brand-direct where verification is supported",
+        paragraphs: [
+          "HealthKart describes an HK Verify scratch-code check on eligible products; brand-direct stores give you a clearer invoice and batch trail. Unknown marketplace resellers are where counterfeit and storage complaints concentrate. Keep the invoice and batch number for any return or quality question.",
+        ],
+      },
+      {
+        heading: "What we verified, and what we did not",
+        paragraphs: [
+          "We read official product pages on kapiva.in and hkvitals.com and a retail listing on Amazon.in on 24 Nov 2026, checking stated serving sizes, per-serving actives, dietary markers and prices. We did not purchase, consume, or commission laboratory testing on any product, and we make no health or efficacy claims. We could not open a batch-specific COA for any SKU. Prices are dated snapshots and change during sales.",
         ],
       },
     ],
     storeActions: [
-      { storeSlug: "kapiva", storeName: "Kapiva", bullets: ["Official source for Kapiva products and batch/test information where provided.", "Good starting point for Ayurveda-focused supplements."] },
-      { storeSlug: "hkvitals", storeName: "HK Vitals", bullets: ["Daily nutraceutical range with clear product labeling.", "Check dietary markers and ingredient details on product pages."] },
-      { storeSlug: "healthkart", storeName: "HealthKart", bullets: ["Multi-brand sports nutrition with authentication features on eligible products.", "Compare verified listings rather than unknown third-party sellers."] },
-      { storeSlug: "beast-life", storeName: "BeastLife", bullets: ["Brand-direct whey/creatine options; review published batch lab reports.", "Useful for buyers prioritizing transparency in sports nutrition."] },
+      { storeSlug: "kapiva", storeName: "Kapiva", bullets: ["Brand-direct: check the batch report and 18+ / pregnancy guidance on the pack.", "₹999 seen 24 Nov 2026 — verify current price."] },
+      { storeSlug: "hkvitals", storeName: "HK Vitals", bullets: ["Check the non-vegetarian fish source and per-serving collagen figure.", "₹909 seen 24 Nov 2026 — verify current price."] },
+      { storeSlug: "healthkart", storeName: "HealthKart", bullets: ["Multi-brand: confirm the exact brand and batch, not just the marketplace.", "Use authentication checks where the product supports them."] },
     ],
     faqs: [
-      { question: "How can I check if Shilajit or supplements are authentic?", answer: "Buy from official/authorized channels and look for batch-level test reports or authentication codes where available. Avoid listings with unclear sellers, missing labels, or prices far below normal.", sort_order: 0 },
-      { question: "What is HK Verify?", answer: "HK Verify is HealthKart’s scratch-code/authentication mechanism on eligible products to help confirm authenticity. Follow the instructions on the pack/product page to validate.", sort_order: 1 },
-      { question: "Do I need to check veg/non-veg markers?", answer: "Yes, especially for collagen, omega-3, and capsules. Check the product’s dietary marker and ingredient source on the label/official page.", sort_order: 2 },
-      { question: "Is the cheapest whey protein online a good deal?", answer: "Not if authenticity is uncertain. Prioritize verified sellers, batch transparency, and proper seals/invoices over deep discounts from unknown sources.", sort_order: 3 },
+      { question: "Which should I buy: Kapiva, HK Vitals or a whey tub from HealthKart?", answer: "They are different categories. Kapiva Himalayan Shilajit Resin 20g is an Ayurvedic resin at ₹999 with 250 mg servings (≈₹12.5/serving). HK Vitals Marine Collagen 200g is a fish-derived daily supplement at ₹909 with 5 g collagen per serving (≈₹22.7/serving). MuscleBlaze Biozyme Whey 1kg is sports nutrition at ₹3,999 with 25 g protein per 36 g scoop (≈₹5.7 per gram of protein). Choose within your category and verify the label.", sort_order: 0 },
+      { question: "How do I check a batch lab report?", answer: "Find the batch code printed on your pack, then ask the brand for the certificate of analysis matching that code. A generic report from another batch is not the same evidence. Kapiva states NABL reports are available per pack; we have not opened a specific report ourselves.", sort_order: 1 },
+      { question: "What is HK Verify?", answer: "HealthKart describes it as a scratch-code authentication mechanism on eligible products. Check whether your exact product supports it and follow the instructions on the pack. We have not tested the mechanism.", sort_order: 2 },
+      { question: "Do I need to check veg/non-veg markers?", answer: "Yes. HK Vitals' collagen is non-vegetarian because it is fish-derived; the whey carries a vegetarian dot but contains milk and soy. Read the ingredient panel of the exact SKU before buying.", sort_order: 3 },
+      { question: "Did Durza test or consume these supplements?", answer: "No. We compared published label and retail data on 24 Nov 2026 and make no medical or efficacy claims. Consult a qualified professional before starting any supplement, especially if you are pregnant, under 18, or taking medication.", sort_order: 4 },
     ],
     relatedComparisons: [
-      "kama-ayurveda-vs-forest-essentials-vs-indus-valley",
-      "adidas-vs-nike-vs-asics-running-shoes-india",
+      "credit-card-instant-discount-vs-no-cost-emi-india",
     ],
-    relatedGuides: [],
+    relatedGuides: [
+      { href: "/guides/kapiva-ayurveda-daily-wellness-guide", label: "Kapiva daily wellness guide" },
+      { href: "/guides/hkvitals-daily-multivitamin-guide", label: "HK Vitals daily nutrition guide" },
+      { href: "/guides/healthkart-whey-creator-and-stacking-guide", label: "HealthKart whey and creatine buying guide" },
+    ],
     relatedReviewsStores: [
+      { href: "/topics/health", label: "Health & Fitness topic hub" },
+      { href: "/categories/supplements", label: "Supplements & Fitness category" },
+      { href: "/tools", label: "Protein Cost Decoder and other tools" },
+      { href: "/reviews/kapiva-himalayan-shilajit-resin-india-review", label: "Kapiva Shilajit resin review" },
       { href: "/stores/kapiva", label: "Kapiva store hub" },
       { href: "/stores/hkvitals", label: "HK Vitals store hub" },
       { href: "/stores/healthkart", label: "HealthKart store hub" },
       { href: "/stores/beast-life", label: "BeastLife store hub" },
     ],
-    keywords: ["Kapiva Shilajit lab report", "HK Vitals vs HealthKart", "authentic supplements India", "HK Verify", "whey creatine batch test"],
+    keywords: ["Kapiva vs HK Vitals vs HealthKart India", "Shilajit NABL lab report check", "HK Vitals marine collagen serving", "cost per serving supplements India", "MuscleBlaze whey protein per gram India", "authentic supplements India"],
   },
   {
     slug: "adidas-vs-nike-vs-asics-running-shoes-india",
@@ -845,76 +894,128 @@ export const COMPARISONS: CompareEntry[] = [
   {
     slug: "havells-vs-ao-smith-vs-crompton-water-heaters-india",
     category: "Health & Home",
-    title: "Storage vs. Instant Geysers for Indian High-Rises: BEE 5-Star Ratings & Installation",
-    seoTitle: "Havells vs AO Smith vs Crompton Geysers in India: 8-Bar, BEE & Installation | Durza",
+    title: "Havells vs. AO Smith vs. Crompton Geysers in India (2026): 8-Bar, Hard Water & Warranty Compared",
+    seoTitle: "Havells vs AO Smith vs Crompton Geyser India 2026: 15L 5-Star Compared | Durza",
     metaDescription:
-      "Compare Havells, AO Smith, and Crompton water heaters in India: 8-bar pressure for high-rises, hard-water tank protection, BEE ratings, and why official installation matters.",
+      "Compare the Havells Adonia Spin 15L, AO Smith HSE-SDS-015 and Crompton Arno Neo 15L on 8-bar pressure, BEE standing loss, hard-water tank protection and warranty — with numbers from official spec sheets.",
     heroImage: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
     summary:
-      "A geyser isn’t just litres and stars. In Indian apartments, pressure rating (8-bar), water quality, and proper installation decide whether your heater lasts through winters or leaks early.",
-    updatedLabel: "Updated 18/11/2026",
+      "In Indian high-rises and hard-water cities, a 5-star sticker does not stop a tank from leaking in year three. Here is how three 15L storage geysers compare on rated pressure, tank coating, standing heat loss and warranty — using manufacturer spec sheets and published label data rather than marketing claims.",
+    updatedLabel: "Updated 24/11/2026",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-24T00:00:00.000Z",
+    audience: {
+      bestFor: [
+        "High-rise apartment owners and homes with pressure pumps that need an 8-bar rated 15L–25L storage geyser.",
+        "Buyers in hard-water cities comparing glass-lined tanks, anode protection and tank warranty terms.",
+      ],
+      skipIf: [
+        "Buyers needing a 3L instant kitchen geyser or a gas/solar heater — this compares 15L bathroom storage models.",
+        "Renters in low-pressure independent houses where a basic 6.5-bar budget geyser is sufficient.",
+      ],
+    },
     verdict: {
-      optionA: "Havells / AO Smith",
-      optionB: "Crompton (budget/value)",
-      text: "Choose Havells or AO Smith for robust tanks and features suited to high-rise pressure and tough water conditions (model dependent), and Crompton for solid value options. In multi-story buildings or with pressure pumps, prioritize an 8-bar rated storage geyser and proper installation over a small price difference.",
+      optionA: "Havells Adonia Spin 15L",
+      optionB: "AO Smith HSE-SDS-015 / Crompton Arno Neo 15L",
+      text: "All three are 8-bar, 2000W, 5-star 15L storage geysers, so the decision comes down to what you value. Havells Adonia Spin has the lowest published standing loss (0.419 kWh/24h) and the strongest warranty split (7-year tank, 4-year element, 2-year comprehensive). AO Smith HSE-SDS-015 uses a Blue Diamond glass-lined tank with a 7-year tank and 2+2-year element warranty, but its standing loss is higher at 0.451 kWh/24h and the anode is explicitly outside warranty. Crompton Arno Neo 15L is the value pick at a 5-year tank / 2-year element / 2-year product warranty — but we could not verify its standing-loss figure from an official source, so do not buy it on efficiency claims alone.",
       primaryStoreSlug: "havells",
       primaryStoreLabel: "Havells",
       secondaryStoreSlug: "amazon-in",
-      secondaryStoreLabel: "Amazon",
+      secondaryStoreLabel: "Amazon India",
     },
     table: {
-      leftName: "Havells / AO Smith",
-      rightName: "Crompton",
+      leftName: "Havells Adonia Spin 15L",
+      rightName: "AO Smith HSE-SDS-015",
+      extraName: "Crompton Arno Neo 15L",
       rows: [
-        { factor: "High-rise pressure", left: "Look for 8-bar rated models for tall buildings/pressure pumps", right: "Check pressure rating per model; don’t assume" },
-        { factor: "Hard water", left: "Tank/coating tech can help in high-TDS areas (model dependent)", right: "Value models available; maintenance/descaling matters" },
-        { factor: "Efficiency", left: "Compare BEE star rating and standing loss, not just wattage", right: "Compare BEE rating and heating speed for your usage" },
-        { factor: "Installation", left: "Brand/authorized installation can protect warranty and reduce leaks", right: "Ensure correct fittings/valves and safe installation" },
-        { factor: "Best for", left: "Long-term reliability in demanding conditions", right: "Budget-conscious homes/rentals with suitable specs" },
+        { factor: "Rated pressure", left: "8 bar (0.8 MPa)", right: "8 bar (0.8 MPa)", extra: "8 bar (0.8 MPa)" },
+        { factor: "Tank & element", left: "Feroglas single-weld steel tank; Incoloy 800 glass-coated element; heavy magnesium anode", right: "Blue Diamond glass-lined tank; glass-coated Incoloy element; anode not covered by warranty", extra: "Anti-scale / Nano polymer-coated tank; copper-tube element; magnesium anode" },
+        { factor: "Standing loss (kWh/24h at 45°C)", left: "0.419 (Havells brochure)", right: "0.451 (AO Smith user guide)", extra: "Not published on the official page we checked — verify on the BEE label" },
+        { factor: "Reheat time", left: "20 min to raise 50°C (Havells brochure)", right: "12 min for a 35°C rise (AO Smith user guide)", extra: "Third-party listings say ~40 min; not confirmed on an official source" },
+        { factor: "Power / BEE rating", left: "2000 W · 5 star", right: "2000 W · 5 star", extra: "2000 W · 5 star" },
+        { factor: "Warranty (tank / element / product)", left: "7 yr / 4 yr / 2 yr", right: "7 yr / 2+2 yr / 2 yr (element extension needs registration within 60 days)", extra: "5 yr / 2 yr / 2 yr" },
+        { factor: "In the box", left: "2 flexi pipes, wall-mounting accessory, shock-safe plug (Havells brochure)", right: "Check the exact listing — hoses are not covered by AO Smith warranty", extra: "Geyser, multi-function valve, warranty card (listing)" },
+        { factor: "Price as reviewed*", left: "MRP ₹19,510 on Havells brochure; street listing ₹10,990 seen on Smartprix", right: "₹9,299 seen on Smartprix", extra: "₹5,699 seen in a third-party comparison; verify the live listing" },
       ],
     },
     insider: {
       title: "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
       points: [
-        "8-bar pressure is not optional in many high-rises: if you’re on lower floors of a tall building or use a pressure pump, a lower-rated tank can fail early. Check the pressure rating on the exact model.",
-        "Hard water kills heaters quietly: scaling reduces efficiency and can damage tanks. In high-TDS areas, choose appropriate tank protection and plan periodic maintenance.",
-        "Official/authorized installation can save money and hassle: correct valves, piping, and mounting reduce leak risks and help keep warranty claims straightforward.",
+        "8 bar is a rating, not a guarantee. All three models here carry 8-bar (0.8 MPa) ratings, but the multi-function safety valve must be fitted correctly — AO Smith's manual explicitly warns against removing or tampering with it.",
+        "Wattage is not your electricity bill. Standing loss is what you pay while the tank sits hot between morning and evening use. Havells publishes 0.419 kWh/24h, AO Smith 0.451 kWh/24h. We could not confirm a Crompton figure from an official source, so treat any efficiency claim for it as unverified.",
+        "Element warranty is not tank warranty. Havells offers 4 years on the element; AO Smith offers 2+2 years only if you register within 60 days; Crompton offers 2 years. The longest tank warranty does not mean the longest element cover.",
+        "Anodes are consumables. AO Smith's warranty document states the anode is not covered and that the tank warranty can be void if it is removed or not replaced when consumed — budget for periodic service in hard-water areas.",
+        "*We did not purchase, install or physically test these water heaters. Prices are listing snapshots seen on 24 Nov 2026, not live quotes. Check the current price, pincode installation terms and exact SKU before paying.",
       ],
     },
     blocks: [
       {
-        heading: "The high-rise geyser mistake",
+        heading: "1. High-rise pressure — Winner: tie (all three are 8 bar)",
         paragraphs: [
-          "Many winter replacements aren’t because of “bad brands” but mismatched specs—especially pressure rating. Before buying, confirm your building’s water pressure situation and choose an 8-bar model if needed.",
+          "Every floor adds static pressure, and booster pumps push it higher. All three models in this comparison are rated to 8 bar (0.8 MPa), so none of them is automatically unsafe for a high-rise. Check the rating plate on the exact SKU you receive: older and budget variants from these brands can still be 6.5 bar.",
         ],
       },
       {
-        heading: "Storage vs instant: choose by usage",
+        heading: "2. Hard-water tank longevity — Winner: Havells and AO Smith",
         paragraphs: [
-          "Instant heaters suit quick, low-volume use but depend on electrical capacity and flow rate. Storage geysers are better for bucket baths/family use. Compare capacity, BEE rating, and reheating time for your household.",
+          "Havells uses a Feroglas single-weld steel tank with an Incoloy 800 glass-coated element and a heavy magnesium anode. AO Smith uses its Blue Diamond glass-lined tank with a glass-coated element. Crompton's anti-scale coating is rated for high TDS, but its element is a copper tube and the tank warranty is 5 years rather than 7. In high-TDS water, plan periodic descaling regardless of coating — AO Smith's own manual makes anode replacement a warranty condition.",
+        ],
+      },
+      {
+        heading: "3. Standing heat loss — Winner: Havells (0.419 kWh/24h)",
+        paragraphs: [
+          "Published standing loss is 0.419 kWh/24h at 45°C for the Havells Adonia Spin 15L and 0.451 kWh/24h for the AO Smith HSE-SDS-015. At typical Indian tariffs the gap is small in rupees per day, but it compounds over a year of standby operation. We could not verify a standing-loss number for the Crompton Arno Neo from an official page — do not assume 5-star means the same standby loss across brands.",
+        ],
+      },
+      {
+        heading: "4. Price versus installation extras — Winner: Crompton (value)",
+        paragraphs: [
+          "Listing snapshots on 24 Nov 2026 put the Crompton well below the other two, with a 5-year tank warranty. Havells' brochure lists 2 flexi pipes and a wall-mounting kit in the box; AO Smith's warranty excludes hoses and site plumbing work. Compare the final payable amount including installation and pipe kits, not just the product price.",
+        ],
+      },
+      {
+        heading: "5. Warranty structure — Winner: Havells",
+        paragraphs: [
+          "Havells: 7-year tank, 4-year element, 2-year comprehensive. AO Smith: 7-year tank, 2+2-year element only after registration within 60 days, 2-year product, with the anode excluded. Crompton: 5-year tank, 2-year element, 2-year product. If you plan to keep the geyser past year five, the element cover is the part that matters.",
+        ],
+      },
+      {
+        heading: "What we verified, and what we did not",
+        paragraphs: [
+          "We reviewed the Havells Adonia Spin product brochure and Havells water-heater catalogue, the AO Smith HSE-SAS/HSE-SDS/HSE-SGS user guide and warranty terms, the Crompton Arno Neo 15L retail listing, and comparison listings from Smartprix and NxtFone — all accessed on 24 Nov 2026. We did not purchase, install or physically test any of these water heaters, and we have not checked pincode-specific installation charges. Prices are dated snapshots and will change during sales.",
         ],
       },
     ],
     storeActions: [
-      { storeSlug: "havells", storeName: "Havells", bullets: ["Check model specs (pressure rating, tank type) and service coverage.", "Explore brand installation/support options for safer setup."] },
-      { storeSlug: "amazon-in", storeName: "Amazon", bullets: ["Compare prices and delivery across brands and capacities.", "Verify seller, warranty, and installation availability in your pincode."] },
+      { storeSlug: "havells", storeName: "Havells", bullets: ["Check the exact 15L SKU, warranty card and installation terms.", "Official store for model specs and service information."] },
+      { storeSlug: "amazon-in", storeName: "Amazon India", bullets: ["Compare prices across all three brands and verify the seller.", "Inspect the BEE label and rating plate on delivery."] },
     ],
     faqs: [
-      { question: "What does 8-bar pressure rating mean for geysers?", answer: "It indicates the tank is designed to handle higher water pressure, which is important in many multi-story buildings or where pressure pumps are used. Check your building conditions and choose accordingly.", sort_order: 0 },
-      { question: "Which geyser is best for hard water areas?", answer: "Look for models with suitable tank protection/coatings and plan regular descaling/maintenance. Brand and model features vary, so compare specs for high-TDS conditions.", sort_order: 1 },
-      { question: "Is brand installation necessary?", answer: "Not always mandatory, but authorized installation can reduce leak/safety risks and help with warranty compliance. Follow the manufacturer’s installation guidelines.", sort_order: 2 },
-      { question: "Storage or instant geyser—which should I buy?", answer: "Storage geysers work well for families and bucket baths; instant heaters suit quick, limited use if your electrical setup supports them. Choose based on usage, capacity, and efficiency.", sort_order: 3 },
+      { question: "Which is the best 15L geyser for a high-rise in India?", answer: "All three compared here are rated 8 bar (0.8 MPa), which is the figure to check for high-rise and pressure-pump use. On published data the Havells Adonia Spin 15L has the lowest standing loss (0.419 kWh/24h) and the longest element warranty (4 years); AO Smith HSE-SDS-015 has a 7-year tank but 2+2-year element cover; Crompton Arno Neo 15L is the value option with a 5-year tank warranty.", sort_order: 0 },
+      { question: "What does 8-bar pressure rating actually mean?", answer: "It means the tank and its multi-function safety valve are designed for 0.8 MPa of water pressure — the figure that matters in tall buildings and with booster pumps. Verify it on the rating plate of the exact SKU, since budget variants from the same brands can be 6.5 bar.", sort_order: 1 },
+      { question: "Which geyser is better for hard water?", answer: "Havells' Feroglas single-weld tank with an Incoloy 800 glass-coated element and AO Smith's Blue Diamond glass-lined tank are both designed for demanding water. Crompton's anti-scale coating is rated for high TDS too, but its element warranty is shorter. In all cases, periodic descaling and anode replacement matter more than the coating name.", sort_order: 2 },
+      { question: "Does the 5-star rating tell me my electricity bill?", answer: "Not by itself. Standing loss (kWh per 24 hours at 45°C) is the number that reflects standby cost. Havells publishes 0.419 and AO Smith 0.451 for the models here. We could not verify Crompton's figure from an official source, so do not compare on the star sticker alone.", sort_order: 3 },
+      { question: "Did Durza physically test these water heaters?", answer: "No. We compared manufacturer spec sheets, warranty documents and published retail listings accessed on 24 Nov 2026. Prices are dated snapshots, not live quotes, and we have not verified pincode-specific installation charges.", sort_order: 4 },
     ],
     relatedComparisons: [
       "amazon-vs-flipkart-electronics-2026",
       "credit-card-instant-discount-vs-no-cost-emi-india",
     ],
-    relatedGuides: [],
+    relatedGuides: [
+      { href: "/guides/havells-bldc-fan-offers-guide", label: "Havells BLDC fan offers and honest savings math" },
+      { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
+    ],
     relatedReviewsStores: [
+      { href: "/topics/home", label: "Home & Appliances topic hub" },
+      { href: "/categories/home-kitchen", label: "Home & Kitchen category" },
+      { href: "/collections/high-rise-indian-apartment-utility-and-diy-kit", label: "High-rise apartment setup kit" },
+      { href: "/stores/havells/bldc-calculator", label: "Havells BLDC electricity savings calculator" },
+      { href: "/coupons/havells-adonia-spin-15-litre-storage-water-heater", label: "Havells Adonia Spin 15L offer" },
+      { href: "/coupons/crompton-arno-neo-15l-storage-water-heater", label: "Crompton Arno Neo 15L offer" },
       { href: "/stores/havells", label: "Havells store hub" },
       { href: "/stores/amazon-in", label: "Amazon India store hub" },
     ],
-    keywords: ["Havells vs AO Smith vs Crompton geyser India", "8 bar pressure geyser high rise", "BEE 5 star water heater", "hard water geyser tank", "geyser installation India"],
+    keywords: ["Havells vs AO Smith vs Crompton geyser India", "best 15L geyser high rise India", "8 bar pressure water heater", "BEE 5 star geyser standing loss", "hard water geyser tank warranty", "Havells Adonia Spin vs AO Smith HSE-SDS-015"],
   },
   {
     slug: "credit-card-instant-discount-vs-no-cost-emi-india",
@@ -999,77 +1100,128 @@ export const COMPARISONS: CompareEntry[] = [
   {
     slug: "boat-vs-boult-vs-oneplus-tws-under-2000-india",
     category: "Electronics & Laptops",
-    title: "Best ANC & Calling Earbuds Under ₹2,000 in India: Mic Clarity, Battery & Warranty",
-    seoTitle: "Boult vs boAt vs OnePlus TWS Under ₹2,000 in India: Calls, ANC & Warranty | Durza",
+    title: "boAt vs. Boult vs. OnePlus TWS Under ₹2,000 in India (2026): Call Mics, ANC & Battery",
+    seoTitle: "boAt vs Boult vs OnePlus Earbuds Under ₹2000 India 2026: Specs Compared | Durza",
     metaDescription:
-      "Compare Boult, boAt, and OnePlus TWS under ₹2,000 in India: ENC vs ANC explained, mic clarity for traffic calls, battery claims, and warranty/authenticity tips.",
+      "Compare Boult Z40 Pro, boAt Airdopes 141 ANC and OnePlus Nord Buds 2r under ₹2,000 on mic count, ANC claims, battery, IP rating, latency and price — with all figures labelled as manufacturer or listing data.",
     heroImage: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=80",
     summary:
-      "Under ₹2,000, big “ANC” numbers don’t guarantee clear calls. For Indian commutes, mic/ENC performance, fit, and reliable warranty support often matter more than marketing dB claims.",
-    updatedLabel: "Updated 18/11/2026",
+      "Under ₹2,000, a “32dB ANC” sticker will not make your voice clearer on a noisy auto or metro. Call microphones and ENC do that. Here are three specific models compared on published specs, with every decibel and battery figure clearly labelled as a manufacturer claim.",
+    updatedLabel: "Updated 24/11/2026",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-24T00:00:00.000Z",
+    audience: {
+      bestFor: [
+        "Commuters and remote workers under ₹2,000 who care more about clear voice pickup than heavy bass.",
+        "Students comparing battery endurance, low-latency modes and a one-year brand warranty.",
+      ],
+      skipIf: [
+        "Buyers expecting true engine or flight-noise cancellation — sub-₹2,000 ANC mostly dulls steady fan and AC hum.",
+        "Competitive FPS players: even 45–94 ms “gaming modes” still trail wired earphones.",
+      ],
+    },
     verdict: {
-      optionA: "Boult / boAt",
-      optionB: "OnePlus (Nord Buds range, when in budget)",
-      text: "Choose Boult or boAt for value-focused options with strong battery/features under ₹2,000 and wide availability. Choose OnePlus Nord Buds when pricing dips close to ₹2,000 and you want balanced sound and easy pairing—prioritize ENC/mic clarity for calls in traffic and buy from authorized channels for warranty.",
+      optionA: "Boult Z40 Pro",
+      optionB: "boAt Airdopes 141 ANC / OnePlus Nord Buds 2r",
+      text: "Pick the Boult Z40 Pro at ₹1,299 if battery and low latency matter most: its official page lists 100 hours total playback, Zen Quad Mic ENC, Bluetooth 5.3, IPX5 and a 45 ms gaming mode. Pick the boAt Airdopes 141 ANC (₹1,256–₹1,399 across listings) if you want an advertised 32 dB ANC rating and quad mics, accepting 42 hours total. Pick the OnePlus Nord Buds 2r (₹1,649 seen on Smartprix) if IP55 dust protection and a 12.4 mm driver matter more than battery — but check the live price, since it can sit above ₹2,000. All figures are manufacturer or retail-listing claims; we did not test these earbuds.",
       primaryStoreSlug: "boult",
       primaryStoreLabel: "Boult",
       secondaryStoreSlug: "amazon-in",
-      secondaryStoreLabel: "Amazon",
+      secondaryStoreLabel: "Amazon India",
     },
     table: {
-      leftName: "Boult / boAt",
-      rightName: "OnePlus",
+      leftName: "Boult Z40 Pro",
+      rightName: "boAt Airdopes 141 ANC",
+      extraName: "OnePlus Nord Buds 2r",
       rows: [
-        { factor: "Calling in noise", left: "Look for quad-mic/ENC tuning (model dependent)", right: "Often good vocal clarity; check model mic specs" },
-        { factor: "ANC vs ENC", left: "ANC may reduce steady hum; ENC helps your voice on calls", right: "Similar—ANC helps you, ENC helps the caller" },
-        { factor: "Battery & features", left: "Aggressive battery/latency claims on many models", right: "Balanced features; fast pairing on compatible phones" },
-        { factor: "Warranty/service", left: "Check official e-warranty/service process; boAt has wide reach", right: "Brand support network; ensure authorized purchase" },
-        { factor: "Best for", left: "Budget commuters wanting features and battery", right: "Balanced sound/calls near the ₹2,000 mark (sale dependent)" },
+        { factor: "Price as reviewed*", left: "₹1,299 (goboult.co.in)", right: "₹1,256–₹1,399 (Gadgets Now / Smartprix / Cashify)", extra: "₹1,649 (Smartprix); other listings up to ₹2,299" },
+        { factor: "Call mic setup", left: "Zen Quad Mic ENC (official page)", right: "Quad mic (Smartprix)", extra: "Dual mic with AI noise reduction (Smartprix)" },
+        { factor: "ANC (manufacturer claim)", left: "Not listed on official page — ENC only; verify exact SKU", right: "32 dB ANC claimed in listings", extra: "25 dB ANC claimed in listings" },
+        { factor: "Bluetooth / codecs", left: "5.3 · AAC, SBC", right: "5.3 · codecs not published in sources checked", extra: "5.3 · codecs not published in sources checked" },
+        { factor: "Battery (brand/listings)", left: "8 h buds · 100 h with case", right: "6 h buds ANC off · 42 h total; 5 h / 35 h ANC on", extra: "8 h buds · 38 h total ANC off; 5 h / 27 h ANC on" },
+        { factor: "Driver", left: "Official page lists 10 mm in specs and 13 mm in feature text — verify SKU", right: "10 mm", extra: "12.4 mm titanium" },
+        { factor: "Latency mode", left: "45 ms (official)", right: "50 ms Beast mode (listing)", extra: "94 ms (listing)" },
+        { factor: "Water resistance / warranty", left: "IPX5 · 1 year", right: "IPX5 · 1 year", extra: "IP55 (dust + splash) · 1 year" },
       ],
     },
     insider: {
       title: "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
       points: [
-        "ENC vs ANC in plain English: ENC (environmental noise cancellation) helps the person on the call hear you by reducing traffic/wind noise; ANC helps you by reducing steady sounds like fans/AC/metro hum. Under ₹2,000, good ENC/mic tuning often matters more for calls.",
-        "Don’t buy dB claims alone. Fit, mic placement, and tuning affect call quality more than a single advertised number.",
-        "Register e-warranty on the official site where available and buy from authorized storefronts to avoid DOA/warranty headaches.",
+        "ENC and ANC do different jobs. ENC suppresses noise picked up by the microphone so the caller hears you; ANC reduces noise you hear. A bigger dB number on the box says nothing about call clarity.",
+        "Every dB figure here is a manufacturer or retail-listing claim, not a measurement. We did not run an acoustic chamber or wind-tunnel test.",
+        "Turning ANC on costs battery: the listed OnePlus figures drop from 8 h / 38 h to 5 h / 27 h, and the boAt figures from 6 h / 42 h to 5 h / 35 h.",
+        "Check the driver spec on the exact SKU: Boult's own Z40 Pro page lists both 10 mm and 13 mm in different sections.",
+        "*Prices are snapshots seen on 24 Nov 2026 and move during sales. Register e-warranty with the GST invoice and test both buds immediately after delivery.",
       ],
     },
     blocks: [
       {
-        heading: "Why calls sound bad even with “ANC” earbuds",
+        heading: "1. Call microphones — Winner: Boult and boAt on mic count (4 vs 2)",
         paragraphs: [
-          "If you take calls from an auto, bike, or windy street, the other person hears your mic—not your ANC. That’s why ENC and mic quality are crucial for commuters, while ANC is mainly for your listening comfort in steady noise.",
+          "The Boult Z40 Pro and boAt Airdopes 141 ANC are both listed with four-microphone arrays; the OnePlus Nord Buds 2r is listed with two. More mics can help isolate speech in traffic, but tuning and fit matter as much as the count. We did not test call quality.",
         ],
       },
       {
-        heading: "How to pick under ₹2,000",
+        heading: "2. ANC claims — Winner: boAt on paper (32 dB claimed)",
         paragraphs: [
-          "Shortlist by use case (calls, music, gaming latency), check recent user feedback for mic quality, and confirm warranty/support. During sales, OnePlus Nord Buds can dip near this range—compare final price and features at checkout.",
+          "Listings claim 32 dB ANC for the boAt Airdopes 141 ANC and 25 dB for the OnePlus Nord Buds 2r, while Boult's Z40 Pro page lists ENC but no ANC rating. These are peak laboratory figures at narrow frequencies, not real-world street silence. Expect a modest reduction in steady fan or AC hum, not horn cancellation.",
+        ],
+      },
+      {
+        heading: "3. Battery — Winner: Boult Z40 Pro (100 h total claimed)",
+        paragraphs: [
+          "Boult claims 100 hours total playback for the Z40 Pro and 8 hours on the buds. The boAt is listed at 42 hours total and the OnePlus at 38 hours with ANC off. With ANC on, the published figures fall to 35 hours (boAt) and 27 hours (OnePlus). Judge on bud runtime first — a large case number does not save a mid-day top-up.",
+        ],
+      },
+      {
+        heading: "4. Durability — Winner: OnePlus (IP55)",
+        paragraphs: [
+          "The Nord Buds 2r carry an IP55 rating, covering dust as well as splashes. The Boult and boAt models are IPX5 — splash protection with no dust rating. For gym bags and dusty commutes, that distinction is more useful than a headline dB figure.",
+        ],
+      },
+      {
+        heading: "5. Latency and price — Winner: Boult Z40 Pro",
+        paragraphs: [
+          "Boult lists a 45 ms gaming mode against 50 ms for boAt and 94 ms for OnePlus, and its ₹1,299 official price is the lowest of the three. Even 45 ms is not competitive with wired earphones for competitive play.",
+        ],
+      },
+      {
+        heading: "What we verified, and what we did not",
+        paragraphs: [
+          "We read official product pages on goboult.co.in and boultaudio.com plus specification listings from Smartprix, Gadgets Now and Cashify on 24 Nov 2026. We did not purchase, wear or acoustically test any of these earbuds; all dB, battery and latency figures are manufacturer or listing claims. Prices are dated snapshots and change during sales.",
         ],
       },
     ],
     storeActions: [
-      { storeSlug: "boult", storeName: "Boult", bullets: ["Brand-direct options and e-warranty registration on eligible products.", "Good place to verify models and current pricing."] },
-      { storeSlug: "amazon-in", storeName: "Amazon", bullets: ["Compare prices, variants, and seller authorization across brands.", "Check return/warranty terms on the listing before buying."] },
+      { storeSlug: "boult", storeName: "Boult", bullets: ["Official store for Z40 Pro specs, current price and e-warranty.", "Use the Audio Decision Snippet on the store hub if you are unsure which model fits."] },
+      { storeSlug: "amazon-in", storeName: "Amazon India", bullets: ["Compare seller authorization and final price across all three models.", "Check the exact model code — similarly named SKUs differ on ANC."] },
     ],
     faqs: [
-      { question: "What’s the difference between ANC and ENC?", answer: "ANC reduces noise you hear (like fan/AC hum). ENC reduces background noise picked up by the microphone so callers hear you more clearly. For traffic calls, ENC/mic quality is usually more important.", sort_order: 0 },
-      { question: "Which is best for calls under ₹2,000: Boult, boAt, or OnePlus?", answer: "It varies by model and fit. Compare mic/ENC performance and recent reviews for call quality. OnePlus can be strong for balanced audio when in budget, while Boult/boAt offer many value options.", sort_order: 1 },
-      { question: "How do I avoid warranty issues with budget TWS?", answer: "Buy from authorized sellers, keep the invoice, and register e-warranty on the brand’s official site if offered. Test the earbuds soon after delivery.", sort_order: 2 },
-      { question: "Do I need ANC for commuting in India?", answer: "ANC can help with steady noise, but for calls in traffic/wind, prioritize ENC and mic quality. Comfort and fit also make a big difference.", sort_order: 3 },
+      { question: "What is the difference between ANC and ENC?", answer: "ANC reduces sound you hear, such as fan or AC hum. ENC reduces noise picked up by the microphone so callers hear you more clearly. For traffic calls, mic quality and ENC matter more than a dB figure.", sort_order: 0 },
+      { question: "Which of these three has the best battery?", answer: "On published figures, the Boult Z40 Pro leads with 8 hours on the buds and 100 hours total. The boAt Airdopes 141 ANC is listed at 6 h / 42 h with ANC off and 5 h / 35 h with ANC on; the OnePlus Nord Buds 2r at 8 h / 38 h and 5 h / 27 h respectively.", sort_order: 1 },
+      { question: "Is a 32 dB ANC claim meaningful?", answer: "It is a manufacturer peak figure at narrow frequencies, not a measurement of a noisy Indian street. We did not test it. Expect some reduction in steady hum and little effect on voices or horns.", sort_order: 2 },
+      { question: "Which has the best dust and water protection?", answer: "The OnePlus Nord Buds 2r carry IP55, which covers both dust and splashes. The Boult Z40 Pro and boAt Airdopes 141 ANC are listed as IPX5 — splash protection without a dust rating.", sort_order: 3 },
+      { question: "Did Durza test these earbuds?", answer: "No. We compared official product pages and published spec listings on 24 Nov 2026. All decibel, battery and latency numbers are manufacturer or listing claims, and prices are dated snapshots.", sort_order: 4 },
     ],
     relatedComparisons: [
       "amazon-vs-flipkart-electronics-2026",
       "best-smartphone-deals-india-amazon-vs-flipkart-2026",
     ],
-    relatedGuides: [],
+    relatedGuides: [
+      { href: "/guides/boult-audio-earbuds-anc-codes-guide", label: "Boult Audio ANC earbuds and codes guide" },
+      { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
+    ],
     relatedReviewsStores: [
-      { href: "/stores/boult", label: "Boult store hub" },
+      { href: "/topics/tech", label: "Tech & Gadgets topic hub" },
+      { href: "/categories/electronics", label: "Electronics category hub" },
+      { href: "/tools", label: "Durza shopping tools" },
+      { href: "/coupons/boult-audio-w50-with-30db-active-noise-cancellation", label: "Boult W50 live offer" },
+      { href: "/coupons/boult-audio-z40-pro-earbuds", label: "Boult Z40 Pro live offer" },
+      { href: "/stores/boult", label: "Boult store hub & Audio Decision Snippet" },
       { href: "/stores/amazon-in", label: "Amazon India store hub" },
       { href: "/stores/flipkart", label: "Flipkart store hub" },
     ],
-    keywords: ["best TWS under 2000 India 2026", "Boult vs boAt vs OnePlus earbuds", "ANC vs ENC explained", "calling earbuds traffic noise", "earbuds warranty India"],
+    keywords: ["boAt vs Boult vs OnePlus earbuds under 2000 India", "best TWS under 2000 India 2026", "ANC vs ENC calling earbuds", "Boult Z40 Pro vs boAt Airdopes 141 ANC", "OnePlus Nord Buds 2r specs India"],
   },
   {
     slug: "best-laptops-under-50000-india-coding-office-2026",
@@ -1105,16 +1257,17 @@ export const COMPARISONS: CompareEntry[] = [
     },
     table: {
       leftName: "Acer Aspire 3 A324-53",
-      rightName: "Lenovo IdeaPad Slim 3 / ASUS Vivobook 15",
+      rightName: "Lenovo IdeaPad Slim 3",
+      extraName: "ASUS Vivobook 15",
       rows: [
-        { factor: "Processor class", left: "Intel Core i5-1334U (15W efficiency chip)", right: "Lenovo: Ryzen 5 7530U (15W, 6C/12T) · ASUS: Core i5-1335U (13th gen, 10-core)" },
-        { factor: "RAM & upgrade path", left: "16GB DDR4, expandable to 32GB", right: "Lenovo: 16GB DDR4 across 2 DIMM slots · ASUS: 16GB DDR4 soldered" },
-        { factor: "Storage", left: "512GB Gen 4 SSD; 7,039 MB/s read in 91mobiles' CrystalDiskMark test", right: "512GB SSD on both; check whether the exact SKU is Gen 3 or Gen 4" },
-        { factor: "Display", left: "14-inch FHD, 45% NTSC — flat colours, poor for creative work", right: "Lenovo: 15.6-inch FHD IPS, 250 nits · ASUS: 15.6-inch FHD IPS, 144Hz, 300 nits" },
-        { factor: "Battery (published tests)", left: "45.6Wh, 7h 25m in PCMark 10 video loop; 65W USB-C", right: "Lenovo: 45Wh, ~6.5h real-world · ASUS: 50Wh, ~7.5h real-world" },
-        { factor: "Carry weight", left: "Under 1.5kg, 19.4mm — easiest to carry daily", right: "Lenovo: ~1.6–1.7kg · ASUS: 1.7kg with aluminium lid" },
-        { factor: "Price as reviewed*", left: "₹40,990 (91mobiles, Sep 2026)", right: "Lenovo: ₹43,990 · ASUS: ₹44,990 (published Oct 2026 roundups)" },
-        { factor: "What to verify at checkout", left: "Exact SKU, RAM slot count and panel part number", right: "Exact processor and RAM — 'Vivobook 15' covers several very different SKUs" },
+        { factor: "Processor class", left: "Intel Core i5-1334U (15W efficiency chip)", right: "AMD Ryzen 5 7530U (15W, 6C/12T)", extra: "Intel Core i5-1335U (13th gen, 10-core)" },
+        { factor: "RAM & upgrade path", left: "16GB DDR4, expandable to 32GB", right: "16GB DDR4 across 2 DIMM slots", extra: "16GB DDR4 soldered — non-upgradeable" },
+        { factor: "Storage", left: "512GB Gen 4 SSD; 7,039 MB/s read in 91mobiles' CrystalDiskMark test", right: "512GB SSD — verify Gen 3 vs Gen 4 on the exact SKU", extra: "512GB SSD — verify Gen 3 vs Gen 4 on the exact SKU" },
+        { factor: "Display", left: "14-inch FHD, 45% NTSC — flat colours, poor for creative work", right: "15.6-inch FHD IPS, 250 nits — adequate indoors", extra: "15.6-inch FHD IPS, 144Hz, 300 nits — best panel here" },
+        { factor: "Battery (published tests)", left: "45.6Wh, 7h 25m in PCMark 10 video loop; 65W USB-C", right: "45Wh, ~6.5h real-world", extra: "50Wh, ~7.5h real-world" },
+        { factor: "Carry weight", left: "Under 1.5kg, 19.4mm — easiest to carry daily", right: "~1.6–1.7kg", extra: "1.7kg with aluminium lid" },
+        { factor: "Price as reviewed*", left: "₹40,990 (91mobiles, 6 Sep 2026)", right: "₹43,990 (BuysmarterIn roundup, 8 Oct 2026)", extra: "₹44,990 (BuysmarterIn roundup, 8 Oct 2026)" },
+        { factor: "What to verify at checkout", left: "Exact SKU A324-53, RAM slot count and panel part number", right: "Exact Ryzen 5 SKU and free DIMM slot", extra: "Exact processor and RAM — 'Vivobook 15' covers several SKUs" },
       ],
     },
     insider: {
@@ -1129,27 +1282,39 @@ export const COMPARISONS: CompareEntry[] = [
     },
     blocks: [
       {
-        heading: "CPU class first, everything else second",
+        heading: "1. CPU class first, everything else second (Winner: Lenovo ThinkBook 16 for compiling; Acer Aspire 3 for light responsiveness)",
         paragraphs: [
           "A 16GB/512GB configuration can still feel slow if the processor is a low-power U-series part built for battery life. In 91mobiles' September 2026 testing, the HS-series Ryzen 5 7535HS in the Lenovo ThinkBook 16 scored 9,393 in Cinebench R23 multi-core, while the 15W i5-1334U in the Acer Aspire 3 scored 8,061 in Geekbench 6 multi-core and led the group in PCMark 10 day-to-day responsiveness. Neither is \"better\" in the abstract — one sustains heavy work, the other feels quick and cool in ordinary use.",
           "If your day is browser tabs, Zoom, Office and light photo work, the 15W chips are enough. If it is compiling, Python scripts or large Excel models, the extra watts are worth saving for.",
         ],
       },
       {
-        heading: "The upgrade slot matters more than the shipped RAM",
+        heading: "2. The upgrade slot matters more than shipped RAM (Winner: tie — Acer Aspire 3 and Lenovo IdeaPad Slim 3)",
         paragraphs: [
           "The Acer ships 16GB DDR4 and can be taken to 32GB. The Lenovo IdeaPad Slim 3 variant in the October 2026 roundup ships 16GB across two DIMM slots. The ASUS Vivobook 15 configuration at ₹44,990 ships 16GB soldered. A soldered 16GB is fine for a machine you will replace in three years; a spare slot is better for one you want to keep in five.",
         ],
       },
       {
-        heading: "Display and battery are the daily experience",
+        heading: "3. Display and battery are the daily experience (Winner: ASUS Vivobook 15 — 144Hz, 300 nits, 50Wh)",
         paragraphs: [
           "The Acer's 45% NTSC panel is the weakest part of an otherwise strong value package — flat colours that make creative work frustrating. The ASUS 144Hz, 300-nit IPS panel is the best screen here. The Lenovo's 250-nit panel is adequate indoors and dim in bright rooms.",
           "Published battery tests put the Acer at 7h 25m in a PCMark 10 video loop from a 45.6Wh cell, the ASUS around 7.5 hours real-world from 50Wh, and the Lenovo around 6.5 hours from 45Wh. Treat these as comparable indications, not guarantees — brightness and workload move the result.",
         ],
       },
       {
-        heading: "Where each one fits",
+        heading: "4. Portability and daily carry (Winner: Acer Aspire 3 — under 1.5kg with 65W USB-C)",
+        paragraphs: [
+          "The Aspire 3 weighs under 1.5kg at 19.4mm and charges over 65W USB-C, so one adapter handles the laptop and phone. The Lenovo is around 1.6–1.7kg and the ASUS 1.7kg. If you carry the laptop across campus or through a metro commute every day, that difference is felt more than a small benchmark gain.",
+        ],
+      },
+      {
+        heading: "5. Marketplace bank slabs vs official eStore perks (Winner: Amazon/Flipkart on flat discounts; Lenovo.com on ADP)",
+        paragraphs: [
+          "On a ₹40,000–₹50,000 laptop, a flat ₹3,000 bank instant discount on Amazon India or Flipkart lowers the payable amount by roughly 6–7.5% — often more than an official-store coupon. Brand-direct checkout can still win on warranty extras: Lenovo.com India has offered student verification and discounted multi-year Accidental Damage Protection. Compare the final payable amount on both carts, including any EMI processing fee, before choosing.",
+        ],
+      },
+      {
+        heading: "6. Where each one fits — summary",
         paragraphs: [
           "Acer Aspire 3 A324-53: the student pick. Under 1.5kg, a complete port selection, 65W USB-C charging and the fastest SSD in 91mobiles' group. Accept the display and basic webcam.",
           "Lenovo IdeaPad Slim 3: the multitasking pick. Ryzen multi-thread performance and upgradeable RAM at a reviewed ₹43,990, with a dimmer screen and shorter battery.",
@@ -1186,8 +1351,15 @@ export const COMPARISONS: CompareEntry[] = [
       { href: "/guides/lenovo-laptop-offers-india-2026", label: "Lenovo India offers guide" },
     ],
     relatedReviewsStores: [
+      { href: "/categories/electronics", label: "Electronics category hub" },
+      { href: "/topics/tech", label: "Tech & Gadgets topic hub" },
+      { href: "/tools", label: "Durza shopping calculators" },
+      { href: "/bank-offers", label: "Bank & card instant discounts" },
+      { href: "/reviews/lenovo-loq-and-thinkpad-india-official-store-review", label: "Buying direct from Lenovo India" },
       { href: "/stores/amazon-in", label: "Amazon India store hub" },
       { href: "/stores/flipkart", label: "Flipkart store hub" },
+      { href: "/stores/acer", label: "Acer official store hub" },
+      { href: "/stores/lenovo", label: "Lenovo India store hub" },
       { href: "/stores/asus", label: "ASUS store hub" },
     ],
     keywords: ["best laptop under 50000 India 2026", "Acer Aspire 3 vs Lenovo IdeaPad vs ASUS Vivobook", "laptop for coding under 50000 India", "best laptop for students India 2026", "i5 1334U vs Ryzen 5 7530U", "16GB RAM laptop under 50000"],
@@ -1209,9 +1381,15 @@ export function comparisonToEditorial(item: CompareEntry): EditorialContent {
     summary: item.summary,
     content_blocks: item.blocks.map((b, i) => ({ type: "heading", heading: b.heading, _idx: i })),
     structured_data: {
-      features: item.table.rows.map((r) => ({ name: r.factor, left: r.left, right: r.right })),
+      features: item.table.rows.map((r) => ({
+        name: r.factor,
+        left: r.left,
+        right: r.right,
+        ...(r.extra ? { extra: r.extra } : {}),
+      })),
       left_name: item.table.leftName,
       right_name: item.table.rightName,
+      ...(item.table.extraName ? { extra_name: item.table.extraName } : {}),
       verdict: item.verdict.text,
       category: item.category,
     },

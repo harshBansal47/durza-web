@@ -422,7 +422,8 @@ export const BEAUTY_INFO_SECTIONS: Array<{
 
 
 export const BEAUTY_FAQS = [
-  { question: "How is this page organized?", answer: "Products are organized by makeup routine steps—from cleanser and moisturizer to mascara and tools. Each section includes picks across price points, and you can check the latest details on Amazon.in." },
-  { question: "Are prices and discounts live?", answer: "Prices, MRP, and discount labels are indicative and can change. Always check the latest price, offer, and availability on Amazon.in before buying." },
-  { question: "Do you have 100 products?", answer: "The page is being expanded toward 100 curated products across routine categories. Existing verified picks are kept, and additional slots are filled as product data is confirmed." },
+  { question: "What is the correct order to apply makeup for beginners?", answer: "Follow the 18 steps in order: skin prep (cleanser, moisturiser, sunscreen, primer), base (foundation, concealer, compact), cheek and eyes (blush, highlighter, contour, brows, eyeshadow, eyeliner, mascara), lips (balm, lipstick or tint), then setting spray. Tools are listed last." },
+  { question: "Do I need all 18 steps for an everyday Indian routine?", answer: "No. Five steps are enough for most college or office days: cleanser, moisturiser, SPF 50 sunscreen, concealer or BB cream, and a lip tint. Use the Starter or 5-Min Everyday filter above to show only those essentials." },
+  { question: "How do I avoid the wrong foundation or concealer shade online?", answer: "The shade names on our cards are reference listings. Open the Amazon.in page, use the full shade selector, check your undertone (warm, neutral or cool) in daylight, and confirm the seller is an authorised brand storefront before ordering." },
+  { question: "Are the ₹ prices live, and did Durza test these products?", answer: "No to both. Prices and discount badges are catalogue snapshots that are not re-verified on a specific date, and they change frequently on Amazon.in. Durza did not purchase, swatch or physically test these 108 products — selections are based on routine fit, formulation type and brand availability." },
 ] as const;

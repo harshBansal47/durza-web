@@ -6,6 +6,7 @@ import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { GO_REL } from "@/lib/go";
 import type { ReviewEntry } from "@/data/reviews";
 import { REVIEWS } from "@/data/reviews";
+import EditorialByline from "@/components/editorial/EditorialByline";
 
 export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
   const canonical = `/reviews/${entry.slug}`;
@@ -20,9 +21,11 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
     name: entry.title,
     description: entry.metaDescription,
     image: [entry.heroImage],
-    datePublished: "2026-11-01",
-    dateModified: "2026-11-18",
-    author: { "@type": "Organization", name: "Durza Editors", url: absoluteUrl("/about") },
+    datePublished: entry.factsCheckedOn ?? "2026-11-01",
+    dateModified: entry.factsCheckedOn ?? "2026-11-18",
+    author: entry.authorName
+      ? { "@type": "Person", name: entry.authorName, url: absoluteUrl("/about") }
+      : { "@type": "Organization", name: "Durza Research Desk", url: absoluteUrl("/about") },
     publisher: {
       "@type": "Organization",
       name: "Durza",
@@ -67,13 +70,38 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <span className="rounded-full bg-[#f3efe8] px-2.5 py-1 font-semibold text-[#141413]">{entry.category}</span>
           <span className="rounded-full border border-[#141413]/10 bg-white px-2.5 py-1 font-medium text-[#5a564f]">{entry.updatedLabel}</span>
-          <span className="rounded-full border border-[#141413]/10 bg-white px-2.5 py-1 font-medium text-[#5a564f]">Durza Editors</span>
+          <span className="rounded-full border border-[#141413]/10 bg-white px-2.5 py-1 font-medium text-[#5a564f]">
+            {entry.authorName ?? "Durza Research Desk"}
+          </span>
         </div>
 
         <h1 className="mt-4 font-serif text-3xl font-extrabold leading-tight tracking-tight text-[#141413] sm:text-5xl">
           {entry.title}
         </h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-[#3f3b35]">{entry.summary}</p>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
+            <h2 className="font-mono text-[10px] font-semibold uppercase tracking-widest text-green-900">Who it is for</h2>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-green-950/90">
+              {entry.whoShouldBuy.map((item) => <li key={item}>• {item}</li>)}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
+            <h2 className="font-mono text-[10px] font-semibold uppercase tracking-widest text-rose-900">Who should skip it</h2>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-rose-950/90">
+              {entry.whoShouldSkip.map((item) => <li key={item}>• {item}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <EditorialByline
+          authorName={entry.authorName}
+          publishedAt={entry.factsCheckedOn}
+          updatedAt={entry.factsCheckedOn}
+          checkedAt={entry.factsCheckedOn}
+          hasMethod
+        />
 
         <div className="relative mt-7 overflow-hidden rounded-3xl border border-[#141413]/10 bg-white shadow-sm">
           <div className="relative aspect-[16/9] w-full">
@@ -86,34 +114,23 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
           <h2 id="quick-verdict" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">Should you buy it?</h2>
           <p className="mt-3 text-base leading-8 text-[#2f2b26]">{entry.verdict}</p>
 
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
-              <h3 className="flex items-center gap-2 font-semibold text-green-900"><Check aria-hidden="true" className="h-4 w-4" /> Who Should Buy</h3>
-              <ul className="mt-3 space-y-2 text-sm leading-6 text-green-950/90">
-                {entry.whoShouldBuy.map((item) => (
-                  <li key={item} className="flex gap-2"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700" />{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
-              <h3 className="flex items-center gap-2 font-semibold text-rose-900"><X aria-hidden="true" className="h-4 w-4" /> Who Should Skip</h3>
-              <ul className="mt-3 space-y-2 text-sm leading-6 text-rose-950/90">
-                {entry.whoShouldSkip.map((item) => (
-                  <li key={item} className="flex gap-2"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-700" />{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-5">
+          <div className="mt-5 flex flex-wrap gap-3">
             <a
               href={entry.primaryCtaHref}
               target="_blank"
               rel={GO_REL}
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#141413] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#2a2a27] sm:w-auto"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#141413] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#2a2a27]"
             >
               {entry.primaryCtaLabel} <ExternalLink aria-hidden="true" className="h-4 w-4" />
             </a>
+            {entry.secondaryCta && (
+              <Link
+                href={entry.secondaryCta.href}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#141413]/15 bg-white px-4 py-3 text-sm font-semibold text-[#141413] transition hover:bg-[#FAF8F5]"
+              >
+                {entry.secondaryCta.label} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            )}
           </div>
         </section>
 
@@ -232,6 +249,20 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
               </ul>
             </div>
           </div>
+          {entry.relatedLinks && entry.relatedLinks.length > 0 && (
+            <div className="mt-6 border-t border-[#141413]/10 pt-5">
+              <h3 className="font-semibold text-[#141413]">Hubs &amp; tools</h3>
+              <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                {entry.relatedLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="inline-flex min-h-11 items-start gap-1.5 text-sm text-[#8a4b12] hover:underline">
+                      <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />{link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
 
         <p className="mt-10 border-t border-[#141413]/10 pt-5 text-xs leading-5 text-[#5a564f]">

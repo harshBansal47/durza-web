@@ -5,12 +5,13 @@ import type { Metadata } from "next";
 import type { StaticGuide } from "@/data/store-guides";
 import { THIN_GUIDE_SLUGS } from "@/data/store-guides";
 import JsonLd from "@/components/JsonLd";
+import EditorialByline from "@/components/editorial/EditorialByline";
 import AdSenseSlot from "@/components/editorial/AdSenseSlot";
 import { BRAND } from "@/lib/brand";
 import GuideCodeCta from "@/components/guides/GuideCodeCta";
 import GuideInteractiveToolCard from "@/components/guides/GuideInteractiveToolCard";
 import AdidasStyleCompare from "@/components/guides/AdidasStyleCompare";
-import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { toolHref } from "@/data/store-glossary";
 import { getGuideCoverImage, isStoreLogoPath } from "@/lib/guide-cover";
@@ -42,8 +43,10 @@ export function StaticGuideJsonLd({ guide }: { guide: StaticGuide }) {
           "@type": "Article",
           headline: guide.seo.title,
           description: guide.seo.description,
-          author: { "@type": "Organization", name: "Durza Coupons India", url: SITE_URL },
-          publisher: { "@type": "Organization", name: "Durza Coupons India", url: SITE_URL },
+          author: guide.authorName
+            ? { "@type": "Person", name: guide.authorName, url: absoluteUrl("/about") }
+            : { "@type": "Organization", name: "Durza Research Desk", url: SITE_URL },
+          publisher: { "@type": "Organization", name: "Durza", url: SITE_URL },
           datePublished: guide.auditedOn ?? "2026-11-14",
           dateModified: guide.auditedOn ?? "2026-11-14",
           mainEntityOfPage: url,
@@ -114,6 +117,35 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
         {guide.seo.title}
       </h1>
       <p className="mt-3 text-base leading-7 text-ink-soft">{guide.summary}</p>
+
+      {guide.audience && (
+        <section aria-label="Who this guide is for" className="mt-5 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-2xl border border-ledger-line bg-white p-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
+              Who it is for
+            </p>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-ink-soft">
+              {guide.audience.bestFor.map((line) => <li key={line}>• {line}</li>)}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-800">
+              Who should skip it
+            </p>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-ink-soft">
+              {guide.audience.skipIf.map((line) => <li key={line}>• {line}</li>)}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      <EditorialByline
+        authorName={guide.authorName}
+        publishedAt={guide.auditedOn}
+        updatedAt={guide.auditedOn}
+        checkedAt={guide.factsCheckedOn ?? guide.auditedOn}
+        hasMethod
+      />
 
       {heroImage && (
         <div
@@ -269,6 +301,26 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
             </Link>
           ))}
         </div>
+        {guide.relatedLinks && guide.relatedLinks.length > 0 && (
+          <div className="mt-6">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-inkblue">
+              Related research
+            </p>
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {guide.relatedLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="inline-flex min-h-11 items-start gap-1.5 text-sm text-inkblue hover:underline"
+                  >
+                    <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </aside>
 
       {guide.auditedOn && (

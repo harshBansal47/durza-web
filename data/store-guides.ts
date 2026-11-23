@@ -68,6 +68,14 @@ export interface StaticGuide {
   seo: { title: string; description: string };
   /** 1-line summary shown in listings and the hero. */
   summary: string;
+  /** Named reviewer. Falls back to the editorial desk when absent. */
+  authorName?: string;
+  /** ISO date facts were actually checked. Never set without a real check. */
+  factsCheckedOn?: string;
+  /** Who it is for / who should skip it, shown above the fold. */
+  audience?: { bestFor: string[]; skipIf: string[] };
+  /** Extra internal links (hubs, comparisons, other guides, tools). */
+  relatedLinks?: { href: string; label: string }[];
   /** The verdict sentence — what the page concludes. */
   faqs: { question: string; answer: string }[];
   blocks: StaticGuideBlock[];
@@ -684,54 +692,79 @@ const RAW_GUIDES_B: StaticGuide[] = [
     featured: true,
     heroImage: "/stores/havells.png",
     seo: {
-      title: "Havells BLDC vs. Induction Fans — Honest Math & Offers (2026)",
-      description: "Havells: wattage vs rupees, BLDC rationale, which bank panel stacks and when a non-BLDC still wins.",
+      title: "Havells BLDC vs. Induction Fans in India (2026): Real Wattage Math, Airflow & Offers",
+      description: "Compare Havells Efficiencia Neo (26W) and Stealth Air BLDC+ (40W) with induction fans using published CMM, RPM and BEE data — with the wattage-to-rupee math shown in full.",
     },
-    summary: "BLDC saves ₹1,000-1,500 per year per fan — if you don't oversize the unit, and if you actually read the card bill.",
+    summary: "A 26W Havells BLDC fan can save roughly ₹840–₹1,720 a year against a 50W–75W induction fan at 12 hours a day and ₹8/unit. The exact figure depends on the model, your hours and your tariff — here is the arithmetic and the published airflow data behind it.",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-24T00:00:00.000Z",
+    audience: {
+      bestFor: [
+        "Bedrooms and living rooms running a ceiling fan 8–16 hours a day, where savings recover the price gap in roughly 12–28 months.",
+        "Homes on inverter backup that want a 26W–40W fan to run longer during power cuts than a 50W–75W induction unit.",
+      ],
+      skipIf: [
+        "Guest rooms or dining areas used under 3 hours a day — a ₹2,000 premium can take 4+ years to repay.",
+        "Buyers who will not use a remote: most BLDC models need the wall regulator left at full or bypass.",
+      ],
+    },
+    relatedLinks: [
+      { href: "/categories/home-kitchen", label: "Home & Kitchen category hub" },
+      { href: "/topics/home", label: "Home & Appliances topic hub" },
+      { href: "/compare/havells-vs-ao-smith-vs-crompton-water-heaters-india", label: "Havells vs AO Smith vs Crompton geysers" },
+      { href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india", label: "Instant bank discount vs No-Cost EMI" },
+      { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
+      { href: "/collections/high-rise-indian-apartment-utility-and-diy-kit", label: "High-rise apartment setup kit" },
+      { href: "/tools", label: "All Durza shopping tools" },
+    ],
     faqs: [
-      { question: "How much does a BLDC fan actually save?", answer: "A 5-star BLDC fan draws ~35 W vs ~75 W for induction-coil ceiling fans. At Rs 8 per kWh with eight hours of fan use each day, one fan pays back the price difference in 10–14 months. Two fans running year-round gets ~Rs 1,200–1,500 savings per fan per year — more in long summers." },
-      { question: "BLDC vs. regular ceiling fans — which should I skip?", answer: "Skip BLDC if the room gets less than three hours of fan use a day, or if you only need a pedestal fan that runs for eight minutes each morning. BLDC shines on all-night or all-day use; an induction fan that chews the bill but saves Rs 1,500 upfront fails on speed and torque anyway." },
-      { question: "The Havells card-offer that applies at payment?", answer: "In this month's panel, Kotak/ICICI/IDFC each carry 10% off on the appliance cart in-store. That 10% never applies retroactively — the bank offer has to fire at the payment page, not after. Screenshot the bank panel as a backup if the call gets dropped." },
+      { question: "How much does a Havells BLDC fan actually save?", answer: "Use the full inputs: (induction watts − BLDC watts) ÷ 1000 × hours/day × 365 × tariff. At 12 hours/day and ₹8/unit, a 26W Efficiencia Neo saves about ₹841/year against a 50W induction fan, or about ₹1,717/year against an older 75W fan. At 8 hours/day the same comparison saves roughly ₹561–₹1,145/year. Your actual result depends on your tariff and daily hours — use the calculator linked above." },
+      { question: "Which Havells BLDC model should I choose?", answer: "The Efficiencia Neo 1200mm is the efficiency pick: 26W, 350 RPM and 220 m³/min air delivery (Havells catalogue, 5-star). The Stealth Air BLDC+ 1200mm is the airflow pick: 40W, 280 RPM and 245 m³/min, with a published Havells price of ₹8,299 (MRP ₹13,770) when we checked on 24 Nov 2026. Choose on airflow need, not just watts." },
+      { question: "When should I skip a BLDC fan?", answer: "If the room runs under 3 hours a day, annual savings are small and payback stretches past four years. BLDC fans also rely on remote control and an electronic driver board — if you lose the remote or your area has severe voltage surges, a conventional induction fan with a ₹150 capacitor is cheaper to keep running." },
+      { question: "Do bank card offers stack with fan coupon codes?", answer: "It depends on the checkout panel and the card. Do not assume a flat code and a bank instant discount will combine — compare the final payable amount in the cart and keep whichever gives the larger deduction. Offers rotate; check them on the day you pay rather than trusting a number in an article." },
     ],
     blocks: [
-      { type: "callout", text: "Havells BLDC: pay with a bank card first, not a coupon — usually banks beat the BLDC300 offer." },
-      { type: "heading", heading: "The wattage-rupee math nobody does" },
-      { type: "paragraph", text: "BLDC fans aren't magic; they just move electrons without a brushed motor fighting it. If a fan is running 40 hours a week in a living room that double-streaks Teslas and tablets, maybe the bill chart seems funny. The point is the per-watt chart below: a 35 W fan pulls 0.28 kWh per day; at Rs 8/kWh that's Rs 67 per month. Swallow that number and you see why we say Rs 1,200–1,500 a year. Two fans in the house, and you're looking at Rs 2,400–3,000 in twelve months — which buys half a cylinder of LPG." },
-      { type: "table", headers: ["Parameter", "BLDC (5-star)", "Induction (3-star)"], rows: [
-        ["Rated wattage", "30–40 W", "70–80 W"],
-        ["Annual energy cost", "~₹500/yr", "~₹1,200/yr"],
-        ["Noise character", "quiet hum, barely noticeable in a bedroom", "mechanical grind"],
-        ["Touch comfort", "no heat bleed, cool metal blades", "blades feel warm after 8 hrs"],
-        ["Regulatory (BEE label)", "5-star printed mandatory", "3-4 star typical"],
-        ["Warranty", "2 yr motor + 1 yr electronics (varies)", "1 yr typical"],
+      { type: "callout", text: "The honest number: a 26W BLDC fan saves about ₹841/year against a 50W induction fan, or ₹1,717/year against a 75W one, at 12 hours a day and ₹8/unit. Any figure without those four inputs is marketing." },
+      { type: "heading", heading: "The wattage-to-rupee math, with inputs shown" },
+      { type: "paragraph", text: "Savings = (W_induction − W_BLDC) ÷ 1,000 × hours per day × 365 × tariff. For a 26W Efficiencia Neo at 12 hours/day and ₹8/unit: against a 50W induction fan, 0.024 × 12 × 365 × 8 = ₹841/year; against an older 75W fan, 0.049 × 12 × 365 × 8 = ₹1,717/year. The 40W Stealth Air BLDC+ saves ₹350/year against a 50W fan and ₹1,226/year against a 75W fan on the same inputs. If the BLDC premium is ₹1,500–₹2,500, payback is roughly 12–28 months — verify both prices on the day you buy." },
+      { type: "table", headers: ["Parameter", "Efficiencia Neo 1200mm", "Stealth Air BLDC+ 1200mm", "Induction reference 1200mm"], rows: [
+        ["Motor / BEE", "BLDC · 5-star", "BLDC · 5-star", "AC induction · check the exact label"],
+        ["Power", "26 W", "40 W", "50 W (Havells ES 50 / Samraat 50) · older 75 W fans still common"],
+        ["Air delivery", "220 m³/min", "245 m³/min", "226 m³/min (ES 50)"],
+        ["Rated speed", "350 RPM", "280 RPM", "350 RPM (ES 50)"],
+        ["Annual running cost, 12h/day @ ₹8", "≈ ₹910", "≈ ₹1,402", "≈ ₹1,752 (50 W) · ≈ ₹2,628 (75 W)"],
+        ["Control", "RF remote", "RF remote", "Wall step regulator"],
+        ["Warranty", "2 years product (retail listing)", "2 years (Havells product page)", "Varies by SKU — verify on the box"],
       ] },
-      { type: "heading", heading: "The stack that actually wins" },
+      { type: "paragraph", text: "Air delivery matters as much as watts: a lower-watt fan with weak CMM will make you run it faster for longer. Havells' own buying guide says to compare air delivery and service value (CMM ÷ watts), not blade count or RPM alone. The Stealth Air BLDC+ has a published service value of 6.12." },
+      { type: "heading", heading: "How to stack offers without overpaying" },
       { type: "ordered_list", items: [
-        "Pick the fan — a 5-star BLDC ceiling fan, 1200 mm for a standard bedroom, 1400 mm for a living room. Slower jump for smaller rooms matters less than BEE grade.",
-        "Apply BLDC300 on 3-speed or infinite-BLDC models (usually ₹300 off).",
-        "Swap to the bank card panel — Kotak/ICICI/IDFC usually carry 10% off appliance carts on pay.",
-        "Compare the effective price — the bank 10% usually beats the flat ₹300 off, so pay the bank-discount panel last.",
-        "Book installation — at install, ask the technician to leave a spare remote. Hospitals stock the remotes; the brand won't ship them separately.",
+        "Match sweep to room first: 1200mm for a typical 10×12 ft bedroom; 1400mm only for large living or dining rooms. Oversizing raises watts without improving airflow where you sit.",
+        "Compare the official Havells price with Amazon India and Flipkart on the exact model code — marketplace base prices can differ by several hundred rupees before any offer.",
+        "At checkout, compare the bank instant discount against any flat coupon code. They may not stack; keep the larger deduction and do not assume a code from an old article is still live.",
+        "Run your own hours and tariff through the BLDC Fan Power Calculator before paying, so the payback figure is yours rather than ours.",
       ] },
-      { type: "heading", heading: "When not to buy — the honest list" },
+      { type: "heading", heading: "Honest downsides: when not to buy a BLDC fan" },
       { type: "list", items: [
-        "New construction — install a 5-star BLDC through the wall box now, don't retrofit later. The wiring difference is a less-then-Rs-500 question.",
-        "A noisy induction fan that works perfectly — the savings rarely close the spread if you'll give the old one away. Buy new when the old blades wobble, not when the shade passes.",
-        "Ceiling fans below 8 ft height — BLDC fan blades spin slower with no aerodynamic benefit in a cramped room.",
+        "Low-usage rooms: at 3 hours/day the saving is small and a ₹2,000 premium can take 4–5 years to repay.",
+        "Remote dependency: many BLDC models need the wall regulator at full/bypass. Leaving a rotary regulator at speed 1–3 can starve the driver board and cause erratic restarts.",
+        "Driver-board repairs: an induction fan usually needs a ₹150 capacitor; a BLDC fan's electronic board can cost ₹600–₹1,200 after warranty, especially with voltage surges.",
+        "Low ceilings: with under 8.5 ft clearance, check downrod length before ordering so blades clear beds and the slab.",
       ] },
+      { type: "heading", heading: "What we verified, and what we did not" },
+      { type: "paragraph", text: "We used Havells' published product pages and fan catalogue (Efficiencia Neo 26W/350 RPM/220 m³/min; Stealth Air BLDC+ 40W/280 RPM/245 m³/min, ₹8,299 seen 24 Nov 2026) and retail listings for the induction reference. Savings are arithmetic from the stated inputs, not measured results. We did not purchase, mount, or measure airflow or noise on these fans, and we have not verified any currently active coupon code or bank offer. Prices are dated snapshots and change during sales." },
     ],
     relatedStores: ["moglix", "wonderchef"],
-    interactiveTool: { headline: "Launch Havells' BLDC calculator — ₹/unit savings across 5-star models", sublabel: "Our hub computes payback period for BLDC upgrades in 30 seconds." },
+    interactiveTool: { headline: "Calculate BLDC payback with your own hours and tariff", sublabel: "Open the dedicated Havells BLDC calculator to check savings before you buy." },
     primaryCta: {
-      kind: "code",
-      code: "BLDC300",
-      badge: "FLAT ₹300 OFF",
-      headline: "Member code — ₹300 off 5-star BEE BLDC fans",
-      eligibility: "BLDC fan range · stack with bank cards · apply at checkout",
+      kind: "vcommission_auto",
+      badge: "CHECK LIVE PRICE",
+      headline: "Havells BLDC fans — compare live prices",
+      eligibility: "No code needed · check bank offers in the cart before paying",
       targetUrl: "https://www.havells.com",
       subId: "guide_havells-bldc-fan-offers-guide",
     },
-    auditedOn: "2026-11-14",
+    auditedOn: "2026-11-24",
   },
 ];
 
