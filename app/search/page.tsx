@@ -12,7 +12,6 @@ import FilterLayout from "@/components/filters/FilterLayout";
 import KeywordForm from "@/components/filters/KeywordForm";
 import SortControl from "@/components/filters/SortControl";
 import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
-import { formatMoney } from "@/lib/format";
 import { allowedStoreIds } from "@/lib/homepage-curation";
 import {
   filterCount,
@@ -22,11 +21,11 @@ import {
   type CouponFilters,
 } from "@/lib/filters";
 import StoreCard from "@/components/stores/StoreCard";
-import type { Product, Store } from "@/lib/types";
+import type { Store } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search every store, code, price drop and category Durza tracks.",
+  description: "Search every store, code and category Durza tracks.",
   // Disallowed in robots.txt; this meta tag aligns the page-level signal so
   // any bot that finds the URL via a link also does not index it.
   robots: { index: false, follow: false },
@@ -64,7 +63,7 @@ export default async function SearchPage({ searchParams }: Props) {
             size="lg"
             autoFocus
             label="Search Durza"
-            placeholder="Search stores, brands, products…"
+            placeholder="Search stores and brands…"
           />
         </div>
         <SuggestedSearches categories={categories} stores={stores} />
@@ -79,7 +78,7 @@ export default async function SearchPage({ searchParams }: Props) {
         <KeywordForm
           size="lg"
           label="Search Durza"
-          placeholder="Search stores, brands, products…"
+          placeholder="Search stores and brands…"
         />
       </div>
       <Results sp={sp} filters={filters} stores={stores} categories={categories} />
@@ -141,7 +140,7 @@ interface ResultsProps {
 }
 
 /**
- * Stores, products and categories only appear while the search is exploratory.
+ * Stores and categories only appear while the search is exploratory.
  * The moment a visitor narrows by store, category or offer shape, the coupon
  * list is the answer and an unfiltered entity list beside it would contradict it.
  */
@@ -167,13 +166,10 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
   const couponQuery = toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE });
   if (!filters.store && indiaRelevantIds.length) couponQuery.store_ids = indiaRelevantIds;
 
-  const [coupons, products, matchingStores, allCategories] = await Promise.all([
+  const [coupons, matchingStores, allCategories] = await Promise.all([
     resolved.unresolved
       ? Promise.resolve({ items: [], total: 0, skip, limit: PAGE_SIZE })
       : resilient.listCoupons(couponQuery),
-    exploratory
-      ? resilient.listProducts({ search: query, limit: 20 })
-      : Promise.resolve({ items: [], total: 0, skip: 0, limit: 20 }),
     exploratory ? resilient.listStores({ search: query, limit: 10 }) : Promise.resolve({ items: [], total: 0, skip: 0, limit: 10 }),
     exploratory
       ? resilient.listCategories({ limit: 100 })
@@ -182,7 +178,6 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
 
   const storeById = new Map(stores.map((s) => [s.id, s]));
   const storeHits = matchingStores.items;
-  const productHits = products.items;
   const needle = query.toLowerCase();
   const matchedCategories = exploratory
     ? allCategories.items.filter((c) => c.name.toLowerCase().includes(needle)).slice(0, 8)
@@ -190,7 +185,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
 
   const couponTotal = coupons.total;
   const total =
-    couponTotal + storeHits.length + productHits.length + matchedCategories.length;
+    couponTotal + storeHits.length + matchedCategories.length;
 
   if (total === 0) {
     return (
@@ -301,19 +296,6 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
         </section>
       )}
 
-      {productHits.length > 0 && (
-        <section className="mt-8">
-          <SectionTitle hint={String(products.total)}>Products</SectionTitle>
-          <ul className="divide-y divide-ledger-line border border-ledger-line">
-            {productHits.map((product) => (
-              <li key={product.id}>
-                <ProductRow product={product} store={storeById.get(product.store_id)} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
       {matchedCategories.length > 0 && (
         <section className="mt-8">
           <SectionTitle>Categories</SectionTitle>
@@ -337,7 +319,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
         </section>
       )}
       <p className="mt-6 text-xs text-ink-soft">
-        Stores, products and categories are the closest matches we hold; coupons load more on demand.
+        Stores and categories are the closest matches we hold; coupons load more on demand.
       </p>
     </FilterLayout>
   );
@@ -355,35 +337,4 @@ function refine(
   }
   const s = qs.toString();
   return s ? `/search?${s}` : "/search";
-}
-
-function ProductRow({ product, store }: { product: Product; store?: Store }) {
-  return (
-    <div className="flex items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-paper-raised">
-      <div className="min-w-0">
-        <p className="truncate text-ink">{product.name}</p>
-        <p className="text-xs text-ink-soft">
-          {store ? (
-            <Link href={`/stores/${store.slug}`} className="hover:text-ink">
-              {store.name}
-            </Link>
-          ) : (
-            "Unknown store"
-          )}
-        </p>
-      </div>
-      <p className="shrink-0 text-right">
-        {product.current_price != null ? (
-          <span className="font-mono text-sm text-ink">
-            {formatMoney(product.current_price, store?.currency ?? product.currency)}
-          </span>
-        ) : (
-          <span className="text-sm text-ink-soft">No price yet</span>
-        )}
-        {product.last_price_drop_pct != null && (
-          <span className="block font-mono text-xs text-rust">−{product.last_price_drop_pct}%</span>
-        )}
-      </p>
-    </div>
-  );
 }

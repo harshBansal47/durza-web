@@ -13,9 +13,6 @@ import type {
   Paginated,
   Ad,
   AdPosition,
-  PricePoint,
-  Product,
-  ProductCategory,
   SavedItem,
   Store,
   StoreDestination,
@@ -280,10 +277,6 @@ export const api = {
   /** Tracked redirect to an advertiser. The advertiser URL is never in API JSON. */
   adGoUrl: (adId: string, src?: string, contentRef?: string) => `${API_URL}/ads/${adId}/go${goQuery(src, contentRef)}`,
 
-  /** Tracked redirect to a product's store page. The raw URL is never in API JSON. */
-  productGoUrl: (productId: string, src?: string, contentRef?: string) =>
-    `${API_URL}/products/${productId}/go${goQuery(src ?? "product-page", contentRef ?? buildContentRef(src ?? "product-page", undefined, productId))}`,
-
   /** Tracked redirect for an affiliate campaign; the destination remains backend-only. */
   vcommissionCampaignGoUrl: (campaignId: string, src?: string, contentRef?: string) =>
     `${API_URL}/vcommission/campaigns/${encodeURIComponent(campaignId)}/go${goQuery(src ?? "campaign-catalog", contentRef ?? buildContentRef(src ?? "campaign-catalog", undefined, campaignId))}`,
@@ -400,20 +393,6 @@ export const api = {
 
   getPageBySlug: (slug: string) => apiFetch<CmsPage>(`/pages/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
 
-  listProductCategories: (store_id: string) =>
-    apiFetch<ProductCategory[]>(`/products/categories${qs({ store_id })}`, { revalidate: 3600 }),
-
-  listProducts: (
-    params: { search?: string; store_id?: string; category_id?: string; skip?: number; limit?: number } = {},
-  ) => apiFetch<Paginated<Product>>(`/products${qs(params)}`, { revalidate: 3600 }),
-
-  getProductBySlug: (slug: string) => apiFetch<Product>(`/products/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
-
-  getProductById: (id: string) => apiFetch<Product>(`/products/${id}`, { revalidate: 3600 }),
-
-  getPriceHistory: (productId: string) =>
-    apiFetch<PricePoint[]>(`/products/${productId}/price-history`, { revalidate: 3600 }),
-
   // ---- Autocomplete (no cache, abortable) -------------------------------
 
   autocompleteStores: (query: string, limit = 10) =>
@@ -421,9 +400,6 @@ export const api = {
 
   autocompleteCategories: (query: string, limit = 10) =>
     apiFetch<string[]>(`/categories/autocomplete${qs({ q: query, limit })}`, { cache: "no-store" }),
-
-  autocompleteProducts: (query: string, limit = 10) =>
-    apiFetch<string[]>(`/products/autocomplete${qs({ q: query, limit })}`, { cache: "no-store" }),
 
   /**
    * Type-ahead across stores, categories and products. Always runs uncached and
@@ -452,15 +428,15 @@ export const api = {
     }
 
     const run = (path: string) => apiFetch<string[]>(`${path}${qs({ q: query, limit })}`, { cache: "no-store", signal });
-    const [stores, categories, products] = await Promise.allSettled([
+    const [stores, categories] = await Promise.allSettled([
       run("/stores/autocomplete"),
       run("/categories/autocomplete"),
-      run("/products/autocomplete"),
     ]);
+
     return {
       stores: stores.status === "fulfilled" ? stores.value : [],
       categories: categories.status === "fulfilled" ? categories.value : [],
-      products: products.status === "fulfilled" ? products.value : [],
+      products: [],
     };
   },
 
@@ -614,7 +590,6 @@ function orNotFound<T>(promise: Promise<T>): Promise<T | null> {
 export const lookup = {
   getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => orNotFound(api.getStoreDestination(slug, params)),
   getCategoryBySlug: (slug: string) => orNotFound(api.getCategoryBySlug(slug)),
-  getProductBySlug: (slug: string) => orNotFound(api.getProductBySlug(slug)),
   getCouponBySlug: (slug: string) => orNotFound(api.getCouponBySlug(slug)),
 };
 
@@ -633,12 +608,6 @@ export const resilient = {
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number; live_only?: boolean } = {}) =>
     orEmpty(api.listCategories(params)),
   getCategoryBySlug: (slug: string) => orNull(api.getCategoryBySlug(slug)),
-  listProducts: (
-    params: { search?: string; store_id?: string; category_id?: string; skip?: number; limit?: number } = {},
-  ) => orEmpty(api.listProducts(params)),
-  getProductBySlug: (slug: string) => orNull(api.getProductBySlug(slug)),
-  getProductById: (id: string) => orNull(api.getProductById(id)),
-  getPriceHistory: (productId: string) => orEmptyArray(api.getPriceHistory(productId)),
   getPageBySlug: (slug: string) => orNull(api.getPageBySlug(slug)),
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     orEmptyArray(api.getCouponVerificationHistory(couponId, limit)),

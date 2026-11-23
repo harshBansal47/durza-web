@@ -2,25 +2,10 @@ import { describe, expect, it } from "vitest";
 import {
   EXPIRY_WARNING_MS,
   expiryTone,
-  priceInsight,
   savedCount,
   trustCopy,
   trustLevel,
 } from "@/lib/persuasion";
-import type { PricePoint } from "@/lib/types";
-
-function point(price: number, daysAgo: number): PricePoint {
-  return {
-    id: `${price}-${daysAgo}`,
-    product_id: "p1",
-    price,
-    original_price: null,
-    shipping: 0,
-    in_stock: true,
-    coupon_id: null,
-    captured_at: new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000).toISOString(),
-  };
-}
 
 describe("persuasion primitives", () => {
   it("trustLevel only verifies real votes above the threshold", () => {
@@ -41,12 +26,6 @@ describe("persuasion primitives", () => {
     expect(expiryTone("2026-10-19T00:00:00Z", now)).toBe("expired");
     expect(expiryTone(new Date(now.getTime() + EXPIRY_WARNING_MS - 1).toISOString(), now)).toBe("warning");
     expect(expiryTone(new Date(now.getTime() + EXPIRY_WARNING_MS + 1).toISOString(), now)).toBe("calm");
-  });
-
-  it("priceInsight only claims lowest price when the current price is the minimum", () => {
-    const points = [point(100, 90), point(90, 30), point(80, 1)];
-    expect(priceInsight(points, 80)).toBe("Lowest price in 1 month");
-    expect(priceInsight(points, 90)).toBeNull();
   });
 
   it("savedCount counts real saved items", () => {

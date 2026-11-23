@@ -19,7 +19,6 @@ import { cleanStoreDescription } from "@/lib/seo";
 import { isShowcaseStore } from "@/lib/showcase-stores";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import type { CouponPublic, Store } from "@/lib/types";
-import Storefront, { type StoreProductCollection } from "@/components/store/Storefront";
 import { ArrowUpRight } from "lucide-react";
 
 interface StorePageClientProps {
@@ -43,8 +42,6 @@ interface StorePageClientProps {
     rangeStart?: number;
     rangeEnd?: number;
   };
-  productCollections?: StoreProductCollection[];
-  productCategoriesLoadFailed?: boolean;
 }
 
 export default function StorePageClient({
@@ -54,8 +51,6 @@ export default function StorePageClient({
   relatedStores,
   currency,
   pagination,
-  productCollections = [],
-  productCategoriesLoadFailed = false,
 }: StorePageClientProps) {
   const code = currency ?? "INR";
   const sanitizedTabs = useMemo(() => {
@@ -164,14 +159,6 @@ export default function StorePageClient({
         ]}
       />
 
-
-      {productCollections.length > 0 || productCategoriesLoadFailed ? (
-        <Storefront
-          store={store}
-          collections={productCollections}
-          categoriesLoadFailed={productCategoriesLoadFailed}
-        />
-      ) : null}
 
       {isGlobalMultiCurrencyStore && (
         <section className="rounded-2xl border border-ledger-line bg-paper-raised p-4 text-sm leading-6 text-ink-soft">
@@ -477,7 +464,7 @@ export default function StorePageClient({
       )}
 
       <p className="text-sm text-ink-soft">
-        Looking for a specific product instead?{" "}
+        Looking for something specific?{" "}
         <Link href="/search" className="text-inkblue underline-offset-2 hover:underline">
           Search all deals
         </Link>{" "}

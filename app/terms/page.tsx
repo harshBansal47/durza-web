@@ -96,7 +96,7 @@ export default function TermsPage() {
         frequently, and the final determination of whether an offer applies is made by the store.
       </p>
       <p>
-        Prices and availability change quickly. The price history we show is as-reported and may lag
+        Prices and availability change quickly. Any pricing shown on partner sites may lag
         the merchant&rsquo;s live price by hours. Always check the store&rsquo;s checkout page
         before buying.
       </p>

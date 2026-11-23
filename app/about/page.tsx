@@ -44,8 +44,8 @@ export default function AboutPage() {
       </p>
       <p>
         We are building toward a different kind of shopping assistant — one that can answer
-        &ldquo;what&apos;s the cheapest legitimate way to buy this?&rdquo; with price history,
-        clearly labelled offers and honest math, instead of a wall of untested promotional percentages.
+        &ldquo;what&apos;s the cheapest legitimate way to buy this?&rdquo; with clearly
+        labelled offers and honest math, instead of a wall of untested promotional percentages.
       </p>
 
       <h2

@@ -51,16 +51,9 @@ export default async function DealsFeedSection({
   const indiaRelevantIds = resolved.store_ids.length === 0 ? allowedStoreIds(stores) : [];
   if (indiaRelevantIds.length) query.store_ids = indiaRelevantIds;
 
-  const [rawCoupons, priceDrops] = await Promise.all([
-    resolved.unresolved
-      ? Promise.resolve({ items: [], total: 0, skip, limit: PAGE_SIZE })
-      : resilient.listCoupons(query),
-    // Price drops are a different list with their own (much smaller) shape, so
-    // they carry the keyword only — the coupon filters cannot apply to them.
-    keyword
-      ? Promise.resolve({ items: [], total: 0, skip: 0, limit: 50 })
-      : resilient.listProducts({ limit: 20 }),
-  ]);
+  const rawCoupons = resolved.unresolved
+    ? { items: [], total: 0, skip, limit: PAGE_SIZE }
+    : await resilient.listCoupons(query);
   const coupons = {
     ...rawCoupons,
     items: dedupeCoupons(rawCoupons.items.map((c) => sanitizeCouponForDisplay(c))),
@@ -70,10 +63,6 @@ export default async function DealsFeedSection({
   const page = Math.floor(skip / PAGE_SIZE) + 1;
   const pages = Math.max(Math.ceil(total / PAGE_SIZE), 1);
 
-  const drops = priceDrops.items
-    .filter((p) => p.last_price_drop_pct != null)
-    .sort((a, b) => (b.last_price_drop_pct ?? 0) - (a.last_price_drop_pct ?? 0))
-    .slice(0, 6);
   const activeFilterCount =
     filters.stores.length +
     filters.categories.length +
@@ -240,27 +229,6 @@ export default async function DealsFeedSection({
           </>
         )}
 
-        {!keyword && drops.length > 0 && (
-          <section className="mt-16">
-            <SectionTitle hint="from recorded price history">Price drops</SectionTitle>
-            <ul className="divide-y divide-ledger-line border-y border-ledger-line">
-              {drops.map((p) => (
-                <li key={p.id} className="flex items-baseline justify-between py-3">
-                  <span className="text-ink">{p.name}</span>
-                  <span className="font-mono text-sm">
-                    <span className="text-verified">↓{p.last_price_drop_pct}%</span>
-                    <span className="ml-3 text-ink">₹{p.current_price?.toLocaleString("en-IN")}</span>
-                    {p.lowest_price_90d != null && (
-                      <span className="ml-3 text-ink-soft">
-                        90d low ₹{p.lowest_price_90d.toLocaleString("en-IN")}
-                      </span>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
         <p className="mt-4 text-right text-sm">
           <Link href="/coupons" className="text-inkblue hover:underline">
             All coupons

@@ -147,3 +147,9 @@ docs mention them.
 Affiliate routing/tracking/click-reference files, `/go`, `/out`, `/affiliate/out`, `store_router`,
 `affiliate_router`, `click_service`, `admitad_only`, kill switch, scoreboard, UTM/canonical,
 collections, mobile fixes, SEO work, merchant tiers, "No code listed".
+
+## Needs human decision (S3)
+The backend route `GET /api/v1/products/{product_id}/go` in `app/routers/api/v1/products.py` records an
+affiliate click via `click_service` and lives in a routing file. Per the do-not-touch rule it was left
+in place. No frontend or admin caller remains after S3 (verified by grep); it can be removed in a
+separate, explicitly approved routing change. Product/PricePoint DB models and tables also remain.

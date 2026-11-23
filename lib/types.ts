@@ -393,47 +393,6 @@ export interface VerificationHistoryItem {
   note: string | null;
 }
 
-export interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  store_id: string;
-  category_id: string;
-  /** Whether a buy link exists. The URL itself is only reachable via api.productGoUrl. */
-  has_url: boolean;
-  image_url: string | null;
-  currency: string;
-  current_price: number | null;
-  list_price: number | null;
-  in_stock: boolean;
-  last_captured_at: string | null;
-  lowest_price_7d: number | null;
-  lowest_price_30d: number | null;
-  lowest_price_90d: number | null;
-  last_price_drop_at: string | null;
-  last_price_drop_pct: number | null;
-  created_at: string;
-  effective_price: number | null;
-}
-
-export interface ProductCategory {
-  id: string;
-  name: string;
-  slug: string;
-  product_count: number;
-}
-
-export interface PricePoint {
-  id: string;
-  product_id: string;
-  price: number;
-  original_price: number | null;
-  shipping: number;
-  in_stock: boolean;
-  coupon_id: string | null;
-  captured_at: string;
-}
-
 export interface CmsPage {
   id: string;
   title: string;

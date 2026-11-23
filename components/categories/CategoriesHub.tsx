@@ -114,7 +114,7 @@ export default function CategoriesHub({ items }: { items: CategoryCardData[] }) 
           {
             href: "/stores",
             title: "All Stores A–Z",
-            note: "Browse every brand hub and verified affiliate storefront on Durza.",
+            note: "Browse every brand hub and affiliate storefront on Durza.",
           },
         ].map((item) => (
           <Link key={item.href} href={item.href} className="group rounded-3xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">

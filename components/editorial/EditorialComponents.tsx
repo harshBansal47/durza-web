@@ -10,6 +10,7 @@ import type {
 } from "@/lib/types";
 import { api } from "@/lib/api";
 import PageTitle from "@/components/ui/PageTitle";
+import EditorialByline from "@/components/editorial/EditorialByline";
 import { editorialPath } from "@/lib/editorial-path";
 import { absoluteUrl, faqPageJsonLd } from "@/lib/seo";
 import GuideArt from "./GuideArt";
@@ -376,10 +377,6 @@ async function LinkedEntities({ links }: { links: EditorialEntityLink[] }) {
       const entity = await api.getStoreById(link.store_id).catch(() => null);
       return entity ? { href: `/stores/${entity.slug}`, label: link.anchor_text ?? entity.name } : null;
     }
-    if (link.product_id) {
-      const entity = await api.getProductById(link.product_id).catch(() => null);
-      return entity ? { href: `/products/${entity.slug}`, label: link.anchor_text ?? entity.name } : null;
-    }
     if (link.coupon_id) {
       const entity = await api.getCouponById(link.coupon_id).catch(() => null);
       return entity ? { href: `/coupons/${entity.slug}`, label: link.anchor_text ?? entity.title } : null;
@@ -529,12 +526,13 @@ export default async function EditorialArticle({ content }: { content: Editorial
       <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">{TYPE_LABELS[content.content_type]}</p>
       <PageTitle className="mt-3 leading-tight">{content.title}</PageTitle>
       {content.summary && <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-soft">{renderBrandText(content.summary)}</p>}
-      <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs text-ink-soft">
-        {content.author_name && <span>By {content.author_name}</span>}
-        {content.published_at && <time dateTime={content.published_at}>Published {new Date(content.published_at).toLocaleDateString("en-IN")}</time>}
-        <time dateTime={content.updated_at}>Updated {new Date(content.updated_at).toLocaleDateString("en-IN")}</time>
-        {checkedAt && <span>Pricing checked {new Date(checkedAt).toLocaleDateString("en-IN")}</span>}
-      </div>
+      <EditorialByline
+        authorName={content.author_name}
+        publishedAt={content.published_at}
+        updatedAt={content.updated_at}
+        checkedAt={checkedAt}
+        hasMethod={Boolean(asText(data.methodology))}
+      />
 
       {(content.hero_image_url || content.content_type === "guide") && (
         <GuideArt

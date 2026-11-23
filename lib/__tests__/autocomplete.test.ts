@@ -36,13 +36,13 @@ describe("api.autocomplete", () => {
       return json(["Air Max"]);
     });
     const result = await api.autocomplete("ni");
-    expect(result).toEqual({ stores: ["Nike"], categories: ["Shoes"], products: ["Air Max"] });
-    expect(fetchMock).toHaveBeenCalledTimes(4); // 1 probe + 3 fallback
+    expect(result).toEqual({ stores: ["Nike"], categories: ["Shoes"], products: [] });
+    expect(fetchMock).toHaveBeenCalledTimes(3); // 1 probe + 2 fallback
 
     // ...and it remembers, so the next keystroke does not probe again.
     fetchMock.mockClear();
     await api.autocomplete("nik");
-    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(urls().some((u) => u.includes("/search/suggest"))).toBe(false);
   });
 

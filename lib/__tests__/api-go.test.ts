@@ -18,12 +18,6 @@ describe("tracked outbound URLs", () => {
     expect(url).toMatch(/content_ref=[^&]*[0-9a-f]/i);
   });
 
-  it("productGoUrl points at the product /go redirect", () => {
-    const url = api.productGoUrl("p1", "product-page");
-    expect(url).toContain("/products/p1/go?");
-    expect(url).toContain("src=product-page");
-  });
-
   it("vcommissionCampaignGoUrl points at the backend campaign redirect", () => {
     const url = api.vcommissionCampaignGoUrl("campaign-1", "campaign-catalog");
     expect(url).toContain("/vcommission/campaigns/campaign-1/go?");
