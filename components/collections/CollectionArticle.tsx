@@ -6,6 +6,7 @@ import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { GO_REL } from "@/lib/go";
 import type { CollectionEntry } from "@/data/collections";
 import { COLLECTIONS } from "@/data/collections";
+import ShareControls from "@/components/collections/ShareControls";
 
 function pad2(n: number) {
   return String(n).padStart(2, "0");
@@ -197,6 +198,7 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
           Durza may earn a commission on tracked links at no extra cost to you. Offer type and
           evidence are shown per item; a coupon code is only shown when one is actually listed.
         </p>
+        <ShareControls entry={entry} />
 
         <section aria-labelledby="faqs" className="mt-12">
           <h2 id="faqs" className="font-serif text-2xl font-extrabold text-[#141413] sm:text-3xl">Frequently asked questions</h2>
