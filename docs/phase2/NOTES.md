@@ -49,3 +49,15 @@ unmatched, last sync job, plain status).
 **[decision]** Monetisation gap: 5 highest-click offers are plain merchant URLs with no tracking.
 Amazon.in offers carry `tag=durza02-21` in destination URLs; store /go also injects the tag.
 No routing changed.
+
+## T8 — Hardening
+**[fact]** Reproduced `/stores/bewakoof` 500 locally with backend down: `orNotFound()` only converts
+404; other fetch failures threw. Fixed in the generic page with `loadStoreSafe()`: backend outage now
+renders a 200 degraded page with curated-collection and retry links; a genuine 404 still calls notFound().
+Generator metadata on outage keeps the page indexable (no deindex). Test added.
+**[fact]** Homepage fan-out N = 12 API calls (unchanged from Phase 1; no new calls added). Local dev:
+first cold render 2.58s, subsequent warm renders 0.22s TTFB. **[decision]** No consolidation or new
+cache: warm performance is already good and consolidation would add complexity without measured gain.
+**[fact]** Public schemas expose no commission rates or advertiser payouts (`CouponPublicRead`,
+`StoreDestinationRead`); `StoreRead.commission_disclosure` is a string, and payouts are admin-only.
+**[decision]** No routing or tracking changed.

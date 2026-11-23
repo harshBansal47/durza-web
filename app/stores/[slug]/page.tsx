@@ -41,6 +41,15 @@ interface Props {
  */
 const loadStore = cache((slug: string, skip: number = 0) => lookup.getStoreDestination(slug, { skip, limit: PAGE_SIZE }));
 
+/** Phase 2 T8 — distinguish a real 404 from an unavailable backend. */
+async function loadStoreSafe(slug: string, skip: number) {
+  try {
+    return { destination: await loadStore(slug, skip), unavailable: false };
+  } catch {
+    return { destination: null, unavailable: true };
+  }
+}
+
 async function loadProductCollections(storeId: string): Promise<{
   collections: StoreProductCollection[];
   categoriesLoadFailed: boolean;
@@ -84,11 +93,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // which orNotFound converts to null. Any other failure also throws and surfaces as
   // an error page. We must call notFound() here too — if only the page component
   // calls it, Next.js has already committed the 200 status from generateMetadata.
-  const destination = await loadStore(slug, 0).catch((error: unknown) => {
-    // Non-404 API failures: let the error boundary handle it
-    if (error instanceof ApiError && error.status !== 404) throw error;
-    return null;
-  });
+  const { destination, unavailable } = await loadStoreSafe(slug, 0);
+  if (unavailable) {
+    // Backend outage is not a missing store: keep the page indexable and useful.
+    return {
+      title: `${formatStoreDisplayName({ slug, name: slug })} — Durza`,
+      description: "Browse curated shopping collections and current offers on Durza.",
+      alternates: { canonical: `/stores/${slug}` },
+    };
+  }
   // Same test the page uses to 404, so a store the page refuses to show is never indexable.
   if (!destination || !destination.store.is_active) {
     notFound();
@@ -155,7 +168,22 @@ export default async function StorePage({ params, searchParams }: Props) {
   const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
   const skip = (page - 1) * PAGE_SIZE;
 
-  const destination = await loadStore(slug, skip);
+  const { destination, unavailable } = await loadStoreSafe(slug, skip);
+  if (unavailable) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <h1 className="font-serif text-2xl font-bold text-ink">{formatStoreDisplayName({ slug, name: slug })}</h1>
+        <p className="mt-3 text-sm text-ink-soft">
+          We could not load live offers for this store right now. Try again shortly, or browse our
+          curated collections while we reconnect.
+        </p>
+        <p className="mt-4 flex flex-wrap gap-3 text-sm">
+          <Link href="/collections" className="text-inkblue underline">Curated collections</Link>
+          <Link href={`/stores/${slug}`} className="text-inkblue underline">Retry this store</Link>
+        </p>
+      </main>
+    );
+  }
   if (!destination || !destination.store.is_active) notFound();
   const store = destination.store;
   const storeName = formatStoreDisplayName(store);
