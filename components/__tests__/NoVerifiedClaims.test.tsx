@@ -36,7 +36,7 @@ const coupon: CouponPublic = {
   created_at: "2026-01-01T00:00:00Z",
 };
 
-const store = { id: "s1", name: "Amazon", slug: "amazon", currency: "INR" };
+const store = { id: "s1", name: "Amazon", slug: "amazon", logo_url: null, currency: "INR" };
 
 describe("no checkout-verification claims in offer components", () => {
   it("renders no 'verified' or 'checkout tested' text even with verified data", () => {
