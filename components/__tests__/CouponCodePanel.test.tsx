@@ -91,15 +91,15 @@ describe("CouponCodePanel", () => {
 
   it("shows no reveal/copy button for a code-less deal, just the auto-apply message", () => {
     render(<CouponCodePanel coupon={{ ...codedCoupon, code: null }} />);
-    expect(screen.getByText(/no code needed/i)).toBeInTheDocument();
+    expect(screen.getByText(/no code listed/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /reveal|copy/i })).not.toBeInTheDocument();
   });
 
   it("does not repeat itself for a code-less deal: no empty 'applies at checkout' box", () => {
     render(<CouponCodePanel coupon={{ ...codedCoupon, code: null }} storeName="Nykaa" />);
 
-    // "No code needed" is said once, in the bar; the dashed box that restated it is gone.
-    expect(screen.getAllByText(/no code needed/i)).toHaveLength(1);
+    // "No code listed" is said once, in the bar; the dashed box that restated it is gone.
+    expect(screen.getAllByText(/no code listed/i)).toHaveLength(1);
     expect(screen.queryByText(/applies at checkout/i)).not.toBeInTheDocument();
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });

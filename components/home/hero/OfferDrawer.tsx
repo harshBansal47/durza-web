@@ -17,7 +17,7 @@ function DrawerCode({ deal }: { deal: HeroDeal }) {
   if (!deal.code) {
     return (
       <div className="hx-codebox none">
-        <span className="hx-code">NO CODE NEEDED</span>
+        <span className="hx-code">NO CODE LISTED</span>
         <span style={{ marginLeft: "auto", fontSize: 12, color: "var(--hx-tx2)" }}>Applies at the store</span>
       </div>
     );

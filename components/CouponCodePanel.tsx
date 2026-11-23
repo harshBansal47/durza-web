@@ -46,7 +46,7 @@ export default function CouponCodePanel({
   return (
     <div className="relative overflow-hidden rounded-[22px] border border-ledger-line bg-white shadow-[var(--shadow-raised)]">
       <div className="relative bg-brand px-5 py-2 text-xs font-semibold text-white">
-        <span className="relative">{coupon.code ? "Your code" : "No code needed"}</span>
+        <span className="relative">{coupon.code ? "Your code" : "No code listed"}</span>
       </div>
 
       {/* A code to show, or a real requirement to state. Without either, a box that only says
