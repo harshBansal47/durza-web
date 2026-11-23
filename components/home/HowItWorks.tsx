@@ -4,9 +4,9 @@ const STEPS = [
   {
     glyph: Search,
     title: "Find an offer",
-    body: "Search for a store or product. Each offer shows its source and when it was last checked.",
+    body: "Search for a store or product. Each offer states its type; a last-checked date appears when known.",
   },
-  { glyph: Ticket, title: "Check and shop", body: "See the offer type and any source or check date, then head to the store through our tracked link. We may earn a commission." },
+  { glyph: Ticket, title: "Check and shop", body: "See the offer type and any last-checked date, then head to the store through our tracked link. We may earn a commission." },
   {
     glyph: CheckCircle2,
     title: "Share what happened",

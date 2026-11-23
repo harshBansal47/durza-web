@@ -32,4 +32,3 @@ trigger in any case — it is run-now only. No job logic was changed.
 5. **Stage 4 — conversions:** `sync_conversions` only after Admitad credentials and a vCommission client exist (PROPOSALS.md).
 6. **Stage 5 — outbound (last):** `OUTBOUND_COMMUNICATIONS_ENABLED=true` + `send_deal_alerts`/`post_telegram` explicitly in `SCHEDULER_JOBS`. Go only after editorial sign-off on message content and consent rules.
 
-**Admin visibility:** `/admin/jobs` reads `JobRun` and the live scheduler; this page never starts a job.

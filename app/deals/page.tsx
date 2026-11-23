@@ -45,7 +45,7 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
           (visually hidden); from md up this is the full header. */}
       <ListingHero
         mobile="title-only"
-        eyebrow="Live deals · check date on every card"
+        eyebrow="Live deals · offer type on every card"
         title="Today's deals in India"
         lead="Live offers on the stores shoppers use daily — Oppo, Flipkart, Nykaa, Amazon — with source details where available."
         controls={<KeywordForm size="bar" placeholder="Search deals by brand or product (e.g., earbuds, protein, skincare)..." label="Search today's deals" />}

@@ -38,8 +38,8 @@ interface Banner {
 
 const BANNERS: Banner[] = [
   {
-    title: "Codes straight from the source",
-    body: "Every offer links to the store page it was read from, with the date we last checked it.",
+    title: "Offer types, clearly labelled",
+    body: "Every offer states its type; we show a last-checked date when known.",
     cta: "Browse coupons",
     href: "/coupons",
     glyph: BadgeCheck,

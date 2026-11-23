@@ -87,11 +87,11 @@ export default function ListingHero({
         <ul className="lx-trust">
           <li>
             <ShieldCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-            Sourced from official pages
+            Offer type on every card
           </li>
           <li className="amber">
             <CalendarCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-            Check date on every offer
+            
           </li>
           <li className="blue">
             <TimerOff aria-hidden="true" size={15} strokeWidth={2.4} />

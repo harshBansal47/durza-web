@@ -53,28 +53,6 @@ async function safe<T>(promise: Promise<T>, fallback: T): Promise<T> {
   return promise.catch(() => fallback);
 }
 
-// const PILLARS = [
-//   {
-//     title: "Sourced, not scraped",
-//     body: "Every offer links to the store page it was read from, with the date we last checked it — not a marketing claim.",
-//     points: [
-//       "Source page on every offer",
-//       "Check date on every card",
-//       "Codes only where the store published them",
-//     ],
-//   },
-//   {
-//     title: "Commission disclosed",
-//     body: "We publish what we earn on every store and coupon page. Expected earnings are one weighted input in ranking — and we say so.",
-//     points: ["Per-store commission note", "Sponsored placements are labelled", "Ranking inputs explained"],
-//   },
-//   {
-//     title: "Evidence over urgency",
-//     body: "Expiry dates come from the store's own terms, not countdown theatre. Expired offers are hidden and archived.",
-//     points: ["Expiry from store terms", "Expired offers removed", "Price history per product"],
-//   },
-// ];
-
 export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
   const emptyEditorialPage: Paginated<EditorialContent> = { items: [], total: 0, skip: 0, limit: 0 };

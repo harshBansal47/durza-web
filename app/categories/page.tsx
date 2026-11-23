@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const names = items.slice(0, 4).map((category) => categoryLabel(category));
   const examples = names.length > 0 ? ` — ${names.join(", ")}${total > names.length ? " and more" : ""}` : "";
   const title = `Coupons by Category — Electronics, Fashion & More`;
-  const description = `Browse coupons and deals by shopping category${examples}. Offers show their type, and a source or check date when we have one.`;
+  const description = `Browse coupons and deals by shopping category${examples}. Offers show their type, and a last-checked date when known.`;
   const canonical = absoluteUrl("/categories");
   return {
     title,

@@ -92,7 +92,7 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
             <span className="hx-grad">Shop smarter. Save more.</span>
           </h1>
           <p className="hx-sub hx-rise" style={{ ["--i" as string]: 1 }}>
-            Curated shopping opportunities from stores we track. Every offer states its type; we show a source or check date whenever we have one.
+            Curated shopping opportunities from stores we track. Every offer states its type; a last-checked date appears when known.
           </p>
 
           <Link href="/collections/complete-amazon-makeup-toolkit" className="hx-beauty-promo hx-rise" style={{ ["--i" as string]: 2 }}>

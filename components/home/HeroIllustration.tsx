@@ -176,7 +176,7 @@ export default function HeroIllustration({ className }: { className?: string }) 
         </Drift>
       </g>
 
-      {/* Calendar: every offer shows the date it was checked */}
+      {/* Calendar: a last-checked date appears when known */}
       <g transform="translate(40 268)">
         <Drift delay={1.1}>
           <g filter="url(#dz-shadow)">

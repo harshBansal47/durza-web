@@ -6,14 +6,14 @@ import { absoluteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Trust & Verification | Durza",
   description:
-    "How Durza presents offers: offer types, source links and check dates when available, shopper votes, and checkout-tested codes.",
+    "How Durza presents offers: offer types, last-checked dates when known, shopper votes, and checkout-tested codes.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },
   openGraph: {
     title: "Trust & Verification | Durza",
     description:
-      "Offers on Durza come from tracked sources, state their type, and show a source or check date when available.",
+      "Offers on Durza state their type, show a last-checked date when known, and disclose commissions.",
     url: absoluteUrl("/trust"),
   },
 };
@@ -21,15 +21,15 @@ export const metadata: Metadata = {
 const PROCESS = [
   {
     icon: BadgeCheck,
-    title: "Direct Source Links",
+    title: "Offer Types, Clearly Labelled",
     description:
-      "Offers are pulled from official merchant pages or direct affiliate networks (Admitad, vCommission) with a source reference.",
+      "Every offer states its type — coupon code, deal with no code listed, or another clearly labelled offer type.",
   },
   {
     icon: CalendarCheck2,
-    title: "Check Dates When Available",
+    title: "Last-Checked Dates When Known",
     description:
-      "Listings show a check date where one exists. Offers without a check date are labelled accordingly.",
+      "A last-checked date appears only when one exists. Offers without one show no placeholder.",
   },
   {
     icon: Fingerprint,
@@ -57,7 +57,7 @@ export default function TrustPage() {
             How Durza checks offers.
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#3f3b35]">
-            Offers on Durza come from tracked sources, state their type, and show a source or check date when available.
+            Offers on Durza state their type, show a last-checked date when known, and disclose commissions.
           </p>
           <div className="mt-7">
             <Link
@@ -71,7 +71,7 @@ export default function TrustPage() {
 
         <section aria-labelledby="trust-process" className="mt-12">
           <h2 id="trust-process" className="sr-only">
-            How offers are sourced and labelled
+            How offers are labelled
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {PROCESS.map((item) => {
@@ -108,10 +108,10 @@ export default function TrustPage() {
             </p>
             <p>
               Votes are limited to one per visitor per offer per day using a salted IP hash to reduce spam without storing raw identities.
-              Offers come from official merchant pages or affiliate network feeds (such as Admitad and vCommission) with a source reference and last-checked date.
+              Offers come from store and affiliate-network data, state their type, and show a last-checked date when known.
             </p>
             <p>
-              Expired offers are retired from listings and are not recycled. A retired code only reappears if the store republishes it with a valid source.
+              Expired offers are retired from listings and are not recycled. A retired code only reappears if the store republishes it.
             </p>
           </div>
         </section>

@@ -152,8 +152,8 @@ export default function Footer({
               <span className="font-semibold" style={{ color: PALETTE.dark }}>
                 Durza
               </span>
-              . Offers researched from official store pages; commissions
-              disclosed on offer pages.
+              . Discover genuine deals. Shop smarter. Save more. Commission
+              disclosed on tracked links.
             </p>
 
             <p className="sm:max-w-xl">

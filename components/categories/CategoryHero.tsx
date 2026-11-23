@@ -43,7 +43,7 @@ export default function CategoryHero({
             </span>
             <PageTitle className="!text-2xl !text-white sm:!text-4xl">{title}</PageTitle>
             <p className="mt-2 max-w-md text-sm leading-6 text-white/90 sm:text-base">
-              Browse current {category.name.toLowerCase()} deals and coupons, with source details and check dates on every offer.
+              Browse current {category.name.toLowerCase()} deals and coupons, with offer types and last-checked dates when known.
             </p>
           </div>
         </div>

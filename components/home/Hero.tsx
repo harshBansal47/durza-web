@@ -169,8 +169,7 @@ export default function Hero({
             {/* Trust row under the search */}
             <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-ink-soft">
               {[
-                "Sourced from official pages",
-                "Check date on every offer",
+                "Offer type on every card",
                 "No fake timers",
               ].map((label) => (
                 <li key={label} className="inline-flex items-center gap-1.5">

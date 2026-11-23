@@ -5,12 +5,12 @@ import LegalPage from "@/components/legal/LegalPage";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Durza is a shopping discovery platform where offers state their type, show a source or check date when available, and disclose commissions.",
+    "Durza is a shopping discovery platform where offers state their type, show a last-checked date when known, and disclose commissions.",
   alternates: { canonical: "https://durza.in/about" },
 };
 
 const HIGHLIGHTS = [
-  "Offers state their type and show a source or check date when we have one.",
+  "Offers state their type and show a last-checked date when known.",
   "Success rates are based on shopper reports — we don’t show one until there’s feedback.",
   "Commissions are disclosed clearly on the page.",
 ];
@@ -20,7 +20,7 @@ export default function AboutPage() {
     <LegalPage
       eyebrow="About Durza"
       title="Clear, honest savings"
-      lede="Durza helps you find store offers with context you can trust: where an offer came from, source or check dates when available, and how it’s performing based on real reports."
+      lede="Durza helps you find store offers with context you can trust: their type, last-checked dates when known, and how they’re performing based on real reports."
       highlights={HIGHLIGHTS}
       toc={[
         { id: "what-we-do", label: "What we do" },
@@ -37,15 +37,15 @@ export default function AboutPage() {
         What we do
       </h2>
       <p>
-        Offers on Durza state their type and show a source or check date when we have one. We
-        do not republish percentages we cannot trace to a source, and we do not show a success rate
+        Offers on Durza state their type and show a last-checked date when known. We
+        do not show a success rate
         until a shopper has actually reported one. Sponsored placements are always labelled, and
         the commission we expect to earn is disclosed on the page.
       </p>
       <p>
         We are building toward a different kind of shopping assistant — one that can answer
         &ldquo;what&apos;s the cheapest legitimate way to buy this?&rdquo; with price history,
-        sourced offers and honest math, instead of a wall of untested promotional percentages.
+        clearly labelled offers and honest math, instead of a wall of untested promotional percentages.
       </p>
 
       <h2

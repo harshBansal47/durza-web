@@ -80,3 +80,21 @@ The link-builder's `canonicalize()` helper was only exercised by its own test an
 metadata generation; canonical URLs are built from static paths, so tracking parameters never enter them.
 UTM capture, `utm_source=share` on collection share URLs, sitemap generation and scoreboard channel/campaign
 grouping remain untouched.
+
+## R9 — Verification and judgment calls
+- Removed frontend routes all return **404** locally (evidence, digest, jobs, monetisation,
+  conversions, links, go-no-go, content readiness). No nav, sitemap or robots references remain.
+- Smoke script against localhost: 12/14 pass; the two failures are the documented environmental
+  ones (backend not running locally → no offer cards; `/sitemap.xml` 503 without last-good data).
+- Claim sweep reworded promo strip, hero subhead, How Durza works, footer, deals/category pages,
+  trust/about pages and removed the dead commented PILLARS block. Allowed claims only: offer type,
+  last-checked when known, commission disclosure.
+- Backend: 1157 passed, 3 skipped (baseline 1179/1); ruff/format/mypy clean. Frontend: 19 failed /
+  747 passed (baseline unchanged), tsc clean, next build exit 0.
+- `git diff phase3-distribution-readiness` on routing/tracking/schema/migration files: empty.
+- **Judgment calls:** kept `classify_store_tier`, raw scoreboard placement/type/store/channel/campaign,
+  UTM capture, share `utm_source=share`, collection live-integrity hiding, share assets, follow links,
+  mobile fixes, kill switch and Shopify verifier fix. Config trimmed to `MIN_POSSIBLE_MATCH_SIMILARITY`
+  only (all other phase3_config keys were used solely by removed tools). `ATTRIBUTION_AUDIT.md` and
+  phase2/phase3 `NOTES.md` stay as historical records; EDITOR_RUNBOOK, DISTRIBUTION_RUNBOOK,
+  RELEASE_CHECKLIST and SCHEDULER_RUNBOOK were rewritten for what remains.

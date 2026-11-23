@@ -32,7 +32,7 @@ existing columns (`restrictions`, `content_blocks`, `analytics_*`, `job_runs`). 
 ## Post-deploy smoke
 1. `python scripts/smoke_check.py --base http://localhost:3000` locally (GET only). For a deployed URL,
    pass `--i-am-running-this-against` explicitly and only with approval.
-2. `/health` 200; `/admin/analytics/scoreboard` 200 with admin auth; `/admin/evidence` 200.
+2. `/health` 200; `/admin/analytics/scoreboard` 200 with admin auth; `/admin/analytics` 200.
 3. Check the scoreboard notes say CTR unavailable (not zero) and bot clicks are excluded.
 4. Verify `/sitemap.xml`, `robots.txt`, canonical tags and one H1 on Tier A store pages.
 5. No scheduler job started; `JobRun` ledger unchanged by the deploy.
