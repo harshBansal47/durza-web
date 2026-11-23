@@ -40,3 +40,14 @@ scheduler intervals, `ALLOW_PROD_MIGRATION` (prod migrations only). Full list in
 **[fact] Mobile baseline:** `.next/static/chunks` total 4.3 MB across all routes; homepage HTML previously
 measured ~390 KB with ~1.1 MB of JS/CSS (Phase 1 audit). No Lighthouse dependency exists; record bundle
 sizes only, no new tooling.
+
+## T2 — Monetisation coverage
+**[fact]** Classifier reads existing `coupon_sources`, `Source.kind`, `Coupon.destination_url` and
+store domains; labels `network_tracked` / `amazon_tagged` / `plain_url` / `unknown` with a cited rule,
+ranked by clicks. No routing file changed.
+**[fact]** Editor tool validates https + allowlisted host (config `app/core/phase3_config.py`), records
+old/new URL, editor id and time in `restrictions._outbound_url_history`, and is reversible. Accepting
+an offer as unmonetised is a schema-free decision marker.
+**[decision]** Site-wide disclosure ("we may earn a commission") is accurate as a general statement
+but incomplete for `plain_url` offers that earn nothing. Item for human review — no disclosure wording
+was changed.

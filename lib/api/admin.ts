@@ -74,6 +74,53 @@ export async function fetchAnalyticsOverview(
   return response.data;
 }
 
+export interface MonetisationRow {
+  id: string;
+  title: string;
+  code: string | null;
+  store_slug: string | null;
+  clicks: number;
+  destination_url: string | null;
+  label: string;
+  rule: string;
+  accepted_unmonetised: boolean;
+}
+
+export async function fetchMonetisationQueue(): Promise<MonetisationRow[]> {
+  const response = await clientHttp.get<MonetisationRow[]>(
+    clientAppUrl("/api/admin/monetisation/queue"),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function setTrackedUrl(id: string, url: string, reason: string): Promise<{ id: string; destination_url: string }> {
+  const response = await clientHttp.post(
+    clientAppUrl(`/api/admin/monetisation/${encodeURIComponent(id)}/url`),
+    { url, reason },
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function restoreTrackedUrl(id: string): Promise<{ id: string; destination_url: string }> {
+  const response = await clientHttp.post(
+    clientAppUrl(`/api/admin/monetisation/${encodeURIComponent(id)}/restore`),
+    {},
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function markAcceptedUnmonetised(id: string, accepted: boolean): Promise<{ id: string; accepted_unmonetised: boolean }> {
+  const response = await clientHttp.post(
+    clientAppUrl(`/api/admin/monetisation/${encodeURIComponent(id)}/accepted-unmonetised`),
+    { accepted },
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
 export interface JobStatusRow {
   job: string;
   last_status: string | null;
