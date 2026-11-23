@@ -75,3 +75,12 @@ Order: HomeHero → (empty branch) → categories → Stores we track → Curate
 Black Friday banner → Checked Deals Explorer (4 tabs) → Smart Stacking banner → 3×
 EditorialSection → Our deal standards pills → Recent reviews → Curated collections →
 Tools & Curated Kits → How it works → commented-out PILLARS block.
+
+## T5/T6 notes
+- Copy sweep covered 26 files; `HomeHero.test.tsx` expectations updated for the new H1/eyebrow and CHECKED OUT pill.
+- Default `has_code` now stays undefined (both offer types visible). This **fixed** one pre-existing
+  baseline failure (`lib/__tests__/filters.test.ts > sends only the filters that are set`), so the
+  frontend baseline improved from 23 to 22 unrelated failures — no new failures introduced.
+- Offer cards now render one type label plus one evidence line. `OfferCard` receives curated static
+  props from custom pages rather than a full coupon row, so its evidence line is the affiliate-link
+  disclosure or "No source date yet" — it never claims a source date it does not have.

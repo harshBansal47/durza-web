@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { evidenceLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import OfferEvidence from "@/components/OfferEvidence";
 import { api } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
 import { formatStoreDisplayName } from "@/lib/store-display";
@@ -88,6 +90,10 @@ export default function DealCard({
             </span>
           </div>
 
+          <OfferEvidence
+            typeLabel={offerTypeLabel(offerType(coupon))}
+            evidence={evidenceLine(coupon)}
+          />
           {price && (
             <p className="flex flex-wrap items-baseline gap-2">
               <span className="font-mono text-xl font-medium text-ink line-clamp-2">

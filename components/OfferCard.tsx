@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Copy, Zap } from "lucide-react";
 import { CardSaveButton } from "./CardSaveButton";
+import OfferEvidence from "./OfferEvidence";
+import { affiliateLinkLabel, offerTypeLabel } from "@/lib/offer-presentation";
 import { useTrackedHref } from "@/lib/useTrackedHref";
 import OfferBrandMark, { type OfferBrand } from "./OfferBrandMark";
 
@@ -93,6 +95,10 @@ export default function OfferCard({
   return (
     <article className="group flex h-full flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs transition-all hover:border-slate-300 hover:shadow-md">
       {brand ? <OfferBrandMark brand={brand} /> : null}
+      <OfferEvidence
+        typeLabel={isCoded ? offerTypeLabel("coupon_code") : offerTypeLabel("no_code_deal")}
+        evidence={ctaHref ? affiliateLinkLabel() : "No source date yet"}
+      />
       {/* Top row — discount anchor pill + live-verification pill, bookmark on the right */}
       <div className="mb-3 flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">

@@ -14,6 +14,8 @@ import {
   totalReports,
 } from "@/lib/format";
 import { maskCode } from "@/lib/codes";
+import { evidenceLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import OfferEvidence from "@/components/OfferEvidence";
 import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
 import { CardSaveButton } from "./CardSaveButton";
@@ -200,6 +202,10 @@ export function CouponCard({
             )}
             <div className="mt-0">
               {store && !storeGridLayout ? <StoreLine store={store} /> : null}
+              <OfferEvidence
+                typeLabel={offerTypeLabel(offerType(coupon))}
+                evidence={evidenceLine(coupon)}
+              />
             </div>
           </div>
           <div className={storeLayout ? "sm:self-end" : storeGridLayout ? "relative z-20" : ""}>

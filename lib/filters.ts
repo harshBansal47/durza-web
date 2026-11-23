@@ -182,7 +182,9 @@ export function toCouponQuery(
     store_id: resolved.store_id,
     category_id: resolved.category_id,
     discount_type: filters.type || undefined,
-    has_code: filters.code === "" ? true : filters.code === "codes",
+    // No filter chosen → do not restrict by code presence. Both coupon codes
+    // and no-code deals are real offers and must be discoverable (Phase 1 T6).
+    has_code: filters.code === "" || filters.code === undefined ? undefined : filters.code === "codes",
     verified: filters.confirmed === "once" ? true : undefined,
     verified_within_hours: hours,
     min_success_rate: filters.rate ? Number(filters.rate) / 100 : undefined,
