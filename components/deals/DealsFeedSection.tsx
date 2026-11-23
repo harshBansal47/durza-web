@@ -240,14 +240,9 @@ export default async function DealsFeedSection({
           </>
         )}
 
-        {!keyword && (
+        {!keyword && drops.length > 0 && (
           <section className="mt-16">
             <SectionTitle hint="from recorded price history">Price drops</SectionTitle>
-            {drops.length === 0 ? (
-              <p className="py-6 text-sm text-ink-soft">
-                Price drops will appear here as soon as observations come in.
-              </p>
-            ) : (
             <ul className="divide-y divide-ledger-line border-y border-ledger-line">
               {drops.map((p) => (
                 <li key={p.id} className="flex items-baseline justify-between py-3">
@@ -264,8 +259,7 @@ export default async function DealsFeedSection({
                 </li>
               ))}
             </ul>
-          )}
-            </section>
+          </section>
         )}
         <p className="mt-4 text-right text-sm">
           <Link href="/coupons" className="text-inkblue hover:underline">

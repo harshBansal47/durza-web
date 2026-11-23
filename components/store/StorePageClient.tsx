@@ -9,7 +9,6 @@ import { hostnameOf } from "@/lib/url";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import { formatDiscount, formatDiscountHeading } from "@/lib/format";
 import CouponGroupCard from "@/components/CouponGroupCard";
-import { ClientTabs } from "@/components/ui/Tabs";
 import SaveDealBanner from "@/components/SaveDealBanner";
 import { RecordView } from "@/components/Analytics";
 import { api } from "@/lib/api";
@@ -100,6 +99,9 @@ export default function StorePageClient({
   // The tabs are the same offers in different orders, so the offers on the page are the size of
   // the biggest tab. Adding the tabs up would count every offer two or three times.
   const offersShown = Math.max(0, ...Object.values(filteredTabs).map((tab) => tab?.items.length ?? 0));
+  const allOffers = dedupeCoupons(Object.values(filteredTabs).flatMap((tab) => tab?.items ?? []));
+  const codedOffers = allOffers.filter((coupon) => Boolean(coupon.code));
+  const noCodeOffers = allOffers.filter((coupon) => !coupon.code);
   const pageNumbers = [...new Set([1, pagination.page - 1, pagination.page, pagination.page + 1, pagination.totalPages])]
     .filter((page) => page >= 1 && page <= pagination.totalPages)
     .sort((a, b) => a - b);
@@ -151,23 +153,26 @@ export default function StorePageClient({
       <RecordView storeSlug={store.slug} />
       <StoreHero
         name={store.name}
-        subtitle={storeDescription ?? `${stats.total} live ${store.name} coupon codes and deals — each linked to its source page with the date it was last checked.`}
+        subtitle={storeDescription ?? `${stats.total} live ${store.name} offers — offer types and check dates shown when available.`}
         domain={websiteHost}
         heroImageUrl={store.hero_image_url ?? null}
         offerCount={stats.total}
         ctaHref={websiteHost ? storeGoHref(store.slug, "store-page") : undefined}
+        lastCheckedAt={stats.latestCheck}
         perks={[
-          { label: "Live Offers", value: `${stats.total} verified` },
-          { label: "Sourced From", value: "Official pages" }
+          { label: "Live Offers", value: `${stats.total} offers` },
+          { label: "Sourcing", value: "Tracked sources" }
         ]}
       />
 
 
-      <Storefront
-        store={store}
-        collections={productCollections}
-        categoriesLoadFailed={productCategoriesLoadFailed}
-      />
+      {productCollections.length > 0 || productCategoriesLoadFailed ? (
+        <Storefront
+          store={store}
+          collections={productCollections}
+          categoriesLoadFailed={productCategoriesLoadFailed}
+        />
+      ) : null}
 
       {isGlobalMultiCurrencyStore && (
         <section className="rounded-2xl border border-ledger-line bg-paper-raised p-4 text-sm leading-6 text-ink-soft">
@@ -207,7 +212,7 @@ export default function StorePageClient({
             </button>
           ))}
         </div>
-        {visibleTabs.length > 0 ? (
+        {codedOffers.length + noCodeOffers.length > 0 ? (
           <>
             {/* Keeps the h1 → h2 → h3 order intact for every code card below. */}
             <h2 className="sr-only">Offers from {store.name}</h2>
@@ -227,7 +232,60 @@ export default function StorePageClient({
                 <span className="btn btn-cta shrink-0">View offer <span aria-hidden="true">→</span></span>
               </Link>
             )}
-            <ClientTabs tabs={visibleTabs} />
+            <div className="space-y-8">
+              {codedOffers.length > 0 && (
+                <section aria-labelledby="store-coded-offers">
+                  <h3 id="store-coded-offers" className="mb-3 font-sans text-lg font-semibold text-ink">
+                    Coupon codes
+                  </h3>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {groupSimilar(codedOffers).slice(0, expanded ? 100 : 6).map((entry) =>
+                      entry.kind === "group" ? (
+                        <CouponGroupCard key={`group-${entry.key}`} label={entry.label} coupons={entry.coupons} currency={code} />
+                      ) : (
+                        <OfferCard
+                          key={entry.coupon.id}
+                          bookmarkId={entry.coupon.id}
+                          code={entry.coupon.code}
+                          badge={formatDiscountHeading(entry.coupon, code)}
+                          title={entry.coupon.title}
+                          description={entry.coupon.description}
+                          ctaHref={api.goUrl(entry.coupon.id, "store-page", "store_codes")}
+                          verified={entry.coupon.verification_status === "verified"}
+                          expiresAt={entry.coupon.expires_at}
+                        />
+                      ),
+                    )}
+                  </div>
+                </section>
+              )}
+              {noCodeOffers.length > 0 && (
+                <section aria-labelledby="store-no-code-offers">
+                  <h3 id="store-no-code-offers" className="mb-3 font-sans text-lg font-semibold text-ink">
+                    Deals (no code listed)
+                  </h3>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {groupSimilar(noCodeOffers).slice(0, expanded ? 100 : 6).map((entry) =>
+                      entry.kind === "group" ? (
+                        <CouponGroupCard key={`group-${entry.key}`} label={entry.label} coupons={entry.coupons} currency={code} />
+                      ) : (
+                        <OfferCard
+                          key={entry.coupon.id}
+                          bookmarkId={entry.coupon.id}
+                          code={null}
+                          badge={formatDiscountHeading(entry.coupon, code)}
+                          title={entry.coupon.title}
+                          description={entry.coupon.description}
+                          ctaHref={api.goUrl(entry.coupon.id, "store-page", "store_no_code_deals")}
+                          verified={entry.coupon.verification_status === "verified"}
+                          expiresAt={entry.coupon.expires_at}
+                        />
+                      ),
+                    )}
+                  </div>
+                </section>
+              )}
+            </div>
           </>
         ) : filter !== "all" ? (
           <div role="status" className="rounded-[22px] border-2 border-dashed border-ledger-line bg-white px-5 py-8 text-center">
