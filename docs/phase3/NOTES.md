@@ -51,3 +51,13 @@ an offer as unmonetised is a schema-free decision marker.
 **[decision]** Site-wide disclosure ("we may earn a commission") is accurate as a general statement
 but incomplete for `plain_url` offers that earn nothing. Item for human review — no disclosure wording
 was changed.
+
+## T10 — Security and privacy
+**[fact]** New admin endpoints (`/admin/monetisation/*`, `/admin/conversions/*`, `/admin/readiness`,
+`/admin/evidence/*`) reject anonymous (401) and non-admin (403) callers; tests added.
+**[fact]** Share-image route checks session cookies and refuses ineligible collections.
+**[fact]** Analytics props remain scalar, key/value length-limited; campaign slugs are `[a-z0-9-]`,
+max 48; social URLs are https + host-allowlisted at config load. No personal data is collected.
+**[fact]** Public coupon/store/destination schemas still expose no payouts, commission rates or
+advertiser-supplied rates. No disclosure wording changed.
+**[decision]** All thresholds in `app/core/phase3_config.py` are labelled assumptions for the owner.
