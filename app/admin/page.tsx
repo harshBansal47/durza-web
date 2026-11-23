@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const ADMIN_PAGES = [
+  { href: "/admin/evidence", title: "Offer Evidence", description: "Record sourced evidence and work the editor queue." },
   { href: "/admin/admitad", title: "Admitad Programs", description: "Discover, approve and monitor Admitad programs and store health." },
   { href: "/admin/campaigns", title: "VCommission Campaigns", description: "Manage VCommission campaign lifecycle and store integration." },
   { href: "/admin/analytics", title: "Analytics", description: "Traffic, coupons, and revenue stats." },
