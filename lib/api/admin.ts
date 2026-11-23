@@ -74,6 +74,40 @@ export async function fetchAnalyticsOverview(
   return response.data;
 }
 
+export interface ScoreboardBucket {
+  label: string;
+  clicks: number;
+  visitors: number;
+}
+
+export interface RawEventScoreboard {
+  window: { start_date: string; end_date: string };
+  total_clicks: number;
+  unique_visitors: number;
+  returning_visitors: number;
+  clicks_by_placement: ScoreboardBucket[];
+  clicks_by_offer_type: ScoreboardBucket[];
+  clicks_by_evidence_tier: ScoreboardBucket[];
+  clicks_by_store_tier: ScoreboardBucket[];
+  collection_views: number;
+  collection_clicks: number;
+  ctr_available: boolean;
+  notes: string[];
+}
+
+export async function fetchScoreboard(
+  startDate: string,
+  endDate: string,
+  signal?: AbortSignal,
+): Promise<RawEventScoreboard> {
+  const params = new URLSearchParams({ start_date: startDate, end_date: endDate });
+  const response = await clientHttp.get<RawEventScoreboard>(
+    clientAppUrl(`/api/admin/analytics/scoreboard?${params}`),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
 export async function fetchAnalyticsCsv(startDate: string, endDate: string): Promise<Blob> {
   const params = new URLSearchParams({
     start_date: startDate,

@@ -18,7 +18,10 @@ import { DataBars, EmptyState, MetricCard, Panel } from "@/components/admin/Dash
 import {
   fetchAnalyticsCsv,
   fetchAnalyticsOverview,
+  fetchScoreboard,
   type AnalyticsOverview,
+  type RawEventScoreboard,
+  type ScoreboardBucket,
 } from "@/lib/api/admin";
 
 function localDate(date: Date): string {
@@ -43,6 +46,7 @@ export default function AdminAnalyticsDashboard() {
   const [startDate, setStartDate] = useState(localDate(thirtyDaysAgo));
   const [endDate, setEndDate] = useState(today);
   const [data, setData] = useState<AnalyticsOverview | null>(null);
+  const [scoreboard, setScoreboard] = useState<RawEventScoreboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [exportError, setExportError] = useState<string | null>(null);
@@ -77,8 +81,12 @@ export default function AdminAnalyticsDashboard() {
       setLoading(true);
       setError(null);
       try {
-        const overview = await fetchAnalyticsOverview(startDate, endDate, signal);
+        const [overview, board] = await Promise.all([
+          fetchAnalyticsOverview(startDate, endDate, signal),
+          fetchScoreboard(startDate, endDate, signal).catch(() => null),
+        ]);
         setData(overview);
+        setScoreboard(board);
       } catch (cause) {
         if (!signal.aborted) {
           setError(cause instanceof Error ? cause.message : "Could not load analytics.");
@@ -214,6 +222,45 @@ export default function AdminAnalyticsDashboard() {
         {data ? (
           <div aria-busy={loading}>
             {loading ? <p className="mb-3 text-right text-xs text-gray-500">Updating…</p> : null}
+            {scoreboard ? (
+              <Panel title="Raw-event scoreboard" detail="Computed from click and event rows; bots excluded.">
+                <div className="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                  <MetricCard title="Non-bot clicks" value={scoreboard.total_clicks.toLocaleString()} />
+                  <MetricCard title="Unique visitors" value={scoreboard.unique_visitors.toLocaleString()} />
+                  <MetricCard title="Returning visitors" value={scoreboard.returning_visitors.toLocaleString()} />
+                  <MetricCard title="Collection views" value={scoreboard.collection_views.toLocaleString()} />
+                </div>
+                <div className="grid gap-4 lg:grid-cols-2">
+                  {([
+                    ["Placement", scoreboard.clicks_by_placement],
+                    ["Offer type", scoreboard.clicks_by_offer_type],
+                    ["Evidence tier", scoreboard.clicks_by_evidence_tier],
+                    ["Store tier", scoreboard.clicks_by_store_tier],
+                  ] as [string, ScoreboardBucket[]][]).map(([title, rows]) => (
+                    <div key={title}>
+                      <h3 className="mb-2 text-sm font-semibold text-gray-800">Clicks by {title.toLowerCase()}</h3>
+                      {rows.length ? (
+                        <table className="w-full text-left text-sm">
+                          <thead className="text-xs uppercase text-gray-500"><tr><th className="py-1">{title}</th><th>Clicks</th><th>Visitors</th></tr></thead>
+                          <tbody>
+                            {rows.map((row) => (
+                              <tr key={row.label} className="border-t border-gray-100">
+                                <td className="py-1">{row.label}</td><td>{row.clicks}</td><td>{row.visitors}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      ) : (
+                        <p className="text-xs text-gray-500">No clicks in this window — a gap, not a measured zero.</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                {scoreboard.notes.map((note) => (
+                  <p key={note} className="mt-3 text-xs text-gray-600">{note}</p>
+                ))}
+              </Panel>
+            ) : null}
             <section aria-label="Traffic summary" className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <MetricCard title="Unique visitors" value={data.traffic.unique_visitors.toLocaleString()} icon={<Users aria-hidden="true" className="h-5 w-5 text-blue-600" />} />
               <MetricCard title="Sessions" value={data.traffic.total_sessions.toLocaleString()} />
