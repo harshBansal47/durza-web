@@ -1,7 +1,8 @@
 "use client";
 
 import { Check, Copy, ExternalLink } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { isLikelyInAppBrowser, OPEN_IN_BROWSER_HINT } from "@/lib/webview-hint";
 import { useTypedToast } from "@/components/ui/Toast";
 
 export interface CodeRevealButtonProps {
@@ -35,8 +36,15 @@ export default function CodeRevealButton({
 }: CodeRevealButtonProps) {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const [showBrowserHint, setShowBrowserHint] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { success } = useTypedToast();
+
+  useEffect(() => {
+    // Hint only; never affects copy or redirect behaviour.
+    setShowBrowserHint(isLikelyInAppBrowser(navigator.userAgent));
+  }, []);
 
   function emit(next: { revealed: boolean; copied: boolean }) {
     onStateChange?.(next);
@@ -65,17 +73,25 @@ export default function CodeRevealButton({
     onReveal?.();
     const copiedNow = await copy();
     if (copiedNow) {
+      setCopyFailed(false);
       setCopied(true);
       emit({ revealed: true, copied: true });
       startCopiedTimer();
+      success(successMessage);
+    } else {
+      // Never claim the code was copied. Show a selectable fallback instead.
+      setCopyFailed(true);
     }
     window.open(url, "_blank", "noopener");
-    success(successMessage);
   }
 
   async function copyAgain() {
     const copiedNow = await copy();
-    if (!copiedNow) return;
+    if (!copiedNow) {
+      setCopyFailed(true);
+      return;
+    }
+    setCopyFailed(false);
     setCopied(true);
     emit({ revealed: true, copied: true });
     startCopiedTimer();
@@ -86,6 +102,7 @@ export default function CodeRevealButton({
   const buttonLabel = copied ? "Copied" : revealed ? "Copy code" : label;
 
   return (
+    <div className="inline-flex flex-col items-center gap-2">
     <button
       type="button"
       onClick={revealed ? copyAgain : reveal}
@@ -104,5 +121,13 @@ export default function CodeRevealButton({
       <span>{buttonLabel}</span>
       <ExternalLink aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
     </button>
+    {copyFailed && revealed ? (
+      <p role="status" className="text-xs text-ink-soft">
+        Clipboard unavailable — select and copy this code:{" "}
+        <code className="select-all rounded border border-ledger-line bg-paper px-2 py-1 font-mono text-sm text-ink">{code}</code>
+      </p>
+    ) : null}
+    {showBrowserHint ? <p className="text-[11px] text-ink-soft">{OPEN_IN_BROWSER_HINT}</p> : null}
+    </div>
   );
 }
