@@ -143,10 +143,6 @@ const WINDOWS = [
   },
 ];
 
-function isVerifiedDeal(coupon: { is_verified?: boolean; verification_status?: string }): boolean {
-  return Boolean(coupon.is_verified) || coupon.verification_status === "verified";
-}
-
 export default async function BlackFridayPage() {
   const [storesPage, liveOffersRes] = await Promise.all([
     resilient.listStores({ limit: 100 }),
@@ -172,7 +168,7 @@ export default async function BlackFridayPage() {
       const store = storeById.get(coupon.store_id);
       const discount = formatDiscount(coupon, store?.currency ?? "INR");
       const hasBadge = Boolean(discount && !discount.startsWith("MEGA") && discount.trim().length > 0);
-      if (!hasBadge && !isVerifiedDeal(coupon)) return false;
+      if (!hasBadge) return false;
       seenStores.add(coupon.store_id);
       return true;
     })
@@ -371,16 +367,11 @@ export default async function BlackFridayPage() {
                       </Link>
                       <p className="mt-1 text-xs text-ink-soft">
                         Last checked {coupon.last_checked_at ? formatDate(coupon.last_checked_at) : "—"}
-                        {isVerifiedDeal(coupon) ? "" : ""}
                       </p>
                     </div>
                     {hasBadge ? (
                       <span className="flex-none rounded-full bg-verified-soft px-3 py-1 text-sm font-bold text-verified">
                         {discount}
-                      </span>
-                    ) : isVerifiedDeal(coupon) ? (
-                      <span className="flex-none rounded-full bg-verified-soft px-3 py-1 text-sm font-bold text-verified">
-                        Checkout-tested
                       </span>
                     ) : null}
                   </article>

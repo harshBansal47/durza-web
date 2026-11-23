@@ -32,7 +32,7 @@ const FAQS = [
   { question: "Are these affiliate links?", answer: "Yes. Every link routes through AJIO's vCommission partner network for Durza. Durza earns a referral fee on qualifying AJIO orders at no cost to you; prices and delivery are AJIO's own." },
   { question: "Can I combine AJIO offers with bank card discounts?", answer: "Yes — AJIO typically runs instant discounts for ICICI, SBI, HDFC and other card partners alongside its own promo codes and Coupon-Code-of-the-Day campaigns. Check your bank side, not ours, for exact rules." },
   { question: "Does Durza know the actual price of AJIO products?", answer: "No. Durza knows merchants' promotional campaign messaging; the prices on the AJIO checkout are AJIO's canonical numbers. Durza displays offer titles unchanged, and does not rewrite, re-quote or re-verify discount percentages." },
-  { question: "Why is there no 'verified' badge on AJIO deals?", answer: "Durza doesn't hand-test merchant campaigns. We sync from the AJIO campaigns feed nightly, parse what the feed actually returned, list it live. Only when Durza's checkout-verification layer reports a real success will a green tick appear — and none currently has." },
+  { question: "How are AJIO deals listed?", answer: "Durza syncs from the AJIO campaigns feed nightly, parses what the feed actually returned and lists it live. We do not hand-test merchant campaigns." },
 ];
 
 export const revalidate = 3600;

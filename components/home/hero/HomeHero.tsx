@@ -26,7 +26,6 @@ export interface HomeHeroProps {
   tickerItems: ActivityItem[];
   stats: { coupons: number; stores: number; categories: number };
   /** Offers the backend re-checked in the last 24h (a real count). */
-  checkedToday: number;
 }
 
 /**
@@ -35,7 +34,7 @@ export interface HomeHeroProps {
  * overlays (offer drawer, tool modal) so any entry point — search result,
  * featured card, a tool's related offer — opens the same ones.
  */
-export default function HomeHero({ deals, featured, stores, popularStores, tickerItems, stats, checkedToday }: HomeHeroProps) {
+export default function HomeHero({ deals, featured, stores, popularStores, tickerItems, stats }: HomeHeroProps) {
   const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
   // `fromHub` makes the tool's back arrow return to the list instead of closing.
   const [toolView, setToolView] = useState<{ id: string; fromHub: boolean } | null>(null);
@@ -80,12 +79,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
 
       <div className="hx-main">
         <div className="hx-left">
-          {checkedToday > 0 && (
-            <span className="hx-eyebrow hx-rise" style={{ ["--i" as string]: 0 }}>
-              <i aria-hidden="true" />
-              {checkedToday.toLocaleString("en-IN")} offers checked within the last 24 hours
-            </span>
-          )}
           <h1 className="hx-h1 hx-rise" style={{ ["--i" as string]: 1 }}>
             Discover genuine deals.{" "}
             <br />

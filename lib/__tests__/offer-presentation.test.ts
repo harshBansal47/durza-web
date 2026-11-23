@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
   affiliateLinkLabel,
-  isCheckoutTested,
   lastCheckedLine,
   offerType,
   offerTypeLabel,
@@ -73,12 +72,6 @@ describe("offer display claims", () => {
   it("shows Last checked only when a date exists", () => {
     expect(lastCheckedLine(coupon())).toBe("");
     expect(lastCheckedLine(coupon({ last_checked_at: "2026-11-21T00:00:00Z" }))).toMatch(/^Last checked /);
-  });
-
-  it("marks checkout-tested only for a verified coded offer", () => {
-    expect(isCheckoutTested(coupon({ code: "SAVE20", verification_status: "verified" }))).toBe(true);
-    expect(isCheckoutTested(coupon({ verification_status: "verified" }))).toBe(false);
-    expect(isCheckoutTested(coupon({ code: "SAVE20" }))).toBe(false);
   });
 
   it("never says verified for unverified offers", () => {

@@ -318,7 +318,7 @@ export default function AsusClient({ faqs, stats, storeUrl, forcedStoreHref }: P
             </div>
             <div className="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200">
               <p className="font-semibold text-white">Pricing note</p>
-              <p className="mt-1 max-w-xs leading-6 text-slate-300">Focus on the final deal price and verified specs. Strike-through/MRP and savings can vary by listing and may look high on older models.</p>
+              <p className="mt-1 max-w-xs leading-6 text-slate-300">Focus on the final deal price and listed specs. Strike-through/MRP and savings can vary by listing and may look high on older models.</p>
             </div>
           </div>
 

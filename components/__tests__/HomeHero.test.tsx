@@ -65,7 +65,6 @@ function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) 
           popularStores={stores}
           tickerItems={[{ kind: "verified", text: "Code SV10VC confirmed 5 hours ago" }, { kind: "deal", text: "Up to 40% off sitewide" }]}
           stats={{ coupons: 1255, stores: 94, categories: 16 }}
-          checkedToday={1255}
           {...props}
         />
       </ToastProvider>
@@ -88,7 +87,6 @@ describe("HomeHero — structure", () => {
   it("renders the compact headline, eyebrow, tools, featured panel and trust band", () => {
     renderHero();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Discover genuine deals. Shop smarter. Save more.");
-    expect(screen.getByText(/1,255 offers checked within the last 24 hours/i)).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /Calculator|Decoder|Finder|Matcher/ })).toHaveLength(4);
     expect(screen.getByRole("complementary", { name: "Featured offers" })).toBeInTheDocument();
     expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
@@ -97,7 +95,7 @@ describe("HomeHero — structure", () => {
   });
 
   it("omits the eyebrow and ticker instead of inventing numbers when there is no data", () => {
-    renderHero({ checkedToday: 0, tickerItems: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
+    renderHero({ tickerItems: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
     expect(screen.queryByText(/checked within the last 24 hours/i)).not.toBeInTheDocument();
     expect(screen.queryByText("VERIFY DESK")).not.toBeInTheDocument();
     expect(screen.getByText(/No featured offers right now/)).toBeInTheDocument();

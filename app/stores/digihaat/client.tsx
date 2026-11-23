@@ -46,7 +46,7 @@ export default function DigihaatClient({ faqs, stats, heroImageUrl, offerCount, 
           {[
             { icon: ShoppingBasket, name: "Grocery & Kirana", note: "Atta, rice, dal, oil, staples — from local kiranas to regional brands at ONDC-undercut prices." },
             { icon: Smartphone, name: "Electronics & Swadeshi", note: "Smartphones, accessories, and Swadeshi electronics — Lava, Micromax, Dixon Technologies." },
-            { icon: Home, name: "Pharmacy & Wellness", note: "Genuine drugs and wellness from ONDC-licensed pharmacies with barcode-verified stock." },
+            { icon: Home, name: "Pharmacy & Wellness", note: "Genuine drugs and wellness from ONDC-licensed pharmacies." },
           ].map(({ icon: Icon, name, note }) => (
             <li key={name} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <Icon aria-hidden="true" className="h-6 w-6 text-inkblue" strokeWidth={1.75} />

@@ -135,7 +135,6 @@ export default function StorePageClient({
                       title={entry.coupon.title}
                       description={entry.coupon.description}
                       ctaHref={api.goUrl(entry.coupon.id, "store-page")}
-                      verified={entry.coupon.verification_status === "verified"}
                       expiresAt={entry.coupon.expires_at}
                     />
                   ),
@@ -251,7 +250,6 @@ export default function StorePageClient({
                           title={entry.coupon.title}
                           description={entry.coupon.description}
                           ctaHref={api.goUrl(entry.coupon.id, "store-page", "store_codes")}
-                          verified={entry.coupon.verification_status === "verified"}
                           expiresAt={entry.coupon.expires_at}
                         />
                       ),
@@ -277,7 +275,6 @@ export default function StorePageClient({
                           title={entry.coupon.title}
                           description={entry.coupon.description}
                           ctaHref={api.goUrl(entry.coupon.id, "store-page", "store_no_code_deals")}
-                          verified={entry.coupon.verification_status === "verified"}
                           expiresAt={entry.coupon.expires_at}
                         />
                       ),

@@ -65,8 +65,6 @@ export default async function HomePage() {
     stores,
     categories,
     endingSoon,
-    recentlyVerified,
-    verifiedToday,
     newest,
     editorial,
     latestComparisons,
@@ -79,15 +77,6 @@ export default async function HomePage() {
     safe(api.listCategories({ limit: 24, live_only: true }), emptyPage as Paginated<never>),
     safe(
       api.listCoupons({ active_only: true, sort: "ending_soon", expires_within_days: 7, limit: 8 }),
-      emptyPage as Paginated<CouponPublic>,
-    ),
-    safe(
-      api.listCoupons({ active_only: true, sort: "recently_verified", limit: 8 }),
-      emptyPage as Paginated<CouponPublic>,
-    ),
-    // Only the exact count is used from this one.
-    safe(
-      api.listCoupons({ active_only: true, sort: "recently_verified", verified_within_hours: 24, limit: 1 }),
       emptyPage as Paginated<CouponPublic>,
     ),
     safe(api.listCoupons({ active_only: true, sort: "newest", limit: 8 }), emptyPage as Paginated<CouponPublic>),
@@ -176,8 +165,7 @@ export default async function HomePage() {
     dedupeCoupons(coupons.items.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c))),
     1,
   );
-  const recentlyVerifiedItems = take(recentlyVerified.items.filter(isHomepageRelevant), 8);
-  // Tab pools for the unified Verified Deals Explorer. Sanitize/dedupe for clean display.
+  // Tab pools for the deal explorer. Sanitize/dedupe for clean display.
   const fill = (pool: CouponPublic[], limit = 6): CouponPublic[] => {
     const picked: CouponPublic[] = [];
     for (const item of dedupeCoupons(pool.map((c) => sanitizeCouponForDisplay(c)))) {
@@ -231,21 +219,12 @@ export default async function HomePage() {
   const storeNameById = new Map(cardStores.map((s) => [s.id, s.name]));
   const storeNameFor = (coupon: CouponPublic) => storeNameById.get(coupon.store_id) ?? "a tracked store";
   const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text);
-  const verifiedTape: ActivityItem[] = recentlyVerifiedItems
-    .filter((c) => c.last_verified_at !== null)
-    .slice(0, 4)
-    .map((c) => ({
-      kind: "verified",
-      text: c.code
-        ? `Code ${c.code} confirmed ${formatRelativeTime(c.last_verified_at)}`
-        : `${storeNameFor(c)} offer confirmed ${formatRelativeTime(c.last_verified_at)}`,
-    }));
   const dealTape: ActivityItem[] = activityDeals
     .slice(0, 4)
     .map((c) => ({ kind: "deal", text: clip(c.title, 64) }));
   const activityItems: ActivityItem[] = [];
   for (let i = 0; activityItems.length < 12; i += 1) {
-    const wave = [verifiedTape[i], dealTape[i]].filter(
+    const wave = [dealTape[i]].filter(
       (item): item is ActivityItem => item !== undefined,
     );
     if (wave.length === 0) break;
@@ -277,7 +256,7 @@ export default async function HomePage() {
   const heroStoreById = new Map(stores.items.map((s) => [s.id, toHeroStore(s)]));
   const heroCategoryNames = categoryNameMap(categories.items);
   const heroPool = new Map<string, CouponPublic>();
-  for (const list of [coupons.items, bestCoupons.items, latestDeals.items, newest.items, recentlyVerified.items, endingSoon.items]) {
+  for (const list of [coupons.items, bestCoupons.items, latestDeals.items, newest.items, endingSoon.items]) {
     for (const coupon of list) {
       if (heroPool.size >= 40) break;
       if (isHomepageRelevant(coupon) && !heroPool.has(coupon.id)) heroPool.set(coupon.id, sanitizeCouponForDisplay(coupon));
@@ -308,7 +287,6 @@ export default async function HomePage() {
         popularStores={heroPopularStores}
         tickerItems={isEmpty ? [] : activityItems}
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
-        checkedToday={verifiedToday.total}
       />
 
       {isEmpty ? (

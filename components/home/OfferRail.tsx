@@ -3,7 +3,7 @@
 import OfferCard from "@/components/OfferCard";
 import type { OfferBrand } from "@/components/OfferBrandMark";
 import { api } from "@/lib/api";
-import { isCheckoutTested, lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
 import type { CouponPublic } from "@/lib/types";
 
 /**
@@ -39,7 +39,6 @@ export default function OfferRail({
             brand={brand}
             typeLabelOverride={offerTypeLabel(type)}
             lastChecked={lastCheckedLine(coupon)}
-            verified={isCheckoutTested(coupon)}
           />
         );
       })}

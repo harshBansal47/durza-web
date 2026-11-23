@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { isCheckoutTested, lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
 import OfferEvidence from "@/components/OfferEvidence";
 import { api } from "@/lib/api";
 import { storeInitials } from "@/lib/catalog";
@@ -93,7 +93,6 @@ export default function DealCard({
           <OfferEvidence
             typeLabel={offerTypeLabel(offerType(coupon))}
             lastChecked={lastCheckedLine(coupon)}
-            checkedOut={isCheckoutTested(coupon)}
           />
           {price && (
             <p className="flex flex-wrap items-baseline gap-2">

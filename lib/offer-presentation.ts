@@ -71,11 +71,6 @@ export function lastCheckedLine(coupon: CouponPublic): string {
   return date ? `Last checked ${date}` : "";
 }
 
-/** Only a verified coded offer is a checkout-tested claim. */
-export function isCheckoutTested(coupon: CouponPublic): boolean {
-  return coupon.verification_status === "verified" && Boolean(coupon.code);
-}
-
 export function affiliateLinkLabel(): string {
   return "Visit store — we may earn a commission";
 }

@@ -134,7 +134,7 @@ export default function AmazonFlipkartSaleDatesPage() {
       <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="flex items-center gap-2 text-xs font-semibold text-ink-soft">
           <CalendarDays aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
-          <span>Updated 15 Nov 2026 · Dates verified against the calendar where they are fixed</span>
+          <span>Updated 15 Nov 2026 · Dates checked against the calendar where they are fixed</span>
         </div>
 
         <h1 className="mt-4 font-serif text-4xl font-extrabold leading-tight tracking-tight text-ink sm:text-5xl">

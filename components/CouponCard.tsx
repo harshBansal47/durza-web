@@ -14,7 +14,7 @@ import {
   totalReports,
 } from "@/lib/format";
 import { maskCode } from "@/lib/codes";
-import { isCheckoutTested, lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
 import OfferEvidence from "@/components/OfferEvidence";
 import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
@@ -205,7 +205,6 @@ export function CouponCard({
               <OfferEvidence
                 typeLabel={offerTypeLabel(offerType(coupon))}
                 lastChecked={lastCheckedLine(coupon)}
-                checkedOut={isCheckoutTested(coupon)}
               />
             </div>
           </div>

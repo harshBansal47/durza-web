@@ -61,7 +61,6 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
               title={o.title}
               description={o.description}
               ctaHref={api.goUrl(o.id, "store-page")}
-              verified={o.verification_status === "verified"}
               expiresAt={o.expires_at}
             />
           ))}
