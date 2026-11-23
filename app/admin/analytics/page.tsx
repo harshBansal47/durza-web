@@ -119,6 +119,11 @@ export default function AdminAnalyticsDashboard() {
               Aggregated product, traffic, affiliate, and operations metrics.
               {data ? ` All dates shown in ${data.meta.timezone}.` : ""}
             </p>
+            {data && !data.meta.rollups_measured && (
+              <p role="status" className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                {data.meta.measurement_note}
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap items-end gap-3">
             <label className="text-xs font-medium text-gray-600">

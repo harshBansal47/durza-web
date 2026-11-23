@@ -57,6 +57,8 @@ export interface AnalyticsOverview {
     end_date: string;
     timezone: string;
     user_role: string;
+    rollups_measured: boolean;
+    measurement_note: string;
   };
 }
 export async function fetchAnalyticsOverview(
