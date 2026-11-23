@@ -304,7 +304,14 @@ export default function AdminCampaignsPage() {
                 </td>
                 <td className="px-3 py-2">
                   {item.health_passed_all === null ? (
-                    <span className="text-slate-500">Not checked</span>
+                    <div>
+                      <span className="text-slate-500">Not checked</span>
+                      {item.status === "needs_attention" && item.failure_reasons[0] ? (
+                        <span className="mt-1 block max-w-xs text-xs text-rose-700">
+                          {item.failure_reasons[0]}
+                        </span>
+                      ) : null}
+                    </div>
                   ) : item.health_passed_all ? (
                     <span className="text-emerald-700">All checks passed</span>
                   ) : (

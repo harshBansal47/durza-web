@@ -377,7 +377,14 @@ export default function AdminAdmitadPage() {
                 </td>
                 <td className="px-3 py-2">
                   {program.health_passed_all === null ? (
-                    <span className="text-slate-500">Not checked</span>
+                    <div>
+                      <span className="text-slate-500">Not checked</span>
+                      {program.status === "needs_attention" && program.failure_reasons[0] ? (
+                        <span className="mt-1 block max-w-xs text-xs text-rose-700">
+                          {program.failure_reasons[0]}
+                        </span>
+                      ) : null}
+                    </div>
                   ) : program.health_passed_all ? (
                     <span className="text-emerald-700">All checks passed</span>
                   ) : (
