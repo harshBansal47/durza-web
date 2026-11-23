@@ -96,23 +96,6 @@ export async function fetchAcquisitionReadiness(): Promise<AcquisitionReadiness>
   return response.data;
 }
 
-export interface JobStatusRow {
-  job: string;
-  last_status: string | null;
-  last_run_at: string | null;
-  last_detail: string | null;
-  enabled: boolean;
-  next_run_at: string | null;
-}
-
-export async function fetchJobStatus(): Promise<JobStatusRow[]> {
-  const response = await clientHttp.get<JobStatusRow[]>(
-    clientAppUrl("/api/admin/analytics/jobs"),
-    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
-  );
-  return response.data;
-}
-
 export interface ScoreboardBucket {
   label: string;
   clicks: number;
