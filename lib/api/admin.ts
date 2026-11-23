@@ -29,21 +29,6 @@ export interface AnalyticsOverview {
   };
   affiliate: {
     outbound_clicks: number;
-    conversions: number;
-    revenue_by_currency: {
-      currency: string;
-      estimated_commission: number;
-      confirmed_commission: number;
-    }[];
-    top_providers: {
-      provider_id: string;
-      provider_name: string;
-      currency: string;
-      clicks: number;
-      conversions: number;
-      estimated_commission: number;
-      confirmed_commission: number;
-    }[];
   };
   data_health: {
     failed_jobs_last_7d: number;

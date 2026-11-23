@@ -305,7 +305,7 @@ export default function AdminAnalyticsDashboard() {
                   </div>
                 ) : <EmptyState message="No merchant rollups for this date range." />}
               </Panel>
-            <Panel title="Tracked outbound clicks" detail="Click events are raw measured events; conversion and revenue reporting now lives in the Admitad and vCommission dashboards/email reports.">
+            <Panel title="Tracked outbound clicks" detail="Click events are raw measured events. Conversions and earnings are reported by Admitad and vCommission, not tracked here.">
               <MetricCard title="Outbound clicks" value={data.affiliate.outbound_clicks.toLocaleString()} />
             </Panel>
             </div>
