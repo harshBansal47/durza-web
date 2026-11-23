@@ -1,11 +1,13 @@
 import { cache } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
 import { ApiError, api, lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { isIndexableStore } from "@/lib/store-indexing";
+import { COLLECTIONS } from "@/data/collections";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { cleanStoreDescription, faqPageJsonLd, metaDescription } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
@@ -301,6 +303,19 @@ export default async function StorePage({ params, searchParams }: Props) {
             </dl>
           </section>
         )}
+        {(() => {
+          const inCollection = COLLECTIONS.find((collection) =>
+            collection.picks.some((pick) => pick.ctaHref.includes(`/stores/${store.slug}`)),
+          );
+          return inCollection ? (
+            <p className="mt-6 text-sm text-ink-soft">
+              Part of a curated collection:{" "}
+              <Link href={`/collections/${inCollection.slug}`} className="text-inkblue underline">
+                {inCollection.title}
+              </Link>
+            </p>
+          ) : null;
+        })()}
         <StoreGuideLink slug={store.slug} />
         <StoreBannerAds slug={store.slug} />
         {destination.related_content.length ? (

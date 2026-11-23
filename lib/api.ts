@@ -364,6 +364,13 @@ export const api = {
     params: { content_type?: EditorialType; skip?: number; limit?: number } = {},
   ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: 1800 }),
 
+  /** Live collection items after referenced offers are filtered out (Phase 2 T4). */
+  getCollectionLiveItems: (slug: string) =>
+    apiFetch<{ items: Record<string, unknown>[]; needs_attention: boolean }>(
+      `/editorial/collection/${encodeURIComponent(slug)}/items`,
+      { revalidate: 600 },
+    ),
+
   getEditorial: (contentType: EditorialType, slug: string) =>
     apiFetch<EditorialContent>(
       `/editorial/${contentType}/${encodeURIComponent(slug)}`,

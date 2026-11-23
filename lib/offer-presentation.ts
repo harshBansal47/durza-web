@@ -15,6 +15,9 @@ export type OfferType =
   | "no_code_deal"
   | "affiliate_link";
 
+/** Display-only threshold for the editor queue. Never hides an offer. */
+export const STALE_AFTER_DAYS = 30;
+
 export type EvidenceTier = "source_seen" | "feed_reported" | "checkout_tested" | "unknown";
 
 const STORE_SOURCE_KINDS = new Set([

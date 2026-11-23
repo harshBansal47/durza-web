@@ -11,18 +11,30 @@ function pad2(n: number) {
   return String(n).padStart(2, "0");
 }
 
+function trackedHref(href: string, contentRef: string): string {
+  try {
+    const url = new URL(href, "https://durza.in");
+    url.searchParams.set("content_ref", contentRef);
+    return href.startsWith("/") ? `${url.pathname}${url.search}` : url.toString();
+  } catch {
+    return href;
+  }
+}
+
 function CtaButton({
   href,
   label,
+  contentRef,
   full = false,
 }: {
   href: string;
   label: string;
+  contentRef?: string;
   full?: boolean;
 }) {
   return (
     <a
-      href={href}
+      href={contentRef ? trackedHref(href, contentRef) : href}
       target="_blank"
       rel={GO_REL}
       className={[
@@ -163,6 +175,10 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
                 </div>
 
                 <div className="mt-4 space-y-2 text-base leading-7 text-[#3f3b35]">
+                  <p className="text-xs text-[#5a564f]">
+                    <span className="rounded bg-[#f3efe8] px-1.5 py-0.5 font-medium">{(pick.offerType ?? "curated_pick").replace(/_/g, " ")}</span>
+                    <span className="ml-2" aria-label="Evidence">{pick.evidence ?? "No source date yet"}</span>
+                  </p>
                   <p><span className="font-semibold text-[#141413]">Why it made the cut:</span> {pick.why}</p>
                   {pick.skipIf && (
                     <p><span className="font-semibold text-[#141413]">When to skip it:</span> {pick.skipIf}</p>
@@ -170,12 +186,17 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
                 </div>
 
                 <div className="mt-5">
-                  <CtaButton href={pick.ctaHref} label={`${pick.ctaLabel} →`} />
+                  <CtaButton href={pick.ctaHref} label={`${pick.ctaLabel} →`} contentRef={`collection_${entry.slug}`} />
                 </div>
               </article>
             ))}
           </div>
         </section>
+
+        <p className="mt-8 text-xs text-[#5a564f]">
+          Durza may earn a commission on tracked links at no extra cost to you. Offer type and
+          evidence are shown per item; a coupon code is only shown when one is actually listed.
+        </p>
 
         <section aria-labelledby="faqs" className="mt-12">
           <h2 id="faqs" className="font-serif text-2xl font-extrabold text-[#141413] sm:text-3xl">Frequently asked questions</h2>

@@ -241,7 +241,7 @@ export default async function HomePage() {
     .slice(0, 6);
 
   const collectionsForRail = [
-    ...editorial.collections.map(collectionFromEditorial).filter((entry) => entry !== null),
+    ...editorial.collections.map((item) => collectionFromEditorial(item)).filter((entry) => entry !== null),
     ...COLLECTIONS,
   ];
 

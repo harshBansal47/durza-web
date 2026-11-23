@@ -1,5 +1,5 @@
 import { COLLECTIONS, type CollectionEntry, type CollectionPick } from "@/data/collections";
-import { resilient } from "@/lib/api";
+import { api, resilient } from "@/lib/api";
 import type { EditorialContent } from "@/lib/types";
 
 /**
@@ -25,11 +25,19 @@ function pickFromBlock(block: Record<string, unknown>): CollectionPick | null {
     ctaLabel: "View offer",
     ctaHref: href,
     external: href.startsWith("http"),
+    offerType: typeof block.offer_type === "string" ? block.offer_type : "curated_pick",
+    evidence:
+      typeof block.source_url === "string" && typeof block.checked_on === "string"
+        ? `Source page seen ${new Date(block.checked_on).toLocaleDateString("en-IN")}`
+        : "No source date yet",
   };
 }
 
-export function collectionFromEditorial(content: EditorialContent): CollectionEntry | null {
-  const picks = content.content_blocks.map(pickFromBlock).filter((pick): pick is CollectionPick => pick !== null);
+export function collectionFromEditorial(
+  content: EditorialContent,
+  blocks: Record<string, unknown>[] = content.content_blocks,
+): CollectionEntry | null {
+  const picks = blocks.map(pickFromBlock).filter((pick): pick is CollectionPick => pick !== null);
   if (picks.length < 3) return null;
   return {
     slug: content.slug,
@@ -55,10 +63,18 @@ export function collectionFromEditorial(content: EditorialContent): CollectionEn
 export async function mergedCollections(): Promise<CollectionEntry[]> {
   try {
     const response = await resilient.listEditorial({ content_type: "collection", limit: 100 });
-    const published = response.items
-      .filter((item) => item.status === "published" && item.is_indexable)
-      .map(collectionFromEditorial)
-      .filter((entry): entry is CollectionEntry => entry !== null);
+    const published: CollectionEntry[] = [];
+    for (const item of response.items.filter((entry) => entry.status === "published" && entry.is_indexable)) {
+      let blocks = item.content_blocks;
+      try {
+        // Only items whose referenced offer is still live are shown.
+        blocks = (await api.getCollectionLiveItems(item.slug)).items;
+      } catch {
+        blocks = item.content_blocks;
+      }
+      const entry = collectionFromEditorial(item, blocks);
+      if (entry) published.push(entry);
+    }
     // Static curated sets keep their place; editor-published sets lead.
     return [...published, ...COLLECTIONS];
   } catch {

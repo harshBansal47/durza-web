@@ -4,6 +4,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { STALE_AFTER_DAYS } from "@/lib/offer-presentation";
 import {
   deactivateOffer,
   fetchEvidenceQueue,
@@ -139,6 +140,9 @@ export default function EvidencePage() {
         {selected && (
           <section aria-label="Evidence form" className="rounded border p-4 text-sm">
             <h2 className="mb-2 font-semibold">{selected.title}</h2>
+            {selected.checked_on && Date.now() - new Date(selected.checked_on).getTime() > STALE_AFTER_DAYS * 86_400_000 ? (
+              <p className="mb-2 rounded bg-amber-50 px-2 py-1 text-xs text-amber-800">Older check — consider re-checking the source.</p>
+            ) : null}
             <label className="mb-2 block">Source URL
               <input value={sourceUrl} onChange={(e) => setSourceUrl(e.target.value)} className="mt-1 w-full rounded border px-2 py-1" />
             </label>
