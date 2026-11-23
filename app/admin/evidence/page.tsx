@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { STALE_AFTER_DAYS } from "@/lib/offer-presentation";
 import {
   deactivateOffer,
+  bulkRecordEvidence,
   fetchEvidenceQueue,
   recordOfferEvidence,
   type EvidenceRow,
@@ -34,6 +35,10 @@ export default function EvidencePage() {
   const [expiryClaim, setExpiryClaim] = useState("");
   const [expirySourceUrl, setExpirySourceUrl] = useState("");
   const [reason, setReason] = useState("");
+  const [checked, setChecked] = useState<string[]>([]);
+  const [bulkUrl, setBulkUrl] = useState("");
+  const [bulkKind, setBulkKind] = useState("brand_site");
+  const [bulkDate, setBulkDate] = useState(localNow);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -72,6 +77,27 @@ export default function EvidencePage() {
       await load();
     } catch (caught) {
       setNotice(caught instanceof Error ? caught.message : "Could not save evidence.");
+    }
+  };
+
+  const bulkApply = async () => {
+    if (checked.length === 0 || checked.length > 20) {
+      setNotice("Tick 1–20 offers and confirm you saw each on the source page.");
+      return;
+    }
+    try {
+      const result = await bulkRecordEvidence({
+        coupon_ids: checked,
+        source_url: bulkUrl,
+        source_kind: bulkKind,
+        checked_on: new Date(bulkDate).toISOString(),
+        confirmations: Object.fromEntries(checked.map((id) => [id, true])),
+      });
+      setNotice(`Bulk evidence applied to ${result.updated} offers.`);
+      setChecked([]);
+      await load();
+    } catch (caught) {
+      setNotice(caught instanceof Error ? caught.message : "Bulk update failed.");
     }
   };
 
@@ -114,6 +140,20 @@ export default function EvidencePage() {
       {error && <p role="alert" className="mb-3 rounded bg-rose-50 p-2 text-sm text-rose-800">{error}</p>}
       {notice && <p role="status" className="mb-3 rounded bg-slate-100 p-2 text-sm">{notice}</p>}
 
+      <section aria-label="Bulk evidence" className="mb-4 rounded border p-3 text-sm">
+        <h2 className="mb-2 font-semibold">Apply one source page to several offers</h2>
+        <p className="mb-2 text-xs text-slate-600">Tick the offers you personally saw on this page (max 20). Nothing is inferred.</p>
+        <div className="mb-2 flex flex-wrap gap-2">
+          <input value={bulkUrl} onChange={(e) => setBulkUrl(e.target.value)} placeholder="https://brand.example/offers" className="rounded border px-2 py-1" />
+          <select value={bulkKind} onChange={(e) => setBulkKind(e.target.value)} className="rounded border px-2 py-1">
+            {SOURCE_KINDS.map((kind) => <option key={kind} value={kind}>{kind}</option>)}
+          </select>
+          <input type="datetime-local" value={bulkDate} onChange={(e) => setBulkDate(e.target.value)} className="rounded border px-2 py-1" />
+          <button type="button" onClick={() => void bulkApply()} className="rounded bg-slate-900 px-3 py-1.5 text-white">Apply to {checked.length} ticked</button>
+        </div>
+        <p className="text-xs text-slate-500">Preview: {checked.length} offer(s) will receive this exact URL and date.</p>
+      </section>
+
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="overflow-x-auto rounded border">
           <table className="w-full text-left text-sm">
@@ -124,6 +164,9 @@ export default function EvidencePage() {
               {rows.map((row) => (
                 <tr key={row.id} className={`border-t ${selected?.id === row.id ? "bg-slate-50" : ""}`}>
                   <td className="p-2">
+                    <label className="mr-2 text-xs">
+                      <input type="checkbox" checked={checked.includes(row.id)} onChange={(e) => setChecked((prev) => e.target.checked ? [...prev, row.id] : prev.filter((id) => id !== row.id))} /> I saw this on the page
+                    </label>
                     <button type="button" onClick={() => choose(row)} className="text-left underline">{row.title}</button>
                   </td>
                   <td>{row.store_slug ?? "—"} · {row.store_tier}</td>

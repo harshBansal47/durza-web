@@ -430,6 +430,7 @@ export async function fetchEvidenceQueue(filters: {
   store_slug?: string;
   tier?: string;
   evidence_tier?: string;
+  limit?: number;
 } = {}): Promise<EvidenceRow[]> {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(filters)) if (value) params.set(key, value);
@@ -452,6 +453,21 @@ export async function recordOfferEvidence(
 ): Promise<EvidenceRow> {
   const response = await clientHttp.post<EvidenceRow>(
     clientAppUrl(`/api/admin/evidence/${encodeURIComponent(id)}`),
+    payload,
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function bulkRecordEvidence(payload: {
+  coupon_ids: string[];
+  source_url: string;
+  source_kind: string;
+  checked_on: string;
+  confirmations: Record<string, boolean>;
+}): Promise<{ updated: number; ids: string[] }> {
+  const response = await clientHttp.post<{ updated: number; ids: string[] }>(
+    clientAppUrl("/api/admin/evidence/bulk"),
     payload,
     clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
   );
