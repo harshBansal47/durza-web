@@ -14,7 +14,7 @@ import {
   totalReports,
 } from "@/lib/format";
 import { maskCode } from "@/lib/codes";
-import { evidenceLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import { isCheckoutTested, lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
 import OfferEvidence from "@/components/OfferEvidence";
 import { cardRequirementLine, sourceLine } from "@/lib/requirements";
 import type { CouponPublic } from "@/lib/types";
@@ -204,7 +204,8 @@ export function CouponCard({
               {store && !storeGridLayout ? <StoreLine store={store} /> : null}
               <OfferEvidence
                 typeLabel={offerTypeLabel(offerType(coupon))}
-                evidence={evidenceLine(coupon)}
+                lastChecked={lastCheckedLine(coupon)}
+                checkedOut={isCheckoutTested(coupon)}
               />
             </div>
           </div>

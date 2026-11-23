@@ -226,16 +226,15 @@ export default async function HomePage() {
     deals: backfill(fill(latestDeals.items.filter(isHomepageRelevant))),
     newest: backfill(fill(newest.items.filter(isHomepageRelevant))),
   };
-  // Rail: prefer offers with a real recent check or a source page, then fill
-  // from curated priority. Never claim "today" unless a 24h check exists.
+  // Rail: prefer offers with a real recent check, then fill from curated priority.
+  // Never claim "today" unless a 24h check exists.
   const worthLooking = [...coupons.items, ...bestCoupons.items, ...latestDeals.items]
     .filter((coupon) => coupon.is_active && !coupon.auto_suppressed)
     .filter((coupon) => isHomepageRelevant(coupon))
     .filter((coupon, index, all) => all.findIndex((other) => other.store_id === coupon.store_id) === index)
     .sort((a, b) => {
       const freshness = (c: (typeof a)) =>
-        (c.last_checked_at && Date.now() - new Date(c.last_checked_at).getTime() < 86_400_000 ? 2 : 0) +
-        (c.restrictions && typeof c.restrictions === "object" && "source_url" in c.restrictions ? 1 : 0);
+        c.last_checked_at && Date.now() - new Date(c.last_checked_at).getTime() < 86_400_000 ? 1 : 0;
       return freshness(b) - freshness(a) || b.clicks_count - a.clicks_count;
     })
     .slice(0, 6);

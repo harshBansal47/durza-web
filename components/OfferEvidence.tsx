@@ -1,15 +1,18 @@
-/** One type label and one evidence line per offer card (Phase 1 T6). */
+/** One offer-type label; optional last-checked date; checkout claim only when verified. */
 export default function OfferEvidence({
   typeLabel,
-  evidence,
+  lastChecked,
+  checkedOut = false,
 }: {
   typeLabel: string;
-  evidence: string;
+  lastChecked?: string | null;
+  checkedOut?: boolean;
 }) {
   return (
     <p className="mt-1 flex flex-wrap items-center gap-x-1.5 text-[11px] text-ink-soft">
       <span className="rounded bg-paper-alt px-1.5 py-0.5 font-medium text-ink">{typeLabel}</span>
-      <span aria-label="Evidence">{evidence}</span>
+      {checkedOut ? <span>Checked out with this code</span> : null}
+      {lastChecked ? <span>{lastChecked}</span> : null}
     </p>
   );
 }

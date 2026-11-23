@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Copy, Zap } from "lucide-react";
 import { CardSaveButton } from "./CardSaveButton";
 import OfferEvidence from "./OfferEvidence";
-import { affiliateLinkLabel, offerTypeLabel } from "@/lib/offer-presentation";
+import { offerTypeLabel } from "@/lib/offer-presentation";
 import { useTrackedHref } from "@/lib/useTrackedHref";
 import OfferBrandMark, { type OfferBrand } from "./OfferBrandMark";
 
@@ -39,9 +39,10 @@ export interface OfferCardProps {
    * Omit on single-brand store pages where the page itself already names the store.
    */
   brand?: OfferBrand;
-  /** Explicit evidence from a CouponPublic row, when the caller has one. */
+  /** Explicit type label from a CouponPublic row, when the caller has one. */
   typeLabelOverride?: string;
-  evidenceOverride?: string;
+  /** Rendered only when a real last-checked date exists. */
+  lastChecked?: string | null;
 }
 
 function daysUntil(iso: string | null | undefined): number | null {
@@ -71,7 +72,7 @@ export default function OfferCard({
   badgeTone,
   brand,
   typeLabelOverride,
-  evidenceOverride,
+  lastChecked,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
   if (autoSuppressed) return null;
@@ -102,7 +103,8 @@ export default function OfferCard({
       {brand ? <OfferBrandMark brand={brand} /> : null}
       <OfferEvidence
         typeLabel={typeLabelOverride ?? (isCoded ? offerTypeLabel("coupon_code") : offerTypeLabel("no_code_deal"))}
-        evidence={evidenceOverride ?? (ctaHref ? affiliateLinkLabel() : "No source date yet")}
+        lastChecked={lastChecked}
+        checkedOut={verified && isCoded}
       />
       {/* Top row — discount anchor pill + live-verification pill, bookmark on the right */}
       <div className="mb-3 flex items-center justify-between gap-2">

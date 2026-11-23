@@ -234,7 +234,6 @@ export default function AdminAnalyticsDashboard() {
                   {([
                     ["Placement", scoreboard.clicks_by_placement],
                     ["Offer type", scoreboard.clicks_by_offer_type],
-                    ["Evidence tier", scoreboard.clicks_by_evidence_tier],
                     ["Store tier", scoreboard.clicks_by_store_tier],
                     ["Channel", scoreboard.clicks_by_channel],
                     ["Campaign", scoreboard.clicks_by_campaign],

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   affiliateLinkLabel,
-  evidenceLine,
-  evidenceTier,
+  isCheckoutTested,
+  lastCheckedLine,
   offerType,
   offerTypeLabel,
 } from "@/lib/offer-presentation";
@@ -69,39 +69,21 @@ describe("offerType", () => {
   });
 });
 
-describe("evidence tiers", () => {
-  it("uses source_seen when a source URL and check date exist", () => {
-    const c = coupon({
-      restrictions: {
-        source_url: "https://brand.example/sale",
-        checked_on: "2026-11-20T00:00:00Z",
-      },
-    });
-    expect(evidenceTier(c)).toBe("source_seen");
-    expect(evidenceLine(c)).toMatch(/Source page seen/);
+describe("offer display claims", () => {
+  it("shows Last checked only when a date exists", () => {
+    expect(lastCheckedLine(coupon())).toBe("");
+    expect(lastCheckedLine(coupon({ last_checked_at: "2026-11-21T00:00:00Z" }))).toMatch(/^Last checked /);
   });
 
-  it("uses feed_reported when only last_checked_at exists", () => {
-    const c = coupon({ last_checked_at: "2026-11-21T00:00:00Z" });
-    expect(evidenceTier(c)).toBe("feed_reported");
-    expect(evidenceLine(c)).toMatch(/Reported by source/);
+  it("marks checkout-tested only for a verified coded offer", () => {
+    expect(isCheckoutTested(coupon({ code: "SAVE20", verification_status: "verified" }))).toBe(true);
+    expect(isCheckoutTested(coupon({ verification_status: "verified" }))).toBe(false);
+    expect(isCheckoutTested(coupon({ code: "SAVE20" }))).toBe(false);
   });
 
-  it("uses checkout_tested only for a verified coded offer", () => {
-    const c = coupon({ code: "SAVE20", verification_status: "verified" });
-    expect(evidenceTier(c)).toBe("checkout_tested");
-    expect(evidenceLine(c)).toBe("Checked out with this code");
-  });
-
-  it("never says verified for unverified or no-code offers", () => {
-    const unverified = coupon({ verification_status: "verified" });
-    expect(evidenceTier(unverified)).toBe("unknown");
-    for (const c of [coupon(), unverified, coupon({ last_checked_at: "2026-11-01" })]) {
-      expect(evidenceLine(c)).not.toMatch(/verified/i);
+  it("never says verified for unverified offers", () => {
+    for (const c of [coupon(), coupon({ last_checked_at: "2026-11-01" })]) {
+      expect(lastCheckedLine(c)).not.toMatch(/verified/i);
     }
-  });
-
-  it("states no source date when no evidence exists", () => {
-    expect(evidenceLine(coupon())).toBe("No source date yet");
   });
 });
