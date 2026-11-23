@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 const ADMIN_LINKS = [
   { href: "/admin", label: "Admin Home" },
   { href: "/admin/admitad", label: "Admitad" },
-  { href: "/admin/digest", label: "Digest draft" },
   { href: "/admin/jobs", label: "Jobs" },
   { href: "/admin/monetisation", label: "Monetisation" },
   { href: "/admin/conversions", label: "Conversions" },

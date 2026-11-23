@@ -19,20 +19,3 @@ export function buildShareText(entry: CollectionEntry, origin?: string): string 
   lines.push("", DISCLOSURE, "", shareUrl(entry, origin));
   return lines.join("\n").trim();
 }
-
-export function buildDigestText(
-  collections: readonly CollectionEntry[],
-  offers: readonly { title: string }[],
-  origin?: string,
-): string {
-  const lines = ["DRAFT — Durza weekly digest (copy only; nothing is sent)", "", "Curated collections", ""];
-  for (const entry of collections.slice(0, 5)) {
-    lines.push(`- ${entry.title}: ${shareUrl(entry, origin)}`);
-  }
-  lines.push("", "Offers", "");
-  for (const offer of offers) {
-    lines.push(`- ${offer.title}`);
-  }
-  lines.push("", DISCLOSURE);
-  return lines.join("\n").trim();
-}
