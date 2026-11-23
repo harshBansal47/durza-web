@@ -16,10 +16,8 @@ import { api } from "@/lib/api";
 export type DealsExplorerTab = "top" | "codes" | "deals" | "newest";
 
 const TABS: { id: DealsExplorerTab; label: string; icon: typeof Flame }[] = [
-  { id: "top", label: "Top Picks", icon: Flame },
-  { id: "codes", label: "Coupon Codes Only", icon: TicketPercent },
-  { id: "deals", label: "Auto-Applied Deals", icon: Zap },
-  { id: "newest", label: "Freshly Added", icon: Clock4 },
+  { id: "codes", label: "Coupon codes", icon: TicketPercent },
+  { id: "deals", label: "No code listed", icon: Zap },
 ];
 
 export default function VerifiedDealsExplorer({

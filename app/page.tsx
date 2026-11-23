@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Compass, Store, Flame } from "lucide-react";
+import { ArrowRight, Compass, Store, Flame, Zap } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
 import type { ActivityItem } from "@/components/home/ActivityTicker";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
 import StoreTrackGrid from "@/components/home/StoreTrackGrid";
-import CuratedAmazonPicks from "@/components/home/CuratedAmazonPicks";
-import VerifiedDealsExplorer from "@/components/home/VerifiedDealsExplorer";
+import OfferRail from "@/components/home/OfferRail";
 import HowItWorks from "@/components/home/HowItWorks";
 import { api } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/format";
@@ -225,6 +224,20 @@ export default async function HomePage() {
     deals: backfill(fill(latestDeals.items.filter(isHomepageRelevant))),
     newest: backfill(fill(newest.items.filter(isHomepageRelevant))),
   };
+  // Rail: prefer offers with a real recent check or a source page, then fill
+  // from curated priority. Never claim "today" unless a 24h check exists.
+  const worthLooking = [...coupons.items, ...bestCoupons.items, ...latestDeals.items]
+    .filter((coupon) => coupon.is_active && !coupon.auto_suppressed)
+    .filter((coupon) => isHomepageRelevant(coupon))
+    .filter((coupon, index, all) => all.findIndex((other) => other.store_id === coupon.store_id) === index)
+    .sort((a, b) => {
+      const freshness = (c: (typeof a)) =>
+        (c.last_checked_at && Date.now() - new Date(c.last_checked_at).getTime() < 86_400_000 ? 2 : 0) +
+        (c.restrictions && typeof c.restrictions === "object" && "source_url" in c.restrictions ? 1 : 0);
+      return freshness(b) - freshness(a) || b.clicks_count - a.clicks_count;
+    })
+    .slice(0, 6);
+
   const activityDeals = explorerTabs.deals; // already relevant
 
   // The activity tape under the hero is built only from rows already on this
@@ -324,6 +337,19 @@ export default async function HomePage() {
         </section>
       ) : (
         <>
+          {worthLooking.length > 0 && (
+            <section className="mt-10" aria-labelledby="worth-looking-heading">
+              <SectionTitle hint="from offers we tracked" icon={Flame}>
+                <span id="worth-looking-heading">Worth a look</span>
+              </SectionTitle>
+              <OfferRail
+                offers={worthLooking}
+                storesById={storesById}
+                placement="home_worth_a_look"
+              />
+            </section>
+          )}
+
           {categories.items.length > 0 && (
             <section className="mt-4" id="categories" aria-label="Shop by category">
               {REDESIGN_ENABLED ? (
@@ -343,74 +369,41 @@ export default async function HomePage() {
             </section>
           )}
 
-          <CuratedAmazonPicks />
+          {explorerTabs.deals.length > 0 && (
+            <section className="mt-12" aria-labelledby="no-code-heading">
+              <SectionTitle hint="no code listed" icon={Zap}>
+                <span id="no-code-heading">Deals without a code listed</span>
+              </SectionTitle>
+              <OfferRail
+                offers={explorerTabs.deals.slice(0, 6)}
+                storesById={storesById}
+                placement="home_no_code_deals"
+              />
+            </section>
+          )}
 
-          <section className="mt-12 rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white p-6 md:p-8" aria-labelledby="black-friday-heading">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-orange-700">Black Friday in India · 27 Nov 2026</p>
-            <h2 id="black-friday-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Black Friday 2026 — where to actually save</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-soft sm:text-base">
-              What is historically on sale, which stores run real discounts, and how to stack bank offers on top — nothing on this page requires a countdown timer.
-            </p>
-            <Link href="/black-friday" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-              Open the Black Friday hub
-              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-            </Link>
-          </section>
-
-          <section className="mt-12" aria-labelledby="deals-explorer-heading">
-            <SectionTitle hint="every card read from the store's own page" icon={Flame} action={{ href: "/deals", label: "Browse all deals" }}>
-              <span id="deals-explorer-heading">Current offers</span>
-            </SectionTitle>
-            <VerifiedDealsExplorer tabs={explorerTabs} storesById={storesById} />
-          </section>
-
-          <section className="mt-12 rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white p-6 md:p-8" aria-labelledby="smart-stacking-heading">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-orange-700">Smart Stacking</p>
-            <h2 id="smart-stacking-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Don&apos;t just copy codes — stack them.</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-soft sm:text-base">
-              Use Durza&apos;s interactive store matchers to compare eligible promo codes, store offers, and any payment discounts shown at checkout.
-            </p>
-            <Link href="/stores" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-              Explore Smart Store Guides
-              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-            </Link>
-          </section>
+          {explorerTabs.codes.length > 0 && (
+            <section className="mt-12" aria-labelledby="codes-heading">
+              <SectionTitle hint="codes shown on the offer page" icon={Flame}>
+                <span id="codes-heading">Current coupon codes</span>
+              </SectionTitle>
+              <OfferRail
+                offers={explorerTabs.codes.slice(0, 6)}
+                storesById={storesById}
+                placement="home_coupon_codes"
+              />
+            </section>
+          )}
 
           <EditorialSection
-            title="Featured buying guides"
-            items={[...staticFeaturedGuides(1), ...editorial.guides.slice(0, 2), ...staticFeaturedGuides(3).slice(1)].slice(0, 3)}
-            href="/guides"
-            label="All guides"
-            eyebrow="Researched buying guides"
-            wideFirst={REDESIGN_ENABLED}
-          />
-
-          <EditorialSection
-            title="Latest comparisons"
-            items={latestComparisons.items}
+            title="Reviews & comparisons worth reading"
+            items={[
+              ...latestComparisons.items.slice(0, 2),
+              ...recentReviews.items.slice(0, 2),
+            ]}
             href="/compare"
             label="All comparisons"
-            eyebrow="Side-by-side verdicts"
-          />
-
-          <section className="mt-8 rounded-2xl border border-verified/15 bg-verified-soft/50 px-5 py-5 sm:px-7" aria-label="Our deal standards">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-lg font-bold text-ink">Real offers. Clear proof.</p>
-                <p className="mt-1 text-sm text-ink-soft">Every offer states its type. Source and check date shown when we have them; no fake countdowns or manufactured urgency.</p>
-              </div>
-              <div className="flex flex-wrap gap-2 text-xs font-semibold text-verified-ink">
-                {["Offer type on every card", "No fake urgency", "Commission disclosed"].map((label) => <span key={label} className="rounded-full bg-white px-3 py-2">✓ {label}</span>)}
-              </div>
-            </div>
-          </section>
-
-          <EditorialSection
-            title="Recent reviews"
-            items={recentReviews.items}
-            href="/reviews"
-            label="All reviews"
-            eyebrow="Honest audits & math"
+            eyebrow="Researched and side-by-side"
           />
 
           {editorial.collections.length > 0 && (
@@ -431,26 +424,12 @@ export default async function HomePage() {
             </section>
           )}
 
-          <section className="mt-12" aria-labelledby="tools-curated-kits-heading">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Discover more ways to save</p>
-            <h2 id="tools-curated-kits-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">Tools &amp; Curated Kits</h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <Link href="/collections" className="group rounded-2xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Curated sets</p>
-                <h3 className="mt-2 text-lg font-semibold text-ink group-hover:text-inkblue">Curated Buying Kits</h3>
-                <p className="mt-2 text-sm leading-6 text-ink-soft">Multi-store setups built for WFH desks, humidity skincare, home gyms, and festive gifting.</p>
-                <span className="mt-4 inline-flex items-center text-sm font-semibold text-durza-deep">Browse collections <ArrowRight aria-hidden="true" className="ml-1 h-4 w-4" strokeWidth={2} /></span>
-              </Link>
-              <Link href="/bank-offers" className="group rounded-2xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Payment savings</p>
-                <h3 className="mt-2 text-lg font-semibold text-ink group-hover:text-inkblue">Bank &amp; Credit Card Offers</h3>
-                <p className="mt-2 text-sm leading-6 text-ink-soft">Check core instant-discount rules, co-branded cashback caps, and No-Cost EMI terms before paying.</p>
-                <span className="mt-4 inline-flex items-center text-sm font-semibold text-durza-deep">View bank offers <ArrowRight aria-hidden="true" className="ml-1 h-4 w-4" strokeWidth={2} /></span>
-              </Link>
-            </div>
-          </section>
+          <p className="mt-12 border-t border-ledger-line pt-4 text-xs text-ink-soft">
+            Durza may earn a commission on tracked links. We never charge shoppers, and we do not
+            claim a code works unless checkout testing confirmed it.
+          </p>
 
-          <section className="mt-16">
+          <section className="mt-10">
             <SectionTitle icon={Compass}>How Durza works</SectionTitle>
             <HowItWorks />
           </section>

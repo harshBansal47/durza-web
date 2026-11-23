@@ -6,7 +6,7 @@ const STEPS = [
     title: "Find an offer",
     body: "Search for a store or product. Each offer shows its source and when it was last checked.",
   },
-  { glyph: Ticket, title: "Copy and visit", body: "Reveal the code and head to the store. If you buy through our link, we may earn a commission." },
+  { glyph: Ticket, title: "Check and shop", body: "See the offer type and any source or check date, then head to the store through our tracked link. We may earn a commission." },
   {
     glyph: CheckCircle2,
     title: "Share what happened",

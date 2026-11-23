@@ -39,6 +39,9 @@ export interface OfferCardProps {
    * Omit on single-brand store pages where the page itself already names the store.
    */
   brand?: OfferBrand;
+  /** Explicit evidence from a CouponPublic row, when the caller has one. */
+  typeLabelOverride?: string;
+  evidenceOverride?: string;
 }
 
 function daysUntil(iso: string | null | undefined): number | null {
@@ -67,6 +70,8 @@ export default function OfferCard({
   expiresAt,
   badgeTone,
   brand,
+  typeLabelOverride,
+  evidenceOverride,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
   if (autoSuppressed) return null;
@@ -96,8 +101,8 @@ export default function OfferCard({
     <article className="group flex h-full flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs transition-all hover:border-slate-300 hover:shadow-md">
       {brand ? <OfferBrandMark brand={brand} /> : null}
       <OfferEvidence
-        typeLabel={isCoded ? offerTypeLabel("coupon_code") : offerTypeLabel("no_code_deal")}
-        evidence={ctaHref ? affiliateLinkLabel() : "No source date yet"}
+        typeLabel={typeLabelOverride ?? (isCoded ? offerTypeLabel("coupon_code") : offerTypeLabel("no_code_deal"))}
+        evidence={evidenceOverride ?? (ctaHref ? affiliateLinkLabel() : "No source date yet")}
       />
       {/* Top row — discount anchor pill + live-verification pill, bookmark on the right */}
       <div className="mb-3 flex items-center justify-between gap-2">
