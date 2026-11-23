@@ -98,3 +98,52 @@ grouping remain untouched.
   only (all other phase3_config keys were used solely by removed tools). `ATTRIBUTION_AUDIT.md` and
   phase2/phase3 `NOTES.md` stay as historical records; EDITOR_RUNBOOK, DISTRIBUTION_RUNBOOK,
   RELEASE_CHECKLIST and SCHEDULER_RUNBOOK were rewritten for what remains.
+
+---
+
+# Removal Pass 2 — Shopify and conversion/revenue tooling
+
+Branch `remove-shopify-and-conversions` from `simplify-remove-tooling`. No deploy, push or prod writes.
+
+## S0 — Inventory and baselines
+
+**Baselines:** backend pytest 1157 passed / 3 skipped; ruff/format/mypy clean. Frontend vitest
+19 failed / 747 passed; tsc clean; `next build` exit 0.
+
+**Already removed by the earlier pass:** CSV conversion importer, attribution-health endpoint/panel,
+monetisation tooling, evidence tool, digest, jobs view, link builder, readiness panel. Only historical
+docs mention them.
+
+### Shopify inventory
+- Backend: `app/verification/shopify_verifier.py` (only implementation), `app/services/code_verifier.py`
+  (sole writer of `verification_status`), `app/services/shopify_product_sync.py`,
+  `app/schemas/product.py` Shopify DTOs, Shopify endpoints in `app/routers/api/v1/products.py`,
+  jobs `verify_live_codes` + `sync_shopify_products` in `app/services/scheduler.py`,
+  config `shopify_product_store_slug`, `shopify_product_sync_interval_hours`, `code_verifier_interval_hours`,
+  env `SHOPIFY_PRODUCT_STORE_SLUG`, `SHOPIFY_PRODUCT_SYNC_INTERVAL_HOURS`.
+- Frontend: `/admin/ingestion` page + nav + analytics link, `/api/admin/products/sync/shopify`,
+  admin API Shopify status/trigger functions; `/products/[slug]` detail page with Product JSON-LD and
+  price-drop badges; `components/store/ProductCard.tsx`, `Storefront.tsx`, `components/product/PriceHistory.tsx`,
+  store-page product wiring, search products, editorial `/products` links, product API client/types.
+- **No product sitemap entries exist** and no Shopify `platform` field on Store. The only product
+  redirect is backend `/api/v1/products/{id}/go`, which calls `click_service.record_click()` — a
+  routing/tracking file, so leave it and list under Needs human decision if unused.
+
+### Conversion/revenue inventory
+- Backend: `app/services/conversion_sync.py` (Awin, Cuelinks, Admitad transaction clients — entire
+  file is reporting), `sync_conversions` scheduler job, conversion-only config/env
+  (`CONVERSION_SYNC_INTERVAL_HOURS`, `CONVERSION_SYNC_LOOKBACK_DAYS`), `GET /api/v1/earnings/epc`,
+  affiliate/revenue totals in `/admin/analytics/overview` (+ CSV), schema `AffiliatePerformance`.
+- Tests: `tests/test_conversion_sync.py`, conversion-specific parts of `tests/test_admitad.py`,
+  `tests/test_revenue.py`, `test_earnings.py`, `test_epc.py`, `test_attribution.py`,
+  `test_admin_analytics.py`; scheduler/config assertions.
+- **Shared with ingestion — KEEP:** `app/integrations/admitad.py` `get_access_token()`/`page_results()`
+  (used by `admitad_service.sync_campaigns` and `ingestion/sources/admitad.py`), `ingestion/retry.py`,
+  vCommission campaign ingestion, `/admin/admitad` and `/admin/campaigns` pages/APIs.
+- **Leave in place (no schema changes):** Conversion, AffiliateRevenue, RevenueEvent, Attribution and
+  Product/PricePoint models/tables, plus migrations. No drops.
+
+### Do-not-touch
+Affiliate routing/tracking/click-reference files, `/go`, `/out`, `/affiliate/out`, `store_router`,
+`affiliate_router`, `click_service`, `admitad_only`, kill switch, scoreboard, UTM/canonical,
+collections, mobile fixes, SEO work, merchant tiers, "No code listed".
