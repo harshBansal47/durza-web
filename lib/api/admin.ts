@@ -74,6 +74,28 @@ export async function fetchAnalyticsOverview(
   return response.data;
 }
 
+export interface ReadinessGate {
+  name: string;
+  status: "green" | "amber" | "red";
+  value: string;
+  reason: string;
+  next_action: string;
+}
+
+export interface AcquisitionReadiness {
+  overall: "green" | "red";
+  gates: ReadinessGate[];
+  note: string;
+}
+
+export async function fetchAcquisitionReadiness(): Promise<AcquisitionReadiness> {
+  const response = await clientHttp.get<AcquisitionReadiness>(
+    clientAppUrl("/api/admin/readiness"),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
 export interface MonetisationRow {
   id: string;
   title: string;
