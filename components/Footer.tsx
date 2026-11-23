@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import SponsoredCard from "@/components/SponsoredCard";
 import type { Ad } from "@/lib/types";
 import Logo from "@/components/Logo";
+import SocialFollowLinks from "@/components/SocialFollowLinks";
+import { socialFollowLinks } from "@/lib/social-config";
 import AppDownloadLink from "@/components/AppDownloadLink";
 import TelegramChannelLink from "@/components/TelegramChannelLink";
 import WhatsAppChannelLink from "@/components/WhatsAppChannelLink";
@@ -81,6 +83,9 @@ export default function Footer({
 }) {
   return (
     <footer className="mt-16 no-print">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SocialFollowLinks links={socialFollowLinks()} placement="footer" />
+      </div>
       {adSlot ??
         (ad ? (
           <div className="mx-auto mb-8 max-w-6xl px-4 sm:px-6">

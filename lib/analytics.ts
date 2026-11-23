@@ -41,6 +41,7 @@ export type AnalyticsEvent =
   | "page_view"
   | "search"
   | "coupon_impression"
+  | "outbound_click"
   | "coupon_click"
   | "coupon_reveal"
   | "copy_code"

@@ -7,6 +7,8 @@ import { GO_REL } from "@/lib/go";
 import type { CollectionEntry } from "@/data/collections";
 import { COLLECTIONS } from "@/data/collections";
 import ShareControls from "@/components/collections/ShareControls";
+import SocialFollowLinks from "@/components/SocialFollowLinks";
+import { socialFollowLinks } from "@/lib/social-config";
 
 function pad2(n: number) {
   return String(n).padStart(2, "0");
@@ -199,6 +201,7 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
           evidence are shown per item; a coupon code is only shown when one is actually listed.
         </p>
         <ShareControls entry={entry} />
+        <div className="mt-4"><SocialFollowLinks links={socialFollowLinks()} placement={`collection:${entry.slug}`} /></div>
 
         <section aria-labelledby="faqs" className="mt-12">
           <h2 id="faqs" className="font-serif text-2xl font-extrabold text-[#141413] sm:text-3xl">Frequently asked questions</h2>
