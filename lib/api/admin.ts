@@ -433,7 +433,7 @@ export async function fetchEvidenceQueue(filters: {
   limit?: number;
 } = {}): Promise<EvidenceRow[]> {
   const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(filters)) if (value) params.set(key, value);
+  for (const [key, value] of Object.entries(filters)) if (value !== undefined && value !== "") params.set(key, String(value));
   const response = await clientHttp.get<EvidenceRow[]>(
     clientAppUrl(`/api/admin/evidence/queue?${params}`),
     clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
