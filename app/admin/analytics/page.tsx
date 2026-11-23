@@ -236,6 +236,8 @@ export default function AdminAnalyticsDashboard() {
                     ["Offer type", scoreboard.clicks_by_offer_type],
                     ["Evidence tier", scoreboard.clicks_by_evidence_tier],
                     ["Store tier", scoreboard.clicks_by_store_tier],
+                    ["Channel", scoreboard.clicks_by_channel],
+                    ["Campaign", scoreboard.clicks_by_campaign],
                   ] as [string, ScoreboardBucket[]][]).map(([title, rows]) => (
                     <div key={title}>
                       <h3 className="mb-2 text-sm font-semibold text-gray-800">Clicks by {title.toLowerCase()}</h3>

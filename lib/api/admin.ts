@@ -153,6 +153,8 @@ export interface RawEventScoreboard {
   clicks_by_offer_type: ScoreboardBucket[];
   clicks_by_evidence_tier: ScoreboardBucket[];
   clicks_by_store_tier: ScoreboardBucket[];
+  clicks_by_channel: ScoreboardBucket[];
+  clicks_by_campaign: ScoreboardBucket[];
   collection_views: number;
   collection_clicks: number;
   ctr_available: boolean;
