@@ -73,21 +73,26 @@ export const viewport = {
   viewportFit: "cover",
 };
 
+// Editorial first: the primary bar now leads with decisions, not offers.
+// Coupons and deals remain one tap away in the "More" menu.
 const NAV_LINKS = [
+  { href: "/compare", label: "Comparisons" },
+  { href: "/guides", label: "Guides" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/tools", label: "Tools" },
+  { href: "/topics", label: "Topics" },
+];
+
+const MORE_NAV_LINKS = [
   { href: "/coupons", label: "Coupons" },
   { href: "/deals", label: "Deals" },
   { href: "/stores", label: "Stores" },
   { href: "/categories", label: "Categories" },
-];
-
-const MORE_NAV_LINKS = [
-  { href: "/black-friday", label: "Black Friday 2026" },
-  { href: "/guides", label: "Guides" },
-  { href: "/bank-offers", label: "Bank & card offers" },
-  { href: "/reviews", label: "Reviews" },
   { href: "/collections", label: "Collections" },
+  { href: "/bank-offers", label: "Bank & card offers" },
+  { href: "/black-friday", label: "Black Friday 2026" },
+  { href: "/methodology", label: "How we research" },
   { href: "/saved", label: "Saved" },
-  { href: "/compare", label: "Compare" },
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

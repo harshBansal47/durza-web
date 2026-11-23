@@ -13,6 +13,8 @@ import { allowedStoreIds, isHomepageIndiaRelevant } from "@/lib/homepage-curatio
 import { cleanStoreDescription } from "@/lib/seo";
 import type { CouponPublic, EditorialContent, EditorialType } from "@/lib/types";
 import { editorialPath } from "@/lib/editorial-path";
+import { TOPICS } from "@/lib/topics";
+import { COMPARISONS } from "@/data/comparisons";
 import { CUSTOM_STORE_SLUGS } from "@/lib/custom-store-pages";
 
 /**
@@ -103,6 +105,21 @@ export const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/compare`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/collections`, changeFrequency: "weekly", priority: 0.7 },
   { url: `${SITE_URL}/collections/complete-amazon-makeup-toolkit`, changeFrequency: "weekly", priority: 0.8 },
+  // Topic hubs are stable editorial entry points, not utility pages.
+  // Hand-authored comparisons live in data/comparisons.ts, not in the DB
+  // editorial feed. Claim them here so they are actually submitted to Google.
+  ...COMPARISONS.map((item) => ({
+    url: `${SITE_URL}/compare/${item.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  })),
+  { url: `${SITE_URL}/topics`, changeFrequency: "weekly", priority: 0.8 },
+  ...TOPICS.map((topic) => ({
+    url: `${SITE_URL}${topic.hubHref}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  })),
+  { url: `${SITE_URL}/methodology`, changeFrequency: "monthly", priority: 0.5 },
 ];
 
 /**

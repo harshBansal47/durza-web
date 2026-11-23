@@ -5,6 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { GO_REL } from "@/lib/go";
 import { COMPARE_CATEGORIES, COMPARISONS, type CompareEntry } from "@/data/comparisons";
+import EditorialByline from "@/components/editorial/EditorialByline";
 
 function goHref(storeSlug: string, src: string) {
   return `/go/${encodeURIComponent(storeSlug)}?src=${encodeURIComponent(src)}`;
@@ -54,9 +55,11 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
     headline: entry.title,
     description: entry.metaDescription,
     image: [entry.heroImage],
-    datePublished: "2026-11-01",
-    dateModified: "2026-11-18",
-    author: { "@type": "Organization", name: "Durza Editorial", url: absoluteUrl("/about") },
+    datePublished: entry.factsCheckedOn ?? "2026-11-01",
+    dateModified: entry.factsCheckedOn ?? "2026-11-18",
+    author: entry.authorName
+      ? { "@type": "Person", name: entry.authorName, url: absoluteUrl("/about") }
+      : { "@type": "Organization", name: "Durza Research Desk", url: absoluteUrl("/about") },
     publisher: {
       "@type": "Organization",
       name: "Durza",
@@ -93,6 +96,32 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
           {entry.title}
         </h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-[#3f3b35]">{entry.summary}</p>
+
+        {entry.audience && (
+          <section aria-label="Who this comparison is for" className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-[#141413]/10 bg-white p-4">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[#8a4b12]">Who it is for</p>
+              <ul className="mt-2 space-y-1 text-sm leading-6 text-[#3f3b35]">
+                {entry.audience.bestFor.map((line) => <li key={line}>• {line}</li>)}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-800">Who should skip it</p>
+              <ul className="mt-2 space-y-1 text-sm leading-6 text-[#3f3b35]">
+                {entry.audience.skipIf.map((line) => <li key={line}>• {line}</li>)}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {(entry.authorName || entry.factsCheckedOn) && (
+          <EditorialByline
+            authorName={entry.authorName}
+            updatedAt={entry.factsCheckedOn}
+            checkedAt={entry.factsCheckedOn}
+            hasMethod
+          />
+        )}
 
         <div className="relative mt-7 overflow-hidden rounded-3xl border border-[#141413]/10 bg-white shadow-sm">
           <div className="relative aspect-[16/9] w-full">

@@ -19,10 +19,14 @@ import { REDESIGN_ENABLED } from "@/lib/flags";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
-import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
+import { EditorialCard } from "@/components/editorial/EditorialComponents";
+import DecisionDesk from "@/components/home/DecisionDesk";
+import { buildTopicSpotlights } from "@/lib/topics";
+import { discoverableContent } from "@/lib/topic-content";
 import { staticFeaturedGuides } from "@/lib/static-editorial";
 import { COLLECTIONS } from "@/data/collections";
 import { collectionFromEditorial } from "@/lib/collections";
+import type { DiscoverableContent } from "@/lib/topics";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
 export const revalidate = 1800;
@@ -71,6 +75,7 @@ export default async function HomePage() {
     recentReviews,
     latestDeals,
     bestCoupons,
+    allEditorial,
   ] = await Promise.all([
     safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>),
     safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>),
@@ -96,7 +101,12 @@ export default async function HomePage() {
       }),
       emptyPage as Paginated<CouponPublic>,
     ),
+    safe(discoverableContent(), [] as DiscoverableContent[]),
   ]);
+
+  // The editorial layer ranks the content we already have. Topics with no
+  // published pieces are omitted, so nothing here is a hardcoded section.
+  const topicSpotlights = buildTopicSpotlights(allEditorial, { limit: 4, perTopic: 3 });
 
   // Indian shoppers today — deals that make sense for that audience only.
   // The excluded set lives in lib/homepage-curation.ts; this section filters every
@@ -289,6 +299,8 @@ export default async function HomePage() {
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
       />
 
+      {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
+
       {isEmpty ? (
        <section className="section-panel mt-12 px-6 py-14 text-center">
           <h2 className="font-serif text-title font-medium text-ink">No deals listed yet</h2>
@@ -356,17 +368,6 @@ export default async function HomePage() {
               />
             </section>
           )}
-
-          <EditorialSection
-            title="Reviews & comparisons worth reading"
-            items={[
-              ...latestComparisons.items.slice(0, 2),
-              ...recentReviews.items.slice(0, 2),
-            ]}
-            href="/compare"
-            label="All comparisons"
-            eyebrow="Researched and side-by-side"
-          />
 
           {collectionsForRail.length > 0 && (
             <section className="mt-12" aria-label="Curated savings collections">
