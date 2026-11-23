@@ -5,7 +5,6 @@ const ADMIN_LINKS = [
   { href: "/admin", label: "Admin Home" },
   { href: "/admin/admitad", label: "Admitad" },
   { href: "/admin/jobs", label: "Jobs" },
-  { href: "/admin/monetisation", label: "Monetisation" },
   { href: "/admin/conversions", label: "Conversions" },
   { href: "/admin/links", label: "Links" },
   { href: "/admin/assets", label: "Assets" },

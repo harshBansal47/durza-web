@@ -54,3 +54,11 @@ Branch: `simplify-remove-tooling` from `phase3-distribution-readiness` in both r
 - Digest and readiness screens call `fetchEvidenceQueue`, so they cannot remain if the evidence endpoint is removed.
 - Share images use `DISCLOSURE` from `lib/share-text.ts`; keep that when removing digest.
 - Scoreboard channel/campaign grouping (`438f209`) must survive R1/R7.
+
+## Historical notes (R4)
+**[verified before removal]** Top-clicked offers were plain URLs with no affiliate attribution;
+Amazon.in offers carried `tag=durza02-21`. The classifier labelled outbound paths by cited rule but
+never changed routing. The tracked-URL editor wrote old/new URL, editor id and time into
+`Coupon.restrictions._outbound_url_history`; no records were deleted. All references are retained
+only here; the tooling is removed. Routing files (`store_router.py`, `affiliate_router.py`,
+`affiliate_out`, `/go`, click recording, `admitad_only`) were not modified by this pass.
