@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CollectionsHub from "@/components/collections/CollectionsHub";
-import { COLLECTIONS } from "@/data/collections";
+import { mergedCollections } from "@/lib/collections";
 import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -17,6 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CollectionsPage() {
-  return <CollectionsHub items={COLLECTIONS} />;
+export default async function CollectionsPage() {
+  return <CollectionsHub items={await mergedCollections()} />;
 }

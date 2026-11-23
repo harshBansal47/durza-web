@@ -21,6 +21,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { EditorialCard, EditorialSection } from "@/components/editorial/EditorialComponents";
 import { staticFeaturedGuides } from "@/lib/static-editorial";
+import { COLLECTIONS } from "@/data/collections";
+import { collectionFromEditorial } from "@/lib/collections";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
 export const revalidate = 1800;
@@ -238,6 +240,11 @@ export default async function HomePage() {
     })
     .slice(0, 6);
 
+  const collectionsForRail = [
+    ...editorial.collections.map(collectionFromEditorial).filter((entry) => entry !== null),
+    ...COLLECTIONS,
+  ];
+
   const activityDeals = explorerTabs.deals; // already relevant
 
   // The activity tape under the hero is built only from rows already on this
@@ -406,7 +413,7 @@ export default async function HomePage() {
             eyebrow="Researched and side-by-side"
           />
 
-          {editorial.collections.length > 0 && (
+          {collectionsForRail.length > 0 && (
             <section className="mt-12" aria-label="Curated savings collections">
               <div className="mb-5 flex items-end justify-between gap-3">
                 <div>
@@ -419,7 +426,31 @@ export default async function HomePage() {
                 </Link>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {editorial.collections.slice(0, 3).map((item) => <EditorialCard key={item.id} content={item} />)}
+                {collectionsForRail.slice(0, 3).map((item) => <EditorialCard key={item.slug} content={{
+                  id: item.slug,
+                  content_type: "collection" as const,
+                  status: "published" as const,
+                  title: item.title,
+                  slug: item.slug,
+                  summary: item.summary,
+                  content_blocks: [],
+                  structured_data: {},
+                  hero_image_url: item.heroImage,
+                  author_name: null,
+                  market: "IN",
+                  seo_title: item.seoTitle,
+                  meta_description: item.metaDescription,
+                  canonical_url: null,
+                  is_indexable: true,
+                  is_featured: false,
+                  published_at: null,
+                  created_at: "",
+                  updated_at: "",
+                  relations: [],
+                  entity_links: [],
+                  faqs: [],
+                  adsense_eligible: false,
+                }} />)}
               </div>
             </section>
           )}

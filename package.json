@@ -13,7 +13,8 @@
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
     "run:android": "npx cap run android",
-    "run:ios": "npx cap run ios"
+    "run:ios": "npx cap run ios",
+    "check:collections": "sh scripts/check-collections.sh"
   },
   "dependencies": {
     "@fontsource-variable/newsreader": "^5.3.0",
