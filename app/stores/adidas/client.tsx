@@ -90,7 +90,7 @@ export default function AdidasClient({ offers, faqs, stats, heroImageUrl, offerC
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Adidas India"
         subtitle="From Lightstrike Pro marathon racers to timeless Samba and Gazelle silhouettes—unlock official adiClub member drops and direct size exchanges."
         domain={domain}

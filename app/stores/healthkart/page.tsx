@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "HealthKart Official Store \u2014 Protein, Creatine & Supplements 
 const description = "Explore HealthKart supplements by fitness goal \u2014 whey, creatine, vitamins and more. Check authenticity guidance and live prices on the official store.";
 const canonical = "/stores/healthkart";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("healthkart", baseMetadata);
+}
 
 const FAQS = [
   { question: "How does HealthKart address product authenticity?", answer: "HealthKart provides authenticity guidance and verification steps for eligible products and emphasizes sourcing from brands/authorized channels. Follow the verification instructions provided with your product and on the HealthKart site." },

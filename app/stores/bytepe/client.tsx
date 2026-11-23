@@ -93,7 +93,7 @@ export default function BytePeClient({ offers, faqs, stats, heroImageUrl, offerC
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="BytePe"
         subtitle="Access flagship iPhones and Android devices on structured subscription plans with bundled protection and upgrade paths—without locking up full upfront capital."
         domain={domain}

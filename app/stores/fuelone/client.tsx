@@ -92,7 +92,7 @@ export default function FuelOneClient({ offers, faqs, stats, heroImageUrl, offer
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Fuel One"
         subtitle="No-frills, lab-tested whey protein and micronized creatine engineered by MuscleBlaze for serious daily lifters who care about protein-per-scoop value."
         domain={domain}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const description =
   "Victoria's Secret India — fine fragrance mists, 3-wick candles, fragrance lotions and signature lingerie. Only the collection, no codes, only the official storefront.";
 const canonical = "/stores/victorias-secret";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("victorias-secret", baseMetadata);
+}
 
 const FAQS = [
   { question: "Where is Victoria's Secret actually produced for India?", answer: "Licensing for the Indian market is operated by an exclusive retail partner; prices, collections and availability are governed by that partner. Fragrances and lotions imported for India match global formulations." },

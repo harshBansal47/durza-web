@@ -8,8 +8,10 @@ export interface StoreHeroPerk {
 }
 
 export interface StoreHeroProps {
-  /** Display name rendered in the H1, e.g. "Kapiva Ayurveda". */
+  /** Display name rendered in the heading, e.g. "Kapiva Ayurveda". */
   name: string;
+  /** Heading level: 1 for generic store pages, 2 when the page owns its H1. */
+  headingLevel?: 1 | 2;
   /** Full H1 override — e.g. "HealthKart Coupons & Offers". Defaults to "{name} Coupons, Deals & Smart Savings". */
   heading?: string;
   /** Advertiser domain for the pill, e.g. "kapiva.in". Falls back to hidden. */
@@ -70,6 +72,7 @@ export function deriveStoreHeroPerks(offers: ReadonlyArray<{ code: string | null
  */
 export default function StoreHero({
   name,
+  headingLevel = 1,
   heading,
   domain,
   subtitle,
@@ -110,9 +113,15 @@ export default function StoreHero({
 
           {/* Title + trust signals */}
           <div className="min-w-0 flex-1">
-            <h1 className="font-sans text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-              {heading ?? `${name} Coupons, Deals & Smart Savings`}
-            </h1>
+            {headingLevel === 1 ? (
+              <h1 className="font-sans text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+                {heading ?? `${name} Coupons, Deals & Smart Savings`}
+              </h1>
+            ) : (
+              <h2 className="font-sans text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+                {heading ?? `${name} Coupons, Deals & Smart Savings`}
+              </h2>
+            )}
             <p className="mt-1 max-w-2xl text-sm text-slate-600 md:text-base">{subtitle}</p>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-medium">
               {showStatus ? (

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Nilkamal Furniture Official Store \u2014 Beds, Chairs & Storage |
 const description = "Explore Nilkamal furniture by room \u2014 chairs, desks, beds, sofas and storage. Check live prices, delivery and installation availability on the official store.";
 const canonical = "/stores/nilkamalfurniture";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("nilkamalfurniture", baseMetadata);
+}
 
 const FAQS = [
   { question: "Does Nilkamal offer delivery and assembly?", answer: "Delivery and assembly/installation support are offered on eligible furniture items and depend on PIN-code serviceability. Check the product page for delivery timelines, assembly availability and conditions before ordering." },

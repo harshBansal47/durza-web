@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,13 +14,17 @@ const description =
   "Book Trenitalia Frecciarossa high-speed trains and regional routes across Rome, Florence, Venice, and Milan in English with multi-currency checkout.";
 const canonical = "/stores/italiarail-many-geos";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("italiarail-many-geos", baseMetadata);
+}
 
 const FAQS = [
   {

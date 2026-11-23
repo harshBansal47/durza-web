@@ -92,7 +92,7 @@ export default function GritzoClient({ offers, faqs, stats, heroImageUrl, offerC
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Gritzo"
         subtitle="Whey and plant protein blends formulated specifically for 4–7y, 8–12y, and 13+ growth stages—with zero refined sugar, artificial flavors, or preservatives."
         domain={domain}

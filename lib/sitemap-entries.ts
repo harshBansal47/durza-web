@@ -237,11 +237,11 @@ async function shardEntriesUnfiltered({ kind, chunk }: SitemapId): Promise<Metad
         (store) =>
           !REDIRECTED_STORE_ALIAS_SLUGS.has(store.slug) &&
           isHomepageIndiaRelevant(store.slug) &&
-          (CUSTOM_STORE_SLUGS.has(store.slug) ||
+          (store.slug !== "hok-makeup" && CUSTOM_STORE_SLUGS.has(store.slug) ||
             isIndexableStore(store.offer_count, cleanStoreDescription(store.description))),
       )
       .map((store) => {
-        const custom = CUSTOM_STORE_SLUGS.has(store.slug);
+        const custom = store.slug !== "hok-makeup" && CUSTOM_STORE_SLUGS.has(store.slug);
         return {
           url: `${SITE_URL}/stores/${store.slug}`,
           // No honest per-page "last changed" signal exists for stores — so no lastmod.
@@ -283,9 +283,9 @@ async function shardEntriesUnfiltered({ kind, chunk }: SitemapId): Promise<Metad
       }));
     if (kind === "guides") {
       // Hand-authored static buying guides -- same weight as flagship guides.
-      const { STORE_GUIDES } = await import("@/data/store-guides");
+      const { STORE_GUIDES, THIN_GUIDE_SLUGS } = await import("@/data/store-guides");
       entries.push(
-        ...STORE_GUIDES.map((guide) => ({
+        ...STORE_GUIDES.filter((guide) => !THIN_GUIDE_SLUGS.has(guide.slug)).map((guide) => ({
           url: `${SITE_URL}/guides/${guide.slug}`,
           lastModified: guide.auditedOn ? new Date(guide.auditedOn) : undefined,
           changeFrequency: "weekly" as const,

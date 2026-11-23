@@ -90,7 +90,7 @@ export default function ZoffFoodsClient({ offers, faqs, stats, heroImageUrl, off
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="ZOFF Foods"
         subtitle="Turmeric, Kashmiri chilli, garam masala, and whole spices milled with Air Classifying Mills (ACM) so heat never scorches away natural aroma and color."
         domain={domain}

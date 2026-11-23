@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd, itemListJsonLd } from "@/lib/seo";
@@ -14,13 +15,17 @@ const description =
 const canonicalPath = "/stores/wearyourwords";
 const canonical = `https://durza.in${canonicalPath}`;
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical: canonicalPath },
   openGraph: { title, description, url: canonicalPath, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("wearyourwords", baseMetadata);
+}
 
 const FAQS = [
   {

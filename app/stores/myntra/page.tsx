@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Myntra Coupons & Offers – BFF500 New User Deals";
 const description = "Live Myntra coupons and sale offers on fashion, footwear and beauty. Save on your first order with BFF500.";
 const canonical = "/stores/myntra";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("myntra", baseMetadata);
+}
 
 const FAQS = [
   { question: "What is BFF500?", answer: "Myntra may offer new-customer promo codes from time to time. Check the current code, eligibility, and cart conditions at checkout." },

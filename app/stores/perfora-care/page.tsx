@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -14,13 +15,17 @@ const description =
   "Perfora Care: smart electric toothbrushes, teeth whitening serums and water flossers. Oral-care matcher; shop direct from Perfora India.";
 const canonical = "/stores/perfora-care";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("perfora-care", baseMetadata);
+}
 
 const FAQS = [
   { question: "How is a smart electric toothbrush different from a manual?", answer: "Smart brushes deliver 40,000+ strokes per minute with AI bristle tracking, app coaching on brushing zones, built-in timers and pressure sensors to protect gums. For plaque-light users, the gain is marginal; for anyone with gum sensitivity or inconsistent routine, it's transformative." },

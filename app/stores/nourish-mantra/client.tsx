@@ -91,7 +91,7 @@ export default function NourishMantraClient({ offers, faqs, stats, heroImageUrl,
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Nourish Mantra"
         subtitle="100% vegan, PETA-certified cruelty-free cleansers, moringa-and-hemp facial oils, and rose hydrosol mists formulated for city pollution and dry AC skin."
         domain={domain}

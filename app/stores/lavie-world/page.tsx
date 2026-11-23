@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Lavie World Coupons, Handbags, Totes & Sling Deals";
 const description = "Explore Lavie World handbags, totes, slings, and clutches with current offers, buying guidance, and direct links to the official store.";
 const canonical = "/stores/lavie-world";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("lavie-world", baseMetadata);
+}
 
 const FAQS = [
   { question: "What does the manufacturer warranty cover?", answer: "Warranty coverage depends on the product and Lavie's current policy. Check the product page and invoice details for coverage on defects, repairs, and claim steps." },

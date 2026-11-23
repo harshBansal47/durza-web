@@ -91,7 +91,7 @@ export default function NeeshPerfumesClient({ offers, faqs, stats, heroImageUrl,
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Neesh Perfumes"
         subtitle="Crafted with fine French perfume oils at Extrait de Parfum concentration (20%+ perfume oil) so scents hold through humid Indian days and wedding nights."
         domain={domain}

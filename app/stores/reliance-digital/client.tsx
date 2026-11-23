@@ -82,7 +82,7 @@ export default function RelianceDigitalClient({ offers, faqs, stats, heroImageUr
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Reliance Digital"
         subtitle="Order smartphones, laptops, refrigerators, and washing machines on reliancedigital.in with multi-bank instant discounts and resQ technician setup."
         domain={domain}

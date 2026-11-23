@@ -84,7 +84,7 @@ export default function CromaClient({ offers, faqs, stats, heroImageUrl, offerCo
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Croma"
         subtitle="Compare inverter split ACs, 4K OLED TVs, MacBooks, and kitchen appliances on Croma.com—with same-day express delivery or local Croma store pickup."
         domain={domain}

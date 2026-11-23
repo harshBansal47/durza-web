@@ -92,7 +92,7 @@ export default function IndusValleyClient({ offers, faqs, stats, heroImageUrl, o
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Indus Valley"
         subtitle="Doctor-recommended botanical hair colors, triple-sifted Rajasthani henna, and cold-pressed oils formulated without harsh PPD or ammonia fumes."
         domain={domain}

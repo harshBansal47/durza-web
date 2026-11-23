@@ -11,6 +11,8 @@ function discoverCustomStoreSlugs(): string[] {
           entry.isDirectory() &&
           entry.name !== "[slug]" &&
           entry.name !== "__tests__" &&
+          // Redirect-only stubs are not custom pages.
+          entry.name !== "hok-makeup" &&
           !entry.name.startsWith("."),
       )
       .filter((entry) =>

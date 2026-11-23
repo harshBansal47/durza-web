@@ -83,7 +83,7 @@ export default function ItaloJewelryClient({ offers, faqs, stats, heroImageUrl, 
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Italo Jewelry"
         subtitle="Hand-set lab-created white sapphire, emerald, and moissanite bridal sets crafted in rhodium-plated 925 sterling silver with international delivery."
         domain={domain}

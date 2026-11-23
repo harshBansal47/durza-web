@@ -84,3 +84,19 @@ Update this file only — it is the single source:
 - **2**: off-target / utility (kept off homepage rails)
 
 Coupons inherit their store's priority. Editorial rows get their own priority; it sits on the editorial record directly.
+
+## Phase 1 (T10) — truth and SEO hygiene updates
+
+- Custom store pages: 72 pages now use a shared `generateMetadata` guard
+  (`lib/custom-store-metadata.ts`). Zero-offer pages are `noindex,follow`;
+  documented tool pages (`firstcry`, `havells`) keep their index rule. Pages stay live.
+- Single H1: `StoreHero` accepts `headingLevel`; 33 custom clients that own an H1 now
+  render the hero heading as H2. Generic store pages keep the H1 in the hero.
+- Thin guides: `THIN_GUIDE_SLUGS` in `data/store-guides.ts` marks guides under 300 visible
+  words. They remain readable on-page but are `noindex,follow` and excluded from the
+  guides sitemap shard. Reviews, comparisons, collections and tools remain indexable.
+- Redirect stub `/stores/hok-makeup` is excluded from custom-store discovery and sitemap.
+- Evidence wording: offers use the tiers in `lib/offer-presentation.ts` —
+  `source_seen` (source URL + check date), `feed_reported` (last_checked_at),
+  `checkout_tested` (verification_status='verified' on a coded offer), or
+  "No source date yet". Never display a generic "Verified" badge.

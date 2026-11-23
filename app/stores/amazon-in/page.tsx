@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -14,13 +15,17 @@ const description =
   "Hand-picked Amazon India picks curated by the Durza editor — work-from-home gear, PC components, audio, kitchen, home gym, personal care devices and health. Refreshed with live check dates.";
 const canonical = "/stores/amazon-in";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("amazon-in", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why is this page shorter than other Amazon pages?", answer: "Every offer on this page was chosen by hand on the strength of purpose and professional credibility, not by a feed. We would rather list a hundred honest bargains than a thousand untested products." },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,13 +14,17 @@ const description =
   "Configure custom-to-order ThinkPads, RTX Legion gaming rigs, and OLED Yoga ultrabooks on Lenovo.com India — stack student/corporate privileges, card cashback, and warranty bundles.";
 const canonical = "/stores/lenovo";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("lenovo", baseMetadata);
+}
 
 const FAQS = [
   {

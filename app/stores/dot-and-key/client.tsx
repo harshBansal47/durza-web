@@ -134,7 +134,7 @@ export default function DotAndKeyClient({ offers, faqs, stats, heroImageUrl, off
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Dot & Key"
         subtitle="Lightweight SPF 50 PA++++ sunscreens and ceramide moisturizers that sink in fast without leaving a chalky white cast in 38°C humidity."
         domain={domain}

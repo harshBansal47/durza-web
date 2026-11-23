@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const description =
   "Vero Moda India — European tailoring, silk dresses, work-capsules and off-duty denim. Editorial showcase, no coupons, only the official collection.";
 const canonical = "/stores/vero-moda";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("vero-moda", baseMetadata);
+}
 
 const FAQS = [
   { question: "How does Vero Moda India sizing compare to European brands?", answer: "Vero Moda India sizes follow EU standards; Indian shoppers moving from Lifestyle or Shopper's Stop size columns should consider ordering one size up. Refer to the size chart on each product page." },

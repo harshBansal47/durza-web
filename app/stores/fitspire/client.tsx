@@ -91,7 +91,7 @@ export default function FitspireClient({ offers, faqs, stats, heroImageUrl, offe
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Fitspire"
         subtitle="Dairy-free pea-and-brown-rice proteins, gelatin-free pectin gummies, and herbal wellness blends crafted for vegetarian Indian households."
         domain={domain}

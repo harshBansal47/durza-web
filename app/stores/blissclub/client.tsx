@@ -90,7 +90,7 @@ export default function BlissClubClient({ offers, faqs, stats, heroImageUrl, off
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="BlissClub"
         subtitle="Squat-proof 4-way stretch leggings with deep phone pockets, zero-camel-toe gussets, and breathable Cloud9 fabrics made for Indian weather."
         domain={domain}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,7 +14,7 @@ const description =
   "Explore Milton Thermosteel flasks, electric lunch boxes, copper bottles, and casseroles. Get practical buying tips and shop via tracked links on the official Milton store.";
 const canonical = "/stores/milton";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
@@ -26,6 +27,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title, description, images: ["/stores/milton/hero-kitchenware.webp"] },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("milton", baseMetadata);
+}
 
 const FAQS = [
   {

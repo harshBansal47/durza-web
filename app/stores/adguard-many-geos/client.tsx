@@ -84,7 +84,7 @@ export default function AdGuardClient({ offers, faqs, stats, heroImageUrl, offer
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="AdGuard"
         subtitle="Blocks intrusive banners, pop-ups, and analytics trackers across browsers and mobile apps—without needing root access or browser-by-browser extensions."
         domain={domain}

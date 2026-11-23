@@ -91,7 +91,7 @@ export default function AlpinoClient({ offers, faqs, stats, heroImageUrl, offerC
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Alpino"
         subtitle="Slow-roasted peanuts blended with whey or plant protein, high-fiber rolled oats, and zero hydrogenated palm oil—built for effortless daily protein."
         domain={domain}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "The Man Company Official Store \u2014 Grooming, Fragrance & Gifts
 const description = "Explore The Man Company grooming, fragrances and gift sets by routine. Check live ranges and availability on the official store.";
 const canonical = "/stores/the-man-company";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("the-man-company", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy The Man Company products from the official store?", answer: "The official store offers the full current range, combos and curated gift sets with product details provided by the brand. Check live availability and checkout terms on themancompany.com." },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "BeastLife Official Store \u2014 Whey, Creatine & Performance | Du
 const description = "Explore BeastLife sports nutrition by training goal \u2014 whey, creatine and stacks. Check product information and live availability on the official store.";
 const canonical = "/stores/beast-life";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("beast-life", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy BeastLife from the official store?", answer: "Ordering direct gives you access to the current BeastLife range, flavors and pack options, along with product information provided by the brand. Check live availability and terms on beastlife.in." },

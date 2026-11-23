@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Havells Official Store \u2014 Fans, Geysers & Home Appliances | D
 const description = "Explore Havells fans, water heaters, kitchen appliances and more by use case. Check live models, prices and availability on the official Havells store.";
 const canonical = "/stores/havells";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("havells", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy Havells appliances from the official store?", answer: "The official store lets you view current models, specifications and ratings, with manufacturer-backed warranty and access to authorized service/installation support on eligible products as specified on the listing. Always confirm live price, availability and terms at checkout." },

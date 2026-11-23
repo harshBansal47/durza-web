@@ -90,7 +90,7 @@ export default function AldoShoesClient({ offers = [], faqs, stats, heroImageUrl
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="ALDO India"
         subtitle="Canadian footwear engineered with dual-density Pillow Walk foam insoles so formal dress shoes and party heels feel broken-in from hour one."
         domain={domain}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Boldfit Official Store \u2014 Home Gym, Yoga & Fitness Gear | Dur
 const description = "Explore Boldfit fitness gear by workout need \u2014 yoga mats, resistance bands, bottles and more. Check live options and availability on the official store.";
 const canonical = "/stores/boldfit";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("boldfit", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy Boldfit gear from the official store?", answer: "The official store shows the current range of options, sizes/variants and product details, and lets you review Boldfit\u2019s policies directly before purchase." },

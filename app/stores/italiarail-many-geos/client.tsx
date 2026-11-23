@@ -86,7 +86,7 @@ export default function ItaliaRailClient({ offers, faqs, stats, heroImageUrl, of
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="ItaliaRail"
         subtitle="Reserve seat-assigned Frecciarossa high-speed tickets between Rome, Florence, Venice, and Milan with multi-currency checkout and instant mobile e-tickets."
         domain={domain}

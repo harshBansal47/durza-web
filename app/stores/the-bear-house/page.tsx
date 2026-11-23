@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,13 +14,17 @@ const description =
   "Explore The Bear House's European-inspired men's linen shirts, brushed cotton flannels, oxfords, and polos. Check fit and fabric guides on Durza.";
 const canonical = "/stores/the-bear-house";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("the-bear-house", baseMetadata);
+}
 
 const FAQS = [
   {

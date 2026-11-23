@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Kapiva Official Store \u2014 Ayurvedic Nutrition & Wellness | Dur
 const description = "Explore Kapiva juices, Shilajit and wellness nutrition by goal. Check ingredients, lab/test information and live availability on the official Kapiva store.";
 const canonical = "/stores/kapiva";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("kapiva", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy Kapiva from the official store?", answer: "The official Kapiva store provides current product ranges, ingredient and usage information, and any brand-provided quality/test details. Review specifics on each listing and confirm live availability at checkout." },

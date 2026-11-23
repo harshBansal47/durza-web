@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Boult Official Store \u2014 Earbuds, Smartwatches & Audio | Durza
 const description = "Explore Boult TWS earbuds, smartwatches and audio by use case. Compare features and check live models, pricing and availability on the official Boult store.";
 const canonical = "/stores/boult";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("boult", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy Boult products from the official store?", answer: "The official store lists current models and variants and supports manufacturer warranty processes as per Boult\u2019s terms. Check warranty registration/support details on boultaudio.com and the product page." },

@@ -86,7 +86,7 @@ export default function WearYourWordsClient({ offers, faqs, stats, heroImageUrl,
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Wear Your Words"
         subtitle="Hand-finished Indian statement denim—from crystal-scattered wide-leg silhouettes to sequin-lace cutouts designed to turn a basic white tee into a full outfit."
         domain={domain}

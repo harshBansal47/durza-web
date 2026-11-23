@@ -92,7 +92,7 @@ export default function WonderchefClient({ offers, faqs, stats, heroImageUrl, of
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Wonderchef"
         subtitle="Compact high-RPM smoothie and masala blenders, 5-layer granite-finish pans, and home espresso machines curated with Chef Sanjeev Kapoor."
         domain={domain}

@@ -82,7 +82,7 @@ export default function LevisClient({ offers, faqs, stats, heroImageUrl, offerCo
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Levi's India"
         subtitle="Find your exact waist-and-inseam fit across iconic straight, slim, and tapered selvedge denim—direct from Levi's official India store."
         domain={domain}

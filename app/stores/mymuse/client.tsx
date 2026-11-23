@@ -91,7 +91,7 @@ export default function MyMuseClient({ offers, faqs, stats, heroImageUrl, offerC
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="MyMuse"
         subtitle="Doctor-recommended, medical-grade silicone devices, quiet USB-rechargeable motors, and pH-balanced lubricants delivered in plain, unbranded boxes."
         domain={domain}

@@ -92,7 +92,7 @@ export default function TrueBasicsClient({ offers, faqs, stats, heroImageUrl, of
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="TrueBasics"
         subtitle="Targeted daily supplements built around clinically studied, trademarked ingredients—including Lutemax 2020®, KSM-66® Ashwagandha, and high-EPA/DHA Omega-3."
         domain={domain}

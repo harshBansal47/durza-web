@@ -90,7 +90,7 @@ export default function TheBearHouseClient({ offers, faqs, stats, heroImageUrl, 
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="The Bear House"
         subtitle="Tailored Indian-fit casual shirts—from breathable European flax-linen blends for 35°C commutes to brushed double-weave flannels for AC offices."
         domain={domain}

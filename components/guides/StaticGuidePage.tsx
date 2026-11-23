@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import type { StaticGuide } from "@/data/store-guides";
+import { THIN_GUIDE_SLUGS } from "@/data/store-guides";
 import JsonLd from "@/components/JsonLd";
 import AdSenseSlot from "@/components/editorial/AdSenseSlot";
 import { BRAND } from "@/lib/brand";
@@ -73,6 +74,7 @@ export const staticGuideMetadata = (guide: StaticGuide): Metadata => {
     title: guide.seo.title,
     description: guide.seo.description,
     alternates: { canonical: `/guides/${guide.slug}` },
+    ...(THIN_GUIDE_SLUGS.has(guide.slug) ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title: guide.seo.title,
       description: guide.seo.description,

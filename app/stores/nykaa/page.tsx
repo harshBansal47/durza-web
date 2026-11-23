@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Nykaa Coupons & Offers – Beauty Sale Bank Deals";
 const description = "Live Nykaa coupon codes for today — bank-card discounts on beauty, skincare and Nykaa Fashion, refreshed from official campaign pages.";
 const canonical = "/stores/nykaa";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("nykaa", baseMetadata);
+}
 
 const FAQS = [
   { question: "Are Nykaa products authentic?", answer: "Nykaa sells through its own fulfilment — the brand-direct products you see on nykaa.com carry Nykaa's satisfaction guarantee. Marketplace listings (3rd-party sellers) exist on Nykaa Fashion — check the ‘Sold by’ line on the PDP before you order." },

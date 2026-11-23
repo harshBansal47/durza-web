@@ -80,7 +80,7 @@ export default function LifeChangingAstroClient({ offers, faqs, stats, heroImage
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Life Changing Astro"
         subtitle="Book one-on-one Vedic astrology consultations, detailed birth-chart reports, and lab-certified rudraksha or gemstones with transparent service details."
         domain={domain}

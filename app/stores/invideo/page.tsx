@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,13 +14,17 @@ const description =
   "InVideo guide for creators: compare InVideo AI and InVideo Studio, explore current plans and offers on the official site, and review international (multi-currency/USD) checkout details before subscribing.";
 const canonical = "/stores/invideo";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("invideo", baseMetadata);
+}
 
 const FAQS = [
   {

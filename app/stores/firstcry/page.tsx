@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,7 +14,7 @@ const description =
   "Shop FirstCry for diapers, wipes, strollers, car seats, feeding essentials, and kids' fashion. Use Durza's tools and tracked links to check live offers on the official store.";
 const canonical = "/stores/firstcry";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
@@ -26,6 +27,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title, description, images: ["/stores/firstcry/hero-nursery.webp"] },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("firstcry", baseMetadata);
+}
 
 const FAQS = [
   {

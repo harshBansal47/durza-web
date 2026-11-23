@@ -91,7 +91,7 @@ export default function SironaClient({ offers, faqs, stats, heroImageUrl, offerC
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Sirona"
         subtitle="100% medical-grade silicone menstrual cups, rash-free organic cotton pads, and PeeBuddy travel essentials engineered for leak-free comfort."
         domain={domain}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Kama Ayurveda Official Store \u2014 Ayurvedic Skin & Hair Care | 
 const description = "Explore Kama Ayurveda skincare, haircare and gifting by concern. Check authentic ranges and live availability on the official Kama Ayurveda store.";
 const canonical = "/stores/kama-ayurveda";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("kama-ayurveda", baseMetadata);
+}
 
 const FAQS = [
   { question: "Why buy Kama Ayurveda from the official store?", answer: "Shopping direct helps you access authentic Kama Ayurveda ranges, current collections and official product information. Any samples, consultations or checkout benefits are subject to the terms shown on kamaayurveda.in." },

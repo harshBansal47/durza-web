@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "HK Vitals Official Store \u2014 Skin, Hair & Daily Supplements | 
 const description = "Explore HK Vitals supplements by concern \u2014 collagen, biotin, multivitamins and more. Check ingredients and live availability on the official HK Vitals store.";
 const canonical = "/stores/hkvitals";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("hkvitals", baseMetadata);
+}
 
 const FAQS = [
   { question: "What is HK Vitals?", answer: "HK Vitals is a nutraceutical brand in the HealthKart ecosystem offering supplements across skin, hair and daily wellness concerns. Check product details, ingredients and usage guidance on hkvitals.com." },

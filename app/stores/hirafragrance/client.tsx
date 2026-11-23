@@ -91,7 +91,7 @@ export default function HiraFragranceClient({ offers, faqs, stats, heroImageUrl,
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Hira Fragrance"
         subtitle="Pocket-sized, 100% alcohol-free concentrated perfume oils that sit close to the skin without harsh ethanol evaporation in Indian heat."
         domain={domain}

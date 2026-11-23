@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -14,13 +15,17 @@ const description =
   "Compare ASUS ROG, TUF Gaming, Zenbook and Vivobook laptop families by use case, specs and budget. Check ASUS India for current models, prices and stock.";
 const canonical = "/stores/asus";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("asus", baseMetadata);
+}
 
 const productJsonLd = {
   "@context": "https://schema.org",

@@ -82,7 +82,7 @@ export default function HacooClient({ offers, faqs, stats, heroImageUrl, offerCo
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Hacoo"
         subtitle="Browse visual community lookbooks, buyer photo reviews, and trending streetwear drops—with clear checklist tips before ordering."
         domain={domain}

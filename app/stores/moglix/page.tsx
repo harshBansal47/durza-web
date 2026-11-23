@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Moglix Official Store \u2014 Tools, Electricals & Industrial Supp
 const description = "Shop Moglix for power tools, safety gear, electricals and industrial supplies. Compare specs and check live prices, GST invoicing and bulk options on the official store.";
 const canonical = "/stores/moglix";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("moglix", baseMetadata);
+}
 
 const FAQS = [
   { question: "Can I get a GST invoice on Moglix?", answer: "GST-compliant invoices are available for eligible orders when you provide valid GST details at checkout. Confirm invoice/GST applicability for your specific purchase on the order and product pages." },

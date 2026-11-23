@@ -90,7 +90,7 @@ export default function ZeroHarmClient({ offers, faqs, stats, heroImageUrl, offe
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="ZeroHarm"
         subtitle="100% plant-derived, aqueous nano-encapsulated supplements designed for gentle stomach absorption without synthetic binders or heavy metals."
         domain={domain}

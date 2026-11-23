@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -12,13 +13,17 @@ const title = "Iba Cosmetics Coupons, Vegan & Halal Beauty Deals";
 const description = "Iba Cosmetics coupons and offers on PETA-certified vegan, cruelty-free and Halal-certified beauty, including liquid lipsticks, alcohol-free attars/perfumes, and everyday skin tints."
 const canonical = "/stores/iba-cosmetics";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("iba-cosmetics", baseMetadata);
+}
 
 const FAQS = [
   { question: "What does Halal Certified mean in Iba Cosmetics?", answer: "Halal certification ensures all ingredients are free from animal fat, alcohol, and prohibited byproducts like carmine, with strict hygiene standards." },

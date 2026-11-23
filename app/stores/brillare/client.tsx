@@ -91,7 +91,7 @@ export default function BrillareClient({ offers, faqs, stats, heroImageUrl, offe
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Brillare"
         subtitle="Water-free, preservative-free plant actives formulated for Indian hard-water hair fall, flaky scalps, and barrier-compromised skin."
         domain={domain}

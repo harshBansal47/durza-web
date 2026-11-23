@@ -100,3 +100,11 @@ store grid and /stores featured group now use Tier A; directory still lists all 
 victorias-secret, veromoda, bath-body-works, bewakoof) are NOT Tier A — no documented
 reason (tool/curated data) exists in code for a zero-offer store to lead the experience.
 They keep their pages and affiliate links in Tier B.
+
+## T10 — SEO hygiene
+- 33 custom clients with their own H1 now pass `headingLevel={2}` to StoreHero; generic pages keep H1.
+- 72 custom pages converted from static `metadata` to guarded `generateMetadata` (noindex,follow
+  when no live offers, except documented tool pages firstcry/havells). API failure keeps base metadata.
+- Thin guides (visible text <300 words) computed from `data/store-guides.ts`; noindex + excluded from sitemap.
+- `/stores/hok-makeup` redirect stub excluded from custom discovery and sitemap.
+- No new redirects, no content deleted, no schema change.

@@ -3379,3 +3379,23 @@ export function staticGuideForStore(storeSlug: string): StaticGuide | undefined 
 export function toolLinkFor(guide: StaticGuide): string {
   return toolHref(guide.storeSlug);
 }
+
+
+/** Word count of a guide's visible text (keys and markup excluded). */
+export function guideWordCount(guide: StaticGuide): number {
+  const collect = (value: unknown): string => {
+    if (typeof value === "string") return value;
+    if (Array.isArray(value)) return value.map(collect).join(" ");
+    if (value && typeof value === "object") {
+      return Object.values(value as Record<string, unknown>).map(collect).join(" ");
+    }
+    return "";
+  };
+  const text = [guide.summary, guide.seo.title, guide.seo.description, ...guide.faqs.flatMap((f) => [f.question, f.answer]), collect(guide.blocks)].join(" ");
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+/** Thin guides stay readable on-page but are noindex and out of the sitemap (Phase 1 T10). */
+export const THIN_GUIDE_SLUGS: ReadonlySet<string> = new Set(
+  guides.filter((guide) => guideWordCount(guide) < 300).map((guide) => guide.slug),
+);

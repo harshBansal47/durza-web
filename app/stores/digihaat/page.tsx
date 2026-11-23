@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -13,13 +14,17 @@ const description =
   "Digihaat: India's ONDC open-network marketplace — Swadeshi, grocery and electronics deals; zero platform fees. Shop direct from local sellers across India.";
 const canonical = "/stores/digihaat";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("digihaat", baseMetadata);
+}
 
 const FAQS = [
   { question: "What is ONDC and how does Digihaat fit in?", answer: "ONDC (Open Network for Digital Commerce) is India's government-backed open commerce framework that lets buyers compare and shop across many sellers on one interface — similar to an airline fare aggregator. Digihaat is one of the marketplace applications on ONDC." },

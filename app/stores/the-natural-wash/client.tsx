@@ -92,7 +92,7 @@ export default function TheNaturalWashClient({ offers, faqs, stats, heroImageUrl
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="The Natural Wash (TNW)"
         subtitle="Ayurvedic-inspired facial mists, beetroot-tinted lip balms, and mild sulphate-free washes built for gentle daily skin maintenance."
         domain={domain}

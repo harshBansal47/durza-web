@@ -91,7 +91,7 @@ export default function CharlesKeithClient({ offers = [], faqs, stats, heroImage
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="Charles & Keith"
         subtitle="Clean Singaporean silhouettes—from 14-inch padded work totes to metallic wedding block heels—direct from the official Indian boutique."
         domain={domain}

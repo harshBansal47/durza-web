@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -14,13 +15,17 @@ const description =
   "Shop Tupperware India — airtight dry storage, lunch boxes, modular kitchen containers. Use-case matcher; buy direct from the official Tupperware India storefront.";
 const canonical = "/stores/shop-tupperware";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: { canonical },
   openGraph: { title, description, url: canonical, type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return customStoreMetadata("shop-tupperware", baseMetadata);
+}
 
 const FAQS = [
   { question: "What is the advantage of Tupperware over generic plastic containers?", answer: "Tupperware uses food-safe, BPA-free polyethylene — machined seals that stay airtight for years. Generic containers leak and cloud; Tupperware holds up through thousands of wash cycles." },

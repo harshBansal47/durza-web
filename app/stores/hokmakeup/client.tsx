@@ -86,7 +86,7 @@ export default function HokMakeupClient({ offers, faqs, stats, heroImageUrl, off
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <StoreHero
+      <StoreHero headingLevel={2}
         name="HOK Makeup"
         subtitle="India's official multi-brand destination for 35+ cult international makeup labels—skip counterfeit marketplace resellers and shop direct-sourced batches."
         domain={domain}
