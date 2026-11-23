@@ -61,3 +61,17 @@ max 48; social URLs are https + host-allowlisted at config load. No personal dat
 **[fact]** Public coupon/store/destination schemas still expose no payouts, commission rates or
 advertiser-supplied rates. No disclosure wording changed.
 **[decision]** All thresholds in `app/core/phase3_config.py` are labelled assumptions for the owner.
+
+## T11 — Final verification
+- Backend pytest: 1176 passed, 1 skipped (baseline 1154 + 22 new). ruff/format/mypy clean.
+- Frontend vitest: 19 failed / 757 passed — exactly the documented baseline (no new failures). `tsc` clean,
+  `next build` exit 0. `.next/static/chunks` 4.3 MB, unchanged from T0 (no bundle regression).
+- `git diff phase2..phase3` on routing/tracking/schema/migration files: empty. No affiliate routing change.
+- Claim sweep: public "No code needed" copy replaced with "No code listed"; admin publisher draft strings
+  and the AJIO "every deal in one place" heading are internal/hyperbolic, not verification claims.
+- Local dev smoke script: 12/14 checks pass. The two failures are environmental: with the backend down,
+  `/coupons` has no live offer cards to label, and `/sitemap.xml` correctly returns 503 (no last-good copy).
+  All new admin pages returned HTTP 200. Write flows (classified URL set/restore, synthetic CSV import
+  and void, tagged links, share image, readiness gates) are proven by fixture tests against the test DB;
+  no production data was written and no network calls were made.
+- DISTRIBUTION_RUNBOOK.md written against the actual tools.
