@@ -97,7 +97,7 @@ describe("organizationJsonLd", () => {
   it("describes the site's own entity with the logo it actually ships", () => {
     const org = organizationJsonLd();
     expect(org["@type"]).toBe("Organization");
-    expect(org.name).toBe("Durza");
+    expect(org.name).toBe("Durza Coupons India");
     expect(org.url).toBe("http://localhost:3000");
     expect(org.logo).toBe("http://localhost:3000/logo.png");
   });

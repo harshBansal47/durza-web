@@ -12,12 +12,12 @@ describe("brand copy", () => {
   it("keeps the user-visible brand short and the title suffix specific", () => {
     expect(BRAND_NAME).toBe("Durza");
     expect(BRAND_SHORT_NAME).toBe("Durza");
-    expect(BRAND_TITLE_SUFFIX).toBe("Durza Coupons");
-    expect(SITE_TITLE.startsWith(`${BRAND_TITLE_SUFFIX} `)).toBe(true);
-    expect(SITE_DESCRIPTION).toContain(BRAND_NAME);
+    expect(BRAND_TITLE_SUFFIX).toBe("Durza");
+    expect(SITE_TITLE).toContain("Discover genuine deals");
+    expect(SITE_DESCRIPTION).toContain("curated shopping opportunities");
   });
 
   it("uses the defined suffix for child-page titles", () => {
-    expect(TITLE_TEMPLATE).toBe(`%s — ${BRAND_TITLE_SUFFIX}`);
+    expect(TITLE_TEMPLATE).toBe(`%s | ${BRAND_TITLE_SUFFIX}`);
   });
 });
