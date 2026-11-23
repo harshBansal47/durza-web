@@ -2,6 +2,7 @@ import Image from "next/image";
 import PendingLink from "@/components/ui/PendingLink";
 import { formatStoreDisplayName } from "@/lib/store-display";
 import { storeLogoUrl } from "@/lib/storeLogos";
+import { TIER_A_STORE_SLUGS } from "@/lib/homepage-curation";
 
 interface TrackStore {
   id: string;
@@ -16,24 +17,7 @@ interface TrackStore {
  * Stores we track — upgraded logo grid. Pins flagship/high-utility stores
  * first, then fills from the live catalogue by offer count.
  */
-const PINNED = [
-  "amazon-in",
-  "lenovo",
-  "asus",
-  "dot-and-key",
-  "healthkart",
-  "kapiva",
-  "nilkamalfurniture",
-  "boult",
-  "levis",
-  "sirona",
-  "milton",
-  "moglix",
-  "wonderchef",
-  "truebasics",
-  "nourish-mantra",
-  "the-man-company",
-];
+const PINNED = [...TIER_A_STORE_SLUGS];
 const PINNED_SET = new Set(PINNED);
 const TARGET = 12;
 

@@ -9,17 +9,9 @@ import type { Store } from "@/lib/types";
 import { formatStoreDisplayName, storeBucketLetter, storeSortKey } from "@/lib/store-display";
 import { storeInitials } from "@/lib/catalog";
 import { storeLogoUrl, storeAccent } from "@/lib/storeLogos";
+import { TIER_A_STORE_SLUGS } from "@/lib/homepage-curation";
 
-const FEATURED_SLUGS = [
-  "amazon-in",
-  "lenovo",
-  "asus",
-  "adidas",
-  "dot-and-key",
-  "kama-ayurveda",
-  "charles-and-keith",
-  "palmonas",
-];
+const FEATURED_SLUGS = TIER_A_STORE_SLUGS.slice(0, 8);
 
 function FeaturedStoreCard({ store }: { store: Store }) {
   const displayName = formatStoreDisplayName(store);

@@ -48,3 +48,38 @@ export function isHomepageIndiaRelevant(storeSlug: string | null | undefined): b
 export function allowedStoreIds(stores: readonly { id: string; slug: string }[]): string[] {
   return stores.filter((s) => isHomepageIndiaRelevant(s.slug)).map((s) => s.id);
 }
+
+/**
+ * Phase 1 T9 — presentation-only merchant tiers, built from the T0 production
+ * offer counts (docs/phase1/NOTES.md). Tiers NEVER affect routing, click
+ * tracking, monetisation or whether a store exists. Tier B is the default;
+ * Tier C is the existing off-topic blocklist above.
+ *
+ * A store with zero live offers cannot be Tier A. Zero-offer custom pages stay
+ * Tier B (directory + existing page retained, not featured).
+ */
+export const TIER_A_STORE_SLUGS: readonly string[] = [
+  "amazon-in",          // 35 offers
+  "ajio-com-ecommerce-cps-india", // 30
+  "tatacliq-com-ecommerce-cps-india", // 23 (13 codes + 10 deals)
+  "baccabucci-com-ecommerce-cps-india", // 20
+  "salty",              // 18 codes, dual network
+  "dot-and-key",        // 8
+  "nuawoman-com-ecommerce-cps-india", // 7 codes
+  "boldfit",            // 7
+  "indus-valley",       // 6
+  "igp",                // 5
+  "milton",             // 4, dual network
+  "acer",               // 3 codes
+  "firstcry",           // 2 codes, dual network
+];
+
+const TIER_A_SET = new Set(TIER_A_STORE_SLUGS);
+
+export type MerchantTier = "A" | "B" | "C";
+
+export function merchantTier(slug: string | null | undefined): MerchantTier {
+  if (!slug) return "C";
+  if (HOMEPAGE_EXCLUDED_STORE_SLUGS.has(slug)) return "C";
+  return TIER_A_SET.has(slug) ? "A" : "B";
+}

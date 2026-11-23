@@ -84,3 +84,19 @@ Tools & Curated Kits → How it works → commented-out PILLARS block.
 - Offer cards now render one type label plus one evidence line. `OfferCard` receives curated static
   props from custom pages rather than a full coupon row, so its evidence line is the affiliate-link
   disclosure or "No source date yet" — it never claims a source date it does not have.
+
+## T9 — Merchant tiers (presentation only)
+Final Tier A (offer counts from T0 DB query; no record or link deleted):
+amazon-in 35, ajio-com-ecommerce-cps-india 30, tatacliq-com-ecommerce-cps-india 23,
+baccabucci-com-ecommerce-cps-india 20, salty 18, dot-and-key 8,
+nuawoman-com-ecommerce-cps-india 7, boldfit 7, indus-valley 6, igp 5, milton 4,
+acer 3, firstcry 2.
+
+Tier C = existing `HOMEPAGE_EXCLUDED_STORE_SLUGS` (off-topic/VPN/proxy/US/SaaS/travel
+programs). Tier B = everything else, including zero-offer custom pages. Pinned homepage
+store grid and /stores featured group now use Tier A; directory still lists all stores.
+
+**Discrepancy vs audit/brief:** zero-offer custom pages (asus, adidas, palmonas,
+victorias-secret, veromoda, bath-body-works, bewakoof) are NOT Tier A — no documented
+reason (tool/curated data) exists in code for a zero-offer store to lead the experience.
+They keep their pages and affiliate links in Tier B.
