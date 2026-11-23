@@ -4,7 +4,7 @@ import StoreClient from "./client";
 
 const title = "Unlock Elite Performance: Acer Deals & Exclusive Coupon Codes";
 const description =
-  "Shop Acer Predator, Nitro, and Swift Go laptops with exclusive coupon codes. Compare top 2026 models and unlock verified discounts on Durza.";
+  "Explore Acer Predator, Nitro and Swift Go laptops, current codes and tracked store links on Durza.";
 const canonical = "/stores/acer";
 
 export const metadata: Metadata = {

@@ -5,12 +5,12 @@ import LegalPage from "@/components/legal/LegalPage";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Durza is a deals platform where every coupon and offer shows the store page it was read from, the date it was last checked, and the commission we earn.",
+    "Durza is a shopping discovery platform where offers state their type, show a source or check date when available, and disclose commissions.",
   alternates: { canonical: "https://durza.in/about" },
 };
 
 const HIGHLIGHTS = [
-  "Every offer shows where it came from and when it was last checked.",
+  "Offers state their type and show a source or check date when we have one.",
   "Success rates are based on shopper reports — we don’t show one until there’s feedback.",
   "Commissions are disclosed clearly on the page.",
 ];
@@ -20,7 +20,7 @@ export default function AboutPage() {
     <LegalPage
       eyebrow="About Durza"
       title="Clear, honest savings"
-      lede="Durza helps you find store offers with context you can trust: where an offer came from, when it was last checked, and how it’s performing based on real reports."
+      lede="Durza helps you find store offers with context you can trust: where an offer came from, source or check dates when available, and how it’s performing based on real reports."
       highlights={HIGHLIGHTS}
       toc={[
         { id: "what-we-do", label: "What we do" },
@@ -37,7 +37,7 @@ export default function AboutPage() {
         What we do
       </h2>
       <p>
-        Every offer on Durza shows the store page it was read from and when we last checked it. We
+        Offers on Durza state their type and show a source or check date when we have one. We
         do not republish percentages we cannot trace to a source, and we do not show a success rate
         until a shopper has actually reported one. Sponsored placements are always labelled, and
         the commission we expect to earn is disclosed on the page.

@@ -9,10 +9,10 @@ import { useState } from "react";
  * once, and a pause control satisfies WCAG 2.2.2 for the animation.
  */
 const MESSAGES = [
-  "Real codes, real check dates",
-  "No fake countdown timers",
-  "Every offer → its source page",
-  "Code broke? Tell us — we fix it",
+  "Every offer states its type",
+  "Source and check date shown when we have them",
+  "No fabricated codes or discounts",
+  "Commission disclosed on every tracked link",
 ];
 
 export default function PromoStrip() {
@@ -25,7 +25,7 @@ export default function PromoStrip() {
           Clear offers, always free
         </span>
         {/* Phones get one static line: a scrolling ticker cuts words off at the edge. */}
-        <p className="min-w-0 flex-1 truncate text-xs font-semibold sm:hidden">Real codes, real check dates</p>
+        <p className="min-w-0 flex-1 truncate text-xs font-semibold sm:hidden">Every offer states its type</p>
         <div className="marquee relative hidden min-w-0 flex-1 overflow-hidden sm:block" aria-label="Site announcements" role="marquee">
           <div
             className="marquee-track gap-8 whitespace-nowrap text-xs font-semibold text-ink"

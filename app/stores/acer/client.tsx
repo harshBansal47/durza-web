@@ -79,7 +79,7 @@ const TABLET_COUPON = {
 };
 
 const TRUST_BADGES = [
-  { icon: BadgeCheck, label: "Verified Official Partner" },
+  { icon: BadgeCheck, label: "Official Acer programme" },
   { icon: Lock, label: "100% Secure Checkout" },
   { icon: ShieldCheck, label: "Exclusive Coupon Codes" },
   { icon: Cpu, label: "Latest 2026 Models" },
@@ -196,7 +196,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-ink-soft sm:text-lg">
             From the world&apos;s fastest 360Hz gaming displays to AI-powered ultrabooks. Use our
-            verified Admitad coupon codes for the best prices online.
+            Admitad coupon codes where available — check the store page for current terms.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
@@ -243,7 +243,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
         <div className="mb-10 text-center sm:mb-12">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-inkblue">Curated Offers</p>
           <h2 className="mt-2 font-sans text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-            Curated Acer Picks &amp; Verified Codes
+            Curated Acer picks and current codes
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink-soft">
             Handpicked laptops for gamers, creators, and professionals — unlock an exclusive

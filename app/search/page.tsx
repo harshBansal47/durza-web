@@ -206,7 +206,7 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
           body={
             resolved.unresolved
               ? "It may have been renamed or removed. Clear the filter to see everything again."
-              : "We only list codes someone has confirmed, so a thin result is normal for new stores. Try a broader term, or start from one of these."
+              : "Results include codes and deals. Source and check dates are shown when we have them — try a broader term, or start from one of these."
           }
           cta={{ href: "/categories", label: "Browse categories" }}
         >

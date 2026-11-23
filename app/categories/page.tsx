@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const names = items.slice(0, 4).map((category) => categoryLabel(category));
   const examples = names.length > 0 ? ` — ${names.join(", ")}${total > names.length ? " and more" : ""}` : "";
   const title = `Coupons by Category — Electronics, Fashion & More`;
-  const description = `Browse coupons and deals by shopping category${examples}. Every offer on Durza shows the store page it came from and when it was last checked.`;
+  const description = `Browse coupons and deals by shopping category${examples}. Offers show their type, and a source or check date when we have one.`;
   const canonical = absoluteUrl("/categories");
   return {
     title,
@@ -123,7 +123,7 @@ export default async function CategoriesIndexPage() {
         <ListingHero
           eyebrow={`${categories.length} categor${categories.length === 1 ? "y" : "ies"} with live offers`}
           title="Categories"
-          lead="Browse coupons and deals by shopping category — each offer sourced from the store’s own page with a last-checked date."
+          lead="Browse coupon codes and deals by shopping category — offer types and check dates shown when available."
           chips={cards.slice(0, 8).map((c) => ({ href: c.href, label: c.name }))}
           stats={cards.length > 0 ? [{ value: cards.length.toLocaleString("en-IN"), label: "Categories" }] : undefined}
         />

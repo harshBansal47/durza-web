@@ -42,8 +42,8 @@ export async function generateMetadata(): Promise<Metadata> {
     .join(", ");
   const description =
     total > 0
-      ? `Promo codes and deals for ${total} Indian online stores${indiaRelevant ? `, including ${indiaRelevant}` : ""} — every offer sourced from the store's own page with a last-checked date.`
-      : "Coupon codes and deals for Indian online stores — every offer sourced from the store's own page with a last-checked date.";
+      ? `Promo codes and deals for ${total} Indian online stores${indiaRelevant ? `, including ${indiaRelevant}` : ""} — offer types and check dates shown when available.`
+      : "Coupon codes and deals for Indian online stores — offer types and check dates shown when available.";
   const canonical = absoluteUrl("/stores");
   return {
     title,

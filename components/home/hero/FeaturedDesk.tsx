@@ -55,7 +55,7 @@ export default function FeaturedDesk({
         <span className="hx-desk-title">Featured right now</span>
         <span className="hx-live">
           <span className="hx-pulse" aria-hidden="true" />
-          {allVerified ? "VERIFIED" : "LIVE"}
+          {allVerified ? "CHECKED OUT" : "LIVE"}
         </span>
         {count > 1 && (
           <div className="hx-dots">

@@ -32,8 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = total > 0 ? `Coupon Codes & Deals — ${total} Live Offers` : "Coupon Codes & Deals";
   const description =
     total > 0
-      ? `Browse ${total} live coupon codes and promo offers for Indian stores — each one shows the store page it came from and when it was last checked.`
-      : "Browse coupon codes and promo offers for Indian online stores — each one shows the store page it came from and when it was last checked.";
+      ? `Browse ${total} live coupon codes and deals for Indian stores — offer types and check dates are shown when available.`
+      : "Browse coupon codes and deals for Indian online stores — offer types and check dates are shown when available.";
   const canonical = absoluteUrl("/coupons");
   return {
     title,
@@ -114,7 +114,7 @@ export default async function CouponsPage({
       <ListingHero
         eyebrow={`${total.toLocaleString("en-IN")} ${filters.q || filterCount(filters) > 0 ? "matching" : "live"} coupon${total === 1 ? "" : "s"}`}
         title={heading}
-        lead="Codes from the store's own pages — checked date shown on every card."
+        lead="Coupon codes and deals from tracked sources — check dates shown when we have them."
         controls={
           <Suspense fallback={null}>
             <KeywordForm size="bar" placeholder="Search promo codes by store or category..." label="Search promo codes by store or category" />

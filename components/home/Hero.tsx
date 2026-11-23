@@ -114,7 +114,7 @@ export default function Hero({
             </h1>
 
             <p className="mt-5 max-w-xl text-base leading-7 text-ink-soft lg:mt-6 lg:max-w-lg lg:text-lg lg:leading-relaxed">
-              Real codes, stated terms and check dates — scraped from official store
+              Offer types and stated terms — sourced from tracked store pages
               pages every day.
             </p>
 

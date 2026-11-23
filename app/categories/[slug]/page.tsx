@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const title = `${label} Coupons & Deals${total > 0 ? `: ${total} Live Offers` : ""}`;
   const description =
     total > 0
-      ? `Browse ${total} live ${label.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, each offer sourced and last checked.`
+      ? `Browse ${total} live ${label.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, offer types and check dates shown when available.`
       : `Browse ${label.toLowerCase()} coupons, promo codes and deals on Durza — with relevant stores, guides and tools.`;
   const canonical = absoluteUrl(`/categories/${category.slug}`);
   return {
@@ -170,7 +170,7 @@ export default async function CategoryPage({
       <ListingHero
         eyebrow={`${total.toLocaleString("en-IN")} live offer${total === 1 ? "" : "s"} in ${categoryName}`}
         title={`${categoryName} Coupons & Offers`}
-        lead={`Live ${categoryName.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, each offer sourced and last checked.`}
+        lead={`Live ${categoryName.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, offer types and check dates shown when available.`}
         controls={
           <Suspense fallback={null}>
             <KeywordForm

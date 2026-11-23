@@ -6,14 +6,14 @@ import { absoluteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Trust & Verification | Durza",
   description:
-    "How Durza checks offers: direct source links, last-checked dates, shopper votes, and direct store checkout.",
+    "How Durza presents offers: offer types, source links and check dates when available, shopper votes, and checkout-tested codes.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },
   openGraph: {
     title: "Trust & Verification | Durza",
     description:
-      "Every coupon and deal on Durza comes from an official store page or affiliate feed, tagged with a check date and real shopper votes.",
+      "Offers on Durza come from tracked sources, state their type, and show a source or check date when available.",
     url: absoluteUrl("/trust"),
   },
 };
@@ -27,9 +27,9 @@ const PROCESS = [
   },
   {
     icon: CalendarCheck2,
-    title: "Real Last-Checked Dates",
+    title: "Check Dates When Available",
     description:
-      "Each listing shows when it was last checked. Expired codes are automatically retired and never recycled.",
+      "Listings show a check date where one exists. Offers without a check date are labelled accordingly.",
   },
   {
     icon: Fingerprint,
@@ -57,21 +57,21 @@ export default function TrustPage() {
             How Durza checks offers.
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#3f3b35]">
-            Every coupon and deal on Durza comes from an official store page or affiliate feed, tagged with a check date and real shopper votes.
+            Offers on Durza come from tracked sources, state their type, and show a source or check date when available.
           </p>
           <div className="mt-7">
             <Link
               href="/deals"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#141413] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#2a2a27]"
             >
-              Browse Checked Deals <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              Browse current deals <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </div>
         </section>
 
         <section aria-labelledby="trust-process" className="mt-12">
           <h2 id="trust-process" className="sr-only">
-            How offers are sourced and checked
+            How offers are sourced and labelled
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {PROCESS.map((item) => {

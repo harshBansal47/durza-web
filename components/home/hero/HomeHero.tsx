@@ -69,7 +69,7 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
   }, [reduced]);
 
   return (
-    <section className="hx" aria-label="Today's verified coupons">
+    <section className="hx" aria-label="Current offers">
       <div className="hx-bg" aria-hidden="true">
         <div className="hx-aurora" />
         <div className="hx-grid" ref={gridRef} />
@@ -83,16 +83,16 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
           {checkedToday > 0 && (
             <span className="hx-eyebrow hx-rise" style={{ ["--i" as string]: 0 }}>
               <i aria-hidden="true" />
-              {checkedToday.toLocaleString("en-IN")} offers re-checked against store pages today
+              {checkedToday.toLocaleString("en-IN")} offers checked within the last 24 hours
             </span>
           )}
           <h1 className="hx-h1 hx-rise" style={{ ["--i" as string]: 1 }}>
-            Skip the hunt.{" "}
+            Discover genuine deals.{" "}
             <br />
-            <span className="hx-grad">Copy a code that works.</span>
+            <span className="hx-grad">Shop smarter. Save more.</span>
           </h1>
           <p className="hx-sub hx-rise" style={{ ["--i" as string]: 1 }}>
-            India&apos;s verification-first coupon desk — <b>real codes, stated terms, check dates</b>, read from official store pages. No sign-up, no fake timers, ₹0 extra.
+            Curated shopping opportunities from stores we track. Every offer states its type; we show a source or check date whenever we have one.
           </p>
 
           <Link href="/collections/complete-amazon-makeup-toolkit" className="hx-beauty-promo hx-rise" style={{ ["--i" as string]: 2 }}>

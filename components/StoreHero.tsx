@@ -26,6 +26,8 @@ export interface StoreHeroProps {
   ctaTrackingId?: string;
   /** Hide the offer/update indicators when this page has no live status to report. */
   showStatus?: boolean;
+  /** Real last source-check timestamp. When absent, the UI says so instead of "Updated Today". */
+  lastCheckedAt?: string | null;
   /** Quick-scan highlights for the footer strip. Derived from offers when not passed. */
   perks?: readonly StoreHeroPerk[];
   /** Coded offers for the store — used to derive perks when perks is not passed. */
@@ -79,6 +81,7 @@ export default function StoreHero({
   showStatus = true,
   perks,
   offers,
+  lastCheckedAt,
 }: StoreHeroProps) {
   const resolvedPerks = perks ?? deriveStoreHeroPerks(offers);
   const countLabel = typeof offerCount === "number" && offerCount > 0 ? `${offerCount} Offers` : "Offers";
@@ -121,7 +124,11 @@ export default function StoreHero({
                     </span>
                     {countLabel}
                   </span>
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-700">Updated Today</span>
+                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-700">
+                    {lastCheckedAt && !Number.isNaN(new Date(lastCheckedAt).getTime())
+                      ? `Last checked ${new Date(lastCheckedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}`
+                      : "No recent check"}
+                  </span>
                 </>
               ) : null}
               {domain ? (

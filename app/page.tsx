@@ -359,7 +359,7 @@ export default async function HomePage() {
 
           <section className="mt-12" aria-labelledby="deals-explorer-heading">
             <SectionTitle hint="every card read from the store's own page" icon={Flame} action={{ href: "/deals", label: "Browse all deals" }}>
-              <span id="deals-explorer-heading">Checked Deals Explorer</span>
+              <span id="deals-explorer-heading">Current offers</span>
             </SectionTitle>
             <VerifiedDealsExplorer tabs={explorerTabs} storesById={storesById} />
           </section>
@@ -397,10 +397,10 @@ export default async function HomePage() {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-lg font-bold text-ink">Real offers. Clear proof.</p>
-                <p className="mt-1 text-sm text-ink-soft">Every deal has a source and a check date. No fake countdowns or manufactured urgency.</p>
+                <p className="mt-1 text-sm text-ink-soft">Every offer states its type. Source and check date shown when we have them; no fake countdowns or manufactured urgency.</p>
               </div>
               <div className="flex flex-wrap gap-2 text-xs font-semibold text-verified-ink">
-                {["Clear dates", "No fake urgency", "Sourced from stores"].map((label) => <span key={label} className="rounded-full bg-white px-3 py-2">✓ {label}</span>)}
+                {["Offer type on every card", "No fake urgency", "Commission disclosed"].map((label) => <span key={label} className="rounded-full bg-white px-3 py-2">✓ {label}</span>)}
               </div>
             </div>
           </section>
@@ -451,7 +451,7 @@ export default async function HomePage() {
           </section>
 
           <section className="mt-16">
-            <SectionTitle icon={Compass}>How it works</SectionTitle>
+            <SectionTitle icon={Compass}>How Durza works</SectionTitle>
             <HowItWorks />
           </section>
 {/* 

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { loadOgFonts } from "@/lib/og-fonts";
 import { LOGO_ASPECT, LOGO_SVG, svgDataUri } from "@/lib/brand";
 
-export const alt = "Durza: Coupon & Deals — offers sourced from official store pages";
+export const alt = "Durza — Discover genuine deals. Shop smarter. Save more.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -49,7 +49,7 @@ export default async function Image() {
           Deals you can trace — sourced, dated and disclosed.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: VERIFIED, marginTop: 32 }}>
-          Every offer shows its source page and last-checked date. Commissions are disclosed.
+          Offer types, sources and check dates shown when available. Commissions disclosed.
         </div>
       </div>
     ),

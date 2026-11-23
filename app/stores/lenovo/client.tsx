@@ -336,7 +336,7 @@ export default function LenovoClient({ faqs, stats, storeUrl }: Props) {
           </li>
           <li className="rounded-xl border border-slate-200 bg-slate-50 p-4">
             <p className="font-mono text-xs font-bold text-[#E2231A]">Step 2</p>
-            <p className="mt-1 font-semibold text-ink">Apply verified savings</p>
+            <p className="mt-1 font-semibold text-ink">See current offers</p>
             <p className="mt-1 text-sm leading-6 text-ink-soft">
               Add SheerID Student/Corporate verification or redeem MyLenovo Rewards at checkout.
             </p>

@@ -74,11 +74,11 @@ export default function HeroBand({
       <ul className="hx-trustcol" style={{ listStyle: "none", margin: 0, padding: 0 }}>
         <li className="hx-trust">
           <ShieldCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-          Sourced from official pages
+          Source shown when we have it
         </li>
         <li className="hx-trust amber">
           <CalendarCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-          Check date on every offer
+          Check date when available
         </li>
         <li className="hx-trust blue">
           <TimerOff aria-hidden="true" size={15} strokeWidth={2.4} />

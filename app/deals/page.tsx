@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   // little SEO gain. The live count is already shown inside the page itself.
   title: "Today's Deals — Amazon, Flipkart, Myntra, Nykaa India Offers",
   description:
-    "Live deals in India — Oppo, laptop, fashion, grocery and fashion deals shown with store page, terms and last-checked date.",
+    "Live deals in India — Oppo, laptop, fashion, grocery and fashion deals with source details where available.",
   alternates: { canonical: absoluteUrl("/deals") },
   openGraph: {
     title: "Today's Deals — Amazon, Flipkart, Myntra, Nykaa India Offers",
     description:
-      "Live deals in India — Oppo, laptop, fashion, grocery and fashion deals shown with store page, terms and last-checked date.",
+      "Live deals in India — Oppo, laptop, fashion, grocery and fashion deals with source details where available.",
     url: absoluteUrl("/deals"),
     type: "website",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Today's Deals — Amazon, Flipkart, Myntra, Nykaa India Offers",
     description:
-      "Live deals in India — Oppo, laptop, fashion, grocery and fashion deals shown with store page, terms and last-checked date.",
+      "Live deals in India — Oppo, laptop, fashion, grocery and fashion deals with source details where available.",
   },
 };
 
@@ -47,7 +47,7 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
         mobile="title-only"
         eyebrow="Live deals · check date on every card"
         title="Today's deals in India"
-        lead="Live offers on the stores shoppers use daily — Oppo, Flipkart, Nykaa, Amazon — with store page, terms and last-checked date."
+        lead="Live offers on the stores shoppers use daily — Oppo, Flipkart, Nykaa, Amazon — with source details where available."
         controls={<KeywordForm size="bar" placeholder="Search deals by brand or product (e.g., earbuds, protein, skincare)..." label="Search today's deals" />}
       />
 

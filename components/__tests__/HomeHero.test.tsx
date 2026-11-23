@@ -87,8 +87,8 @@ afterEach(() => {
 describe("HomeHero — structure", () => {
   it("renders the compact headline, eyebrow, tools, featured panel and trust band", () => {
     renderHero();
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Skip the hunt. Copy a code that works.");
-    expect(screen.getByText(/1,255 offers re-checked/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Discover genuine deals. Shop smarter. Save more.");
+    expect(screen.getByText(/1,255 offers checked within the last 24 hours/i)).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /Calculator|Decoder|Finder|Matcher/ })).toHaveLength(4);
     expect(screen.getByRole("complementary", { name: "Featured offers" })).toBeInTheDocument();
     expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
@@ -98,12 +98,12 @@ describe("HomeHero — structure", () => {
 
   it("omits the eyebrow and ticker instead of inventing numbers when there is no data", () => {
     renderHero({ checkedToday: 0, tickerItems: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
-    expect(screen.queryByText(/re-checked against store pages/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/checked within the last 24 hours/i)).not.toBeInTheDocument();
     expect(screen.queryByText("VERIFY DESK")).not.toBeInTheDocument();
     expect(screen.getByText(/No featured offers right now/)).toBeInTheDocument();
   });
 
-  it("only claims VERIFIED for the panel when every featured offer is verified", () => {
+  it("only claims CHECKED OUT for the panel when every featured offer is verified", () => {
     renderHero({ featured: [deals[0], deals[4]] });
     expect(screen.getByText("LIVE")).toBeInTheDocument();
   });

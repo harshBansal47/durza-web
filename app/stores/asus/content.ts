@@ -162,7 +162,7 @@ export const ASUS_FAQS: FaqItem[] = [
   {
     question: "What advantages do I get buying from the official ASUS India eShop?",
     answer:
-      "The ASUS eShop offers official configurations with options like extended warranty/LADP upgrades, instant bank cashback and No-Cost EMI on eligible cards, plus student and pro-verified pricing programs where available — see live terms at checkout.",
+      "The ASUS eShop offers official configurations with options like extended warranty/LADP upgrades, instant bank cashback and No-Cost EMI on eligible cards, plus student and verified-by-employer pricing programs where available — see live terms at checkout.",
   },
   {
     question: "How do ROG and TUF Gaming differ?",

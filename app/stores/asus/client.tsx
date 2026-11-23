@@ -51,7 +51,7 @@ const MOBILE_SRC = "asus-india-mobile";
 
 const PROMO_START = new Date("2026-11-18T00:00:00+05:30").getTime();
 const PROMO_END = new Date("2026-11-30T23:59:59.999+05:30").getTime();
-const LAST_VERIFIED = "20 Nov 2026, 10:00 AM IST";
+const SPECS_CHECKED = "20 Nov 2026";
 
 type AsusDeal = {
   name: string;
@@ -104,7 +104,7 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     src: "asus-deal-tuf-a15-fa506ncq-in081ws",
     cta: "View TUF Gaming A15 on ASUS",
     bestFor: "Value-focused 1080p gaming",
-    verdict: "Consider this if the final price and verified GPU/RAM config match your gaming needs; compare all TUF SKUs before choosing.",
+    verdict: "Consider this if the final price and listed GPU/RAM config match your gaming needs; compare all TUF SKUs before choosing.",
     specs: [
       { label: "CPU", value: "Verify exact Ryzen/Intel CPU for FA506NCQ-IN081WS on ASUS" },
       { label: "GPU", value: "Verify exact NVIDIA GeForce GPU/VRAM on ASUS" },
@@ -126,7 +126,7 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     src: "asus-deal-tuf-a15-fa506ncg-hn192ws",
     cta: "View TUF Gaming A15 on ASUS",
     bestFor: "Gaming & performance buyers comparing configs",
-    verdict: "Higher deal price than some sibling SKUs here—worth it only if ASUS lists stronger verified specs for this exact model.",
+    verdict: "Higher deal price than some sibling SKUs here—worth it only if ASUS lists stronger listed specs for this exact model.",
     specs: [
       { label: "CPU", value: "Verify exact processor for FA506NCG-HN192WS on ASUS" },
       { label: "GPU", value: "Verify exact NVIDIA GeForce GPU/VRAM on ASUS" },
@@ -148,7 +148,7 @@ const ASUS_NOVEMBER_DEALS: AsusDeal[] = [
     src: "asus-deal-tuf-a15-fa506ncq-in080w",
     cta: "View TUF Gaming A15 on ASUS",
     bestFor: "Budget-conscious gamers",
-    verdict: "Lowest deal price among these TUF listings—check the verified CPU/GPU/RAM/storage on ASUS to confirm overall value.",
+    verdict: "Lowest deal price among these TUF listings—check the listed CPU/GPU/RAM/storage on ASUS to confirm overall value.",
     specs: [
       { label: "CPU", value: "Verify exact processor for FA506NCQ-IN080W on ASUS" },
       { label: "GPU", value: "Verify exact NVIDIA GeForce GPU/VRAM on ASUS" },
@@ -304,7 +304,7 @@ export default function AsusClient({ faqs, stats, storeUrl, forcedStoreHref }: P
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-300">
-                Verified promotional listings
+                Curated promotional listings
               </p>
               <h2 id="asus-november-deals-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
                 ASUS November Deals – Save Up to ₹61,000
@@ -313,7 +313,7 @@ export default function AsusClient({ faqs, stats, storeUrl, forcedStoreHref }: P
                 Select ASUS laptops with promotional pricing for <strong className="text-white">18–30 November 2026</strong>. No coupon codes are required for these listed deals. Always verify the exact SKU specs, final checkout price, stock, and terms on ASUS.
               </p>
               <p className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-slate-300">
-                <Clock3 className="h-4 w-4" aria-hidden="true" /> Last verified: {LAST_VERIFIED}
+                <Clock3 className="h-4 w-4" aria-hidden="true" /> Specs checked: {SPECS_CHECKED}
               </p>
             </div>
             <div className="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200">

@@ -333,7 +333,7 @@ export default async function BlackFridayPage() {
             <p className="font-mono text-xs font-semibold uppercase tracking-widest text-inkblue">Live right now</p>
             <h2 id="bf-live-heading" className="mt-1 font-serif text-2xl font-bold text-ink">Current offers on tracked stores</h2>
             <p className="mt-1 text-sm text-ink-soft">
-              One top live offer per store (up to 8 unique stores). Each card shows the discount, last-checked date, and store.
+              One top live offer per store (up to 8 unique stores). Each card shows the offer type, a check date when available, and the store.
             </p>
           </div>
           <ul className="space-y-3">
@@ -371,7 +371,7 @@ export default async function BlackFridayPage() {
                       </Link>
                       <p className="mt-1 text-xs text-ink-soft">
                         Last checked {coupon.last_checked_at ? formatDate(coupon.last_checked_at) : "—"}
-                        {isVerifiedDeal(coupon) ? " · Verified Deal" : ""}
+                        {isVerifiedDeal(coupon) ? "" : ""}
                       </p>
                     </div>
                     {hasBadge ? (
@@ -380,7 +380,7 @@ export default async function BlackFridayPage() {
                       </span>
                     ) : isVerifiedDeal(coupon) ? (
                       <span className="flex-none rounded-full bg-verified-soft px-3 py-1 text-sm font-bold text-verified">
-                        Verified Deal
+                        Checkout-tested
                       </span>
                     ) : null}
                   </article>

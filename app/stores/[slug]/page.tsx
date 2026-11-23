@@ -114,7 +114,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       metaDescription(store.description) ??
       `Explore ${storeName}'s official store lineup, buying guidance, and direct store links on Durza. Live pricing, availability, and checkout terms are shown on the merchant site.`;
   } else if (countedAll && codeOffers > 0 && codeOffers < total) {
-    description = `${total} live ${storeName} offers — ${codeOffers} promo codes and ${total - codeOffers} auto-applied deals — each read from ${storeName}'s own pages with its last-checked date.`;
+    description = `${total} live ${storeName} offers — ${codeOffers} promo codes and ${total - codeOffers} auto-applied deals — with source details where available.`;
   } else if (countedAll && codeOffers === total) {
     description = `${total} live ${storeName} promo codes, each read from ${storeName}'s own pages with its last-checked date.`;
   } else if (countedAll && codeOffers === 0) {
@@ -229,7 +229,7 @@ export default async function StorePage({ params, searchParams }: Props) {
       answer:
         totalReports > 0
           ? `${verifiedCount} of the current ${items.length} listed offers have shopper reports from the last 30 days, with an average reported success rate of ${Math.round(avgRate * 100)}%.`
-          : `Not yet — no shopper has reported trying these codes yet. All ${items.length} offers were read from ${storeName}'s own pages${latestCheck ? ` and last checked on ${formatDate(latestCheck)}` : ""}. Shopper reports will update this answer as they arrive.`,
+          : `Not yet — no shopper has reported trying these offers yet.${latestCheck ? ` Last source check: ${formatDate(latestCheck)}.` : " No recent source check recorded."} Shopper reports will update this answer as they arrive.`,
     },
 
     {
@@ -269,7 +269,7 @@ export default async function StorePage({ params, searchParams }: Props) {
           productCollections={storefront.collections}
           productCategoriesLoadFailed={storefront.categoriesLoadFailed}
           tabs={{
-            best: { label: totalReports > 0 ? "Best confirmed" : "Top offers", items: byBest },
+            best: { label: totalReports > 0 ? "Most reported" : "Top offers", items: byBest },
             latest: { label: "Recently added", items: byLatest },
             expiring: { label: "Ending soon", items: byExpiring },
           }}
