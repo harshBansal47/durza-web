@@ -25,8 +25,8 @@ sets the corresponding `NEXT_PUBLIC_*_FOLLOW_URL` environment variable to an htt
 allowlisted host. Unset variables render nothing. Clicks are recorded with a placement.
 
 ## Conversion reporting
-Conversion and revenue data is not shown in Durza admin. Read it in the Admitad and vCommission
-dashboards and email reports. The pre-existing sync job and models are untouched.
+Conversion and earnings are reported by Admitad and vCommission, not tracked here. Read them in the
+network dashboards and email reports. The database tables remain in place but are no longer used.
 
 ## What you must never claim in a post
 - Never call an affiliate link a coupon code or a discount.

@@ -70,7 +70,7 @@ Update this file only — it is the single source:
 
 ## 6. Honesty rules (carried over)
 
-- Never claim "verified" codes — only `/checkout` success telemetry or real shopper votes.
+- Never claim "verified" codes. Only real shopper votes may be described as reports.
 - Never invent savings (MRP math, strikethroughs).
 - Never invent offers purely to fill a slot. Empty hubs beat fake coverage.
 - Never claim a page “ranks #1 for X” — we never know; we say "we cover X with Y".
@@ -96,7 +96,6 @@ Coupons inherit their store's priority. Editorial rows get their own priority; i
   words. They remain readable on-page but are `noindex,follow` and excluded from the
   guides sitemap shard. Reviews, comparisons, collections and tools remain indexable.
 - Redirect stub `/stores/hok-makeup` is excluded from custom-store discovery and sitemap.
-- Evidence wording: offers use the tiers in `lib/offer-presentation.ts` —
-  `source_seen` (source URL + check date), `feed_reported` (last_checked_at),
-  `checkout_tested` (verification_status='verified' on a coded offer), or
-  "No source date yet". Never display a generic "Verified" badge.
+- Offer wording: every card shows one offer-type label. A "Last checked" line appears only when a
+  real `last_checked_at` exists; no placeholder is shown otherwise. Never display a "Verified" or
+  "checkout tested" badge.

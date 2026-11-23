@@ -153,3 +153,14 @@ The backend route `GET /api/v1/products/{product_id}/go` in `app/routers/api/v1/
 affiliate click via `click_service` and lives in a routing file. Per the do-not-touch rule it was left
 in place. No frontend or admin caller remains after S3 (verified by grep); it can be removed in a
 separate, explicitly approved routing change. Product/PricePoint DB models and tables also remain.
+
+## S4/S5 notes
+- Left in place with no schema change: `Conversion`, `AffiliateRevenue`, `RevenueEvent`, `Attribution`,
+  `DailyProviderStats`, `Product`, `PricePoint` models/tables and their migrations. They are now unused
+  by application code except `epc.py`/`quality.py`, which are ranking inputs for affiliate routing and
+  were deliberately kept.
+- Kept Awin/Admitad/Cuelinks credentials: they are used by coupon/program ingestion and affiliate
+  routing. Only `CONVERSION_SYNC_*`, `SHOPIFY_*` and `CODE_VERIFIER_INTERVAL_HOURS` were removed.
+- Housekeeping: during S3 a `git add -A` accidentally staged pre-existing unrelated user files
+  (`app/layout.tsx`, `app/page.tsx`, topics/methodology pages, DecisionDesk, topic libs and tests,
+  sitemap entries). They were unstaged before the S3 commit and remain uncommitted in the working tree.

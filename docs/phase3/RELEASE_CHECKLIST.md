@@ -19,7 +19,7 @@ existing columns (`restrictions`, `content_blocks`, `analytics_*`, `job_runs`). 
 - `DATABASE_URL` or `NEON_DATABASE_URL`, `REDIS_URL` or `UPSTASH_REDIS_URL`, `SECRET_KEY`
 - `SCHEDULER_ENABLED=false`, `OUTBOUND_COMMUNICATIONS_ENABLED=false`, `TELEGRAM_CHANNEL_ENABLED=false`
 - Network credentials only where used: `ADMITAD_*`, `VCOMMISSIONS_*`, `AWIN_*`, `CUELINKS_*`
-- `AMAZON_ASSOCIATES_TAG`, `AMAZON_USA_ID`; `SHOPIFY_PRODUCT_STORE_SLUG` if product sync is used
+- `AMAZON_ASSOCIATES_TAG`, `AMAZON_USA_ID`
 - `ALLOW_PROD_MIGRATION` only for an approved prod migration (currently not needed).
 
 ## Pre-deploy
