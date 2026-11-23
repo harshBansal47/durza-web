@@ -142,6 +142,16 @@ export interface AdmitadProgram {
     vcommission_external_id: string | null;
     vcommission_active: boolean;
     preferred_network: string;
+    possible_existing?: {
+      store_id: string;
+      store_slug: string;
+      store_name: string;
+      confidence: string;
+      method: string;
+      reason: string;
+      vcommission_external_id: string | null;
+      vcommission_active: boolean;
+    };
   };
   countries: string[];
   categories: string[];

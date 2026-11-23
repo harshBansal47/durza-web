@@ -406,6 +406,17 @@ export default function AdminAdmitadPage() {
                   ) : (
                     <span className="text-slate-500">None</span>
                   )}
+                  {program.cross_network.possible_existing && (
+                    <div className="mt-1 max-w-[16rem] rounded bg-amber-50 px-2 py-1 text-xs text-amber-900" title={program.cross_network.possible_existing.reason}>
+                      Possible existing: {program.cross_network.possible_existing.store_name}
+                      {program.cross_network.possible_existing.vcommission_external_id
+                        ? ` · VC ${program.cross_network.possible_existing.vcommission_external_id}`
+                        : ""}
+                      <span className="block text-[10px]">
+                        {program.cross_network.possible_existing.confidence} confidence · {program.cross_network.possible_existing.method} — verify before approving
+                      </span>
+                    </div>
+                  )}
                 </td>
                 <td className="px-3 py-2">{formatDate(program.last_seen_at ?? program.last_synced_at)}</td>
                 <td className="px-3 py-2">
