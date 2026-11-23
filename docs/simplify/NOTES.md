@@ -62,3 +62,15 @@ never changed routing. The tracked-URL editor wrote old/new URL, editor id and t
 `Coupon.restrictions._outbound_url_history`; no records were deleted. All references are retained
 only here; the tooling is removed. Routing files (`store_router.py`, `affiliate_router.py`,
 `affiliate_out`, `/go`, click recording, `admitad_only`) were not modified by this pass.
+
+## Historical notes (R5)
+Conversion reporting now lives in the Admitad/vCommission dashboards and email reports, not in Durza admin UI.
+The pre-existing sync clients, `Conversion`/`AffiliateRevenue` models and registered sync job were left untouched.
+`docs/phase2/ATTRIBUTION_AUDIT.md` is kept as a historical document; no frontend attribution-health panel existed
+in the deployed UI to remove (only the backend endpoint).
+
+## Historical notes (R5)
+Conversion reporting now lives in the Admitad/vCommission dashboards and email reports, not in Durza admin UI.
+The pre-existing sync clients, `Conversion`/`AffiliateRevenue` models and registered sync job were left untouched.
+`docs/phase2/ATTRIBUTION_AUDIT.md` is kept as a historical document; no frontend attribution-health panel existed
+in the deployed UI to remove (only the backend endpoint).

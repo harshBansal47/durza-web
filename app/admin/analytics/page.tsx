@@ -313,40 +313,9 @@ export default function AdminAnalyticsDashboard() {
                   </div>
                 ) : <EmptyState message="No merchant rollups for this date range." />}
               </Panel>
-              <Panel title="Affiliate performance" detail="Revenue is kept separate by currency; no currency conversion is assumed.">
-                <div className="mb-5 grid grid-cols-2 gap-3">
-                  <MetricCard title="Outbound clicks" value={data.affiliate.outbound_clicks.toLocaleString()} />
-                  <MetricCard title="Conversions" value={data.affiliate.conversions.toLocaleString()} />
-                </div>
-                {data.affiliate.revenue_by_currency.length ? (
-                  <div className="mb-5 overflow-x-auto">
-                    <table className="w-full text-left text-sm">
-                      <thead className="text-xs uppercase tracking-wide text-gray-500">
-                        <tr><th className="pb-2 font-medium">Currency</th><th className="pb-2 text-right font-medium">Estimated</th><th className="pb-2 text-right font-medium">Confirmed</th></tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-100">
-                        {data.affiliate.revenue_by_currency.map((item) => (
-                          <tr key={item.currency}>
-                            <td className="py-2 font-medium">{item.currency}</td>
-                            <td className="py-2 text-right">{money(item.estimated_commission, item.currency)}</td>
-                            <td className="py-2 text-right">{money(item.confirmed_commission, item.currency)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : <EmptyState message="No affiliate commission rollups for this date range." />}
-                {data.affiliate.top_providers.length ? (
-                  <ul className="space-y-2 border-t border-gray-100 pt-4 text-sm">
-                    {data.affiliate.top_providers.map((provider) => (
-                      <li className="flex justify-between gap-3" key={`${provider.provider_id}-${provider.currency}`}>
-                        <span className="truncate">{provider.provider_name} <span className="text-gray-500">({provider.currency})</span></span>
-                        <span className="shrink-0 text-gray-600">{provider.conversions.toLocaleString()} conversions · {money(provider.confirmed_commission, provider.currency)} confirmed</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </Panel>
+            <Panel title="Tracked outbound clicks" detail="Click events are raw measured events; conversion and revenue reporting now lives in the Admitad and vCommission dashboards/email reports.">
+              <MetricCard title="Outbound clicks" value={data.affiliate.outbound_clicks.toLocaleString()} />
+            </Panel>
             </div>
 
             <Panel title="Operations and data health" detail="Operational counters use a rolling seven-day window, independent of the selected analytics dates.">
