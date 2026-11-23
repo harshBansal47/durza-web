@@ -180,7 +180,6 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
                 <div className="mt-4 space-y-2 text-base leading-7 text-[#3f3b35]">
                   <p className="text-xs text-[#5a564f]">
                     <span className="rounded bg-[#f3efe8] px-1.5 py-0.5 font-medium">{(pick.offerType ?? "curated_pick").replace(/_/g, " ")}</span>
-                    <span className="ml-2" aria-label="Evidence">{pick.evidence ?? "No source date yet"}</span>
                   </p>
                   <p><span className="font-semibold text-[#141413]">Why it made the cut:</span> {pick.why}</p>
                   {pick.skipIf && (
@@ -197,8 +196,8 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
         </section>
 
         <p className="mt-8 text-xs text-[#5a564f]">
-          Durza may earn a commission on tracked links at no extra cost to you. Offer type and
-          evidence are shown per item; a coupon code is only shown when one is actually listed.
+          Durza may earn a commission on tracked links at no extra cost to you. Offer type is shown
+          per item; a coupon code is only shown when one is actually listed.
         </p>
         <ShareControls entry={entry} />
         <div className="mt-4"><SocialFollowLinks links={socialFollowLinks()} placement={`collection:${entry.slug}`} /></div>

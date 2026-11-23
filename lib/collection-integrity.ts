@@ -12,7 +12,7 @@ export function validateCollection(entry: CollectionEntry): string[] {
     const label = `${entry.slug} item ${index + 1}`;
     if (!pick.why?.trim()) errors.push(`${label}: 'why' must be written by an editor`);
     if (!("skipIf" in pick)) errors.push(`${label}: 'skipIf' field is required (may be empty)`);
-    if (!pick.ctaHref) errors.push(`${label}: missing destination link`);
+    if (!pick.ctaHref) errors.push(`${label}: must reference a live offer or store`);
   });
   return errors;
 }

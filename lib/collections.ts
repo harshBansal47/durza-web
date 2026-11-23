@@ -26,10 +26,6 @@ function pickFromBlock(block: Record<string, unknown>): CollectionPick | null {
     ctaHref: href,
     external: href.startsWith("http"),
     offerType: typeof block.offer_type === "string" ? block.offer_type : "curated_pick",
-    evidence:
-      typeof block.source_url === "string" && typeof block.checked_on === "string"
-        ? `Source page seen ${new Date(block.checked_on).toLocaleDateString("en-IN")}`
-        : "No source date yet",
   };
 }
 

@@ -15,9 +15,8 @@ export interface CollectionPick {
   ctaLabel: string;
   ctaHref: string;
   external?: boolean;
-  /** Phase 2: editor-supplied offer type and evidence line (when available). */
+  /** Editor-supplied offer type label (when available). */
   offerType?: string;
-  evidence?: string;
 }
 
 export interface CollectionEntry {
