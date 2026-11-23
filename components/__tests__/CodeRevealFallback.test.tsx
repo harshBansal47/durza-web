@@ -19,7 +19,7 @@ describe("code reveal clipboard fallback", () => {
     render(<CodeRevealButton code="SAVE20" url="https://durza.in/go/test" />);
     await userEvent.click(screen.getByRole("button"));
     expect(screen.getByText(/clipboard unavailable/i)).toBeTruthy();
-    expect(screen.getAllByText("SAVE20").length).toBeGreaterThan(0);
+    expect(screen.getByText(/select the code shown above/i)).toBeTruthy();
     expect(mocks.success).not.toHaveBeenCalled();
   });
 

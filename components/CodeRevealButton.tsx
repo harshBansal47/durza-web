@@ -123,8 +123,12 @@ export default function CodeRevealButton({
     </button>
     {copyFailed && revealed ? (
       <p role="status" className="text-xs text-ink-soft">
-        Clipboard unavailable — select and copy this code:{" "}
-        <code className="select-all rounded border border-ledger-line bg-paper px-2 py-1 font-mono text-sm text-ink">{code}</code>
+        Clipboard unavailable —{" "}
+        {showCode ? (
+          <span>select the code shown above to copy it.</span>
+        ) : (
+          <code className="select-all rounded border border-ledger-line bg-paper px-2 py-1 font-mono text-sm text-ink">Copy this code: {code}</code>
+        )}
       </p>
     ) : null}
     {showBrowserHint ? <p className="text-[11px] text-ink-soft">{OPEN_IN_BROWSER_HINT}</p> : null}
