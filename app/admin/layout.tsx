@@ -3,9 +3,10 @@ import type { ReactNode } from "react";
 
 const ADMIN_LINKS = [
   { href: "/admin", label: "Admin Home" },
-  { href: "/admin/ingestion", label: "Ingestion" },
+  { href: "/admin/admitad", label: "Admitad" },
+  { href: "/admin/campaigns", label: "VCommission" },
   { href: "/admin/analytics", label: "Analytics" },
-  { href: "/admin/campaigns", label: "Campaigns" },
+  { href: "/admin/ingestion", label: "Product Sync" },
   { href: "/admin/whatsapp-publisher", label: "WhatsApp Publisher" },
   { href: "/admin/telegram-publisher", label: "Telegram Publisher" },
 ];

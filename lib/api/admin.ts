@@ -206,10 +206,15 @@ export async function triggerIngestion(slugs: string[] | null): Promise<Ingestio
 }
 import { clientAppUrl, clientHttp, clientRequestConfig } from "@/lib/client-http";
 import type {
+  AdmitadIngestionHealth,
+  AdmitadProgramDetail,
+  AdmitadProgramPage,
+  AdmitadSyncHistory,
   CampaignActionResult,
   CampaignDashboardPage,
   CampaignDetail,
   CampaignSummary,
+  MerchantAlias,
 } from "@/lib/types";
 
 export interface CampaignDashboardFilters {
@@ -304,6 +309,112 @@ export interface CampaignBulkResult {
   working: number;
   needs_attention: number;
   failed: string[];
+}
+
+// ---- Admitad Program Manager ------------------------------------------------
+
+function admitadPath(path: string, params?: URLSearchParams): string {
+  const query = params?.toString();
+  return clientAppUrl(`/api/admin/admitad${path}${query ? `?${query}` : ""}`);
+}
+
+export async function fetchAdmitadPrograms(
+  filters: CampaignDashboardFilters,
+  signal?: AbortSignal,
+): Promise<AdmitadProgramPage> {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(filters)) {
+    if (value !== undefined && value !== "") params.set(key, String(value));
+  }
+  const response = await clientHttp.get<AdmitadProgramPage>(
+    admitadPath("", params),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function fetchAdmitadProgramDetail(
+  id: string,
+  signal?: AbortSignal,
+): Promise<AdmitadProgramDetail> {
+  const response = await clientHttp.get<AdmitadProgramDetail>(
+    admitadPath(`/${encodeURIComponent(id)}`),
+    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+async function admitadAction<T>(path: string, body: unknown = {}): Promise<T> {
+  const response = await clientHttp.post<T>(
+    admitadPath(path),
+    body,
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function approveAdmitadProgram(id: string): Promise<AdmitadProgramDetail> {
+  return admitadAction<AdmitadProgramDetail>(`/${encodeURIComponent(id)}/approve`);
+}
+
+export async function checkAdmitadProgram(id: string): Promise<CampaignHealthCheckResult> {
+  return admitadAction<CampaignHealthCheckResult>(`/${encodeURIComponent(id)}/health-check`);
+}
+
+export async function bulkCheckAdmitadPrograms(limit = 100): Promise<CampaignBulkResult> {
+  return admitadAction<CampaignBulkResult>(`/health-check/bulk?limit=${limit}`);
+}
+
+export async function deactivateAdmitadStore(id: string): Promise<CampaignActionResult> {
+  return admitadAction<CampaignActionResult>(`/${encodeURIComponent(id)}/deactivate-store`);
+}
+
+export async function reactivateAdmitadProgram(id: string): Promise<AdmitadProgramDetail> {
+  return admitadAction<AdmitadProgramDetail>(`/${encodeURIComponent(id)}/reactivate`);
+}
+
+export async function syncAdmitadPrograms(): Promise<CampaignActionResult> {
+  return admitadAction<CampaignActionResult>("/sync");
+}
+
+export async function runAdmitadIngestion(): Promise<CampaignActionResult> {
+  return admitadAction<CampaignActionResult>("/ingestion/run");
+}
+
+export async function fetchAdmitadSyncHistory(): Promise<AdmitadSyncHistory> {
+  const response = await clientHttp.get<AdmitadSyncHistory>(
+    admitadPath("/sync/history"),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function fetchAdmitadIngestionHealth(): Promise<AdmitadIngestionHealth> {
+  const response = await clientHttp.get<AdmitadIngestionHealth>(
+    admitadPath("/ingestion/health"),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function fetchMerchantAliases(status?: string): Promise<MerchantAlias[]> {
+  const params = new URLSearchParams();
+  if (status) params.set("status", status);
+  const response = await clientHttp.get<MerchantAlias[]>(
+    admitadPath("/aliases", params),
+    clientRequestConfig(undefined, { credentials: "include", cache: "no-store" }),
+  );
+  return response.data;
+}
+
+export async function resolveMerchantAlias(
+  id: string,
+  decision: "confirm" | "reject",
+  storeId?: string,
+): Promise<{ detail: string }> {
+  const params = new URLSearchParams();
+  if (storeId) params.set("store_id", storeId);
+  return admitadAction<{ detail: string }>(`/aliases/${encodeURIComponent(id)}/${decision}?${params}`);
 }
 
 export async function sendTelegram(couponId: string, title?: string): Promise<{ message_id: number }> {

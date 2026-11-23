@@ -161,7 +161,7 @@ export default function AdminAnalyticsDashboard() {
                 className="inline-flex h-10 items-center gap-2 rounded-lg border border-black/10 bg-white px-3 text-sm font-medium hover:bg-gray-50"
                 href="/admin/ingestion"
               >
-                Ingestion controls
+                Product sync
               </Link>
             ) : null}
             {data?.meta.user_role === "admin" ? (

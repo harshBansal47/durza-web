@@ -108,6 +108,93 @@ export interface CampaignDetail extends CampaignDashboardItem {
   audit: CampaignAuditEvent[];
 }
 
+/** Admitad Program Manager DTOs (mirrors app/schemas/admitad_admin.py). */
+export interface AdmitadProgram {
+  id: string;
+  external_campaign_id: string;
+  title: string;
+  merchant_name: string;
+  preview_url: string | null;
+  thumbnail_url: string | null;
+  network: string;
+  lifecycle_state: string;
+  status: "working" | "awaiting_approval" | "needs_attention" | "abandoned";
+  is_active: boolean;
+  missed_syncs: number;
+  last_synced_at: string | null;
+  last_seen_at: string | null;
+  abandoned_at: string | null;
+  needs_review: boolean;
+  store_id: string | null;
+  store_slug: string | null;
+  store_name: string | null;
+  store_logo_url: string | null;
+  store_status: string | null;
+  store_is_active: boolean | null;
+  custom_store: boolean;
+  health_passed_all: boolean | null;
+  health_checks: CampaignHealthCheck[];
+  failure_reasons: string[];
+  last_health_check_at: string | null;
+  cross_network: {
+    vcommission_campaign_id: string | null;
+    vcommission_status: string | null;
+    vcommission_external_id: string | null;
+    vcommission_active: boolean;
+    preferred_network: string;
+  };
+  countries: string[];
+  categories: string[];
+}
+
+export interface AdmitadProgramDetail extends AdmitadProgram {
+  audit: CampaignAuditEvent[];
+}
+
+export interface AdmitadProgramPage extends Paginated<AdmitadProgram> {
+  summary: CampaignSummary;
+}
+
+export interface AdmitadSyncRun {
+  id: string;
+  status: string;
+  detail: string | null;
+  started_at: string | null;
+  finished_at: string | null;
+  duration_ms: number | null;
+}
+
+export interface AdmitadSyncHistory {
+  runs: AdmitadSyncRun[];
+  last_successful_at: string | null;
+}
+
+export interface AdmitadIngestionHealth {
+  enabled: boolean;
+  configured: boolean;
+  api_status: string | null;
+  consecutive_failures: number | null;
+  last_sync_at: string | null;
+  last_success_at: string | null;
+  last_error: string | null;
+  latest_run: Record<string, unknown> | null;
+}
+
+export interface MerchantAlias {
+  id: string;
+  alias: string;
+  label: string | null;
+  store_id: string | null;
+  store_slug: string | null;
+  network: string | null;
+  external_program_id: string | null;
+  status: string;
+  method: string;
+  confidence: string;
+  seen_count: number;
+  last_seen_at: string | null;
+}
+
 export interface Category {
   id: string;
   name: string;
