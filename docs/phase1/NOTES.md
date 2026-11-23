@@ -108,3 +108,24 @@ They keep their pages and affiliate links in Tier B.
 - Thin guides (visible text <300 words) computed from `data/store-guides.ts`; noindex + excluded from sitemap.
 - `/stores/hok-makeup` redirect stub excluded from custom discovery and sitemap.
 - No new redirects, no content deleted, no schema change.
+
+## T11 — Final verification
+- Backend pytest: 1141 passed, 1 skipped (baseline 1132 + 9 new tests). ruff check/format clean; mypy clean.
+- Frontend vitest: 22 failed / 727 passed (baseline 23 failed / 709 passed). One pre-existing failure
+  (`filters.test.ts`) was fixed by the T6 default change; no new failures. New tests: offer-presentation (11),
+  custom-store-metadata (4), StoreHeroHeading (2), HomeHero expectations updated.
+- `tsc --noEmit` clean; `next build` exit 0.
+- Grep sweep: only honest wording and code comments remain; no public "verified coupon", "Updated Today",
+  "re-checked", "copy a code that works", "every deal has a source and a check date" claims.
+- Local dev smoke: `/`, `/coupons`, `/admin/analytics` HTTP 200. `/stores/bewakoof` returned 500 because
+  the local backend on :8000 is not running (`lookup.getStoreDestination` throws on fetch failure).
+  This is pre-existing behaviour, not introduced by Phase 1; no code change made.
+- Affiliate routes untouched; tests/test_store_go.py, test_affiliate_out.py and routing tests pass in the full suite.
+
+## Known limitations / open items (human approval required)
+- Conversion/revenue tracking: network report credentials + scheduler are off; 0 conversions/revenue in prod.
+  No schema-free fix attempted beyond labelling unmeasured rollups.
+- Scheduler remains disabled; freshness improvements need deliberate activation.
+- New offer-type labels and evidence wording need network-terms review with Admitad/vCommission before
+  any public copy beyond site wording (no tracking parameters changed).
+- Deployment to production is explicitly out of scope.
