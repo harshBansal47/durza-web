@@ -8,7 +8,6 @@ const ADMIN_LINKS = [
   { href: "/admin/assets", label: "Assets" },
   { href: "/admin/campaigns", label: "VCommission" },
   { href: "/admin/analytics", label: "Analytics" },
-  { href: "/admin/ingestion", label: "Product Sync" },
   { href: "/admin/whatsapp-publisher", label: "WhatsApp Publisher" },
   { href: "/admin/telegram-publisher", label: "Telegram Publisher" },
 ];

@@ -182,17 +182,6 @@ export interface IngestionRunResult {
   skipped: { slug: string; reason: string }[];
 }
 
-export interface ShopifyProductSyncStatus {
-  scheduler_enabled: boolean;
-  scheduled: boolean;
-  interval_hours: number;
-  last_run_status: string | null;
-  last_run_started_at: string | null;
-  last_run_finished_at: string | null;
-  last_run_duration_ms: number | null;
-  last_run_detail: string | null;
-}
-
 export async function fetchIngestionOverview(signal?: AbortSignal): Promise<IngestionOverview> {
   const response = await clientHttp.get<IngestionOverview>(
     clientAppUrl("/api/admin/ingestion/overview"),
@@ -209,25 +198,6 @@ export async function fetchIngestionRuns(
   const response = await clientHttp.get<IngestionRun[]>(
     clientAppUrl(`/api/admin/ingestion/runs?${params}`),
     clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
-  );
-  return response.data;
-}
-
-export async function fetchShopifyProductSyncStatus(
-  signal?: AbortSignal,
-): Promise<ShopifyProductSyncStatus> {
-  const response = await clientHttp.get<ShopifyProductSyncStatus>(
-    clientAppUrl("/api/admin/products/sync/shopify"),
-    clientRequestConfig(signal, { credentials: "include", cache: "no-store" }),
-  );
-  return response.data;
-}
-
-export async function triggerShopifyProductSync(): Promise<{ detail: string }> {
-  const response = await clientHttp.post<{ detail: string }>(
-    clientAppUrl("/api/admin/products/sync/shopify"),
-    {},
-    clientRequestConfig(undefined, { credentials: "include", timeoutMs: 480_000, cache: "no-store" }),
   );
   return response.data;
 }
