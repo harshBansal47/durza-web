@@ -136,7 +136,7 @@ describe("resolveIds", () => {
   });
 
   it("reports an unknown slug instead of silently dropping the filter", () => {
-    expect(resolveIds(parseFilters({ store: "shopify" }), stores, categories)).toEqual({
+    expect(resolveIds(parseFilters({ store: "example-store" }), stores, categories)).toEqual({
       unresolved: "store",
     });
     expect(resolveIds(parseFilters({ category: "toys" }), stores, categories)).toEqual({

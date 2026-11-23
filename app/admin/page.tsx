@@ -3,7 +3,7 @@ import Link from "next/link";
 const ADMIN_PAGES = [
   { href: "/admin/admitad", title: "Admitad Programs", description: "Discover, approve and monitor Admitad programs and store health." },
   { href: "/admin/campaigns", title: "VCommission Campaigns", description: "Manage VCommission campaign lifecycle and store integration." },
-  { href: "/admin/analytics", title: "Analytics", description: "Traffic, coupons, and revenue stats." },
+  { href: "/admin/analytics", title: "Analytics", description: "Traffic, coupons, and click stats." },
   { href: "/admin/whatsapp-publisher", title: "WhatsApp Publisher", description: "Publish offers to WhatsApp." },
   { href: "/admin/telegram-publisher", title: "Telegram Publisher", description: "Approve and send offers to Telegram." },
 ];

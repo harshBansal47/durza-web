@@ -6,7 +6,7 @@ import { absoluteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Trust & Verification | Durza",
   description:
-    "How Durza presents offers: offer types, last-checked dates when known, shopper votes, and checkout-tested codes.",
+    "How Durza presents offers: offer types, last-checked dates when known, and shopper votes.",
   alternates: {
     canonical: absoluteUrl("/trust"),
   },

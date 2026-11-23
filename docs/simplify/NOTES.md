@@ -164,3 +164,15 @@ separate, explicitly approved routing change. Product/PricePoint DB models and t
 - Housekeeping: during S3 a `git add -A` accidentally staged pre-existing unrelated user files
   (`app/layout.tsx`, `app/page.tsx`, topics/methodology pages, DecisionDesk, topic libs and tests,
   sitemap entries). They were unstaged before the S3 commit and remain uncommitted in the working tree.
+
+## S6 — Verification notes
+- Remaining intentional grep hits: DB models/migrations for left-in-place tables; `epc.py` and
+  `quality.py` ranking inputs used by affiliate routing; currency-conversion wording on store pages;
+  the admin analytics note that conversions/earnings are reported by the networks; historical notes.
+- `app/routers/api/v1/products.py`: the only diff from the start branch is removal of the two
+  Shopify-only admin sync endpoints; the `/products/{id}/go` click-recording body is byte-identical.
+  All other affiliate routing/tracking files have an empty diff. Logged as a judgment call because
+  the file also hosts the product redirect; no click-reference logic was touched.
+- User work note: pre-existing uncommitted files (topics/methodology/DecisionDesk/editorial byline,
+  `app/layout.tsx`, `app/page.tsx`, `lib/sitemap-entries.ts`) were repeatedly excluded from commits
+  after an accidental `git add -A`; they remain uncommitted and untouched.
