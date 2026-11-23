@@ -39,3 +39,13 @@ string, not a rate). `AffiliateCampaignRead` (admin-only) contains `affiliate_pa
 **[fact] Phase 1 claim sweep re-run:** only honest code comments remain; no public "verified
 coupon", "Updated Today", "re-checked", "copy a code that works" or "every deal has a source"
 claims remain.
+
+## T2 — Attribution readiness
+**[fact]** Admitad report client + `_normalise` exist; vCommission has NO transaction client — a real gap.
+**[fact]** Fixture tests prove Admitad payload → Conversion + AffiliateRevenue and a vCommission
+NetworkTransaction → Conversion + AffiliateRevenue (write path only; no vCommission parser exists).
+**[fact]** Admin `/admin/analytics/attribution-health` added (clicks with clickref, conversions,
+unmatched, last sync job, plain status).
+**[decision]** Monetisation gap: 5 highest-click offers are plain merchant URLs with no tracking.
+Amazon.in offers carry `tag=durza02-21` in destination URLs; store /go also injects the tag.
+No routing changed.
