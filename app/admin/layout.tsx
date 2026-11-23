@@ -8,6 +8,8 @@ const ADMIN_LINKS = [
   { href: "/admin/digest", label: "Digest draft" },
   { href: "/admin/jobs", label: "Jobs" },
   { href: "/admin/monetisation", label: "Monetisation" },
+  { href: "/admin/conversions", label: "Conversions" },
+  { href: "/admin/conversions", label: "Conversions" },
   { href: "/admin/campaigns", label: "VCommission" },
   { href: "/admin/analytics", label: "Analytics" },
   { href: "/admin/ingestion", label: "Product Sync" },
