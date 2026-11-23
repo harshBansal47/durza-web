@@ -74,3 +74,9 @@ Conversion reporting now lives in the Admitad/vCommission dashboards and email r
 The pre-existing sync clients, `Conversion`/`AffiliateRevenue` models and registered sync job were left untouched.
 `docs/phase2/ATTRIBUTION_AUDIT.md` is kept as a historical document; no frontend attribution-health panel existed
 in the deployed UI to remove (only the backend endpoint).
+
+## Historical notes (R7)
+The link-builder's `canonicalize()` helper was only exercised by its own test and was not wired into
+metadata generation; canonical URLs are built from static paths, so tracking parameters never enter them.
+UTM capture, `utm_source=share` on collection share URLs, sitemap generation and scoreboard channel/campaign
+grouping remain untouched.
