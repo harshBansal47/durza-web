@@ -61,3 +61,25 @@ cache: warm performance is already good and consolidation would add complexity w
 **[fact]** Public schemas expose no commission rates or advertiser payouts (`CouponPublicRead`,
 `StoreDestinationRead`); `StoreRead.commission_disclosure` is a string, and payouts are admin-only.
 **[decision]** No routing or tracking changed.
+
+## T9 — Test debt triage
+**[fact]** Baseline 22 failures; after Phase 2, 20 remain (2 fixed in `test:` commit c9e2622:
+site-brand and seo expectations now match the Phase 1 positioning).
+Categories (all pre-existing, not introduced by Phase 2):
+- **Obsolete expected copy (10):** CouponCard (3), CouponCodePanel (2), DealStack, TrustBadge,
+  deals-mobile, StorePageClient, Storefront — tests assert old strings ("Tap View code to reveal",
+  "Source verified", "we may earn a commission" placement). Owner: frontend UI tests; suggested fix is
+  to assert current accessible copy, not product code.
+- **Test environment (4):** thin-page generateMetadata tests throw NEXT_NOT_FOUND outside Next runtime.
+  Owner: tests; suggested fix is to mock `notFound` per existing patterns.
+- **Stale asset map (2):** storeLogos expects `/stores/ajio.png` and a smaller accent/icon set.
+  Owner: design/content; needs asset decision, not a code fix.
+- **Query shape drift (2):** deal-discovery and filters tests assert older parameter objects.
+  Owner: backend/frontend contract owner; Phase 1 already fixed one filter failure.
+- **Non-deterministic scan (1):** `admin-campaigns.test.ts` source scan occasionally picks up files
+  created by parallel vitest workers; passes in isolation (verified). Owner: test harness.
+- **HomeSections stat visibility (1):** "hidden until 5000 coupons" expectation conflicts with Phase 1
+  hero rewrite. Owner: frontend UI tests.
+
+**[decision]** No product code changed for these failures; fixing more than trivially safe copy
+assertions would risk mixing unrelated work into Phase 2 features.
