@@ -776,7 +776,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
         "Low ceilings: with under 8.5 ft clearance, check downrod length before ordering so blades clear beds and the slab.",
       ] },
       { type: "heading", heading: "What we verified, and what we did not" },
-      { type: "paragraph", text: "We used Havells' published product pages and fan catalogue (Efficiencia Neo 26W/350 RPM/220 m³/min; Stealth Air BLDC+ 40W/280 RPM/245 m³/min, ₹8,299 seen 24 Nov 2026) and retail listings for the induction reference. Savings are arithmetic from the stated inputs, not measured results. We did not purchase, mount, or measure airflow or noise on these fans, and we have not verified any currently active coupon code or bank offer. Prices are dated snapshots and change during sales." },
+      { type: "paragraph", text: "A 25 Nov 2026 evidence pass confirmed the official catalogue figures: Efficiencia Neo 26W/350 RPM/220 m³/min, Stealth Air BLDC+ 40W/240 m³/min, and ES 50 as a 50W 3-star induction fan. Prices conflict across retailers — the Efficiencia Neo was listed at ₹1,864 on Croma and ₹3,300 on Ramco — so verify the live price before buying. The annual-saving figure is arithmetic on assumed inputs (75W baseline, 32W BLDC, 16 h/day, ₹7/unit ≈ ₹1,758/year), not a measured result or guaranteed saving. We did not purchase, mount, or measure airflow or noise on these fans." },
     ],
     relatedStores: ["moglix", "wonderchef"],
     interactiveTool: { headline: "Calculate BLDC payback with your own hours and tariff", sublabel: "Open the dedicated Havells BLDC calculator to check savings before you buy." },

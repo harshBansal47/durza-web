@@ -238,7 +238,7 @@ export default function HowToSaveOnAmazonPage() {
         <section aria-labelledby="verification" className="mt-12 rounded-2xl border border-ledger-line bg-white p-5">
           <h2 id="verification" className="font-serif text-xl font-bold text-ink">What we verified, and what we did not</h2>
           <p className="mt-2 text-sm leading-7 text-ink-soft">
-            We checked Amazon India&apos;s published checkout mechanics, clip-coupon behaviour and bank-offer/EMI fee structures against Amazon help pages and our own bank-offer catalogue on 24 Nov 2026. Both scenarios are illustrative arithmetic built to show the order of operations — not live product quotes. We have not verified today&apos;s bank slab on your specific SKU or pincode. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you.
+            A 25 Nov 2026 evidence pass confirmed Amazon&apos;s plan pages and checkout mechanics, but the only supplied bank-offer terms page documenting an SBI 10% slab lists a validity window of 10–14 June 2023. That campaign is historical and is not presented here as a live offer. Both scenarios are illustrative arithmetic built to show the order of operations — not live product quotes. We have not verified today&apos;s bank slab on your specific SKU or pincode. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you.
           </p>
           <p className="mt-3 text-sm">
             <Link href="/methodology" className="font-semibold text-durza-deep hover:underline">How Durza researches →</Link>

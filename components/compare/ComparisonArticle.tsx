@@ -208,6 +208,28 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
           </section>
         )}
 
+        {entry.sources && entry.sources.length > 0 && (
+          <section aria-labelledby="comparison-sources" className="mt-10 rounded-2xl border border-ledger-line bg-white p-5">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Evidence</p>
+            <h2 id="comparison-sources" className="mt-2 font-serif text-xl font-extrabold text-[#141413]">
+              Sources behind this comparison
+            </h2>
+            <p className="mt-1 text-xs leading-5 text-[#5a564f]">
+              Figures are attributed to the publications and listings below. Durza did not physically test these products.
+            </p>
+            <ul className="mt-3 space-y-2">
+              {entry.sources.map((source) => (
+                <li key={source.href} className="text-sm">
+                  <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#8a4b12] hover:underline">
+                    {source.label} ↗
+                  </a>
+                  {source.checkedAt && <span className="ml-2 text-xs text-[#5a564f]">checked {source.checkedAt}</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section aria-labelledby="insider-reality" className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-5 sm:p-7">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-800">Insider reality</p>
           <h2 id="insider-reality" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">{entry.insider.title}</h2>

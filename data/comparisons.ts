@@ -32,6 +32,8 @@ export interface CompareEntry {
   audience?: { bestFor: string[]; skipIf: string[] };
   /** Verified Amazon product links for the exact models discussed. */
   productLinks?: { label: string; href: string; note?: string }[];
+  /** Research sources with publisher, URL and check date. */
+  sources?: { label: string; href: string; checkedAt?: string }[];
   verdict: {
     optionA: string;
     optionB: string;
@@ -736,6 +738,12 @@ export const COMPARISONS: CompareEntry[] = [
         href: getAmazonProductLink("B0G1M1W72M", "compare_supplements"),
       },
     ],
+    sources: [
+      { label: "Kapiva official product page", href: "https://kapiva.in/mens-health/kapiva-himalayan-shilajit-resin-20g/", checkedAt: "25 Nov 2026" },
+      { label: "Kapiva official blog — fulvic acid & testing claims", href: "https://kapiva.in/blog/best-shilajit-resin-india", checkedAt: "25 Nov 2026" },
+      { label: "Amazon India — Kapiva Shilajit 20g", href: "https://www.amazon.in/Kapiva-Himalayan-Shilajit-Endurance-Stamina/dp/B09BZNDYT2", checkedAt: "25 Nov 2026" },
+      { label: "PharmEasy — Kapiva Shilajit 20g", href: "https://pharmeasy.in/health-care/products/kapiva-himalayan-shilajit-resin---20g-2931802", checkedAt: "25 Nov 2026" },
+    ],
     verdict: {
       optionA: "Kapiva Himalayan Shilajit Resin",
       optionB: "HK Vitals Marine Collagen / MuscleBlaze whey via HealthKart",
@@ -803,7 +811,7 @@ export const COMPARISONS: CompareEntry[] = [
       {
         heading: "What we verified, and what we did not",
         paragraphs: [
-          "We read official product pages on kapiva.in and hkvitals.com and a retail listing on Amazon.in on 24 Nov 2026, checking stated serving sizes, per-serving actives, dietary markers and prices. We did not purchase, consume, or commission laboratory testing on any product, and we make no health or efficacy claims. We could not open a batch-specific COA for any SKU. Prices are dated snapshots and change during sales.",
+          "A 25 Nov 2026 evidence pass confirmed Kapiva Shilajit pricing across three listings: ₹988 on Amazon (sold by RK World Infocom), ₹999 direct from Kapiva, and ₹1,004 on PharmEasy. MRPs conflict across sources (₹1,199 on Amazon and the brand site vs ₹1,499 on PharmEasy), so verify the exact MRP at checkout. The HK Vitals and MuscleBlaze URLs in that pass returned no extractable SKU data; their figures on this page come from our earlier checks dated 24 Nov 2026. We did not purchase, consume, or commission laboratory testing on any product, make no health or efficacy claims, and could not open a batch-specific COA. Prices are dated snapshots and change during sales.",
         ],
       },
     ],
@@ -944,6 +952,12 @@ export const COMPARISONS: CompareEntry[] = [
         note: "Verified ASIN. The Havells and AO Smith models do not yet have a verified product link on Durza.",
       },
     ],
+    sources: [
+      { label: "Havells Water Heaters Catalogue", href: "https://havells.com/media/wysiwyg/Brochure-and-pricelist/Water_Heaters/Catalogue_Havells_Water_Heaters.pdf", checkedAt: "25 Nov 2026" },
+      { label: "AO Smith HSE-SDS user manual", href: "https://m.media-amazon.com/images/I/C1n43u2QsCL.pdf", checkedAt: "25 Nov 2026" },
+      { label: "Smartprix — Havells vs AO Smith", href: "https://www.smartprix.com/geysers/havells_adonia_spin_15l_water__vs_ao_smith_hse_sds_15l_storage_w-cpd1zz56grqu_2310uv6sos9.php", checkedAt: "25 Nov 2026" },
+      { label: "Smartprix — Havells vs Crompton", href: "https://www.smartprix.com/geysers/havells_adonia_spin_15l_water__vs_crompton_arno_neo_15_l_storage-cpd1zz56grqu_pd1apims3sp.php", checkedAt: "25 Nov 2026" },
+    ],
     verdict: {
       optionA: "Havells Adonia Spin 15L",
       optionB: "AO Smith HSE-SDS-015 / Crompton Arno Neo 15L",
@@ -1012,7 +1026,7 @@ export const COMPARISONS: CompareEntry[] = [
       {
         heading: "What we verified, and what we did not",
         paragraphs: [
-          "We reviewed the Havells Adonia Spin product brochure and Havells water-heater catalogue, the AO Smith HSE-SAS/HSE-SDS/HSE-SGS user guide and warranty terms, the Crompton Arno Neo 15L retail listing, and comparison listings from Smartprix and NxtFone — all accessed on 24 Nov 2026. We did not purchase, install or physically test any of these water heaters, and we have not checked pincode-specific installation charges. Prices are dated snapshots and will change during sales.",
+          "A 25 Nov 2026 evidence pass confirmed the Havells Adonia Spin 15L official MRP of ₹19,510 against a Smartprix selling price of ₹10,990; the Crompton Arno Neo 15L at ₹5,699; and the AO Smith warranty and Blue Diamond lining from its official user manual. No verifiable live price was found for the AO Smith HSE-SDS-015, so we publish none. We did not purchase, install or physically test any of these water heaters, and we have not checked pincode-specific installation charges. Prices are dated snapshots and will change during sales.",
         ],
       },
     ],
@@ -1150,6 +1164,11 @@ export const COMPARISONS: CompareEntry[] = [
         "Competitive FPS players: even 45–94 ms “gaming modes” still trail wired earphones.",
       ],
     },
+    sources: [
+      { label: "Boult official — Z40 Pro", href: "https://goboult.co.in/products/goboult-z40-pro", checkedAt: "25 Nov 2026" },
+      { label: "Cashify — Boult Z40 Pro vs W50 vs AirBass W50", href: "https://www.cashify.in/compare-earbuds/boult-audio-z40-pro-vs-boult-audio-w40-vs-boult-audio-airbass-w50", checkedAt: "25 Nov 2026" },
+      { label: "Cashify — Z40 Pro vs Airdopes 141 ANC vs Nord Buds 2r", href: "https://www.cashify.in/compare-earbuds/boult-audio-z40-pro-vs-boat-airdopes-141-anc-vs-oneplus-nord-buds-2r", checkedAt: "25 Nov 2026" },
+    ],
     verdict: {
       optionA: "Boult Z40 Pro",
       optionB: "boAt Airdopes 141 ANC / OnePlus Nord Buds 2r",
@@ -1218,7 +1237,7 @@ export const COMPARISONS: CompareEntry[] = [
       {
         heading: "What we verified, and what we did not",
         paragraphs: [
-          "We read official product pages on goboult.co.in and boultaudio.com plus specification listings from Smartprix, Gadgets Now and Cashify on 24 Nov 2026. We did not purchase, wear or acoustically test any of these earbuds; all dB, battery and latency figures are manufacturer or listing claims. Prices are dated snapshots and change during sales.",
+          "A 25 Nov 2026 evidence pass read the official Boult Z40 Pro page and Cashify comparison listings. Smartprix and Gadgets Now URLs returned no extractable SKU data in that pass, so they are not cited here. Sources conflict on the Z40 Pro driver size (13 mm claimed by Boult vs 10 mm listed by Cashify), and on current pricing: ₹1,299 for the Z40 Pro, ₹1,399 for the W50, ₹1,699 for the Airdopes 141 ANC and ₹2,199 for the Nord Buds 2r were the figures available, not confirmed live checkout quotes. We did not purchase, wear or acoustically test any of these earbuds; all dB, battery and latency figures are manufacturer or listing claims.",
         ],
       },
     ],
@@ -1276,6 +1295,11 @@ export const COMPARISONS: CompareEntry[] = [
         "Buyers who need a bright, colour-accurate screen for outdoor or photo work without checking the exact panel first.",
       ],
     },
+    sources: [
+      { label: "91mobiles — best laptops under ₹50,000 (lab tests)", href: "https://www.91mobiles.com/reviews/best-laptops-under-rs-50000-in-india/", checkedAt: "25 Nov 2026" },
+      { label: "BuySmarterIn — October 2026 roundup", href: "https://buysmarter.in/reviews/laptops/best-laptops-under-50000-india-2026", checkedAt: "25 Nov 2026" },
+      { label: "Gadgets 360 — best laptops under ₹50,000", href: "https://www.gadgets360.com/laptops/features/best-laptops-under-rs-50000-in-india-lenovo-ideapad-slim-3-acer-aspire-lite-asus-vivobook-go-14-dell-inspiron-15-moto-book-60-9609700", checkedAt: "25 Nov 2026" },
+    ],
     verdict: {
       optionA: "Acer Aspire 3 A324-53",
       optionB: "Lenovo IdeaPad Slim 3 / ASUS Vivobook 15",
@@ -1355,7 +1379,7 @@ export const COMPARISONS: CompareEntry[] = [
       {
         heading: "What we verified, and what we did not",
         paragraphs: [
-          "We reviewed the published lab data from 91mobiles' seven-laptop test (6 Sep 2026) and Indian buying roundups from October 2026, including Gadgets 360 and Smartprix listings for cross-checking configurations. We did not purchase or physically test these machines, and we have not checked live prices. The dates on this page refer to when those sources were reviewed, not to a hands-on test by Durza.",
+          "A 25 Nov 2026 evidence pass re-read 91mobiles' laptop test, BuySmarterIn's October 2026 roundup and Gadgets 360. Sources disagree on the Lenovo IdeaPad Slim 3: Gadgets 360 lists a 15ABR8 with a Ryzen 5 5625U at ₹42,490, while the October 2026 roundup lists a Ryzen 5 7530U variant at ₹43,990. Treat these as different SKUs and verify the exact model code at checkout. Acer 'Aspire Lite' and 'Aspire 3' are also listed with conflicting RAM and storage. We did not purchase or physically test these machines, and we have not checked live prices; the dates refer to when sources were reviewed, not a hands-on test by Durza.",
         ],
       },
     ],

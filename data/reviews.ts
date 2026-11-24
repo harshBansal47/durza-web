@@ -137,7 +137,7 @@ export const REVIEWS: ReviewEntry[] = [
       {
         heading: "What we verified, and what we did not",
         paragraphs: [
-          "We read Amazon India's plan comparison page, the Prime Shopping Edition help page and the Prime shipping-benefits help page on 24 Nov 2026, checking plan prices, inclusions, delivery charges and ad-free add-on eligibility. We did not run a multi-account delivery-speed test, check pincode-level same-day availability, or verify account-specific promotional prices. Delivery speeds depend on your pincode and seller. Prices and card rules can change on Amazon.in without notice — check the live checkout page before subscribing.",
+          "A 25 Nov 2026 evidence pass confirmed the four Prime plan prices and the Shopping Edition exclusions from Amazon's official pages. It also found that the only supplied bank-offer terms page documenting the SBI 10% slab states a validity window of 10–14 June 2023. That campaign is historical, not a live November 2026 offer — we do not present it as current. We did not run a delivery-speed test, check pincode-level availability, or verify account-specific promotional prices. Prices and card rules change without notice — check the live checkout page before subscribing.",
         ],
       },
     ],
