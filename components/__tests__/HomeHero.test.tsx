@@ -87,7 +87,7 @@ describe("HomeHero — structure", () => {
   it("renders the compact headline, eyebrow, tools, featured panel and trust band", () => {
     renderHero();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Discover genuine deals. Shop smarter. Save more.");
-    expect(screen.getAllByRole("button", { name: /Calculator|Decoder|Finder|Matcher/ })).toHaveLength(4);
+    expect(screen.getAllByRole("button", { name: /Calculator|Decoder|Finder|Matcher/ })).toHaveLength(2);
     expect(screen.getByRole("complementary", { name: "Featured offers" })).toBeInTheDocument();
     expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "+ 89 more" })).toHaveAttribute("href", "/stores");
@@ -172,18 +172,22 @@ describe("HomeHero — search", () => {
     await user.clear(searchInput());
     await user.type(searchInput(), "boult");
     expect(screen.getByRole("listbox")).toHaveTextContent("GoBoult");
+    await user.clear(searchInput());
+    await user.type(searchInput(), "protein");
     await user.click(screen.getByRole("tab", { name: "Tools" }));
-    expect(screen.getByRole("listbox")).toHaveTextContent("Audio Decision Snippet"); // Boult's tool, found by store name
+    expect(screen.getByRole("listbox")).toHaveTextContent("Protein Cost Decoder");
   });
 
   it("opens a tool from results, routes a store click, and falls back to /search", async () => {
     const user = userEvent.setup();
     renderHero();
-    await user.type(searchInput(), "gst");
+    await user.type(searchInput(), "protein");
+    await user.click(screen.getByRole("tab", { name: "Tools" }));
     await user.keyboard("{Enter}");
-    expect(await screen.findByRole("dialog", { name: /GST Tool Matcher/ })).toBeInTheDocument();
+    expect(await screen.findByRole("dialog", { name: /Protein Cost Decoder/ })).toBeInTheDocument();
     await user.keyboard("{Escape}");
 
+    await user.click(screen.getByRole("tab", { name: "All" }));
     await user.clear(searchInput());
     await user.type(searchInput(), "sirona");
     await user.click(within(screen.getByRole("listbox")).getByRole("option", { name: /Sirona.*live offers/ }));
@@ -226,45 +230,14 @@ describe("HomeHero — tools", () => {
     expect(dialog).toHaveTextContent("Genuinely good value");
   });
 
-  it("BLDC, cup and GST tools respond to their controls", async () => {
+  it("BLDC tool responds to its room-size control", async () => {
     const user = userEvent.setup();
     renderHero();
     await user.click(screen.getByRole("button", { name: /BLDC Power Calculator/ }));
-    let dialog = screen.getByRole("dialog");
+    const dialog = screen.getByRole("dialog");
     expect(dialog).toHaveTextContent("1200 mm");
     fireEvent.change(within(dialog).getByRole("slider", { name: /Room size/ }), { target: { value: "80" } });
     expect(dialog).toHaveTextContent("900 mm");
-    await user.keyboard("{Escape}");
-
-    await user.click(screen.getByRole("button", { name: /Menstrual Cup Size Finder/ }));
-    dialog = screen.getByRole("dialog");
-    expect(dialog).toHaveTextContent("Size M (Medium — Most Popular)"); // Sirona's default option
-    await user.click(within(dialog).getByRole("button", { name: "Given Birth Vaginally?" }));
-    expect(dialog).toHaveTextContent("Size L (Large)");
-    expect(within(dialog).getByRole("link", { name: /Shop Size L Cup on Sirona/ })).toHaveAttribute("href", expect.stringContaining("track.vcommission.com"));
-    await user.keyboard("{Escape}");
-
-    await user.click(screen.getByRole("button", { name: /GST Tool Matcher/ }));
-    dialog = screen.getByRole("dialog");
-    expect(dialog).toHaveTextContent(/Entry accounting tier/); // default 40 invoices/month
-    fireEvent.change(within(dialog).getByRole("slider", { name: /Invoices per month/ }), { target: { value: "20" } });
-    expect(dialog).toHaveTextContent("GST portal (free)");
-    await user.click(within(dialog).getByRole("button", { name: "Multiple states" }));
-    expect(dialog).toHaveTextContent(/Entry accounting tier/);
-  });
-
-  it("cross-links related offers: a tool's offer opens the drawer on top of the modal", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    await user.click(screen.getByRole("button", { name: /Menstrual Cup Size Finder/ })); // Sirona
-    await user.click(within(screen.getByRole("dialog")).getByRole("button", { name: /Cup \+ wash combo/ }));
-    expect(screen.getAllByRole("dialog")).toHaveLength(2);
-    await user.keyboard("{Escape}"); // closes only the top layer
-    expect(screen.getAllByRole("dialog")).toHaveLength(1);
-    expect(screen.getByRole("dialog")).toHaveAccessibleName(/Menstrual Cup|Cup Size/);
-    await user.keyboard("{Escape}");
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(document.body.style.overflow).toBe("");
   });
 });
 
@@ -279,16 +252,16 @@ describe("HomeHero — all-tools hub", () => {
     const total = STORE_TOOLS.length;
     expect(hub.querySelectorAll(".hx-tcard")).toHaveLength(total);
 
-    await user.click(within(hub).getByRole("button", { name: /^Fashion & style/ }));
-    expect(within(hub).queryByText(/Cup Size/)).not.toBeInTheDocument();
-    expect(within(hub).getByText(/Smart 2-Item Wardrobe Multiplier/)).toBeInTheDocument();
+    await user.click(within(hub).getByRole("button", { name: /^Home & kitchen/ }));
+    expect(within(hub).queryByText(/Protein Cost Decoder/)).not.toBeInTheDocument();
+    expect(within(hub).getByText(/BLDC Power Calculator/)).toBeInTheDocument();
     await user.click(within(hub).getByRole("button", { name: /^All \d+/ }));
 
-    await user.type(within(hub).getByRole("searchbox", { name: "Search tools" }), "diaper");
-    await user.click(within(hub).getByRole("button", { name: /Diaper Cost-Per-Pant Tracker/ }));
+    await user.type(within(hub).getByRole("searchbox", { name: "Search tools" }), "protein");
+    await user.click(within(hub).getByRole("button", { name: /Protein Cost Decoder/ }));
     expect(screen.queryByRole("dialog", { name: "Shopping tools" })).not.toBeInTheDocument();
-    const tool = screen.getByRole("dialog", { name: /Diaper Cost-Per-Pant Tracker/ });
-    expect(tool).toHaveTextContent("MamyPoko");
+    const tool = screen.getByRole("dialog", { name: /Protein Cost Decoder/ });
+    expect(tool).toHaveTextContent(/per 25/i);
 
     await user.click(within(tool).getByRole("button", { name: "Back to all tools" }));
     expect(screen.getByRole("dialog", { name: "Shopping tools" })).toBeInTheDocument();
@@ -302,7 +275,8 @@ describe("HomeHero — all-tools hub", () => {
     renderHero();
     const hubBtn = screen.getByRole("button", { name: /Browse all \d+ shopping tools/ });
     await user.click(hubBtn);
-    await user.click(screen.getByRole("button", { name: /Stacking Calculator/ }));
+    const hub = screen.getByRole("dialog", { name: "Shopping tools" });
+    await user.click(within(hub).getByRole("button", { name: /BLDC Power Calculator/ }));
     await user.keyboard("{Escape}");
     await vi.waitFor(() => expect(hubBtn).toHaveFocus());
   });

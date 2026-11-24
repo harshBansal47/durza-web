@@ -129,7 +129,6 @@ const RAW_GUIDES: StaticGuide[] = [
       ] },
     ],
     relatedStores: ["myntra", "tatacliq-com-ecommerce-cps-india"],
-    interactiveTool: { headline: "Learn Ajio's bank-card playbook — live offers + brand guidance", sublabel: "Our Ajio hub shows live brand matches, care tips and the bank cards that win." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "SALE · BANK OFFERS ON",
@@ -179,7 +178,6 @@ const RAW_GUIDES: StaticGuide[] = [
       { type: "paragraph", text: "Full-price launches — they rarely get Prive cashback in the first 90 days. For makeup, Sephora/Tata CLiQ Luxe often matches price without the bank chase." },
     ],
     relatedStores: ["tatacliq-com-ecommerce-cps-india", "iba-cosmetics"],
-    interactiveTool: { headline: "Master Nykaa's bank-offer checkout — brand picks + care guidance", sublabel: "Our Nykaa guide covers ingredient-layering, SPF picks and the bank card that wins." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "SALE · BANK OFFERS",
@@ -228,7 +226,6 @@ const RAW_GUIDES: StaticGuide[] = [
       { type: "paragraph", text: "Luxury brands (Ray-Ban, Oakley) — coupon codes on third-party eyewear are rare; Blinkit Optical or brand-direct often price-matches. Replacement lenses-only — use your frame, Lenskart does lens-only at 40% off." },
     ],
     relatedStores: ["tatacliq-com-ecommerce-cps-india", "firstcry"],
-    interactiveTool: { headline: "Launch Lenskart's frame-finder — face-shape matcher with live OTT picks", sublabel: "Muted into our brand-guidance widget — frames ranked for your face shape." },
     primaryCta: {
       kind: "code",
       code: "DEAL70",
@@ -278,7 +275,6 @@ const RAW_GUIDES: StaticGuide[] = [
       { type: "paragraph", text: "Low-cart electronics on CLiQ — croma.com (sister store) normally matches pricing without the bank chase. Grocery basics — Neu offers sometimes cooperate less with BigBasket baskets; Blinkit can win the last mile." },
     ],
     relatedStores: ["ajio-com-ecommerce-cps-india", "myntra"],
-    interactiveTool: { headline: "Explore Tata CLiQ's brand guide — Luxe vs. standard, bank offers explained", sublabel: "Our CLiQ hub: brand curation, Neu point tips and bank-card playbook." },
     primaryCta: {
       kind: "code",
       code: "NEW400",
@@ -334,7 +330,6 @@ const RAW_GUIDES: StaticGuide[] = [
       ] },
     ],
     relatedStores: ["ajio-com-ecommerce-cps-india", "the-bear-house"],
-    interactiveTool: { headline: "Launch Levi's fit decoder — 501/511/512 cut recommendations", sublabel: "Our Levi's fit-matcher ranks cuts for your body shape in seconds." },
     primaryCta: {
       kind: "code",
       code: "LEVIS1000",
@@ -387,7 +382,6 @@ const RAW_GUIDES_B: StaticGuide[] = [
       { type: "paragraph", text: "Mass-gainers — Beast Life's gain line is heavy sugar; surplus calorie-restricted plans (see our HealthKart or TrueBasics guide) often price-beat it. BCAAs mid-cycle — creatine + adequate protein does the heavy lifting; BCAAs are optional." },
     ],
     relatedStores: ["healthkart", "truebasics"],
-    interactiveTool: { headline: "Launch Beast Life's training-phase matcher — whey + creatine cycle picks", sublabel: "Our hub asks your cycle, goal and experience — tubs ranked with code tips." },
     primaryCta: {
       kind: "code",
       code: "BEAST10",
@@ -438,7 +432,6 @@ const RAW_GUIDES_B: StaticGuide[] = [
       { type: "paragraph", text: "Adjustable dumbbells — Decathlon's compact range is cheaper and more modular. If you only need travel gear, Flipkart's generic weights beat Boldfit per-rupee too." },
     ],
     relatedStores: ["beast-life", "alpino"],
-    interactiveTool: { headline: "Launch Boldfit's training-goal matcher — gear sets ranked per goal", sublabel: "Our Boldfit matcher asks your goal — gear bundles with code insights." },
     primaryCta: {
       kind: "code",
       code: "SAVE250",
@@ -530,7 +523,6 @@ const RAW_GUIDES_B: StaticGuide[] = [
       { type: "paragraph", text: "Children on specific clinical diets — Gritzo's mass-market formulas aren't clinical replacements. Doctor-backed supplementation (iron, D3, calcium) needs Pediatrician sign-off — our Gritzo hub pairs third-party reviews, not prescriptions." },
     ],
     relatedStores: ["alpino", "firstcry"],
-    interactiveTool: { headline: "Launch Gritzo's age-and-gender matcher — packs ranked per child's growth phase", sublabel: "Our hub asks your child's age/goal — structured Supermilk picks." },
     primaryCta: {
       kind: "code",
       code: "SUPER10",
@@ -574,7 +566,6 @@ const RAW_GUIDES_B: StaticGuide[] = [
       { type: "paragraph", text: "Soy-allergic shoppers — pea+rice still dodges soy, but we list no soy on Fitspire yet (verify SKU label). Digest sensitive stomachs — add ₹50 digestive enzyme combo instead of switching brands." },
     ],
     relatedStores: ["beast-life", "truebasics"],
-    interactiveTool: { headline: "Launch Fitspire's plant-wellness matcher — pea+rice picks per training phase", sublabel: "Our hub ranks Fitspire by training phase and goal." },
     primaryCta: {
       kind: "code",
       code: "FIT10",
@@ -655,7 +646,6 @@ const RAW_GUIDES_B: StaticGuide[] = [
       { type: "paragraph", text: "We reviewed official product pages, serving sizes and pricing on kapiva.in and Amazon.in on 24 Nov 2026. We did not purchase, consume, or commission laboratory testing on any product, we did not open a batch-specific COA, and we make no health or efficacy claims. Prices and promo codes are dated snapshots and change frequently. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you." },
     ],
     relatedStores: ["kama-ayurveda", "truebasics"],
-    interactiveTool: { headline: "Check the Kapiva habit calculator on the store hub", sublabel: "Open the interactive matcher on the Kapiva store page before choosing a routine." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "CHECK LIVE PRICE",
@@ -697,7 +687,6 @@ const RAW_GUIDES_B: StaticGuide[] = [
       { type: "paragraph", text: "Price-pure creatinine monohydrate — TrueBasics's quality benchmark covers pharma-grade, but plain creatine is cheaper at every online pharmacy store. For omega-3 specifically, TrueBasics is the strongest consumer-direct value." },
     ],
     relatedStores: ["healthkart", "kapiva"],
-    interactiveTool: { headline: "Launch TrueBasics' clinical-matcher — dose-poverty alerts + strength ranks", sublabel: "Our hub compares dose strengths vs. your biomarker profile." },
     primaryCta: {
       kind: "code",
       code: "CLINICAL20",
@@ -825,7 +814,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "Consumer-grade items (hammers, screwdrivers for DIY play) — Amazon's value packs price-match on Delhi/Bangalore same-day. Moglix wins when you need GST refund sheets and 50+ piece SKU lots." },
     ],
     relatedStores: ["havells", "nilkamalfurniture"],
-    interactiveTool: { headline: "Launch Moglix's GST net-cost calculator — ITC refund in 30 seconds", sublabel: "Our hub computes your real net-of-GST price for B2B carts." },
     primaryCta: {
       kind: "code",
       code: "TOOLS250",
@@ -877,7 +865,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       ] },
     ],
     relatedStores: ["wonderchef", "havells"],
-    interactiveTool: { headline: "Launch Milton's insulation advisor — 12h vs 24h picks for your routine", sublabel: "Our hub matches flask tier + OFFICE15 for your workday." },
     primaryCta: {
       kind: "code",
       code: "OFFICE15",
@@ -920,7 +907,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "Mixer-grinders — Prestige/Philips rotate bigger bank-offer depth. For wok/kadai — Hawkins's hard-anodised kadhai has better longevity at ₹400 less." },
     ],
     relatedStores: ["milton", "havells"],
-    interactiveTool: { headline: "Launch Wonderchef's kitchen-appliance matcher — Sanjeev-recipe ranked picks", sublabel: "Our hub ranks Nutri-Blends and pans by dish type." },
     primaryCta: {
       kind: "code",
       code: "KITCHEN500",
@@ -964,7 +950,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "Modular kitchens — Nilkamal isn't modular; Pepperfry custom-built wins there. For solid-wood beds — local carpenters beat the flat-pack pricing by a wide margin." },
     ],
     relatedStores: ["havells", "moglix"],
-    interactiveTool: { headline: "Launch Nilkamal's room-utility matcher — space + layout picks", sublabel: "Our hub ranks Nilkamal bedroom sets by room size and layout." },
     primaryCta: {
       kind: "code",
       code: "BEDROOM1000",
@@ -1008,7 +993,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "For severe scalp conditions — seek a dermatologist; Bringadi supports maintenance, it doesn't treat clinical alopecia. Premium attar lines for gifting — Neesh Perfumes prices-match without the Ayurveda premium." },
     ],
     relatedStores: ["kapiva", "nourish-mantra"],
-    interactiveTool: { headline: "Launch Kama's ritual-matcher — Bringadi vs. Kumkumadi, ranked", sublabel: "Our hub picks the right kit for your scalp/face profile." },
     primaryCta: {
       kind: "code",
       code: "RITUAL15",
@@ -1051,7 +1035,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "EDP franchise fragrance — all EDPs are unisex-friendly florals; masculine intensities sit with Hira Fragrance for office-hour wear. Toothbrushes — cheaper via Amazon ₹150 sets." },
     ],
     relatedStores: ["hirafragrance", "beast-life"],
-    interactiveTool: { headline: "Launch The Man Company's grooming-routine matcher — beard-chest-hair picks", sublabel: "Our hub ranks grooming kits by daily routine." },
     primaryCta: {
       kind: "code",
       code: "BEARD20",
@@ -1095,7 +1078,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "Severe anti-aging — prescription retinol and medical-grade C creams outperform. For everyday glow maintenance at Indian weather — Nourish Mantra is the strongest value buy." },
     ],
     relatedStores: ["dot-and-key", "brillare"],
-    interactiveTool: { headline: "Launch Nourish Mantra's clean-concerns matcher — actives by concern", sublabel: "Our hub ranks serums by skin concern." },
     primaryCta: {
       kind: "code",
       code: "MANTRA15",
@@ -1139,7 +1121,6 @@ const RAW_GUIDES_C: StaticGuide[] = [
       { type: "paragraph", text: "Bulk mandi-style buys — local grain wholesalers win per-kg on 10kg+ orders. For chef-grade specialty spices (saffron, wild turmeric) — Niche stores deliver finer batches." },
     ],
     relatedStores: ["alpino", "wonderchef"],
-    interactiveTool: { headline: "Launch Zoff's pantry matcher — clean-label spices by dish", sublabel: "Our hub groups Zoff SKUs by the dish you cook." },
     primaryCta: {
       kind: "code",
       code: "PANTRY20",
@@ -1218,7 +1199,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       { type: "paragraph", text: "We reviewed published product listings, pack sizes and checkout threshold structures on dotandkey.com and Amazon.in on 24 Nov 2026. We did not purchase, patch-test or commission laboratory or SPF testing on any product, and we make no dermatological claims. Prices and codes are dated snapshots — confirm live eligibility at checkout. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you." },
     ],
     relatedStores: ["brillare", "nourish-mantra"],
-    interactiveTool: { headline: "Open the Dot & Key matcher on the store hub", sublabel: "Use the interactive matcher on the Dot & Key store page before choosing products." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "CHECK LIVE PRICE",
@@ -1260,7 +1240,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       { type: "paragraph", text: "Colour-treated hair — Brillare's clay-based pigments can strip colour fast; swap for Brillare's colour-care line or use L'Oreal's colour-lock range. For severe alopecia — see dermatologist; Brillare is maintenance-grade, not clinical." },
     ],
     relatedStores: ["dot-and-key", "kama-ayurveda"],
-    interactiveTool: { headline: "Launch Brillare's hair-and-skin matcher — scalppicked picks", sublabel: "Our hub ranks Brillare by scalp-need." },
     primaryCta: {
       kind: "code",
       code: "FLAT20",
@@ -1304,7 +1283,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       { type: "paragraph", text: "Long-wear transfers — IBA's colors last 6-7 hours; for bridal-grade wear pair with a setting spray. For matte retinol — IBA is pure skincare-safe; actives mix poorly with matte layers." },
     ],
     relatedStores: ["nourish-mantra", "dot-and-key"],
-    interactiveTool: { headline: "Launch IBA's clean-certification matcher — halal/cruelty-free ranks", sublabel: "Our hub ranks IBA SKUs against halal + cruelty-free benchmarks." },
     primaryCta: {
       kind: "code",
       code: "IBA15",
@@ -1347,7 +1325,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       { type: "paragraph", text: "Advanced retinol therapy — plateau SKUs; Dot & Key or Kama Ayurveda retain deeper active percentages. For bridal-trial glow kits — Indus Valley's bundle discounts beat single SKUs by 8-12%." },
     ],
     relatedStores: ["dot-and-key", "iba-cosmetics"],
-    interactiveTool: { headline: "Launch Indus Valley's hair-and-skin matcher — kerashine serums ranked", sublabel: "Our hub ranks Indus Valley by scalp + face concern." },
     primaryCta: {
       kind: "code",
       code: "AC10",
@@ -1391,7 +1368,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       { type: "paragraph", text: "Certified pure oud from Kannauj factories — Hira's mass-market ouds are blended attars; for doc-first pocket-accredited Kannauj oud, Neesh Perfumes 'Extrait de parfum' line is purity-tier." },
     ],
     relatedStores: ["neesh-perfumes", "the-man-company"],
-    interactiveTool: { headline: "Launch Hira's occasion-matcher — attar picks by mood", sublabel: "Our hub ranks attars by mood and occasion." },
     primaryCta: {
       kind: "code",
       code: "OUD20",
@@ -1439,7 +1415,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       { type: "paragraph", text: "For office 8-to-8 wear — EDP tier outperforms Extrait (too opulent for cubicles). For weddings and evenings — Extrait is the obvious choice." },
     ],
     relatedStores: ["hirafragrance", "the-man-company"],
-    interactiveTool: { headline: "Launch Neesh's scent-profile matcher — extrait ranks by mood", sublabel: "Our hub maps fragrances to mood + season." },
     primaryCta: {
       kind: "code",
       code: "LUXE20",
@@ -1493,7 +1468,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       ] },
     ],
     relatedStores: ["mymuse", "iba-cosmetics"],
-    interactiveTool: { headline: "Launch Sirona's cup-size finder — XS vs Large, cervix height answered", sublabel: "Our hub walks you through cup sizing with anatomy answers." },
     primaryCta: {
       kind: "code",
       code: "SIRONA15",
@@ -1541,7 +1515,6 @@ const RAW_GUIDES_D: StaticGuide[] = [
       ] },
     ],
     relatedStores: ["sirona", "dot-and-key"],
-    interactiveTool: { headline: "Launch MyMuse's intimacy-matcher — couple + solo picks", sublabel: "Our hub walks through MyMuse with comfort and consent first." },
     primaryCta: {
       kind: "code",
       code: "BUNDLE20",
@@ -1588,7 +1561,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "Baby-growth charts vs. local chemists — local chemists stock generic baby-formula brands at ₹100-200 less. For specialty pediatric dermatology creams — prescription-only lines live on pharmacist-dispatched apps." },
     ],
     relatedStores: ["gritzo", "igp"],
-    interactiveTool: { headline: "Launch FirstCry's diaper cost tracker — club-point math across sizes", sublabel: "Our hub compares diaper pack sizes and Club-pass value." },
     primaryCta: {
       kind: "code",
       code: "SPARSH45",
@@ -1631,7 +1603,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "For English-fluent beginners — Coursera/Udemy certificate ROI beats GUVI at ₹1,000-2,000. For vernacular-first learners — GUVI is the cleanest ₹-to-ship-placement route in India." },
     ],
     relatedStores: ["bytepe", "the-man-company"],
-    interactiveTool: { headline: "Launch GUVI's vernacular-tech matcher — course picks by language + goal", sublabel: "Our hub ranks GUVI tracks by your language and career goal." },
     primaryCta: {
       kind: "code",
       code: "CAREER25",
@@ -1674,7 +1645,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "Vegan/gluten-free cakes — taste quality varies by bakery partner. Local patisseries often defeat IGP mid-range on freshness — IGP wins on logistics, not taste tier." },
     ],
     relatedStores: ["firstcry", "lavie-world"],
-    interactiveTool: { headline: "Launch IGP's occasion-gift matcher — cake + flowers + hamper bundles", sublabel: "Our hub ranks IGP gifts by occasion timing." },
     primaryCta: {
       kind: "code",
       code: "CAKE15",
@@ -1717,7 +1687,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "Routine multivitamins — ZeroHarm is specialist-grade. For general health-insurance-level supplementation, TrueBasics or HealthKart MuscleBlaze are more affordable." },
     ],
     relatedStores: ["truebasics", "healthkart"],
-    interactiveTool: { headline: "Launch ZeroHarm's dosing matcher — liposomal tiers ranked", sublabel: "Our hub matches liposomal SKU to your deficiency marker." },
     primaryCta: {
       kind: "code",
       code: "NANO25",
@@ -1793,7 +1762,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "We reviewed official product pages, serving sizes, dietary markers and pricing on hkvitals.com on 24 Nov 2026, including Marine Collagen 200g at ₹909. We did not purchase, consume or commission laboratory testing on any product, we did not open a batch-specific COA, and we make no medical or efficacy claims. Verify the FSSAI licence and batch code on your pack. Prices and promo codes are dated snapshots. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you." },
     ],
     relatedStores: ["healthkart", "truebasics"],
-    interactiveTool: { headline: "Open the HK Vitals matcher on the store hub", sublabel: "Use the interactive matcher on the HK Vitals store page before choosing a pack." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "CHECK LIVE PRICE",
@@ -1834,7 +1802,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "Outdoor garden cleaning — The Natural Wash formulations are kitchen-safe, not garden-fungicide-grade. For washroom descaling, generic citric acid is cheaper." },
     ],
     relatedStores: ["wonderchef", "iba-cosmetics"],
-    interactiveTool: { headline: "Launch The Natural Wash's kitchen-matcher — dish vs. floor vs. hand", sublabel: "Our hub ranks cleaner SKUs by kitchen duty." },
     primaryCta: {
       kind: "code",
       code: "TNW15",
@@ -1877,7 +1844,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "Full-grain leather — Lavie is PU-synthetic; for that, leather marketplaces at ₹5,000-8,000 outperform on longevity. For work-to-weekend switch — Lavie's cross-body range rotates best for the double shift." },
     ],
     relatedStores: ["levis", "the-bear-house"],
-    interactiveTool: { headline: "Launch Lavie's capacity-guide — office vs. weekend carry picks", sublabel: "Our hub ranks Lavie bags by carry volume + occasion." },
     primaryCta: {
       kind: "code",
       code: "STYLE200",
@@ -1920,7 +1886,6 @@ const RAW_GUIDES_E: StaticGuide[] = [
       { type: "paragraph", text: "Medical or legal decisions — astrology is advisory, not clinical. For surgery timing decisions, a Board-certified doctor outperforms a ka affliction chart. For love/loss contexts, therapy outperforms chanting." },
     ],
     relatedStores: ["kama-ayurveda", "kapiva"],
-    interactiveTool: { headline: "Launch Life Changing Astro's life-goal matcher — guided consultations", sublabel: "Our hub maps astro goals to consultation picks." },
     primaryCta: {
       kind: "code",
       code: "RUDRA20",
@@ -2014,7 +1979,6 @@ const RAW_GUIDES_F: StaticGuide[] = [
       { type: "paragraph", text: "High-frequency FASTag users — direct NETC portal avoids convenience-fee margins. For electricity bill subsidies — direct discom app picks are cheaper on rural slabs." },
     ],
     relatedStores: ["nordpass", "guvi"],
-    interactiveTool: { headline: "Launch BytePe's fee-calculator — real Net-Of-fees for utility bills", sublabel: "Our hub computes BBPS fees vs discom direct." },
     primaryCta: {
       kind: "code",
       code: "FIRSTBILL",
@@ -2057,7 +2021,6 @@ const RAW_GUIDES_F: StaticGuide[] = [
       { type: "paragraph", text: "Studio monitoring — Boult's mid budget doesn't calibrate flat; studio EQ users are better served by Sonarworks-calibrated options. For ankle weights and cross-functional gear — not electronics, see Boldfit." },
     ],
     relatedStores: ["havells", "the-bear-house"],
-    interactiveTool: { headline: "Launch Boult's audio-matcher — TWS + watch picks by daily commute", sublabel: "Our hub asks your route + use case — devices ranked." },
     primaryCta: {
       kind: "code",
       code: "BOULT100",
@@ -2107,7 +2070,6 @@ const RAW_GUIDES_F: StaticGuide[] = [
       ] },
     ],
     relatedStores: ["levis", "lavie-world"],
-    interactiveTool: { headline: "Launch The Bear House's fabric-occasion matcher — linen vs. oxford picks", sublabel: "Our hub ranks Bear House SKUs by occasion and climate." },
     primaryCta: {
       kind: "code",
       code: "BUNDLE500",
@@ -2150,7 +2112,6 @@ const RAW_GUIDES_F: StaticGuide[] = [
       { type: "paragraph", text: "Carb-cycling gainers — Fuel One doesn't carry mass-gain lines at purposeful prices; TrueBasics or HealthKart offer deeper stacks. For running recovery — go-to is whey protein, not multivitamin." },
     ],
     relatedStores: ["truebasics", "beast-life"],
-    interactiveTool: { headline: "Launch Fuel One's category matcher — whey vs. isolate by training phase", sublabel: "Our hub asks your goal — Fuel One SKUs ranked." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "SALE · UPI OFFERS",
@@ -2367,7 +2328,6 @@ const RAW_GUIDES_H: StaticGuide[] = [
       { type: "paragraph", text: "We checked published nutrition labels, serving counts and prices on Amazon.in and HealthKart.com on 24 Nov 2026, including MuscleBlaze Biozyme Performance Whey 1kg at ₹3,999 and its three verified flavour ASINs (B091HTLXL3, B0CCV5T996, B0G1M1W72M). We did not purchase, open, consume or independently lab-test any product, and we make no medical or body-composition claims. Prices and codes are dated snapshots. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you." },
     ],
     relatedStores: ["beast-life", "truebasics", "fitspire"],
-    interactiveTool: { headline: "Open the HealthKart ₹/gram matcher on the store hub", sublabel: "Use the interactive matcher on the HealthKart store page before choosing a tub." },
     primaryCta: {
       kind: "vcommission_auto",
       badge: "CHECK LIVE PRICE",

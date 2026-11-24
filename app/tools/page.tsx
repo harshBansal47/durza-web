@@ -5,8 +5,8 @@ import ToolsPageClient from "@/components/tools/ToolsPageClient";
 import { STORE_TOOLS } from "@/lib/store-tools";
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 
-const title = "Shopping Tools — Calculators & Finders for Indian Shoppers";
-const description = `${STORE_TOOLS.length} free tools: fan wattage, protein cost per gram, cup size, GST net cost, diaper cost per pant and more — each tied to the store page it came from.`;
+const title = "Shopping Calculators — Cost Per Gram, Savings & Break-even";
+const description = `${STORE_TOOLS.length} free calculators: BLDC fan power and protein cost per gram, each tied to a buying guide and a tracked store link. Research-based, not hands-on tested.`;
 
 export const metadata: Metadata = {
   title,
@@ -28,12 +28,9 @@ const FEATURED_HELPERS = [
     description: "Estimate annual electricity units saved when upgrading from induction to BLDC fans.",
   },
   {
-    href: "/stores/firstcry/club-calculator",
-    title: "FirstCry Club & Diaper Cost Planner",
-    description: "Plan monthly baby essentials and membership break-even.",
-    extraLinks: [
-      { href: "/stores/firstcry/diaper-cost-tracker", label: "Diaper cost tracker" },
-    ],
+    href: "/stores/alpino#protein-decoder",
+    title: "Protein Cost Decoder",
+    description: "Compare ₹ per 25 g of actual protein before buying a tub.",
   },
   {
     href: "/compare",
@@ -64,19 +61,6 @@ export default function ToolsPage() {
                 </Link>
               </h3>
               <p className="mt-2 text-sm leading-6 text-ink-soft">{item.description}</p>
-              {item.extraLinks?.length ? (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {item.extraLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="inline-flex min-h-9 items-center rounded-full border border-ledger-line bg-white px-3 text-xs font-semibold text-inkblue transition-colors hover:border-inkblue/40"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
             </li>
           ))}
         </ul>
