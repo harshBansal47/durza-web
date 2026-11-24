@@ -279,15 +279,17 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
                       <li key={b} className="flex gap-2"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#8a4b12]" />{b}</li>
                     ))}
                   </ul>
-                  <div className="mt-5">
-                    <StoreActionButton
-                      storeSlug={store.storeSlug}
-                      label={`Check Live Offers on ${store.storeName} →`}
-                      src="compare-mid"
-                      primary
-                      full
-                    />
-                  </div>
+                  {store.cta !== false && (
+                    <div className="mt-5">
+                      <StoreActionButton
+                        storeSlug={store.storeSlug}
+                        label={`Check Live Offers on ${store.storeName} →`}
+                        src="compare-mid"
+                        primary
+                        full
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

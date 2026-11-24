@@ -13,6 +13,8 @@ export interface CompareStoreAction {
   storeSlug: string;
   storeName: string;
   bullets: string[];
+  /** Set false when the store is context only — no CTA button on its card. */
+  cta?: boolean;
 }
 
 export interface CompareEntry {
@@ -78,83 +80,85 @@ export const COMPARISONS: CompareEntry[] = [
     title: "Black Friday 2026 India vs. Regular Sales: Which Categories Actually Drop?",
     seoTitle: "Black Friday 2026 India vs Regular Sales: What Actually Gets Cheaper | Durza",
     metaDescription:
-      "Black Friday in India is best for laptops, 4K TVs and ANC audio with fresh bank-card caps. See where regular sales win, how MRP inflation works, and why OTP-time discounts vanish.",
+      "A source-backed look at Black Friday vs regular sales in India: which categories are worth checking, what to verify at checkout, and how to compare final payable prices.",
     heroImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80",
     summary:
-      "Not every Black Friday banner in India is a real deal. Big-ticket electronics often get fresh Q4 bank caps, while fashion and groceries usually don’t beat regular sale pricing.",
+      "Not every Black Friday banner in India is a real deal. This comparison separates the categories worth checking during the sale from those worth comparing against regular-sale pricing, and lists the checks to make before paying.",
     updatedLabel: "Updated 18/11/2026",
+    authorName: "Harsh Bansal",
+    audience: {
+      bestFor: [
+        "Shoppers in India comparing big-ticket electronics during the 2026 Black Friday sale.",
+        "Anyone who wants to compare the final payable amount across stores instead of trusting a strike-through MRP.",
+      ],
+      skipIf: [
+        "Anyone expecting a guaranteed bank discount — card offers depend on eligibility and terms shown at checkout.",
+        "Readers who want a hands-on tested verdict. This page uses published sources only and marks unverified figures NEEDS SOURCE.",
+      ],
+    },
     verdict: {
-      optionA: "Black Friday (Nov 25–30)",
-      optionB: "Regular sales / EoRS",
-      text: "Choose Black Friday if you’re buying a laptop, 4K TV, or premium ANC audio and can pay when a bank cap is live. Choose regular sales for fashion, beauty, and groceries—those categories usually see similar or better prices outside the Black Friday rush.",
+      optionA: "Black Friday",
+      optionB: "Regular sales",
+      text: "Start with Black Friday offers when you are comparing laptops, 4K TVs or premium ANC audio, and confirm the final payable amount with any card offer applied. For fashion, beauty and groceries, compare the exact item against a regular-sale price before paying. This page does not claim that any category is always cheaper.",
       primaryStoreSlug: "amazon-in",
       primaryStoreLabel: "Amazon",
-      secondaryStoreSlug: "flipkart",
-      secondaryStoreLabel: "Flipkart",
+      secondaryStoreSlug: "lenovo-india",
+      secondaryStoreLabel: "Lenovo India",
     },
     table: {
       leftName: "Black Friday (India)",
       rightName: "Regular sales",
       rows: [
-        { factor: "Best for", left: "Laptops, 4K TVs, ANC headphones/speakers", right: "Fashion, beauty, groceries, daily basics" },
-        { factor: "Bank offers", left: "Fresh Q4 instant-discount caps (often ₹1,750–₹8,000) on select cards", right: "Routine card offers, but caps may be smaller or already used up" },
-        { factor: "Price pattern", left: "Can beat recent prices on big electronics; some MRPs look inflated", right: "More predictable on apparel/beauty during EoRS or brand sales" },
-        { factor: "Risk", left: "Bank discount can disappear at OTP if quota exhausts", right: "Less rush, but fewer big-ticket card slabs" },
-        { factor: "Smart move", left: "Screenshot cart summary before payment; retry at cap reset windows", right: "Track price history and wait for category-specific sale events" },
+        { factor: "Best for", left: "Laptops, 4K TVs and ANC headphones — check these first", right: "Fashion, beauty and groceries — compare against regular-sale prices" },
+        { factor: "Bank offers", left: "Seasonal card offers may apply; check the exact cap, eligible card family and minimum spend on the store page (NEEDS SOURCE)", right: "Check current card offers with the same conditions before paying" },
+        { factor: "Price pattern", left: "Compare the final payable amount with recent prices; strike-through MRP is not a reliable benchmark (NEEDS SOURCE)", right: "Compare the same SKU across regular-sale events before paying" },
+        { factor: "Risk", left: "A card discount shown earlier may change at payment — verify the final amount (NEEDS SOURCE)", right: "Fewer large card slabs, but a calmer checkout (NEEDS SOURCE)" },
+        { factor: "Smart move", left: "Record the cart summary before paying; re-check if the amount changes", right: "Keep a note of the regular-sale price for the same SKU" },
       ],
     },
     insider: {
-      title: "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      title: "What to verify before you pay",
       points: [
-        "MRP inflation + bank cap reset: some listings look “discounted” because the MRP is padded, while the real saving comes from a fresh Nov 25–30 HDFC/ICICI/SBI instant-discount slab. Compare the final payable amount, not the strike-through.",
-        "OTP quota exhaustion is real: a ₹3,000 card discount can show on the product page and vanish on the OTP screen if the day’s bank pool is over. If timing matters, try near common reset windows (midnight/midday) and keep a backup card ready.",
-        "Screenshot the cart summary before you pay. If the discount drops at payment, that screenshot helps you decide whether to retry, switch cards, or wait instead of paying the higher amount in a panic.",
+        "Compare the final payable amount, not the strike-through. A padded MRP can make a banner look larger than the real saving; what matters is what you pay after card offers and exclusions. NEEDS SOURCE — supply a dated source for how common this is.",
+        "A discount shown on a product page may not carry through to payment if the campaign quota has been used. Check the amount again on the payment screen and keep an eligible alternative ready. NEEDS SOURCE — supply a published explanation of the quota mechanism.",
+        "Record the cart and payment summary before you pay. If the amount changes, that record lets you compare options instead of guessing.",
       ],
     },
     blocks: [
       {
-        heading: "The 11:58 PM sale trap",
+        heading: "Check the final amount before you pay",
         paragraphs: [
-          "It’s 11:58 PM on a Black Friday sale night, your cart finally shows a big bank discount, and by the time the OTP arrives the price jumps back up. That moment is exactly why “Black Friday in India” needs a category-by-category view, not a blanket assumption that everything is cheaper.",
+          "Black Friday in India does not follow one price pattern across categories. The useful comparison is the final payable amount for the exact SKU, with any card offer applied and exclusions accounted for. Treat the banner percentage as a prompt to compare, not as the saving itself.",
         ],
       },
       {
-        heading: "Where Black Friday usually pays off in India",
+        heading: "Categories worth checking during Black Friday",
         paragraphs: [
-          "The strongest Black Friday value in India tends to show up on mid-to-high-end laptops (roughly ₹45,000–₹1,40,000), 43–65 inch 4K TVs, and premium ANC headphones or speakers. Global Q4 markdowns often line up with fresh Indian credit-card instant-discount quotas, so the final payable amount can genuinely beat recent pricing.",
-          "If you’re shopping in these categories, check the effective price with the card offer applied and confirm whether No-Cost EMI changes eligibility for the instant discount.",
+          "Start with laptops, 4K TVs and premium ANC audio. Big-ticket electronics are the categories this page points shoppers to first; check each offer on the store's own page and confirm the final amount. Exact price bands and discount caps are NEEDS SOURCE until a dated source is supplied.",
+          "For laptops, compare the same model across Amazon, Lenovo India, ASUS India and Acer India before paying. These are tracked store hubs; the final payable price on the store decides which is cheaper.",
         ],
       },
       {
-        heading: "Where regular sales usually win (or tie)",
+        heading: "Categories to compare against regular sales",
         paragraphs: [
-          "Everyday fashion, beauty, and groceries rarely see dramatic Black Friday-only drops in India. Fashion often does better during End of Reason/seasonal sales, beauty runs on its own event calendars, and grocery pricing is usually steady outside specific coupons or bank partnerships.",
-          "If the item isn’t a big-ticket electronic, don’t let a countdown banner rush you—compare with recent regular-sale prices before you pay.",
+          "For fashion, beauty and groceries, compare the exact item against a regular-sale price before paying. Keep a note of the regular price for the same SKU; a countdown banner is not evidence of a lower final amount.",
+          "If the item is not a big-ticket electronic, do not let a countdown decide the purchase. Verify the price on the store page and compare before you pay.",
         ],
       },
     ],
     storeActions: [
-      {
-        storeSlug: "amazon-in",
-        storeName: "Amazon",
-        bullets: ["Good for fast delivery on electronics and clear card-offer breakdowns on product pages.", "Useful when you want to compare final payable price without exchange pressure."],
-      },
-      {
-        storeSlug: "flipkart",
-        storeName: "Flipkart",
-        bullets: ["Often strong on sale-event bundles and exchange-led pricing for select categories.", "Worth checking alongside Amazon when bank caps or exchange values differ."],
-      },
-      {
-        storeSlug: "lenovo-india",
-        storeName: "Lenovo India",
-        bullets: ["Check official laptop pricing for student/corporate benefits and warranty add-ons.", "Helpful when a marketplace deal looks close but official bundles add long-term value."],
-      },
+      { storeSlug: "amazon-in", storeName: "Amazon", bullets: ["Compare final payable prices on electronics and check card-offer terms shown on the product page.", "Useful as a reference point when you want a second listing for the same model."], cta: false },
+      { storeSlug: "lenovo-india", storeName: "Lenovo India", bullets: ["Check official laptop pricing and warranty add-ons when a marketplace deal looks close.", "Confirm student or corporate benefits on the exact configuration."], cta: false },
+      { storeSlug: "asus", storeName: "ASUS India", bullets: ["Compare official configurations before assuming a marketplace discount is lower.", "Check what the bundle includes rather than the strike-through price."], cta: false },
+      { storeSlug: "acer", storeName: "Acer India", bullets: ["Check official laptop configurations and bundled add-ons.", "Useful as a third reference in the same price band."], cta: false },
+      { storeSlug: "tatacliq-com-ecommerce-cps-india", storeName: "Tata CLiQ", bullets: ["A broad electronics and fashion listing to compare against sale-event prices.", "Check the exact SKU and seller before paying."], cta: false },
+      { storeSlug: "boult", storeName: "Boult", bullets: ["Check current pricing on ANC earbuds and audio in the categories this page calls out.", "Compare the final amount with other listings before paying."], cta: true },
     ],
     faqs: [
-      { question: "Is Black Friday actually cheaper in India?", answer: "It can be for laptops, 4K TVs, and premium audio when fresh bank instant-discount caps apply. For fashion, beauty, and groceries, regular sales often match or beat Black Friday pricing.", sort_order: 0 },
-      { question: "Why did my bank discount disappear at the OTP page?", answer: "Many instant discounts have limited daily or campaign quotas. If the quota is exhausted, the discount can vanish at payment even if it appeared earlier. Try another eligible card or check again during a likely reset window.", sort_order: 1 },
-      { question: "Should I trust the MRP shown during Black Friday?", answer: "Use the final payable amount as your reference. Some listings inflate MRP or compare against older prices; the real saving is what you actually pay after card offers and exclusions.", sort_order: 2 },
-      { question: "What should I screenshot before paying?", answer: "Capture the cart/payment summary showing item price, bank discount line, EMI selection, and final amount. It helps if the offer drops at checkout or you need to compare quickly before retrying.", sort_order: 3 },
+      { question: "Is Black Friday actually cheaper in India?", answer: "It is worth checking for laptops, 4K TVs and premium audio, especially when a card offer applies to the final payable amount. For fashion, beauty and groceries, compare the same SKU against a regular-sale price before paying. This page does not claim a category is always cheaper.", sort_order: 0 },
+      { question: "Why might my bank discount not appear at checkout?", answer: "A discount shown earlier may not carry through to payment. Check the final amount on the payment screen; if it changed, compare with another eligible card or wait. NEEDS SOURCE — supply a published explanation of campaign quota rules.", sort_order: 1 },
+      { question: "Should I trust the MRP shown during Black Friday?", answer: "Use the final payable amount as your reference. Strike-through MRPs are not a reliable comparison on their own. NEEDS SOURCE — supply a dated source for how often MRPs are inflated.", sort_order: 2 },
+      { question: "What should I record before paying?", answer: "Record the cart and payment summary showing item price, any bank discount line, EMI selection and final amount. It helps you compare if the amount changes.", sort_order: 3 },
     ],
     relatedComparisons: [
       "credit-card-instant-discount-vs-no-cost-emi-india",
@@ -162,15 +166,18 @@ export const COMPARISONS: CompareEntry[] = [
       "best-laptop-deals-india-amazon-vs-flipkart-2026",
     ],
     relatedGuides: [
-      { href: "/guides/lenovo-india-laptop-offers-2026-guide", label: "Lenovo India laptop offers guide" },
-      { href: "/guides/asus-india-rog-tuf-zenbook-vhpbook-2026-guide", label: "ASUS India laptop buying guide" },
+      { href: "/guides/lenovo-laptop-offers-india-2026", label: "Lenovo India laptop offers guide" },
+      { href: "/guides/best-acer-laptop-deals-promo-codes", label: "Acer laptop deals guide" },
     ],
     relatedReviewsStores: [
       { href: "/stores/amazon-in", label: "Amazon India store hub" },
-      { href: "/stores/flipkart", label: "Flipkart store hub" },
+      { href: "/stores/lenovo", label: "Lenovo store hub" },
+      { href: "/stores/asus", label: "ASUS store hub" },
+      { href: "/stores/boult", label: "Boult store hub" },
+      { href: "/stores/tatacliq-com-ecommerce-cps-india", label: "Tata CLiQ store hub" },
       { href: "/black-friday", label: "Black Friday deals hub" },
     ],
-    keywords: ["Black Friday sale India 2026", "Black Friday vs regular sale India", "HDFC ICICI SBI instant discount", "OTP quota exhausted", "laptop TV deals India"],
+    keywords: ["Black Friday sale India 2026", "Black Friday vs regular sale India", "bank instant discount India", "final payable price comparison", "laptop TV deals India"],
   },
   {
     slug: "best-smartphone-deals-india-amazon-vs-flipkart-2026",
