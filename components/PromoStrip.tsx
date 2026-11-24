@@ -11,8 +11,7 @@ import { useState } from "react";
 const MESSAGES = [
   "Every offer states its type",
   "Last-checked date shown when known",
-  "No fabricated codes or discounts",
-  "Commission disclosed on tracked links",
+  "No fabricated codes or discounts"
 ];
 
 export default function PromoStrip() {
