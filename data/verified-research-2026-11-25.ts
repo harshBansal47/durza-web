@@ -278,4 +278,41 @@ export const VERIFIED_RESEARCH: Record<string, ResearchSet> = {
     ],
     note: "Dates are reported only where an official page confirms them. Expected windows are labelled as expectations, never as live sale dates.",
   },
+  bank: {
+    kicker: "Offer terms · checked 25 Nov 2026",
+    title: "What the opened 2026 terms actually say",
+    facts: [
+      {
+        label: "Amex × Tata CLiQ Black Friday: full string",
+        detail: "12.5% instant on American Express credit cards (full swipe), minimum ₹3,000, maximum ₹1,500, once per card, code AMEXTCFBFS, 19–30 Nov 2026. Axis and Kotak are named in the release, but their caps and minimums are not stated.",
+        href: "https://www.tatacliq.com/terms/amx-bfs-tnc",
+      },
+      {
+        label: "Lenovo's benefit is cashback, not instant",
+        detail: "You pay the full website price; cashback is posted after delivery, is not valid on EMI, and is limited to one transaction per card. Opened pages disagree on the amount (₹6,500 band vs 'FLAT 10K' badge) and timing (20 vs 30 days).",
+        href: "https://www.lenovo.com/in/en/lenovo-offer-details/",
+      },
+      {
+        label: "Per-card caps and refresh cycles are real",
+        detail: "SBI's festive offer capped savings at ₹48,000 per card with refreshes on 29/30/31 Oct and 1/6 Nov 2026; Amazon's HDFC offer capped ₹22,000 per card with a daily base refresh.",
+        href: "https://www.sbicard.com/en/personal/offer/flipkart-festive-oct26.page",
+      },
+      {
+        label: "Reward points can be forfeited",
+        detail: "SBI Card's T&C forfeits reward points on eligible non-EMI transactions; Amazon's HDFC terms reverse reward points within 120 days (official terms, checked 25 Nov 2026).",
+        href: "https://www.amazon.in/promotion/details/popup/AB3VHKV8ABYA2",
+      },
+      {
+        label: "Stacking is usually restricted",
+        detail: "Opened terms bar bank + another promotion at Amex CLiQ and HDFC Amazon, two bank offers on one order, bank + EMI where full swipe is required, and excluded modes including UPI, net banking, COD and wallet part-payment.",
+        href: "https://www.tatacliq.com/terms/amx-bfs-tnc",
+      },
+      {
+        label: "No documented OTP-quota mechanism",
+        detail: "The opened T&Cs document per-card caps, refresh cycles and ineligible payment modes — not a shared campaign quota that exhausts at OTP. Do not publish that mechanism as fact.",
+        href: "https://www.flipkart.com/pages/bobcarda-tnc",
+      },
+    ],
+    note: "Official offer terms opened 25 Nov 2026, not live quotes. Durza did not attempt a checkout or claim any discount is guaranteed.",
+  },
 };

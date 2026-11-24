@@ -11,6 +11,7 @@ import { formatDiscount, successRateLabel, expiryLabel } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import JsonLd from "@/components/JsonLd";
 import BankCardMatcher from "@/components/bank-offers/BankCardMatcher";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 
 export const revalidate = 1800;
 
@@ -87,7 +88,7 @@ const FAQS = [
   {
     question: "Can I combine a bank offer with a store coupon?",
     answer:
-      "Often, yes. A store coupon or sale price can reduce the cart first, and an eligible bank instant discount may apply at the payment page to the resulting amount—if the minimum spend and exclusions are still satisfied. Confirm the final discount lines in the order summary.",
+      "Not automatically. Opened 2026 terms bar bank + another promotion at Amex Tata CLiQ and HDFC Amazon, and two bank offers on one order. A sale price can still reduce the cart first if the card-paid amount after exchange or coupon meets the stated minimum — check the final discount lines on the payment screen.",
   },
   {
     question: "How do I know a bank offer actually applied?",
@@ -312,7 +313,7 @@ export default async function BankOffersPage() {
                   How bank offers work
                 </h2>
                 <p className="mt-2 text-ink-soft">
-                  A bank offer is a discount or benefit tied to the card and payment method you choose. It is separate from the store&apos;s own sale, which is why the two can often stack—when eligibility rules allow.
+                  A bank offer is a discount or benefit tied to the card and payment method you choose. It is separate from the store&apos;s own sale, but the opened 2026 terms often bar stacking — check the eligible-card list, minimum spend and payment-mode exclusions before assuming the two combine.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -330,6 +331,10 @@ export default async function BankOffersPage() {
                 })}
               </div>
             </section>
+
+            <div className="mt-8">
+              <VerifiedResearchPanel kind="bank" />
+            </div>
 
             <BankCardMatcher />
 
