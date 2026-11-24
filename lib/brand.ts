@@ -35,11 +35,6 @@ export const BRAND = {
   paper: "#FAFAF8",
 } as const;
 
-/**
- * Navigation is editorial-first: the primary bar leads with decision formats,
- * offers stay one tap away in the More menu. Single source of truth for the
- * desktop header, mobile nav and footer.
- */
 /** The D mark on a 512x512 grid. Fill with fillRule="evenodd". */
 export const MARK_PATH =
   "M124 120H250.0A136.0 136.0 0 0 1 250.0 392H124V288.0A32 32 0 0 0 124 224.0ZM190 186H250.0A70.0 70.0 0 0 1 250.0 326H190Z";
