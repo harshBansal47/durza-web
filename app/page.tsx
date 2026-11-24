@@ -375,6 +375,7 @@ export default async function HomePage() {
               {toolkitCollection ? (
                 <Link
                   href={`/collections/${toolkitCollection.slug}`}
+                  aria-label={`Open ${toolkitCollection.title} collection`}
                   className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-ledger-line bg-white px-4 text-sm font-medium text-ink hover:border-accent-soft hover:text-accent"
                 >
                   Curated toolkit: {toolkitCollection.title}
