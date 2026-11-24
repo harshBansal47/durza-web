@@ -277,10 +277,10 @@
 .hx-verify.unverified { border-color: var(--hx-line2); background: var(--hx-bg1); }
 .hx-verify.unverified svg { color: var(--hx-tx3); }
 .hx-sect { margin: 18px 0 10px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--hx-tx3); }
+.hx-source { margin: -6px 0 14px; font-size: 12.5px; line-height: 1.5; color: var(--hx-tx2); }
 .hx-terms { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .hx-terms li { display: flex; gap: 9px; font-size: 13px; line-height: 1.5; color: var(--hx-tx2); }
 .hx-terms li::before { content: ""; flex-shrink: 0; width: 5px; height: 5px; margin-top: 7px; border-radius: 50%; background: var(--hx-orange); }
-.hx-source { font-size: 12.5px; line-height: 1.6; color: var(--hx-tx2); }
 .hx-dr-foot { display: flex; gap: 9px; padding: 16px 20px; border-top: 1px solid var(--hx-line); background: #fff; }
 .hx-cta { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; font-size: 13.5px; font-weight: 700; color: #fff; background: var(--hx-cta); border-radius: 12px; box-shadow: 0 8px 20px -8px rgba(194, 65, 12, 0.7); transition: 0.2s; }
 .hx-cta:hover { transform: translateY(-1px); }

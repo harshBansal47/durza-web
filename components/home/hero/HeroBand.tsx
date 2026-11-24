@@ -1,53 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import PendingLink from "@/components/ui/PendingLink";
 import type { HeroStore } from "@/lib/home-hero";
 import { formatStoreDisplayName } from "@/lib/store-display";
 import StoreMark from "./StoreMark";
-import { usePrefersReducedMotion } from "./hooks";
-
-/**
- * Counts up from 0 once the band scrolls into view. The server (and no-JS)
- * render is the final number; reduced-motion users get it with no animation.
- * All state updates happen in observer/animation callbacks, and both the
- * observer and the frame request are cancelled on unmount.
- */
-function CountUp({ value, reduced }: { value: number; reduced: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(value);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || reduced || value <= 0 || typeof IntersectionObserver === "undefined") return;
-    let frame = 0;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
-        observer.disconnect();
-        const start = performance.now();
-        const step = (now: number) => {
-          const p = Math.min(1, (now - start) / 1400);
-          setShown(Math.round(value * (1 - Math.pow(1 - p, 3))));
-          if (p < 1) frame = requestAnimationFrame(step);
-        };
-        frame = requestAnimationFrame(step);
-      },
-      { threshold: 0.3 },
-    );
-    observer.observe(node);
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-    };
-  }, [value, reduced]);
-
-  return (
-    <div ref={ref} className="hx-num">
-      {shown.toLocaleString("en-IN")}
-    </div>
-  );
-}
 
 export default function HeroBand({
   popular,
@@ -58,7 +14,6 @@ export default function HeroBand({
   moreStores: number;
   stats: { coupons: number; stores: number; categories: number };
 }) {
-  const reduced = usePrefersReducedMotion();
   const showCounts = stats.coupons >= 5000;
   const items = showCounts
     ? [
@@ -99,7 +54,7 @@ export default function HeroBand({
             {items.map((s) => (
               <div key={s.label}>
                 <dd style={{ margin: 0 }}>
-                  <CountUp value={s.value} reduced={reduced} />
+                  <div className="hx-num">{s.value.toLocaleString("en-IN")}</div>
                 </dd>
                 <dt className="hx-lbl">
                   {s.label}

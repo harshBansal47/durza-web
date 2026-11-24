@@ -250,6 +250,7 @@ describe("HomeHero — drawer & overlay hygiene", () => {
     expect(drawer).toHaveTextContent("SV10VC");
     expect(drawer).toHaveTextContent("2 hours ago");
     expect(drawer).toHaveTextContent("Valid on orders above ₹999");
+    expect(drawer).toHaveTextContent("Read from the HealthKart offers page");
     expect(drawer).toHaveTextContent("ends in 4 days");
     expect(within(drawer).getByRole("link", { name: /Open HealthKart & paste code/ })).toHaveAttribute("rel", expect.stringContaining("sponsored"));
     expect(document.body.style.overflow).toBe("hidden");

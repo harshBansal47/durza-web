@@ -98,6 +98,7 @@ export default function OfferDrawer({ deal, onClose }: { deal: HeroDeal; onClose
           {deal.sourceText && (
             <>
               <div className="hx-sect">Source</div>
+              <p className="hx-source">{deal.sourceText}</p>
             </>
           )}
 
