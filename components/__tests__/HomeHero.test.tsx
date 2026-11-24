@@ -92,6 +92,15 @@ describe("HomeHero — structure", () => {
     expect(screen.getByRole("link", { name: /All 1,255 coupons/ })).toBeInTheDocument();
   });
 
+  it("leads with the Beauty Toolkit banner and its explore action", () => {
+    renderHero();
+    const promo = screen.getByRole("link", { name: /beauty toolkit/i });
+    expect(promo).toHaveAttribute("href", "/collections/complete-amazon-makeup-toolkit");
+    expect(within(promo).getByText(/explore the toolkit/i)).toBeInTheDocument();
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(promo.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("omits invented numbers when there is no data", () => {
     renderHero({ categories: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
     expect(screen.queryByText(/checked within the last 24 hours/i)).not.toBeInTheDocument();

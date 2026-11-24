@@ -60,6 +60,24 @@ export default function HomeHero({ deals, featured, stores, popularStores, categ
         <div className="hx-grain" />
       </div>
 
+      <Link
+        href="/collections/complete-amazon-makeup-toolkit"
+        className="hx-beauty-promo hx-rise"
+        style={{ ["--i" as string]: 1 }}
+      >
+        <span className="hx-beauty-promo-icon" aria-hidden="true">
+          <Sparkles size={22} strokeWidth={2.2} />
+        </span>
+        <span className="hx-beauty-promo-body">
+          <span className="hx-beauty-promo-kicker">New · Beauty Toolkit</span>
+          <span className="hx-beauty-promo-title">The Complete Amazon Makeup Toolkit</span>
+          <span className="hx-beauty-promo-desc">108 curated picks across 18 routine steps — budget to premium.</span>
+        </span>
+        <span className="hx-beauty-promo-cta">
+          Explore the toolkit <ArrowRight size={16} strokeWidth={2.3} aria-hidden="true" />
+        </span>
+      </Link>
+
       <div className="hx-main">
         <div className="hx-left">
           <h1 className="hx-h1 hx-rise" style={{ ["--i" as string]: 1 }}>
@@ -70,20 +88,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, categ
           <p className="hx-sub hx-rise" style={{ ["--i" as string]: 1 }}>
             Curated shopping opportunities from stores we track. Every offer states its type; a last-checked date appears when known.
           </p>
-
-          <Link href="/collections/complete-amazon-makeup-toolkit" className="hx-beauty-promo hx-rise" style={{ ["--i" as string]: 2 }}>
-            <span className="hx-beauty-promo-icon" aria-hidden="true">
-              <Sparkles size={18} strokeWidth={2.2} />
-            </span>
-            <span className="hx-beauty-promo-body">
-              <span className="hx-beauty-promo-kicker">New · Beauty Toolkit</span>
-              <span className="hx-beauty-promo-title">The Complete Amazon Makeup Toolkit</span>
-              <span className="hx-beauty-promo-desc">108 curated picks across 18 routine steps — budget to premium.</span>
-            </span>
-            <span className="hx-beauty-promo-cta" aria-hidden="true">
-              Explore <ArrowRight size={14} strokeWidth={2.3} />
-            </span>
-          </Link>
 
           <HeroSearch
             deals={deals}
