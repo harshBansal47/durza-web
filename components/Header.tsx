@@ -1,348 +1,176 @@
-
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Search, User } from "lucide-react";
 import { usePathname } from "next/navigation";
-import MobileNav from "./MobileNav";
-import { HeaderSearch, MobileSearch } from "./HeaderSearch";
+import { Bookmark, Search, ShieldCheck, Sparkles } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Logo from "@/components/Logo";
+import { HeaderSearch, MobileSearch } from "@/components/HeaderSearch";
+import AccountMenu from "@/components/header/AccountMenu";
+import NavScrollStrip from "@/components/header/NavScrollStrip";
+import TrustRotator from "@/components/header/TrustRotator";
+import {
+  PRIMARY_NAV,
+  SAVED_NAV,
+  SECONDARY_NAV,
+  type NavIcon,
+  type SiteNavItem,
+} from "@/lib/nav-config";
 import { useSession } from "@/components/session/SessionProvider";
-import SignOutForm from "@/components/session/SignOutForm";
 
-export interface NavLink {
-  href: string;
-  label: string;
-}
+const ICONS: Record<NavIcon, typeof ShieldCheck> = {
+  shield: ShieldCheck,
+  sparkles: Sparkles,
+  bookmark: Bookmark,
+};
 
-export default function Header({
-  links,
-  moreLinks = [],
-}: {
-  links: NavLink[];
-  moreLinks?: NavLink[];
-}) {
-  // The session arrives after hydration (see SessionProvider): keeping it out
-  // of the server render is what lets every page below be cached.
+/** Three-row Amazon-style header. All links come from the single nav config. */
+export default function Header() {
   const { session } = useSession();
   const user = session.user;
   const [scrolled, setScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
-
   const pathname = usePathname();
-  const headerRef = useRef<HTMLElement>(null);
-  const moreMenuRef = useRef<HTMLDivElement>(null);
-  const accountMenuRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
 
-  const closeMoreMenu = () => setMoreOpen(false);
-  const closeAccountMenu = () => setAccountOpen(false);
-
-  // Close either menu when the visitor taps outside it or presses Escape.
-  useEffect(() => {
-    const onPointerDown = (event: PointerEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
-        setMoreOpen(false);
-      }
-      if (accountMenuRef.current && !accountMenuRef.current.contains(event.target as Node)) {
-        setAccountOpen(false);
-      }
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMoreOpen(false);
-        setAccountOpen(false);
-      }
-    };
-
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, []);
-
-  // A client-side navigation should never leave a stale menu open. Defer the
-  // state reset so React does not treat it as a synchronous effect update.
-  useEffect(() => {
-    const id = window.setTimeout(() => {
-      setMoreOpen(false);
-      setAccountOpen(false);
-    }, 0);
-    return () => window.clearTimeout(id);
-  }, [pathname]);
-
+  // Only rows 1–2 are sticky; the contextual row 3 scrolls away with the page.
   useLayoutEffect(() => {
-    const updateHeaderHeight = () => {
-      const height =
-        headerRef.current?.getBoundingClientRect().height ?? 0;
-
-      document.documentElement.style.setProperty(
-        "--header-height",
-        `${height}px`
-      );
+    const update = () => {
+      const height = stickyRef.current?.getBoundingClientRect().height ?? 100;
+      document.documentElement.style.setProperty("--header-height", `${height}px`);
     };
-
-    updateHeaderHeight();
-
-    const observer = new ResizeObserver(updateHeaderHeight);
-
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    window.addEventListener("resize", updateHeaderHeight);
-
+    update();
+    const observer = new ResizeObserver(update);
+    if (stickyRef.current) observer.observe(stickyRef.current);
+    window.addEventListener("resize", update);
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", updateHeaderHeight);
+      window.removeEventListener("resize", update);
     };
   }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
-
     onScroll();
-
     window.addEventListener("scroll", onScroll, { passive: true });
-
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
-    return pathname === href || pathname.startsWith(`${href}/`);
+  const renderLink = (item: SiteNavItem, variant: "primary" | "secondary") => {
+    const active = isActive(item.href);
+    const Icon = item.icon ? ICONS[item.icon] : null;
+    if (variant === "primary") {
+      return (
+        <Link
+          key={item.href}
+          href={item.href}
+          aria-current={active ? "page" : undefined}
+          className={`relative flex h-full shrink-0 items-center px-3 text-[13px] font-medium transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent ${active ? "text-accent after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:bg-accent" : "text-ink"}`}
+        >
+          {item.label}
+        </Link>
+      );
+    }
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        aria-current={active ? "page" : undefined}
+        className={`flex h-7 shrink-0 items-center gap-1.5 rounded-full px-3 text-[13px] font-medium transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent ${
+          active ? "bg-accent text-white hover:text-white" : "text-ink"
+        }`}
+      >
+        {Icon ? <Icon aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} /> : null}
+        <span>{item.label}</span>
+        {item.seasonal && item.badge ? (
+          <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white">
+            {item.badge}
+          </span>
+        ) : null}
+      </Link>
+    );
   };
 
   return (
     <>
-      <header
-        ref={headerRef}
-        className={[
-          "sticky top-0 z-40",
-          "border-b border-ledger-line",
-          "bg-[rgba(250,250,248,0.85)] backdrop-blur-xl",
-          "transition-all duration-300",
-          scrolled ? "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]" : "",
-        ].join(" ")}
-      >
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-12">
-          <div className="flex min-h-[68px] items-center gap-3 sm:min-h-[76px] sm:gap-5">
-          {/* Brand */}
-          <Link
-            href="/"
-            className="group flex shrink-0 items-center"
-          >
-            <Logo
-              size={36}
-              tagline
-              markClassName="transition-transform duration-200 group-hover:scale-[1.04]"
-            />
-          </Link>
+      <header className="no-print">
+        <div
+          ref={stickyRef}
+          className={`sticky top-0 z-40 border-b border-ledger-line bg-white transition-shadow duration-300 ${
+            scrolled ? "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]" : ""
+          }`}
+        >
+          {/* ROW 1 — brand, search, saved shortcut, account */}
+          <div className="mx-auto flex h-[56px] max-w-[1280px] items-center gap-2 px-4 sm:h-[60px] sm:gap-4 sm:px-6 lg:px-12">
+            <Link href="/" className="group flex shrink-0 items-center" aria-label="Durza home">
+              <Logo
+                size={32}
+                tagline={false}
+                markClassName="transition-transform duration-200 group-hover:scale-[1.04]"
+              />
+            </Link>
 
-          {/* Search */}
-          <div className="ml-auto hidden min-w-0 flex-1 md:block">
-            <HeaderSearch prominent />
-          </div>
+            <div className="hidden min-w-0 flex-1 md:block">
+              <HeaderSearch prominent />
+            </div>
 
-          {/* Account */}
-          <div className="hidden shrink-0 md:block">
-            {session.status === "loading" ? (
-              // Neutral placeholder: the signed-in state is unknowable until
-              // the client fetch lands, and guessing "Sign in" would flash the
-              // wrong label at every signed-in visitor.
-              <span
-                aria-hidden="true"
-                className="flex min-h-10 items-center gap-2.5 rounded-full border border-ledger-line bg-white px-4"
-              >
-                <User className="h-4 w-4 text-accent/40" strokeWidth={1.75} />
-                <span className="h-3 w-14 rounded-full bg-ink/10" />
-              </span>
-            ) : user ? (
-              <div ref={accountMenuRef} className="relative">
-                <button
-                  type="button"
-                  aria-expanded={accountOpen}
-                  onClick={() => {
-                    setAccountOpen((open) => !open);
-                    setMoreOpen(false);
-                  }}
-                  className="group flex min-h-10 items-center gap-2.5 rounded-full border border-ledger-line bg-white px-4 text-sm font-medium text-ink transition-all duration-150 hover:border-accent-soft hover:bg-accent-faint focus-visible:outline-2 focus-visible:outline-accent"
+            <div className="hidden shrink-0 md:block">
+              {SAVED_NAV ? (
+                <Link
+                  href={SAVED_NAV.href}
+                  aria-current={isActive(SAVED_NAV.href) ? "page" : undefined}
+                  className="flex h-9 items-center gap-1.5 rounded-full px-2 text-[13px] font-medium text-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
                 >
-                  {user.avatarUrl ? (
-                    <Image
-                      src={user.avatarUrl}
-                      alt=""
-                      width={28}
-                      height={28}
-                      aria-hidden="true"
-                      className="h-7 w-7 shrink-0 rounded-full object-cover"
-                    />
-                  ) : (
-                    <span
-                      aria-hidden="true"
-                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-medium text-white"
-                    >
-                      {user.name.trim().charAt(0).toUpperCase() || "U"}
-                    </span>
-                  )}
+                  <Bookmark aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
+                  <span>Saved</span>
+                </Link>
+              ) : null}
+            </div>
 
-                  <span className="max-w-[100px] truncate">
-                    {user.name}
-                  </span>
-
-                  <ChevronDown
-                    aria-hidden="true"
-                    className={`h-4 w-4 text-ink-soft transition-transform ${accountOpen ? "rotate-180" : ""}`}
-                    strokeWidth={1.75}
-                  />
-                </button>
-
-                {accountOpen && (
-                  <div className="absolute right-0 top-full z-50 mt-2 min-w-48 rounded-2xl border border-ledger-line bg-white p-2 shadow-[var(--shadow-overlay)]">
-                    <Link
-                      href="/account"
-                      onClick={closeAccountMenu}
-                      className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                    >
-                      Your account
-                    </Link>
-
-                    <Link
-                      href="/account/settings"
-                      onClick={closeAccountMenu}
-                      className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                    >
-                      Settings
-                    </Link>
-
-                    <SignOutForm
-                      onClick={closeAccountMenu}
-                      className="block w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                    />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link
-                href="/account/login"
-                className="
-                  group flex min-h-10 items-center gap-2.5
-                  rounded-full border border-ledger-line
-                  bg-white px-4
-                  text-sm font-medium text-ink
-                  transition-all duration-150
-                  hover:border-accent-soft hover:bg-accent-faint
-                "
-              >
-                <User aria-hidden="true" className="h-4 w-4 text-accent" strokeWidth={1.75} />
-
-                <span>Sign in</span>
-              </Link>
-            )}
-          </div>
-
-          {/* Mobile actions */}
-          <div className="ml-auto flex shrink-0 items-center gap-1 md:hidden">
+            {/* Mobile: expanding search opens the existing overlay. */}
             <button
               type="button"
               onClick={() => setMobileSearchOpen(true)}
-              className="
-                flex h-10 w-10 items-center justify-center
-                rounded-full text-ink-soft
-                transition-colors
-                hover:bg-ink/[0.04] hover:text-ink
-                focus-visible:outline-none focus-visible:ring-2
-                focus-visible:ring-accent/50
-              "
               aria-label="Open search"
+              className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 md:hidden"
             >
               <Search aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
             </button>
 
-            <MobileNav
-              links={[
-                ...links,
-                // The phone tab bar already owns "Saved"; the hamburger
-                // repeating it is the duplicate this menu used to show.
-                ...moreLinks.filter((link) => link.href !== "/saved"),
-              ]}
-              accountLink={
-                user
-                  ? { href: "/account", label: "Your account" }
-                  : session.status === "loading"
-                    ? // Mid-check: /account redirects anonymous visitors to the
-                      // sign-in page, so this is right either way.
-                      { href: "/account", label: "Account" }
-                    : { href: "/account/login", label: "Sign in" }
-              }
-              onOpenSearch={() => setMobileSearchOpen(true)}
-            />
-          </div>
+            <div className="shrink-0">
+              <AccountMenu />
+            </div>
           </div>
 
-          {/* Primary navigation lives on its own row, leaving the search free to grow. */}
+          {/* ROW 2 — primary nav + the single rotating trust message */}
           <nav
-            className="hidden min-h-[48px] items-center gap-1 border-t border-ledger-line/70 md:flex"
-            aria-label="Main navigation"
+            aria-label="Primary"
+            className="mx-auto flex h-[40px] max-w-[1280px] items-center justify-between border-t border-ledger-line/70 px-4 sm:px-6 lg:px-12"
           >
-            {links.map((link) => {
-              const active = isActive(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`relative flex h-10 items-center rounded-full px-4 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-accent ${active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-            {moreLinks.length > 0 && (
-              <div ref={moreMenuRef} className="relative flex h-full items-center">
-                <button
-                  type="button"
-                  aria-expanded={moreOpen}
-                  onClick={() => {
-                    setMoreOpen((open) => !open);
-                    setAccountOpen(false);
-                  }}
-                  className={`flex h-10 items-center rounded-full px-4 text-[15px] font-semibold transition-colors hover:bg-ink/[0.04] hover:text-ink focus-visible:outline-2 focus-visible:outline-accent ${moreLinks.some((link) => isActive(link.href)) ? "text-ink" : "text-ink-soft"}`}
-                >
-                  More
-                  <ChevronDown aria-hidden="true" className={`ml-1 h-4 w-4 transition-transform ${moreOpen ? "rotate-180" : ""}`} strokeWidth={1.75} />
-                </button>
-                {moreOpen && (
-                  <div className="absolute left-0 top-full z-50 mt-1 min-w-52 rounded-2xl border border-ledger-line bg-white p-2 shadow-[var(--shadow-overlay)]">
-                    {moreLinks.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={closeMoreMenu}
-                        aria-current={isActive(link.href) ? "page" : undefined}
-                        className="block rounded-xl px-3 py-2.5 text-[15px] font-medium text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+            <NavScrollStrip>
+              {PRIMARY_NAV.map((item) => renderLink(item, "primary"))}
+            </NavScrollStrip>
+            <TrustRotator />
           </nav>
         </div>
+
+        {/* ROW 3 — contextual strip, scrolls away with the page */}
+        <nav
+          aria-label="Secondary"
+          className="h-[38px] border-b border-ledger-line bg-accent-faint"
+        >
+          <div className="mx-auto flex h-full max-w-[1280px] items-center px-2 sm:px-4 lg:px-8">
+            <NavScrollStrip tone="cream">
+              {SECONDARY_NAV.map((item) => renderLink(item, "secondary"))}
+            </NavScrollStrip>
+          </div>
+        </nav>
       </header>
 
-      <MobileSearch
-        isOpen={mobileSearchOpen}
-        onClose={() => setMobileSearchOpen(false)}
-      />
+      <MobileSearch isOpen={mobileSearchOpen} onClose={() => setMobileSearchOpen(false)} />
     </>
   );
 }

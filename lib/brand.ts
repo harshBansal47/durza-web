@@ -40,26 +40,6 @@ export const BRAND = {
  * offers stay one tap away in the More menu. Single source of truth for the
  * desktop header, mobile nav and footer.
  */
-export const NAV_LINKS = [
-  { href: "/compare", label: "Comparisons" },
-  { href: "/guides", label: "Guides" },
-  { href: "/reviews", label: "Reviews" },
-  { href: "/tools", label: "Tools" },
-  { href: "/topics", label: "Topics" },
-];
-
-export const MORE_NAV_LINKS = [
-  { href: "/coupons", label: "Coupons" },
-  { href: "/deals", label: "Deals" },
-  { href: "/stores", label: "Stores" },
-  { href: "/categories", label: "Categories" },
-  { href: "/collections", label: "Collections" },
-  { href: "/bank-offers", label: "Bank & card offers" },
-  { href: "/black-friday", label: "Black Friday 2026" },
-  { href: "/methodology", label: "How we research" },
-  { href: "/saved", label: "Saved" },
-];
-
 /** The D mark on a 512x512 grid. Fill with fillRule="evenodd". */
 export const MARK_PATH =
   "M124 120H250.0A136.0 136.0 0 0 1 250.0 392H124V288.0A32 32 0 0 0 124 224.0ZM190 186H250.0A70.0 70.0 0 0 1 250.0 326H190Z";

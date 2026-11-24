@@ -21,8 +21,6 @@ class MockResizeObserver {
 
 global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 
-const links = [{ href: "/", label: "Home" }];
-
 const signedIn = {
   name: "Ava Tar",
   avatarUrl: "https://lh3.googleusercontent.com/a/abc=s96-c",
@@ -36,7 +34,7 @@ function renderHeader(user: SessionUser | null) {
         user ? { status: "authenticated", user } : { status: "anonymous", user: null }
       }
     >
-      <Header links={links} />
+      <Header />
     </SessionProvider>,
   );
 }
@@ -53,7 +51,7 @@ describe("Header account chip", () => {
   it("stays neutral while the session check is in flight", () => {
     render(
       <SessionProvider>
-        <Header links={links} />
+        <Header />
       </SessionProvider>,
     );
     expect(screen.queryByRole("link", { name: /sign in/i })).toBeNull();
@@ -94,5 +92,33 @@ describe("Header account chip", () => {
       "/account/settings",
     );
     expect(scope.getByRole("button", { name: "Sign out" })).toBeInTheDocument();
+  });
+});
+
+
+describe("three-row header", () => {
+  it("renders exactly Primary and Secondary nav landmarks", () => {
+    render(<Header />);
+    expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Secondary" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^more$/i })).toBeNull();
+  });
+
+  it("shows all nine former More destinations inline without a click", () => {
+    render(<Header />);
+    const secondary = screen.getByRole("navigation", { name: "Secondary" });
+    for (const label of [
+      "Coupons",
+      "Deals",
+      "Stores",
+      "Bank & card offers",
+      "Categories",
+      "Collections",
+      "Black Friday 2026",
+      "How we research",
+      "Saved",
+    ]) {
+      expect(within(secondary).getByRole("link", { name: new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i") })).toBeInTheDocument();
+    }
   });
 });

@@ -15,7 +15,7 @@ import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, TITLE_TEMPLATE } from "@/lib/si
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import InstallPrompt from "@/components/InstallPrompt";
 import QueryProvider from "@/components/providers/QueryProvider";
-import { BRAND, MORE_NAV_LINKS, NAV_LINKS } from "@/lib/brand";
+import { BRAND } from "@/lib/brand";
 import { getHasComparisons } from "@/lib/layout-data";
 import { SessionProvider } from "@/components/session/SessionProvider";
 import "@fontsource-variable/newsreader";
@@ -78,11 +78,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // route in the app into dynamic rendering, and the ad sits behind Suspense.
   const hasComparisons = await getHasComparisons().catch(() => false);
 
-  const navLinks = NAV_LINKS;
-  const moreNavLinks = hasComparisons
-    ? MORE_NAV_LINKS
-    : MORE_NAV_LINKS.filter((l) => l.href !== "/compare");
-
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
@@ -98,7 +93,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               >
                 Skip to content
               </a>
-              <Header links={navLinks} moreLinks={moreNavLinks} />
+              <Header />
               <FilterNavigationProvider>
                 <main id="main" className="flex-1">
                   {children}

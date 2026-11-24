@@ -648,3 +648,8 @@ body[data-filtering] [data-filter-results] {
     display: none !important;
   }
 }
+
+@keyframes durza-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
