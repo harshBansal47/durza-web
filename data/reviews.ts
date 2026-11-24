@@ -20,6 +20,8 @@ export interface ReviewEntry {
   authorName?: string;
   /** ISO date facts were actually checked. Never set without a real check. */
   factsCheckedOn?: string;
+  /** Named sources with the date each was opened. */
+  sources?: { label: string; href: string; checkedAt?: string }[];
   /** Optional second CTA beside the primary store link. */
   secondaryCta?: { label: string; href: string };
   /** Verified Amazon links for products or plans discussed in the review. */
@@ -189,6 +191,14 @@ export const REVIEWS: ReviewEntry[] = [
       "You need the laptop urgently and can’t wait 10–21 days for build/dispatch timelines.",
       "A ready-to-ship marketplace configuration with a strong bank offer gives better final value today.",
     ],
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-25T00:00:00.000Z",
+    sources: [
+      { label: "Lenovo India — offer terms and conditions", href: "https://www.lenovo.com/in/en/lenovo-offer-details/", checkedAt: "25 Nov 2026" },
+      { label: "Lenovo India — LOQ 15IRX9 listing (MTMs and prices)", href: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/len101q0005", checkedAt: "25 Nov 2026" },
+      { label: "Lenovo India — 83DV01K7IN listing (not available)", href: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/83dv01k7in", checkedAt: "25 Nov 2026" },
+      { label: "MRP rules — Legal Metrology (Maharashtra)", href: "https://www.legalmetrologymh.in/public/temp/368/919d4d8be0fbda825b0d10da72f6e1e7.pdf", checkedAt: "25 Nov 2026" },
+    ],
     ratingValue: 4.3,
     updatedLabel: "Updated Nov 2026",
     primaryCtaLabel: "Check Lenovo India Official Store",
@@ -210,6 +220,9 @@ export const REVIEWS: ReviewEntry[] = [
       { label: "Notable add-on", value: "₹999 3-Year Accidental Damage Protection (check eligibility/configuration at checkout)" },
       { label: "Delivery reality", value: "Typically 10–21 days for custom/factory orders; timelines vary by config and PIN code" },
       { label: "Marketplace trade-off", value: "Amazon/Flipkart may deliver faster and run instant bank offers, but with fewer CTO choices" },
+      { label: "Offer window (checked 25 Nov 2026)", value: "24 Nov–2 Dec 2026 per Lenovo India's official offer terms" },
+      { label: "Benefit type", value: "Post-payment cashback, not an instant checkout discount; not valid on EMI" },
+      { label: "Verified listing", value: "LOQ 83DV01KYIN ₹1,58,491 (MRP ₹2,49,591), Lenovo India, 25 Nov 2026 — not a live quote" },
     ],
     body: [
       {
@@ -217,6 +230,13 @@ export const REVIEWS: ReviewEntry[] = [
         paragraphs: [
           "Lenovo.com/in is strongest when you care about the exact machine, not just the model name. Custom-To-Order (CTO) options on ThinkPad and gaming lines (LOQ/Legion) let you choose practical specs like RAM, SSD, and display variants that are often missing in marketplace listings.",
           "When you stack eligible SheerID student/corporate benefits, MyLenovo Rewards, and a sensible protection plan like ₹999 3-year Accidental Damage Protection, the effective ownership value can beat a similar-looking Amazon/Flipkart prebuilt—especially for users who keep laptops for years.",
+        ],
+      },
+      {
+        heading: "What the 25 November listing check showed",
+        paragraphs: [
+          "Published listings checked on 25 Nov 2026 show why the exact MTM matters: Lenovo India listed LOQ 83DV01KYIN at ₹1,58,491 against MRP ₹2,49,591, while 83DV01K7IN at ₹1,61,990 was marked 'currently not available'. These are dated displays, not live quotes — confirm the model code and final payable on the store.",
+          "Lenovo's official offer terms for the same date list a 24 Nov–2 Dec 2026 window and describe the benefit as post-payment cashback, not an instant checkout reduction. The opened pages disagree on the cashback amount and timing, so verify on the offer page rather than assuming a fixed saving.",
         ],
       },
       {
@@ -236,10 +256,12 @@ export const REVIEWS: ReviewEntry[] = [
     relatedGuides: [
       { href: "/guides/lenovo-laptop-offers-india-2026", label: "Lenovo Laptop Offers in India (2026)" },
       { href: "/guides/best-acer-laptop-deals-promo-codes", label: "Acer Laptop Deals & Buying Guide" },
+      { href: "/guides/how-to-match-laptop-model-codes-india", label: "How to match laptop model codes" },
     ],
     relatedCompares: [
       { href: "/compare/official-brand-store-vs-amazon-flipkart-laptops-india", label: "Official Brand Store vs Amazon & Flipkart for Laptops" },
       { href: "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026", label: "Best Laptop Deals: Amazon vs Flipkart (2026)" },
+      { href: "/compare/mrp-vs-recent-price-india-sale-baseline", label: "MRP vs recent selling price" },
     ],
     relatedStores: [
       { href: "/stores/lenovo", label: "Lenovo India" },

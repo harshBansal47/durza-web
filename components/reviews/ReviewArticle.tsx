@@ -103,6 +103,22 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
           hasMethod
         />
 
+        {entry.sources && entry.sources.length > 0 && (
+          <section aria-labelledby="review-sources" className="mt-8 rounded-2xl border border-ledger-line bg-white p-5">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Evidence · checked 25 Nov 2026</p>
+            <h2 id="review-sources" className="mt-1 font-serif text-xl font-bold text-ink">Sources behind this review</h2>
+            <p className="mt-1 text-xs leading-5 text-ink-soft">Figures are published listings or official documents, not live quotes. Durza did not physically test or buy these products.</p>
+            <ul className="mt-3 space-y-2">
+              {entry.sources.map((source) => (
+                <li key={source.href} className="text-sm">
+                  <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#8a4b12] hover:underline">{source.label} ↗</a>
+                  {source.checkedAt && <span className="ml-2 text-xs text-ink-soft">checked {source.checkedAt}</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <div className="relative mt-7 overflow-hidden rounded-3xl border border-[#141413]/10 bg-white shadow-sm">
           <div className="relative aspect-[16/9] w-full">
             <Image src={entry.heroImage} alt="" fill priority sizes="(max-width: 896px) 100vw, 896px" className="object-cover" />
