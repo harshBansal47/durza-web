@@ -40,6 +40,9 @@ export default function TopicsIndexPage() {
                 {topic.eyebrow}
               </span>
               <span className="mt-2 font-serif text-xl font-bold text-ink">{topic.label}</span>
+              <span className="mt-1 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+                Category hub: {topic.categoryLabel}
+              </span>
               <span className="mt-2 flex-1 text-sm leading-6 text-ink-soft">{topic.description}</span>
               <span className="mt-4 inline-flex items-center justify-between text-sm font-bold text-durza-deep">
                 {counts.get(topic.id) ?? 0} published pieces

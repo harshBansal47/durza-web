@@ -23,6 +23,9 @@ export interface TopicDefinition {
   eyebrow: string;
   description: string;
   hubHref: string;
+  /** Matching commerce category hub — kept in sync with /categories/*. */
+  categoryHref: string;
+  categoryLabel: string;
   glyph: TopicGlyph;
   /** Exact category labels used by the static datafiles and store guides. */
   categories: string[];
@@ -42,6 +45,9 @@ export const TOPICS: TopicDefinition[] = [
     description:
       "Side-by-side laptop, phone and audio decisions, with the tradeoffs spelled out and calculators for the numbers that matter.",
     hubHref: "/topics/tech",
+    /** Matching commerce category hub — kept in sync with /categories/*. */
+    categoryHref: "/categories/electronics",
+    categoryLabel: "Electronics",
     glyph: "laptop",
     categories: [
       "Electronics & Laptops",
@@ -62,6 +68,9 @@ export const TOPICS: TopicDefinition[] = [
     description:
       "Appliance and household buying decisions, including running-cost tools, capacity checks and side-by-side brand comparisons.",
     hubHref: "/topics/home",
+    /** Matching commerce category hub — kept in sync with /categories/*. */
+    categoryHref: "/categories/home-kitchen",
+    categoryLabel: "Home & Kitchen",
     glyph: "home",
     categories: [
       "Health & Home",
@@ -82,6 +91,9 @@ export const TOPICS: TopicDefinition[] = [
     description:
       "Bank-offer maths, exchange-value checks and sale-timing comparisons — where the headline number is rarely the final number.",
     hubHref: "/topics/money",
+    /** Matching commerce category hub — kept in sync with /categories/*. */
+    categoryHref: "/categories/finance",
+    categoryLabel: "Finance & Cards",
     glyph: "wallet",
     categories: [
       "Sale & Card Math",
@@ -101,6 +113,9 @@ export const TOPICS: TopicDefinition[] = [
     description:
       "Supplement and fitness buying guides built around label data, per-serving cost and what the product actually delivers.",
     hubHref: "/topics/health",
+    /** Matching commerce category hub — kept in sync with /categories/*. */
+    categoryHref: "/categories/supplements",
+    categoryLabel: "Supplements & Fitness",
     glyph: "heart",
     categories: [
       "Health & Supplements",
@@ -120,6 +135,9 @@ export const TOPICS: TopicDefinition[] = [
     description:
       "Skincare, haircare and grooming decisions organized by skin concern and routine step rather than by brand discount.",
     hubHref: "/topics/beauty",
+    /** Matching commerce category hub — kept in sync with /categories/*. */
+    categoryHref: "/categories/beauty",
+    categoryLabel: "Beauty & Grooming",
     glyph: "sparkles",
     categories: [
       "Fashion & Beauty",
@@ -140,6 +158,9 @@ export const TOPICS: TopicDefinition[] = [
     description:
       "Footwear, clothing and accessory decisions with size and material tradeoffs explained before the offer is shown.",
     hubHref: "/topics/fashion",
+    /** Matching commerce category hub — kept in sync with /categories/*. */
+    categoryHref: "/categories/fashion",
+    categoryLabel: "Fashion",
     glyph: "shirt",
     categories: [
       "Fashion & Activewear",
@@ -159,6 +180,12 @@ export const TOPIC_BY_ID: Record<TopicId, TopicDefinition> = Object.fromEntries(
 
 export function isTopicId(value: string): value is TopicId {
   return Object.prototype.hasOwnProperty.call(TOPIC_BY_ID, value);
+}
+
+/** Resolve a decision topic to its matching commerce category hub. */
+export function correspondingCategory(topicId: TopicId): { href: string; label: string } {
+  const topic = TOPIC_BY_ID[topicId];
+  return { href: topic.categoryHref, label: topic.categoryLabel };
 }
 
 /** Exact first, then keyword fallback (longest keyword wins to avoid ties). */

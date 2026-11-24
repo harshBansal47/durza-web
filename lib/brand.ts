@@ -8,8 +8,11 @@
  */
 export const BRAND = {
   name: "Durza",
+  /** Legacy logo lockup text — keep until the SVG lockup is regenerated. */
   tagline: "Coupon & Deals",
   fullName: "Durza: Coupon & Deals",
+  /** The identity we now write and navigate to: decisions first, offers second. */
+  positioning: "Research-led product decisions",
   domain: "durza.in",
   /** Public AdSense publisher id. Slot ids can be overridden by env. */
   adsensePublisherId: "ca-pub-2024460550564731",
@@ -33,6 +36,31 @@ export const BRAND = {
   /** Page background, matches --color-paper in app/globals.css. */
   paper: "#FAFAF8",
 } as const;
+
+/**
+ * Navigation is editorial-first: the primary bar leads with decision formats,
+ * and offers stay one tap away in the More menu. Single source of truth so the
+ * desktop header, mobile nav and footer cannot drift apart.
+ */
+export const NAV_LINKS = [
+  { href: "/compare", label: "Comparisons" },
+  { href: "/guides", label: "Guides" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/tools", label: "Tools" },
+  { href: "/topics", label: "Topics" },
+];
+
+export const MORE_NAV_LINKS = [
+  { href: "/coupons", label: "Coupons" },
+  { href: "/deals", label: "Deals" },
+  { href: "/stores", label: "Stores" },
+  { href: "/categories", label: "Categories" },
+  { href: "/collections", label: "Collections" },
+  { href: "/bank-offers", label: "Bank & card offers" },
+  { href: "/black-friday", label: "Black Friday 2026" },
+  { href: "/methodology", label: "How we research" },
+  { href: "/saved", label: "Saved" },
+];
 
 /** The D mark on a 512x512 grid. Fill with fillRule="evenodd". */
 export const MARK_PATH =

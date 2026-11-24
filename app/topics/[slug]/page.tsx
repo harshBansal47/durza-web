@@ -66,6 +66,12 @@ export default async function TopicHubPage({ params }: { params: Promise<{ slug:
       </p>
       <h1 className="mt-2 font-serif text-4xl font-extrabold text-ink">{topic.label}</h1>
       <p className="mt-4 max-w-2xl text-base leading-7 text-ink-soft">{topic.description}</p>
+      <p className="mt-2 text-sm text-ink-soft">
+        Shopping for this topic? Browse{" "}
+        <Link href={topic.categoryHref} className="font-semibold text-durza-deep hover:underline">
+          {topic.categoryLabel} offers and stores →
+        </Link>
+      </p>
 
       {content.length === 0 ? (
         <p className="section-panel mt-10 p-6 text-sm text-ink-soft">
