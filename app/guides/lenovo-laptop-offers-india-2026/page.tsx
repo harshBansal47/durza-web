@@ -132,7 +132,6 @@ const EXPLORE_LINKS = [
   { href: "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026", label: "₹35K–₹75K laptops: Amazon vs Flipkart vs brand stores" },
   { href: "/reviews/lenovo-loq-and-thinkpad-india-official-store-review", label: "Buying direct from Lenovo India" },
   { href: "/guides/best-acer-laptop-deals-promo-codes", label: "Acer laptop deals and promo codes" },
-  { href: "/tools", label: "Durza shopping calculators" },
   { href: "/stores/lenovo", label: "Lenovo India store hub" },
   { href: "/stores/amazon-in", label: "Amazon India store hub" },
   { href: "/stores/flipkart", label: "Flipkart store hub" },

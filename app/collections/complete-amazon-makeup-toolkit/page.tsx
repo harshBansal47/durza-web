@@ -114,7 +114,6 @@ export default function Page() {
               { href: "/guides/dot-and-key-skin-active-guide", label: "Dot & Key skin actives guide" },
               { href: "/stores/amazon-in", label: "Amazon India store hub" },
               { href: "/stores/nykaa", label: "Nykaa store hub" },
-              { href: "/tools", label: "Durza shopping tools" },
               { href: "/methodology", label: "How Durza researches" },
             ].map((link) => (
               <li key={link.href}>

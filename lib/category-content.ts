@@ -1,28 +1,4 @@
-import { STORE_TOOLS, type StoreTool, type ToolCategory } from "@/lib/store-tools";
 import { STORE_GUIDES, type StaticGuide } from "@/data/store-guides";
-
-const TOOL_CATEGORIES_FOR_SITE: Record<string, ToolCategory[]> = {
-  beauty: ["beauty"],
-  fashion: ["fashion"],
-  supplements: ["fitness"],
-  fitness: ["fitness"],
-  electronics: ["tech"],
-  "home-kitchen": ["home"],
-  grocery: ["home", "fitness"],
-  software: ["tech"],
-  "ai-tools": ["tech"],
-  vpn: ["tech"],
-  "vpn-security": ["tech"],
-  hosting: ["tech"],
-  finance: ["tech"],
-  "tools-hardware": ["home", "tech"],
-  "baby-kids": ["family"],
-  gifts: ["family"],
-  travel: ["family"],
-  "food-delivery": ["family"],
-  other: [],
-  ecommerce: ["fashion", "home", "tech"],
-};
 
 const GUIDE_CATEGORY_HINTS: Record<string, RegExp> = {
   beauty: /beauty|personal care|groom|skin|fragrance|perfume|cosmetic|menstrual|intimate/i,
@@ -44,32 +20,6 @@ const GUIDE_CATEGORY_HINTS: Record<string, RegExp> = {
   travel: /travel|rail|flight|hotel/i,
   "food-delivery": /food|delivery|dining/i,
 };
-
-export function toolsForCategory(categorySlug: string, storeSlugsInCategory: Set<string>): StoreTool[] {
-  const mapped = TOOL_CATEGORIES_FOR_SITE[categorySlug] ?? [];
-  const byCategory = new Set(mapped);
-  const seen = new Set<string>();
-  const out: StoreTool[] = [];
-  for (const tool of STORE_TOOLS) {
-    if (seen.has(tool.id)) continue;
-    const storeMatch = storeSlugsInCategory.has(tool.store) || storeSlugsInCategory.has(tool.href.replace(/^\/stores\//, "").split(/[/?#]/)[0] || "");
-    const categoryMatch = byCategory.has(tool.category);
-    if (storeMatch || (categoryMatch && storeSlugsInCategory.size === 0)) {
-      // prefer store match, or category match when clearly relevant
-      if (storeMatch || categoryMatch) {
-        seen.add(tool.id);
-        out.push(tool);
-      }
-    }
-  }
-  // if nothing matched by store but we have mapped tool categories, include category-matching tools
-  if (out.length === 0 && byCategory.size > 0) {
-    for (const tool of STORE_TOOLS) {
-      if (byCategory.has(tool.category)) out.push(tool);
-    }
-  }
-  return out.slice(0, 12);
-}
 
 export function guidesForCategory(categorySlug: string, categoryName: string, storeSlugsInCategory: Set<string>): StaticGuide[] {
   const hint = GUIDE_CATEGORY_HINTS[categorySlug];

@@ -15,7 +15,6 @@ describe("single header nav config", () => {
       "/compare",
       "/guides",
       "/reviews",
-      "/tools",
       "/coupons",
       "/deals",
       "/stores",
@@ -33,7 +32,6 @@ describe("single header nav config", () => {
       "Comparisons",
       "Guides",
       "Reviews",
-      "Tools",
     ]);
     expect(SECONDARY_NAV.map((item) => item.label)).toEqual([
       "Coupons",

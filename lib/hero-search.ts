@@ -4,7 +4,7 @@
  * local pool cannot answer falls through to the full /search page.
  */
 
-export type HeroScope = "all" | "code" | "deal" | "store" | "tool";
+export type HeroScope = "all" | "code" | "deal" | "store";
 
 export interface SearchableDeal {
   id: string;
@@ -19,30 +19,19 @@ export interface SearchableStore {
   name: string;
 }
 
-export interface SearchableTool {
-  id: string;
-  title: string;
-  desc: string;
-  storeName: string;
-}
-
-export type HeroResult<D, S, T> =
+export type HeroResult<D, S> =
   | { type: "deal"; deal: D }
-  | { type: "store"; store: S }
-  | { type: "tool"; tool: T };
+  | { type: "store"; store: S };
 
 export const SCOPES: { id: HeroScope; label: string }[] = [
   { id: "all", label: "All" },
   { id: "code", label: "Coupon codes" },
   { id: "deal", label: "Deals" },
   { id: "store", label: "Stores" },
-  { id: "tool", label: "Tools" },
 ];
 
 const MAX_DEALS = 6;
 const MAX_STORES = 4;
-const MAX_TOOLS_IN_ALL = 3;
-const MAX_TOOLS = 8;
 
 function includes(haystack: string, needle: string): boolean {
   return haystack.toLowerCase().includes(needle);
@@ -56,27 +45,24 @@ function dealMatches(deal: SearchableDeal, q: string): boolean {
  * Results for a query and scope. With an empty query this returns a small "fresh
  * picks" starter so the dropdown is never blank on focus.
  */
-export function buildHeroResults<D extends SearchableDeal, S extends SearchableStore, T extends SearchableTool>(
+export function buildHeroResults<D extends SearchableDeal, S extends SearchableStore>(
   rawQuery: string,
   scope: HeroScope,
-  pool: { deals: readonly D[]; featured: readonly D[]; stores: readonly S[]; popularStores: readonly S[]; tools: readonly T[] },
-): HeroResult<D, S, T>[] {
+  pool: { deals: readonly D[]; featured: readonly D[]; stores: readonly S[]; popularStores: readonly S[] },
+): HeroResult<D, S>[] {
   const q = rawQuery.trim().toLowerCase();
-  const out: HeroResult<D, S, T>[] = [];
+  const out: HeroResult<D, S>[] = [];
   const dealsOf = (list: readonly D[], n: number) => list.slice(0, n).forEach((deal) => out.push({ type: "deal", deal }));
 
   if (!q) {
     if (scope === "all") {
       dealsOf(pool.featured, 3);
-      pool.tools.slice(0, 2).forEach((tool) => out.push({ type: "tool", tool }));
     } else if (scope === "code") {
       dealsOf(pool.deals.filter((d) => d.code), 3);
     } else if (scope === "deal") {
       dealsOf(pool.deals.filter((d) => !d.code), 3);
     } else if (scope === "store") {
       pool.popularStores.slice(0, 3).forEach((store) => out.push({ type: "store", store }));
-    } else {
-      pool.tools.slice(0, 4).forEach((tool) => out.push({ type: "tool", tool }));
     }
     return out;
   }
@@ -92,12 +78,6 @@ export function buildHeroResults<D extends SearchableDeal, S extends SearchableS
       .filter((s) => includes(s.name, q))
       .slice(0, MAX_STORES)
       .forEach((store) => out.push({ type: "store", store }));
-  }
-  if (scope === "all" || scope === "tool") {
-    pool.tools
-      .filter((t) => includes(`${t.title} ${t.desc} ${t.storeName}`, q))
-      .slice(0, scope === "all" ? MAX_TOOLS_IN_ALL : MAX_TOOLS)
-      .forEach((tool) => out.push({ type: "tool", tool }));
   }
   return out;
 }

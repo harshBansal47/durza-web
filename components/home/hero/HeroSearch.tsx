@@ -8,12 +8,10 @@ import { track } from "@/lib/analytics";
 import { buildHeroResults, SCOPES, splitHighlight, type HeroScope } from "@/lib/hero-search";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import StoreMark from "./StoreMark";
-import { TOOL_ICONS } from "@/components/tools/icons";
-import { STORE_TOOLS, type StoreTool } from "@/lib/store-tools";
 import { useMediaQuery, usePrefersReducedMotion } from "./hooks";
 import { hasOpenOverlay } from "./useDialog";
 
-const GROUP_LABEL = { deal: "Matching offers", store: "Stores", tool: "Instant tools" } as const;
+const GROUP_LABEL = { deal: "Matching offers", store: "Stores" } as const;
 
 function Highlight({ text, query }: { text: string; query: string }) {
   const [before, match, after] = splitHighlight(text, query);
@@ -27,7 +25,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
 }
 
 /**
- * The hero's command search. It searches the offers, stores and tools already on
+ * The hero's command search. It searches the offers and stores already on
  * the page (instant, no network); anything it cannot answer goes to /search.
  * Combobox keyboard model: ↑/↓ move, ↵ opens, Esc closes (then clears), "/" focuses.
  */
@@ -38,7 +36,6 @@ export default function HeroSearch({
   popularStores,
   totals,
   onOpenDeal,
-  onOpenTool,
 }: {
   deals: HeroDeal[];
   featured: HeroDeal[];
@@ -46,7 +43,6 @@ export default function HeroSearch({
   popularStores: HeroStore[];
   totals: { coupons: number; stores: number };
   onOpenDeal: (deal: HeroDeal) => void;
-  onOpenTool: (id: string) => void;
 }) {
   const router = useRouter();
   const listId = useId();
@@ -64,7 +60,7 @@ export default function HeroSearch({
   const reduced = usePrefersReducedMotion();
 
   const results = useMemo(
-    () => buildHeroResults<HeroDeal, HeroStore, StoreTool>(query, scope, { deals, featured, stores, popularStores, tools: STORE_TOOLS }),
+    () => buildHeroResults<HeroDeal, HeroStore>(query, scope, { deals, featured, stores, popularStores }),
     [query, scope, deals, featured, stores, popularStores],
   );
   const trimmed = query.trim();
@@ -115,7 +111,6 @@ export default function HeroSearch({
     setOpen(false);
     quietFocus.current = true;
     if (result.type === "deal") onOpenDeal(result.deal);
-    else if (result.type === "tool") onOpenTool(result.tool.id);
     else router.push(`/stores/${result.store.slug}`);
   }
 
@@ -143,10 +138,10 @@ export default function HeroSearch({
   }
 
   const placeholder = compact
-    ? "Search stores, codes, tools…"
+    ? "Search stores and codes…"
     : `Search ${totals.stores > 0 ? `${totals.stores.toLocaleString("en-IN")} stores` : "stores"}, ${
         totals.coupons > 0 ? `${totals.coupons.toLocaleString("en-IN")} codes` : "codes"
-      }, ${STORE_TOOLS.length} tools…`;
+      }…`;
 
   const headings = results.map((r) => (r.type === "deal" && !trimmed ? "Fresh-checked picks" : GROUP_LABEL[r.type]));
   return (
@@ -155,7 +150,7 @@ export default function HeroSearch({
       style={{ ["--i" as string]: 2 }}
       ref={zoneRef}
       role="search"
-      aria-label="Search offers, stores and tools"
+      aria-label="Search offers and stores"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false);
       }}
@@ -169,7 +164,7 @@ export default function HeroSearch({
           autoComplete="off"
           spellCheck={false}
           placeholder={placeholder}
-          aria-label="Search stores, codes and tools"
+          aria-label="Search stores and codes"
           role="combobox"
           aria-expanded={open}
           aria-controls={listId}
@@ -238,7 +233,7 @@ export default function HeroSearch({
             <div className="hx-empty">
               Nothing in today&apos;s picks matches <b>“{trimmed}”</b>.
               <br />
-              Try a store like <b>HealthKart</b>, a code like <b>SV10VC</b>, or a tool like <b>protein</b>.
+              Try a store like <b>HealthKart</b> or a code like <b>SV10VC</b>.
               {trimmed && (
                 <>
                   <br />
@@ -295,23 +290,6 @@ export default function HeroSearch({
                         <span className="hx-badge store">{result.store.offerCount != null ? `${result.store.offerCount} offers` : "STORE"}</span>
                       </button>
                     )}
-                    {result.type === "tool" && (() => {
-                      const Icon = TOOL_ICONS[result.tool.icon];
-                      return (
-                        <button type="button" {...common}>
-                          <span className={`hx-tc-icon tone-${result.tool.tone}`} style={{ width: 34, height: 34 }} aria-hidden="true">
-                            <Icon size={17} strokeWidth={2.1} />
-                          </span>
-                          <span className="hx-item-body">
-                            <span className="hx-item-title">
-                              <Highlight text={result.tool.title} query={trimmed} />
-                            </span>
-                            <span className="hx-item-meta">{result.tool.storeName} · {result.tool.desc}</span>
-                          </span>
-                          <span className="hx-badge tool">{result.tool.time}</span>
-                        </button>
-                      );
-                    })()}
                   </div>
                 );
               })}

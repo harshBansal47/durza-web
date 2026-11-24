@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BookOpen, Wrench } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { lookup, resilient } from "@/lib/api";
 import ListingHero from "@/components/listing/ListingHero";
 import CategoryChips from "@/components/CategoryChips";
@@ -20,7 +20,7 @@ import StoreCard from "@/components/stores/StoreCard";
 import { parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { categoryLabel } from "@/lib/catalog";
 import { allowedStoreIds } from "@/lib/homepage-curation";
-import { guidesForCategory, toolsForCategory } from "@/lib/category-content";
+import { guidesForCategory } from "@/lib/category-content";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
@@ -79,8 +79,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const title = `${label} Coupons & Deals${total > 0 ? `: ${total} Live Offers` : ""}`;
   const description =
     total > 0
-      ? `Browse ${total} live ${label.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, offer types and check dates shown when available.`
-      : `Browse ${label.toLowerCase()} coupons, promo codes and deals on Durza — with relevant stores, guides and tools.`;
+      ? `Browse ${total} live ${label.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides, offer types and check dates shown when available.`
+      : `Browse ${label.toLowerCase()} coupons, promo codes and deals on Durza — with relevant stores and guides.`;
   const canonical = absoluteUrl(`/categories/${category.slug}`);
   return {
     title,
@@ -153,7 +153,6 @@ export default async function CategoryPage({
 
   const storeSlugSet = new Set(offerStores.map((s) => s.slug));
   const guides = guidesForCategory(category.slug, categoryName, storeSlugSet);
-  const tools = toolsForCategory(category.slug, storeSlugSet);
 
   const subcategories = categories.filter((c) => c.parent_id === category.id);
   const parent = category.parent_id ? categories.find((c) => c.id === category.parent_id) : null;
@@ -170,7 +169,7 @@ export default async function CategoryPage({
       <ListingHero
         eyebrow={`${total.toLocaleString("en-IN")} live offer${total === 1 ? "" : "s"} in ${categoryName}`}
         title={`${categoryName} Coupons & Offers`}
-        lead={`Live ${categoryName.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides and tools, offer types and check dates shown when available.`}
+        lead={`Live ${categoryName.toLowerCase()} coupons, promo codes and deals — with relevant stores, guides, offer types and check dates shown when available.`}
         controls={
           <Suspense fallback={null}>
             <KeywordForm
@@ -188,7 +187,6 @@ export default async function CategoryPage({
           { value: total.toLocaleString("en-IN"), label: "Live offers", live: total > 0 },
           { value: offerStores.length.toLocaleString("en-IN"), label: "Stores" },
           ...(guides.length > 0 ? [{ value: guides.length.toLocaleString("en-IN"), label: "Guides" }] : []),
-          ...(tools.length > 0 ? [{ value: tools.length.toLocaleString("en-IN"), label: "Tools" }] : []),
         ]}
       />
 
@@ -298,29 +296,6 @@ export default async function CategoryPage({
           </section>
         )}
 
-        {tools.length > 0 && (
-          <section aria-labelledby="category-tools" className="mt-12 border-t border-ledger-line pt-8">
-            <div className="mb-4 flex items-end justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <Wrench aria-hidden="true" className="h-5 w-5 text-inkblue" strokeWidth={1.75} />
-                <h2 id="category-tools" className="font-serif text-xl text-ink">Tools for {categoryName}</h2>
-              </div>
-              <Link href="/tools" className="text-sm font-medium text-inkblue hover:underline">All tools</Link>
-            </div>
-            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {tools.map((t) => (
-                <li key={t.id}>
-                  <Link href={t.href} className="flex h-full flex-col rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)] transition hover:-translate-y-0.5 hover:border-inkblue">
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">{t.storeName} · {t.time}</p>
-                    <p className="mt-1 text-sm font-semibold text-ink">{t.title}</p>
-                    <p className="mt-1 line-clamp-2 text-xs text-ink-soft">{t.desc}</p>
-                    <span className="mt-3 inline-flex items-center text-xs font-semibold text-inkblue">{t.hrefLabel} →</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
       </FilterLayout>
     </div>
   );

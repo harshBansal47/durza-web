@@ -188,7 +188,6 @@ export default function SironaClient({ offers, faqs, stats, heroImageUrl, offerC
           <StoreGuideLink slug="sirona" />
         </div>
         <ul className="mt-2 grid gap-3 text-sm sm:grid-cols-2">
-          <li><Link href="/tools" className="font-medium text-durza-deep hover:underline">Shopping tools</Link></li>
           <li><Link href="/categories/beauty" className="font-medium text-durza-deep hover:underline">Beauty category</Link></li>
           <li><Link href="/stores/nuawoman-com-ecommerce-cps-india" className="font-medium text-durza-deep hover:underline">Nua store guide</Link></li>
         </ul>

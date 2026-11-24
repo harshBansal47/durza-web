@@ -90,7 +90,6 @@ const EXPLORE_LINKS = [
   { href: "/guides/cyber-monday-2026-india-electronics-home-gifts", label: "Cyber Monday 2026 India guide" },
   { href: "/categories/finance", label: "Finance & Cards deals and guides" },
   { href: "/bank-offers", label: "Live bank & card instant discounts" },
-  { href: "/tools", label: "Durza shopping calculators" },
   { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
   { href: "/stores/amazon-in", label: "Amazon India store hub" },
   { href: "/stores/flipkart", label: "Flipkart store hub" },

@@ -20,7 +20,6 @@ export const SITE_NAV: readonly SiteNavItem[] = [
   { label: "Comparisons", href: "/compare", tier: 1 },
   { label: "Guides", href: "/guides", tier: 1 },
   { label: "Reviews", href: "/reviews", tier: 1 },
-  { label: "Tools", href: "/tools", tier: 1 },
   { label: "Coupons", href: "/coupons", tier: 3 },
   { label: "Deals", href: "/deals", tier: 3 },
   { label: "Stores", href: "/stores", tier: 3 },

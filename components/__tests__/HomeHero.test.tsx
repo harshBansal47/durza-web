@@ -5,7 +5,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomeHero from "@/components/home/hero/HomeHero";
 import ToastProvider from "@/components/ui/Toast";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
-import { STORE_TOOLS } from "@/lib/store-tools";
 import type { CouponPublic } from "@/lib/types";
 
 const push = vi.fn();
@@ -72,7 +71,7 @@ function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) 
   );
 }
 
-const searchInput = () => screen.getByRole("combobox", { name: /search stores, codes and tools/i });
+const searchInput = () => screen.getByRole("combobox", { name: /search stores and codes/i });
 
 beforeEach(() => {
   push.mockReset();
@@ -84,10 +83,9 @@ afterEach(() => {
 });
 
 describe("HomeHero — structure", () => {
-  it("renders the compact headline, eyebrow, tools, featured panel and trust band", () => {
+  it("renders the compact headline, eyebrow, featured panel and trust band", () => {
     renderHero();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Discover genuine deals. Shop smarter. Save more.");
-    expect(screen.getAllByRole("button", { name: /Calculator|Decoder|Finder|Matcher/ })).toHaveLength(2);
     expect(screen.getByRole("complementary", { name: "Featured offers" })).toBeInTheDocument();
     expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "+ 89 more" })).toHaveAttribute("href", "/stores");
@@ -155,7 +153,7 @@ describe("HomeHero — search", () => {
     expect(searchInput()).toHaveValue("");
   });
 
-  it("scopes results: codes, deals, stores, tools", async () => {
+  it("scopes results: codes, deals, stores", async () => {
     const user = userEvent.setup();
     renderHero();
     await user.type(searchInput(), "off");
@@ -171,20 +169,11 @@ describe("HomeHero — search", () => {
     await user.clear(searchInput());
     await user.type(searchInput(), "boult");
     expect(screen.getByRole("listbox")).toHaveTextContent("GoBoult");
-    await user.clear(searchInput());
-    await user.type(searchInput(), "protein");
-    await user.click(screen.getByRole("tab", { name: "Tools" }));
-    expect(screen.getByRole("listbox")).toHaveTextContent("Protein Cost Decoder");
   });
 
-  it("opens a tool from results, routes a store click, and falls back to /search", async () => {
+  it("routes a store click and falls back to /search", async () => {
     const user = userEvent.setup();
     renderHero();
-    await user.type(searchInput(), "protein");
-    await user.click(screen.getByRole("tab", { name: "Tools" }));
-    await user.keyboard("{Enter}");
-    expect(await screen.findByRole("dialog", { name: /Protein Cost Decoder/ })).toBeInTheDocument();
-    await user.keyboard("{Escape}");
 
     await user.click(screen.getByRole("tab", { name: "All" }));
     await user.clear(searchInput());
@@ -214,78 +203,6 @@ describe("HomeHero — copy", () => {
   it("shows VIEW DEAL (not a code chip) for offers without a code", () => {
     renderHero();
     expect(screen.getByText("VIEW DEAL →")).toBeInTheDocument();
-  });
-});
-
-describe("HomeHero — tools", () => {
-  it("computes and updates live as inputs change", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    await user.click(screen.getByRole("button", { name: /Protein Cost Decoder/ }));
-    const dialog = screen.getByRole("dialog", { name: /Protein Cost Decoder/ });
-    expect(dialog).toHaveTextContent("₹76.4");
-    fireEvent.change(within(dialog).getByLabelText("Tub price (₹)"), { target: { value: "1200" } });
-    expect(dialog).toHaveTextContent("₹41.7");
-    expect(dialog).toHaveTextContent("Genuinely good value");
-  });
-
-  it("BLDC tool responds to its room-size control", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    await user.click(screen.getByRole("button", { name: /BLDC Power Calculator/ }));
-    const dialog = screen.getByRole("dialog");
-    expect(dialog).toHaveTextContent("1200 mm");
-    fireEvent.change(within(dialog).getByRole("slider", { name: /Room size/ }), { target: { value: "80" } });
-    expect(dialog).toHaveTextContent("900 mm");
-  });
-});
-
-describe("HomeHero — all-tools hub", () => {
-  it("lists every tool, filters by category and search, and opens a tool with a way back", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    const hubBtn = screen.getByRole("button", { name: /All \d+ tools/ });
-    await user.click(hubBtn);
-    const hub = screen.getByRole("dialog", { name: "Shopping tools" });
-    expect(within(hub).getByRole("searchbox", { name: "Search tools" })).toHaveFocus();
-    const total = STORE_TOOLS.length;
-    expect(hub.querySelectorAll(".hx-tcard")).toHaveLength(total);
-
-    await user.click(within(hub).getByRole("button", { name: /^Home & kitchen/ }));
-    expect(within(hub).queryByText(/Protein Cost Decoder/)).not.toBeInTheDocument();
-    expect(within(hub).getByText(/BLDC Power Calculator/)).toBeInTheDocument();
-    await user.click(within(hub).getByRole("button", { name: /^All \d+/ }));
-
-    await user.type(within(hub).getByRole("searchbox", { name: "Search tools" }), "protein");
-    await user.click(within(hub).getByRole("button", { name: /Protein Cost Decoder/ }));
-    expect(screen.queryByRole("dialog", { name: "Shopping tools" })).not.toBeInTheDocument();
-    const tool = screen.getByRole("dialog", { name: /Protein Cost Decoder/ });
-    expect(tool).toHaveTextContent(/per 25/i);
-
-    await user.click(within(tool).getByRole("button", { name: "Back to all tools" }));
-    expect(screen.getByRole("dialog", { name: "Shopping tools" })).toBeInTheDocument();
-    await user.keyboard("{Escape}");
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(document.body.style.overflow).toBe("");
-  });
-
-  it("returns focus to the hub button when a tool opened from the hub is closed", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    const hubBtn = screen.getByRole("button", { name: /All \d+ tools/ });
-    await user.click(hubBtn);
-    const hub = screen.getByRole("dialog", { name: "Shopping tools" });
-    await user.click(within(hub).getByRole("button", { name: /BLDC Power Calculator/ }));
-    await user.keyboard("{Escape}");
-    await vi.waitFor(() => expect(hubBtn).toHaveFocus());
-  });
-
-  it("shows an empty state for a tool search with no match", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    await user.click(screen.getByRole("button", { name: /All \d+ tools/ }));
-    await user.type(screen.getByRole("searchbox", { name: "Search tools" }), "zzzzqq");
-    expect(screen.getByText(/No tool matches/)).toBeInTheDocument();
   });
 });
 
@@ -337,8 +254,6 @@ describe("HomeHero — drawer & overlay hygiene", () => {
     renderHero();
     const keydownBefore = add.mock.calls.filter(([t]) => t === "keydown").length;
     for (let i = 0; i < 5; i++) {
-      await user.click(screen.getByRole("button", { name: /Protein Cost Decoder/ }));
-      await user.keyboard("{Escape}");
       await user.click(screen.getAllByRole("button", { name: /Flat ₹300 off on earbuds/ })[0]);
       await user.click(screen.getByRole("button", { name: "Close offer details" }));
     }

@@ -43,12 +43,6 @@ const ROUTES = [
     body: "Best picks at a price, with the tradeoffs explained.",
     cta: "Browse guides",
   },
-  {
-    href: "/tools",
-    title: "Want a live answer?",
-    body: "Calculators for running cost, true discount and value per gram.",
-    cta: "Open tools",
-  },
 ];
 
 function formatUpdated(iso: string | null): string | null {

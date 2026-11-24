@@ -28,7 +28,6 @@ function columns(hasComparisons: boolean) {
     ...(hasComparisons ? [{ href: "/compare", label: "Comparisons" }] : []),
     { href: "/reviews", label: "Reviews" },
     { href: "/collections", label: "Collections" },
-    { href: "/tools", label: "Shopping tools" },
     { href: "/black-friday", label: "Black Friday 2026" },
   ];
   return [

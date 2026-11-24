@@ -5,10 +5,6 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import "./hero.css";
-import ToolDialog from "@/components/tools/ToolDialog";
-import ToolHubDialog from "@/components/tools/ToolHub";
-import { TOOL_ICONS } from "@/components/tools/icons";
-import { FEATURED_TOOLS, STORE_TOOLS, TOOLS_BY_ID } from "@/lib/store-tools";
 import FeaturedDesk from "./FeaturedDesk";
 import HeroBand from "./HeroBand";
 import HeroSearch from "./HeroSearch";
@@ -29,21 +25,11 @@ export interface HomeHeroProps {
 
 /**
  * Homepage hero, light theme: verification ticker, headline + command search +
- * quick tools, the featured-offers panel, and a trust/stats band. Owns the two
- * overlays (offer drawer, tool modal) so any entry point — search result,
- * featured card, a tool's related offer — opens the same ones.
+ * the featured-offers panel and a trust/stats band. Owns the offer drawer so
+ * any entry point — search result or featured card — opens the same one.
  */
 export default function HomeHero({ deals, featured, stores, popularStores, categories, stats }: HomeHeroProps) {
   const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
-  // `fromHub` makes the tool's back arrow return to the list instead of closing.
-  const [toolView, setToolView] = useState<{ id: string; fromHub: boolean } | null>(null);
-  const [hubOpen, setHubOpen] = useState(false);
-  const hubButton = useRef<HTMLButtonElement>(null);
-  const activeTool = toolView ? TOOLS_BY_ID.get(toolView.id) ?? null : null;
-  const backToHub = () => {
-    setToolView(null);
-    setHubOpen(true);
-  };
   const gridRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
 
@@ -106,29 +92,8 @@ export default function HomeHero({ deals, featured, stores, popularStores, categ
             popularStores={popularStores}
             totals={{ coupons: stats.coupons, stores: stats.stores }}
             onOpenDeal={setDrawerDeal}
-            onOpenTool={(id) => setToolView({ id, fromHub: false })}
           />
 
-          <div className="hx-tools-mini hx-rise" style={{ ["--i" as string]: 3 }}>
-            <span className="hx-tools-mini-label">Quick tools</span>
-            {FEATURED_TOOLS.map((tool) => {
-              const Icon = TOOL_ICONS[tool.icon];
-              return (
-                <button
-                  key={tool.id}
-                  type="button"
-                  className="hx-toolmini"
-                  onClick={() => setToolView({ id: tool.id, fromHub: false })}
-                >
-                  <Icon size={14} strokeWidth={2} aria-hidden="true" />
-                  {tool.title}
-                </button>
-              );
-            })}
-            <button ref={hubButton} type="button" className="hx-toolmini all" onClick={() => setHubOpen(true)}>
-              All {STORE_TOOLS.length} tools →
-            </button>
-          </div>
         </div>
 
         <div className="hx-right">
@@ -161,29 +126,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, categ
       <HeroBand popular={popularStores} moreStores={Math.max(0, stats.stores - popularStores.length)} stats={stats} />
       <div className="hx-seam" aria-hidden="true" />
 
-      {hubOpen && (
-        <ToolHubDialog
-          onClose={() => setHubOpen(false)}
-          onPick={(tool) => {
-            setHubOpen(false);
-            setToolView({ id: tool.id, fromHub: true });
-          }}
-        />
-      )}
-      {activeTool && toolView && (
-        <ToolDialog
-          key={activeTool.id}
-          tool={activeTool}
-          deals={deals}
-          onClose={() => {
-            setToolView(null);
-            // The hub card that launched this is gone; put focus back on the hub button.
-            if (toolView.fromHub) requestAnimationFrame(() => hubButton.current?.focus());
-          }}
-          onBack={toolView.fromHub ? backToHub : undefined}
-          onOpenDeal={setDrawerDeal}
-        />
-      )}
       {drawerDeal && <OfferDrawer key={drawerDeal.id} deal={drawerDeal} onClose={() => setDrawerDeal(null)} />}
     </section>
   );

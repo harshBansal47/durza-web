@@ -115,7 +115,6 @@ const EXPLORE_LINKS = [
   { href: "/compare/adidas-vs-nike-vs-asics-running-shoes-india", label: "Adidas vs Nike vs ASICS for Indian roads" },
   { href: "/compare/myntra-vs-ajio-vs-brand-stores-fashion-india", label: "Myntra vs Ajio vs official brand stores" },
   { href: "/guides/adidas-india-ultraboost-originals-training-2026-guide", label: "Adidas India 2026: runners, Originals and training picks" },
-  { href: "/tools", label: "Durza shopping calculators and fit tools" },
   { href: "/stores/adidas", label: "Adidas official store hub" },
   { href: "/stores/amazon-in", label: "Amazon India store hub" },
   { href: "/stores/flipkart", label: "Flipkart store hub" },

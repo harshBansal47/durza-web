@@ -83,7 +83,6 @@ const HUB_LINKS = [
   { href: "/stores/acer", label: "Acer store hub" },
   { href: "/stores/amazon-in", label: "Amazon India store hub" },
   { href: "/stores/flipkart", label: "Flipkart store hub" },
-  { href: "/tools", label: "All Durza shopping tools" },
 ];
 
 export default function BestAcerLaptopDealsPage() {

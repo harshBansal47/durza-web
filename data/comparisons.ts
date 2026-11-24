@@ -845,7 +845,6 @@ export const COMPARISONS: CompareEntry[] = [
     relatedReviewsStores: [
       { href: "/topics/health", label: "Health & Fitness topic hub" },
       { href: "/categories/supplements", label: "Supplements & Fitness category" },
-      { href: "/tools", label: "Protein Cost Decoder and other tools" },
       { href: "/reviews/kapiva-himalayan-shilajit-resin-india-review", label: "Kapiva Shilajit resin review" },
       { href: "/stores/kapiva", label: "Kapiva store hub" },
       { href: "/stores/hkvitals", label: "HK Vitals store hub" },
@@ -1270,7 +1269,6 @@ export const COMPARISONS: CompareEntry[] = [
     relatedReviewsStores: [
       { href: "/topics/tech", label: "Tech & Gadgets topic hub" },
       { href: "/categories/electronics", label: "Electronics category hub" },
-      { href: "/tools", label: "Durza shopping tools" },
       { href: "/coupons/boult-audio-w50-with-30db-active-noise-cancellation", label: "Boult W50 live offer" },
       { href: "/coupons/boult-audio-z40-pro-earbuds", label: "Boult Z40 Pro live offer" },
       { href: "/stores/boult", label: "Boult store hub & Audio Decision Snippet" },
@@ -1414,7 +1412,6 @@ export const COMPARISONS: CompareEntry[] = [
     relatedReviewsStores: [
       { href: "/categories/electronics", label: "Electronics category hub" },
       { href: "/topics/tech", label: "Tech & Gadgets topic hub" },
-      { href: "/tools", label: "Durza shopping calculators" },
       { href: "/bank-offers", label: "Bank & card instant discounts" },
       { href: "/reviews/lenovo-loq-and-thinkpad-india-official-store-review", label: "Buying direct from Lenovo India" },
       { href: "/stores/amazon-in", label: "Amazon India store hub" },

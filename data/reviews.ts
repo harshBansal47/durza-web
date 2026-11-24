@@ -166,7 +166,6 @@ export const REVIEWS: ReviewEntry[] = [
       { href: "/topics/money", label: "Deals & Money Math topic hub" },
       { href: "/categories/finance", label: "Finance & Cards category" },
       { href: "/bank-offers", label: "Bank & card instant-discount offers" },
-      { href: "/tools", label: "Durza shopping calculators" },
       { href: "/reviews", label: "All Durza reviews" },
     ],
   },

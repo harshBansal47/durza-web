@@ -127,7 +127,6 @@ const EXPLORE_LINKS = [
   { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
   { href: "/reviews/amazon-prime-india-review-2026", label: "Amazon Prime India review: ₹399 vs ₹1,499" },
   { href: "/guides/amazon-finance-card-smarts-buying-guide", label: "Amazon finance & card smarts" },
-  { href: "/tools", label: "Durza shopping calculators" },
   { href: "/stores/amazon-in", label: "Amazon India coupons & deals" },
   { href: "/stores/flipkart", label: "Flipkart coupons & store hub" },
 ];
