@@ -315,4 +315,36 @@ export const VERIFIED_RESEARCH: Record<string, ResearchSet> = {
     ],
     note: "Official offer terms opened 25 Nov 2026, not live quotes. Durza did not attempt a checkout or claim any discount is guaranteed.",
   },
+  "model-codes": {
+    kicker: "Model-code discipline · checked 25 Nov 2026",
+    title: "A series name is not a SKU",
+    facts: [
+      {
+        label: "Lenovo LOQ 15IRX9 is a series",
+        detail: "Distinct MTMs checked 25 Nov 2026 include 83DV01KYIN (i5-13450HX/16GB/1TB/RTX 4050), 83DV01K8IN (i7/16GB/512GB), 83DV01LRIN (i7-14650HX/16GB/512GB TLC) and 83DV01K7IN (unavailable). Never merge them.",
+        href: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/len101q0005",
+      },
+      {
+        label: "ASUS TUF A14 has distinct suffixes",
+        detail: "FA401EA-RG020WS is Jaeger Gray with 32GB/1TB and part number 90NR0PM1-M001P0; RG019WS is Moonlight White. Vivobook 15 X1504VAP suffixes also differ in CPU and RAM.",
+        href: "https://in.store.asus.com/asus-tuf-gaming-a14-fa401ea-rg020ws-copilot-pc-gaming-laptop.html",
+      },
+      {
+        label: "Acer shares series names across specs",
+        detail: "Aspire 15 'AS15-39' appears with Ryzen 3 3200U (UN.38BSI.007) and Ryzen 5 3500U at different prices — the Ref code decides the product.",
+        href: "https://store.acer.com/en-in/laptops",
+      },
+      {
+        label: "Same-code cross-store example",
+        detail: "FA401EA-RG020WS was ₹2,49,990 at ASUS eStore and ₹2,54,000 at Flipkart on 25 Nov 2026 — a ₹4,010 gap by our arithmetic. Sellers differ (AYR Technologies vs GamingIcons), so warranty and returns differ too.",
+        href: "https://www.flipkart.com/asus-tuf-gaming-a14-2026-office-2024-m365-basic-ai-pc-npu-upto-50tops-amd-ryzen-max-32-gb-1-tb-ssd-windows-11-home-amd-radeon-8060s-165-hz-fa401ea-rg020ws-laptop/p/itm456a598c5ceae",
+      },
+      {
+        label: "Audio: ANC and ENC are different claims",
+        detail: "GoBoult Fluid X is ENC, not ANC; the Anchor page markets ANC while its spec block says ENC. Match the exact model and the exact claim before comparing.",
+        href: "https://goboult.co.in/products/fluid-x",
+      },
+    ],
+    note: "Exact codes and dated listings checked 25 Nov 2026. Durza did not physically test or buy any product.",
+  },
 };

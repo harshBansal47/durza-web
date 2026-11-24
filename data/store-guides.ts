@@ -3645,6 +3645,59 @@ const RAW_GUIDES_K: StaticGuide[] = [
     ],
     relatedStores: ["tatacliq-com-ecommerce-cps-india", "amazon-in", "lenovo-india"],
   },
+  {
+    slug: "how-to-match-laptop-model-codes-india",
+    storeSlug: "lenovo-india",
+    category: "Electronics",
+    seo: {
+      title: "How to Match Laptop Model Codes Across Indian Stores | Durza",
+      description: "A series name is not a SKU. Match the full MTM, part number or Ref code before comparing laptop prices across Amazon, Lenovo, ASUS and Acer in India.",
+    },
+    summary: "Match the exact MTM or part code before you compare prices — not the series name on the banner.",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-25T00:00:00.000Z",
+    audience: {
+      bestFor: [
+        "Shoppers comparing the same laptop across Amazon, Lenovo, ASUS, Acer and Flipkart.",
+        "Anyone who has seen two prices for 'the same' model and wants a reliable way to tell whether they are the same product.",
+      ],
+      skipIf: [
+        "Anyone who wants a single price for a whole series — different MTMs carry different processors, storage and graphics.",
+        "Readers wanting hands-on testing. This guide uses dated listings and manufacturer pages checked 25 Nov 2026.",
+      ],
+    },
+    relatedLinks: [
+      { href: "/compare/mrp-vs-recent-price-india-sale-baseline", label: "MRP vs recent selling price" },
+      { href: "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026", label: "Laptop deals across stores" },
+      { href: "/guides/sale-calendar-india-eors-pink-friday-2026", label: "India sale calendar 2026" },
+    ],
+    faqs: [
+      { question: "Why do two stores show different prices for the same laptop?", answer: "Often they are different SKUs under one series name. Lenovo LOQ 15IRX9 contains distinct MTMs such as 83DV01KYIN and 83DV01K7IN with different processors and storage. Match the exact code first." },
+      { question: "What is the safest way to compare prices?", answer: "Match the full model code on both dated pages, then compare the final payable including seller, warranty, taxes and any bank offer. For FA401EA-RG020WS on 25 Nov 2026, the listed prices were ₹2,49,990 at ASUS eStore and ₹2,54,000 at Flipkart — our arithmetic, not a live quote." },
+      { question: "Does a higher MRP mean a better deal?", answer: "No. MRP is a tax-inclusive legal ceiling, not a usual-price benchmark. The same FA401EA-RG020WS showed a ₹3,23,990 MRP at ASUS eStore and a ₹2,59,990 reference at Flipkart on 25 Nov 2026." },
+      { question: "Are ANC and ENC the same thing on a store page?", answer: "No. GoBoult states Fluid X uses an ENC mic, not ANC. The Anchor page markets ANC while its specification block says Environmental Noise Cancellation — verify the exact claim on the store." },
+    ],
+    blocks: [
+      { type: "evidence", kind: "model-codes" },
+      { type: "heading", heading: "The three identifiers that matter" },
+      { type: "list", items: [
+        "Lenovo: the MTM (e.g., 83DV01KYIN) on the product page — 'LOQ 15IRX9' is only the series.",
+        "ASUS: the full SKU and part number (FA401EA-RG020WS, 90NR0PM1-M001P0); RG019WS is a different colour and configuration.",
+        "Acer: the Ref code (UN.37RSI.003, UN.U7PSI.008); 'Aspire 5' or 'Nitro 5' alone is not enough.",
+      ] },
+      { type: "heading", heading: "Worked cross-store comparison" },
+      { type: "paragraph", text: "On 25 Nov 2026 the identical ASUS FA401EA-RG020WS was listed at ₹2,49,990 on ASUS eStore (MRP ₹3,23,990, seller AYR Technologies) and ₹2,54,000 on Flipkart (reference ₹2,59,990, seller GamingIcons). The ₹4,010 difference is our calculation from published listings, not a live quote. The sellers and return terms differ, so compare more than the headline number." },
+      { type: "heading", heading: "Before you buy" },
+      { type: "ordered_list", items: [
+        "Copy the full model code from each page, not the marketing name.",
+        "Confirm the variant: CPU, RAM, storage, display and graphics.",
+        "Check the seller of record and warranty, not just the store name.",
+        "Record the final payable on the payment screen, including any bank offer and exchange adjustment.",
+      ] },
+    ],
+    relatedStores: ["lenovo-india", "asus", "acer", "amazon-in"],
+  },
+
 ];
 
 const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F, ...RAW_GUIDES_G, ...RAW_GUIDES_H, ...RAW_GUIDES_I, ...RAW_GUIDES_J, ...RAW_GUIDES_K];
