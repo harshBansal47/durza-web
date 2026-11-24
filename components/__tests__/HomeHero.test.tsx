@@ -62,7 +62,6 @@ function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) 
           featured={featured}
           stores={stores}
           popularStores={stores}
-          categories={[{ slug: "electronics", name: "Electronics", count: 12 }, { slug: "fashion", name: "Fashion", count: 8 }]}
           stats={{ coupons: 1255, stores: 94, categories: 16 }}
           {...props}
         />
@@ -86,14 +85,26 @@ describe("HomeHero — structure", () => {
   it("renders the compact headline, eyebrow, featured panel and trust band", () => {
     renderHero();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Discover genuine deals. Shop smarter. Save more.");
-    expect(screen.getByRole("complementary", { name: "Featured offers" })).toBeInTheDocument();
+    const desk = screen.getByRole("complementary", { name: "Featured offers" });
+    expect(desk).toBeInTheDocument();
+    expect(within(desk).getByRole("link", { name: /Baby & Kids/ })).toHaveAttribute("href", "/categories/baby-kids");
+    expect(within(desk).getByRole("link", { name: /All categories/ })).toHaveAttribute("href", "/categories");
     expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "+ 89 more" })).toHaveAttribute("href", "/stores");
     expect(screen.getByRole("link", { name: /All 1,255 coupons/ })).toBeInTheDocument();
   });
 
+  it("leads with the Beauty Toolkit banner and its explore action", () => {
+    renderHero();
+    const promo = screen.getByRole("link", { name: /beauty toolkit/i });
+    expect(promo).toHaveAttribute("href", "/collections/complete-amazon-makeup-toolkit");
+    expect(within(promo).getByText(/explore the toolkit/i)).toBeInTheDocument();
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(promo.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("omits invented numbers when there is no data", () => {
-    renderHero({ categories: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
+    renderHero({ featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
     expect(screen.queryByText(/checked within the last 24 hours/i)).not.toBeInTheDocument();
     expect(screen.getByText(/No featured offers right now/)).toBeInTheDocument();
   });
