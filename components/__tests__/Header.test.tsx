@@ -104,6 +104,15 @@ describe("three-row header", () => {
     expect(screen.queryByRole("button", { name: /^more$/i })).toBeNull();
   });
 
+  it("puts Explore all topics on the right of the primary row instead of a Topics chip", () => {
+    render(<Header />);
+    const primary = screen.getByRole("navigation", { name: "Primary" });
+    expect(within(primary).queryByRole("link", { name: "Topics" })).toBeNull();
+    expect(
+      within(primary).getByRole("link", { name: /explore all topics/i }),
+    ).toHaveAttribute("href", "/topics");
+  });
+
   it("shows all nine former More destinations inline without a click", () => {
     render(<Header />);
     const secondary = screen.getByRole("navigation", { name: "Secondary" });

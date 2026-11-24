@@ -4,7 +4,7 @@
  * Tier 1 sits in the sticky Primary nav, tier 3 in the scrolling Secondary
  * strip. Every href is an existing route — this file never invents one.
  */
-export type NavIcon = "shield" | "sparkles" | "bookmark";
+export type NavIcon = "shield" | "sparkles" | "bookmark" | "compass";
 
 export interface SiteNavItem {
   label: string;
@@ -21,7 +21,6 @@ export const SITE_NAV: readonly SiteNavItem[] = [
   { label: "Guides", href: "/guides", tier: 1 },
   { label: "Reviews", href: "/reviews", tier: 1 },
   { label: "Tools", href: "/tools", tier: 1 },
-  { label: "Topics", href: "/topics", tier: 1 },
   { label: "Coupons", href: "/coupons", tier: 3 },
   { label: "Deals", href: "/deals", tier: 3 },
   { label: "Stores", href: "/stores", tier: 3 },
@@ -43,3 +42,10 @@ export const SITE_NAV: readonly SiteNavItem[] = [
 export const PRIMARY_NAV = SITE_NAV.filter((item) => item.tier === 1);
 export const SECONDARY_NAV = SITE_NAV.filter((item) => item.tier === 3);
 export const SAVED_NAV = SITE_NAV.find((item) => item.href === "/saved");
+
+/** Right-hand call to action in the primary row, outside the scrolling strip. */
+export const EXPLORE_TOPICS_NAV = {
+  label: "Explore all topics",
+  href: "/topics",
+  icon: "compass",
+} as const satisfies Pick<SiteNavItem, "label" | "href"> & { icon: NavIcon };

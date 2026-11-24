@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { PRIMARY_NAV, SAVED_NAV, SECONDARY_NAV, SITE_NAV } from "@/lib/nav-config";
+import {
+  EXPLORE_TOPICS_NAV,
+  PRIMARY_NAV,
+  SAVED_NAV,
+  SECONDARY_NAV,
+  SITE_NAV,
+} from "@/lib/nav-config";
 
 describe("single header nav config", () => {
   it("keeps every existing href exactly once", () => {
@@ -10,7 +16,6 @@ describe("single header nav config", () => {
       "/guides",
       "/reviews",
       "/tools",
-      "/topics",
       "/coupons",
       "/deals",
       "/stores",
@@ -29,7 +34,6 @@ describe("single header nav config", () => {
       "Guides",
       "Reviews",
       "Tools",
-      "Topics",
     ]);
     expect(SECONDARY_NAV.map((item) => item.label)).toEqual([
       "Coupons",
@@ -43,6 +47,11 @@ describe("single header nav config", () => {
       "Saved",
     ]);
     expect(SITE_NAV.some((item) => item.label === "More")).toBe(false);
+    expect(EXPLORE_TOPICS_NAV).toEqual({
+      label: "Explore all topics",
+      href: "/topics",
+      icon: "compass",
+    });
   });
 
   it("marks only the seasonal item and provides the saved shortcut", () => {

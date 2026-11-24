@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bookmark, Search, ShieldCheck, Sparkles } from "lucide-react";
+import { Bookmark, Compass, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Logo from "@/components/Logo";
 import { HeaderSearch, MobileSearch } from "@/components/HeaderSearch";
 import AccountMenu from "@/components/header/AccountMenu";
 import NavScrollStrip from "@/components/header/NavScrollStrip";
 import {
+  EXPLORE_TOPICS_NAV,
   PRIMARY_NAV,
   SAVED_NAV,
   SECONDARY_NAV,
@@ -21,6 +22,7 @@ const ICONS: Record<NavIcon, typeof ShieldCheck> = {
   shield: ShieldCheck,
   sparkles: Sparkles,
   bookmark: Bookmark,
+  compass: Compass,
 };
 
 /** Three-row Amazon-style header. All links come from the single nav config. */
@@ -57,6 +59,7 @@ export default function Header() {
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  const ExploreIcon = ICONS[EXPLORE_TOPICS_NAV.icon];
 
   const renderLink = (item: SiteNavItem, variant: "primary" | "secondary") => {
     const active = isActive(item.href);
@@ -152,6 +155,18 @@ export default function Header() {
             <NavScrollStrip>
               {PRIMARY_NAV.map((item) => renderLink(item, "primary"))}
             </NavScrollStrip>
+            <Link
+              href={EXPLORE_TOPICS_NAV.href}
+              aria-current={isActive(EXPLORE_TOPICS_NAV.href) ? "page" : undefined}
+              className={`ml-3 hidden shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-accent sm:flex ${
+                isActive(EXPLORE_TOPICS_NAV.href)
+                  ? "border-accent text-accent"
+                  : "border-ledger-line text-ink hover:border-accent hover:text-accent"
+              }`}
+            >
+              <ExploreIcon aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
+              <span>{EXPLORE_TOPICS_NAV.label}</span>
+            </Link>
           </nav>
         </div>
 
