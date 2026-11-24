@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Image from "next/image";
 import { ArrowUpRight, BadgeCheck, Check, Copy, Cpu, Lock, ShieldCheck, Zap } from "lucide-react";
 import { GO_REL, storeGoHref } from "@/lib/go";
@@ -229,6 +230,10 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
           </div>
         </div>
       </section>
+
+      <div className="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <VerifiedResearchPanel kind="acer" />
+      </div>
 
       {/* Urgency */}
       <div className="sticky top-0 z-40 border-y border-amber-200 bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100/95 shadow-sm backdrop-blur">

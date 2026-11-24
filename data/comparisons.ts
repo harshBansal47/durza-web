@@ -183,7 +183,9 @@ export const COMPARISONS: CompareEntry[] = [
     ],
     relatedGuides: [
       { href: "/guides/lenovo-laptop-offers-india-2026", label: "Lenovo India laptop offers guide" },
+      { href: "/guides/how-to-match-laptop-model-codes-india", label: "How to match laptop model codes" },
       { href: "/guides/best-acer-laptop-deals-promo-codes", label: "Acer laptop deals guide" },
+      { href: "/guides/sale-calendar-india-eors-pink-friday-2026", label: "India sale calendar 2026" },
     ],
     relatedReviewsStores: [
       { href: "/stores/amazon-in", label: "Amazon India store hub" },
@@ -396,6 +398,7 @@ export const COMPARISONS: CompareEntry[] = [
     ],
     relatedGuides: [
       { href: "/guides/best-credit-card-online-shopping-india-2026", label: "Best online-shopping card guide" },
+      { href: "/guides/sale-calendar-india-eors-pink-friday-2026", label: "India sale calendar 2026" },
     ],
     relatedReviewsStores: [
       { href: "/stores/amazon-in", label: "Amazon India store hub" },

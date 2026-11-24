@@ -75,6 +75,10 @@ export default async function TopicHubPage({ params }: { params: Promise<{ slug:
       </p>
 
       {slug === "money" && <div className="mt-8"><VerifiedResearchPanel kind="money" /></div>}
+      {slug === "tech" && <div className="mt-8"><VerifiedResearchPanel kind="model-codes" /></div>}
+      {(slug === "beauty" || slug === "fashion") && (
+        <div className="mt-8"><VerifiedResearchPanel kind="sale-calendar" /></div>
+      )}
 
       {content.length === 0 ? (
         <p className="section-panel mt-10 p-6 text-sm text-ink-soft">

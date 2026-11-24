@@ -2697,6 +2697,9 @@ const RAW_GUIDES_I: StaticGuide[] = [
     summary: "Which Lenovo laptop for your life — Legion to ThinkPad.",
     authorName: "Harsh Bansal",
     factsCheckedOn: "2026-11-25T00:00:00.000Z",
+    relatedLinks: [
+      { href: "/guides/how-to-match-laptop-model-codes-india", label: "How to match laptop model codes" },
+    ],
     faqs: [
       { question: "Which Lenovo laptop for Indian engineering students?", answer: "ThinkPad E16 (i5, 16GB) or IdeaPad Slim 5 (AMD Ryzen 7) — the standard sweet spot under ₹80,000 — covering CAD, IDEs and 3 simultaneous VMs. Gaming laptops are overkill for 95% of engineering curricula." },
       { question: "Should I buy Lenovo from lenovo.com or marketplaces?", answer: "lenovo.com carries exclusive coupons, bank offers and full 3-year warranty; marketplaces sometimes undercut on clearance. Check both before buying." },
@@ -2742,6 +2745,9 @@ const RAW_GUIDES_I: StaticGuide[] = [
     summary: "ROG vs TUF vs Zenbook vs Vivobook — India's pick.",
     authorName: "Harsh Bansal",
     factsCheckedOn: "2026-11-25T00:00:00.000Z",
+    relatedLinks: [
+      { href: "/guides/how-to-match-laptop-model-codes-india", label: "How to match laptop model codes" },
+    ],
     faqs: [
       { question: "Is ASUS ROG worth the money for Indian gamers?", answer: "For AAA titles at 2K/high frame rates, yes. For esports (Valorant, CS2), TUF delivers the same GPU performance at ₹20–30K less. ROG pays only when you want the Pantone-validated display and the Scar aesthetics." },
       { question: "Are Zenbook OLEDs better for video editors than desktops?", answer: "For colour-critical 4K timeline, yes — the 92% DCI-P3 gamut meets professional standards. For raw render throughput (AE, Resolve), a desktop with a dedicated GPU still wins on cost." },
