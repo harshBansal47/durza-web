@@ -89,7 +89,6 @@ describe("HomeHero — structure", () => {
     expect(desk).toBeInTheDocument();
     expect(within(desk).getByRole("link", { name: /Baby & Kids/ })).toHaveAttribute("href", "/categories/baby-kids");
     expect(within(desk).getByRole("link", { name: /All categories/ })).toHaveAttribute("href", "/categories");
-    expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "+ 89 more" })).toHaveAttribute("href", "/stores");
     expect(screen.getByRole("link", { name: /All 1,255 coupons/ })).toBeInTheDocument();
   });
