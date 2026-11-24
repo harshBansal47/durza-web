@@ -74,17 +74,16 @@ describe("Go to store", () => {
     expect(direct).toEqual([]);
   });
 
-  it("says we may earn a commission, right beside the button", () => {
+  it("links to a plain money disclosure beside the button", () => {
     renderStore(store());
-    expect(screen.getByText(/we may earn a commission/i)).toBeTruthy();
-    expect(screen.getByText(/never changes the price you pay/i)).toBeTruthy();
     expect(screen.getByRole("link", { name: /how we make money/i }).getAttribute("href")).toBe("/affiliate-disclosure");
+    expect(screen.getByText(/never changes the price you pay/i)).toBeTruthy();
   });
 
   it("shows no button, and no promise of one, when the store has no usable website", () => {
     renderStore(store({ website_url: "javascript:alert(1)" }));
     expect(goLinks()).toEqual([]);
-    expect(screen.queryByText(/we may earn a commission/i)).toBeNull();
+    expect(screen.queryByRole("link", { name: /how we make money/i })).toBeNull();
   });
 
   it("never mentions a network", () => {

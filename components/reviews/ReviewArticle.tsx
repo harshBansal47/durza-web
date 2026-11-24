@@ -47,7 +47,7 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
   };
 
   return (
-    <main className="bg-[#FAF8F5] text-[#141413]">
+    <div className="bg-[#FAF8F5] text-[#141413]">
       <JsonLd data={reviewJsonLd} />
       <JsonLd data={faqPageJsonLd(entry.faqs.map((f) => ({ question: f.question, answer: f.answer })))} />
       <JsonLd
@@ -297,6 +297,6 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
           This review reflects independent editorial assessment based on available product information, store policies, and buyer considerations at the time of update. Plans, pricing, availability, and benefits can change—check the official store page before buying.
         </p>
       </article>
-    </main>
+    </div>
   );
 }

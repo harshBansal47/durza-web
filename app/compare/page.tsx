@@ -28,7 +28,7 @@ const TOP_COMPARED_STORES = [
 
 export default function ComparisonsPage() {
   return (
-    <main className="bg-[#FAF8F5] text-[#141413]">
+    <div className="bg-[#FAF8F5] text-[#141413]">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
         <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
           Side-by-Side Buying Comparisons
@@ -63,6 +63,6 @@ export default function ComparisonsPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

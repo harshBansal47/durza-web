@@ -21,7 +21,7 @@ import { generateMetadata } from "../[slug]/page";
 import * as navigation from "next/navigation";
 
 const destination = (store: Record<string, unknown>, offers: number) => ({
-  store: { id: "s1", name: "Acer", slug: "acer", is_active: true, description: null, ...store },
+  store: { id: "s1", name: "Acer", slug: "generic-store", is_active: true, description: null, ...store },
   deals: [],
   coupons: Array.from({ length: offers }, (_, i) => ({ id: `c${i}`, code: "X" })),
   alternatives: [],
@@ -32,7 +32,7 @@ const destination = (store: Record<string, unknown>, offers: number) => ({
 
 const meta = (dest: unknown) => {
   getStoreDestination.mockResolvedValue(dest);
-  return generateMetadata({ params: Promise.resolve({ slug: "acer" }), searchParams: Promise.resolve({}) });
+  return generateMetadata({ params: Promise.resolve({ slug: "generic-store" }), searchParams: Promise.resolve({}) });
 };
 
 beforeEach(() => { getStoreDestination.mockReset(); vi.mocked(navigation.notFound).mockClear(); });

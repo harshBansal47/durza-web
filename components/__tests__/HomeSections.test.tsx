@@ -125,7 +125,7 @@ describe("Hero", () => {
     expect(screen.queryByText("Stores")).not.toBeInTheDocument();
   });
 
-  it("hides stat numbers until there are at least 5000 coupons", () => {
+  it("shows real counts even when they are small, without inflating them", () => {
     render(
       <Hero
         stats={[
@@ -136,9 +136,12 @@ describe("Hero", () => {
         popularStores={[]}
       />,
     );
-    expect(screen.queryByText("Active coupons")).not.toBeInTheDocument();
-    expect(screen.queryByText("Stores tracked")).not.toBeInTheDocument();
-    expect(screen.queryByText("Categories")).not.toBeInTheDocument();
+    expect(screen.getByText("Active coupons")).toBeInTheDocument();
+    expect(screen.getByText("724")).toBeInTheDocument();
+    expect(screen.getByText("Stores tracked")).toBeInTheDocument();
+    expect(screen.getByText("95")).toBeInTheDocument();
+    expect(screen.getByText("Categories")).toBeInTheDocument();
+    expect(screen.getByText("16")).toBeInTheDocument();
   });
 
   it("has a labelled product search with instant suggestions", () => {

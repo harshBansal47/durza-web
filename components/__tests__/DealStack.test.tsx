@@ -52,12 +52,12 @@ describe("DealStack", () => {
     expect(screen.getByRole("link", { name: /Deal C/ })).toHaveAttribute("href", "/coupons/c");
   });
 
-  it("shows Source verified only when a source URL exists", () => {
+  it("shows a source-page note only when a source URL exists", () => {
     const deals = [
       makeCoupon({ id: "c1", restrictions: { source_url: "https://example.com" } }),
       makeCoupon({ id: "c2", restrictions: null }),
     ];
     render(<DealStack deals={deals} />);
-    expect(screen.getAllByText("Source verified")).toHaveLength(1);
+    expect(screen.getAllByText("Source page seen")).toHaveLength(1);
   });
 });

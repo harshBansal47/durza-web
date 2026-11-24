@@ -90,7 +90,7 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
   };
 
   return (
-    <main className="bg-[#FAF8F5] text-[#141413]">
+    <div className="bg-[#FAF8F5] text-[#141413]">
       <JsonLd data={articleJsonLd} />
       <JsonLd data={itemListJsonLd} />
       <JsonLd data={faqPageJsonLd(entry.faqs.map((f) => ({ question: f.question, answer: f.answer })))} />
@@ -274,6 +274,6 @@ export default function CollectionArticle({ entry }: { entry: CollectionEntry })
           Live prices, availability, and offers are set by each store and can change. Check the final details on the store page before ordering. Some links may be affiliate links that support Durza at no extra cost to you.
         </p>
       </article>
-    </main>
+    </div>
   );
 }

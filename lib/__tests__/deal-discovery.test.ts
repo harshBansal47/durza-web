@@ -46,6 +46,7 @@ describe("deal discovery query", () => {
       expires_within_days: 7,
       sort: "trending",
       active_only: true,
+      has_code: false,
       skip: 20,
       limit: 20,
     });

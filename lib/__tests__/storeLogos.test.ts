@@ -26,7 +26,9 @@ describe("self-hosted icons", () => {
   it("every mapped icon exists in /public/stores", () => {
     const root = path.join(process.cwd(), "public");
     for (const [slug, url] of Object.entries(LOCAL_STORE_LOGOS)) {
-      expect(url, slug).toBe(`/stores/${slug}.png`);
+      // Several feed slugs intentionally share one self-hosted icon
+      // (e.g. the Ajio network slug uses the Ajio brand icon).
+      expect(url, slug).toMatch(/^\/stores\/[^/]+\.png$/);
       expect(existsSync(path.join(root, url)), `${slug} icon missing from public/`).toBe(true);
     }
   });
@@ -43,7 +45,11 @@ describe("storeAccent", () => {
     expect(storeAccent(undefined)).toBeNull();
   });
 
-  it("icon map and accent map cover exactly the same stores", () => {
-    expect(Object.keys(STORE_ACCENTS).sort()).toEqual(Object.keys(LOCAL_STORE_LOGOS).sort());
+  it("every self-hosted icon has a sampled accent colour", () => {
+    // STORE_ACCENTS also covers stores served by network-fetched icons, so it
+    // is a superset of the self-hosted map by design.
+    for (const slug of Object.keys(LOCAL_STORE_LOGOS)) {
+      expect(STORE_ACCENTS[slug], `${slug} accent missing`).toMatch(/^#[0-9a-f]{6}$/);
+    }
   });
 });

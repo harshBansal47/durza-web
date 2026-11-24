@@ -195,7 +195,7 @@ export default function AdminAdmitadPage() {
   const items = page?.items ?? [];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-6">
+    <div className="mx-auto max-w-6xl px-4 py-6">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Admitad program manager</h1>
@@ -512,6 +512,6 @@ export default function AdminAdmitadPage() {
           </ul>
         </section>
       )}
-    </main>
+    </div>
   );
 }

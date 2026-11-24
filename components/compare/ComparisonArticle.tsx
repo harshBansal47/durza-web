@@ -69,7 +69,7 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
   };
 
   return (
-    <main className="bg-[#FAF8F5] text-[#141413]">
+    <div className="bg-[#FAF8F5] text-[#141413]">
       <JsonLd data={articleJsonLd} />
       <JsonLd data={faqPageJsonLd(entry.faqs.map((f) => ({ question: f.question, answer: f.answer })))} />
       <JsonLd
@@ -367,6 +367,6 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
           Check {entry.verdict.primaryStoreLabel} live price <ExternalLink aria-hidden="true" className="h-4 w-4" />
         </a>
       </div>
-    </main>
+    </div>
   );
 }

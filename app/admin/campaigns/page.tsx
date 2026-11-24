@@ -165,7 +165,7 @@ export default function AdminCampaignsPage() {
   const items = page?.items ?? [];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-6">
+    <div className="mx-auto max-w-6xl px-4 py-6">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Campaign lifecycle &amp; store integration</h1>
@@ -480,6 +480,6 @@ export default function AdminCampaignsPage() {
           </ul>
         </section>
       )}
-    </main>
+    </div>
   );
 }

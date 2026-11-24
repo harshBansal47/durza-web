@@ -115,12 +115,14 @@ describe("CouponCard", () => {
     render(<CouponCard coupon={makeCoupon()} store={store} />);
     expect(screen.getByText("SAV•••")).toBeInTheDocument();
     expect(screen.queryByText("SAVE20")).not.toBeInTheDocument();
-    expect(screen.getByText("Tap View code to reveal")).toBeInTheDocument();
+    expect(screen.getByText("Tap to reveal on the offer page")).toBeInTheDocument();
   });
 
-  it("says a discount is already applied when there is no code", () => {
+  it("labels a code-less offer honestly without implying an auto-applied discount", () => {
     render(<CouponCard coupon={makeCoupon({ code: null })} store={store} />);
-    expect(screen.getByText(/applies at checkout/)).toBeInTheDocument();
+    expect(screen.getByText("Offer page")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /View Offer on Amazon/ })).toBeInTheDocument();
+    expect(screen.queryByText(/applies at checkout/)).not.toBeInTheDocument();
     expect(screen.queryByText("SAVE20")).not.toBeInTheDocument();
   });
 
@@ -416,7 +418,7 @@ describe("CouponCardGrid", () => {
       />,
     );
     expect(screen.getByRole("link", { name: /Amazon/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Ajio/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /ajio/i })).toBeInTheDocument();
   });
 
   it("renders a coupon without a badge when its store id is not in the list", () => {

@@ -137,7 +137,7 @@ export default async function StorePage({ params, searchParams }: Props) {
   const { destination, unavailable } = await loadStoreSafe(slug, skip);
   if (unavailable) {
     return (
-      <main className="mx-auto max-w-3xl px-4 py-10">
+      <div className="mx-auto max-w-3xl px-4 py-10">
         <h1 className="font-serif text-2xl font-bold text-ink">{formatStoreDisplayName({ slug, name: slug })}</h1>
         <p className="mt-3 text-sm text-ink-soft">
           We could not load live offers for this store right now. Try again shortly, or browse our
@@ -147,7 +147,7 @@ export default async function StorePage({ params, searchParams }: Props) {
           <Link href="/collections" className="text-inkblue underline">Curated collections</Link>
           <Link href={`/stores/${slug}`} className="text-inkblue underline">Retry this store</Link>
         </p>
-      </main>
+      </div>
     );
   }
   if (!destination || !destination.store.is_active) notFound();

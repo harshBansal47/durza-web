@@ -32,7 +32,7 @@ export default function SpotlightDeal({
   const discount = formatDiscount(coupon, store?.currency ?? "INR");
   // "Deal" alone says nothing in 3xl type; a code is the actionable thing to
   // show when the offer carries one, and otherwise the title carries it.
-  const figure = discount !== "Deal" ? discount : coupon.code;
+  const figure = discount !== "Deal" && discount !== "Mega deal" ? discount : coupon.code;
 
   return (
     <article className="mb-3 rounded-2xl border border-accent-soft/40 bg-gradient-to-br from-accent-faint to-paper-raised p-5 shadow-sm md:hidden">

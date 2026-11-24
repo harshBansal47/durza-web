@@ -5,7 +5,7 @@ import TrustBadge from "@/components/TrustBadge";
 describe("TrustBadge", () => {
   it("shows community verification only above the report threshold", () => {
     render(<TrustBadge successRate={0.9} reports={12} checkedDate="20 Oct 2026" />);
-    expect(screen.getByText(/Verified working by 12 Durza users recently/)).toBeInTheDocument();
+    expect(screen.getByText(/12 shopper reports said it worked recently/)).toBeInTheDocument();
   });
 
   it("shows the honest low-data state instead of a fake badge", () => {

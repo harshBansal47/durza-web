@@ -104,9 +104,9 @@ describe("CouponCodePanel", () => {
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 
-  it("discloses a possible commission next to the CTA for a code-less deal too", () => {
+  it("says plainly that a code-less deal opens the store in a new tab", () => {
     render(<CouponCodePanel coupon={{ ...codedCoupon, code: null }} storeName="Nykaa" />);
-    expect(screen.getByText(/opens nykaa in a new tab\. we may earn a commission/i)).toBeInTheDocument();
+    expect(screen.getByText(/Opens Nykaa in a new tab/)).toBeInTheDocument();
   });
 
   it("links the CTA to the /go redirect endpoint for this coupon's id", () => {
@@ -148,10 +148,9 @@ describe("CouponCodePanel", () => {
       expect(readLastGo(60_000)).toMatchObject({ couponId: codedCoupon.id, storeName: "Amazon", hadCode: true });
     });
 
-    it("tells the shopper, before they press it, that the store will open and a commission may be earned", () => {
+    it("tells the shopper, before they press it, that copying the code opens the store", () => {
       render(<CouponCodePanel coupon={codedCoupon} storeName="Amazon" />);
-      expect(screen.getByText(/opens Amazon in a new tab/)).toBeInTheDocument();
-      expect(screen.getByText(/may earn a commission/)).toBeInTheDocument();
+      expect(screen.getByText(/Copying the code opens Amazon in a new tab/)).toBeInTheDocument();
     });
 
     it("after the reveal, says the store is open and what to do next", async () => {
