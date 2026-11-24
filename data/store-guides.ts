@@ -3589,8 +3589,63 @@ const RAW_GUIDES_K: StaticGuide[] = [
     },
     auditedOn: "2026-11-18",
   },
+  {
+    slug: "sale-calendar-india-eors-pink-friday-2026",
+    storeSlug: "tatacliq-com-ecommerce-cps-india",
+    category: "Finance & cards",
+    seo: {
+      title: "India Sale Calendar 2026: EORS, Pink Friday and What Is Confirmed",
+      description: "Confirmed 2026 sale windows for Myntra EORS, Tata CLiQ and Flipkart, versus expected dates for winter EORS and Nykaa Pink Friday. Dated sources, no invented windows.",
+    },
+    summary: "Which 2026 sale dates are confirmed, which are expectations, and why a revealed price is not a payable one.",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-25T00:00:00.000Z",
+    audience: {
+      bestFor: [
+        "Shoppers planning a 2026 purchase around an Indian sale and wanting dates that a store actually published.",
+        "Anyone comparing a sale price against a dated same-SKU baseline rather than a strike-through MRP.",
+      ],
+      skipIf: [
+        "Anyone treating an expected date as a live sale window — expectations are labelled, not confirmed.",
+        "Readers wanting hands-on testing. This guide uses official pages and dated listings checked 25 Nov 2026; Durza did not buy or test any product.",
+      ],
+    },
+    relatedLinks: [
+      { href: "/compare/black-friday-2026-india-best-deals-vs-regular-sale", label: "Black Friday vs regular sales" },
+      { href: "/compare/mrp-vs-recent-price-india-sale-baseline", label: "MRP vs recent selling price" },
+      { href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india", label: "Instant discount vs No-Cost EMI" },
+    ],
+    faqs: [
+      { question: "Who runs the End of Reason Sale?", answer: "Myntra. Its official blog (checked 25 Nov 2026) lists the 2026 summer edition for 29 May–14 June with 50–90% off. Winter EORS is only expected 5–15 December 2026 per Bajaj Finance's 2 Nov guide; Myntra's live page shows no dates." },
+      { question: "What are Tata CLiQ's confirmed 2026 sale dates?", answer: "Its official press release lists Big CLiQ Sale 14–31 May, Moments that CLiQ 23 Jul–10 Aug, 10.10 sale 8–18 Oct, and Black Friday 19–30 Nov 2026." },
+      { question: "When is Nykaa's Pink Friday sale in 2026?", answer: "Not confirmed. Nykaa's opened pages checked 25 Nov 2026 show 'Pink Friday Sale Price' labels but no dates. A third-party brand blog claimed 21 Nov–7 Dec — sources disagree; verify on Nykaa's live site." },
+      { question: "Are revealed Pink Friday prices payable now?", answer: "No. Nykaa's price-reveal page showed L'Oréal serum at ₹719 current and ₹439 as a revealed Pink Friday price on 25 Nov 2026 — a reveal, not a live payable price. Verify when the sale goes live." },
+    ],
+    blocks: [
+      { type: "evidence", kind: "sale-calendar" },
+      { type: "heading", heading: "Confirmed windows you can plan around" },
+      { type: "list", items: [
+        "Flipkart Black Friday Sale: 21–27 Nov 2026, from Flipkart's official store page (checked 25 Nov 2026).",
+        "Tata CLiQ Fashion and Luxury Black Friday: 19–30 Nov 2026, from the official press release and American Express offer T&C.",
+        "Lenovo India offers: 24 Nov–2 Dec 2026, from Lenovo's official offer terms. The benefit is post-payment cashback, not an instant checkout discount.",
+        "Myntra End of Reason Sale summer 2026: 29 May–14 June, from Myntra's official blog.",
+        "Tata CLiQ regular sales: Big CLiQ Sale 14–31 May, Moments that CLiQ 23 Jul–10 Aug, 10.10 sale 8–18 Oct 2026.",
+      ] },
+      { type: "heading", heading: "Expected does not mean confirmed" },
+      { type: "paragraph", text: "Bajaj Finance's guide (updated 2 Nov 2026) says winter EORS is expected 5–15 December 2026, but Myntra's live EORS page showed no dates on 25 Nov 2026. Nykaa's live pages show Pink Friday price labels without dates; a third-party blog's 21 Nov–7 Dec claim is unconfirmed. Publish expected dates only as expectations — never as a live sale window." },
+      { type: "heading", heading: "A revealed price is not a payable price" },
+      { type: "paragraph", text: "Nykaa's price-reveal page checked 25 Nov 2026 showed L'Oréal Extraordinary Oil Serum at a regular ₹799, current ₹719 and a revealed Pink Friday price of ₹439. Against the current price that is 38.94% additional saving by our arithmetic on published figures; against the list price it is 45.06%. The reveal is not yet a payable price — verify when the sale goes live." },
+      { type: "heading", heading: "Build a same-SKU baseline first" },
+      { type: "list", items: [
+        "Match the exact model code or item, never a series name and never MRP.",
+        "PriceHistory.app's third-party record shows Lenovo LOQ 83DV01AAIN at ₹1,04,990 on 1 Nov 2026 and ₹1,17,990 on 24 Nov 2026 — the later price was 12.38% higher by our calculation. Verify on the store.",
+        "MRP is a tax-inclusive legal ceiling under rule 2(m) of the Packaged Commodities Rules, 2011 — not a record of what a product usually sold for.",
+        "Record the final payable on the payment screen, including any bank offer, exchange adjustment and excluded payment modes.",
+      ] },
+    ],
+    relatedStores: ["tatacliq-com-ecommerce-cps-india", "amazon-in", "lenovo-india"],
+  },
 ];
-
 
 const guides: StaticGuide[] = [...RAW_GUIDES, ...RAW_GUIDES_B, ...RAW_GUIDES_C, ...RAW_GUIDES_D, ...RAW_GUIDES_E, ...RAW_GUIDES_F, ...RAW_GUIDES_G, ...RAW_GUIDES_H, ...RAW_GUIDES_I, ...RAW_GUIDES_J, ...RAW_GUIDES_K];
 
