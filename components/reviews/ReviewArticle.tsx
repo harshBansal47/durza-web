@@ -134,6 +134,34 @@ export default function ReviewArticle({ entry }: { entry: ReviewEntry }) {
           </div>
         </section>
 
+        {entry.productLinks && entry.productLinks.length > 0 && (
+          <section aria-labelledby="review-product-links" className="mt-10 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-7">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Check live prices</p>
+            <h2 id="review-product-links" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">
+              Related Amazon links
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-[#5a564f]">
+              Prices and plan terms are dated snapshots on this page. Confirm them on Amazon before paying. As an Amazon Associate we earn from qualifying purchases.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {entry.productLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="nofollow sponsored noopener noreferrer"
+                    className="inline-flex min-h-11 items-start gap-1.5 text-sm font-semibold text-[#8a4b12] hover:underline"
+                  >
+                    <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+                    {link.label}
+                  </a>
+                  {link.note && <p className="ml-6 text-xs leading-5 text-[#5a564f]">{link.note}</p>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section aria-labelledby="pros-cons" className="mt-10">
           <h2 id="pros-cons" className="font-serif text-2xl font-extrabold text-[#141413] sm:text-3xl">Pros & cons</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">

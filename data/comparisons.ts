@@ -1,4 +1,5 @@
 import type { EditorialContent, EditorialFAQ } from "@/lib/types";
+import { getAmazonProductLink } from "@/lib/affiliate";
 
 export type CompareCategory =
   | "All"
@@ -29,6 +30,8 @@ export interface CompareEntry {
   factsCheckedOn?: string;
   /** The two-line "who this is for / who should skip" block from our template. */
   audience?: { bestFor: string[]; skipIf: string[] };
+  /** Verified Amazon product links for the exact models discussed. */
+  productLinks?: { label: string; href: string; note?: string }[];
   verdict: {
     optionA: string;
     optionB: string;
@@ -713,6 +716,26 @@ export const COMPARISONS: CompareEntry[] = [
         "Anyone seeking treatment or disease management. Dietary supplements do not diagnose, treat, cure or prevent disease, and this page makes no efficacy claims.",
       ],
     },
+    productLinks: [
+      {
+        label: "Check live price — Kapiva Himalayan Shilajit Resin 20g",
+        href: getAmazonProductLink("B09BZNDYT2", "compare_supplements"),
+        note: "Verified ASIN. 250mg servings; 18+ only.",
+      },
+      {
+        label: "Check live price — MuscleBlaze Biozyme Whey 1kg (Rich Chocolate)",
+        href: getAmazonProductLink("B091HTLXL3", "compare_supplements"),
+        note: "Verified ASIN. 25g protein per 36g scoop, 28 servings.",
+      },
+      {
+        label: "Check live price — MuscleBlaze Biozyme Whey 1kg (French Vanilla)",
+        href: getAmazonProductLink("B0CCV5T996", "compare_supplements"),
+      },
+      {
+        label: "Check live price — MuscleBlaze Biozyme Whey 1kg (Rocky Road)",
+        href: getAmazonProductLink("B0G1M1W72M", "compare_supplements"),
+      },
+    ],
     verdict: {
       optionA: "Kapiva Himalayan Shilajit Resin",
       optionB: "HK Vitals Marine Collagen / MuscleBlaze whey via HealthKart",
@@ -914,6 +937,13 @@ export const COMPARISONS: CompareEntry[] = [
         "Renters in low-pressure independent houses where a basic 6.5-bar budget geyser is sufficient.",
       ],
     },
+    productLinks: [
+      {
+        label: "Check live price — Crompton Arno Neo 15L",
+        href: getAmazonProductLink("B08GSQXLJ2", "compare_water_heater"),
+        note: "Verified ASIN. The Havells and AO Smith models do not yet have a verified product link on Durza.",
+      },
+    ],
     verdict: {
       optionA: "Havells Adonia Spin 15L",
       optionB: "AO Smith HSE-SDS-015 / Crompton Arno Neo 15L",

@@ -122,6 +122,11 @@ export function getAmazonAffiliateLink(
   }
 }
 
+/** Build a tagged Amazon.in product link from a verified ASIN. */
+export function getAmazonProductLink(asin: string, subId: string): string {
+  return getAmazonAffiliateLink(`https://www.amazon.in/dp/${encodeURIComponent(asin)}`, subId);
+}
+
 /**
  * Every configuration problem worth surfacing. Empty when the map is healthy.
  */

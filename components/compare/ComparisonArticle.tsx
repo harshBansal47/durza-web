@@ -180,6 +180,34 @@ export default function ComparisonArticle({ entry }: { entry: CompareEntry }) {
           </div>
         </section>
 
+        {entry.productLinks && entry.productLinks.length > 0 && (
+          <section aria-labelledby="product-links" className="mt-10 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-7">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Check live prices</p>
+            <h2 id="product-links" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">
+              The exact models in this comparison
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-[#5a564f]">
+              Prices are snapshots from the date on this page, not live quotes. Confirm the model and price on Amazon before paying. As an Amazon Associate we earn from qualifying purchases.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {entry.productLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="nofollow sponsored noopener noreferrer"
+                    className="inline-flex min-h-11 items-start gap-1.5 text-sm font-semibold text-[#8a4b12] hover:underline"
+                  >
+                    <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+                    {link.label}
+                  </a>
+                  {link.note && <p className="ml-6 text-xs leading-5 text-[#5a564f]">{link.note}</p>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section aria-labelledby="insider-reality" className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-5 sm:p-7">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-800">Insider reality</p>
           <h2 id="insider-reality" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">{entry.insider.title}</h2>

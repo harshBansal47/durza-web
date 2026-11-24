@@ -1,3 +1,5 @@
+import { getAmazonAffiliateLink } from "@/lib/affiliate";
+
 export type ReviewCategory =
   | "Memberships & Cards"
   | "Laptops & Tech"
@@ -20,6 +22,8 @@ export interface ReviewEntry {
   factsCheckedOn?: string;
   /** Optional second CTA beside the primary store link. */
   secondaryCta?: { label: string; href: string };
+  /** Verified Amazon links for products or plans discussed in the review. */
+  productLinks?: { label: string; href: string; note?: string }[];
   /** Extra internal links: hubs, tools, and decision pages. */
   relatedLinks?: { href: string; label: string }[];
   verdict: string;
@@ -66,6 +70,18 @@ export const REVIEWS: ReviewEntry[] = [
     authorName: "Harsh Bansal",
     factsCheckedOn: "2026-11-24T00:00:00.000Z",
     secondaryCta: { label: "Check bank & card offers", href: "/bank-offers" },
+    productLinks: [
+      {
+        label: "Compare live Prime plans on Amazon India",
+        href: getAmazonAffiliateLink("https://www.amazon.in/amazonprime", "review_prime"),
+        note: "Plan prices and benefits checked 24 Nov 2026 — confirm on the live plan page.",
+      },
+      {
+        label: "Check Amazon Pay ICICI credit card eligibility",
+        href: getAmazonAffiliateLink("https://www.amazon.in/s?k=Amazon+Pay+ICICI+Bank+Credit+Card", "review_prime_card"),
+        note: "Amazon states 5% cashback for eligible Prime members, including Shopping Edition.",
+      },
+    ],
     verdict:
       "Pick Prime Shopping Edition at ₹399/year if you mainly want delivery and sale access — it breaks even after about 10 standard-delivery orders or 5 one-day orders a year. Pay ₹1,499 for Full Prime only if you also use Prime Video or Music enough to replace roughly ₹92/month of other streaming spend. The ₹299 monthly plan only wins if you need Prime for a single sale or show window.",
     whoShouldBuy: [
