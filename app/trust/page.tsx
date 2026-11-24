@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CalendarCheck2, Fingerprint, Store } from "lucide-react";
 import { absoluteUrl } from "@/lib/seo";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 
 export const metadata: Metadata = {
   title: "Trust & Verification | Durza",
@@ -91,6 +92,8 @@ export default function TrustPage() {
             })}
           </div>
         </section>
+
+        <div className="mt-10"><VerifiedResearchPanel kind="general" /></div>
 
         <section aria-labelledby="votes-sources" className="mt-10 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-7">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">

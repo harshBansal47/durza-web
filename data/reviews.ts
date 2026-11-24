@@ -71,6 +71,12 @@ export const REVIEWS: ReviewEntry[] = [
       "Prime in India is four plans, not one. The right choice depends on how many sub-₹499 orders you place, whether you stream, and whether you actually use the Amazon Pay ICICI cashback. All figures below were checked on 24 Nov 2026.",
     authorName: "Harsh Bansal",
     factsCheckedOn: "2026-11-24T00:00:00.000Z",
+    sources: [
+      { label: "About Amazon India — Black Friday Sale teaser (updated 19 Nov 2026)", href: "https://www.aboutamazon.in/news/retail/amazon-black-friday-sale-india", checkedAt: "25 Nov 2026" },
+      { label: "Amazon.in help — Great Indian Festival 2026 start date", href: "https://www.amazon.in/gp/help/customer/display.html?nodeId=TTOLfLWVy6YRkUJc35", checkedAt: "25 Nov 2026" },
+      { label: "About Amazon India — Great Indian Festival 2026 savings update (3 Nov 2026)", href: "https://www.aboutamazon.in/news/retail/amazon-great-indian-festival-2026-record-customer-savings", checkedAt: "25 Nov 2026" },
+      { label: "About Amazon Australia — Black Friday 2026 calendar explainer", href: "https://www.aboutamazon.com.au/news/retail/when-is-black-friday-2026-heres-everything-aussies-need-to-know", checkedAt: "25 Nov 2026" },
+    ],
     secondaryCta: { label: "Check bank & card offers", href: "/bank-offers" },
     productLinks: [
       {
@@ -118,8 +124,17 @@ export const REVIEWS: ReviewEntry[] = [
       { label: "Non-Prime delivery charges", value: "Standard ₹40 · Two-day ₹59 · One-day ₹79 · Same-day ₹99 per order (Amazon India shipping help, checked 24 Nov 2026)" },
       { label: "Break-even, Shopping Edition", value: "₹399 ÷ ₹40 ≈ 10 standard orders; ₹399 ÷ ₹79 ≈ 5 one-day orders; ₹399 ÷ ₹99 ≈ 4 same-day orders per year" },
       { label: "Annual vs monthly", value: "₹1,499 ÷ ₹299 = 5.01 months; 6 months monthly costs ₹1,794 (₹295 more); 12 months costs ₹3,588 (₹2,089 more)" },
+      { label: "Black Friday 2026 timing", value: "Amazon India confirmed the sale is returning; dates not announced as of 25 Nov 2026" },
+      { label: "Prior flagship event", value: "Great Indian Festival 2026 started 8 Oct and continued through 10 Nov (official pages, checked 25 Nov 2026)" },
     ],
     body: [
+      {
+        heading: "Sale timing: what was confirmed on 25 November",
+        paragraphs: [
+          "Amazon India's official page, updated 19 Nov 2026, says its Black Friday Sale is returning but that dates will be announced — not yet confirmed on the live site as of 25 Nov 2026. Amazon's own calendar explainer lists Friday 27 November 2026 as Black Friday; that is a calendar fact, not an Indian sale window.",
+          "The confirmed 2026 flagship was the Great Indian Festival: Amazon.in's help page lists an 8 October 2026 start, and Amazon India's 3 November update says it continued through 10 November. Do not treat festival dates as Black Friday dates, or import another market's window into India.",
+        ],
+      },
       {
         heading: "What changed in Prime India pricing and plans",
         paragraphs: [
@@ -152,12 +167,14 @@ export const REVIEWS: ReviewEntry[] = [
     ],
     relatedReviews: [],
     relatedGuides: [
+      { href: "/guides/sale-calendar-india-eors-pink-friday-2026", label: "India sale calendar 2026" },
       { href: "/guides/amazon-prime-audible-kindle-subscriptions-guide", label: "Amazon Prime, Audible & Kindle Subscriptions Guide" },
       { href: "/guides/best-credit-card-online-shopping-india-2026", label: "Best Credit Card for Online Shopping in India" },
       { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
       { href: "/guides/amazon-finance-card-smarts-buying-guide", label: "Amazon finance & card smarts" },
     ],
     relatedCompares: [
+      { href: "/compare/black-friday-2026-india-best-deals-vs-regular-sale", label: "Black Friday vs regular sales in India" },
       { href: "/compare/black-friday-2026-india-best-deals-vs-regular-sale", label: "Black Friday 2026 vs Regular Sales" },
       { href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india", label: "Instant Bank Discount vs No-Cost EMI" },
     ],

@@ -58,6 +58,12 @@ export default function DecisionDesk({ topics }: { topics: TopicSpotlight[] }) {
       <h2 id="decision-desk-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">
         Guides &amp; comparisons
       </h2>
+      <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
+        Our 25 Nov 2026 checks cover confirmed sale windows, exact model codes and MRP rules.{" "}
+        <Link href="/guides/how-to-match-laptop-model-codes-india" className="font-semibold text-durza-deep hover:underline">
+          See the model-code guide →
+        </Link>
+      </p>
 
       <div className="mt-5 border-t border-ledger-line pt-6">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="Browse by topic">

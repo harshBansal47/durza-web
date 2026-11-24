@@ -65,6 +65,13 @@ export default function CompareHub({ items }: { items: CompareEntry[] }) {
         })}
       </div>
 
+      {active === "Sale Events" && (
+        <div className="mt-4 rounded-2xl border border-[#8a4b12]/20 bg-[#fdf6ec] p-4 text-sm leading-6 text-[#3f3b35]">
+          <p className="font-semibold text-[#8a4b12]">Confirmed on 25 Nov 2026</p>
+          <p>Flipkart 21–27 Nov, Tata CLiQ 19–30 Nov and Lenovo India offers 24 Nov–2 Dec. Amazon India has confirmed a Black Friday sale but its dates were not announced. Read the <Link href="/compare/black-friday-2026-india-best-deals-vs-regular-sale" className="font-semibold text-[#8a4b12] hover:underline">dated comparison</Link> or the <Link href="/guides/sale-calendar-india-eors-pink-friday-2026" className="font-semibold text-[#8a4b12] hover:underline">sale calendar guide</Link>.</p>
+        </div>
+      )}
+
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         {filtered.map((item) => (
           <article key={item.slug} className="group overflow-hidden rounded-3xl border border-[#141413]/10 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
