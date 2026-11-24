@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import "./hero.css";
 import FeaturedDesk from "./FeaturedDesk";
@@ -17,23 +16,36 @@ export interface HomeHeroProps {
   stores: HeroStore[];
   popularStores: HeroStore[];
   stats: { coupons: number; stores: number; categories: number };
-  /** Offers the backend re-checked in the last 24h (a real count). */
 }
 
 /**
- * Homepage hero, light theme: verification ticker, headline + command search +
- * the featured-offers panel and a trust/stats band. Owns the offer drawer so
- * any entry point — search result or featured card — opens the same one.
+ * Homepage hero, light theme: headline + command search + the featured-offer
+ * panel and a trust/stats band. Owns the offer drawer so any entry point —
+ * search result or featured card — opens the same one.
  */
 export default function HomeHero({ deals, featured, stores, popularStores, stats }: HomeHeroProps) {
   const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(true);
   const reduced = usePrefersReducedMotion();
+
+  // The aurora and parallax are decorative: pause them once the hero is off-screen.
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: "80px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   // Dot-grid parallax: one passive listener, frame-throttled, removed on unmount.
   useEffect(() => {
     const el = gridRef.current;
-    if (!el || reduced) return;
+    if (!el || reduced || !visible) return;
     let frame = 0;
     const onScroll = () => {
       if (frame) return;
@@ -47,10 +59,10 @@ export default function HomeHero({ deals, featured, stores, popularStores, stats
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, [reduced]);
+  }, [reduced, visible]);
 
   return (
-    <section className="hx" aria-label="Current offers">
+    <section ref={sectionRef} className={`hx${visible ? " hx--visible" : ""}`} aria-label="Current offers">
       <div className="hx-bg" aria-hidden="true">
         <div className="hx-aurora" />
         <div className="hx-grid" ref={gridRef} />
@@ -73,7 +85,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, stats
             featured={featured}
             stores={stores}
             popularStores={popularStores}
-            totals={{ coupons: stats.coupons, stores: stats.stores }}
             onOpenDeal={setDrawerDeal}
           />
 

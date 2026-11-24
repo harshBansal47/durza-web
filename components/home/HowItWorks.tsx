@@ -1,6 +1,6 @@
 import { Search, Ticket, CheckCircle2 } from "lucide-react";
 
-const STEPS = [
+export const HOW_IT_WORKS_STEPS = [
   {
     glyph: Search,
     title: "Find an offer",
@@ -19,7 +19,7 @@ export default function HowItWorks() {
   return (
     <ol className="relative grid gap-5 md:grid-cols-3">
       <div aria-hidden="true" className="absolute left-[16%] right-[16%] top-9 hidden border-t border-ledger-line md:block" />
-      {STEPS.map((s, i) => {
+      {HOW_IT_WORKS_STEPS.map((s, i) => {
         const Glyph = s.glyph;
         return (
           <li key={s.title} className="lift relative rounded-lg border border-ledger-line bg-white p-6 text-center shadow-[var(--shadow-hairline)]">

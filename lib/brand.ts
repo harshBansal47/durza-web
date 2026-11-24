@@ -14,6 +14,10 @@ export const BRAND = {
   domain: "durza.in",
   /** Public AdSense publisher id. Slot ids can be overridden by env. */
   adsensePublisherId: "ca-pub-2024460550564731",
+  /** Public verification tags shared by every page's metadata. */
+  verification: {
+    foVerify: "9c8d9952-0191-423c-b22f-50669d1bb6da",
+  },
   /**
    * Default guide placements. These are public identifiers, not secrets; the
    * env vars override them so a different account can be used without a code

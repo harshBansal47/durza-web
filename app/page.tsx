@@ -7,13 +7,13 @@ import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
 import StoreTrackGrid from "@/components/home/StoreTrackGrid";
 import OfferRail from "@/components/home/OfferRail";
-import HowItWorks from "@/components/home/HowItWorks";
+import HowItWorks, { HOW_IT_WORKS_STEPS } from "@/components/home/HowItWorks";
+import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
-import { formatRelativeTime } from "@/lib/format";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import { formatStoreDisplayName } from "@/lib/store-display";
 import { categoryNameMap, popularStores as pickPopularStores, toHeroDeal, toHeroStore } from "@/lib/home-hero";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, howToJsonLd, itemListJsonLd } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
@@ -22,44 +22,57 @@ import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import DecisionDesk from "@/components/home/DecisionDesk";
 import { buildTopicSpotlights } from "@/lib/topics";
 import { discoverableContent } from "@/lib/topic-content";
-import { staticFeaturedGuides } from "@/lib/static-editorial";
 import { COLLECTIONS } from "@/data/collections";
 import { collectionFromEditorial } from "@/lib/collections";
 import type { DiscoverableContent } from "@/lib/topics";
-import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
+import type { EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
 export const revalidate = 21600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const canonical = absoluteUrl("/");
-  // The homepage title is the one place the `%s — Durza` template would
-  // double the brand, so it is declared absolute.
+  // Nested metadata is shallow-merged over the layout's, so repeat the shared
+  // fields here instead of silently dropping og:site_name and fo-verify.
+  // The homepage title is absolute: using the "%s | Durza" template here would
+  // append the brand to a title that already contains it.
+  const other: Record<string, string> = {
+    "google-adsense-account": BRAND.adsensePublisherId,
+    "fo-verify": BRAND.verification.foVerify,
+  };
+  if (process.env.MITGO_VERIFICATION) {
+    other["mitgo-verification"] = process.env.MITGO_VERIFICATION;
+  }
   return {
     title: { absolute: SITE_TITLE },
     description: SITE_DESCRIPTION,
     alternates: { canonical },
     openGraph: {
+      type: "website",
+      siteName: "Durza Coupons India",
       title: SITE_TITLE,
       description: SITE_DESCRIPTION,
       url: canonical,
-      type: "website",
     },
     twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
-    other: {
-      "google-adsense-account": BRAND.adsensePublisherId,
-      "mitgo-verification": process.env.MITGO_VERIFICATION ?? "36557085-458b-4657-ac1f-8b23e530c956",
-    },
+    other,
   };
-}
-
-async function safe<T>(promise: Promise<T>, fallback: T): Promise<T> {
-  return promise.catch(() => fallback);
 }
 
 export default async function HomePage() {
   const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
-  const emptyEditorialPage: Paginated<EditorialContent> = { items: [], total: 0, skip: 0, limit: 0 };
   const emptyEditorial: EditorialHomepage = { guides: [], comparisons: [], reviews: [], collections: [] };
+  const failedSources = new Set<string>();
+
+  // A failed request still falls back so one slow rail cannot blank the page.
+  // The failure is recorded: if it would produce the "no deals" state, the
+  // regeneration must throw so ISR keeps the last good page instead of caching
+  // an outage as an empty catalogue.
+  const safe = async <T,>(promise: Promise<T>, fallback: T, source: string): Promise<T> =>
+    promise.catch((error: unknown) => {
+      failedSources.add(source);
+      console.error(`[homepage] ${source} failed:`, error);
+      return fallback;
+    });
 
   // Every ordering and count below is the backend's answer to a real query. This page
   // never ranks, filters a sample, or estimates: a number on screen is a `total`.
@@ -67,25 +80,19 @@ export default async function HomePage() {
     coupons,
     stores,
     categories,
-    endingSoon,
-    newest,
     editorial,
     latestDeals,
     bestCoupons,
     allEditorial,
   ] = await Promise.all([
-    safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>),
-    safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>),
-    safe(api.listCategories({ limit: 24, live_only: true }), emptyPage as Paginated<never>),
-    safe(
-      api.listCoupons({ active_only: true, sort: "ending_soon", expires_within_days: 7, limit: 8 }),
-      emptyPage as Paginated<CouponPublic>,
-    ),
-    safe(api.listCoupons({ active_only: true, sort: "newest", limit: 8 }), emptyPage as Paginated<CouponPublic>),
-    safe(api.getEditorialHomepage(), emptyEditorial),
+    safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>, "recommended coupons"),
+    safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>, "stores"),
+    safe(api.listCategories({ limit: 24, live_only: true }), emptyPage as Paginated<never>, "categories"),
+    safe(api.getEditorialHomepage(), emptyEditorial, "editorial homepage"),
     safe(
       api.listCoupons({ active_only: true, discount_type: "deal", has_code: false, sort: "newest", limit: 8 }),
       emptyPage as Paginated<CouponPublic>,
+      "no-code deals",
     ),
     safe(
       api.listCoupons({
@@ -95,8 +102,9 @@ export default async function HomePage() {
         limit: 30,
       }),
       emptyPage as Paginated<CouponPublic>,
+      "coupon codes",
     ),
-    safe(discoverableContent(), [] as DiscoverableContent[]),
+    safe(discoverableContent(), [] as DiscoverableContent[], "topic content"),
   ]);
 
   // The editorial layer ranks the content we already have. Topics with no
@@ -133,7 +141,7 @@ export default async function HomePage() {
   if (REDESIGN_ENABLED && categories.items.length > 0) {
     const totals = await Promise.all(
       categories.items.slice(0, 7).map((c) =>
-        safe(api.listCoupons({ category_id: c.id, active_only: true, limit: 1 }), emptyPage as Paginated<CouponPublic>),
+        safe(api.listCoupons({ category_id: c.id, active_only: true, limit: 1 }), emptyPage as Paginated<CouponPublic>, `category count: ${c.slug}`),
       ),
     );
     categories.items.slice(0, 7).forEach((c, i) => {
@@ -141,9 +149,9 @@ export default async function HomePage() {
     });
   }
 
-  // One offer should appear once on this page. Sections fill in the order they
-  // are shown, and an offer already placed in an earlier row is skipped — a
-  // presentation filter over the backend's orders, not a re-ranking.
+  // One offer id appears once in the visible page. Sections claim offers in the
+  // order they render: hero, "Worth a look", then the two explorer rails. This
+  // is a presentation filter over the backend's orders, not a re-ranking.
   const shown = new Set<string>();
   const take = <T extends { id: string }>(items: T[], limit: number): T[] => {
     const picked: T[] = [];
@@ -156,49 +164,42 @@ export default async function HomePage() {
     return picked;
   };
 
-  // The hero's "Featured right now" panel: single spotlight card (deduped).
+  // The hero's "Featured right now" panel: single spotlight card.
   const featuredCoupons = take(
     dedupeCoupons(coupons.items.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c))),
     1,
   );
-  // Tab pools for the deal explorer. Sanitize/dedupe for clean display.
-  const fill = (pool: CouponPublic[], limit = 6): CouponPublic[] => {
-    const picked: CouponPublic[] = [];
-    for (const item of dedupeCoupons(pool.map((c) => sanitizeCouponForDisplay(c)))) {
-      if (shown.has(item.id)) continue;
-      shown.add(item.id);
-      picked.push(item);
-      if (picked.length >= limit) break;
-    }
-    return picked;
-  };
-  const backfill = (picked: CouponPublic[]): CouponPublic[] => {
-    const extra: CouponPublic[] = [];
-    for (const item of dedupeCoupons(coupons.items.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c)))) {
-      if (picked.length + extra.length >= 6) break;
-      if (shown.has(item.id)) continue;
-      shown.add(item.id);
-      extra.push(item);
-    }
-    return [...picked, ...extra];
-  };
+
+  // "Worth a look": prefer a real check date, then curated priority. One offer
+  // per store is a separate presentation rule, not a second idea of "same".
+  const seenStores = new Set<string>();
+  const worthLooking = take(
+    [...coupons.items, ...bestCoupons.items, ...latestDeals.items]
+      .map((coupon) => sanitizeCouponForDisplay(coupon))
+      .filter((coupon) => coupon.is_active && !coupon.auto_suppressed)
+      .filter((coupon) => isHomepageRelevant(coupon))
+      .filter((coupon) => {
+        if (seenStores.has(coupon.store_id)) return false;
+        seenStores.add(coupon.store_id);
+        return true;
+      })
+      .sort((a, b) => {
+        const checked = (c: (typeof a)) => (c.last_checked_at ? 1 : 0);
+        return checked(b) - checked(a) || b.clicks_count - a.clicks_count || a.id.localeCompare(b.id);
+      }),
+    6,
+  );
+
+  // Explorer rails take what is left, so no offer appears twice on the page.
+  const fill = (pool: CouponPublic[]): CouponPublic[] =>
+    take(
+      dedupeCoupons(pool.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c))),
+      6,
+    );
   const explorerTabs = {
-    top: backfill(fill(coupons.items.filter(isHomepageRelevant))),
-    codes: backfill(fill(bestCoupons.items.filter(isHomepageRelevant))),
-    deals: backfill(fill(latestDeals.items.filter(isHomepageRelevant))),
-    newest: backfill(fill(newest.items.filter(isHomepageRelevant))),
+    codes: fill(bestCoupons.items),
+    deals: fill(latestDeals.items),
   };
-  // Rail: prefer offers with a real check date, then fill from curated priority.
-  // Deterministic ordering keeps cached HTML stable between regenerations.
-  const worthLooking = [...coupons.items, ...bestCoupons.items, ...latestDeals.items]
-    .filter((coupon) => coupon.is_active && !coupon.auto_suppressed)
-    .filter((coupon) => isHomepageRelevant(coupon))
-    .filter((coupon, index, all) => all.findIndex((other) => other.store_id === coupon.store_id) === index)
-    .sort((a, b) => {
-      const checked = (c: (typeof a)) => (c.last_checked_at ? 1 : 0);
-      return checked(b) - checked(a) || b.clicks_count - a.clicks_count || a.id.localeCompare(b.id);
-    })
-    .slice(0, 6);
 
   const collectionsForRail = [
     ...editorial.collections.map((item) => collectionFromEditorial(item)).filter((entry) => entry !== null),
@@ -208,8 +209,9 @@ export default async function HomePage() {
     (item) => item.slug === "complete-amazon-makeup-toolkit",
   );
 
-  // Hero view-model. Search pool = every relevant offer already fetched for this page (deduped,
-  // capped to keep the client payload small); stores are the full list so any store is findable.
+  // Hero view-model. The search index is separate from the visible rails: it is
+  // capped to keep the client payload small and keyed by coupon id, so the same
+  // offer can be found even after a rail has claimed it.
   const REDIRECTED_HERO_STORE_SLUGS = new Set([
     "aldo-new",
     "bath-body-works",
@@ -233,7 +235,7 @@ export default async function HomePage() {
   const heroStoreById = new Map(stores.items.map((s) => [s.id, toHeroStore(s)]));
   const heroCategoryNames = categoryNameMap(categories.items);
   const heroPool = new Map<string, CouponPublic>();
-  for (const list of [coupons.items, bestCoupons.items, latestDeals.items, newest.items, endingSoon.items]) {
+  for (const list of [coupons.items, bestCoupons.items, latestDeals.items]) {
     for (const coupon of list) {
       if (heroPool.size >= 40) break;
       if (isHomepageRelevant(coupon) && !heroPool.has(coupon.id)) heroPool.set(coupon.id, sanitizeCouponForDisplay(coupon));
@@ -251,9 +253,35 @@ export default async function HomePage() {
 
   const hasEditorial = Object.values(editorial).some((items) => items.length > 0);
   const isEmpty = coupons.total === 0 && stores.total === 0 && categories.total === 0 && !hasEditorial;
+  const criticalFailure = ["recommended coupons", "stores", "categories", "editorial homepage"].some(
+    (source) => failedSources.has(source),
+  );
+  // During the first build there is no cached page to keep, so let the honest
+  // empty state render. On a production revalidation, fail instead: Next keeps
+  // the previously generated HTML rather than caching an outage for 6 hours.
+  const isBuild = process.env.NEXT_PHASE === "phase-production-build";
+  if (criticalFailure && isEmpty && process.env.NODE_ENV === "production" && !isBuild) {
+    throw new Error(
+      `Homepage data unavailable (${[...failedSources].join(", ")}); keeping the last good render.`,
+    );
+  }
+
+  // Structured data follows the rails and steps actually rendered below.
+  const visibleOffers = [...new Map(
+    [...featuredCoupons, ...worthLooking, ...explorerTabs.deals, ...explorerTabs.codes].map((coupon) => [coupon.id, coupon]),
+  ).values()];
+  const offerItemListJsonLd = itemListJsonLd(
+    visibleOffers.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
+  );
+  const howToJson = howToJsonLd("How Durza works", HOW_IT_WORKS_STEPS.map((step) => ({
+    name: step.title,
+    text: step.body,
+  })));
 
   return (
     <div className="page-shell">
+      <JsonLd data={offerItemListJsonLd} />
+      <JsonLd data={howToJson} />
 
       <HomeHero
         deals={heroDeals}
@@ -394,49 +422,6 @@ export default async function HomePage() {
             <SectionTitle icon={Compass}>How Durza works</SectionTitle>
             <HowItWorks />
           </section>
-{/* 
-          <Reveal> */}
-          {/* <section className="mt-16">
-            <h2 className="text-center font-serif text-title font-medium text-ink">
-              Why this is not a red-badge countdown site
-            </h2>
-             <ul className="mt-8 grid gap-5 md:grid-cols-3">
-              {PILLARS.map((pillar, i) => {
-                const Glyph = [Check, Percent, TrendingUp][i];
-                return (
-                <li
-                  key={pillar.title}
-                  className="info-card lift p-6"
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl text-white ${
-                      i === 0 ? "bg-verified" : i === 1 ? "bg-rust" : "bg-navy"
-                    }`}
-                  >
-                    <Glyph className="h-5 w-5" strokeWidth={1.75} />
-                  </span>
-                  <h3 className="mt-4 font-serif text-heading font-medium text-ink">{pillar.title}</h3>
-                  <p className="mt-2 text-sm text-ink-soft">{pillar.body}</p>
-                  <ul className="mt-4 space-y-2 text-sm text-ink-soft">
-                    {pillar.points.map((point) => (
-                      <li key={point} className="flex items-start gap-2">
-                        <span
-                          className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-verified-soft text-verified"
-                          aria-hidden="true"
-                        >
-                          <Check className="h-3 w-3" strokeWidth={2.5} />
-                        </span>
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                );
-              })}
-            </ul> 
-          </section>      */}
-               {/* </Reveal> */}
         </>
       )}
     </div>

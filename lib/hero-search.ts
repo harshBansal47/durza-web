@@ -25,8 +25,8 @@ export type HeroResult<D, S> =
 
 export const SCOPES: { id: HeroScope; label: string }[] = [
   { id: "all", label: "All" },
-  { id: "code", label: "Coupon codes" },
-  { id: "deal", label: "Deals" },
+  { id: "code", label: "With codes" },
+  { id: "deal", label: "No-code deals" },
   { id: "store", label: "Stores" },
 ];
 

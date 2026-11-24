@@ -191,12 +191,12 @@ describe("HomeHero — search", () => {
     const user = userEvent.setup();
     renderHero();
     await user.type(searchInput(), "off");
-    await user.click(screen.getByRole("button", { name: "Coupon codes" }));
+    await user.click(screen.getByRole("button", { name: "With codes" }));
     const codes = screen.getByRole("listbox");
     expect(codes).toHaveTextContent("SV10VC");
     expect(codes).toHaveTextContent("BOULT300");
     expect(codes).not.toHaveTextContent("Up to 40% off sitewide"); // no-code deal is excluded
-    await user.click(screen.getByRole("button", { name: "Deals" }));
+    await user.click(screen.getByRole("button", { name: "No-code deals" }));
     expect(screen.getByRole("listbox")).toHaveTextContent("Up to 40% off sitewide");
     await user.click(screen.getByRole("button", { name: "Stores" }));
     expect(screen.getByRole("listbox")).toHaveTextContent(/Nothing in today/);

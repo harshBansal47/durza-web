@@ -34,14 +34,12 @@ export default function HeroSearch({
   featured,
   stores,
   popularStores,
-  totals,
   onOpenDeal,
 }: {
   deals: HeroDeal[];
   featured: HeroDeal[];
   stores: HeroStore[];
   popularStores: HeroStore[];
-  totals: { coupons: number; stores: number };
   onOpenDeal: (deal: HeroDeal) => void;
 }) {
   const router = useRouter();
@@ -56,6 +54,9 @@ export default function HeroSearch({
   // After an overlay closes, focus returns to the input programmatically. That must not
   // pop the dropdown back open; any real interaction (key, pointer, typing) re-arms it.
   const quietFocus = useRef(false);
+  // While arrow keys are driving the list, a stationary pointer must not steal
+  // the highlight. Any click or fresh typing hands control back to the pointer.
+  const keyboardNav = useRef(false);
   const compact = useMediaQuery("(max-width: 640px)");
   const reduced = usePrefersReducedMotion();
 
@@ -65,6 +66,8 @@ export default function HeroSearch({
   );
   const trimmed = query.trim();
   const active = results.length > 0 ? Math.min(sel, results.length - 1) : -1;
+  const exampleStore = stores[0]?.name;
+  const exampleCode = deals.find((deal) => deal.code)?.code;
 
   // "/" focuses the search from anywhere that is not a text field or an open overlay.
   useEffect(() => {
@@ -127,6 +130,7 @@ export default function HeroSearch({
         return;
       }
       if (results.length === 0) return;
+      keyboardNav.current = true;
       setSel((active + (event.key === "ArrowDown" ? 1 : -1) + results.length) % results.length);
     } else if (event.key === "Enter") {
       event.preventDefault();
@@ -182,6 +186,7 @@ export default function HeroSearch({
           aria-autocomplete="list"
           aria-activedescendant={open && active >= 0 ? `${listId}-${active}` : undefined}
           onChange={(event) => {
+            keyboardNav.current = false;
             setQuery(event.target.value);
             setSel(0);
             setOpen(true);
@@ -191,6 +196,7 @@ export default function HeroSearch({
           }}
           onPointerDown={() => {
             quietFocus.current = false;
+            keyboardNav.current = false;
             setOpen(true);
           }}
           onKeyDown={(event) => {
@@ -211,11 +217,11 @@ export default function HeroSearch({
           >
             <X aria-hidden="true" size={13} strokeWidth={2.6} />
           </button>
-        ) : (
+        ) : !compact ? (
           <span className="hx-kbd" aria-hidden="true">
             /
           </span>
-        )}
+        ) : null}
       </div>
 
       <div className="hx-scopes" role="group" aria-label="Search scope">
@@ -226,6 +232,7 @@ export default function HeroSearch({
             className="hx-scope"
             aria-pressed={scope === s.id}
             onClick={() => {
+              keyboardNav.current = false;
               setScope(s.id);
               setSel(0);
               setOpen(true);
@@ -242,8 +249,14 @@ export default function HeroSearch({
           {results.length === 0 ? (
             <div className="hx-empty">
               Nothing in today&apos;s picks matches <b>“{trimmed}”</b>.
-              <br />
-              Try a store like <b>HealthKart</b> or a code like <b>SV10VC</b>.
+              {exampleStore || exampleCode ? (
+                <>
+                  <br />
+                  Try {exampleStore ? <>a store like <b>{exampleStore}</b></> : null}
+                  {exampleStore && exampleCode ? " or " : null}
+                  {exampleCode ? <>a code like <b>{exampleCode}</b></> : null}.
+                </>
+              ) : null}
               {trimmed && (
                 <>
                   <br />
@@ -266,7 +279,9 @@ export default function HeroSearch({
                       "aria-selected": i === active,
                       className: "hx-item",
                       onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
-                      onMouseEnter: () => setSel(i),
+                      onMouseEnter: () => {
+                        if (!keyboardNav.current) setSel(i);
+                      },
                       onClick: () => pick(i),
                     };
                     return result.type === "deal" ? (

@@ -61,7 +61,9 @@ function couponPriority(coupon: CouponPublic): number {
  * Search Console reports duplicate submissions and inflated URL counts.
  */
 export const STATIC_PAGES: MetadataRoute.Sitemap = [
-  { url: SITE_URL, changeFrequency: "hourly", priority: 1 },
+  // The homepage revalidates every 6 hours, so "daily" is the closest honest
+  // crawl hint; "hourly" would promise fresher HTML than we actually serve.
+  { url: SITE_URL, changeFrequency: "daily", priority: 1 },
   { url: `${SITE_URL}/coupons`, changeFrequency: "hourly", priority: 0.9 },
   { url: `${SITE_URL}/deals`, changeFrequency: "hourly", priority: 0.9 },
   { url: `${SITE_URL}/bank-offers`, changeFrequency: "daily", priority: 0.8 },

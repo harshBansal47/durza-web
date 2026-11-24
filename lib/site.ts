@@ -20,7 +20,7 @@ export const SITE_URL: string = (() => {
 
 /**
  * The site-wide title and description. The homepage uses them verbatim; every
- * other page's title runs through the layout's "%s — Durza" template, so both
+ * other page's title runs through the layout's "%s | Durza" template, so both
  * sites import these rather than keeping two copies that can drift.
  */
 export const BRAND_NAME = "Durza";

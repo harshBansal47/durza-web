@@ -49,6 +49,12 @@ export default function DecisionDesk({ topics }: { topics: TopicSpotlight[] }) {
   if (topics.length === 0) return null;
 
   const active = topics.find((spotlight) => spotlight.topic.id === activeId) ?? topics[0];
+  const latestUpdate = topics
+    .flatMap((spotlight) => spotlight.items.map((item) => item.updatedAt))
+    .filter((value): value is string => Boolean(value))
+    .sort()
+    .at(-1);
+  const lastChecked = latestUpdate ? formatUpdated(latestUpdate) : null;
 
   return (
     <section className="section-panel mt-10 p-5 sm:p-7" aria-labelledby="decision-desk-heading">
@@ -59,7 +65,8 @@ export default function DecisionDesk({ topics }: { topics: TopicSpotlight[] }) {
         Guides &amp; comparisons
       </h2>
       <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
-        Our 25 Nov 2026 checks cover confirmed sale windows, exact model codes and MRP rules.{" "}
+        {lastChecked ? `Checks last updated ${lastChecked}. ` : "Checks are dated where known. "}
+        They cover confirmed sale windows, exact model codes and MRP rules.{" "}
         <Link href="/guides/how-to-match-laptop-model-codes-india" className="font-semibold text-durza-deep hover:underline">
           See the model-code guide →
         </Link>
