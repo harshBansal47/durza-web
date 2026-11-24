@@ -4,7 +4,6 @@ import { ArrowRight, Compass, Store, Flame, Zap } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
 import OfferRail from "@/components/home/OfferRail";
-import HowItWorks, { HOW_IT_WORKS_STEPS } from "@/components/home/HowItWorks";
 import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
@@ -270,15 +269,12 @@ export default async function HomePage() {
   const offerItemListJsonLd = itemListJsonLd(
     visibleOffers.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
   );
-  const howToJson = howToJsonLd("How Durza works", HOW_IT_WORKS_STEPS.map((step) => ({
-    name: step.title,
-    text: step.body,
-  })));
+
 
   return (
     <div className="page-shell">
       <JsonLd data={offerItemListJsonLd} />
-      <JsonLd data={howToJson} />
+   
 
       <HomeHero
         deals={heroDeals}
@@ -393,15 +389,7 @@ export default async function HomePage() {
             </section>
           )}
 
-          <p className="mt-12 border-t border-ledger-line pt-4 text-xs text-ink-soft">
-            Durza may earn a commission on tracked links. We never charge shoppers, and we only
-            show a code where one was actually listed.
-          </p>
-
-          <section className="mt-10">
-            <SectionTitle icon={Compass}>How Durza works</SectionTitle>
-            <HowItWorks />
-          </section>
+         
         </>
       )}
     </div>
