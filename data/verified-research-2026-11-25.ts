@@ -9,6 +9,8 @@
  */
 export const RESEARCH_CHECK_DATE = "25 Nov 2026";
 
+export type VerifiedResearchKind = keyof typeof VERIFIED_RESEARCH;
+
 export interface ResearchFact {
   label: string;
   detail: string;
@@ -162,5 +164,118 @@ export const VERIFIED_RESEARCH: Record<string, ResearchSet> = {
       },
     ],
     note: "Official pages and offer terms opened 25 Nov 2026. No first-hand checkout was attempted.",
+  },
+  asus: {
+    kicker: "ASUS India · checked 25 Nov 2026",
+    title: "Verified ASUS facts",
+    facts: [
+      {
+        label: "November Sale, not Black Friday branding",
+        detail: "The opened official offer page shows 'ASUS November Sale' / 'Mega Deals' with dated-price SKUs; no Black Friday branding or calendar window appeared on that page.",
+        href: "https://www.asus.com/in/content/offer/",
+      },
+      {
+        label: "TUF A14 FA401EA-RG020WS: ₹2,49,990",
+        detail: "ASUS eStore listing checked 25 Nov 2026: MRP ₹3,23,990, full code 90NR0PM1-M001P0, sold by AYR Technologies (authorised reseller), free shipping, inclusive of all taxes.",
+        href: "https://in.store.asus.com/asus-tuf-gaming-a14-fa401ea-rg020ws-copilot-pc-gaming-laptop.html",
+      },
+      {
+        label: "Same model code, different reference",
+        detail: "Flipkart showed ₹2,54,000 (reference ₹2,59,990) for the identical FA401EA-RG020WS on 25 Nov 2026, sold by GamingIcons — a ₹4,010 difference by our arithmetic, not a live quote.",
+        href: "https://www.flipkart.com/asus-tuf-gaming-a14-2026-office-2024-m365-basic-ai-pc-npu-upto-50tops-amd-ryzen-max-32-gb-1-tb-ssd-windows-11-home-amd-radeon-8060s-165-hz-fa401ea-rg020ws-laptop/p/itm456a598c5ceae",
+      },
+      {
+        label: "HDFC display is SKU-level, not a full slab",
+        detail: "The eStore showed 'Save ₹3,000 with HDFC Bank Nov26' on RG020WS, but the eligible card family and minimum spend were not stated — verify at checkout.",
+        href: "https://in.store.asus.com/asus-tuf-gaming-a14-fa401ea-rg020ws-copilot-pc-gaming-laptop.html",
+      },
+    ],
+    note: "Published listings checked 25 Nov 2026, not live quotes. Durza did not test any ASUS laptop.",
+  },
+  boult: {
+    kicker: "GoBoult · checked 25 Nov 2026",
+    title: "Verified Boult facts",
+    facts: [
+      {
+        label: "Anchor: ₹2,499 against ₹9,999 MRP",
+        detail: "Brand store listing checked 25 Nov 2026: 75% off MRP, inclusive of taxes, sold by Exotic Mile Pvt Ltd; a separate 'extra offer' shows ₹2,399.",
+        href: "https://goboult.co.in/products/probass-anchor-over-ear-bluetooth-headphone-with-mic",
+      },
+      {
+        label: "ANC claim conflicts with spec block",
+        detail: "The Anchor page markets ANC with a dedicated switch and 30 hours with ANC, but its specification block says Environmental Noise Cancellation and a FAQ calls it a neckband — verify on the store.",
+        href: "https://goboult.co.in/products/probass-anchor-over-ear-bluetooth-headphone-with-mic",
+      },
+      {
+        label: "Fluid X is ENC, not ANC",
+        detail: "GoBoult states Fluid X uses a Zen ENC mic with 60H playtime and 40mm drivers (official product page, checked 25 Nov 2026) — do not file it under ANC.",
+        href: "https://goboult.co.in/products/fluid-x",
+      },
+      {
+        label: "Countdown without a published window",
+        detail: "The site showed a 'BLACK-FR!DAY SALE' countdown (~68 hours at check) and an empty Friday Sale collection; a stale 'HOLI SALE' banner was also present. No calendar dates are published — verify on the store.",
+        href: "https://goboult.co.in/collections/friday-sale",
+      },
+    ],
+    note: "Manufacturer claims are labelled as claims, not Durza measurements. Nothing here was physically tested.",
+  },
+  tatacliq: {
+    kicker: "Tata CLiQ · checked 25 Nov 2026",
+    title: "Verified Tata CLiQ facts",
+    facts: [
+      {
+        label: "Black Friday sale: 19–30 Nov 2026",
+        detail: "The official press release and the American Express offer T&C both list this window for CLiQ Fashion and Luxury.",
+        href: "https://www.businesswireindia.com/tata-cliq-luxury-and-tata-cliq-fashion's-black-friday-sale-promises-an-exciting-start-to-the-holiday-shopping-season-102737.html",
+      },
+      {
+        label: "Amex slab, full string",
+        detail: "12.5% instant on American Express credit cards (full swipe), minimum ₹3,000, maximum ₹1,500, once per card, code AMEXTCFBFS. Axis and Kotak are named at 12.5% in the release, but their caps and minimums are not stated.",
+        href: "https://www.tatacliq.com/terms/amx-bfs-tnc",
+      },
+      {
+        label: "'50%–85% off' applies to selected styles",
+        detail: "The press release names brand-level conditions (e.g., Only/Rareism minimum 30%, Metro & Mochi minimum 30%, Decathlon up to 70%). Never publish the headline figure without that condition.",
+        href: "https://www.businesswireindia.com/tata-cliq-luxury-and-tata-cliq-fashion's-black-friday-sale-promises-an-exciting-start-to-the-holiday-shopping-season-102737.html",
+      },
+      {
+        label: "SKU prices were not readable",
+        detail: "The campaign page and Luxury HDFC T&C returned shells only on 25 Nov 2026; no Tata CLiQ exact-SKU price is verified — verify on the store.",
+        href: "https://www.tatacliq.com/black-friday-sale?cms=cft",
+      },
+    ],
+    note: "Official release and offer terms opened 25 Nov 2026. No first-hand purchase was attempted.",
+  },
+  "sale-calendar": {
+    kicker: "Sale calendar · checked 25 Nov 2026",
+    title: "Confirmed dates vs expectations",
+    facts: [
+      {
+        label: "Myntra EORS: summer 2026 confirmed",
+        detail: "Myntra's official blog (28 May 2026) lists the End of Reason Sale for 29 May–14 June 2026 with 50–90% off.",
+        href: "https://blog.myntra.com/myntra-end-of-reason-sale-2026-deals-up-to-90-off/",
+      },
+      {
+        label: "Winter EORS is only expected",
+        detail: "Bajaj Finance's guide (updated 2 Nov 2026) says winter EORS is expected 5–15 December 2026; Myntra's live page shows no dates — not confirmed on the live site as of 25 Nov 2026.",
+        href: "https://www.bajajfinserv.in/myntra-upcoming-sale-and-offers-date",
+      },
+      {
+        label: "Tata CLiQ's 2026 regular-sale calendar",
+        detail: "Its official release lists Big CLiQ Sale 14–31 May, Moments that CLiQ 23 Jul–10 Aug, and 10.10 sale 8–18 Oct 2026.",
+        href: "https://www.businesswireindia.com/tata-cliq-luxury-and-tata-cliq-fashion's-black-friday-sale-promises-an-exciting-start-to-the-holiday-shopping-season-102737.html",
+      },
+      {
+        label: "Nykaa: Hot Pink confirmed, Pink Friday dates unconfirmed",
+        detail: "Nykaa's blog lists Hot Pink Sale 2026 with up to 60% off, a ₹49 pass and an extra 10% HSBC credit-card discount (cap and minimum not stated). Pink Friday dates are not confirmed on any opened official page.",
+        href: "https://www.nykaa.com/beauty-blog/nykaa-hot-pink-sale-2026",
+      },
+      {
+        label: "Revealed prices are not payable prices",
+        detail: "Nykaa's price-reveal page checked 25 Nov 2026 showed L'Oréal serum at ₹719 current and ₹439 revealed Pink Friday price — a reveal, not a live payable price.",
+        href: "https://www.nykaa.com/price-reveal-season-s-hottest-offers-hot-pink-sale-2026/c/108343",
+      },
+    ],
+    note: "Dates are reported only where an official page confirms them. Expected windows are labelled as expectations, never as live sale dates.",
   },
 };

@@ -20,6 +20,7 @@
  */
 
 import { toolHref } from "@/data/store-glossary";
+import type { VerifiedResearchKind } from "@/data/verified-research-2026-11-25";
 
 export type StaticGuideBlock =
   | { type: "callout"; text: string }
@@ -27,7 +28,8 @@ export type StaticGuideBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
   | { type: "ordered_list"; items: string[] }
-  | { type: "table"; headers: string[]; rows: string[][] };
+  | { type: "table"; headers: string[]; rows: string[][] }
+  | { type: "evidence"; kind: VerifiedResearchKind };
 
 export type StaticGuideCta =
   | {
@@ -2693,12 +2695,15 @@ const RAW_GUIDES_I: StaticGuide[] = [
       description: "Lenovo India 2026: Legion gaming laptops, ThinkPad business, Yoga convertibles & IdeaPad everyday. Use-case matcher with honest trade-offs.",
     },
     summary: "Which Lenovo laptop for your life — Legion to ThinkPad.",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-25T00:00:00.000Z",
     faqs: [
       { question: "Which Lenovo laptop for Indian engineering students?", answer: "ThinkPad E16 (i5, 16GB) or IdeaPad Slim 5 (AMD Ryzen 7) — the standard sweet spot under ₹80,000 — covering CAD, IDEs and 3 simultaneous VMs. Gaming laptops are overkill for 95% of engineering curricula." },
       { question: "Should I buy Lenovo from lenovo.com or marketplaces?", answer: "lenovo.com carries exclusive coupons, bank offers and full 3-year warranty; marketplaces sometimes undercut on clearance. Check both before buying." },
       { question: "Are Lenovo ThinkPads worth the premium for Indian professionals?", answer: "If you type hard, travel often and need build quality that outlasts 4-year India desks — yes. For 3 years of daily office use, ThinkPad service costs are comparable to premium ASUS, Dell Business or Apple at end of life." },
     ],
     blocks: [
+      { type: "evidence", kind: "lenovo" },
       { type: "callout", text: "Lenovo India — official storefront and partners only. No resellers with unauthorised serials." },
       { type: "heading", heading: "The 2026 Lenovo Laptop matrix in one table" },
       { type: "table",
@@ -2735,12 +2740,15 @@ const RAW_GUIDES_I: StaticGuide[] = [
       description: "ASUS India: ROG vs TUF, Zenbook OLED vs Vivobook — the Indian gamer, student and creative's honest guide to the 2026 range.",
     },
     summary: "ROG vs TUF vs Zenbook vs Vivobook — India's pick.",
+    authorName: "Harsh Bansal",
+    factsCheckedOn: "2026-11-25T00:00:00.000Z",
     faqs: [
       { question: "Is ASUS ROG worth the money for Indian gamers?", answer: "For AAA titles at 2K/high frame rates, yes. For esports (Valorant, CS2), TUF delivers the same GPU performance at ₹20–30K less. ROG pays only when you want the Pantone-validated display and the Scar aesthetics." },
       { question: "Are Zenbook OLEDs better for video editors than desktops?", answer: "For colour-critical 4K timeline, yes — the 92% DCI-P3 gamut meets professional standards. For raw render throughput (AE, Resolve), a desktop with a dedicated GPU still wins on cost." },
       { question: "How does ASUS service work in India?", answer: "500+ service centres nationwide, most with 7-day turnaround on in-warranty repairs. ASUS Premium Care extends on-site service for select series." },
     ],
     blocks: [
+      { type: "evidence", kind: "asus" },
       { type: "callout", text: "ASUS India — official storefront only. ROG, TUF, Zenbook and Vivobook are registered ASUS trademarks." },
       { type: "heading", heading: "The one-line ASUS decision tree" },
       { type: "list", items: [

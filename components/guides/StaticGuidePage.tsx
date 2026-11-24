@@ -1,4 +1,5 @@
 import Link from "next/link";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
@@ -209,6 +210,12 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
                     </li>
                   ))}
                 </ol>
+              );
+            case "evidence":
+              return (
+                <div key={i} className="my-8">
+                  <VerifiedResearchPanel kind={block.kind} />
+                </div>
               );
             case "table":
               return (

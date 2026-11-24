@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
@@ -48,6 +49,7 @@ export default function StorePage({ offers, faqs, stats, heroImageUrl, offerCoun
         offers={offers}
       />
       <TrustStats {...stats} />
+      <div className="mt-6"><VerifiedResearchPanel kind="tatacliq" /></div>
       <AffiliateDisclosure />
 
       {offers.length > 0 ? (
