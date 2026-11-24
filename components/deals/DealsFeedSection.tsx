@@ -7,7 +7,7 @@ import PopularChips from "@/components/PopularChips";
 import DiscoveryStrip from "@/components/DiscoveryStrip";
 import { isShowcaseStore } from "@/lib/showcase-stores";
 import { formatStoreDisplayName } from "@/lib/store-display";
-import SectionTitle from "@/components/SectionTitle";
+
 import DealsFilterPanel from "@/components/filters/DealsFilterPanel";
 import DealsSortControl from "@/components/filters/DealsSortControl";
 import FilterLayout from "@/components/filters/FilterLayout";

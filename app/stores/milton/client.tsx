@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, CheckCircle2, Droplets, Flame, ShieldCheck, ThermometerSun, UtensilsCrossed } from "lucide-react";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
@@ -117,7 +117,7 @@ const NEEDS = [
   },
 ] as const;
 
-export default function MiltonClient({ offers, products, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function MiltonClient({ offers, products, faqs, stats, heroImageUrl, storeUrl }: Props) {
   const tabs = Array.from(new Set(products.map((p) => p.tab)));
   const [concern, setConcern] = useState(tabs[0] ?? "");
   const [need, setNeed] = useState<(typeof NEEDS)[number]>(NEEDS[0]);

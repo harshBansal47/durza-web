@@ -112,8 +112,6 @@ describe("a store with no offers", () => {
   it("shows pagination immediately after the offers section", () => {
     renderStore(store(), {}, { page: 2, totalPages: 5 });
 
-    const pagination = screen.getByRole("navigation", { name: "Pagination" });
-
     expect(screen.getByText("Page 2 of 5")).toBeTruthy();
     expect(screen.getByRole("link", { name: "Previous" }).getAttribute("href")).toBe("/stores/acer?page=1");
     expect(screen.getByRole("link", { name: "Next" }).getAttribute("href")).toBe("/stores/acer?page=3");

@@ -87,11 +87,7 @@ export default async function GuidesPage() {
   const bySlug = new Map<string, GuideHubItem>();
   for (const item of dbItems) bySlug.set(item.slug, item);
   for (const item of staticItems) if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
-  const items = Array.from(bySlug.values()).sort((a, b) => {
-    const ad = a.updatedLabel ? Date.parse(a.updatedLabel.split("/").reverse().join("-")) : 0;
-    const bd = b.updatedLabel ? Date.parse(b.updatedLabel.split("/").reverse().join("-")) : 0;
-    return 0; // keep stable mixed order; server-rendered as-is
-  });
+  const items = Array.from(bySlug.values()).sort(() => 0); // keep stable mixed order; server-rendered as-is
 
   return (
     <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">

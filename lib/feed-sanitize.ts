@@ -34,7 +34,8 @@ export function sanitizeCouponForDisplay<T extends Partial<CouponPublic>>(coupon
   const title = sanitizeFeedText(coupon.title) ?? coupon.title;
   const description = sanitizeFeedText(coupon.description ?? undefined);
   const code = typeof coupon.code === "string" ? coupon.code.trim() || null : coupon.code;
-  const terms = sanitizeFeedText((coupon as any).terms ?? undefined);
+  const rawTerms = (coupon as Partial<CouponPublic> & { terms?: unknown }).terms;
+  const terms = sanitizeFeedText(rawTerms == null ? undefined : String(rawTerms));
   const restrictions =
     coupon.restrictions && typeof coupon.restrictions === "object"
       ? Object.fromEntries(
@@ -59,7 +60,7 @@ function norm(v: unknown): string {
 }
 
 function minSpendKey(coupon: Partial<CouponPublic>): string {
-  const r: any = coupon.restrictions ?? {};
+  const r: Record<string, unknown> = coupon.restrictions ?? {};
   const candidates = [
     r.min_spend,
     r.minSpend,
@@ -80,7 +81,7 @@ function minSpendKey(coupon: Partial<CouponPublic>): string {
 }
 
 function discountKey(coupon: Partial<CouponPublic>): string {
-  const r: any = coupon.restrictions ?? {};
+  const r: Record<string, unknown> = coupon.restrictions ?? {};
   const parts = [
     coupon.discount_type,
     coupon.discount_value,

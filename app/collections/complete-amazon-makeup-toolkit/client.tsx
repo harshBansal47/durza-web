@@ -200,7 +200,12 @@ export default function BeautyToolkitClient() {
   const kitTotal = kitProducts.reduce((sum, p) => sum + (getNumericPrice(p.priceLabel) ?? 0), 0);
 
   const toggleExpand = (slug: string) => setExpanded((prev) => ({ ...prev, [slug]: !prev[slug] }));
-  const toggleKit = (id: string) => setKit((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  const toggleKit = (id: string) => setKit((prev) => {
+    const n = new Set(prev);
+    if (n.has(id)) n.delete(id);
+    else n.add(id);
+    return n;
+  });
   const clearFilters = () => { setBrand("All brands"); setDealsOnly(false); setOccasion(""); setSort("curated"); };
 
   const hasFilters = brand !== "All brands" || dealsOnly || occasion || sort !== "curated";

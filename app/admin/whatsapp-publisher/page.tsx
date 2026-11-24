@@ -37,7 +37,7 @@ export default function WhatsAppPublisherPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [titles, setTitles] = useState<Record<string, string>>({});
 
-  const load = useCallback(async (p: number = page) => {
+  const load = useCallback(async (p: number = 1) => {
     setLoading(true);
     setError(null);
     try {

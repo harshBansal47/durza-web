@@ -7,6 +7,7 @@ import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
 import OfferCard from "@/components/OfferCard";
+import Link from "next/link";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -107,18 +108,18 @@ export default function IgpPage({ offers, products, faqs, stats, heroImageUrl, o
         <h2 id="igp-related-links" className="text-lg font-bold text-ink">Related gifting picks on Durza</h2>
         <p className="mt-1 text-sm text-ink-soft">Explore curated festive gifting, fragrance, and wellness options.</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          <a href="/collections/wedding-and-festive-luxury-gifting-edit-india" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          <Link href="/collections/wedding-and-festive-luxury-gifting-edit-india" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Wedding & Festive Luxury Gifting Edit</p>
             <p className="mt-1 text-sm text-ink-soft">Curated gifting ideas for celebrations in India</p>
-          </a>
-          <a href="/stores/bath-and-body-works" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          </Link>
+          <Link href="/stores/bath-and-body-works" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Bath & Body Works</p>
             <p className="mt-1 text-sm text-ink-soft">Fragrance mists, candles, and gift-ready body care</p>
-          </a>
-          <a href="/stores/kama-ayurveda" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          </Link>
+          <Link href="/stores/kama-ayurveda" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Kama Ayurveda</p>
             <p className="mt-1 text-sm text-ink-soft">Ayurvedic skincare and wellness gifting staples</p>
-          </a>
+          </Link>
         </div>
       </section>
 

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { CalendarDays, Tag } from "lucide-react";
 import { storeInitials } from "@/lib/catalog";
 import {
-  daysUntil,
   formatDate,
   formatDiscountHeading,
   successRateLabel,
@@ -62,8 +61,6 @@ export default function CouponTicket({
   const source = sourceLine(coupon);
   const reports = totalReports(coupon);
   const rate = successRateLabel(coupon);
-  const daysLeft = daysUntil(coupon.expires_at);
-  const expired = daysLeft !== null && daysLeft < 0;
   const requirement = cardRequirementLine(coupon) ?? (coupon.code ? null : "No code listed");
   const href = `/coupons/${coupon.slug}`;
   const discountHeading = formatDiscountHeading(coupon, store?.currency ?? "INR");

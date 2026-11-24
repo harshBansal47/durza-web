@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+
 import { useCallback, useEffect, useState } from "react";
 import {
   AlertTriangle,
@@ -29,14 +29,6 @@ function localDate(date: Date): string {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
-}
-
-function money(value: number, currency: string): string {
-  return new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 2,
-  }).format(value);
 }
 
 export default function AdminAnalyticsDashboard() {

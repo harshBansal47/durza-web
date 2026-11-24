@@ -4,7 +4,7 @@ import { ArrowRight, CalendarDays, IndianRupee, Lightbulb, ShoppingBag } from "l
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import PageTitle from "@/components/ui/PageTitle";
-import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { resilient } from "@/lib/api";
 import { formatDate, formatDiscount } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";

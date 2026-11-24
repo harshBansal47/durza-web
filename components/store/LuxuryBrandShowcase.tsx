@@ -115,7 +115,7 @@ export default function LuxuryBrandShowcase({
         </ul>
 
         <p className="mt-8 border-t border-slate-200 pt-6 text-[11px] leading-6 text-slate-500">
-          Every "Explore" / collection link routes through Durza's affiliate attribution for {storeName}. No coupon boxes, no discount badges, no chasing timers — this page keeps the language of the store honest and quiet. Prices, stock and availability live on {storeName}'s official site.
+          Every &quot;Explore&quot; / collection link routes through Durza&apos;s affiliate attribution for {storeName}. No coupon boxes, no discount badges, no chasing timers — this page keeps the language of the store honest and quiet. Prices, stock and availability live on {storeName}&apos;s official site.
         </p>
       </div>
     </section>

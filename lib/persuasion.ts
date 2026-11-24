@@ -31,15 +31,6 @@ export function expiryTone(expiresAt: string | null, now: Date = new Date()): Ex
   return remaining < EXPIRY_WARNING_MS ? "warning" : "calm";
 }
 
-function monthsBetween(from: Date, to: Date): number {
-  return Math.max(
-    0,
-    (to.getFullYear() - from.getFullYear()) * 12 +
-      (to.getMonth() - from.getMonth()) -
-      (to.getDate() < from.getDate() ? 1 : 0),
-  );
-}
-
 export function savedCount(items: unknown[]): number {
   return items.length;
 }

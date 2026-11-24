@@ -102,45 +102,6 @@ export default function StorePageClient({
     .filter((page) => page >= 1 && page <= pagination.totalPages)
     .sort((a, b) => a - b);
 
-  // A tab with nothing in it is noise — only offer tabs that have coupons.
-  const visibleTabs = useMemo(
-    () =>
-      Object.entries(filteredTabs)
-        .filter(([, tab]) => tab && tab.items && tab.items.length > 0)
-        .map(([id, tab]) => ({
-          id,
-          label: tab.label,
-          content: (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {groupSimilar(tab.items)
-                .slice(0, expanded ? 100 : 6)
-                .map((entry) =>
-                  entry.kind === "group" ? (
-                    <CouponGroupCard
-                      key={`group-${entry.key}`}
-                      label={entry.label}
-                      coupons={entry.coupons}
-                      currency={code}
-                    />
-                  ) : (
-                    <OfferCard
-                      key={entry.coupon.id}
-                      bookmarkId={entry.coupon.id}
-                      code={entry.coupon.code}
-                      badge={formatDiscountHeading(entry.coupon, code)}
-                      title={entry.coupon.title}
-                      description={entry.coupon.description}
-                      ctaHref={api.goUrl(entry.coupon.id, "store-page")}
-                      expiresAt={entry.coupon.expires_at}
-                    />
-                  ),
-                )}
-            </div>
-          ),
-        })),
-    [filteredTabs, expanded, code],
-  );
-
   const storeDescription = cleanStoreDescription(store.description);
 
   return (

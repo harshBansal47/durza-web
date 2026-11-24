@@ -146,8 +146,11 @@ export default function AdminAdmitadPage() {
   }, [tab, search, skip]);
 
   useEffect(() => {
-    void load();
-    void loadOperations();
+    const timer = window.setTimeout(() => {
+      void load();
+      void loadOperations();
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [load, loadOperations]);
 
   const summary: CampaignSummary =

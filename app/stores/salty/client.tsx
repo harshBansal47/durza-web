@@ -75,7 +75,7 @@ const COLLECTIONS = [
   },
 ] as const;
 
-export default function SaltyStoreClient({ offers, faqs, stats, offerCount, storeUrl, forcedStoreHref }: Props) {
+export default function SaltyStoreClient({ offers, faqs, stats, storeUrl, forcedStoreHref }: Props) {
   const outHref = (src: string) => storeGoHref(TRACKED_SLUG, src, forcedStoreHref ?? undefined);
   const officialHref = outHref("store-page");
 

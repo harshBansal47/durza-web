@@ -73,6 +73,7 @@ export function GuideAffiliateOutBanner({
         className="mt-1 block max-w-full overflow-hidden rounded-lg border border-ledger-line transition-shadow hover:shadow-md"
       >
         {/* Plain <img>: the CDN is the network's own; sizing taken from the creative itself */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- third-party ad creative, intentionally unoptimized */}
         <img
           src={imageUrl}
           alt={`Advertisement — ${alt}`}

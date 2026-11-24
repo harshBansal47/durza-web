@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Store } from "@/lib/types";
 import { notFound } from "next/navigation";
-import { ApiError, api, lookup, resilient } from "@/lib/api";
+import { lookup, resilient } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { isIndexableStore } from "@/lib/store-indexing";

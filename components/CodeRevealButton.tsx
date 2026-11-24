@@ -42,8 +42,12 @@ export default function CodeRevealButton({
   const { success } = useTypedToast();
 
   useEffect(() => {
-    // Hint only; never affects copy or redirect behaviour.
-    setShowBrowserHint(isLikelyInAppBrowser(navigator.userAgent));
+    // Hint only; never affects copy or redirect behaviour. Defer the state
+    // update so it happens in a callback, not in the effect body.
+    const timer = window.setTimeout(() => {
+      setShowBrowserHint(isLikelyInAppBrowser(navigator.userAgent));
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   function emit(next: { revealed: boolean; copied: boolean }) {

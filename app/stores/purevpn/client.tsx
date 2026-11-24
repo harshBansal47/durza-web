@@ -117,7 +117,7 @@ export default function PureVpnClient({ faqs, stats, heroImageUrl, offerCount, s
       <section className="mt-8 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
         <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Plan honesty disclaimer</p>
         <p className="mt-2 text-sm leading-7 text-ink-soft">
-          PureVPN's pricing and the Rs. saving per plan changes frequently — sometimes weekly.
+          PureVPN&apos;s pricing and the Rs. saving per plan changes frequently — sometimes weekly.
           The promotions you see on Durza were accurate at the time of writing;
           Durza never inflates numbers. Check purevpn.com/order-now for the actual live price in INR before purchase.
         </p>

@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { GO_REL } from "@/lib/go";
-import { COMPARE_CATEGORIES, COMPARISONS, type CompareEntry } from "@/data/comparisons";
+import { COMPARISONS, type CompareEntry } from "@/data/comparisons";
 import EditorialByline from "@/components/editorial/EditorialByline";
 
 function goHref(storeSlug: string, src: string) {

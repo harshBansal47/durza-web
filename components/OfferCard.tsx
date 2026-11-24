@@ -65,8 +65,8 @@ export default function OfferCard({
   lastChecked,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
-  if (autoSuppressed) return null;
   const trackedHref = useTrackedHref(ctaHref);
+  if (autoSuppressed) return null;
   const isCoded = Boolean(code);
   const tone = badgeTone ?? (isCoded ? "amber" : "emerald");
   const days = daysUntil(expiresAt);

@@ -7,6 +7,7 @@ import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
 import OfferCard from "@/components/OfferCard";
+import Link from "next/link";
 import { useState } from "react";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { StoreOfferCard, StoreProductCard } from "@/lib/store-offers";
@@ -95,18 +96,18 @@ export default function IbaCosmeticsPage({ offers, products, faqs, stats, heroIm
         <h2 id="iba-related-guides" className="text-lg font-bold text-ink">Related clean beauty guides & stores</h2>
         <p className="mt-1 text-sm text-ink-soft">Keep exploring vegan, skincare, and Ayurvedic beauty picks on Durza.</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          <a href="/stores/dot-and-key" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          <Link href="/stores/dot-and-key" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Dot & Key</p>
             <p className="mt-1 text-sm text-ink-soft">Sunscreens and skincare actives for Indian routines</p>
-          </a>
-          <a href="/stores/kama-ayurveda" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          </Link>
+          <Link href="/stores/kama-ayurveda" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Kama Ayurveda</p>
             <p className="mt-1 text-sm text-ink-soft">Classical Ayurvedic skincare and haircare essentials</p>
-          </a>
-          <a href="/guides/indian-skincare-actives-haircare-guide" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          </Link>
+          <Link href="/guides/indian-skincare-actives-haircare-guide" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Indian skincare actives & haircare guide</p>
             <p className="mt-1 text-sm text-ink-soft">Educational picks for actives, routines, and tracked shopping</p>
-          </a>
+          </Link>
         </div>
       </section>
 

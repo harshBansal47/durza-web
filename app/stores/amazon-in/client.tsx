@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import StoreHero from "@/components/StoreHero";
 import OfferCard from "@/components/OfferCard";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
@@ -989,7 +989,7 @@ export default function AmazonStorePage({
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-alt px-3 py-1.5 text-xs font-semibold text-ink-soft">
             <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-600" strokeWidth={2} />
-            Editor's picks
+            Editor&apos;s picks
           </span>
         </div>
 

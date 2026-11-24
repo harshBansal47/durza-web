@@ -122,7 +122,6 @@ export function CouponCard({
   const rating = typeof r.rating === "string" ? r.rating : null;
   const reviewsCount = typeof r.reviews_count === "string" ? r.reviews_count : null;
   const ctaText = typeof r.cta_text === "string" ? r.cta_text : null;
-  const autoApplied = !coupon.code;
   const discountHeading =
     resolved === "price-drop"
       ? "Price ↓"

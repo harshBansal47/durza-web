@@ -15,7 +15,7 @@ import AdidasStyleCompare from "@/components/guides/AdidasStyleCompare";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { toolHref } from "@/data/store-glossary";
-import { getGuideCoverImage, isStoreLogoPath } from "@/lib/guide-cover";
+import { getGuideCoverImage } from "@/lib/guide-cover";
 
 /**
  * Renders a statically authored buying guide — used only when the DB editorial

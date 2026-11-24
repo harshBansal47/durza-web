@@ -7,7 +7,7 @@ import { metaDescription, absoluteUrl } from "@/lib/seo";
 import { staticGuideBySlug } from "@/data/store-guides";
 import { getComparisonBySlug } from "@/data/comparisons";
 import StaticGuidePage, { staticGuideMetadata } from "@/components/guides/StaticGuidePage";
-import { getGuideCoverImage, isStoreLogoPath } from "@/lib/guide-cover";
+import { getGuideCoverImage } from "@/lib/guide-cover";
 
 function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null, title?: string, summary?: string) {
   const guide = type === "guide" ? staticGuideBySlug(slug) : undefined;

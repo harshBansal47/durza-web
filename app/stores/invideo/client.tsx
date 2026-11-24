@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
@@ -131,14 +132,14 @@ export default function InVideoClient({ offers, faqs, stats, heroImageUrl, offer
       <section aria-labelledby="invideo-related" className="rounded-2xl border border-ledger-line bg-white p-5 sm:p-6">
         <h2 id="invideo-related" className="text-lg font-bold text-ink">Related learning & software picks</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="/stores/guvi" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          <Link href="/stores/guvi" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">GUVI</p>
             <p className="mt-1 text-sm text-ink-soft">Tech upskilling and career-focused learning in India</p>
-          </a>
-          <a href="/categories/software" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
+          </Link>
+          <Link href="/categories/software" className="rounded-2xl border border-ledger-line bg-paper-raised p-4 transition hover:border-inkblue/30 hover:shadow-sm">
             <p className="font-semibold text-ink">Software category</p>
             <p className="mt-1 text-sm text-ink-soft">Browse software tools, subscriptions, and digital services</p>
-          </a>
+          </Link>
         </div>
       </section>
 

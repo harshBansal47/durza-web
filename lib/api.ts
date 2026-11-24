@@ -1,7 +1,6 @@
 import type {
   CouponSort,
   AutocompleteResult,
-  AffiliateCampaign,
   Category,
   CouponPublic,
   DiscountType,

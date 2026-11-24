@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 import { forwardToAdminApi } from "@/lib/admin-proxy";
 
 export const dynamic = "force-dynamic";

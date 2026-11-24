@@ -1,6 +1,6 @@
 "use client";
 
-import { Archive, Droplet } from "lucide-react";
+import { Archive } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";

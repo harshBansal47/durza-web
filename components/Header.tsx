@@ -16,7 +16,6 @@ import {
   type NavIcon,
   type SiteNavItem,
 } from "@/lib/nav-config";
-import { useSession } from "@/components/session/SessionProvider";
 
 const ICONS: Record<NavIcon, typeof ShieldCheck> = {
   shield: ShieldCheck,
@@ -27,8 +26,6 @@ const ICONS: Record<NavIcon, typeof ShieldCheck> = {
 
 /** Three-row Amazon-style header. All links come from the single nav config. */
 export default function Header() {
-  const { session } = useSession();
-  const user = session.user;
   const [scrolled, setScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const pathname = usePathname();

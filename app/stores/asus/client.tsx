@@ -178,8 +178,11 @@ export default function AsusClient({ faqs, stats, storeUrl, forcedStoreHref }: P
   const [isPromoActive, setIsPromoActive] = useState(false);
 
   useEffect(() => {
-    const now = Date.now();
-    setIsPromoActive(now >= PROMO_START && now <= PROMO_END);
+    const timer = window.setTimeout(() => {
+      const now = Date.now();
+      setIsPromoActive(now >= PROMO_START && now <= PROMO_END);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const heroHref = affiliateHref(HERO_SRC, forcedStoreHref);

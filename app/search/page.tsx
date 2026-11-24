@@ -176,7 +176,6 @@ async function Results({ sp, filters, stores, categories }: ResultsProps) {
       : Promise.resolve({ items: [], total: 0, skip: 0, limit: 200 }),
   ]);
 
-  const storeById = new Map(stores.map((s) => [s.id, s]));
   const storeHits = matchingStores.items;
   const needle = query.toLowerCase();
   const matchedCategories = exploratory

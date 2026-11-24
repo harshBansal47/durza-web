@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Home, ArrowUpRight } from "lucide-react";
+
+import { ArrowUpRight } from "lucide-react";
 import StoreHero from "@/components/StoreHero";
 import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats";
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";

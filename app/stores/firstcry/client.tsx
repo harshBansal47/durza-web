@@ -124,7 +124,7 @@ const CATEGORIES: Record<
 
 const TABS = (Object.keys(CATEGORIES) as Tab[]).map((id) => ({ id, label: CATEGORIES[id].label }));
 
-export default function FirstCryClient({ offers, faqs, stats, heroImageUrl, offerCount, storeUrl }: Props) {
+export default function FirstCryClient({ offers, faqs, stats, heroImageUrl }: Props) {
   const [active, setActive] = useState<Tab>("diapers");
   const category = useMemo(() => CATEGORIES[active], [active]);
   const officialHref = storeGoHref("firstcry", "store-page");

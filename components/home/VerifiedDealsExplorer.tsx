@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Flame, TicketPercent, Zap, Clock4 } from "lucide-react";
+import { Flame, TicketPercent, Zap } from "lucide-react";
 import OfferCard from "@/components/OfferCard";
 import type { CouponPublic } from "@/lib/types";
 import { formatDiscountHeading } from "@/lib/format";
