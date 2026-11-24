@@ -8,7 +8,6 @@ import Logo from "@/components/Logo";
 import { HeaderSearch, MobileSearch } from "@/components/HeaderSearch";
 import AccountMenu from "@/components/header/AccountMenu";
 import NavScrollStrip from "@/components/header/NavScrollStrip";
-import TrustRotator from "@/components/header/TrustRotator";
 import {
   PRIMARY_NAV,
   SAVED_NAV,
@@ -153,7 +152,6 @@ export default function Header() {
             <NavScrollStrip>
               {PRIMARY_NAV.map((item) => renderLink(item, "primary"))}
             </NavScrollStrip>
-            <TrustRotator />
           </nav>
         </div>
 
