@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TOPICS, TOPIC_BY_ID, isTopicId, scoreContent, siblingTopicIds, type TopicId } from "@/lib/topics";
@@ -72,6 +73,8 @@ export default async function TopicHubPage({ params }: { params: Promise<{ slug:
           {topic.categoryLabel} offers and stores →
         </Link>
       </p>
+
+      {slug === "money" && <div className="mt-8"><VerifiedResearchPanel kind="money" /></div>}
 
       {content.length === 0 ? (
         <p className="section-panel mt-10 p-6 text-sm text-ink-soft">

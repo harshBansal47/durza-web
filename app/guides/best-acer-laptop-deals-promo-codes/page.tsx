@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CheckCircle2, Sparkles, ArrowUpRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -242,6 +243,10 @@ export default function BestAcerLaptopDealsPage() {
             <strong className="text-ink">Note:</strong> Codes on this page are not asserted as active. Acer&apos;s own checkout panel is the only place that confirms a code, its minimum cart value and which SKUs it covers.
           </p>
         </section>
+
+        <div className="mt-12">
+          <VerifiedResearchPanel kind="acer" />
+        </div>
 
         <section aria-labelledby="verification" className="mt-12">
           <h2 id="verification" className="font-serif text-2xl font-extrabold text-ink">What we verified, and what we did not</h2>

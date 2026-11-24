@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { absoluteUrl } from "@/lib/seo";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 
 export const metadata: Metadata = {
   title: "How Durza researches",
@@ -76,6 +77,10 @@ export default function MethodologyPage() {
           ))}
         </ul>
       </section>
+
+      <div className="mt-10">
+        <VerifiedResearchPanel kind="general" />
+      </div>
 
       <section className="mt-10 max-w-2xl">
         <h2 className="font-serif text-2xl font-bold text-ink">Found something wrong?</h2>

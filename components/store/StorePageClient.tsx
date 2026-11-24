@@ -20,6 +20,7 @@ import { isShowcaseStore } from "@/lib/showcase-stores";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import type { CouponPublic, Store } from "@/lib/types";
 import { ArrowUpRight } from "lucide-react";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 
 interface StorePageClientProps {
   store: Store;
@@ -159,6 +160,7 @@ export default function StorePageClient({
         ]}
       />
 
+      <VerifiedResearchPanel kind="store" />
 
       {isGlobalMultiCurrencyStore && (
         <section className="rounded-2xl border border-ledger-line bg-paper-raised p-4 text-sm leading-6 text-ink-soft">

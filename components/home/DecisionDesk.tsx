@@ -43,6 +43,12 @@ const ROUTES = [
     body: "Best picks at a price, with the tradeoffs explained.",
     cta: "Browse guides",
   },
+  {
+    href: "/compare/mrp-vs-recent-price-india-sale-baseline",
+    title: "Seeing a huge discount?",
+    body: "MRP is a legal ceiling — compare a dated price for the exact model.",
+    cta: "Check the sale price",
+  },
 ];
 
 function formatUpdated(iso: string | null): string | null {

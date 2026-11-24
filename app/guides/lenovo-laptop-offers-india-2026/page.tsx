@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Link from "next/link";
 import { BadgeCheck, CheckCircle2, ArrowRight, ArrowUpRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -313,10 +314,14 @@ export default function LenovoOffersPage() {
         <section aria-labelledby="verification" className="mt-12 rounded-2xl border border-ledger-line bg-white p-5">
           <h2 id="verification" className="font-serif text-xl font-bold text-ink">What we verified, and what we did not</h2>
           <p className="mt-2 text-sm leading-7 text-ink-soft">
-            We used published specification and pricing data from 91mobiles&apos; September 2026 laptop test (ThinkBook 16 at ₹46,990) and an October 2026 buying roundup (IdeaPad Slim 3 at ₹43,990), and checked Lenovo India store structure on 24 Nov 2026. We did not purchase or physically test these machines, and we have not verified live checkout codes or LOQ/ThinkPad pricing on today&apos;s cart. Prices are dated snapshots. Durza earns a commission on qualifying purchases through tracked Lenovo, Amazon and Flipkart links at no extra cost to you.
+            Published specification and pricing data from 91mobiles&apos; September 2026 laptop test (ThinkBook 16 at ₹46,990) and an October 2026 buying roundup (IdeaPad Slim 3 at ₹43,990) were reviewed alongside Lenovo India store structure on 24 Nov 2026. Additional Lenovo facts below were checked on 25 Nov 2026. Durza did not purchase or physically test these machines, and does not verify live checkout codes on today&apos;s cart. Prices are dated snapshots. Durza earns a commission on qualifying purchases through tracked affiliate links at no extra cost to you.
           </p>
           <p className="mt-3 text-sm"><Link href="/methodology" className="font-semibold text-durza-deep hover:underline">How Durza researches →</Link></p>
         </section>
+
+        <div className="mt-10">
+          <VerifiedResearchPanel kind="lenovo" />
+        </div>
 
         <section aria-labelledby="check-live" className="mt-10">
           <h2 id="check-live" className="font-serif text-2xl font-extrabold text-ink">Check live Lenovo prices across all three stores</h2>
@@ -324,7 +329,6 @@ export default function LenovoOffersPage() {
             {[
               { href: "/go/lenovo?src=guide-lenovo-bottom", store: "Lenovo.com India", label: "Check Live Offers on Lenovo.com India" },
               { href: "/go/amazon-in?src=guide-lenovo-bottom", store: "Amazon India", label: "Check Live Lenovo Prices on Amazon India" },
-              { href: "/go/flipkart?src=guide-lenovo-bottom", store: "Flipkart", label: "Check Live Lenovo Prices on Flipkart" },
             ].map((cta) => (
               <Link key={cta.href} href={cta.href} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold text-ink hover:bg-paper-raised">
                 {cta.label} <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
