@@ -1,4 +1,6 @@
 import { cache } from "react";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
+import VerifiedListingsTable from "@/components/editorial/VerifiedListingsTable";
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -189,6 +191,13 @@ export default async function CategoryPage({
           ...(guides.length > 0 ? [{ value: guides.length.toLocaleString("en-IN"), label: "Guides" }] : []),
         ]}
       />
+
+      {slug === "electronics" && (
+        <>
+          <VerifiedResearchPanel kind="model-codes" />
+          <VerifiedListingsTable store="asus" />
+        </>
+      )}
 
       <div className="mb-6">
         <CategoryChips categories={categories.filter((c) => !c.parent_id || c.parent_id === category.parent_id || c.id === category.id)} activeSlug={category.slug} />

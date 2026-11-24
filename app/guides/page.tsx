@@ -73,6 +73,7 @@ export default async function GuidesPage() {
       categoryLabel: guide.category || hubCategory,
       hubCategory,
       updatedLabel: formatUpdated(guide.auditedOn ?? null),
+      checkedLabel: formatUpdated(guide.factsCheckedOn ?? null),
       coverImage: getGuideCoverImage({
         slug: guide.slug,
         title: guide.seo.title,

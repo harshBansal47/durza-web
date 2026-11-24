@@ -14,6 +14,8 @@ export interface GuideHubItem {
   categoryLabel: string;
   hubCategory: GuideHubCategory;
   updatedLabel: string | null;
+  /** ISO-verified fact-check date, shown as a separate badge when present. */
+  checkedLabel?: string | null;
   coverImage: string;
   featured?: boolean;
 }
@@ -163,6 +165,9 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
                     <span className="rounded-full bg-[#f3efe8] px-2.5 py-1 font-semibold text-[#141413]">{item.categoryLabel}</span>
                     {item.updatedLabel && (
                       <span className="rounded-full border border-[#141413]/10 px-2.5 py-1 font-medium text-[#5a564f]">Updated {item.updatedLabel}</span>
+                    )}
+                    {item.checkedLabel && (
+                      <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-medium text-emerald-800">Facts checked {item.checkedLabel}</span>
                     )}
                   </div>
                   <h3 className="mt-3 line-clamp-2 font-serif text-lg font-extrabold leading-snug text-ink">{item.title}</h3>
