@@ -2,7 +2,7 @@
   import { Suspense, cache } from "react";
   import Link from "next/link";
   import { notFound } from "next/navigation";
-  import { lookup, resilient } from "@/lib/api";
+  import { api, lookup, resilient, STATIC_REVALIDATE } from "@/lib/api";
   import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
   import CouponCodePanel from "@/components/CouponCodePanel";
   import {
@@ -36,10 +36,23 @@
 
   export const revalidate = 1800;
 
+  // ASSUMPTION: 100 is enough to cover the high-traffic long tail. The list is
+  // derived from real all-time clicks ("most_used"), never invented. If the API
+  // is unreachable at build time we fall back to the previous on-demand behaviour.
+  export const PREBUILD_TOP_COUPONS = 100;
+
   // Without this export a dynamic route is rendered on every request and `revalidate` is ignored
   // for the page (it goes out `private, no-store`). See stores/[slug] for the full note.
-  export function generateStaticParams() {
-    return [];
+  export async function generateStaticParams() {
+    try {
+      const response = await api.listCoupons(
+        { active_only: true, sort: "most_used", limit: PREBUILD_TOP_COUPONS },
+        STATIC_REVALIDATE,
+      );
+      return response.items.map((coupon) => ({ slug: coupon.slug }));
+    } catch {
+      return [];
+    }
   }
 
   // One lookup shared by generateMetadata and the page (`cache()`, because apiFetch's

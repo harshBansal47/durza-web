@@ -42,3 +42,11 @@ VERCEL_REVALIDATE_SECRET=<shared secret>
 ```
 
 Both are optional; when unset the backend never attempts a revalidation request.
+
+## Top-N coupon prebuild (b)
+`app/coupons/[slug]/page.tsx::generateStaticParams()` now fetches the top 100 offers by real all-time
+clicks (`sort: "most_used"`) at build time and prebuilds those paths. If the API is unreachable during
+a build, it returns `[]` and the previous on-demand behaviour applies. `dynamicParams` remains true,
+so the long tail still renders on first visit. **Assumption:** 100 paths cover the high-traffic tail.
+Local builds without API access fall back to `[]`; Vercel builds with the production API reach should
+prebuild the list.
