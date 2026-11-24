@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CalendarCheck, ShieldCheck, TimerOff } from "lucide-react";
 import PendingLink from "@/components/ui/PendingLink";
 import type { HeroStore } from "@/lib/home-hero";
 import { formatStoreDisplayName } from "@/lib/store-display";
@@ -71,21 +70,6 @@ export default function HeroBand({
 
   return (
     <div className="hx-band hx-rise" style={{ ["--i" as string]: 4 }}>
-      <ul className="hx-trustcol" style={{ listStyle: "none", margin: 0, padding: 0 }}>
-        <li className="hx-trust">
-          <ShieldCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-          Source shown when we have it
-        </li>
-        <li className="hx-trust amber">
-          <CalendarCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-          Check date when available
-        </li>
-        <li className="hx-trust blue">
-          <TimerOff aria-hidden="true" size={15} strokeWidth={2.4} />
-          No fake countdown timers
-        </li>
-      </ul>
-
       {popular.length > 0 && (
         <>
           <div className="hx-vline" aria-hidden="true" />

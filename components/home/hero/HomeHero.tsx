@@ -17,8 +17,6 @@ export interface HomeHeroProps {
   featured: HeroDeal[];
   stores: HeroStore[];
   popularStores: HeroStore[];
-  /** Real category hubs with live offer counts, shown beside the featured panel. */
-  categories: { slug: string; name: string; count: number }[];
   stats: { coupons: number; stores: number; categories: number };
   /** Offers the backend re-checked in the last 24h (a real count). */
 }
@@ -28,7 +26,7 @@ export interface HomeHeroProps {
  * the featured-offers panel and a trust/stats band. Owns the offer drawer so
  * any entry point — search result or featured card — opens the same one.
  */
-export default function HomeHero({ deals, featured, stores, popularStores, categories, stats }: HomeHeroProps) {
+export default function HomeHero({ deals, featured, stores, popularStores, stats }: HomeHeroProps) {
   const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -103,27 +101,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, categ
         <div className="hx-right">
           <FeaturedDesk deals={featured} total={stats.coupons} onOpenDeal={setDrawerDeal} />
 
-          {categories.length > 0 && (
-            <section className="hx-catbox hx-rise" style={{ ["--i" as string]: 4 }} aria-labelledby="hero-categories">
-              <div className="hx-catbox-head">
-                <div>
-                  <p className="hx-catbox-kicker">Shop by category</p>
-                  <h2 id="hero-categories" className="hx-catbox-title">Start where you are</h2>
-                </div>
-                <Link href="/categories" className="hx-catbox-all">
-                  All categories <ArrowRight size={13} aria-hidden="true" />
-                </Link>
-              </div>
-              <div className="hx-catgrid">
-                {categories.map((category) => (
-                  <Link key={category.slug} href={`/categories/${category.slug}`} className="hx-cattile">
-                    <span className="hx-catname">{category.name}</span>
-                    <span className="hx-catcount">{category.count} offers</span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
         </div>
       </div>
 

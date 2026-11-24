@@ -2,13 +2,35 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck } from "lucide-react";
+import {
+  ArrowRight,
+  Baby,
+  BadgeCheck,
+  CreditCard,
+  Cpu,
+  Dumbbell,
+  LayoutGrid,
+  Shirt,
+  Sparkles,
+  Utensils,
+} from "lucide-react";
 import { dealEndsLabel, type HeroDeal } from "@/lib/home-hero";
 import CopyCodeButton from "./CopyCodeButton";
 import StoreMark from "./StoreMark";
 import { usePrefersReducedMotion } from "./hooks";
 
 const ROTATE_MS = 6000;
+
+const CATEGORY_SHORTCUTS = [
+  { label: "Baby & Kids", href: "/categories/baby-kids", icon: Baby },
+  { label: "Beauty & Grooming", href: "/categories/beauty", icon: Sparkles },
+  { label: "Electronics", href: "/categories/electronics", icon: Cpu },
+  { label: "Fashion", href: "/categories/fashion", icon: Shirt },
+  { label: "Finance & Cards", href: "/categories/finance", icon: CreditCard },
+  { label: "Fitness", href: "/categories/fitness", icon: Dumbbell },
+  { label: "Food Delivery", href: "/categories/food-delivery", icon: Utensils },
+  { label: "All categories", href: "/categories", icon: LayoutGrid },
+] as const;
 
 /**
  * "Featured right now": up to four live offers, one highlighted. The highlight
@@ -122,6 +144,18 @@ export default function FeaturedDesk({
           );
         })
       )}
+
+      <div className="hx-deskcats">
+        <p className="hx-deskcats-title">Shop by category</p>
+        <div className="hx-deskcats-grid">
+          {CATEGORY_SHORTCUTS.map(({ label, href, icon: Icon }) => (
+            <Link key={href} href={href} className="hx-deskcat">
+              <Icon aria-hidden="true" size={14} strokeWidth={1.9} />
+              <span>{label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
 
       <div className="hx-desk-foot">
         <Link href="/coupons?sort=recommended" className="hx-desk-all">

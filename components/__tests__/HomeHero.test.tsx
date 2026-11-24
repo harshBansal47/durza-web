@@ -62,7 +62,6 @@ function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) 
           featured={featured}
           stores={stores}
           popularStores={stores}
-          categories={[{ slug: "electronics", name: "Electronics", count: 12 }, { slug: "fashion", name: "Fashion", count: 8 }]}
           stats={{ coupons: 1255, stores: 94, categories: 16 }}
           {...props}
         />
@@ -86,8 +85,10 @@ describe("HomeHero — structure", () => {
   it("renders the compact headline, eyebrow, featured panel and trust band", () => {
     renderHero();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Discover genuine deals. Shop smarter. Save more.");
-    expect(screen.getByRole("complementary", { name: "Featured offers" })).toBeInTheDocument();
-    expect(screen.getByText("No fake countdown timers")).toBeInTheDocument();
+    const desk = screen.getByRole("complementary", { name: "Featured offers" });
+    expect(desk).toBeInTheDocument();
+    expect(within(desk).getByRole("link", { name: /Baby & Kids/ })).toHaveAttribute("href", "/categories/baby-kids");
+    expect(within(desk).getByRole("link", { name: /All categories/ })).toHaveAttribute("href", "/categories");
     expect(screen.getByRole("link", { name: "+ 89 more" })).toHaveAttribute("href", "/stores");
     expect(screen.getByRole("link", { name: /All 1,255 coupons/ })).toBeInTheDocument();
   });
@@ -102,7 +103,7 @@ describe("HomeHero — structure", () => {
   });
 
   it("omits invented numbers when there is no data", () => {
-    renderHero({ categories: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
+    renderHero({ featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
     expect(screen.queryByText(/checked within the last 24 hours/i)).not.toBeInTheDocument();
     expect(screen.getByText(/No featured offers right now/)).toBeInTheDocument();
   });

@@ -56,13 +56,22 @@ export function buildHeroResults<D extends SearchableDeal, S extends SearchableS
 
   if (!q) {
     if (scope === "all") {
-      dealsOf(pool.featured, 3);
+      // Featured picks are often an empty curated pool; fall back to the live
+      // offers already on the page so the All tab is never blank.
+      const seen = new Set<string>();
+      const starter = [...pool.featured, ...pool.deals].filter((deal) => {
+        if (seen.has(deal.id)) return false;
+        seen.add(deal.id);
+        return true;
+      });
+      dealsOf(starter, 3);
     } else if (scope === "code") {
       dealsOf(pool.deals.filter((d) => d.code), 3);
     } else if (scope === "deal") {
       dealsOf(pool.deals.filter((d) => !d.code), 3);
     } else if (scope === "store") {
-      pool.popularStores.slice(0, 3).forEach((store) => out.push({ type: "store", store }));
+      const stores = pool.popularStores.length > 0 ? pool.popularStores : pool.stores;
+      stores.slice(0, 3).forEach((store) => out.push({ type: "store", store }));
     }
     return out;
   }

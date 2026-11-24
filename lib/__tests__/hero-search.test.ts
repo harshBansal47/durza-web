@@ -24,7 +24,7 @@ const types = (r: ReturnType<typeof buildHeroResults<(typeof deals)[number], (ty
 
 describe("buildHeroResults", () => {
   it("shows starter picks for an empty query in every scope", () => {
-    expect(types(buildHeroResults("", "all", pool))).toEqual(["deal", "deal"]);
+    expect(types(buildHeroResults("", "all", pool))).toEqual(["deal", "deal", "deal"]);
     expect(buildHeroResults("", "code", pool).every((r) => r.type === "deal" && r.deal.code)).toBe(true);
     expect(buildHeroResults("", "deal", pool).every((r) => r.type === "deal" && !r.deal.code)).toBe(true);
     expect(types(buildHeroResults("", "store", pool))).toEqual(["store", "store"]);
@@ -47,6 +47,11 @@ describe("buildHeroResults", () => {
     expect(buildHeroResults("off", "deal", pool).map((r) => (r.type === "deal" ? r.deal.id : ""))).toEqual(["3"]);
     expect(types(buildHeroResults("health", "store", pool))).toEqual(["store"]);
     expect(buildHeroResults("gst", "store", pool)).toEqual([]);
+  });
+
+  it("shows live offers in All when the featured pool is empty", () => {
+    expect(types(buildHeroResults("", "all", { ...pool, featured: [] }))).toEqual(["deal", "deal", "deal"]);
+    expect(types(buildHeroResults("", "store", { ...pool, popularStores: [] }))).toEqual(["store", "store", "store"]);
   });
 
   it("returns nothing for a miss", () => {

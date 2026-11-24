@@ -209,13 +209,6 @@ export default async function HomePage() {
     ...COLLECTIONS,
   ];
 
-  // Category tiles for the hero's right column — real hubs with real offer counts.
-  const heroCategories = categories.items.slice(0, 6).map((category) => ({
-    slug: category.slug,
-    name: category.name,
-    count: categoryCounts[category.id] ?? 0,
-  }));
-
   // Hero view-model. Search pool = every relevant offer already fetched for this page (deduped,
   // capped to keep the client payload small); stores are the full list so any store is findable.
   const REDIRECTED_HERO_STORE_SLUGS = new Set([
@@ -270,7 +263,6 @@ export default async function HomePage() {
         featured={heroFeatured}
         stores={heroStores}
         popularStores={heroPopularStores}
-        categories={heroCategories}
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
       />
 
