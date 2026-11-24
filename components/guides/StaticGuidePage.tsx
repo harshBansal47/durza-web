@@ -260,6 +260,22 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
         <GuideCodeCta storeSlug={guide.storeSlug} storeName={storeName} cta={guide.primaryCta} />
       )}
 
+      {guide.extraCtas && guide.extraCtas.length > 0 && (
+        <div className="not-prose my-6 flex flex-wrap gap-3">
+          {guide.extraCtas.map((cta) => (
+            <a
+              key={cta.href}
+              href={cta.href}
+              target="_blank"
+              rel="nofollow sponsored noopener noreferrer"
+              className="inline-flex min-h-11 items-center rounded-xl border border-ledger-line bg-white px-4 py-2.5 text-sm font-semibold text-inkblue hover:border-inkblue"
+            >
+              {cta.label} <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+            </a>
+          ))}
+        </div>
+      )}
+
       <FaqAccordion faqs={guide.faqs} />
 
       <AdSenseSlot eligible slot={endAdSlot} />

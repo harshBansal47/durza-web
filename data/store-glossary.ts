@@ -63,6 +63,10 @@ export type StoreSlug = keyof typeof STORE_TOOL_ANCHORS;
  */
 const STORE_TOOL_HREFS: Record<string, string> = {
   havells: "/stores/havells/bldc-calculator",
+  kapiva: "/stores/kapiva#kapiva-matcher",
+  hkvitals: "/stores/hkvitals#hkvitals-matcher",
+  healthkart: "/stores/healthkart#healthkart-matcher",
+  "dot-and-key": "/stores/dot-and-key#dotkey-matcher",
 };
 
 /** Returns a dedicated tool route, `/stores/<slug>#<anchor>`, or `#tool` fallback. */
