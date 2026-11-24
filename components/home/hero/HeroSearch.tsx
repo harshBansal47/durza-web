@@ -69,7 +69,12 @@ export default function HeroSearch({
   // "/" focuses the search from anywhere that is not a text field or an open overlay.
   useEffect(() => {
     function onKey(event: globalThis.KeyboardEvent) {
-      if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey || hasOpenOverlay()) return;
+      const blockingDialog = document.querySelector('[role="dialog"][aria-modal="true"]');
+      if (
+        event.key !== "/"
+        || event.metaKey || event.ctrlKey || event.altKey
+        || hasOpenOverlay() || blockingDialog || document.body.style.overflow === "hidden"
+      ) return;
       const el = event.target as HTMLElement | null;
       if (el && (/^(input|textarea|select)$/i.test(el.tagName) || el.isContentEditable)) return;
       event.preventDefault();
@@ -137,13 +142,19 @@ export default function HeroSearch({
     }
   }
 
-  const placeholder = compact
-    ? "Search stores and codes…"
-    : `Search ${totals.stores > 0 ? `${totals.stores.toLocaleString("en-IN")} stores` : "stores"}, ${
-        totals.coupons > 0 ? `${totals.coupons.toLocaleString("en-IN")} codes` : "codes"
-      }…`;
+  const placeholder = compact ? "Search today's picks…" : "Search today's picks…";
 
-  const headings = results.map((r) => (r.type === "deal" && !trimmed ? "Fresh-checked picks" : GROUP_LABEL[r.type]));
+  const groups = results.reduce<Array<{ heading: string; items: Array<{ result: (typeof results)[number]; i: number }> }>>(
+    (acc, result, i) => {
+      const heading = result.type === "deal" && !trimmed ? "Fresh-checked picks" : GROUP_LABEL[result.type];
+      const last = acc[acc.length - 1];
+      if (last && last.heading === heading) last.items.push({ result, i });
+      else acc.push({ heading, items: [{ result, i }] });
+      return acc;
+    },
+    [],
+  );
+
   return (
     <div
       className="hx-searchzone hx-rise"
@@ -207,14 +218,13 @@ export default function HeroSearch({
         )}
       </div>
 
-      <div className="hx-scopes" role="tablist" aria-label="Search scope">
+      <div className="hx-scopes" role="group" aria-label="Search scope">
         {SCOPES.map((s) => (
           <button
             key={s.id}
             type="button"
-            role="tab"
             className="hx-scope"
-            aria-selected={scope === s.id}
+            aria-pressed={scope === s.id}
             onClick={() => {
               setScope(s.id);
               setSel(0);
@@ -245,24 +255,22 @@ export default function HeroSearch({
             </div>
           ) : (
             <>
-              {results.map((result, i) => {
-                const heading = headings[i];
-                const showHeading = i === 0 || headings[i - 1] !== heading;
-                const common = {
-                  id: `${listId}-${i}`,
-                  role: "option" as const,
-                  "data-ri": i,
-                  "aria-selected": i === active,
-                  className: "hx-item",
-                  onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
-                  onMouseEnter: () => setSel(i),
-                  onClick: () => pick(i),
-                };
-                return (
-                  <div key={`${result.type}-${i}`}>
-                    {showHeading && <div className="hx-group">{heading}</div>}
-                    {result.type === "deal" && (
-                      <button type="button" {...common}>
+              {groups.map((group) => (
+                <div key={group.heading} role="group" aria-label={group.heading}>
+                  <div className="hx-group">{group.heading}</div>
+                  {group.items.map(({ result, i }) => {
+                    const common = {
+                      id: `${listId}-${i}`,
+                      role: "option" as const,
+                      "data-ri": i,
+                      "aria-selected": i === active,
+                      className: "hx-item",
+                      onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
+                      onMouseEnter: () => setSel(i),
+                      onClick: () => pick(i),
+                    };
+                    return result.type === "deal" ? (
+                      <button type="button" key={i} {...common}>
                         <StoreMark store={result.deal.store} size={34} />
                         <span className="hx-item-body">
                           <span className="hx-item-title">
@@ -275,9 +283,8 @@ export default function HeroSearch({
                         </span>
                         <span className={`hx-badge ${result.deal.code ? "code" : "deal"}`}>{result.deal.code ?? "DEAL"}</span>
                       </button>
-                    )}
-                    {result.type === "store" && (
-                      <button type="button" {...common}>
+                    ) : (
+                      <button type="button" key={i} {...common}>
                         <StoreMark store={result.store} size={34} />
                         <span className="hx-item-body">
                           <span className="hx-item-title">
@@ -289,10 +296,10 @@ export default function HeroSearch({
                         </span>
                         <span className="hx-badge store">{result.store.offerCount != null ? `${result.store.offerCount} offers` : "STORE"}</span>
                       </button>
-                    )}
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              ))}
               <div className="hx-foot">
                 <span><b>↑↓</b> navigate</span>
                 <span><b>↵</b> open</span>

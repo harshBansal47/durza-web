@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   Baby,
-  BadgeCheck,
   CreditCard,
   Cpu,
   Dumbbell,
@@ -17,9 +15,6 @@ import {
 import { dealEndsLabel, type HeroDeal } from "@/lib/home-hero";
 import CopyCodeButton from "./CopyCodeButton";
 import StoreMark from "./StoreMark";
-import { usePrefersReducedMotion } from "./hooks";
-
-const ROTATE_MS = 6000;
 
 const CATEGORY_SHORTCUTS = [
   { label: "Baby & Kids", href: "/categories/baby-kids", icon: Baby },
@@ -32,13 +27,7 @@ const CATEGORY_SHORTCUTS = [
   { label: "All categories", href: "/categories", icon: LayoutGrid },
 ] as const;
 
-/**
- * "Featured right now": up to four live offers, one highlighted. The highlight
- * advances every 6s, holds while hovered or focused (and never auto-advances for
- * people who prefer reduced motion); the dots jump straight to a card. The
- * rotation is a single timeout keyed on the current index, so a click or a state
- * change always restarts it and two timers can never run together.
- */
+/** One real featured offer, plus compact category shortcuts. No rotation UI. */
 export default function FeaturedDesk({
   deals,
   total,
@@ -48,51 +37,20 @@ export default function FeaturedDesk({
   total: number;
   onOpenDeal: (deal: HeroDeal) => void;
 }) {
-  const [index, setIndex] = useState(0);
-  const [held, setHeld] = useState(false);
-  const reduced = usePrefersReducedMotion();
   const count = deals.length;
-
-  useEffect(() => {
-    if (held || reduced || count < 2) return;
-    const timer = setTimeout(() => setIndex((i) => (i + 1) % count), ROTATE_MS);
-    return () => clearTimeout(timer);
-  }, [index, held, reduced, count]);
-
-  const allVerified = count > 0 && deals.every((d) => d.verified);
 
   return (
     <aside
       className="hx-desk hx-rise"
       style={{ ["--i" as string]: 3 }}
-      aria-label="Featured offers"
-      onMouseEnter={() => setHeld(true)}
-      onMouseLeave={() => setHeld(false)}
-      onFocus={() => setHeld(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setHeld(false);
-      }}
+      aria-label={count > 1 ? "Featured offers" : "Featured offer"}
     >
       <div className="hx-desk-head">
-        <span className="hx-desk-title">Featured right now</span>
+        <span className="hx-desk-title">{count > 1 ? "Featured offers" : "Featured offer"}</span>
         <span className="hx-live">
           <span className="hx-pulse" aria-hidden="true" />
-          {allVerified ? "CHECKED OUT" : "LIVE"}
+          LIVE
         </span>
-        {count > 1 && (
-          <div className="hx-dots">
-            {deals.map((deal, i) => (
-              <button
-                key={deal.id}
-                type="button"
-                className="hx-dot"
-                aria-label={`Highlight offer ${i + 1} of ${count}: ${deal.store.name}`}
-                aria-current={i === index}
-                onClick={() => setIndex(i)}
-              />
-            ))}
-          </div>
-        )}
       </div>
 
       {count === 0 ? (
@@ -101,12 +59,10 @@ export default function FeaturedDesk({
           We would rather show nothing than pad this panel with offers we cannot source. Browse all coupons instead.
         </div>
       ) : (
-        deals.map((deal, i) => {
-          const hot = i === index;
+        deals.map((deal) => {
           const ends = dealEndsLabel(deal);
           return (
-            <article key={deal.id} className={`hx-fcard${hot ? " hot" : ""}`}>
-              {hot && <span className="hx-fcard-tag">{deal.verified ? "TOP CHECK" : "FEATURED"}</span>}
+            <article key={deal.id} className="hx-fcard">
               <StoreMark store={deal.store} size={44} />
               <div className="hx-fc-body">
                 <div className="hx-fc-store">
@@ -126,11 +82,6 @@ export default function FeaturedDesk({
                   )}
                   {deal.checkedLabel && (
                     <span className="hx-fc-check">
-                      {deal.verified && (
-                        <span className="v">
-                          <BadgeCheck aria-hidden="true" size={12} strokeWidth={2.6} />
-                        </span>
-                      )}
                       checked {deal.checkedLabel}
                     </span>
                   )}
@@ -162,7 +113,6 @@ export default function FeaturedDesk({
           {total > 0 ? `All ${total.toLocaleString("en-IN")} coupons` : "All coupons"}
           <ArrowRight aria-hidden="true" size={14} strokeWidth={2.6} />
         </Link>
-        {count > 1 && <span className="hx-desk-note">Rotates every 6s · hover to hold</span>}
       </div>
     </aside>
   );

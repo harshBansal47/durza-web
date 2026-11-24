@@ -386,8 +386,8 @@ export default async function HomePage() {
           )}
 
           <p className="mt-12 border-t border-ledger-line pt-4 text-xs text-ink-soft">
-            Durza may earn a commission on tracked links. We never charge shoppers, and we do not
-            claim a code works unless checkout testing confirmed it.
+            Durza may earn a commission on tracked links. We never charge shoppers, and we only
+            show a code where one was actually listed.
           </p>
 
           <section className="mt-10">

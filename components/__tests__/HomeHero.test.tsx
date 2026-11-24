@@ -105,9 +105,10 @@ describe("HomeHero — structure", () => {
     expect(screen.getByText(/No featured offers right now/)).toBeInTheDocument();
   });
 
-  it("only claims CHECKED OUT for the panel when every featured offer is verified", () => {
+  it("uses a neutral LIVE label and no checkout or verification badge", () => {
     renderHero({ featured: [deals[0], deals[4]] });
     expect(screen.getByText("LIVE")).toBeInTheDocument();
+    expect(screen.queryByText(/CHECKED OUT|TOP CHECK/i)).toBeNull();
   });
 });
 
@@ -126,6 +127,32 @@ describe("HomeHero — search", () => {
     expect(other).toHaveFocus();
     expect(other.value).toBe("/");
     other.remove();
+  });
+
+  it("uses honest placeholder copy and pressed scope buttons", () => {
+    renderHero();
+    expect(searchInput()).toHaveAttribute("placeholder", "Search today's picks…");
+    const scope = screen.getByRole("group", { name: "Search scope" });
+    expect(within(scope).getByRole("button", { name: "All" })).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("groups results and stays quiet behind a modal dialog", async () => {
+    const user = userEvent.setup();
+    renderHero();
+    await user.click(searchInput());
+    const list = screen.getByRole("listbox", { name: "Search results" });
+    expect(within(list).getAllByRole("group").length).toBeGreaterThan(0);
+
+    const dialog = document.createElement("div");
+    dialog.setAttribute("role", "dialog");
+    dialog.setAttribute("aria-modal", "true");
+    dialog.tabIndex = 0;
+    document.body.appendChild(dialog);
+    dialog.focus();
+    await user.keyboard("/");
+    expect(dialog).toHaveFocus();
+    expect(searchInput()).not.toHaveFocus();
+    dialog.remove();
   });
 
   it("filters live, highlights the match, and navigates with arrows, enter and escape", async () => {
@@ -164,14 +191,14 @@ describe("HomeHero — search", () => {
     const user = userEvent.setup();
     renderHero();
     await user.type(searchInput(), "off");
-    await user.click(screen.getByRole("tab", { name: "Coupon codes" }));
+    await user.click(screen.getByRole("button", { name: "Coupon codes" }));
     const codes = screen.getByRole("listbox");
     expect(codes).toHaveTextContent("SV10VC");
     expect(codes).toHaveTextContent("BOULT300");
     expect(codes).not.toHaveTextContent("Up to 40% off sitewide"); // no-code deal is excluded
-    await user.click(screen.getByRole("tab", { name: "Deals" }));
+    await user.click(screen.getByRole("button", { name: "Deals" }));
     expect(screen.getByRole("listbox")).toHaveTextContent("Up to 40% off sitewide");
-    await user.click(screen.getByRole("tab", { name: "Stores" }));
+    await user.click(screen.getByRole("button", { name: "Stores" }));
     expect(screen.getByRole("listbox")).toHaveTextContent(/Nothing in today/);
     await user.clear(searchInput());
     await user.type(searchInput(), "boult");
@@ -182,7 +209,7 @@ describe("HomeHero — search", () => {
     const user = userEvent.setup();
     renderHero();
 
-    await user.click(screen.getByRole("tab", { name: "All" }));
+    await user.click(screen.getByRole("button", { name: "All" }));
     await user.clear(searchInput());
     await user.type(searchInput(), "sirona");
     await user.click(within(screen.getByRole("listbox")).getByRole("option", { name: /Sirona.*live offers/ }));
@@ -275,43 +302,10 @@ describe("HomeHero — drawer & overlay hygiene", () => {
   });
 });
 
-describe("HomeHero — featured rotation", () => {
-  const hotTitle = () => document.querySelector(".hx-fcard.hot .hx-fc-open")?.textContent;
-
-  it("advances every 6s, holds on hover, and dots jump (restarting the timer)", () => {
-    vi.useFakeTimers();
+describe("HomeHero — featured desk", () => {
+  it("has no rotation controls or notes", () => {
     renderHero();
-    expect(hotTitle()).toBe("Extra 10% off on whey protein");
-    act(() => void vi.advanceTimersByTime(6000));
-    expect(hotTitle()).toBe("Flat ₹300 off on earbuds");
-
-    const desk = screen.getByRole("complementary", { name: "Featured offers" });
-    fireEvent.mouseEnter(desk);
-    act(() => void vi.advanceTimersByTime(20000));
-    expect(hotTitle()).toBe("Flat ₹300 off on earbuds"); // held
-    fireEvent.mouseLeave(desk);
-    act(() => void vi.advanceTimersByTime(6000));
-    expect(hotTitle()).toBe("Up to 40% off sitewide");
-
-    fireEvent.click(screen.getByRole("button", { name: /Highlight offer 1 of 4/ }));
-    expect(hotTitle()).toBe("Extra 10% off on whey protein");
-    act(() => void vi.advanceTimersByTime(5900));
-    expect(hotTitle()).toBe("Extra 10% off on whey protein"); // timer restarted by the click
-    act(() => void vi.advanceTimersByTime(200));
-    expect(hotTitle()).toBe("Flat ₹300 off on earbuds");
-  });
-
-  it("clears its timer on unmount", () => {
-    vi.useFakeTimers();
-    const { unmount } = renderHero();
-    unmount();
-    expect(vi.getTimerCount()).toBe(0);
-  });
-
-  it("labels the highlighted card TOP CHECK only when it is verified", () => {
-    renderHero();
-    expect(screen.getByText("TOP CHECK")).toBeInTheDocument();
-    renderHero({ featured: [deals[4], deals[0]] });
-    expect(screen.getByText("FEATURED")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Highlight offer/i })).toBeNull();
+    expect(screen.queryByText(/Rotates every/i)).toBeNull();
   });
 });
