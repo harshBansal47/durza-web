@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FooterAd, { FooterAdFallback } from "@/components/FooterAd";
 import SavedUpdatesBanner from "@/components/SavedUpdatesBanner";
-import PromoStrip from "@/components/PromoStrip";
 import { FilterNavigationProvider } from "@/components/filters/FilterNavigation";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { AnalyticsPageView } from "@/components/Analytics";
@@ -99,7 +98,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               >
                 Skip to content
               </a>
-              <PromoStrip />
               <Header links={navLinks} moreLinks={moreNavLinks} />
               <FilterNavigationProvider>
                 <main id="main" className="flex-1">

@@ -63,7 +63,7 @@ function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) 
           featured={featured}
           stores={stores}
           popularStores={stores}
-          tickerItems={[{ kind: "verified", text: "Code SV10VC confirmed 5 hours ago" }, { kind: "deal", text: "Up to 40% off sitewide" }]}
+          categories={[{ slug: "electronics", name: "Electronics", count: 12 }, { slug: "fashion", name: "Fashion", count: 8 }]}
           stats={{ coupons: 1255, stores: 94, categories: 16 }}
           {...props}
         />
@@ -94,10 +94,9 @@ describe("HomeHero — structure", () => {
     expect(screen.getByRole("link", { name: /All 1,255 coupons/ })).toBeInTheDocument();
   });
 
-  it("omits the eyebrow and ticker instead of inventing numbers when there is no data", () => {
-    renderHero({ tickerItems: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
+  it("omits invented numbers when there is no data", () => {
+    renderHero({ categories: [], featured: [], stats: { coupons: 0, stores: 0, categories: 0 } });
     expect(screen.queryByText(/checked within the last 24 hours/i)).not.toBeInTheDocument();
-    expect(screen.queryByText("VERIFY DESK")).not.toBeInTheDocument();
     expect(screen.getByText(/No featured offers right now/)).toBeInTheDocument();
   });
 
@@ -245,7 +244,7 @@ describe("HomeHero — all-tools hub", () => {
   it("lists every tool, filters by category and search, and opens a tool with a way back", async () => {
     const user = userEvent.setup();
     renderHero();
-    const hubBtn = screen.getByRole("button", { name: /Browse all \d+ shopping tools/ });
+    const hubBtn = screen.getByRole("button", { name: /All \d+ tools/ });
     await user.click(hubBtn);
     const hub = screen.getByRole("dialog", { name: "Shopping tools" });
     expect(within(hub).getByRole("searchbox", { name: "Search tools" })).toHaveFocus();
@@ -273,7 +272,7 @@ describe("HomeHero — all-tools hub", () => {
   it("returns focus to the hub button when a tool opened from the hub is closed", async () => {
     const user = userEvent.setup();
     renderHero();
-    const hubBtn = screen.getByRole("button", { name: /Browse all \d+ shopping tools/ });
+    const hubBtn = screen.getByRole("button", { name: /All \d+ tools/ });
     await user.click(hubBtn);
     const hub = screen.getByRole("dialog", { name: "Shopping tools" });
     await user.click(within(hub).getByRole("button", { name: /BLDC Power Calculator/ }));
@@ -284,7 +283,7 @@ describe("HomeHero — all-tools hub", () => {
   it("shows an empty state for a tool search with no match", async () => {
     const user = userEvent.setup();
     renderHero();
-    await user.click(screen.getByRole("button", { name: /Browse all \d+ shopping tools/ }));
+    await user.click(screen.getByRole("button", { name: /All \d+ tools/ }));
     await user.type(screen.getByRole("searchbox", { name: "Search tools" }), "zzzzqq");
     expect(screen.getByText(/No tool matches/)).toBeInTheDocument();
   });
@@ -354,7 +353,7 @@ describe("HomeHero — drawer & overlay hygiene", () => {
   });
 });
 
-describe("HomeHero — featured rotation & ticker", () => {
+describe("HomeHero — featured rotation", () => {
   const hotTitle = () => document.querySelector(".hx-fcard.hot .hx-fc-open")?.textContent;
 
   it("advances every 6s, holds on hover, and dots jump (restarting the timer)", () => {
@@ -392,16 +391,5 @@ describe("HomeHero — featured rotation & ticker", () => {
     expect(screen.getByText("TOP CHECK")).toBeInTheDocument();
     renderHero({ featured: [deals[4], deals[0]] });
     expect(screen.getByText("FEATURED")).toBeInTheDocument();
-  });
-
-  it("pauses and resumes the ticker from the explicit button", async () => {
-    const user = userEvent.setup();
-    renderHero();
-    const ticker = document.querySelector(".hx-ticker") as HTMLElement;
-    expect(ticker).toHaveAttribute("data-paused", "false");
-    await user.click(screen.getByRole("button", { name: "Pause verification ticker" }));
-    expect(ticker).toHaveAttribute("data-paused", "true");
-    await user.click(screen.getByRole("button", { name: "Play verification ticker" }));
-    expect(ticker).toHaveAttribute("data-paused", "false");
   });
 });

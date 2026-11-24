@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight, Compass, Store, Flame, Zap } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
-import type { ActivityItem } from "@/components/home/ActivityTicker";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import CategoryTileGrid from "@/components/home/CategoryTileGrid";
 import StoreTrackGrid from "@/components/home/StoreTrackGrid";
@@ -146,15 +145,6 @@ export default async function HomePage() {
     });
   }
 
-  const cardStores = stores.items.map((s) => ({
-    id: s.id,
-    name: s.name,
-    slug: s.slug,
-    logo_url: s.logo_url,
-    website_url: s.website_url,
-    currency: s.currency,
-  }));
-
   // One offer should appear once on this page. Sections fill in the order they
   // are shown, and an offer already placed in an earlier row is skipped — a
   // presentation filter over the backend's orders, not a re-ranking.
@@ -219,26 +209,12 @@ export default async function HomePage() {
     ...COLLECTIONS,
   ];
 
-  const activityDeals = explorerTabs.deals; // already relevant
-
-  // The activity tape under the hero is built only from rows already on this
-  // page (confirmations, the steepest percentages, the newest deals) — a line
-  // exists only when the data behind it does. Kinds interleave so the tape
-  // reads as a mix rather than three stacked lists.
-  const storeNameById = new Map(cardStores.map((s) => [s.id, s.name]));
-  const storeNameFor = (coupon: CouponPublic) => storeNameById.get(coupon.store_id) ?? "a tracked store";
-  const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text);
-  const dealTape: ActivityItem[] = activityDeals
-    .slice(0, 4)
-    .map((c) => ({ kind: "deal", text: clip(c.title, 64) }));
-  const activityItems: ActivityItem[] = [];
-  for (let i = 0; activityItems.length < 12; i += 1) {
-    const wave = [dealTape[i]].filter(
-      (item): item is ActivityItem => item !== undefined,
-    );
-    if (wave.length === 0) break;
-    activityItems.push(...wave.slice(0, 12 - activityItems.length));
-  }
+  // Category tiles for the hero's right column — real hubs with real offer counts.
+  const heroCategories = categories.items.slice(0, 6).map((category) => ({
+    slug: category.slug,
+    name: category.name,
+    count: categoryCounts[category.id] ?? 0,
+  }));
 
   // Hero view-model. Search pool = every relevant offer already fetched for this page (deduped,
   // capped to keep the client payload small); stores are the full list so any store is findable.
@@ -294,7 +270,7 @@ export default async function HomePage() {
         featured={heroFeatured}
         stores={heroStores}
         popularStores={heroPopularStores}
-        tickerItems={isEmpty ? [] : activityItems}
+        categories={heroCategories}
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
       />
 

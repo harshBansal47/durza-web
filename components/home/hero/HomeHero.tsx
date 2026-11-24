@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
-import type { ActivityItem } from "@/components/home/ActivityTicker";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import "./hero.css";
 import ToolDialog from "@/components/tools/ToolDialog";
@@ -14,7 +13,6 @@ import FeaturedDesk from "./FeaturedDesk";
 import HeroBand from "./HeroBand";
 import HeroSearch from "./HeroSearch";
 import OfferDrawer from "./OfferDrawer";
-import VerifyDeskTicker from "./VerifyDeskTicker";
 import { usePrefersReducedMotion } from "./hooks";
 
 export interface HomeHeroProps {
@@ -23,7 +21,8 @@ export interface HomeHeroProps {
   featured: HeroDeal[];
   stores: HeroStore[];
   popularStores: HeroStore[];
-  tickerItems: ActivityItem[];
+  /** Real category hubs with live offer counts, shown beside the featured panel. */
+  categories: { slug: string; name: string; count: number }[];
   stats: { coupons: number; stores: number; categories: number };
   /** Offers the backend re-checked in the last 24h (a real count). */
 }
@@ -34,7 +33,7 @@ export interface HomeHeroProps {
  * overlays (offer drawer, tool modal) so any entry point — search result,
  * featured card, a tool's related offer — opens the same ones.
  */
-export default function HomeHero({ deals, featured, stores, popularStores, tickerItems, stats }: HomeHeroProps) {
+export default function HomeHero({ deals, featured, stores, popularStores, categories, stats }: HomeHeroProps) {
   const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
   // `fromHub` makes the tool's back arrow return to the list instead of closing.
   const [toolView, setToolView] = useState<{ id: string; fromHub: boolean } | null>(null);
@@ -75,8 +74,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
         <div className="hx-grain" />
       </div>
 
-      <VerifyDeskTicker items={tickerItems} />
-
       <div className="hx-main">
         <div className="hx-left">
           <h1 className="hx-h1 hx-rise" style={{ ["--i" as string]: 1 }}>
@@ -112,38 +109,53 @@ export default function HomeHero({ deals, featured, stores, popularStores, ticke
             onOpenTool={(id) => setToolView({ id, fromHub: false })}
           />
 
-          <div className="hx-tools hx-rise" style={{ ["--i" as string]: 3 }}>
-            <div className="hx-tools-label">
-              Shopping tools <em>— answers in seconds, no sign-up</em>
-            </div>
-            <div className="hx-toolrow">
-              {FEATURED_TOOLS.map((tool) => {
-                const Icon = TOOL_ICONS[tool.icon];
-                return (
-                  <button key={tool.id} type="button" className="hx-toolchip" onClick={() => setToolView({ id: tool.id, fromHub: false })}>
-                    <span className={`hx-tc-icon tone-${tool.tone}`} aria-hidden="true">
-                      <Icon size={18} strokeWidth={2.1} />
-                    </span>
-                    <span>
-                      <span className="hx-tc-name">{tool.title}</span>
-                      <span className="hx-tc-desc">{tool.desc}</span>
-                    </span>
-                    <span className="hx-tc-time">{tool.time}</span>
-                  </button>
-                );
-              })}
-              <button ref={hubButton} type="button" className="hx-toolchip all" onClick={() => setHubOpen(true)}>
-                <span>
-                  <span className="hx-tc-name">Browse all {STORE_TOOLS.length} shopping tools</span>
-                  <span className="hx-tc-desc">Fitness, beauty, fashion, home, tech, family — from our store pages</span>
-                </span>
-                <span className="hx-tc-time">See all →</span>
-              </button>
-            </div>
+          <div className="hx-tools-mini hx-rise" style={{ ["--i" as string]: 3 }}>
+            <span className="hx-tools-mini-label">Quick tools</span>
+            {FEATURED_TOOLS.map((tool) => {
+              const Icon = TOOL_ICONS[tool.icon];
+              return (
+                <button
+                  key={tool.id}
+                  type="button"
+                  className="hx-toolmini"
+                  onClick={() => setToolView({ id: tool.id, fromHub: false })}
+                >
+                  <Icon size={14} strokeWidth={2} aria-hidden="true" />
+                  {tool.title}
+                </button>
+              );
+            })}
+            <button ref={hubButton} type="button" className="hx-toolmini all" onClick={() => setHubOpen(true)}>
+              All {STORE_TOOLS.length} tools →
+            </button>
           </div>
         </div>
 
-        <FeaturedDesk deals={featured} total={stats.coupons} onOpenDeal={setDrawerDeal} />
+        <div className="hx-right">
+          <FeaturedDesk deals={featured} total={stats.coupons} onOpenDeal={setDrawerDeal} />
+
+          {categories.length > 0 && (
+            <section className="hx-catbox hx-rise" style={{ ["--i" as string]: 4 }} aria-labelledby="hero-categories">
+              <div className="hx-catbox-head">
+                <div>
+                  <p className="hx-catbox-kicker">Shop by category</p>
+                  <h2 id="hero-categories" className="hx-catbox-title">Start where you are</h2>
+                </div>
+                <Link href="/categories" className="hx-catbox-all">
+                  All categories <ArrowRight size={13} aria-hidden="true" />
+                </Link>
+              </div>
+              <div className="hx-catgrid">
+                {categories.map((category) => (
+                  <Link key={category.slug} href={`/categories/${category.slug}`} className="hx-cattile">
+                    <span className="hx-catname">{category.name}</span>
+                    <span className="hx-catcount">{category.count} offers</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       </div>
 
       <HeroBand popular={popularStores} moreStores={Math.max(0, stats.stores - popularStores.length)} stats={stats} />
