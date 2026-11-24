@@ -35,7 +35,7 @@ const FAQS = [
   { question: "How are AJIO deals listed?", answer: "Durza syncs from the AJIO campaigns feed nightly, parses what the feed actually returned and lists it live. We do not hand-test merchant campaigns." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("ajio-com-ecommerce-cps-india", { skip: 0, limit: 100 });

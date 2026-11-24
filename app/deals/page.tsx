@@ -7,8 +7,8 @@ import ListingHero from "@/components/listing/ListingHero";
 import KeywordForm from "@/components/filters/KeywordForm";
 import DealsFeedSection from "@/components/deals/DealsFeedSection";
 
-export const revalidate = 1800;
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   // Static copy on purpose: an exact-count title/description forced one Neon round
   // trip before <head> could flush — costing ~0.5s on every cold render for very

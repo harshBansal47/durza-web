@@ -8,7 +8,7 @@ import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import { allowedStoreIds } from "@/lib/homepage-curation";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 const loadStores = cache(async () => {
   // Fetch the full directory for instant search/A-Z. API may cap page size (often 100).

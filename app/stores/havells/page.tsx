@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current Havells prices and stock?", answer: "Live prices, configurations, stock and checkout offers are shown on havells.com. Use the links on this page to browse the relevant range and confirm details before you buy." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("havells", { skip: 0, limit: 10 });

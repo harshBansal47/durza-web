@@ -3,7 +3,7 @@ import { COMPARISONS } from "@/data/comparisons";
 import CompareHub from "@/components/compare/CompareHub";
 import { absoluteUrl } from "@/lib/seo";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "Compare Before You Buy | Side-by-Side Comparisons | Durza",

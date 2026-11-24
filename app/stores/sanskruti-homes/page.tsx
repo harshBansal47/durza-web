@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Does Durza earn anything from Sanskruti Homes?", answer: "Yes — Durza is an affiliate partner (~5–10% CPA on qualifying orders). You pay nothing extra, and the price on the Sanskruti Homes checkout is unchanged." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("sanskrutihomes-in-ecommerce-cps-india", { skip: 0, limit: 10 });

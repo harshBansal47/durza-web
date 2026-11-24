@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current prices and offers?", answer: "Live prices, combos and checkout offers are shown on healthkart.com. Use this page to find the right category and confirm current details on the official store." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("healthkart", { skip: 0, limit: 10 });

@@ -19,8 +19,8 @@ import ListingHero from "@/components/listing/ListingHero";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
-export const revalidate = 1800;
 
+export const dynamic = "force-dynamic";
 const PAGE_SIZE = 20;
 
 export async function generateMetadata(): Promise<Metadata> {

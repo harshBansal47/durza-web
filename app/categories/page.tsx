@@ -8,7 +8,7 @@ import CategoriesHub, { type CategoryCardData } from "@/components/categories/Ca
 import { categorySubtitle } from "@/lib/category-subtitle";
 import type { CouponPublic, Store } from "@/lib/types";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 async function fetchCouponsForCounts(maxPages = 5): Promise<CouponPublic[]> {
   const items: CouponPublic[] = [];

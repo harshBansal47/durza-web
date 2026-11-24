@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check live availability and pricing?", answer: "Live product availability, pricing and checkout offers are shown on kamaayurveda.in. Browse the relevant collection via this page to confirm current details." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("kama-ayurveda", { skip: 0, limit: 10 });

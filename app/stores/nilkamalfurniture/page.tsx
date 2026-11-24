@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current prices and availability?", answer: "Live prices, configurations and PIN-code serviceability are shown on nilkamalfurniture.com. Browse the relevant range via this page and confirm details before purchase." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("nilkamalfurniture", { skip: 0, limit: 10 });

@@ -10,7 +10,7 @@ import { formatDate, formatDiscount } from "@/lib/format";
 import { storeLogoUrl } from "@/lib/storeLogos";
 import Image from "next/image";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 const canonical = "/black-friday";
 const title = "Black Friday Sale 2026 India: Dates (Nov 27), Store Windows & What to Actually Buy | Durza";

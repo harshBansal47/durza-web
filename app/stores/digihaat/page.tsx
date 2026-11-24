@@ -32,7 +32,7 @@ const FAQS = [
   { question: "Are Digihaat's Swadeshi products authentic?", answer: "Yes — every ONDC seller listing carries a GST registration and HSN code traceable on the ONDC portal. Durza's buyer protection framework applies identically to Amazon, Flipkart and Digihaat purchases routed via our affiliate links." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("digihaat", { skip: 0, limit: 10 });

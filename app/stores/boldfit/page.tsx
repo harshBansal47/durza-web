@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current prices and availability?", answer: "Live prices, variants and availability are shown on boldfit.in. Use this page to find the right category and confirm current details." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("boldfit", { skip: 0, limit: 10 });

@@ -35,7 +35,7 @@ const FAQS = [
   { question: "How often is this page refreshed?", answer: "The offer list is re-read whenever Amazon India updates its catalogue. Products that fall out of stock or are discontinued are retired automatically; new additions appear after editorial review." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 /**
  * Guides that relate to Amazon — the hand-built Amazon/bank guides plus every

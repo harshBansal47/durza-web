@@ -47,7 +47,7 @@ const LINEUP_ITEMS = [
   { name: "Value Makeup Kits & Brush Sets", path: `${canonicalPath}#lineup-combos` },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("hokmakeup", { skip: 0, limit: 10 }).catch(() => null);

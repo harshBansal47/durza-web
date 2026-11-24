@@ -31,7 +31,7 @@ const FAQS = [
   { question: "Can I gift Victoria's Secret products and return them if unwanted?", answer: "Gifts are non-returnable once opened (hygiene items); unopened products may be exchanged within the store's stated return window. Returns are handled by Victoria's Secret's own partner desk — Durza is not involved." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("victorias-secret", { skip: 0, limit: 10 });

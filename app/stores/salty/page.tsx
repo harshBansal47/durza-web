@@ -50,7 +50,7 @@ const FAQS = [
   },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   // Use the tracked/program store slug for destination + CPS routing where applicable.

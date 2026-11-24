@@ -6,7 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import QuickAnswer from "@/components/ui/QuickAnswer";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 const title = "Amazon & Flipkart Sale Dates India 2026 — Black Friday, Christmas & New Year";
 const description =

@@ -50,7 +50,7 @@ const FAQS = [
   },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("firstcry", { skip: 0, limit: 12 }).catch(() => null);

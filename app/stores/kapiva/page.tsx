@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current prices and availability?", answer: "Live prices, pack options and availability are shown on kapiva.in. Browse the relevant range via this page to confirm current details." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("kapiva", { skip: 0, limit: 10 });

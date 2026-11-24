@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I see live prices and availability?", answer: "Live prices, stock, GST details and checkout options are shown on moglix.com. Use this page to find the right category and confirm current details on the official store." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("moglix", { skip: 0, limit: 10 });

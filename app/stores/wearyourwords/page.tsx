@@ -47,7 +47,7 @@ const LINEUP_ITEMS = [
   { name: "The Fresh Edit & Limited-Edition Capsule Denim", path: `${canonicalPath}#lineup-fresh` },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("wearyourwords", { skip: 0, limit: 10 }).catch(() => null);

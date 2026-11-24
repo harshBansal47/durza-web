@@ -31,7 +31,7 @@ const FAQS = [
   { question: "How does the 30-day money-back guarantee operate?", answer: "Buy any premium plan, try it risk-free, and request a full refund within 30 days via live chat or email with no questions asked — the charge is reversed to your original payment method." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("nordpass", { skip: 0, limit: 50 });

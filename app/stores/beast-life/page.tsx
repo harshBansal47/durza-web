@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current prices and flavors?", answer: "Live prices, flavors, combos and availability are shown on beastlife.in. Browse the relevant category via this page to confirm current details." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("beast-life", { skip: 0, limit: 10 });

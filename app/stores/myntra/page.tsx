@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Are cosmetics on Myntra authentic?", answer: "Beauty sold by Myntra (Nykaa-owned) is sourced directly from brands. ‘Sold by’ shows Myntra Fashion as seller for beauty — a consistent authenticity marker." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("myntra", { skip: 0, limit: 50 });

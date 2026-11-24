@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I see current curriculum and pricing?", answer: "Live curriculum, schedules, prerequisites and pricing are shown on guvi.in. Use this page to find the right track and confirm details directly on the official site." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("guvi", { skip: 0, limit: 10 });

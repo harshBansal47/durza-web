@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Where can I check current prices and packs?", answer: "Live prices, combo packs and availability are shown on hkvitals.com. Use this page to find the right category and confirm current details." }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("hkvitals", { skip: 0, limit: 10 });

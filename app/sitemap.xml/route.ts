@@ -1,8 +1,8 @@
 import { SITE_URL } from "@/lib/site";
 import { sitemapIds } from "@/lib/sitemap-groups";
-import { sitemapCounts } from "@/lib/sitemap-entries";
+import { sitemapCountsCached } from "@/lib/sitemap-entries";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const RETRY_AFTER_SECONDS = 60;
 
@@ -21,7 +21,6 @@ let cachedUrlCount = 0;
 export async function GET() {
   try {
     const ids = await sitemapIds();
-    const lastmod = new Date().toISOString();
 
     // Counts are built through the same dedupe path as the child shards, so the
     // index cannot report a number that disagrees with what a shard serves.
@@ -31,7 +30,7 @@ export async function GET() {
     let total = cachedUrlCount;
     let duplicatesRemoved = 0;
     try {
-      const counts = await sitemapCounts(ids);
+      const counts = await sitemapCountsCached(ids);
       byShard = counts.byShard;
       total = counts.total;
       duplicatesRemoved = counts.duplicatesRemoved;
@@ -52,7 +51,7 @@ ${countComment}
 ${ids
   .map(
     ({ id }) =>
-      `  <sitemap><loc>${SITE_URL}/sitemap/${id}.xml</loc><lastmod>${lastmod}</lastmod></sitemap>`,
+      `  <sitemap><loc>${SITE_URL}/sitemap/${id}.xml</loc></sitemap>`,
   )
   .join("\n")}
 </sitemapindex>

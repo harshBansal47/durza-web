@@ -43,7 +43,7 @@ const FAQS = [
   },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("palmonas", { skip: 0, limit: 10 });

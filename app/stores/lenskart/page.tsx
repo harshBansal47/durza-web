@@ -33,7 +33,7 @@ const FAQS = [
   { question: "Which lens upgrades are worth considering?", answer: "Lens add-ons such as anti-reflective, blue-light, photochromic, or thinner lens options can improve comfort and usability, but suitability depends on your prescription and usage. Review the options on the product page." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("lenskart", { skip: 0, limit: 50 });

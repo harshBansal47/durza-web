@@ -86,14 +86,11 @@
       ? discount.replace(/\s+/g, " ").replace(/[^\w₹+%\- ]/g, "").trim()
       : null;
     // Keyword-packed SERP title — the query shoppers type verbatim.
-    const now = new Date();
-    const month = new Intl.DateTimeFormat("en-IN", { month: "short", year: "numeric" }).format(now);
     const titlePieces = [
       merchantName,
       coupon.code ? `${coupon.code}` : null,
       variantKeyword,
       amountKeyword,
-      `(${month})`,
     ].filter(Boolean);
     const title = metaDescription(titlePieces.join(" ").slice(0, 68)) ?? "Durza coupon";
     const description = metaDescription(

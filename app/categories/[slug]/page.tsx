@@ -27,8 +27,8 @@ import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import type { CouponPublic, Store } from "@/lib/types";
 
-export const revalidate = 3600;
 
+export const dynamic = "force-dynamic";
 const PAGE_SIZE = 20;
 
 type Params = Promise<{ slug: string }>;

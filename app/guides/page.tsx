@@ -8,7 +8,7 @@ import { STORE_GUIDES } from "@/data/store-guides";
 import { getGuideCoverImage, guideHubCategory } from "@/lib/guide-cover";
 import type { EditorialContent } from "@/lib/types";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "Buying Guides — Research & Compare for India",

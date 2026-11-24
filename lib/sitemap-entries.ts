@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import type { MetadataRoute } from "next";
 import { api } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
@@ -379,3 +380,10 @@ export async function sitemapCounts(shards: SitemapId[]): Promise<SitemapCounts>
   const uniqueKeys = new Set(all.map((entry) => sitemapUrlKey(entry.url)));
   return { byShard, total: uniqueKeys.size, duplicatesRemoved: raw - uniqueKeys.size };
 }
+
+/** Counts are derived from all shards; cache them with the sitemap tag. */
+export const sitemapCountsCached = unstable_cache(
+  async (shards: Parameters<typeof sitemapCounts>[0]) => sitemapCounts(shards),
+  ["sitemap-counts"],
+  { revalidate: 86400, tags: ["sitemap"] },
+);

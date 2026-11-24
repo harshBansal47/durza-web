@@ -31,7 +31,7 @@ const FAQS = [
   { question: "What is the minimum order threshold for free delivery?", answer: "Check the current free-delivery threshold and eligibility on Iba Cosmetics at checkout." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("iba-cosmetics", { skip: 0, limit: 50 });

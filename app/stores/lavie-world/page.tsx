@@ -31,7 +31,7 @@ const FAQS = [
   { question: "Can I use a promo code with payment offers?", answer: "If a promo code is eligible, apply it in the cart first and then review any payment offers shown at checkout. Final eligibility and savings depend on Lavie's checkout terms." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("lavie-world", { skip: 0, limit: 50 });

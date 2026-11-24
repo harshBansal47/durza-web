@@ -8,7 +8,7 @@ import { fetchLiveBankSnapshot } from "@/lib/bank-offers-fetch";
 import LiveBankOffers from "@/components/bank-offers/LiveBankOffers";
 import QuickAnswer from "@/components/ui/QuickAnswer";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 const title = "RBL Bank Offers India 2026 — live list";
 const description =

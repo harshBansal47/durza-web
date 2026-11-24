@@ -2,7 +2,7 @@ import { sitemapIds } from "@/lib/sitemap-groups";
 import { shardEntries } from "@/lib/sitemap-entries";
 import type { MetadataRoute } from "next";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 function escapeXml(value: string): string {
   return value

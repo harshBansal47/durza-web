@@ -31,7 +31,7 @@ const FAQS = [
   { question: "Are Vero Moda prices inclusive of GST and delivery?", answer: "Displayed prices are MRP-inclusive of GST. Delivery fees and return charges vary by service area; check the product page for the final cart amount before payment." },
 ];
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("veromoda", { skip: 0, limit: 10 });

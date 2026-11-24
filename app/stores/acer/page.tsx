@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return customStoreMetadata("acer", baseMetadata);
 }
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export default async function Page() {
   const destination = await resilient.getStoreDestination("acer", { skip: 0, limit: 1 });

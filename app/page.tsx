@@ -29,7 +29,7 @@ import { collectionFromEditorial } from "@/lib/collections";
 import type { DiscoverableContent } from "@/lib/topics";
 import type { EditorialContent, EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
 
-export const revalidate = 1800;
+export const revalidate = 21600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const canonical = absoluteUrl("/");
@@ -202,16 +202,15 @@ export default async function HomePage() {
     deals: backfill(fill(latestDeals.items.filter(isHomepageRelevant))),
     newest: backfill(fill(newest.items.filter(isHomepageRelevant))),
   };
-  // Rail: prefer offers with a real recent check, then fill from curated priority.
-  // Never claim "today" unless a 24h check exists.
+  // Rail: prefer offers with a real check date, then fill from curated priority.
+  // Deterministic ordering keeps cached HTML stable between regenerations.
   const worthLooking = [...coupons.items, ...bestCoupons.items, ...latestDeals.items]
     .filter((coupon) => coupon.is_active && !coupon.auto_suppressed)
     .filter((coupon) => isHomepageRelevant(coupon))
     .filter((coupon, index, all) => all.findIndex((other) => other.store_id === coupon.store_id) === index)
     .sort((a, b) => {
-      const freshness = (c: (typeof a)) =>
-        c.last_checked_at && Date.now() - new Date(c.last_checked_at).getTime() < 86_400_000 ? 1 : 0;
-      return freshness(b) - freshness(a) || b.clicks_count - a.clicks_count;
+      const checked = (c: (typeof a)) => (c.last_checked_at ? 1 : 0);
+      return checked(b) - checked(a) || b.clicks_count - a.clicks_count || a.id.localeCompare(b.id);
     })
     .slice(0, 6);
 

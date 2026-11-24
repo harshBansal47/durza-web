@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { resilient } from "@/lib/api";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 // Deterministic per-store colours, so each store gets its own poster without
 // anyone designing one. Pairs are chosen to keep white text readable.

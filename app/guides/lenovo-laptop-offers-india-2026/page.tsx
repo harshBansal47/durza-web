@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BadgeCheck, Sparkles } from "lucide-react";
+import { BadgeCheck, CheckCircle2, ArrowRight, ArrowUpRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
+import EditorialByline from "@/components/editorial/EditorialByline";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
-import GuideAffiliateOutButton, { GuideAffiliateOutBanner } from "@/components/guides/GuideAffiliateOutButton";
 import QuickAnswer from "@/components/ui/QuickAnswer";
-import { ADMITAD_PROGRAMS } from "@/data/admitad-programs";
 
 const canonical = "/guides/lenovo-laptop-offers-india-2026";
-const title = "Lenovo Laptop Offers in India (2026): IdeaPad, ThinkPad, Legion — What's Real vs Inflated";
+const title = "Lenovo Laptop Offers & Deals in India (2026): IdeaPad, ThinkBook, LOQ & ThinkPad Compared";
 const description =
-  "Every major Lenovo laptop line sold in India — IdeaPad for daily work, ThinkPad for business and study, Legion for gaming — and how to tell a genuine price cut from a padded-MRP discount before you buy from Lenovo.com.";
+  "Lenovo India headline banners apply to select SKUs. Compare verified IdeaPad and ThinkBook prices against marketplace bank slabs, with three-store CTAs and worked checkout maths. Reviewed 24 Nov 2026.";
 
 export const metadata: Metadata = {
   title,
@@ -21,65 +20,123 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title, description },
 };
 
-const LENOVO = ADMITAD_PROGRAMS.lenovo;
-const LENOVO_STORE = "/stores/lenovo-india";
-const LENOVO_HOME = "https://www.lenovo.com/in/en/";
-
 const FAQS = [
   {
     question: "Which Lenovo laptop should I buy for college in India?",
     answer:
-      "The IdeaPad line is the safest pick for most students: recent-generation Intel or Ryzen, 16 GB RAM, and a 512 GB SSD handle assignments, coding, video calls and light editing without the premium of a ThinkPad. If you know you need serious reliability and keyboard quality, and you are buying for 4+ years of coursework, the ThinkPad line is worth the extra — the chassis, hinges and service network in India are genuinely better.",
+      "For most students the IdeaPad Slim 3 with a Ryzen 5 7530U, 16GB RAM across two DIMM slots and a 512GB SSD is the safe value pick — reviewed at ₹43,990 in an October 2026 roundup. If you compile code or run large spreadsheets daily, the ThinkBook 16 with a 45W Ryzen 5 7535HS scored 9,393 in Cinebench R23 multi-core in 91mobiles' September 2026 testing and was reviewed at ₹46,990.",
   },
   {
     question: "Are Lenovo 'flat ₹20,000 off' deals actually real?",
     answer:
-      "Treat every headline discount as a question to answer, not a number to trust. Check the current price against a market-comparison page and against the recent price history before a sale. Lenovo prices genuinely drop during festive and Republic-Day windows on specific, high-volume configurations — they rarely drop uniformly across the line. If the configuration you want is 'general availability' with no sale marker, the headline usually applies to a different SKU.",
+      "Treat headline discounts as a question, not a number. They usually apply to a slice of the line — often a top-tier SKU or older stock — not uniformly. Open the exact configuration, add it to cart, and compare the payable amount across Lenovo.com, Amazon India and Flipkart. If the cart disagrees with the banner, the banner refers to another SKU.",
   },
   {
     question: "Can I stack card discounts with Lenovo website offers in India?",
     answer:
-      "Usually yes, if you order from Lenovo's official India store (lenovo.com/in) and use a recognised bank EMI or instant discount: the card offer applies at checkout on the payable amount, after the Lenovo offer. The order in which you apply things matters: Lenovo instant discount/coupons first, bank discount on the reduced total, EMI rewards last.",
+      "Often, if you order from Lenovo's official India store with an eligible bank card. The order is: Lenovo coupon or student offer first, bank instant discount on the reduced payable amount second, EMI rewards last. Two bank offers do not stack. Always read the payment summary before confirming.",
   },
   {
     question: "Is Lenovo.com India cheaper than Amazon or Flipkart?",
     answer:
-      "On listed prices, the official store and Amazon/Flipkart are usually within a few hundred rupees on the same SKU — but the official store is where exclusive student and government offers live, and where the warranty is direct from Lenovo India. Marketplace sellers can be cheaper when they clear old stock; check the seller name, return window and GST invoice before you buy from a marketplace for a big-ticket item.",
+      "On listed prices they are often within a few hundred rupees for the same SKU. Lenovo.com is where student verification and discounted Accidental Damage Protection live. Amazon and Flipkart can win when a flat ₹3,000–₹5,000 bank instant discount is live, or when exchange credit is generous. Compare the final payable amount, not the banner. Our ₹50,000 laptop comparison does this side by side.",
   },
   {
     question: "Which Lenovo laptop component should I not compromise on in India?",
     answer:
-      "RAM and SSD capacity — in that order. 8 GB of RAM feels fine for three months and tight after a year of browser tabs and Teams/Google Meet. Prefer 16 GB even if it means dropping a lower CPU tier, and an SSD of at least 512 GB; upgrading later means opening the machine inside warranty.",
+      "RAM first, then storage. 8GB feels fine briefly and tight after a year of browser tabs and video calls. Prefer 16GB even at a lower CPU tier, and at least a 512GB SSD. Check whether the memory is soldered — several slim IdeaPad and Yoga SKUs cannot be upgraded later.",
   },
   {
     question: "How is the Lenovo India warranty service?",
     answer:
-      "Lenovo's India service network is broad, and ThinkPad/Legion models with accidental-damage coverage are worth considering for a student or gaming laptop. Keep the GST invoice and register the machine on the Lenovo India support site within the first 30 days — service requests move much faster with a registered machine.",
+      "Lenovo's India service network is broad. Keep the GST invoice and register the machine on the Lenovo India support site soon after purchase — service requests move faster with a registered product. Consider accidental-damage coverage for a student or gaming laptop, and check the exact terms before buying it as an add-on.",
   },
 ];
 
-const faqSchema = faqPageJsonLd(FAQS);
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Home", path: "/" },
-  { name: "Guides", path: "/guides" },
-  { name: "Lenovo Laptop Offers in India 2026", path: canonical },
-]);
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
   headline: title,
   description,
   datePublished: "2026-11-15",
-  dateModified: "2026-11-15",
+  dateModified: "2026-11-24",
+  author: { "@type": "Person", name: "Harsh Bansal", url: absoluteUrl("/about") },
   publisher: {
     "@type": "Organization",
     name: "Durza",
     url: "https://durza.in",
     logo: { "@type": "ImageObject", url: "https://durza.in/logo.png" },
   },
-  author: { "@type": "Organization", name: "Durza Editors", url: absoluteUrl("/about") },
   mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(canonical) },
 };
+
+const STORE_CTAS = [
+  {
+    href: "/go/lenovo?src=guide-lenovo-mid",
+    store: "Lenovo.com India",
+    edge: "Official eStore — student verification, CTO configs and discounted ADP",
+    label: "Check Live Offers on Lenovo.com India",
+  },
+  {
+    href: "/go/amazon-in?src=guide-lenovo-mid",
+    store: "Amazon India",
+    edge: "1–2 day delivery, flat bank slabs and easy GST invoice download",
+    label: "Check Live Lenovo Prices on Amazon India",
+  },
+  {
+    href: "/go/flipkart?src=guide-lenovo-mid",
+    store: "Flipkart",
+    edge: "Exchange bonuses on old laptops and open-box inspection before OTP",
+    label: "Check Live Lenovo Prices on Flipkart",
+  },
+];
+
+const FACTORS = [
+  {
+    title: "1. CPU wattage decides sustained work",
+    winner: "Winner: ThinkBook 16 (45W) for compiling; IdeaPad Slim 3 (15W) for battery",
+    number: "9,393 Cinebench R23 multi-core for the Ryzen 5 7535HS",
+    detail: "A 45W HS-series chip holds up under long compiles and large spreadsheets; a 15W U-series chip is quieter and lasts longer off mains. The reviewed price gap was about ₹3,000.",
+  },
+  {
+    title: "2. Upgradeability beats shipped RAM",
+    winner: "Winner: ThinkBook 16 — dual RAM and dual M.2 slots",
+    number: "IdeaPad Slim 3: 2 DIMM slots · ThinkBook 16: 2 RAM + 2 SSD slots",
+    detail: "Avoid 8GB soldered configurations. Both reviewed models let you add memory and storage later without replacing the machine.",
+  },
+  {
+    title: "3. Display quality varies inside one series",
+    winner: "Winner: ThinkBook 16 (300 nits) or a 100% sRGB gaming panel",
+    number: "IdeaPad Slim 3: 250 nits · ThinkBook 16: 300 nits",
+    detail: "A 250-nit panel is fine indoors and dim near a sunny window. Check the exact panel spec on the SKU, not just the series name.",
+  },
+  {
+    title: "4. Store choice changes the final payable amount",
+    winner: "Winner: Lenovo.com for ADP/student perks; Amazon or Flipkart for flat bank slabs",
+    number: "A ₹3,000 flat bank discount on ₹45,000 is roughly 6.7% off",
+    detail: "Official-store custom builds can take 2–4 weeks to ship; marketplaces deliver pre-built SKUs in 1–3 days. Compare delivery time, warranty extras and the final cart total.",
+  },
+  {
+    title: "5. Warranty and honest downsides",
+    winner: "Winner: buyer awareness",
+    number: "Gaming bricks run 170W–230W; CTO builds can take 2–4 weeks",
+    detail: "Legion and LOQ machines are heavy and hot with a large charger. Slim IdeaPad and Yoga SKUs may have soldered RAM. Register the machine and keep the GST invoice for service.",
+  },
+];
+
+const EXPLORE_LINKS = [
+  { href: "/topics/tech", label: "Tech & Gadgets topic hub" },
+  { href: "/categories/electronics", label: "Electronics coupons, laptop deals and guides" },
+  { href: "/compare/best-laptops-under-50000-india-coding-office-2026", label: "Best laptops under ₹50,000 compared" },
+  { href: "/compare/official-brand-store-vs-amazon-flipkart-laptops-india", label: "Official stores vs Amazon & Flipkart: warranty and price" },
+  { href: "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026", label: "₹35K–₹75K laptops: Amazon vs Flipkart vs brand stores" },
+  { href: "/reviews/lenovo-loq-and-thinkpad-india-official-store-review", label: "Buying direct from Lenovo India" },
+  { href: "/guides/best-acer-laptop-deals-promo-codes", label: "Acer laptop deals and promo codes" },
+  { href: "/tools", label: "Durza shopping calculators" },
+  { href: "/stores/lenovo", label: "Lenovo India store hub" },
+  { href: "/stores/amazon-in", label: "Amazon India store hub" },
+  { href: "/stores/flipkart", label: "Flipkart store hub" },
+];
 
 export default function LenovoOffersPage() {
   return (
@@ -92,146 +149,220 @@ export default function LenovoOffersPage() {
         ]}
       />
       <JsonLd data={articleSchema} />
-      <JsonLd data={breadcrumbSchema} />
-      <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Guides", path: "/guides" },
+        { name: "Lenovo Laptop Offers in India 2026", path: canonical },
+      ])} />
+      <JsonLd data={faqPageJsonLd(FAQS)} />
 
       <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-        <p className="flex items-center gap-2 text-xs font-semibold text-verified-ink">
+        <p className="flex items-center gap-2 text-xs font-semibold text-ink-soft">
           <BadgeCheck aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-          Updated Nov 2026 · Editorial buying guide
+          <span>Research reviewed 24 Nov 2026 · Specs from published tests and roundups</span>
         </p>
-        <p className="mt-4 font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">Lenovo India</p>
-        <h1 className="mt-2 font-serif text-4xl font-extrabold leading-tight tracking-tight text-ink sm:text-5xl">
-          Lenovo Laptop Offers in India (2026)
+
+        <h1 className="mt-4 font-serif text-4xl font-extrabold leading-tight tracking-tight text-ink sm:text-5xl">
+          {title}
         </h1>
         <p className="mt-3 font-serif text-xl leading-snug text-ink-soft">
-          IdeaPad vs ThinkPad vs Legion — what the 2026 discounts are worth, where they apply, and how to stack them with card offers without buying the wrong machine.
+          Lenovo India&apos;s headline &ldquo;flat ₹20,000 off&rdquo; banners apply to select SKUs. On everyday ₹40,000–₹85,000 laptops, real savings come from comparing the official-store stack against flat bank slabs on Amazon and Flipkart.
         </p>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-2xl border border-ledger-line bg-white p-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Who it is for</p>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-ink-soft">
+              <li>• Students, coders and office buyers comparing IdeaPad Slim 3 and ThinkBook 16 with ThinkPad and LOQ models.</li>
+              <li>• Buyers deciding between Lenovo.com CTO builds and ready-to-ship marketplace SKUs.</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-800">Who should skip it</p>
+            <ul className="mt-2 space-y-1 text-sm leading-6 text-ink-soft">
+              <li>• Buyers needing a custom build in 1–2 days — CTO orders can take 2–4 weeks.</li>
+              <li>• Ultralight OLED seekers under ₹75,000 — compare Acer Swift Go 14 OLED first.</li>
+            </ul>
+          </div>
+        </div>
+
+        <EditorialByline
+          authorName="Harsh Bansal"
+          publishedAt="2026-11-15"
+          updatedAt="2026-11-24"
+          checkedAt="2026-11-24"
+          hasMethod
+        />
+
         <QuickAnswer
-          question="Which Lenovo line is right for me in India?"
-          answer="Student / everyday work: IdeaPad. Programmer or nomad with 8+ hours on the machine: ThinkPad. Gaming or 3D editing: Legion. The big stackable discounts (10–20%) land on the official store during festive and Republic Day windows, usually with a bank instant discount on top."
-          jumpHref="#lenovo-lines"
-          jumpLabel="See the lines ranked below"
+          question="Which Lenovo laptop and store should you pick right now?"
+          answer="Under ₹45,000 for multitasking, the IdeaPad Slim 3 with Ryzen 5 7530U and 16GB across two DIMM slots was reviewed at ₹43,990. For compiling and heavy spreadsheets, the ThinkBook 16 with a 45W Ryzen 5 7535HS was ₹46,990. Buy direct when you need student perks or ADP; compare Amazon and Flipkart when a flat bank slab is live."
+          jumpHref="#lenovo-sku-table"
+          jumpLabel="See the SKU comparison"
         />
 
-        <GuideAffiliateOutButton
-          program={LENOVO.id}
-          ulp={LENOVO_HOME}
-          contentRef="lenovo_guide_hero"
-          label="Shop Lenovo laptops on the official India store"
-          note="Tracked affiliate link through the Lenovo India Admitad program — commission costs you nothing; price is unchanged."
-        />
-
-        <h2 id="lenovo-lines" className="mt-10 font-serif text-2xl font-bold text-ink">Which Lenovo line is for which buyer?</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          {[
-            {
-              line: "IdeaPad",
-              who: "Students & home buyers who want the most machine per rupee",
-              watch: "Plastic-thick chassis; check the exact SKU for RAM and SSD size — it varies within the same model name",
-            },
-            {
-              line: "ThinkPad",
-              who: "Professionals, programmers, and anyone who travels with the machine daily",
-              watch: "Better keyboards and hinges at a genuine premium; think about service coverage, not just specs",
-            },
-            {
-              line: "Legion",
-              who: "Gamers and 3D/video editors who need sustained performance",
-              watch: "Heavy and hot — check the power brick (170W+, extra weight) and whether the game you buy fits the GPU tier",
-            },
-          ].map((x) => (
-            <div key={x.line} className="rounded-2xl border border-ledger-line bg-white p-5 shadow-sm">
-              <p className="font-serif text-lg font-extrabold text-ink">{x.line}</p>
-              <p className="mt-2 text-sm leading-6 text-ink-soft">{x.who}</p>
-              <p className="mt-2 text-xs font-semibold leading-5 text-ink">What to watch: {x.watch}</p>
-            </div>
-          ))}
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/go/lenovo?src=guide-lenovo-verdict" className="inline-flex min-h-12 items-center rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white hover:bg-ink-soft">
+            Check Lenovo.com India offers <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
+          </Link>
+          <Link href="/go/amazon-in?src=guide-lenovo-verdict" className="inline-flex min-h-12 items-center rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold text-ink hover:bg-paper-raised">
+            Compare on Amazon India <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
+          </Link>
+          <Link href="/go/flipkart?src=guide-lenovo-verdict" className="inline-flex min-h-12 items-center rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold text-ink hover:bg-paper-raised">
+            Compare on Flipkart <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
+          </Link>
         </div>
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">How to read Lenovo promo banners honestly</h2>
-        <p className="mt-3 leading-7 text-ink-soft">
-          Every headline number you see — ₹15,000 off, 28% off this series — applies to a slice of the line, not all of it. Lenovo runs four distinct discount mechanisms in India, and they behave differently:
-        </p>
-        <ul className="mt-3 list-disc space-y-2 pl-6 leading-7 text-ink-soft">
-          <li><strong className="text-ink">Site-wide instant discounts</strong> — small, apply broadly, usually visible at cart without a code.</li>
-          <li><strong className="text-ink">Series discounts</strong> — apply only to IdeaPad / ThinkPad / Legion; the crossover model within the range is usually not eligible.</li>
-          <li><strong className="text-ink">Student / professional discounts</strong> — visible on Lenovo Education Store-type pages or via student verification; stackable with other offers on the official store.</li>
-          <li><strong className="text-ink">Bank EMI instant discounts</strong> — applied after Lenovo discounts, on the payable cart value, by specific banks on specific days.</li>
-        </ul>
-        <p className="mt-3 leading-7 text-ink-soft">
-          The honest test for any offer: open the product page, add the specific configuration to cart, and check whether the discount shows up and how the payable changes line by line. If the discount exists in the banner but the cart disagrees, the banner refers to a different configuration.
-        </p>
+        <section aria-labelledby="lenovo-sku-table" className="mt-12">
+          <h2 id="lenovo-sku-table" className="font-serif text-2xl font-extrabold text-ink">
+            Lenovo 2026 lineup: exact SKUs, specs and reviewed prices
+          </h2>
+          <p className="mt-2 text-sm leading-7 text-ink-soft">
+            Two rows use figures we sourced from published tests and roundups. For LOQ and ThinkPad E14 we have not verified a current SKU or price, so those cells say what to check rather than guessing.
+          </p>
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-ledger-line bg-white">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-paper-raised">
+                <tr>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Model</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Buyer</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">CPU / GPU</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">RAM &amp; storage</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Display</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Price*</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["IdeaPad Slim 3 (Ryzen 5)", "College and everyday office", "Ryzen 5 7530U (15W), integrated Radeon", "16GB DDR4, 2 DIMM slots · 512GB SSD", "15.6-inch FHD IPS, 250 nits", "₹43,990 — Oct 2026 roundup"],
+                  ["ThinkBook 16 (Ryzen 5)", "Coding and heavy spreadsheets", "Ryzen 5 7535HS (45W), 9,393 Cinebench R23 multi", "16GB DDR5 · dual RAM + dual M.2 slots", "16-inch WUXGA IPS, 300 nits", "₹46,990 — 91mobiles, Sep 2026"],
+                  ["LOQ 15", "1080p gaming and editing", "Verify exact CPU and RTX 4050 TGP on the SKU", "Verify slots and SSD generation", "Verify panel and refresh rate", "Check live price on all three stores"],
+                  ["ThinkPad E14", "Business travel and long typing days", "Verify exact generation and CPU", "Verify soldered vs SO-DIMM", "Verify brightness and panel", "Check live price on all three stores"],
+                ].map((row) => (
+                  <tr key={row[0]} className="border-t border-ledger-line">
+                    {row.map((cell, i) => (
+                      i === 0
+                        ? <th key={cell} scope="row" className="px-4 py-3 font-semibold text-ink">{cell}</th>
+                        : <td key={`${cell}-${i}`} className="px-4 py-3 text-ink-soft">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-        <GuideAffiliateOutBanner
-          program={LENOVO.id}
-          ulp={LENOVO_HOME}
-          contentRef="lenovo_guide_banner_mid"
-          imageUrl="https://cdn.admitad.com/bs/2019/10/18/9e36fbe4e70d48f40a5e74d992b4a7f1.jpg"
-          width={300}
-          height={250}
-          alt="Lenovo India — IdeaPad, ThinkPad and Legion laptops"
-        />
+        <section aria-labelledby="compare-stores" className="mt-10">
+          <h2 id="compare-stores" className="font-serif text-2xl font-extrabold text-ink">Check the exact model across all three stores</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {STORE_CTAS.map((cta) => (
+              <Link key={cta.href} href={cta.href} className="group rounded-2xl border border-ledger-line bg-white p-4 transition hover:border-ink/30 hover:shadow-sm">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">{cta.store}</p>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">{cta.edge}</p>
+                <p className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-durza-deep group-hover:underline">
+                  {cta.label} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">When Lenovo discounts are genuinely good</h2>
-        <p className="mt-3 leading-7 text-ink-soft">
-          In India, the deep, configuration-wide cuts appear in a handful of windows: the festive season (September–November), Republic Day (end of January), and graduation/college windows (May–June). Outside these, big headline discounts are usually tied to older-generation stock or specific GPU tiers. Between windows, the official store still runs bank-instant discounts that shave a few hundred to low thousands off, but the ₹20,000+ cuts are rare.
-        </p>
-        <p className="mt-3 leading-7 text-ink-soft">
-          Practical rule: if you need a laptop in the next 90 days, set an alert and let the sale come to you rather than buying at the pre-sale price out of urgency. If you need one this week, buy the configuration that genuinely fits your work and bank the instant bank discount instead of waiting.
-        </p>
+        <section aria-labelledby="factors" className="mt-12">
+          <h2 id="factors" className="font-serif text-2xl font-extrabold text-ink">Five decision factors with a winner and a number</h2>
+          <div className="mt-5 space-y-4">
+            {FACTORS.map((factor) => (
+              <div key={factor.title} className="rounded-2xl border border-ledger-line bg-white p-4">
+                <h3 className="font-serif font-bold text-ink">{factor.title}</h3>
+                <p className="mt-1 text-sm font-semibold text-durza-deep">{factor.winner}</p>
+                <p className="mt-1 text-sm text-ink-soft">{factor.number}</p>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">{factor.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">Stack in the right order</h2>
-        <ol className="mt-3 list-decimal space-y-2 pl-6 leading-7 text-ink-soft">
-          <li>Open the product page on the official India store; confirm the exact SKU (RAM, storage, screen, OS).</li>
-          <li>Apply any Lenovo discount/coupon or student offer first — it acts on the Lenovo cart.</li>
-          <li>Then apply bank instant discount (on the reduced value) tied to your card; check eligibility for your bank before entering card details.</li>
-          <li>Choose EMI tenure; note the processing fee — it can erase 1–2% of the discount.</li>
-          <li>Capture the GST invoice at checkout; it is needed for warranty registration and returns.</li>
-        </ol>
+        <section aria-labelledby="banners" className="mt-12">
+          <h2 id="banners" className="font-serif text-2xl font-extrabold text-ink">How to read Lenovo promo banners honestly</h2>
+          <p className="mt-3 text-base leading-7 text-ink-soft">
+            Headline numbers apply to a slice of the line, not all of it. Lenovo runs four distinct mechanisms in India: site-wide instant discounts, series discounts, student/professional offers with verification, and bank EMI instant discounts applied after Lenovo discounts on the payable cart value.
+          </p>
+          <ul className="mt-4 space-y-3 text-sm leading-7 text-ink-soft">
+            {[
+              "Open the exact configuration and add it to cart before trusting a banner number.",
+              "Compare the payable amount on Lenovo.com, Amazon India and Flipkart — the same SKU can differ by several thousand rupees after bank slabs.",
+              "Check whether the RAM is soldered and whether the panel is 250 or 300 nits; both vary inside one series name.",
+            ].map((line) => (
+              <li key={line} className="flex items-start gap-2">
+                <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-verified-ink" strokeWidth={2} />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        <GuideAffiliateOutButton
-          program={LENOVO.id}
-          ulp={LENOVO_HOME}
-          contentRef="lenovo_guide_verify"
-          label="Browse Lenovo laptop offers in India"
-          note="Opens the official Lenovo India storefront — see which configurations carry the current discounts."
-        />
+        <section aria-labelledby="stack" className="mt-12">
+          <h2 id="stack" className="font-serif text-2xl font-extrabold text-ink">Stack in the right order</h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-6 leading-7 text-ink-soft">
+            <li>Open the exact SKU on the official India store and confirm RAM, storage, screen and OS.</li>
+            <li>Apply any Lenovo coupon or student offer first — it acts on the Lenovo cart.</li>
+            <li>Then apply the bank instant discount on the reduced payable amount; two bank offers do not stack.</li>
+            <li>Choose EMI only for cash flow — check the processing fee and GST treatment before committing.</li>
+            <li>Capture the GST invoice at checkout for warranty registration and returns.</li>
+          </ol>
+        </section>
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">Lenovo vs Acer vs ASUS for the same budget</h2>
-        <p className="mt-3 leading-7 text-ink-soft">
-          All three brands sell on Lenovo.com/Acer India/ASUS India with broadly similar pricing. The honest differentiators in India are service speed and configuration discipline:
-        </p>
-        <ul className="mt-3 list-disc space-y-2 pl-6 leading-7 text-ink-soft">
-          <li>Acer is often cheapest on paper and delivers very good configurations at the entry budget, with OLED options on Swift Go; service turnaround varies by city — check your pincode experience with a known owner before buying there.</li>
-          <li>ASUS matches Acer on price for gaming-class OLEDs and Zephyrus-class designs; check the exact SKU suffix — sometimes two consecutive numbers apart the "OLED" badge covers different panels.</li>
-          <li>Lenovo sits slightly above Acer on average spec per rupee on gaming and business laptops, and its ThinkPad keyboard and hinge quality are genuinely miles ahead for 8-hour typing days.</li>
-        </ul>
-        <p className="mt-4 leading-7 text-ink-soft">
-          If you are cross-shopping, our <Link href="/guides/best-acer-laptop-deals-promo-codes" className="font-semibold text-inkblue underline">Acer laptop deals guide</Link> ranks the Swift Go and Aspire Lite against the ThinkPad range and runs the same card-stacking checks.
-        </p>
+        <section aria-labelledby="verification" className="mt-12 rounded-2xl border border-ledger-line bg-white p-5">
+          <h2 id="verification" className="font-serif text-xl font-bold text-ink">What we verified, and what we did not</h2>
+          <p className="mt-2 text-sm leading-7 text-ink-soft">
+            We used published specification and pricing data from 91mobiles&apos; September 2026 laptop test (ThinkBook 16 at ₹46,990) and an October 2026 buying roundup (IdeaPad Slim 3 at ₹43,990), and checked Lenovo India store structure on 24 Nov 2026. We did not purchase or physically test these machines, and we have not verified live checkout codes or LOQ/ThinkPad pricing on today&apos;s cart. Prices are dated snapshots. Durza earns a commission on qualifying purchases through tracked Lenovo, Amazon and Flipkart links at no extra cost to you.
+          </p>
+          <p className="mt-3 text-sm"><Link href="/methodology" className="font-semibold text-durza-deep hover:underline">How Durza researches →</Link></p>
+        </section>
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">Lenovo store page on Durza</h2>
-        <p className="mt-3 leading-7 text-ink-soft">
-          All current Lenovo contractable offers, coupons and deals are aggregated on the Durza store hub. The hub mirrors official Lenovo India offers, which are tracked via the official Admitad program; some promotions run without a code and appear as live deals.
-        </p>
-        <p className="mt-2 leading-7 text-ink-soft">
-          → <Link href={LENOVO_STORE} className="font-semibold text-inkblue underline">Lenovo India store page on Durza</Link>
-        </p>
+        <section aria-labelledby="check-live" className="mt-10">
+          <h2 id="check-live" className="font-serif text-2xl font-extrabold text-ink">Check live Lenovo prices across all three stores</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {[
+              { href: "/go/lenovo?src=guide-lenovo-bottom", store: "Lenovo.com India", label: "Check Live Offers on Lenovo.com India" },
+              { href: "/go/amazon-in?src=guide-lenovo-bottom", store: "Amazon India", label: "Check Live Lenovo Prices on Amazon India" },
+              { href: "/go/flipkart?src=guide-lenovo-bottom", store: "Flipkart", label: "Check Live Lenovo Prices on Flipkart" },
+            ].map((cta) => (
+              <Link key={cta.href} href={cta.href} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold text-ink hover:bg-paper-raised">
+                {cta.label} <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
+              </Link>
+            ))}
+          </div>
+        </section>
 
-        <h2 className="mt-10 font-serif text-2xl font-bold text-ink">FAQ</h2>
-        <div className="mt-4 space-y-4">
-          {FAQS.map((faq) => (
-            <details key={faq.question} className="rounded-2xl border border-ledger-line bg-white p-5 shadow-sm">
-              <summary className="cursor-pointer font-semibold leading-6 text-ink">{faq.question}</summary>
-              <p className="mt-3 text-sm leading-6 text-ink-soft">{faq.answer}</p>
-            </details>
-          ))}
+        <section aria-labelledby="explore" className="mt-12 border-t border-ledger-line pt-8">
+          <h2 id="explore" className="font-serif text-2xl font-extrabold text-ink">Keep exploring</h2>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            {EXPLORE_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="inline-flex min-h-11 items-start gap-1.5 text-sm text-durza-deep hover:underline">
+                  <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-labelledby="faq" className="mt-12">
+          <h2 id="faq" className="font-serif text-2xl font-extrabold text-ink">Frequently asked questions</h2>
+          <div className="mt-4 space-y-4">
+            {FAQS.map((faq) => (
+              <details key={faq.question} className="rounded-2xl border border-ledger-line bg-white p-5 shadow-sm">
+                <summary className="cursor-pointer font-semibold leading-6 text-ink">{faq.question}</summary>
+                <p className="mt-3 text-sm leading-6 text-ink-soft">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-xs leading-5 text-ink-soft">
+          Research reviewed 24 Nov 2026. Prices, offers and configuration names change on the merchant side — the checkout cart is the source of truth. We do not fabricate codes, discounts or stock status. Using our tracked links may earn us a commission at no extra cost to you.
         </div>
-
-        <p className="mt-10 rounded-2xl border border-ledger-line bg-paper p-4 text-xs leading-5 text-ink-soft">
-          Affiliate disclosure: links on this page marked sponsored track a referral to Lenovo India through our Admitad program (commission at no extra cost to you). Prices and offers change on the merchant side; we may not match the checkout cart exactly in real time. See the exact terms on the Lenovo India site before you pay.
-        </p>
       </article>
     </>
   );

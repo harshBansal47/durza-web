@@ -57,6 +57,8 @@ export function getServerApiUrl(): string {
 type FetchOptions = RequestInit & {
   /** Next.js data-cache revalidate window, in seconds. Omit to opt out of caching. */
   revalidate?: number;
+  /** Optional cache tags; derived from the path when not supplied. */
+  tags?: string[];
   /** Override the default API request timeout for endpoints with slower side effects. */
   timeoutMs?: number;
   /** Bearer token for authenticated endpoints. Server-only in practice. */
@@ -103,8 +105,25 @@ function timeoutSignal(timeoutMs = REQUEST_TIMEOUT_MS): AbortSignal | undefined 
     : undefined;
 }
 
+function cacheTagsForPath(path: string): string[] {
+  if (path.startsWith("/editorial")) {
+    const match = path.match(/content_type=([a-z-]+)/);
+    return match ? ["editorial", `editorial:${match[1]}`] : ["editorial"];
+  }
+  if (path.startsWith("/coupons")) {
+    const match = path.match(/^\/coupons\/by-slug\/([^?]+)/);
+    return match ? ["catalogue", `offer:${decodeURIComponent(match[1])}`] : ["catalogue"];
+  }
+  if (path.startsWith("/stores")) {
+    const match = path.match(/^\/stores\/by-slug\/([^/?]+)/);
+    return match ? ["catalogue", `store:${decodeURIComponent(match[1])}`] : ["catalogue", "stores"];
+  }
+  if (path.startsWith("/categories") || path.startsWith("/sales")) return ["catalogue"];
+  return ["catalogue"];
+}
+
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
-  const { revalidate, token, headers, timeoutMs, ...rest } = options;
+  const { revalidate, tags, token, headers, timeoutMs, ...rest } = options;
   if (typeof window !== "undefined") {
     if (token) {
       throw new ApiError("Authenticated API requests must run on the server.", 0);
@@ -138,7 +157,7 @@ async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T>
     },
     // Server Components: cache briefly so a busy listing page doesn't hammer
     // the API on every request, but stay close to real-time for verify counts.
-    next: revalidate !== undefined ? { revalidate } : undefined,
+    next: revalidate !== undefined ? { revalidate, tags: tags ?? cacheTagsForPath(path) } : undefined,
   });
 
   if (!res.ok) {
@@ -218,6 +237,11 @@ function goQuery(src?: string, contentRef?: string): string {
   return parts.length ? `?${parts.join("&")}` : "";
 }
 
+/** Static SEO pages: long window, kept fresh by on-demand tag invalidation. */
+export const STATIC_REVALIDATE = 21600;
+/** Volatile listings: short window, canonical URL only (filters are client-side). */
+export const VOLATILE_REVALIDATE = 1800;
+
 /** Set once the API answers 404/405 for /search/suggest; see `api.autocomplete`. */
 let suggestRouteMissing = false;
 /** Test hook. */
@@ -244,11 +268,11 @@ export type ImpressionBody = {
 export const api = {
   // ---- Public catalogue -------------------------------------------------
 
-  listCoupons: (params: CouponListParams = {}) =>
-    apiFetch<Paginated<CouponPublic>>(`/coupons${qs(params)}`, { revalidate: 1800 }),
+  listCoupons: (params: CouponListParams = {}, revalidate = VOLATILE_REVALIDATE) =>
+    apiFetch<Paginated<CouponPublic>>(`/coupons${qs(params)}`, { revalidate }),
 
   getCouponBySlug: (slug: string) =>
-    apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: 1800 }),
+    apiFetch<CouponPublic>(`/coupons/by-slug/${encodeURIComponent(slug)}`, { revalidate: STATIC_REVALIDATE }),
 
   /**
    * Live vote counts for one coupon, never cached. The coupon page itself is
@@ -260,7 +284,7 @@ export const api = {
 
   /** Account pages hold coupon ids (from /me/saved-coupons), not slugs. */
   getCouponById: (couponId: string) =>
-    apiFetch<CouponPublic>(`/coupons/${couponId}`, { revalidate: 1800 }),
+    apiFetch<CouponPublic>(`/coupons/${couponId}`, { revalidate: STATIC_REVALIDATE }),
 
   /**
    * Affiliate URLs are only ever resolved by the server-side /go redirect.
@@ -272,7 +296,7 @@ export const api = {
 
   /** Live sponsored placements (the backend already enforces the booked window). */
   listAds: (params: { position?: AdPosition; limit?: number } = {}) =>
-    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: 3600 }),
+    apiFetch<Paginated<Ad>>(`/ads${qs(params)}`, { revalidate: STATIC_REVALIDATE }),
 
   /** Tracked redirect to an advertiser. The advertiser URL is never in API JSON. */
   adGoUrl: (adId: string, src?: string, contentRef?: string) => `${API_URL}/ads/${adId}/go${goQuery(src, contentRef)}`,
@@ -324,22 +348,22 @@ export const api = {
 
   getCouponVerificationHistory: (couponId: string, limit = 50) =>
     apiFetch<VerificationHistoryItem[]>(`/coupons/${couponId}/verification-history${qs({ limit })}`, {
-      revalidate: 1800,
+      revalidate: STATIC_REVALIDATE,
     }),
 
   listStores: (params: StoreListParams = {}) =>
-    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: 3600 }),
+    apiFetch<Paginated<Store>>(`/stores${qs(params)}`, { revalidate: STATIC_REVALIDATE }),
 
-  getStoreById: (storeId: string) => apiFetch<Store>(`/stores/${storeId}`, { revalidate: 3600 }),
+  getStoreById: (storeId: string) => apiFetch<Store>(`/stores/${storeId}`, { revalidate: STATIC_REVALIDATE }),
 
   getStoreBySlug: (slug: string) =>
-    apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
+    apiFetch<Store>(`/stores/by-slug/${encodeURIComponent(slug)}`, { revalidate: STATIC_REVALIDATE }),
 
   /** Banner creatives for this store's connected affiliate programs. Empty when none are matched or all are unsuitable — the store page hides the slot. */
   getStoreCreatives: (slug: string, limit = 2) =>
     apiFetch<import("./types").StoreCreative[]>(
       `/stores/by-slug/${encodeURIComponent(slug)}/creatives?limit=${limit}`,
-      { revalidate: 3600 },
+      { revalidate: STATIC_REVALIDATE },
     ),
 
   getStoreDestination: (slug: string, params?: { skip?: number; limit?: number }) => {
@@ -348,50 +372,50 @@ export const api = {
     if (params?.limit) qs.set("limit", String(params.limit));
     const q = qs.toString();
     return apiFetch<StoreDestination>(`/stores/by-slug/${encodeURIComponent(slug)}/destination${q ? `?${q}` : ""}`, {
-      revalidate: 3600,
+      revalidate: STATIC_REVALIDATE,
     });
   },
 
 
   listEditorial: (
     params: { content_type?: EditorialType; skip?: number; limit?: number } = {},
-  ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: 1800 }),
+  ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { revalidate: STATIC_REVALIDATE }),
 
   /** Live collection items after referenced offers are filtered out (Phase 2 T4). */
   getCollectionLiveItems: (slug: string) =>
     apiFetch<{ items: Record<string, unknown>[]; needs_attention: boolean }>(
       `/editorial/collection/${encodeURIComponent(slug)}/items`,
-      { revalidate: 600 },
+      { revalidate: 1800 },
     ),
 
   getEditorial: (contentType: EditorialType, slug: string) =>
     apiFetch<EditorialContent>(
       `/editorial/${contentType}/${encodeURIComponent(slug)}`,
-      { revalidate: 1800 },
+      { revalidate: STATIC_REVALIDATE },
     ),
 
   getEditorialHomepage: () =>
-    apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: 1800 }),
+    apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: STATIC_REVALIDATE }),
 
-  listSales: () => apiFetch<{ slug: string; title: string }[]>(`/sales`, { revalidate: 1800 }),
+  listSales: () => apiFetch<{ slug: string; title: string }[]>(`/sales`, { revalidate: STATIC_REVALIDATE }),
   getSaleSeries: (series: string) =>
-    apiFetch<SaleSeriesResponse>(`/sales/${encodeURIComponent(series)}`, { revalidate: 1800 }),
+    apiFetch<SaleSeriesResponse>(`/sales/${encodeURIComponent(series)}`, { revalidate: STATIC_REVALIDATE }),
   getSaleEdition: (series: string, edition: string) =>
     apiFetch<SaleEditionResponse>(
       `/sales/${encodeURIComponent(series)}/${encodeURIComponent(edition)}`,
-      { revalidate: 1800 },
+      { revalidate: STATIC_REVALIDATE },
     ),
 
   /** ISO 3166-1 alpha-2 codes Durza currently serves. */
-  listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: 3600 }),
+  listMarkets: () => apiFetch<string[]>(`/stores/markets`, { revalidate: STATIC_REVALIDATE }),
 
   listCategories: (params: { parent_id?: string; limit?: number; skip?: number; live_only?: boolean } = {}) =>
-    apiFetch<Paginated<Category>>(`/categories${qs(params)}`, { revalidate: 3600 }),
+    apiFetch<Paginated<Category>>(`/categories${qs(params)}`, { revalidate: STATIC_REVALIDATE }),
 
   getCategoryBySlug: (slug: string) =>
-    apiFetch<Category>(`/categories/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
+    apiFetch<Category>(`/categories/by-slug/${encodeURIComponent(slug)}`, { revalidate: STATIC_REVALIDATE }),
 
-  getPageBySlug: (slug: string) => apiFetch<CmsPage>(`/pages/by-slug/${encodeURIComponent(slug)}`, { revalidate: 3600 }),
+  getPageBySlug: (slug: string) => apiFetch<CmsPage>(`/pages/by-slug/${encodeURIComponent(slug)}`, { revalidate: STATIC_REVALIDATE }),
 
   // ---- Autocomplete (no cache, abortable) -------------------------------
 
@@ -594,7 +618,8 @@ export const lookup = {
 };
 
 export const resilient = {
-  listCoupons: (params: CouponListParams = {}) => orEmpty(api.listCoupons(params)),
+  listCoupons: (params: CouponListParams = {}, revalidate = VOLATILE_REVALIDATE) =>
+    orEmpty(api.listCoupons(params, revalidate)),
   getCouponBySlug: (slug: string) => orNull(api.getCouponBySlug(slug)),
   getCouponById: (couponId: string) => orNull(api.getCouponById(couponId)),
   listStores: (params: StoreListParams = {}) => orEmpty(api.listStores(params)),
