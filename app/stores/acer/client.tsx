@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import VerifiedListingsTable from "@/components/editorial/VerifiedListingsTable";
 import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Image from "next/image";
 import { ArrowUpRight, BadgeCheck, Check, Copy, Cpu, Lock, ShieldCheck, Zap } from "lucide-react";
@@ -233,6 +234,7 @@ export default function AcerStorePageClient({ forcedStoreHref }: Props) {
 
       <div className="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
         <VerifiedResearchPanel kind="acer" />
+        <VerifiedListingsTable store="acer" />
       </div>
 
       {/* Urgency */}

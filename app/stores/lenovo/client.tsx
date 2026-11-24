@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import VerifiedListingsTable from "@/components/editorial/VerifiedListingsTable";
 import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Image from "next/image";
 import { ArrowUpRight, BadgePercent, Cpu, ShieldCheck } from "lucide-react";
@@ -191,7 +192,8 @@ export default function LenovoClient({ faqs, stats, storeUrl }: Props) {
       </section>
 
       <TrustStats {...stats} />
-      <div className="mt-6"><VerifiedResearchPanel kind="lenovo" /></div>
+      <div className="mt-6"><VerifiedResearchPanel kind="lenovo" />
+        <VerifiedListingsTable store="lenovo" /></div>
       <AffiliateDisclosure />
 
       {/* Flagship Lineup */}

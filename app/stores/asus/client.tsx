@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import VerifiedListingsTable from "@/components/editorial/VerifiedListingsTable";
 import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import Image from "next/image";
 import {
@@ -442,7 +443,8 @@ export default function AsusClient({ faqs, stats, storeUrl, forcedStoreHref }: P
 
       <div className="mt-4">
         <TrustStats {...stats} />
-      <div className="mt-6"><VerifiedResearchPanel kind="asus" /></div>
+      <div className="mt-6"><VerifiedResearchPanel kind="asus" />
+        <VerifiedListingsTable store="asus" /></div>
       </div>
       <div className="mt-4">
         <AffiliateDisclosure />

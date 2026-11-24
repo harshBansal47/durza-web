@@ -11,6 +11,41 @@ export const RESEARCH_CHECK_DATE = "25 Nov 2026";
 
 export type VerifiedResearchKind = keyof typeof VERIFIED_RESEARCH;
 
+export interface VerifiedListing {
+  model: string;
+  name: string;
+  price: string;
+  mrp: string;
+  seller: string;
+  source: string;
+  note?: string;
+}
+
+/** Exact-code listings opened on 25 Nov 2026. Prices are displays, not live quotes. */
+export const VERIFIED_LISTINGS: Record<string, VerifiedListing[]> = {
+  asus: [
+    { model: "FA401EA-RG020WS", name: "TUF A14 (32GB/1TB, Jaeger Gray)", price: "₹2,49,990", mrp: "₹3,23,990", seller: "AYR Technologies (ASUS eStore)", source: "https://in.store.asus.com/asus-tuf-gaming-a14-fa401ea-rg020ws-copilot-pc-gaming-laptop.html", note: "₹3,000 HDFC 'Nov26' display shown separately; card family and minimum not stated." },
+    { model: "FA401EA-RG020WS", name: "Same MTM at Flipkart", price: "₹2,54,000", mrp: "ref ₹2,59,990", seller: "GamingIcons", source: "https://www.flipkart.com/asus-tuf-gaming-a14-2026-office-2024-m365-basic-ai-pc-npu-upto-50tops-amd-ryzen-max-32-gb-1-tb-ssd-windows-11-home-amd-radeon-8060s-165-hz-fa401ea-rg020ws-laptop/p/itm456a598c5ceae", note: "Reference is not labelled MRP; warranty and returns differ by seller." },
+    { model: "FA608PP-QT014WS", name: "TUF A16 (R9/16GB/1TB/RTX 5070)", price: "₹2,34,990", mrp: "₹3,05,990", seller: "ASUS estore (reseller)", source: "https://www.asus.com/in/deals/" },
+    { model: "X1504VAP-IN009WS", name: "Vivobook 15 (i5-120U/16GB/512GB)", price: "₹79,990", mrp: "₹1,59,990", seller: "ASUS estore (reseller)", source: "https://www.asus.com/in/content/offer/" },
+  ],
+  acer: [
+    { model: "UN.37RSI.003", name: "Aspire 5 A514-55 (U5 226V/16GB/512GB)", price: "₹84,999", mrp: "₹1,29,999", seller: "Acer India (in stock)", source: "https://store.acer.com/en-in/laptops", note: "MRP includes taxes; only one offer applies per the store page." },
+    { model: "UN.U7PSI.008", name: "Nitro 5 AN516-74G1 (i7/16GB/1TB/RTX 5050)", price: "₹1,64,990", mrp: "₹2,83,990", seller: "Acer India (in stock)", source: "https://store.acer.com/en-in/laptops" },
+    { model: "UN.38BSI.007", name: "Aspire 15 AS15-39 (R3/8GB/512GB)", price: "₹39,999", mrp: "₹89,999", seller: "Acer India (coming soon)", source: "https://store.acer.com/en-in/laptops", note: "Not buyable at check time." },
+  ],
+  lenovo: [
+    { model: "83DV01KYIN", name: "LOQ 15IRX9 (i5-13450HX/16GB/1TB/RTX 4050)", price: "₹1,58,491", mrp: "₹2,49,591", seller: "Lenovo India", source: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/len101q0005", note: "Includes displayed savings and AFTERHOURSDEAL eCoupon; cashback is post-payment." },
+    { model: "83DV01K8IN", name: "LOQ 15IRX9 (i7-13650HX/16GB/512GB/RTX 4050)", price: "₹1,86,991", mrp: "₹2,80,691", seller: "Lenovo India", source: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/len101q0005" },
+    { model: "83DV01LRIN", name: "LOQ 15IRX9 (i7-14650HX/16GB/512GB TLC/RTX 4050)", price: "₹1,96,990", mrp: "₹3,04,090", seller: "Lenovo India", source: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/len101q0005" },
+    { model: "83DV01K7IN", name: "LOQ 15IRX9 (i5/16GB/512GB/RTX 4050)", price: "₹1,61,990", mrp: "₹2,22,490", seller: "Lenovo India (not available)", source: "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/83dv01k7in", note: "Marked 'currently not available' at check time." },
+  ],
+  boult: [
+    { model: "Anchor", name: "Over-ear, ANC-marketed", price: "₹2,499", mrp: "₹9,999", seller: "Exotic Mile Pvt Ltd", source: "https://goboult.co.in/products/probass-anchor-over-ear-bluetooth-headphone-with-mic", note: "Spec block says ENC — verify on the store." },
+    { model: "Fluid X", name: "On-ear, ENC", price: "₹1,799", mrp: "₹5,999", seller: "Exotic Mile Pvt Ltd", source: "https://goboult.co.in/products/fluid-x", note: "ENC mic, not ANC." },
+  ],
+};
+
 export interface ResearchFact {
   label: string;
   detail: string;

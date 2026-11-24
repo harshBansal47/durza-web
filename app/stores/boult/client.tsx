@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import VerifiedListingsTable from "@/components/editorial/VerifiedListingsTable";
 import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import { ArrowUpRight, BadgeCheck, Truck, Shield, Wrench, CreditCard, Zap, Home, Sparkles } from "lucide-react";
 import FaqSection from "@/components/store/FaqSection";
@@ -44,7 +45,8 @@ export default function StoreClient({ faqs, stats }: Props) {
       </section>
 
       <TrustStats {...stats} />
-      <div className="mt-6"><VerifiedResearchPanel kind="boult" /></div>
+      <div className="mt-6"><VerifiedResearchPanel kind="boult" />
+        <VerifiedListingsTable store="boult" /></div>
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl font-bold text-ink sm:text-3xl">Why shop Boult direct</h2>
