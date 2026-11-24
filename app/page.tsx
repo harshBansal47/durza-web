@@ -3,9 +3,6 @@ import Link from "next/link";
 import { ArrowRight, Compass, Store, Flame, Zap } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
-import CategoryGrid from "@/components/home/CategoryGrid";
-import CategoryTileGrid from "@/components/home/CategoryTileGrid";
-import StoreTrackGrid from "@/components/home/StoreTrackGrid";
 import OfferRail from "@/components/home/OfferRail";
 import HowItWorks, { HOW_IT_WORKS_STEPS } from "@/components/home/HowItWorks";
 import JsonLd from "@/components/JsonLd";
@@ -316,24 +313,7 @@ export default async function HomePage() {
 
           {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
 
-          {categories.items.length > 0 && (
-            <section className="mt-4" id="categories" aria-label="Shop by category">
-              {REDESIGN_ENABLED ? (
-                <CategoryTileGrid categories={categories.items} counts={categoryCounts} />
-              ) : (
-                <CategoryGrid categories={categories.items} />
-              )}
-            </section>
-          )}
-
-          {stores.items.length > 0 && (
-            <section className="mt-10" aria-labelledby="stores-heading">
-              <SectionTitle hint={`${stores.total} tracked`} icon={Store}>
-                <span id="stores-heading">Stores we track</span>
-              </SectionTitle>
-              <StoreTrackGrid stores={stores.items} />
-            </section>
-          )}
+         
 
           {explorerTabs.deals.length > 0 && (
             <section className="mt-12" aria-labelledby="no-code-heading">
