@@ -70,8 +70,6 @@ export default async function HomePage() {
     endingSoon,
     newest,
     editorial,
-    latestComparisons,
-    recentReviews,
     latestDeals,
     bestCoupons,
     allEditorial,
@@ -85,8 +83,6 @@ export default async function HomePage() {
     ),
     safe(api.listCoupons({ active_only: true, sort: "newest", limit: 8 }), emptyPage as Paginated<CouponPublic>),
     safe(api.getEditorialHomepage(), emptyEditorial),
-    safe(api.listEditorial({ content_type: "comparison", limit: 3 }), emptyEditorialPage),
-    safe(api.listEditorial({ content_type: "review", limit: 3 }), emptyEditorialPage),
     safe(
       api.listCoupons({ active_only: true, discount_type: "deal", has_code: false, sort: "newest", limit: 8 }),
       emptyPage as Paginated<CouponPublic>,
@@ -208,6 +204,9 @@ export default async function HomePage() {
     ...editorial.collections.map((item) => collectionFromEditorial(item)).filter((entry) => entry !== null),
     ...COLLECTIONS,
   ];
+  const toolkitCollection = collectionsForRail.find(
+    (item) => item.slug === "complete-amazon-makeup-toolkit",
+  );
 
   // Hero view-model. Search pool = every relevant offer already fetched for this page (deduped,
   // capped to keep the client payload small); stores are the full list so any store is findable.
@@ -250,9 +249,7 @@ export default async function HomePage() {
   });
   const heroPopularStores = pickPopularStores(heroStores, 5);
 
-  const hasEditorial = Object.values(editorial).some((items) => items.length > 0)
-    || latestComparisons.items.length > 0
-    || recentReviews.items.length > 0;
+  const hasEditorial = Object.values(editorial).some((items) => items.length > 0);
   const isEmpty = coupons.total === 0 && stores.total === 0 && categories.total === 0 && !hasEditorial;
 
   return (
@@ -265,8 +262,6 @@ export default async function HomePage() {
         popularStores={heroPopularStores}
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
       />
-
-      {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
 
       {isEmpty ? (
        <section className="section-panel mt-12 px-6 py-14 text-center">
@@ -290,6 +285,8 @@ export default async function HomePage() {
               />
             </section>
           )}
+
+          {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
 
           {categories.items.length > 0 && (
             <section className="mt-4" id="categories" aria-label="Shop by category">
@@ -375,6 +372,15 @@ export default async function HomePage() {
                   adsense_eligible: false,
                 }} />)}
               </div>
+              {toolkitCollection ? (
+                <Link
+                  href={`/collections/${toolkitCollection.slug}`}
+                  className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-ledger-line bg-white px-4 text-sm font-medium text-ink hover:border-accent-soft hover:text-accent"
+                >
+                  Curated toolkit: {toolkitCollection.title}
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                </Link>
+              ) : null}
             </section>
           )}
 

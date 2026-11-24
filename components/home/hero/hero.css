@@ -128,30 +128,6 @@
 .hx-sub { font-size: 15px; line-height: 1.6; color: var(--hx-tx2); max-width: 54ch; }
 .hx-sub b { color: var(--hx-tx); font-weight: 600; }
 
-/* ---------- beauty toolkit feature banner (top of hero) ---------- */
-.hx-beauty-promo { position: relative; z-index: 2; display: flex; align-items: center; gap: 16px; width: 100%; margin-bottom: clamp(18px, 2.2vh, 26px); padding: 16px 18px; border-radius: 18px; text-decoration: none; color: inherit;
-  background: linear-gradient(100deg, #fff6ed 0%, #ffead6 52%, #fff8f0 100%); border: 1px solid rgba(194,65,12,0.22);
-  box-shadow: 0 8px 24px -14px rgba(194,65,12,0.3), inset 0 1px 0 rgba(255,255,255,0.9);
-  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s ease, border-color 0.25s ease; }
-.hx-beauty-promo:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -14px rgba(194,65,12,0.28), inset 0 1px 0 rgba(255,255,255,1); border-color: rgba(194,65,12,0.4); }
-.hx-beauty-promo:focus-visible { outline: 2px solid var(--hx-orange); outline-offset: 3px; }
-.hx-beauty-promo-icon { flex-shrink: 0; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; color: #fff;
-  background: linear-gradient(135deg, #c2410c, #ee5a0b); box-shadow: 0 8px 18px -5px rgba(194,65,12,0.5); }
-.hx-beauty-promo-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.hx-beauty-promo-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hx-orange-deep); }
-.hx-beauty-promo-title { font-family: var(--hx-disp); font-size: clamp(17px, 1.5vw, 21px); font-weight: 700; line-height: 1.2; color: var(--hx-tx); letter-spacing: -0.02em; }
-.hx-beauty-promo-desc { font-size: 13px; line-height: 1.45; color: var(--hx-tx2); margin-top: 2px; }
-.hx-beauty-promo-cta { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 42px; font-size: 13px; font-weight: 700; color: #fff; padding: 10px 18px; border-radius: 99px; background: var(--hx-cta); box-shadow: 0 6px 16px -6px rgba(194,65,12,0.55); transition: background 0.2s, box-shadow 0.2s, transform 0.2s; }
-.hx-beauty-promo:hover .hx-beauty-promo-cta { background: linear-gradient(135deg, #b23c08, #c2410c); box-shadow: 0 10px 20px -6px rgba(194,65,12,0.6); transform: translateX(2px); }
-@media (max-width: 700px) {
-  .hx-beauty-promo { flex-wrap: wrap; gap: 12px; padding: 14px; }
-  .hx-beauty-promo-icon { width: 40px; height: 40px; border-radius: 12px; }
-  .hx-beauty-promo-body { flex-basis: calc(100% - 52px); }
-  .hx-beauty-promo-title { font-size: 17px; }
-  .hx-beauty-promo-desc { font-size: 12.5px; }
-  .hx-beauty-promo-cta { width: 100%; }
-}
-
 /* ---------- command search ---------- */
 .hx-searchzone { position: relative; margin-top: 22px; z-index: 40; }
 .hx-searchbox { display: flex; align-items: center; gap: 12px; height: 60px; padding: 0 14px; background: var(--hx-card); border: 1px solid var(--hx-line2); border-radius: 16px; box-shadow: var(--hx-shadow); transition: border-color 0.2s, box-shadow 0.2s; }

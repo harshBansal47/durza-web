@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import "./hero.css";
 import FeaturedDesk from "./FeaturedDesk";
@@ -57,24 +56,6 @@ export default function HomeHero({ deals, featured, stores, popularStores, stats
         <div className="hx-grid" ref={gridRef} />
         <div className="hx-grain" />
       </div>
-
-      <Link
-        href="/collections/complete-amazon-makeup-toolkit"
-        className="hx-beauty-promo hx-rise"
-        style={{ ["--i" as string]: 1 }}
-      >
-        <span className="hx-beauty-promo-icon" aria-hidden="true">
-          <Sparkles size={22} strokeWidth={2.2} />
-        </span>
-        <span className="hx-beauty-promo-body">
-          <span className="hx-beauty-promo-kicker">New · Beauty Toolkit</span>
-          <span className="hx-beauty-promo-title">The Complete Amazon Makeup Toolkit</span>
-          <span className="hx-beauty-promo-desc">108 curated picks across 18 routine steps — budget to premium.</span>
-        </span>
-        <span className="hx-beauty-promo-cta">
-          Explore the toolkit <ArrowRight size={16} strokeWidth={2.3} aria-hidden="true" />
-        </span>
-      </Link>
 
       <div className="hx-main">
         <div className="hx-left">

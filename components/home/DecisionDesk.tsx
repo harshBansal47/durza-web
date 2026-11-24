@@ -30,27 +30,6 @@ const TYPE_LABELS = {
   collection: "Collection",
 } as const;
 
-const ROUTES = [
-  {
-    href: "/compare",
-    title: "Choosing between two products?",
-    body: "See them spec by spec, with a winner for each factor.",
-    cta: "Browse comparisons",
-  },
-  {
-    href: "/guides",
-    title: "Shopping with a budget?",
-    body: "Best picks at a price, with the tradeoffs explained.",
-    cta: "Browse guides",
-  },
-  {
-    href: "/compare/mrp-vs-recent-price-india-sale-baseline",
-    title: "Seeing a huge discount?",
-    body: "MRP is a legal ceiling — compare a dated price for the exact model.",
-    cta: "Check the sale price",
-  },
-];
-
 function formatUpdated(iso: string | null): string | null {
   if (!iso) return null;
   const date = new Date(iso);
@@ -74,30 +53,13 @@ export default function DecisionDesk({ topics }: { topics: TopicSpotlight[] }) {
   return (
     <section className="section-panel mt-10 p-5 sm:p-7" aria-labelledby="decision-desk-heading">
       <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
-        Start with a decision, not a coupon
+        Research before you buy
       </p>
       <h2 id="decision-desk-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">
-        What are you trying to figure out?
+        Guides &amp; comparisons
       </h2>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-        {ROUTES.map((route) => (
-          <Link
-            key={route.href}
-            href={route.href}
-            className="lift group flex min-h-[132px] flex-col rounded-2xl border border-ledger-line bg-white p-4"
-          >
-            <span className="font-serif text-base font-bold leading-snug text-ink">{route.title}</span>
-            <span className="mt-1.5 flex-1 text-xs leading-5 text-ink-soft">{route.body}</span>
-            <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-durza-deep">
-              {route.cta}
-              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-            </span>
-          </Link>
-        ))}
-      </div>
-
-      <div className="mt-7 border-t border-ledger-line pt-6">
+      <div className="mt-5 border-t border-ledger-line pt-6">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="Browse by topic">
           {topics.map((spotlight) => {
             const Glyph = GLYPHS[spotlight.topic.glyph];
