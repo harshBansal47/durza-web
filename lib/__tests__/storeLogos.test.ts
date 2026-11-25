@@ -11,7 +11,7 @@ describe("storeLogoUrl", () => {
   });
 
   it("falls back to the self-hosted icon by slug", () => {
-    expect(storeLogoUrl({ slug: "myntra", logo_url: null })).toBe("/stores/myntra.png");
+    expect(storeLogoUrl({ slug: "myntra", logo_url: null })).toBe("public/stores/myntra.webp");
   });
 
   it("returns null for stores with no icon, so initials stay", () => {

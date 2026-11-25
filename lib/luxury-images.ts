@@ -79,37 +79,37 @@ export const VICTORIAS_SECRET_SLOTS: LuxurySlot[] = [
   {
     collection: "Fine Fragrance Mists",
     styling: "A veil of warmth — amber, florals and soft musk that lingers from first light to late evening, chosen by those who like their presence remembered, never announced.",
-    image: "/stores/victorias-secret/fine-fragrance-mists.jpg",
+    image: "public/stores/victorias-secret/fine-fragrance-mists.webp",
     alt: "Golden fine fragrance mist bottle in warm, luxurious light",
   },
   {
     collection: "Signature Fragrance — Eau de Parfum",
     styling: "Sculpted glass, ambered depth and a sillage that feels intimate — the kind of fragrance worn as a quiet signature, not a statement.",
-    image: "/stores/victorias-secret/signature-eau-de-parfum.jpg",
+    image: "public/stores/victorias-secret/signature-eau-de-parfum.webp",
     alt: "Luxury sculpted glass eau de parfum bottle",
   },
   {
     collection: "Body & Hand Lotions",
     styling: "Silken, slow-absorbing care in the house’s most loved scents — a small daily ritual that leaves skin luminous and evenings softly perfumed.",
-    image: "/stores/victorias-secret/body-hand-lotions.jpg",
+    image: "public/stores/victorias-secret/body-hand-lotions.webp",
     alt: "Minimalist luxury body cream and skincare jar",
   },
   {
     collection: "Silk Satin Lingerie",
     styling: "Ruby, noir and midnight satin with delicate lace — pieces cut to feel like a private indulgence, confident, refined and unmistakably feminine.",
-    image: "/stores/victorias-secret/silk-satin-lingerie.jpg",
+    image: "public/stores/victorias-secret/silk-satin-lingerie.webp",
     alt: "Deep ruby silk and lace lingerie flatlay",
   },
   {
     collection: "Signature Sleepwear",
     styling: "Fluid slips and soft lounge silhouettes in the house palette — the kind of comfort you gift to someone special, or keep for yourself.",
-    image: "/stores/victorias-secret/signature-sleepwear.jpg",
+    image: "public/stores/victorias-secret/signature-sleepwear.webp",
     alt: "Elegant silk slip sleepwear in soft light",
   },
   {
     collection: "Angels & Bombshell Collections",
     styling: "The icons — blush florals, petal-soft sweetness and timeless allure, a heritage line for those who collect moments as much as scents.",
-    image: "/stores/victorias-secret/angels-bombshell.jpg",
+    image: "public/stores/victorias-secret/angels-bombshell.webp",
     alt: "Blush rose luxury perfume with petals, Bombshell aesthetic",
   },
 ];
@@ -120,7 +120,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Accessory: Butter-Soft Leather Sandals",
     styling:
       "Butter-soft leather straps with hand-finished edges and Pillow Walk™ comfort lasts — airy, fold-flat ease in EU sizes made for sunlit getaways.",
-    image: "/stores/aldo-shoes/butter-soft-leather-sandals.jpg",
+    image: "public/stores/aldo-shoes/butter-soft-leather-sandals.webp",
     alt: "Butter-soft leather sandals in warm neutral tones",
   },
   {
@@ -128,7 +128,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Work & Boardroom Loafers",
     styling:
       "Sleek grained leather with brushed hardware and Pillow Walk™ comfort lasts — a polished, slip-on silhouette in EU sizing that carries you from desk to dinner.",
-    image: "/stores/aldo-shoes/boardroom-loafers.jpg",
+    image: "public/stores/aldo-shoes/boardroom-loafers.webp",
     alt: "Polished leather loafers for work and boardroom wear",
   },
   {
@@ -136,7 +136,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Evening Heels & Pumps",
     styling:
       "Sculpted profiles in patent and suede with brushed hardware accents and Pillow Walk™ comfort lasts — poised height, EU sizing, and all-evening ease.",
-    image: "/stores/aldo-shoes/evening-heels-pumps.jpg",
+    image: "public/stores/aldo-shoes/evening-heels-pumps.webp",
     alt: "Elegant evening heels and pumps",
   },
   {
@@ -144,7 +144,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Structured Top-Handle Bags",
     styling:
       "Crisp, architectural lines in croc-embossed leather with brushed hardware — a structured top-handle that holds its form from gallery afternoons to evening plans.",
-    image: "/stores/aldo-shoes/structured-top-handle-bags.jpg",
+    image: "public/stores/aldo-shoes/structured-top-handle-bags.webp",
     alt: "Structured top-handle handbag with refined silhouette",
   },
   {
@@ -152,7 +152,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Trainers & Casual Sneakers",
     styling:
       "Clean leather uppers, subtle brushed hardware details and Pillow Walk™ comfort lasts — refined off-duty ease in EU sizing for the everyday stride.",
-    image: "/stores/aldo-shoes/trainers-casual-sneakers.jpg",
+    image: "public/stores/aldo-shoes/trainers-casual-sneakers.webp",
     alt: "Casual trainers and lifestyle sneakers",
   },
   {
@@ -160,7 +160,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Suede Ankle Boots",
     styling:
       "Genuine suede with an almond toe, brushed hardware and Pillow Walk™ comfort lasts — a stacked-heel boot in EU sizing for composed winter layering.",
-    image: "/stores/aldo-shoes/suede-ankle-boots.jpg",
+    image: "public/stores/aldo-shoes/suede-ankle-boots.webp",
     alt: "Suede ankle boots with stacked heel",
   },
 ];

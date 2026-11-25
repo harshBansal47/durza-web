@@ -1329,7 +1329,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "brillare",
     category: "Beauty & Haircare",
     featured: false,
-    heroImage: "/stores/brillare.png",
+    heroImage: "public/stores/brillare.webp",
     seo: {
       title: "Brillare Scalp Care — Shampoo Bar Offer Guide (2026)",
       description: "Brillare live deals: shampoo-bar bundles, flat-sitewide codes and the scalp-first routine that saves.",

@@ -69,7 +69,7 @@ const LINEUP = [
     title: "Legion Pro & Slim Gaming",
     badge: "Flagship RTX",
     copy: "ColdFront vapor-chamber cooling, NVIDIA RTX 40/50-series high-TGP GPUs, and 240Hz PureSight gaming displays built for competitive FPS.",
-    image: "/stores/lenovo/legion-pro-slim.jpg",
+    image: "public/stores/lenovo/legion-pro-slim.webp",
     alt: "Lenovo Legion flagship gaming laptop",
   },
   {
@@ -77,7 +77,7 @@ const LINEUP = [
     title: "ThinkPad X1 Carbon & T-Series",
     badge: "Executive & Dev",
     copy: "MIL-STD-810H carbon-fiber chassis, legendary tactile keyboards, Linux-ready firmware, and Intel vPro reliability for founders & engineers.",
-    image: "/stores/lenovo/thinkpad-x1.jpg",
+    image: "public/stores/lenovo/thinkpad-x1.webp",
     alt: "Lenovo ThinkPad business laptop on a desk",
   },
   {
@@ -85,7 +85,7 @@ const LINEUP = [
     title: "LOQ Gaming Series",
     badge: "High-FPS Value",
     copy: "Lenovo's highest-value RTX gaming lineup with AI Engine+ thermal tuning, MUX switches, and custom CTO RAM/SSD upgrades on Lenovo.com.",
-    image: "/stores/lenovo/loq-gaming.jpg",
+    image: "public/stores/lenovo/loq-gaming.webp",
     alt: "Lenovo LOQ gaming laptop",
   },
   {
@@ -93,7 +93,7 @@ const LINEUP = [
     title: "Yoga Pro & 2-in-1 OLED",
     badge: "Creators & Touch",
     copy: "360-degree convertible touchscreens with Lenovo Digital Pen support, Dolby Vision OLED panels, and ultra-slim aluminum unibodies.",
-    image: "/stores/lenovo/yoga-oled.jpg",
+    image: "public/stores/lenovo/yoga-oled.webp",
     alt: "Lenovo Yoga OLED convertible laptop",
   },
   {
@@ -101,7 +101,7 @@ const LINEUP = [
     title: "IdeaPad Slim 5 & Pro",
     badge: "Students & Daily",
     copy: "All-day battery life, 16GB LPDDR5X memory options, and lightweight metal builds engineered for college lectures, coding, and hybrid work.",
-    image: "/stores/lenovo/ideapad-slim.jpg",
+    image: "public/stores/lenovo/ideapad-slim.webp",
     alt: "Lenovo IdeaPad Slim laptop for students and daily work",
   },
   {
@@ -109,7 +109,7 @@ const LINEUP = [
     title: "Legion Go Handheld & ThinkVision Monitors",
     badge: "Console & Desk",
     copy: "Detachable TrueStrike controllers with 8.8-inch QHD+ 144Hz gaming display, alongside color-accurate USB-C monitors for dual-screen setups.",
-    image: "/stores/lenovo/legion-go-thinkvision.jpg",
+    image: "public/stores/lenovo/legion-go-thinkvision.webp",
     alt: "Lenovo Legion Go handheld and ThinkVision monitor setup",
   },
 ];

@@ -29,7 +29,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "Happi Planet Magic Eraser | Pack of 4 | No Scratch Multi-Surface Cleaning Sponge",
     badge: "Useful pick — cleaning",
     url: "https://link.amazon/B0aLjz4py",
-    image: "/stores/home-kitchen/happi-planet-magic-eraser.jpg",
+    image: "public/stores/home-kitchen/happi-planet-magic-eraser.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -37,7 +37,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "Scotch-Brite Scrub Sponge | Pack of 3 — everyday utensil cleaning",
     badge: "Useful pick — kitchen",
     url: "https://link.amazon/B05dkGhsf",
-    image: "/stores/home-kitchen/scotch-brite-scrub-sponge.jpg",
+    image: "public/stores/home-kitchen/scotch-brite-scrub-sponge.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -45,7 +45,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "ShineXPro Microfiber Cleaning Cloth Roll | 20 pcs | Ultra-absorbent, washable",
     badge: "Useful pick — cleaning cloth",
     url: "https://www.amazon.in/ShineXPro-Microfiber-Cleaning-Cloth-Roll/dp/B0FS1VB862?pd_rd_w=PzNgP&content-id=amzn1.sym.b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_p=b908f532-cbe7-4274-8b24-b671acc58bd2&pf_rd_r=NGJDWMGF74DBC4GWTNAM&pd_rd_wg=2GQjb&pd_rd_r=83637cff-77e6-4ca4-ba9f-e56aaf6afb04&pd_rd_i=B0FS1VB862&th=1&linkCode=ll2&tag=durza02-21&linkId=61b2163cf9a498bd24554c01a3e1c94a&ref_=as_li_ss_tl",
-    image: "/stores/home-kitchen/shinexpro-microfiber-cleaning-cloth.jpg",
+    image: "public/stores/home-kitchen/shinexpro-microfiber-cleaning-cloth.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -53,7 +53,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "Zulaxy Photo Frame Hooks for Wall Without Drilling | 10 Pack Self Adhesive",
     badge: "Useful pick — wall hooks",
     url: "https://link.amazon/B061JtXXr",
-    image: "/stores/home-kitchen/zulaxy-photo-frame-hooks.jpg",
+    image: "public/stores/home-kitchen/zulaxy-photo-frame-hooks.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -61,7 +61,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "WaterScience Replacement Cartridge for CLEO Shower & Tap Filter | Borewell water",
     badge: "Useful pick — water filter",
     url: "https://link.amazon/B04uEUk26",
-    image: "/stores/home-kitchen/waterscience-cleo-shower-filter.jpg",
+    image: "public/stores/home-kitchen/waterscience-cleo-shower-filter.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -69,7 +69,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "Gala Sponge Wipe for Kitchen Cleaning | Biodegradable Cellulose | 5 Pcs",
     badge: "Useful pick — kitchen sponge",
     url: "https://link.amazon/B09kXLwZk",
-    image: "/stores/home-kitchen/gala-sponge-wipe.jpg",
+    image: "public/stores/home-kitchen/gala-sponge-wipe.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -77,7 +77,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "GM 3060 Extension Board 10A | 2M Cord | Master Switch + Safety Shutter",
     badge: "Useful pick — extension board",
     url: "https://link.amazon/B0iLjOpdt",
-    image: "/stores/home-kitchen/gm-3060-extension-board.jpg",
+    image: "public/stores/home-kitchen/gm-3060-extension-board.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -85,7 +85,7 @@ const HOME_KITCHEN_PICKS: HomeKitchenPick[] = [
     name: "Scotch-Brite Twin Bucket Spin Mop | Easy Wring & Rinse | 360° Adjustable Handle",
     badge: "Useful pick — spin mop",
     url: "https://link.amazon/B0evjuTT8",
-    image: "/stores/home-kitchen/scotch-brite-spin-mop.jpg",
+    image: "public/stores/home-kitchen/scotch-brite-spin-mop.webp",
     imageWidth: 500,
     imageHeight: 500,
   },
@@ -118,7 +118,7 @@ const PROTEIN_PICKS: ProteinPick[] = [
       "25 g protein per ~37 g scoop with 11 g EAA and ProHydrolase enzyme technology — a disclosed, isolate-first blend with no amino spiking. Batches are tested monthly under Informed Choice (UK) and every pack carries a batch-verification code.",
     bestFor: "Closing the protein gap on training days — the post-workout or breakfast shake.",
     url: "https://link.amazon/B02k8S0KF",
-    image: "/stores/amazon-in/bigmuscles-premium-gold-whey.png",
+    image: "public/stores/amazon-in/bigmuscles-premium-gold-whey.webp",
   },
   {
     badge: "26 G PROTEIN PER 100 G — NO ADDED SUGAR",
@@ -128,7 +128,7 @@ const PROTEIN_PICKS: ProteinPick[] = [
       "26 g protein per 100 g from a whey + soya protein blend with chia, sunflower and pumpkin seeds, probiotics (Bacillus coagulans) and zero added sugar — a training-day breakfast that eats like dessert.",
     bestFor: "A quick breakfast on gym days — 26 g of protein before 9 am without a shaker.",
     url: "https://link.amazon/B05uwpEeL",
-    image: "/stores/amazon-in/yogabar-high-protein-oats-dark-chocolate.png",
+    image: "public/stores/amazon-in/yogabar-high-protein-oats-dark-chocolate.webp",
   },
   {
     badge: "CREAMP — TRUSTIFIED CERTIFIED",
@@ -138,7 +138,7 @@ const PROTEIN_PICKS: ProteinPick[] = [
       "3 g micronised creatine monohydrate per scoop (~33 servings per 100 g pouch) with CreAbsorb technology and third-party Trustified certification — plain creatine, done right, in the safest starter size.",
     bestFor: "Strength and power blocks — progressive overload on lifting days.",
     url: "https://link.amazon/B0iU3vLmN",
-    image: "/stores/amazon-in/creamp.jpg",
+    image: "public/stores/amazon-in/creamp.webp",
   },
 ];
 
@@ -162,7 +162,7 @@ const PERSONAL_DEVICES: PersonalDevice[] = [
       "LED-lit cutting window, 3 speed settings and a USB-rechargeable grinding/shaving platform — the gentle, lamp-lit way to trim nails for adults, kids and seniors who find a manual clipper a struggle.",
     bestFor: "Thick nails, shaky hands and anyone skipping trims because they hurt.",
     url: "https://link.amazon/B0fA1dltP",
-    image: "/stores/amazon-in/nail-clipper.jpg",
+    image: "public/stores/amazon-in/nail-clipper.webp",
   },
   {
     badge: "CE & USFDA — AUDIO-VISUAL ALARM",
@@ -172,7 +172,7 @@ const PERSONAL_DEVICES: PersonalDevice[] = [
       "SpO2 and pulse rate on a large rotatable OLED, with an audio-visual alarm when readings drop, perfusion-index strength gauge and automatic shut-off. Splash-resistant for bedside, travel and high-altitude use.",
     bestFor: "Elderly parents at home — saturation at a glance, no guessing.",
     url: "https://link.amazon/B0ceYJazW",
-    image: "/stores/amazon-in/drtrust-oximeter.jpg",
+    image: "public/stores/amazon-in/drtrust-oximeter.webp",
   },
   {
     badge: "BP-02 — LARGE LCD, ONE BUTTON",
@@ -182,7 +182,7 @@ const PERSONAL_DEVICES: PersonalDevice[] = [
       "Fully automatic blood pressure monitoring on a large dedicated LCD — systolic, diastolic and pulse/minute, with per-session memory and a colour-coded category scale printed on the panel. No cuff-inflating by hand, ever.",
     bestFor: "Weekly home tracking — same time, same arm, seated, back supported.",
     url: "https://link.amazon/B08Sl3rmX",
-    image: "/stores/amazon-in/dr-morepen-bp02.jpg",
+    image: "public/stores/amazon-in/dr-morepen-bp02.webp",
   },
 ];
 
@@ -207,7 +207,7 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "Medium oxo-biodegradable garbage bags sized for everyday kitchen and bathroom bins — 180 bags across six rolls, suited to both dry and wet waste without tearing at the seams.",
     bestFor: "Daily bin liners where you want a known roll count and a no-fuss medium size.",
     url: "https://link.amazon/B012CLFpv",
-    image: "/stores/amazon-in/presto-garbage-bags.jpg",
+    image: "public/stores/amazon-in/presto-garbage-bags.webp",
     imageAlt: "Amazon Brand Presto! medium garbage bags, 180 count, black",
   },
   {
@@ -218,7 +218,7 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "Non-woven printed saree and cloth storage covers with a transparent window so you can see what’s inside without unzipping — six pieces to sort a shelf or wardrobe in one go.",
     bestFor: "Seasonal sarees, lehengas and occasion wear you want dust-free but visible.",
     url: "https://link.amazon/B00kmawoo",
-    image: "/stores/amazon-in/homestrap-saree-covers.jpg",
+    image: "public/stores/amazon-in/homestrap-saree-covers.webp",
     imageAlt: "Homestrap set of 6 non-woven printed saree covers with transparent window, grey",
   },
   {
@@ -229,7 +229,7 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "High-speed 1800 W heat gun with dual temperature settings for stripping paint, drying coats, remelting adhesives and shrink-wrapping — corded with a 3-metre cable for reach around a room.",
     bestFor: "Paint removal, heat-shrink tubing and loosening old adhesive on DIY jobs.",
     url: "https://link.amazon/B09AR7wfc",
-    image: "/stores/amazon-in/black-decker-kx1800-heat-gun.jpg",
+    image: "public/stores/amazon-in/black-decker-kx1800-heat-gun.webp",
     imageAlt: "BLACK+DECKER KX1800-B1 1800 W heat gun",
   },
   {
@@ -240,7 +240,7 @@ const HOUSEHOLD_PICKS: CuratedPick[] = [
       "An all-in-one DIY kit: 11 metal drill bits, 6 masonry, 5 wood, spade bits, 18 screwdriver bits, countersink, knife and nutsetters — TiN-coated for longer edge life across common home materials.",
     bestFor: "A first proper drill-and-drive kit for shelves, frames and weekend fixes.",
     url: "https://link.amazon/B09hu4GMq",
-    image: "/stores/amazon-in/bosch-xline-50.jpg",
+    image: "public/stores/amazon-in/bosch-xline-50.webp",
     imageAlt: "Bosch X-Line 50-piece TiN-coated drill and screwdriver bit set",
   },
 ];
@@ -255,7 +255,7 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "500-watt juicer-mixer-grinder built around smoothie making — supplied with 3 jars and 2 blades in a gold finish, backed by a 1-year warranty as stated on the listing.",
     bestFor: "Daily smoothies and quick chutneys without a bulky countertop footprint.",
     url: "https://link.amazon/B04HvT3G7",
-    image: "/stores/amazon-in/nutripro-jmg.jpg",
+    image: "public/stores/amazon-in/nutripro-jmg.webp",
     imageAlt: "NutriPro juicer mixer grinder smoothie maker, 500 W, 3 jars and 2 blades, gold",
   },
   {
@@ -266,7 +266,7 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "A compact, plug-in round waffle iron with a non-stick plate — sized for individual waffles, pancakes, cookies, eggs, paninis and quick breakfast snacks.",
     bestFor: "Single-serve breakfasts and snack waffles in a small kitchen or hostel room.",
     url: "https://link.amazon/B08tyKqCH",
-    image: "/stores/amazon-in/mini-waffle-maker-red.jpg",
+    image: "public/stores/amazon-in/mini-waffle-maker-red.webp",
     imageAlt: "Portable red mini round waffle maker, non-stick plate",
   },
   {
@@ -277,7 +277,7 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "Digital kitchen scale with LCD display rated to 10 kg, aimed at home baking, cooking and portion control — sold with a 6-month manufacturer warranty as stated on the listing (colour may vary).",
     bestFor: "Baking by weight, meal-prep portions and dialling in coffee or dough ratios.",
     url: "https://link.amazon/B0gPMbSmL",
-    image: "/stores/amazon-in/atom-sf400-a121-kitchen-scale.jpg",
+    image: "public/stores/amazon-in/atom-sf400-a121-kitchen-scale.webp",
     imageAlt: "Atom SF400/A121 digital kitchen weighing scale, 10 kg capacity",
   },
   {
@@ -288,7 +288,7 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "A portable, handheld cordless noodle press that runs on Type-C charging and ships with 6 moulds — presses idiyappam, noodles and pasta shapes without being tethered to a socket.",
     bestFor: "Fresh idiyappam and quick pasta shapes when you don’t want a full machine out.",
     url: "https://link.amazon/B0b5B8P4l",
-    image: "/stores/amazon-in/pigeon-instamami-noodle-maker.jpg",
+    image: "public/stores/amazon-in/pigeon-instamami-noodle-maker.webp",
     imageAlt: "Pigeon Instamami cordless automatic noodle and idiyappam maker with moulds",
   },
   {
@@ -299,7 +299,7 @@ const KITCHEN_APPLIANCE_PICKS: CuratedPick[] = [
       "A pocket-size heat sealer for reclosing snack packets and plastic bags at home — portable and hand-held, aimed at keeping opened food packs sealed between uses (colour assorted).",
     bestFor: "Resealing chips, namkeen and freezer bags without hunting for clips.",
     url: "https://link.amazon/B09AEQ7RS",
-    image: "/stores/amazon-in/amazer-mini-sealer.jpg",
+    image: "public/stores/amazon-in/amazer-mini-sealer.webp",
     imageAlt: "Amazer mini heat sealing machine for food packets and plastic bags",
   },
 ];
@@ -314,7 +314,7 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "Full HD 1080p webcam with autofocus and dual built-in microphones for widescreen video calling and recording — compatible with desktop PCs and laptops.",
     bestFor: "Clear video calls, meetings and basic streaming without a separate mic.",
     url: "https://link.amazon/B07JIGYtz",
-    image: "/stores/amazon-in/logitech-c920.jpg",
+    image: "public/stores/amazon-in/logitech-c920.webp",
     imageAlt: "Logitech C920 HD Pro Webcam, 1080p full HD",
   },
   {
@@ -325,7 +325,7 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "USB microphone with on-board controls, LED lighting, quick-release shock mount and built-in arm/stand mount — works with PC, Mac, PS5 and PS4 over USB-C.",
     bestFor: "Streaming, podcasts and calls where voice clarity matters more than a laptop mic.",
     url: "https://link.amazon/B0aBYLzMb",
-    image: "/stores/amazon-in/hyperx-quadcast2.jpg",
+    image: "public/stores/amazon-in/hyperx-quadcast2.webp",
     imageAlt: "HyperX QuadCast 2 USB microphone, black",
   },
   {
@@ -336,7 +336,7 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "USB 2.0 sharing switch that lets two PCs share up to four peripherals — mouse, keyboard, scanner, printer, USB stick or hard drive. Compatible with Windows and Mac OS 8.6 and above.",
     bestFor: "Swapping one keyboard/mouse set between a work laptop and a personal PC.",
     url: "https://link.amazon/B0b3cEHEY",
-    image: "/stores/amazon-in/ugreen-usb-switch.jpg",
+    image: "public/stores/amazon-in/ugreen-usb-switch.webp",
     imageAlt: "UGREEN 4-port USB 2.0 switch for 2 PCs",
   },
   {
@@ -347,7 +347,7 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "Full-size wired keyboard with USB plug-and-play, chiclet keys, spill resistance and hot keys for volume, mute, play/pause and track controls — with three indicator lights.",
     bestFor: "A reliable, no-fuss wired keyboard for long typing sessions at a desk.",
     url: "https://link.amazon/B02Wdjg8G",
-    image: "/stores/amazon-in/dell-kb216.jpg",
+    image: "public/stores/amazon-in/dell-kb216.webp",
     imageAlt: "Dell KB216 wired multimedia keyboard",
   },
   {
@@ -358,7 +358,7 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "Height-adjustable single monitor arm with cable management, full-motion tilt and 360° rotation — fits 13–30 inch monitors via VESA desk mounting.",
     bestFor: "Freeing desk space and getting your screen to eye level on a fixed table.",
     url: "https://link.amazon/B05KtbpPp",
-    image: "/stores/amazon-in/amazon-basics-monitor-arm.jpg",
+    image: "public/stores/amazon-in/amazon-basics-monitor-arm.webp",
     imageAlt: "Amazon Basics single monitor arm, height adjustable VESA desk mount",
   },
   {
@@ -369,7 +369,7 @@ const WORK_FROM_HOME_PICKS: CuratedPick[] = [
       "High-back ergonomic executive chair with leatherette upholstery, a spacious cushion seat and a heavy-duty metal base — designed for home-office use.",
     bestFor: "All-day sitting where a basic chair starts to complain before you do.",
     url: "https://link.amazon/B07beeAUB",
-    image: "/stores/amazon-in/green-soul-vienna-chair.jpg",
+    image: "public/stores/amazon-in/green-soul-vienna-chair.webp",
     imageAlt: "Green Soul Vienna premium leatherette high-back office chair, black and tan",
   },
 ];

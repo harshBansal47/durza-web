@@ -67,7 +67,7 @@ export const ASUS_LINEUP = [
     badge: "Gaming Performance",
     outcome: "Play competitive titles smoothly and handle demanding AAA games (config-dependent).",
     copy: "Performance-focused ROG laptops with high-refresh displays and RTX-class graphics options. Check exact GPU power (TGP), display, and cooling on the SKU you choose.",
-    image: "/stores/asus-lineup/rog-strix-zephyrus.jpg",
+    image: "public/stores/asus-lineup/rog-strix-zephyrus.webp",
     alt: "ASUS ROG gaming laptop lineup (replace with official ASUS product image)",
   },
   {
@@ -76,7 +76,7 @@ export const ASUS_LINEUP = [
     badge: "Portable Premium",
     outcome: "Work and create on a bright, color-rich screen while staying light on the move.",
     copy: "Premium ultraportables with OLED display options and modern processors. Great for travel, meetings, and creator-friendly viewing (specs vary by model).",
-    image: "/stores/asus-lineup/zenbook-oled-duo.jpg",
+    image: "public/stores/asus-lineup/zenbook-oled-duo.webp",
     alt: "ASUS Zenbook OLED laptop lineup (replace with official ASUS product image)",
   },
   {
@@ -85,7 +85,7 @@ export const ASUS_LINEUP = [
     badge: "Value Gaming",
     outcome: "Get strong 1080p gaming and everyday speed without flagship pricing.",
     copy: "Durable, value-oriented gaming laptops with high-refresh screens and RTX-class GPU options on many configurations. Verify exact CPU/GPU/RAM/storage for each model.",
-    image: "/stores/asus-lineup/tuf-gaming.jpg",
+    image: "public/stores/asus-lineup/tuf-gaming.webp",
     alt: "ASUS TUF Gaming laptop lineup (replace with official ASUS product image)",
   },
   {
@@ -94,7 +94,7 @@ export const ASUS_LINEUP = [
     badge: "Study & Everyday",
     outcome: "Code, study, and multitask comfortably with a crisp display and responsive keyboard.",
     copy: "Balanced laptops for students and everyday creators. Look for 16GB RAM and 512GB+ SSD configs for smoother long-term use.",
-    image: "/stores/asus-lineup/vivobook-s-pro-oled.jpg",
+    image: "public/stores/asus-lineup/vivobook-s-pro-oled.webp",
     alt: "ASUS Vivobook laptop lineup (replace with official ASUS product image)",
   },
   {
@@ -103,7 +103,7 @@ export const ASUS_LINEUP = [
     badge: "Handheld PC Gaming",
     outcome: "Play PC games on the go with a portable handheld form factor.",
     copy: "A handheld gaming PC for portable play and couch/commute sessions. Check game compatibility, storage, and battery expectations for your use.",
-    image: "/stores/asus-lineup/rog-ally-x.jpg",
+    image: "public/stores/asus-lineup/rog-ally-x.webp",
     alt: "ASUS ROG Ally X handheld (replace with official ASUS product image)",
   },
   {
@@ -112,7 +112,7 @@ export const ASUS_LINEUP = [
     badge: "Creator Tools",
     outcome: "Edit, grade, and design with color-focused hardware built for creative workflows.",
     copy: "ProArt devices and displays aimed at creators who care about color accuracy and workflow tools. Confirm panel specs and calibration details per model.",
-    image: "/stores/asus-lineup/proart-studio-monitors.jpg",
+    image: "public/stores/asus-lineup/proart-studio-monitors.webp",
     alt: "ASUS ProArt creator hardware (replace with official ASUS product image)",
   },
 ] as const;
