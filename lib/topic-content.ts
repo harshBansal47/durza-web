@@ -11,6 +11,7 @@ import "server-only";
 
 import { api } from "@/lib/api";
 import { editorialPath } from "@/lib/editorial-path";
+import { getGuideCoverImage } from "@/lib/guide-cover";
 import { priorityForGuide } from "@/lib/static-editorial";
 import { COMPARISONS } from "@/data/comparisons";
 import { REVIEWS } from "@/data/reviews";
@@ -112,7 +113,15 @@ export function staticDiscoverableContent(): DiscoverableContent[] {
       title: guide.seo.title,
       summary: guide.summary,
       href: `/guides/${guide.slug}`,
-      heroImage: guide.heroImage ?? null,
+      // Store-logo PNGs are tiny; the hub's cover fallback keeps them as small
+      // chips on generated art instead of stretching them across a card.
+      heroImage: getGuideCoverImage({
+        slug: guide.slug,
+        title: guide.seo.title,
+        summary: guide.summary,
+        category: guide.category,
+        image: guide.heroImage ?? null,
+      }),
       updatedAt: guide.auditedOn ?? null,
       authorName: "Durza Research Desk",
       priority: priorityForGuide(guide.slug),
@@ -139,7 +148,16 @@ function fromEditorial(content: EditorialContent): DiscoverableContent | null {
     title: content.title,
     summary: content.summary ?? "",
     href: editorialPath(content),
-    heroImage: content.hero_image_url ?? null,
+    heroImage:
+      content.content_type === "guide"
+        ? getGuideCoverImage({
+            slug: content.slug,
+            title: content.title,
+            summary: content.summary ?? "",
+            category: "Buying guide",
+            image: content.hero_image_url,
+          })
+        : content.hero_image_url ?? null,
     updatedAt: content.updated_at || content.published_at || null,
     authorName: content.author_name ?? null,
     priority: 5,
