@@ -1,9 +1,11 @@
 import type { ReactElement } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomePage, { generateMetadata } from "@/app/page";
+import EditorialRail from "@/components/home/EditorialRail";
 import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
 import { BRAND } from "@/lib/brand";
+import { discoverableContent } from "@/lib/topic-content";
 import { SITE_TITLE } from "@/lib/site";
 import type { CouponPublic } from "@/lib/types";
 
@@ -83,10 +85,24 @@ function jsonLdSchemas(node: unknown): Array<Record<string, unknown>> {
   return found;
 }
 
+function findElements(node: unknown, type: unknown): Array<Record<string, unknown>> {
+  if (!node || typeof node !== "object") return [];
+  const element = node as { type?: unknown; props?: { children?: unknown } };
+  const found = element.type === type && element.props ? [element.props as Record<string, unknown>] : [];
+  const children = element.props?.children;
+  if (Array.isArray(children)) {
+    for (const child of children) found.push(...findElements(child, type));
+  } else if (children) {
+    found.push(...findElements(children, type));
+  }
+  return found;
+}
+
 const originalMitgo = process.env.MITGO_VERIFICATION;
 
 beforeEach(() => {
   vi.mocked(api.listCoupons).mockReset();
+  vi.mocked(discoverableContent).mockResolvedValue([]);
   configureApi();
 });
 
@@ -131,6 +147,31 @@ describe("homepage structured data", () => {
         url: expect.stringContaining("/coupons/c1"),
       },
     ]);
+  });
+});
+
+describe("homepage editorial rails", () => {
+  it("shows comparisons and reviews below the guides desk", async () => {
+    vi.mocked(discoverableContent).mockResolvedValue([
+      {
+        id: "c1", topicId: "tech", contentType: "comparison", title: "Phone comparison",
+        summary: "Two phones side by side", href: "/compare/phone", updatedAt: "2026-11-25T00:00:00Z",
+        authorName: "Desk", priority: 6, hasMethod: true, hasFaq: false,
+      },
+      {
+        id: "r1", topicId: "tech", contentType: "review", title: "Phone review",
+        summary: "A detailed review", href: "/reviews/phone", updatedAt: "2026-11-24T00:00:00Z",
+        authorName: "Desk", priority: 6, hasMethod: true, hasFaq: false,
+      },
+    ]);
+
+    const rails = findElements(await HomePage(), EditorialRail).map((props) => props as {
+      title: string;
+      items: Array<{ title: string }>;
+    });
+    expect(rails.map((rail) => rail.title)).toEqual(["Comparisons", "Reviews"]);
+    expect(rails[0].items.map((item) => item.title)).toContain("Phone comparison");
+    expect(rails[1].items.map((item) => item.title)).toContain("Phone review");
   });
 });
 

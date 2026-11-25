@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Flame, Zap } from "lucide-react";
+import { ArrowRight, Flame } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
 import OfferRail from "@/components/home/OfferRail";
@@ -16,6 +16,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { EditorialCard } from "@/components/editorial/EditorialComponents";
 import DecisionDesk from "@/components/home/DecisionDesk";
+import EditorialRail from "@/components/home/EditorialRail";
 import { buildTopicSpotlights } from "@/lib/topics";
 import { discoverableContent } from "@/lib/topic-content";
 import { COLLECTIONS } from "@/data/collections";
@@ -106,6 +107,20 @@ export default async function HomePage() {
   // The editorial layer ranks the content we already have. Topics with no
   // published pieces are omitted, so nothing here is a hardcoded section.
   const topicSpotlights = buildTopicSpotlights(allEditorial, { limit: 4, perTopic: 3 });
+
+  // The same ranked editorial pool feeds two more homepage rails so the pages
+  // beyond guides are discoverable without inventing any content.
+  const editorialByType = (contentType: "comparison" | "review") =>
+    allEditorial
+      .filter((item) => item.contentType === contentType)
+      .sort((a, b) =>
+        b.priority - a.priority
+        || (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "")
+        || a.title.localeCompare(b.title),
+      )
+      .slice(0, 3);
+  const homepageComparisons = editorialByType("comparison");
+  const homepageReviews = editorialByType("review");
 
   // Indian shoppers today — deals that make sense for that audience only.
   // The excluded set lives in lib/homepage-curation.ts; this section filters every
@@ -320,6 +335,23 @@ export default async function HomePage() {
 
           {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
 
+          <EditorialRail
+            id="home-comparisons"
+            eyebrow="Side by side"
+            title="Comparisons"
+            href="/compare"
+            linkLabel="All comparisons"
+            items={homepageComparisons}
+          />
+
+          <EditorialRail
+            id="home-reviews"
+            eyebrow="Tested and reviewed"
+            title="Reviews"
+            href="/reviews"
+            linkLabel="All reviews"
+            items={homepageReviews}
+          />
 
           {collectionsForRail.length > 0 && (
             <section className="mt-12" aria-label="Curated savings collections">

@@ -13,7 +13,6 @@ import {
   Shirt,
   Sparkles,
   Wallet,
-  Clock3,
   type LucideIcon,
 } from "lucide-react";
 import type { TopicGlyph, TopicSpotlight } from "@/lib/topics";
@@ -242,7 +241,7 @@ export default function DecisionDesk({
 
             {/* OTHER ARTICLES */}
             <div className="flex flex-col gap-3">
-              {recommendations.map((item, index) => (
+              {recommendations.map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}

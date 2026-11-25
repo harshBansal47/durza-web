@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Check, Copy, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Copy } from "lucide-react";
 import { CardSaveButton } from "./CardSaveButton";
 import OfferEvidence from "./OfferEvidence";
 import { offerTypeLabel } from "@/lib/offer-presentation";
