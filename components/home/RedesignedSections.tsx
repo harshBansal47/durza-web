@@ -2,11 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
-import OutboundLink from "@/components/OutboundLink";
 import type { DiscoverableContent, TopicId } from "@/lib/topics";
-import type { CouponPublic } from "@/lib/types";
 
 interface CollectionCardData {
   slug: string;
@@ -16,9 +14,8 @@ interface CollectionCardData {
 }
 
 interface RedesignedSectionsProps {
-  offers: CouponPublic[];
-  couponTotal: number;
-  storesById: Record<string, { name: string }>;
+  /** The previous offers rail is supplied by the page so it stays unchanged. */
+  offersSlot?: ReactNode;
   guides: DiscoverableContent[];
   comparisons: DiscoverableContent[];
   reviews: DiscoverableContent[];
@@ -127,86 +124,6 @@ function StartHere() {
             </a>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-function OffersSection({ offers, couponTotal, storesById }: {
-  offers: CouponPublic[];
-  couponTotal: number;
-  storesById: Record<string, { name: string }>;
-}) {
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  async function copyCode(coupon: CouponPublic) {
-    if (!coupon.code) return;
-    try {
-      await navigator.clipboard.writeText(coupon.code);
-      setCopiedId(coupon.id);
-      window.setTimeout(() => setCopiedId(null), 2000);
-    } catch {
-      // Clipboard blocked — leave the button unchanged.
-    }
-  }
-
-  return (
-    <section id="offers" className="hs-section hs-white" aria-labelledby="offers-heading">
-      <div className="hs-wrap">
-        <SectionHead
-          id="offers"
-          pill="Coupons and deals"
-          title="Worth a look right now"
-          description="Offers we re-checked recently. Tap to reveal the code."
-          href="/coupons"
-          linkLabel={`All ${couponTotal.toLocaleString("en-IN")} coupons`}
-        />
-        {offers.length === 0 ? (
-          <p className="hs-empty">No offers are listed right now. We would rather show nothing than guess.</p>
-        ) : (
-          <div className="hs-grid hs-offer-grid">
-            {offers.map((coupon) => {
-              const storeName = storesById[coupon.store_id]?.name ?? "Store";
-              return (
-                <article key={coupon.id} className="hs-card hs-offer-card">
-                  <div className="hs-offer-top">
-                    <b>{storeName}</b>
-                    <span className="hs-meta">{formatChecked(coupon.last_checked_at)}</span>
-                  </div>
-                  <h3 className="hs-t">{coupon.title}</h3>
-                  <div className="hs-offer-foot">
-                    {coupon.code ? (
-                      <>
-                        <code className="hs-code">{coupon.code}</code>
-                        <button
-                          type="button"
-                          className="hs-cta"
-                          onClick={() => void copyCode(coupon)}
-                          aria-label={copiedId === coupon.id ? "Code copied" : `Copy code ${coupon.code}`}
-                        >
-                          {copiedId === coupon.id ? "Copied" : "Copy code"}
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <span className="hs-meta hs-strong">No code needed</span>
-                        <OutboundLink
-                          coupon={coupon}
-                          storeName={storeName}
-                          src="homepage"
-                          contentRef="home_offers"
-                          className="hs-cta"
-                        >
-                          View deal
-                        </OutboundLink>
-                      </>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        )}
       </div>
     </section>
   );
@@ -421,9 +338,7 @@ function CollectionsSection({ items }: { items: CollectionCardData[] }) {
 }
 
 export default function RedesignedSections({
-  offers,
-  couponTotal,
-  storesById,
+  offersSlot,
   guides,
   comparisons,
   reviews,
@@ -432,7 +347,7 @@ export default function RedesignedSections({
   return (
     <div className="hs-root">
       <StartHere />
-      <OffersSection offers={offers} couponTotal={couponTotal} storesById={storesById} />
+      {offersSlot}
       <GuidesSection guides={guides} />
       <ComparisonsSection items={comparisons} />
       <ReviewsSection items={reviews} />

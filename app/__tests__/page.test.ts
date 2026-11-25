@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomePage, { generateMetadata } from "@/app/page";
+import OfferRail from "@/components/home/OfferRail";
 import RedesignedSections from "@/components/home/RedesignedSections";
 import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
@@ -89,7 +90,18 @@ function findElements(node: unknown, type: unknown): Array<Record<string, unknow
   if (!node || typeof node !== "object") return [];
   const element = node as { type?: unknown; props?: { children?: unknown } };
   const found = element.type === type && element.props ? [element.props as Record<string, unknown>] : [];
-  const children = element.props?.children;
+  const props = element.props as Record<string, unknown> | undefined;
+  if (props) {
+    for (const [key, value] of Object.entries(props)) {
+      if (key === "children") continue;
+      if (Array.isArray(value)) {
+        for (const child of value) found.push(...findElements(child, type));
+      } else if (value && typeof value === "object") {
+        found.push(...findElements(value, type));
+      }
+    }
+  }
+  const children = props?.children;
   if (Array.isArray(children)) {
     for (const child of children) found.push(...findElements(child, type));
   } else if (children) {
@@ -177,6 +189,17 @@ describe("homepage redesigned sections", () => {
     expect(sections[0].comparisons.map((item) => item.title)).toContain("Phone comparison");
     expect(sections[0].reviews.map((item) => item.title)).toContain("Phone review");
     expect(sections[0].comparisons[0].heroImage).toBe("/collections/amazon-beauty-toolkit/hero-vanity.webp");
+  });
+});
+
+describe("homepage offers", () => {
+  it("keeps the previous offer rail for coupons and deals", async () => {
+    const secondStore = { ...store, id: "s2", slug: "test-store-2" };
+    configureApi([offer("c1", "Featured offer"), { ...offer("c2", "Worth a look offer"), store_id: "s2" }]);
+    vi.mocked(api.listStores).mockResolvedValue(pageOf([store, secondStore]) as never);
+    const rails = findElements(await HomePage(), OfferRail);
+    expect(rails).toHaveLength(1);
+    expect(rails[0].placement).toBe("home_worth_a_look");
   });
 });
 

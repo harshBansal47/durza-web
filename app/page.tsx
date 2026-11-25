@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { Flame } from "lucide-react";
+import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
+import OfferRail from "@/components/home/OfferRail";
 import RedesignedSections from "@/components/home/RedesignedSections";
 import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
@@ -168,7 +171,7 @@ export default async function HomePage() {
         const checked = (c: (typeof a)) => (c.last_checked_at ? 1 : 0);
         return checked(b) - checked(a) || b.clicks_count - a.clicks_count || a.id.localeCompare(b.id);
       }),
-    4,
+    6,
   );
 
   const collectionsForRail = [
@@ -277,9 +280,22 @@ export default async function HomePage() {
       />
 
       <RedesignedSections
-        offers={worthLooking}
-        couponTotal={coupons.total}
-        storesById={storesById}
+        offersSlot={
+          worthLooking.length > 0 ? (
+            <section className="hs-section hs-white" aria-labelledby="worth-looking-heading">
+              <div className="hs-wrap">
+                <SectionTitle hint="from offers we tracked" icon={Flame}>
+                  <span id="worth-looking-heading">Worth a look</span>
+                </SectionTitle>
+                <OfferRail
+                  offers={worthLooking}
+                  storesById={storesById}
+                  placement="home_worth_a_look"
+                />
+              </div>
+            </section>
+          ) : null
+        }
         guides={homepageGuides}
         comparisons={homepageComparisons}
         reviews={homepageReviews}
