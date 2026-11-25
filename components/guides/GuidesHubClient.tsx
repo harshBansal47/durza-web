@@ -65,8 +65,10 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
     });
   }, [items, active, query]);
 
+  // Featured picks come from the current filter/search result set, so changing
+  // a category chip or typing in search updates them as well.
   const featured = useMemo(() => {
-    const picks = items.filter(matchesFeatured);
+    const picks = filtered.filter(matchesFeatured);
     const preferred: GuideHubItem[] = [];
     const want = [
       (i: GuideHubItem) => i.slug.includes("best-laptop") || (i.title.toLowerCase().includes("laptop") && i.title.toLowerCase().includes("deal")),
@@ -74,17 +76,17 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
       (i: GuideHubItem) => i.slug.includes("skincare-actives") || i.title.toLowerCase().includes("skincare actives"),
     ];
     for (const fn of want) {
-      const found = picks.find((p) => fn(p) && !preferred.includes(p)) || items.find((p) => fn(p) && !preferred.includes(p));
+      const found = picks.find((p) => fn(p) && !preferred.includes(p)) || filtered.find((p) => fn(p) && !preferred.includes(p));
       if (found) preferred.push(found);
     }
     if (preferred.length < 3) {
-      for (const item of items) {
+      for (const item of filtered) {
         if (preferred.length >= 3) break;
         if (!preferred.includes(item)) preferred.push(item);
       }
     }
     return preferred.slice(0, 3);
-  }, [items]);
+  }, [filtered]);
 
   return (
     <div className="mt-2">
@@ -104,7 +106,7 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
           <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label="Guide categories">
             {FILTERS.map((f) => {
               const selected = active === f;
-              const label = f === "All Guides" ? `All Guides (${counts.get("All Guides") || 0})` : f;
+              const label = `${f} (${counts.get(f) || 0})`;
               return (
                 <button
                   key={f}
@@ -156,6 +158,7 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
           <p className="mt-6 rounded-2xl border border-dashed border-ledger-line bg-white p-8 text-center text-ink-soft">No guides match your search. Try a different keyword or category.</p>
         )}
       </section>
+      {featured.length > 0 && (
       <section aria-labelledby="featured-guides-heading" className="mt-6">
         <div className="mb-4 flex items-end justify-between gap-3">
           <div>
@@ -181,8 +184,7 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
           ))}
         </div>
       </section>
-
-     
+      )}
 
       <section className="mt-12 grid gap-4 sm:grid-cols-3" aria-label="Explore more">
         {[
