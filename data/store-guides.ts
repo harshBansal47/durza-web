@@ -98,7 +98,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "ajio-com-ecommerce-cps-india",
     category: "Fashion",
     featured: true,
-    heroImage: "/stores/ajio.png",
+    heroImage: "/guides/ajio-marketplace-coupons-and-bank-offers.webp",
     seo: {
       title: "Ajio Coupons, Bank Offers & Stacking Guide (2026)",
       description: "How Ajio's real discount engine works: bank instant discounts, wallet redeems, sale slabs and the exact checkout order.",
@@ -351,7 +351,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "beast-life",
     category: "Supplements",
     featured: true,
-    heroImage: "/stores/beast-life.png",
+    heroImage: "/guides/beast-life-whey-and-recovery-guide.webp",
     seo: {
       title: "BeastLife Whey & Creatine — Cost Per Gram Guide (2026)",
       description: "How to compare BeastLife whey isolate vs concentrate and creatine on cost per gram, with batch checks, stimulant caveats and brand/Amazon CTAs. Reviewed 25 Nov 2026.",
@@ -503,7 +503,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "alpino",
     category: "Grocery & Health Food",
     featured: false,
-    heroImage: "/stores/alpino.png",
+    heroImage: "/guides/alpino-peanut-butter-and-oats-guide.webp",
     seo: {
       title: "Alpino Peanut Butter & Oats — Labels, Allergens & Bulk Math (2026)",
       description: "Unsweetened vs whey-fortified peanut butter, plain vs flavoured oats, allergen checks and 1 kg vs 2.5 kg cost math with brand/Amazon CTAs. Reviewed 25 Nov 2026.",
@@ -997,7 +997,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "wonderchef",
     category: "Home & Kitchen",
     featured: true,
-    heroImage: "/stores/wonderchef.png",
+    heroImage: "/guides/wonderchef-khuramas-kitchenware-guide.webp",
     seo: {
       title: "Wonderchef Deals — Sanjeev Kapoor Kitchenware Guide (2026)",
       description: "Wonderchef live offers: appliance vs utensil code triggers and the stacking order that pays.",
@@ -1039,7 +1039,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "nilkamalfurniture",
     category: "Furniture & Home",
     featured: false,
-    heroImage: "/stores/nilkamalfurniture.png",
+    heroImage: "/guides/nilkamal-furniture-offers-and-NEU-guide.webp",
     seo: {
       title: "Nilkamal Furniture Offers — Smart Buying Guide (2026)",
       description: "Nilkamal live deals: 5-piece bundle codes, prepaid discounts and the assembly-claim playbook.",
@@ -1456,7 +1456,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "hirafragrance",
     category: "Fragrance",
     featured: false,
-    heroImage: "/stores/hirafragrance.png",
+    heroImage: "/guides/hirafragrance-attar-and-oud-guide.webp",
     seo: {
       title: "Hira Fragrance Attars & Oud — Offers & Gifting Guide (2026)",
       description: "Hira Fragrance live deals: oud-line discounts, mini-set trials and the gifting stack.",
@@ -1499,7 +1499,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "neesh-perfumes",
     category: "Fragrance",
     featured: false,
-    heroImage: "/stores/neesh-perfumes.png",
+    heroImage: "/guides/neesh-perfumes-extrait-de-parfum-guide.webp",
     seo: {
       title: "Neesh Perfumes Extrait de Parfum — Offer Guide (2026)",
       description: "Neesh Perfumes live codes: Extrait vs EDP tiers and the dab-first stacking order for India.",
@@ -2615,7 +2615,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "bath-body-works",
     category: "Beauty & Home Fragrance",
     featured: true,
-    heroImage: "/stores/bath-body-works.webp",
+    heroImage: "/guides/bath-and-body-works-india-mists-candles-guide.webp",
     seo: {
       title: "Bath & Body Works India Guide — Mists, Candles & Lotions",
       description: "Bath & Body Works India: fragrance mists that last in India's heat, 3-wick household burn lengths, and the lotion + mist layering routine. No codes.",
@@ -2780,7 +2780,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "adidas",
     category: "Sports & Fashion Lifestyle",
     featured: true,
-    heroImage: "/guides/adidas-india-buying-guide.png",
+    heroImage: "/guides/adidas-india-ultraboost-originals-training-2026-guide.webp",
     heroImageAlt: "Illustrated Adidas India running and training shoe buying guide",
     heroImageLayout: "editorial",
     seo: {
