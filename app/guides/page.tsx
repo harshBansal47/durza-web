@@ -97,12 +97,6 @@ export default async function GuidesPage() {
         title="Buying guides"
         lead="Straightforward research and practical advice to help you find what fits before you spend."
         stats={[{ value: items.length.toLocaleString("en-IN"), label: "Guides" }]}
-        chips={[
-          { href: "/topics/home", label: "Home and Appliances" },
-          { href: "/topics/health", label: "Health and Fitness" },
-          { href: "/topics/beauty", label: "Beauty and Grooming" },
-          { href: "/topics/tech", label: "Tech and Gadgets" },
-        ]}
         trust={false}
       />
       <GuidesHubClient items={items} />

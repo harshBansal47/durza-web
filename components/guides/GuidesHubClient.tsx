@@ -88,33 +88,7 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
 
   return (
     <div className="mt-2">
-      <section aria-labelledby="featured-guides-heading" className="mt-6">
-        <div className="mb-4 flex items-end justify-between gap-3">
-          <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Featured</p>
-            <h2 id="featured-guides-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">Featured Must-Read Guides</h2>
-          </div>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {featured.map((item) => (
-            <article key={item.slug} className="group overflow-hidden rounded-3xl border border-[#141413]/10 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-              <Link href={item.href} className="block">
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#f3efe8]">
-                  <Image src={item.coverImage} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-300 group-hover:scale-[1.02]" />
-                </div>
-                <div className="p-4 sm:p-5">
-                  <span className="inline-flex rounded-full bg-[#f3efe8] px-2.5 py-1 text-[11px] font-semibold text-[#141413]">{item.categoryLabel}</span>
-                  <h3 className="mt-3 line-clamp-2 font-serif text-lg font-extrabold leading-snug text-ink">{item.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-soft">{item.summary}</p>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8a4b12]">Read guide <ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-10" aria-label="Filter and search guides">
+       <section className="mt-10" aria-label="Filter and search guides">
         <div className="rounded-3xl border border-ledger-line bg-white p-4 shadow-sm sm:p-5">
           <div className="relative">
             <Search aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-soft" />
@@ -182,6 +156,33 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
           <p className="mt-6 rounded-2xl border border-dashed border-ledger-line bg-white p-8 text-center text-ink-soft">No guides match your search. Try a different keyword or category.</p>
         )}
       </section>
+      <section aria-labelledby="featured-guides-heading" className="mt-6">
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Featured</p>
+            <h2 id="featured-guides-heading" className="mt-1 font-serif text-2xl font-extrabold text-ink">Featured Must-Read Guides</h2>
+          </div>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {featured.map((item) => (
+            <article key={item.slug} className="group overflow-hidden rounded-3xl border border-[#141413]/10 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <Link href={item.href} className="block">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#f3efe8]">
+                  <Image src={item.coverImage} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-300 group-hover:scale-[1.02]" />
+                </div>
+                <div className="p-4 sm:p-5">
+                  <span className="inline-flex rounded-full bg-[#f3efe8] px-2.5 py-1 text-[11px] font-semibold text-[#141413]">{item.categoryLabel}</span>
+                  <h3 className="mt-3 line-clamp-2 font-serif text-lg font-extrabold leading-snug text-ink">{item.title}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-soft">{item.summary}</p>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8a4b12]">Read guide <ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
+                </div>
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+     
 
       <section className="mt-12 grid gap-4 sm:grid-cols-3" aria-label="Explore more">
         {[
