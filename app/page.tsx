@@ -282,6 +282,17 @@ export default async function HomePage() {
         stores={heroStores}
         popularStores={heroPopularStores}
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
+        toolkit={
+          toolkitCollection
+            ? {
+                slug: toolkitCollection.slug,
+                title: toolkitCollection.title,
+                summary: toolkitCollection.summary,
+                itemCountLabel: toolkitCollection.itemCountLabel,
+                heroImage: toolkitCollection.heroImage,
+              }
+            : null
+        }
       />
 
       {isEmpty ? (
@@ -376,16 +387,6 @@ export default async function HomePage() {
                   adsense_eligible: false,
                 }} />)}
               </div>
-              {toolkitCollection ? (
-                <Link
-                  href={`/collections/${toolkitCollection.slug}`}
-                  aria-label={`Open ${toolkitCollection.title} collection`}
-                  className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-ledger-line bg-white px-4 text-sm font-medium text-ink hover:border-accent-soft hover:text-accent"
-                >
-                  Curated toolkit: {toolkitCollection.title}
-                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-                </Link>
-              ) : null}
             </section>
           )}
 

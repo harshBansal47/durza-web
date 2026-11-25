@@ -5,7 +5,7 @@ import type { HeroDeal, HeroStore } from "@/lib/home-hero";
 import "./hero.css";
 import FeaturedDesk from "./FeaturedDesk";
 import HeroBand from "./HeroBand";
-import HeroSearch from "./HeroSearch";
+import HeroSearch, { type HeroToolkit } from "./HeroSearch";
 import OfferDrawer from "./OfferDrawer";
 import { usePrefersReducedMotion } from "./hooks";
 
@@ -16,6 +16,7 @@ export interface HomeHeroProps {
   stores: HeroStore[];
   popularStores: HeroStore[];
   stats: { coupons: number; stores: number; categories: number };
+  toolkit?: HeroToolkit | null;
 }
 
 /**
@@ -23,7 +24,7 @@ export interface HomeHeroProps {
  * panel and a trust/stats band. Owns the offer drawer so any entry point —
  * search result or featured card — opens the same one.
  */
-export default function HomeHero({ deals, featured, stores, popularStores, stats }: HomeHeroProps) {
+export default function HomeHero({ deals, featured, stores, popularStores, stats, toolkit }: HomeHeroProps) {
   const [drawerDeal, setDrawerDeal] = useState<HeroDeal | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -85,6 +86,7 @@ export default function HomeHero({ deals, featured, stores, popularStores, stats
             featured={featured}
             stores={stores}
             popularStores={popularStores}
+            toolkit={toolkit}
             onOpenDeal={setDrawerDeal}
           />
 

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { ArrowRight, Search, X } from "lucide-react";
 import { track } from "@/lib/analytics";
 import { buildHeroResults, SCOPES, splitHighlight, type HeroScope } from "@/lib/hero-search";
 import type { HeroDeal, HeroStore } from "@/lib/home-hero";
@@ -12,6 +13,14 @@ import { useMediaQuery, usePrefersReducedMotion } from "./hooks";
 import { hasOpenOverlay } from "./useDialog";
 
 const GROUP_LABEL = { deal: "Matching offers", store: "Stores" } as const;
+
+export interface HeroToolkit {
+  slug: string;
+  title: string;
+  summary: string;
+  itemCountLabel: string;
+  heroImage: string;
+}
 
 function Highlight({ text, query }: { text: string; query: string }) {
   const [before, match, after] = splitHighlight(text, query);
@@ -34,12 +43,14 @@ export default function HeroSearch({
   featured,
   stores,
   popularStores,
+  toolkit,
   onOpenDeal,
 }: {
   deals: HeroDeal[];
   featured: HeroDeal[];
   stores: HeroStore[];
   popularStores: HeroStore[];
+  toolkit?: HeroToolkit | null;
   onOpenDeal: (deal: HeroDeal) => void;
 }) {
   const router = useRouter();
@@ -243,6 +254,26 @@ export default function HeroSearch({
           </button>
         ))}
       </div>
+
+      {toolkit ? (
+        <Link
+          href={`/collections/${toolkit.slug}`}
+          className="hx-toolkit"
+          aria-label={`Explore curated toolkit: ${toolkit.title}`}
+        >
+          <span className="hx-toolkit-media" aria-hidden="true">
+            <Image src={toolkit.heroImage} alt="" width={64} height={64} className="hx-toolkit-img" />
+          </span>
+          <span className="hx-toolkit-body">
+            <span className="hx-toolkit-kicker">Curated toolkit</span>
+            <span className="hx-toolkit-title">{toolkit.title}</span>
+            <span className="hx-toolkit-meta">{toolkit.itemCountLabel} · Amazon India picks</span>
+          </span>
+          <span className="hx-toolkit-cta" aria-hidden="true">
+            Explore <ArrowRight size={14} strokeWidth={2.3} />
+          </span>
+        </Link>
+      ) : null}
 
       {open && (
         <div className="hx-results" id={listId} role="listbox" aria-label="Search results" ref={listRef}>

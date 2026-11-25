@@ -51,6 +51,13 @@ const deals = [
   deal("5", stores[4], "BLDC fan offer", "FAN5", { verified: false }),
 ];
 const featured = deals.slice(0, 4);
+const toolkit = {
+  slug: "complete-amazon-makeup-toolkit",
+  title: "Complete Makeup Toolkit on Amazon India",
+  summary: "A step-by-step makeup toolkit organized by routine categories.",
+  itemCountLabel: "18 Steps · 100+ Picks",
+  heroImage: "/collections/amazon-beauty-toolkit/hero-vanity.webp",
+};
 
 function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) {
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -63,6 +70,7 @@ function renderHero(props: Partial<React.ComponentProps<typeof HomeHero>> = {}) 
           stores={stores}
           popularStores={stores}
           stats={{ coupons: 1255, stores: 94, categories: 16 }}
+          toolkit={toolkit}
           {...props}
         />
       </ToastProvider>
@@ -97,6 +105,15 @@ describe("HomeHero — structure", () => {
     renderHero();
     expect(screen.queryByRole("link", { name: /beauty toolkit/i })).toBeNull();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Discover genuine deals/i);
+  });
+
+  it("places the curated toolkit feature below the search scopes", () => {
+    renderHero();
+    const promo = screen.getByRole("link", { name: /explore curated toolkit/i });
+    expect(promo).toHaveAttribute("href", "/collections/complete-amazon-makeup-toolkit");
+    expect(within(promo).getByText("Complete Makeup Toolkit on Amazon India")).toBeInTheDocument();
+    const scopes = screen.getByRole("group", { name: "Search scope" });
+    expect(scopes.compareDocumentPosition(promo) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("omits invented numbers when there is no data", () => {
