@@ -293,7 +293,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "levis",
     category: "Fashion",
     featured: false,
-    heroImage: "/stores/levis.png",
+    heroImage: "/guides/levis-denim-offers-and-sale-guide.webp",
     seo: {
       title: "Levi's India — 501 vs 511 Sizing, Shrink & Sale Math (2026)",
       description: "Levi's India: 501 vs 511 cuts, waist-true carry, sanforised shrink realities, and which sale slab reaches a real price floor.",
@@ -820,7 +820,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "havells",
     category: "Electronics & Home Appliances",
     featured: true,
-    heroImage: "/stores/havells.png",
+    heroImage: "/guides/havells-bldc-fan-offers-guide.webp",
     seo: {
       title: "Havells BLDC vs. Induction Fans in India (2026): Real Wattage Math, Airflow & Offers",
       description: "Compare Havells Efficiencia Neo (26W) and Stealth Air BLDC+ (40W) with induction fans using published CMM, RPM and BEE data — with the wattage-to-rupee math shown in full.",
@@ -903,7 +903,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "moglix",
     category: "Tools & Hardware",
     featured: false,
-    heroImage: "/stores/moglix.png",
+    heroImage: "/guides/moglix-tools-and-gst-savings-guide.webp",
     seo: {
       title: "Moglix Tools & GST Savings — B2B Buying Guide (2026)",
       description: "Moglix codes for GST-registered buyers: ITC refund sheets, kit discounts and the B2B stacking order.",
@@ -1125,7 +1125,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "the-man-company",
     category: "Men's Grooming",
     featured: false,
-    heroImage: "/stores/the-man-company.png",
+    heroImage: "/guides/the-man-company-grooming-beard-kits-guide.webp",
     seo: {
       title: "The Man Company Beard Oil & Grooming Kits — Offers (2026)",
       description: "The Man Company live deals: beard-kit codes, EDP picks and prepaid-discount stacking.",
@@ -1167,7 +1167,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "nourish-mantra",
     category: "Beauty & Skincare",
     featured: false,
-    heroImage: "/stores/nourish-mantra.png",
+    heroImage: "/guides/nourish-mantra-vegan-anti-aging-guide.webp",
     seo: {
       title: "Nourish Mantra Vegan Skincare — Offer Guide (2026)",
       description: "Nourish Mantra live codes: C-brightening line offers and the sitewide discount order that saves.",
@@ -1371,7 +1371,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "iba-cosmetics",
     category: "Beauty & Personal Care",
     featured: false,
-    heroImage: "/stores/iba-cosmetics.png",
+    heroImage: "/guides/iba-cosmetics-halal-beauty-guide.webp",
     seo: {
       title: "IBA Cosmetics Halal Makeup — Offers & B2G1 Guide (2026)",
       description: "IBA live deals: sitewide discounts, kohl/lipstick bundles and the halal-certified stacking order.",
@@ -1546,7 +1546,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "sirona",
     category: "Feminine Hygiene",
     featured: false,
-    heroImage: "/stores/sirona.png",
+    heroImage: "/guides/sirona-menstrual-cup-guide.webp",
     seo: {
       title: "Sirona Menstrual Cups & Hygiene — Offer Guide (2026)",
       description: "Sirona live deals: menstrual-cup discounts, first-cup freebies and the hygiene-kit stack.",
@@ -1599,7 +1599,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "mymuse",
     category: "Feminine & Intimate Care",
     featured: false,
-    heroImage: "/stores/mymuse.png",
+    heroImage: "/guides/mymuse-intimate-wellness-guide.webp",
     seo: {
       title: "MyMuse Intimate Wellness — Safe & Discreet Buying (2026)",
       description: "MyMuse live deals: bundling codes, prepaid discounts and discreet-shipping — how to save safely.",
@@ -1818,7 +1818,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "hkvitals",
     category: "Supplements",
     featured: false,
-    heroImage: "/guides/hkvitals-daily-multivitamin-guide.webp",
+    heroImage: "/guides/zeroharm-clean-nutrition-guide.webp",
     seo: {
       title: "HK Vitals Daily Nutrition — Offers & Bundles Guide (2026)",
       description: "Single-pack vs bundle maths for HK Vitals using a verified ₹909 Marine Collagen 200g price, with per-serving actives, YMYL safety exclusions and brand/Amazon CTAs. Reviewed 24 Nov 2026.",
@@ -2066,7 +2066,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "bytepe",
     category: "Utilities & Bill Payments",
     featured: false,
-    heroImage: "/guides/bytepe-bill-payments-fastag-vouchers-guide.webp",
+    heroImage: "/guides/baccabucci-footwear-sandali-loafers-guide.webp",
     seo: {
       title: "BytePe Offers — Bill Payments, Fastag & Voucher Cashback (2026)",
       description: "BytePe codes: FIRSTBILL (₹50 first bill), FASTAG25 (₹25 NETC Fastag), RECHARGE10 (5% mobile/DTH), VOUCHER5 (2–8% vouchers) — India's BBPS one-stop decoded.",
@@ -2286,7 +2286,7 @@ const RAW_GUIDES_G: StaticGuide[] = [
     storeSlug: "reliance-digital",
     category: "Electronics & Home Appliances",
     featured: false,
-    heroImage: "/guides/reliance-digital-appliance-laptop-offers-guide.webp",
+    heroImage: "/guides/nuawoman-lingerie-and-comfort-guide.webp",
     seo: {
       title: "Reliance Digital Offers — Laptops, Appliances, Bank Cards (2026)",
       description: "Reliance Digital deals: up to 10% bank cashback and 6-month no-cost EMI on laptops + HDFC payzapp points.",
@@ -2373,7 +2373,7 @@ const RAW_GUIDES_H: StaticGuide[] = [
     storeSlug: "healthkart",
     category: "Supplements",
     featured: true,
-    heroImage: "/guides/healthkart-whey-creator-and-stacking-guide.webp",
+    heroImage: "/guides/pepperfry-bean-bags-and-furniture-guide.webp",
     seo: {
       title: "HealthKart Whey & Creatine — Honest ₹/gram Buyer's Guide (2026)",
       description: "Verified ₹/gram maths for MuscleBlaze Biozyme Whey 1kg at ₹3,999, plus creatine checks, authenticity steps, medical exclusions and HealthKart/Amazon CTAs. Reviewed 24 Nov 2026.",
@@ -2460,7 +2460,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "charles-keith",
     category: "Fashion & Leather Goods",
     featured: true,
-    heroImage: "/stores/charles-keith.webp",
+    heroImage: "/guides/charles-and-keith-india-style-guide.webp",
     seo: {
       title: "Charles & Keith India Style Guide 2026 — Bags, Shoes & Care",
       description: "Which Charles & Keith bag or heel suits your life in India — boardroom to banquet, workweek to weekend. Sizing, material notes and honest styling.",
@@ -2500,7 +2500,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "victorias-secret",
     category: "Beauty & Fragrance",
     featured: true,
-    heroImage: "/stores/victorias-secret.webp",
+    heroImage: "/guides/victorias-secret-india-fragrance-sizing-guide.webp",
     seo: {
       title: "Victoria's Secret India Guide 2026 — Mists, Candles, Lingerie & Sizing",
       description: "Victoria's Secret India: fragrance notes, mist vs lotion, 3-wick candle burn length, and the honest lingerie sizing guide. Only the official storefront.",
@@ -3285,7 +3285,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "amazon-living-room-tv-echo-kindle-guide",
     storeSlug: "amazon-in",
-    heroImage: "/guides/amazon-living-room-tv-echo-kindle-guide.webp"
+    heroImage: "/guides/amazon-living-room-tv-echo-kindle-guide.webp",
     category: "Electronics",
     featured: false,
     seo: {
@@ -3431,7 +3431,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "indian-skincare-actives-haircare-guide",
     storeSlug: "amazon-in",
-    heroImage: "/guides/indian-skincare-actives-haircare-guide.webp"
+    heroImage: "/guides/indian-skincare-actives-haircare-guide.webp",
     category: "Beauty & Grooming",
     featured: false,
     seo: {
@@ -3656,7 +3656,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "how-to-match-laptop-model-codes-india",
     storeSlug: "lenovo-india",
-    heroImage: "/guides/how-to-match-laptop-model-codes-india.webp"
+    heroImage: "/guides/how-to-match-laptop-model-codes-india.webp",
     category: "Electronics",
     seo: {
       title: "How to Match Laptop Model Codes Across Indian Stores | Durza",
