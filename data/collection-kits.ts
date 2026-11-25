@@ -10,7 +10,8 @@
  */
 import { COLLECTIONS, type CollectionEntry } from "@/data/collections";
 
-const PLACEHOLDER_IMAGE = "/collections/amazon-beauty-toolkit/product-placeholder.svg";
+export const COLLECTION_KIT_PLACEHOLDER_IMAGE = "/collections/amazon-beauty-toolkit/product-placeholder.svg";
+const PLACEHOLDER_IMAGE = COLLECTION_KIT_PLACEHOLDER_IMAGE;
 
 export interface CollectionKitProduct {
   id: string;
@@ -20,6 +21,9 @@ export interface CollectionKitProduct {
   image: string;
   note?: string;
   href: string;
+  /** Only set when the price was actually verified on a source page. */
+  priceLabel?: string;
+  mrpLabel?: string;
 }
 
 export interface CollectionKitSection {
@@ -36,10 +40,13 @@ export interface CollectionKit {
   subline: string;
   checkedLabel: string;
   sections: CollectionKitSection[];
+  /** Required on health-adjacent kits. */
+  healthNote?: string;
 }
 
-/** Fully researched overrides land here, keyed by collection slug. */
-export const COLLECTION_KIT_OVERRIDES: Record<string, CollectionKit> = {};
+/** Fully researched overrides, keyed by collection slug. */
+import { COLLECTION_KIT_OVERRIDES } from "@/data/collection-kit-overrides";
+export { COLLECTION_KIT_OVERRIDES };
 
 const GROUPS = [
   {

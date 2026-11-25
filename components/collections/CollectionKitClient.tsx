@@ -44,6 +44,12 @@ function ProductCard({
       </div>
       <div className="mt-3 flex flex-1 flex-col">
         <h3 className="font-serif text-base font-bold leading-snug text-ink">{product.name}</h3>
+        {product.priceLabel && (
+          <p className="mt-1.5 flex items-baseline gap-2 text-sm">
+            <span className="font-semibold text-ink">{product.priceLabel}</span>
+            {product.mrpLabel && <span className="text-xs text-ink-soft line-through">{product.mrpLabel}</span>}
+          </p>
+        )}
         <p className="mt-1.5 flex-1 text-xs leading-5 text-ink-soft">{product.description}</p>
         {product.note && (
           <p className="mt-2 text-[11px] leading-4 text-ink-soft">
@@ -172,6 +178,12 @@ export default function CollectionKitClient({ kit }: { kit: CollectionKit }) {
             </section>
           ))}
         </div>
+
+        {kit.healthNote && (
+          <section aria-label="Health note" className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-950">
+            <strong className="font-semibold">Health note.</strong> {kit.healthNote}
+          </section>
+        )}
 
         <section aria-labelledby="kit-list-heading" className="mt-12 rounded-2xl border border-[#141413]/10 bg-white p-5">
           <h2 id="kit-list-heading" className="font-serif text-xl font-bold text-ink">Your kit list</h2>
