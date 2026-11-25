@@ -211,7 +211,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Japanese Cherry Blossom and twilight florals wrapped in soft musk — a fine mist veil that lingers from morning rituals to evening plans.",
     image:
-      "https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/vero-moda-evening-silk.webp"",
     alt: "Bath & Body Works aromatherapy fine fragrance mist",
   },
   {
@@ -220,7 +220,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Soy-blend 3-wick candles with a warm, gourmand glow — rich throw and an inviting ambience that fills the room for unhurried evenings.",
     image:
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/vero-moda-denim.webp"",
     alt: "Bath & Body Works signature 3-wick candle",
   },
   {
@@ -229,7 +229,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Cushioning shea body creams and lotions that melt in fast — plush hydration and a soft scent trail for comfortable, cared-for skin.",
     image:
-      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/vero-moda-tailoring.webp"",
     alt: "Bath & Body Works body lotion and shea butter cream",
   },
   {
@@ -238,7 +238,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Gentle foaming hand soaps and PocketBac essentials in bright botanical notes — everyday freshness that feels clean, light and uplifting.",
     image:
-      "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/bath-body-works-aromatherapy-fine-fragrance-mist.webp"",
     alt: "Bath & Body Works foaming hand soaps and PocketBac sanitisers",
   },
   {
@@ -247,7 +247,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Silky foaming body wash that layers beautifully — a sensorial cleanse that carries from a refreshing shower to an all-day soft scent.",
     image:
-      "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/bath-body-works-signature-3-wick-candle.webp"",
     alt: "Bath & Body Works gentle foaming body wash",
   },
   {
@@ -256,7 +256,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Ready-to-gift fragrance sets and festive hampers — thoughtfully paired mists, creams and candles for effortless, memorable gifting.",
     image:
-      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/bath-body-works-body-lotion-and-shea-butter-cream.webp"",
     alt: "Bath & Body Works home and dorm gift set",
   },
 ];
@@ -268,7 +268,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Anti-tarnish 18k gold-vermeil Singapore, paperclip and snake chains — waterproof, sweat-proof layers that stay luminous from gym sessions to dinner plans.",
     image:
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/bath-body-works-foaming-hand-soaps-and-pocketbac-sanitisers.webp"",
     alt: "Everyday 18k gold-plated chain necklaces",
   },
   {
@@ -277,7 +277,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Brilliant lab-grown diamond solitaires set in 925 silver and gold vermeil — refined sparkle and everyday elegance without the heirloom markup.",
     image:
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/bath-body-works-gentle-foaming-body-wash.webp"",
     alt: "Lab-grown diamond ring and fine jewelry accent",
   },
   {
@@ -286,7 +286,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Sculptural cuffs, paperclip and herringbone bracelets in anti-tarnish gold finishes — designed to stack effortlessly for a polished wrist story.",
     image:
-      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/bath-body-works-home-and-dorm-gift-set.webp"",
     alt: "Stackable gold bracelets and bangles",
   },
   {
@@ -295,7 +295,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Understated studs and huggie hoops with a clean, modern profile — lightweight, waterproof demi-fine essentials for all-day Indian wear.",
     image:
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/everyday-18k-gold-plated-chain-necklaces.webp"",
     alt: "Minimal daily-wear gold stud earrings and hoops",
   },
   {
@@ -304,7 +304,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Meaningful charms and pendant drops in warm gold tones — layer over chains for a personal, modern neck-mess that moves from desk to dinner.",
     image:
-      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/lab-grown-diamond-ring-and-fine-jewelry-accent.webp"",
     alt: "Gold charm and pendant necklace edit",
   },
   {
@@ -313,7 +313,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Curated gift-ready sets and couple edits with premium presentation — thoughtful, demi-fine keepsakes for anniversaries, milestones and celebrations.",
     image:
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+      ""public/guides/stackable-gold-bracelets-and-bangles.webp"",
     alt: "Curated jewelry gift box set",
   },
 ];

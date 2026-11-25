@@ -68,7 +68,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "Build a practical Indian WFH desk kit: fix neck strain, grainy calls, and slow laptops with vetted ergonomic, video, and storage upgrades—no hardcoded prices.",
     heroImage:
-      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=80",
+      ""public/guides/homeOffice.webp"",
     summary:
       "Five high-impact WFH upgrades for Indian homes—better posture, clearer calls, and a faster laptop without wasting money on gimmicks.",
     updatedLabel: "Updated Nov 2026",
@@ -276,7 +276,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "A compact 5-piece home workout and nutrition starter kit for Indian apartments: space-saving gear, comfortable activewear, and batch-verified supplements.",
     heroImage:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
+      ""public/guides/fitness.webp"",
     summary:
       "Space-saving workout essentials and practical nutrition picks that fit a small Indian apartment—focused on consistency, comfort, and verified products.",
     updatedLabel: "Updated Nov 2026",
@@ -377,7 +377,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "Curated luxury gift ideas for Indian weddings, anniversaries, and festive hosting—presentation-ready picks across fragrance, skincare, jewelry, grooming, and accessories.",
     heroImage:
-      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=1200&q=80",
+      ""public/guides/festive.webp"",
     summary:
       "Presentation-ready gifts people actually keep and use—from hostess candles to keepsake skincare, jewelry, grooming hampers, and signature accessories.",
     updatedLabel: "Updated Nov 2026",
@@ -587,7 +587,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "A versatile 6-piece capsule wardrobe for Indian commutes and office-to-dinner plans: tailored layers, comfort-first footwear, a structured bag, and everyday jewelry.",
     heroImage:
-      "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+      ""public/guides/boardroom-to-dinner-capsule-wardrobe-india.webp"",
     summary:
       "Six mix-and-match pieces for Indian workdays and evenings—breathable tailoring, commute-friendly footwear, and polished accessories that do double duty.",
     updatedLabel: "Updated Nov 2026",
@@ -700,7 +700,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "Practical first-week essentials for Indian flats and high-rises: pressure-rated water heating, efficient fans, space-saving storage, and DIY tools for setup tasks.",
     heroImage:
-      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1200&q=80",
+      ""public/guides/home.webp"",
     summary:
       "A practical move-in kit for Indian apartments—pressure-safe utilities, bill-saving fans, space-multiplying furniture, and DIY basics for week-one fixes.",
     updatedLabel: "Updated Nov 2026",
@@ -801,7 +801,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "A simple, sustainable wellness stack for Indian desk workers: omega-3, multivitamins, morning juices, mineral support, and a quick high-protein breakfast option.",
     heroImage:
-      "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80",
+      ""public/guides/daily-longevity-and-desk-worker-wellness-stack.webp"",
     summary:
       "A simple daily routine for 9+ hour desk days—focused on consistency, verified basics, and practical nutrition rather than complicated supplement stacks.",
     updatedLabel: "Updated Nov 2026",

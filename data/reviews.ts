@@ -66,7 +66,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "Amazon Prime India Review (2026): ₹399 Shopping Edition vs ₹1,499 Full Plan Worth It? | Durza",
     metaDescription:
       "Amazon Prime India plans compared with worked break-even math: Shopping Edition ₹399, Prime Lite ₹799, Annual ₹1,499, Monthly ₹299 and the ₹699 ad-free add-on. Prices and shipping fees checked 24 Nov 2026.",
-    heroImage: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/amazon-prime-india-review-2026.webp"",
     summary:
       "Prime in India is four plans, not one. The right choice depends on how many sub-₹499 orders you place, whether you stream, and whether you actually use the Amazon Pay ICICI cashback. All figures below were checked on 24 Nov 2026.",
     authorName: "Harsh Bansal",
@@ -195,7 +195,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "Lenovo.com India Official Store Review (2026): CTO, Student Perks & Delivery | Durza",
     metaDescription:
       "Honest review of buying Lenovo LOQ/Legion and ThinkPad laptops from Lenovo.com/in: CTO customization, student/corporate perks, ₹999 ADP value, and 10–21 day delivery reality.",
-    heroImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/lenovo-loq-and-thinkpad-india-official-store-review.webp"",
     summary:
       "Lenovo’s official India store is excellent for custom configurations and protection add-ons, but it rewards planners—not buyers who need a laptop delivered this week.",
     verdict:
@@ -293,7 +293,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "Kama Ayurveda Kumkumadi & Bringadi Review (2026): Worth It in India? | Durza",
     metaDescription:
       "Honest Kama Ayurveda review: how Bringadi works for dry/stressed scalps, who should patch-test Kumkumadi, and how to use kamaayurveda.in consults and minis before buying full size.",
-    heroImage: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/kama-ayurveda-kumkumadi-and-bringadi-india-review.webp"",
     summary:
       "Kama Ayurveda’s flagship oils can be excellent when matched to the right skin and scalp type—but the luxury price makes patch testing and realistic expectations essential.",
     verdict:
@@ -368,7 +368,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "Kapiva Himalayan Shilajit Resin Review (2026): Lab Reports & Realistic Results | Durza",
     metaDescription:
       "Honest Kapiva Shilajit Resin review for India: how to verify NABL/heavy-metal and fulvic acid reports on kapiva.in, realistic 6–8 week timelines, and who should skip it.",
-    heroImage: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/supplements.webp"",
     summary:
       "Kapiva’s Shilajit resin stands out when you care about batch verification and ingredient transparency—but it’s a slow, routine supplement, not an instant stimulant.",
     verdict:
@@ -442,7 +442,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "BlissClub Ultimate Leggings Review (2026): Fit, Fabric & Sizing in India | Durza",
     metaDescription:
       "Honest BlissClub Ultimate Leggings review: squat-proof feel, 4-pocket utility, high-rise waistband in Indian heat, sizing tips, and when official-site combos beat marketplaces.",
-    heroImage: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/blissclub-ultimate-leggings-india-review.webp"",
     summary:
       "BlissClub’s Ultimate leggings are a strong everyday-training pick for Indian weather and body-fit needs, but getting the size right matters more than chasing discounts.",
     verdict:
@@ -515,7 +515,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "Charles & Keith India Online Store Review (2026): Bags, Heels & EU Sizing | Durza",
     metaDescription:
       "Honest Charles & Keith India review: why charleskeith.in is reliable for Gabine bags and heels, EU 35–41 sizing, packaging quality, and faux-leather care in monsoon humidity.",
-    heroImage: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/charles-and-keith-india-online-store-review.webp"",
     summary:
       "Charles & Keith’s official India store is a dependable place to buy structured bags and occasion footwear with proper sizing, packaging, and brand presentation—if you care for faux leather correctly.",
     verdict:
@@ -589,7 +589,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "GUVI Zen Class & Vernacular Courses Review (2026): Pros, Cons & Outcomes | Durza",
     metaDescription:
       "Balanced GUVI review for Indian learners: vernacular coding tracks, CodeKata practice, IIT-M incubated pedigree, and realistic expectations about placements and effort.",
-    heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/guvi-zen-class-vernacular-courses-india-review.webp"",
     summary:
       "GUVI is a strong option for learners who benefit from vernacular instruction and structured practice, but outcomes depend on consistent effort—not just enrolling in a course.",
     verdict:
@@ -664,7 +664,7 @@ export const REVIEWS: ReviewEntry[] = [
     seoTitle: "Dot & Key Watermelon Sunscreen & Cica Review (2026): Best Picks & What to Skip | Durza",
     metaDescription:
       "Honest Dot & Key review: why Watermelon SPF 50+ gel and Barrier Repair Ceramide cream work well in Indian weather, what fragrance-sensitive users should skip, and B2G2 shopping tips.",
-    heroImage: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=1200&q=80",
+    heroImage: ""public/guides/beauty.webp"",
     summary:
       "Dot & Key has strong everyday formulas for Indian weather—especially lightweight sunscreen and barrier support—but fragrance-sensitive skin should choose carefully.",
     verdict:
