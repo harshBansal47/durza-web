@@ -108,27 +108,6 @@ function SectionHead({
   );
 }
 
-function StartHere() {
-  return (
-    <section className="hs-section hs-white hs-start" aria-labelledby="start-here-heading">
-      <div className="hs-wrap">
-        <span className="hs-pill hs-pill-ink">Start here</span>
-        <h2 id="start-here-heading" className="hs-h2">What do you want to do today?</h2>
-        <p className="hs-sub">Pick a path. Each one below is a different kind of help, so you always know where you are.</p>
-        <div className="hs-path-grid">
-          {START_PATHS.map((path) => (
-            <a key={path.href} href={path.href} className={`hs-path hs-tone-${path.tone}`}>
-              <b>{path.label}</b>
-              <span className="hs-path-title">{path.title}</span>
-              <span className="hs-meta">{path.meta}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function GuidesSection({ guides }: { guides: DiscoverableContent[] }) {
   const [active, setActive] = useState<TopicId>("home");
   const items = guides
@@ -346,7 +325,6 @@ export default function RedesignedSections({
 }: RedesignedSectionsProps) {
   return (
     <div className="hs-root">
-      <StartHere />
       {offersSlot}
       <GuidesSection guides={guides} />
       <ComparisonsSection items={comparisons} />
