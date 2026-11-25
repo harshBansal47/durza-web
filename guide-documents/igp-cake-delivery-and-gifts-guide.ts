@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "igp-cake-delivery-and-gifts-guide",
   url: "https://durza.in/guides/igp-cake-delivery-and-gifts-guide",
-  title: "IGP Cake Delivery & Gifts Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating IGP Cake Delivery & Gifts offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "IGP Cake Delivery & Gifts Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical IGP Cake Delivery & Gifts buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating IGP Cake Delivery & Gifts products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers using IGP Cake Delivery & Gifts for delivery/gifting and wanting to verify fees, timing, and offer terms.","Buyers who want to confirm final total, delivery window, and refund/replacement terms before ordering."],
+    skipIf: ["You need guaranteed delivery at a specific minute; check the live app/checkout for your address and slot.","You want a guaranteed coupon code; verify any code in checkout."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,46 +22,70 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a IGP Cake Delivery & Gifts offer before buying?",
-    answer: "Check the exact IGP Cake Delivery & Gifts product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact IGP Cake Delivery & Gifts product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "/go/igp?src=guide&sub=guide_igp-cake-delivery-and-gifts-guide", label: "Copy Code & Go — Igp" },
+    {
+      "href": "/go/igp?src=guide&sub=guide_igp-cake-delivery-and-gifts-guide",
+      "label": "Copy Code & Go — Igp"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official IGP Cake Delivery & Gifts site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official IGP Cake Delivery & Gifts site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Address/slot check",
+      "body": "Delivery availability, fees, and timing vary by address and slot. Check the live checkout for your location before relying on an offer.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Final total check",
+      "body": "Look beyond item price: delivery fees, packaging, surge, small-cart fees, and taxes can change the real total.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "Issue handling",
+      "body": "For perishables/gifts, check replacement/refund terms and order support before buying. Save order confirmation and delivery proof.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official IGP Cake Delivery & Gifts product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Address/slot availability",
+        "Delivery varies by location/time",
+        "App/checkout"
+      ],
+      [
+        "Final total",
+        "Fees and taxes change payable amount",
+        "Checkout"
+      ],
+      [
+        "Offer eligibility",
+        "Codes can be user/cart-specific",
+        "Checkout"
+      ],
+      [
+        "Replacement/refund policy",
+        "Perishables/gifts need clear support terms",
+        "Official policy/help page"
+      ],
+      [
+        "Delivery instructions",
+        "Gifting/perishables need accurate details",
+        "Order flow"
+      ]
     ],
   },
   checkoutSteps: [
-    "Pick cake first — a promo code (verify in checkout) fires first.",
-    "Add hampers/flowers if cart < ₹499 (verify current offer) — the Check the current free-delivery threshold and shipping charges at checkout.",
-    "Personalised frames — check the panel; print-codes rotate.",
-    "Midnight tier — actual midnight at receiver's address; confirm location accuracy.",
+    "Set your delivery address and check availability/slot.",
+    "Confirm item details, quantities, and any customisation.",
+    "Test any code/offer in checkout and confirm final total.",
+    "Review replacement/refund/support terms for your order type.",
+    "Save order confirmation and track delivery."
   ],
   checkoutNote: "Durza does not claim IGP Cake Delivery & Gifts promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -78,23 +96,28 @@ export const guideDocument: GuideDocument = {
     "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/igp", label: "Store hub View all Igp coupons & deals" },
-    { href: "/stores/firstcry", label: "Related store Firstcry coupons" },
-    { href: "/stores/lavie-world", label: "Related store Lavie World coupons" },
+    {
+      "href": "/stores/igp",
+      "label": "Store hub View all Igp coupons & deals"
+    },
+    {
+      "href": "/stores/firstcry",
+      "label": "Related store Firstcry coupons"
+    },
+    {
+      "href": "/stores/lavie-world",
+      "label": "Related store Lavie World coupons"
+    }
   ],
   faqs: [
     {
-      question: "a promo code (verify in checkout) or a promo code (verify in checkout)?",
-      answer: "a promo code (verify in checkout) fires on same-day and midnight cakes; a promo code (verify in checkout) is a promo code (verify in checkout) — flowers, gift hampers and personalised options included.",
+      "question": "Does Durza have a working IGP Cake Delivery & Gifts coupon code?",
+      "answer": "Not claimed as active here. Test any code in the official app/checkout for your account and cart."
     },
     {
-      question: "Is same-day delivery genuine?",
-      answer: "Delhi/Bangalore/Mumbai/Hyderabad zones get same-day within 4 hours of order; Tier-2 cities get next-day windows; midnight delivery is actual midnight at the customer's address.",
-    },
-    {
-      question: "Does the free delivery threshold apply to cakes?",
-      answer: "Yes on cart > ₹499 (verify current offer) — verify in pay panel at checkout.",
-    },
+      "question": "What should I check before placing a IGP Cake Delivery & Gifts order?",
+      "answer": "Check address/slot availability, final total including fees, offer eligibility, and replacement/refund terms before paying."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "baccabucci-footwear-sandali-loafers-guide",
   url: "https://durza.in/guides/baccabucci-footwear-sandali-loafers-guide",
-  title: "Bacca Bucci Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating Bacca Bucci offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "Bacca Bucci Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical Bacca Bucci buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating Bacca Bucci products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers evaluating Bacca Bucci fashion/footwear/accessory products and wanting to verify fit, material, and offer claims.","Buyers who want to confirm final price, delivery, and return/exchange terms before paying."],
+    skipIf: ["You need guaranteed fit without checking size charts — always verify measurements and return terms.","You want a guaranteed coupon code; verify any code in checkout."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,46 +22,70 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a Bacca Bucci offer before buying?",
-    answer: "Check the exact Bacca Bucci product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact Bacca Bucci product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "/go/baccabucci-com-ecommerce-cps-india?src=guide&sub=guide_baccabucci-footwear-sandali-loafers-guide", label: "Unlock Deal — Baccabucci" },
+    {
+      "href": "/go/baccabucci-com-ecommerce-cps-india?src=guide&sub=guide_baccabucci-footwear-sandali-loafers-guide",
+      "label": "Unlock Deal — Baccabucci"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official Bacca Bucci site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official Bacca Bucci site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Fit/size check",
+      "body": "Use the size chart and product measurements for the exact SKU. Reviews can help, but sizing varies by style and batch.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Material/care check",
+      "body": "Check material, care instructions, and colour/finish details on the product page. Don't rely on generic brand claims.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "Return/exchange check",
+      "body": "Before buying, confirm return/exchange windows, conditions, and whether discounted items are eligible.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official Bacca Bucci product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact SKU/size/colour",
+        "Fit and appearance vary by variant",
+        "Official Bacca Bucci product page"
+      ],
+      [
+        "Material/care",
+        "Durability/comfort depend on actual material",
+        "Product page/label"
+      ],
+      [
+        "Final cart price",
+        "Codes and shipping affect payable amount",
+        "Checkout"
+      ],
+      [
+        "Return/exchange policy",
+        "Fit purchases need clear return terms",
+        "Official policy page"
+      ],
+      [
+        "Delivery timeline",
+        "Needed-by date matters for gifting/events",
+        "Checkout"
+      ]
     ],
   },
   checkoutSteps: [
-    "Pick your footwear line — Flame/Spirit for formal; VAYRO for casual wear.",
-    "Add a genuine-leather belt to the cart — same premium tier.",
-    "Arrived 2 days — walk for 20 minutes indoors before first full outing.",
-    "Feastival drops sales push 35–40% off (verify current offer) — pair with a bank instant offer when the checkout lights it up.",
+    "Confirm the exact SKU, size, colour, material, and care instructions.",
+    "Check size chart/measurements and delivery timeline.",
+    "Test any code/offer in checkout and confirm final payable.",
+    "Review return/exchange terms before paying.",
+    "Save order confirmation and product details."
   ],
   checkoutNote: "Durza does not claim Bacca Bucci promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -78,23 +96,28 @@ export const guideDocument: GuideDocument = {
     "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/baccabucci-com-ecommerce-cps-india", label: "Store hub View all Baccabucci coupons & deals" },
-    { href: "/stores/the-bear-house", label: "Related store The Bear House coupons" },
-    { href: "/stores/lavie-world", label: "Related store Lavie World coupons" },
+    {
+      "href": "/stores/baccabucci-com-ecommerce-cps-india",
+      "label": "Store hub View all Baccabucci coupons & deals"
+    },
+    {
+      "href": "/stores/the-bear-house",
+      "label": "Related store The Bear House coupons"
+    },
+    {
+      "href": "/stores/lavie-world",
+      "label": "Related store Lavie World coupons"
+    }
   ],
   faqs: [
     {
-      question: "Are Bacca Bucci shoes genuine leather?",
-      answer: "Bacca Bucci runs both full-grain leather and PU-synthetics lines. Look for 'Genuine Leather' etched inside the sole — Spirit/Stamina classics are the honest picks; Storm variants are PU and lighter to carry.",
+      "question": "Does Durza have a working Bacca Bucci coupon code?",
+      "answer": "Not claimed as active here. Test any code in the official checkout for your selected items."
     },
     {
-      question: "Do Bacca Bucci sandals fit true to size?",
-      answer: "Yes across 39–45 EU — no half-sizes. If you're between sizes, pick one down on PU (roomier toe boxes), one up on genuine leather (stiffer initially, breaks in over 2–3 weeks).",
-    },
-    {
-      question: "Is there a festive sale?",
-      answer: "Bacca Bucci pushes mega festive and end-of-season sales with up to 40% off (verify current offer) select styles — watch the 'Last few pairs' tag; that's real scarcity, not marketing fluff.",
-    },
+      "question": "What should I check before buying Bacca Bucci online?",
+      "answer": "Check exact size/variant, material/care, final cart price, delivery timeline, and return/exchange policy before paying."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

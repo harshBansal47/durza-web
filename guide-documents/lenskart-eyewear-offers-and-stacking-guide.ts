@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "lenskart-eyewear-offers-and-stacking-guide",
   url: "https://durza.in/guides/lenskart-eyewear-offers-and-stacking-guide",
-  title: "Lenskart Coupons, BFFs & Bank Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating Lenskart Coupons, BFFs & Bank offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "Lenskart Coupons, BFFs & Bank Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical Lenskart Coupons, BFFs & Bank buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating Lenskart Coupons, BFFs & Bank products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers evaluating Lenskart Coupons, BFFs & Bank fashion/footwear/accessory products and wanting to verify fit, material, and offer claims.","Buyers who want to confirm final price, delivery, and return/exchange terms before paying."],
+    skipIf: ["You need guaranteed fit without checking size charts — always verify measurements and return terms.","You want a guaranteed coupon code; verify any code in checkout."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,47 +22,70 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a Lenskart Coupons, BFFs & Bank offer before buying?",
-    answer: "Check the exact Lenskart Coupons, BFFs & Bank product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact Lenskart Coupons, BFFs & Bank product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "/go/lenskart?src=guide&sub=guide_lenskart-eyewear-offers-and-stacking-guide", label: "Copy Code & Go — Lenskart" },
+    {
+      "href": "/go/lenskart?src=guide&sub=guide_lenskart-eyewear-offers-and-stacking-guide",
+      "label": "Copy Code & Go — Lenskart"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official Lenskart Coupons, BFFs & Bank site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official Lenskart Coupons, BFFs & Bank site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Fit/size check",
+      "body": "Use the size chart and product measurements for the exact SKU. Reviews can help, but sizing varies by style and batch.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Material/care check",
+      "body": "Check material, care instructions, and colour/finish details on the product page. Don't rely on generic brand claims.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "Return/exchange check",
+      "body": "Before buying, confirm return/exchange windows, conditions, and whether discounted items are eligible.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official Lenskart Coupons, BFFs & Bank product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact SKU/size/colour",
+        "Fit and appearance vary by variant",
+        "Official Lenskart Coupons, BFFs & Bank product page"
+      ],
+      [
+        "Material/care",
+        "Durability/comfort depend on actual material",
+        "Product page/label"
+      ],
+      [
+        "Final cart price",
+        "Codes and shipping affect payable amount",
+        "Checkout"
+      ],
+      [
+        "Return/exchange policy",
+        "Fit purchases need clear return terms",
+        "Official policy page"
+      ],
+      [
+        "Delivery timeline",
+        "Needed-by date matters for gifting/events",
+        "Checkout"
+      ]
     ],
   },
   checkoutSteps: [
-    "Add frames + lenses to cart — if prescription, include your digital prescription code.",
-    "Apply code TRYUS or a promo code (verify in checkout) for first order — the bigger of the two depends on cart value.",
-    "Check the bank-offer panel — Kotak/Tata/HDFC rotate instant discounts.",
-    "Pay with the recommended bank card for the extra instant discount.",
-    "Book the free HomeEyeCheckUp from the order tracking page — it arrives with your delivery.",
+    "Confirm the exact SKU, size, colour, material, and care instructions.",
+    "Check size chart/measurements and delivery timeline.",
+    "Test any code/offer in checkout and confirm final payable.",
+    "Review return/exchange terms before paying.",
+    "Save order confirmation and product details."
   ],
   checkoutNote: "Durza does not claim Lenskart Coupons, BFFs & Bank promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -79,23 +96,28 @@ export const guideDocument: GuideDocument = {
     "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/lenskart", label: "Store hub View all Lenskart coupons & deals" },
-    { href: "/stores/tatacliq-com-ecommerce-cps-india", label: "Related store Tatacliq coupons" },
-    { href: "/stores/firstcry", label: "Related store Firstcry coupons" },
+    {
+      "href": "/stores/lenskart",
+      "label": "Store hub View all Lenskart coupons & deals"
+    },
+    {
+      "href": "/stores/tatacliq-com-ecommerce-cps-india",
+      "label": "Related store Tatacliq coupons"
+    },
+    {
+      "href": "/stores/firstcry",
+      "label": "Related store Firstcry coupons"
+    }
   ],
   faqs: [
     {
-      question: "Can I combine TRYUS and a bank offer?",
-      answer: "Yes — TRYUS (up to 60% off (verify current offer) first order) works on top of the bank card instant discount. Apply code first, then choose the bank card recommended at checkout.",
+      "question": "Does Durza have a working Lenskart Coupons, BFFs & Bank coupon code?",
+      "answer": "Not claimed as active here. Test any code in the official checkout for your selected items."
     },
     {
-      question: "What is Lenskart's 'HomeEyeCheckUp'?",
-      answer: "Free home-eye-checkup booking with new spec purchase — book through the app and get the technician visits the same day you pay. Included with every eyewear order.",
-    },
-    {
-      question: "What's BFF at Lenskart?",
-      answer: "Lenskart's friend-offer program. Your friend gets 20% off (verify current offer) their first order, you get extra discount on your next order — requires referral code from the app.",
-    },
+      "question": "What should I check before buying Lenskart Coupons, BFFs & Bank online?",
+      "answer": "Check exact size/variant, material/care, final cart price, delivery timeline, and return/exchange policy before paying."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

@@ -3,20 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "bytepe-bill-payments-fastag-vouchers-guide",
   url: "https://durza.in/guides/bytepe-bill-payments-fastag-vouchers-guide",
-  title: "BytePe Buying Guide (2026): How to Check Bill, FASTag and Voucher Offers",
-  description:
-    "A cautious guide to evaluating BytePe bill-payment, FASTag and voucher offers: verify eligibility in the app, confirm cashback terms, and check final fees before paying. Checked 26 Nov 2026.",
+  title: "BytePe Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical BytePe buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
-  evidenceBadges: ["Editorial trust review", "No promo/cashback claimed without in-app verification"],
+  evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Users comparing BytePe for bill payments, recharges, FASTag top-ups or vouchers and want to verify offer terms first.",
-      "Shoppers who want to avoid counting cashback or discounts before the app confirms eligibility.",
-    ],
-    skipIf: [
-      "You need confirmed live cashback amounts or promo codes — verify them in the BytePe app/checkout at the time of payment.",
-      "You are looking for financial advice; this guide only covers offer-checking and purchase hygiene.",
-    ],
+    bestFor: ["Shoppers evaluating BytePe products or offers and wanting to verify claims before paying.","Buyers who want to confirm final cart price, eligibility, and policy terms before ordering."],
+    skipIf: ["You want a guaranteed working coupon code; verify any code in the official checkout before paying.","You need product-specific medical, legal, or financial advice — use qualified professional guidance."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,89 +21,104 @@ export const guideDocument: GuideDocument = {
     methodHref: "/methodology",
   },
   quickAnswer: {
-    question: "How should you evaluate a BytePe offer?",
-    answer:
-      "Check the offer inside the BytePe app or official flow before paying. Confirm eligibility (new user, bill type, FASTag network, recharge category, minimum amount), cashback timing, caps, and any fees. Do not treat a coupon or cashback claim as real until the app shows it for your account and transaction.",
+    question: "How should you evaluate a BytePe offer before buying?",
+    answer: "Check the exact BytePe product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
-    jumpLabel: "See the offer checklist",
+    jumpLabel: "See the buying checklist",
   },
   ctas: [
     {
-      href: "/go/bytepe?src=guide&sub=guide_bytepe-bill-payments-fastag-vouchers-guide",
-      label: "Check BytePe official site",
-      primary: true,
+      "href": "/go/bytepe?src=guide&sub=guide_bytepe-bill-payments-fastag-vouchers-guide",
+      "label": "Check BytePe official site",
+      "primary": true
     },
-    { href: "/stores/bytepe", label: "BytePe store hub on Durza" },
+    {
+      "href": "/stores/bytepe",
+      "label": "BytePe store hub on Durza"
+    }
   ],
-  methodNote:
-    "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo/cashback certainty. We did not verify live BytePe offers, cashback posting, or account-specific eligibility. Always confirm terms in the BytePe app or official checkout before paying.",
+  methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official BytePe site before buying.",
   scenarios: [
     {
-      heading: "Bill payment: verify biller and eligibility",
-      body: "Before paying electricity, gas or other bills, confirm the biller is correctly selected, the amount matches, and any cashback/offer is shown for that bill type and your account. Keep the transaction receipt.",
-      icon: null,
+      "heading": "Before you buy: verify the exact offer",
+      "body": "Check the exact product, variant, or plan on the official BytePe site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
+      "icon": null
     },
     {
-      heading: "FASTag recharge: confirm network and offer terms",
-      body: "Check that the FASTag issuer/network and vehicle tag details are correct before topping up. If an offer is shown, confirm minimum amount, cap, and when cashback is credited.",
-      icon: null,
+      "heading": "Compare real value, not banner value",
+      "body": "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
+      "icon": null
     },
     {
-      heading: "Vouchers/recharges: compare final value",
-      body: "For vouchers or recharges, compare the effective value after fees, caps and expiry. A headline cashback percentage is only useful if it applies to your transaction and is actually credited.",
-      icon: null,
-    },
+      "heading": "After purchase: save proof",
+      "body": "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Account eligibility", "Many offers are new-user, once-per-account, or targeted", "BytePe app/offer screen"],
-      ["Bill/recharge category", "Electricity, gas, FASTag, mobile and DTH offers can differ", "Offer terms in app"],
-      ["Minimum amount and cap", "A cashback may require a minimum and have a maximum payout", "Offer terms in app"],
-      ["Fees and final payable", "Convenience fees or charges can reduce value", "Checkout/payment screen"],
-      ["Cashback timing", "Some rewards are instant; others are delayed or conditional", "Offer terms/transaction history"],
-      ["Receipt/support", "You need proof if cashback or payment posting fails", "App receipt and support flow"],
+      [
+        "Exact product/plan",
+        "Variants and inclusions can change value",
+        "Official BytePe product page"
+      ],
+      [
+        "Current price and eligibility",
+        "Offers can be cart-, user-, or time-specific",
+        "Checkout"
+      ],
+      [
+        "Shipping/fees/taxes",
+        "Final payable can differ from headline price",
+        "Checkout"
+      ],
+      [
+        "Return/refund/warranty policy",
+        "Policy terms affect risk after purchase",
+        "Official policy pages"
+      ],
+      [
+        "Promo code/cashback",
+        "Codes may be expired or ineligible",
+        "Checkout before payment"
+      ]
     ],
   },
   checkoutSteps: [
-    "Confirm you are using the official BytePe app or website and the correct biller/tag/mobile details.",
-    "Check the offer screen for eligibility, minimum amount, cap, expiry and cashback timing before starting payment.",
-    "Review the final payable amount including any fees.",
-    "Complete payment only after the offer is clearly applied or the terms are understood.",
-    "Save the receipt and track whether cashback/reward is credited as promised.",
+    "Open the official product page and confirm the exact item, variant, and current price.",
+    "Check any offer or code in checkout before paying; do not assume it applies.",
+    "Review shipping, return/refund, and warranty/policy terms before completing the purchase.",
+    "Save order confirmation, invoice, and offer terms."
   ],
-  checkoutNote:
-    "Durza does not claim BytePe promo codes or cashback amounts as active unless they have been verified in the relevant app/checkout flow. Prior draft code claims were removed due lack of verification.",
+  checkoutNote: "Durza does not claim BytePe promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
-  verificationParagraph:
-    "This page was editorially reviewed on 26 Nov 2026. We removed previously listed promo/cashback claims because they were not verified against live BytePe offer terms in this pass. We did not complete transactions or confirm cashback posting. Verify all offer terms in the official BytePe app or website before paying.",
+  verificationParagraph: "This page was editorially reviewed on 26 Nov 2026. Unverified promo-code, discount, and product-certainty claims were removed or softened. We did not complete a live purchase or verify account-specific offers. Confirm current details on the official BytePe site before buying.",
   verificationNotes: [
-    "No BytePe promo code or cashback amount is claimed as active in this guide.",
-    "Bill-payment and FASTag offers can be account-specific, category-specific, and time-limited.",
-    "Always verify biller/tag details and save receipts for financial transactions.",
+    "No BytePe coupon code is claimed as active in this guide.",
+    "Prices, offers, shipping, and policy terms can change without notice.",
+    "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/bytepe", label: "BytePe store hub on Durza" },
-    { href: "/guides/how-durza-verifies-offers-methodology-2026", label: "How Durza verifies offers" },
+    {
+      "href": "/stores/bytepe",
+      "label": "BytePe store hub on Durza"
+    },
+    {
+      "href": "/guides/how-durza-verifies-offers-methodology-2026",
+      "label": "How Durza verifies offers"
+    }
   ],
   faqs: [
     {
-      question: "Does Durza have a working BytePe coupon code?",
-      answer:
-        "Not in this guide. We do not list BytePe codes or cashback amounts as active unless they are verified in the relevant flow. Check the BytePe app/offer screen for current eligibility before paying.",
+      "question": "Does Durza have a working BytePe coupon code?",
+      "answer": "Not claimed as active here. We do not list BytePe codes as active unless verified in checkout. Test any code in the official cart before paying."
     },
     {
-      question: "Should I trust a cashback claim before paying a bill?",
-      answer:
-        "No. Confirm the offer applies to your account, bill category, and amount, and check the cap and credit timing. Only count the reward after the terms are clear and, ideally, after it is credited.",
-    },
-    {
-      question: "What should I save after a BytePe transaction?",
-      answer:
-        "Save the payment receipt, transaction ID, biller/tag details, and any offer terms shown at checkout. This helps if a payment posts incorrectly or cashback is not credited.",
-    },
+      "question": "What should I check before buying from BytePe?",
+      "answer": "Check the exact product/plan, current price, offer eligibility, shipping/fees, and return/refund/warranty policy before completing payment."
+    }
   ],
-  editorialNote:
-    "Editorially reviewed 26 Nov 2026. Prior unverified promo/cashback claims were removed. Offers, eligibility and fees can change. Durza may earn a commission through tracked links at no extra cost to you.",
+  editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],
 };

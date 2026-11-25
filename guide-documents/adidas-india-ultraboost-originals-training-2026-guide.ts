@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "adidas-india-ultraboost-originals-training-2026-guide",
   url: "https://durza.in/guides/adidas-india-ultraboost-originals-training-2026-guide",
-  title: "Adidas India 2026 Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating Adidas India 2026 offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "Adidas India 2026 Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical Adidas India 2026 buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating Adidas India 2026 products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers evaluating Adidas India 2026 products or offers and wanting to verify claims before paying.","Buyers who want to confirm final cart price, eligibility, and policy terms before ordering."],
+    skipIf: ["You want a guaranteed working coupon code; verify any code in the official checkout before paying.","You need product-specific medical, legal, or financial advice — use qualified professional guidance."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,49 +22,85 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a Adidas India 2026 offer before buying?",
-    answer: "Check the exact Adidas India 2026 product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact Adidas India 2026 product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide", label: "Check on Adidas India" },
-    { href: "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide", label: "Check on Adidas India" },
-    { href: "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide", label: "Check on Adidas India" },
-    { href: "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide", label: "Check on Adidas India" },
-    { href: "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide", label: "Unlock Deal — Adidas" },
+    {
+      "href": "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide",
+      "label": "Check on Adidas India"
+    },
+    {
+      "href": "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide",
+      "label": "Check on Adidas India"
+    },
+    {
+      "href": "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide",
+      "label": "Check on Adidas India"
+    },
+    {
+      "href": "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide",
+      "label": "Check on Adidas India"
+    },
+    {
+      "href": "/go/adidas?src=guide-adidas-india-ultraboost-originals-training-2026-guide",
+      "label": "Unlock Deal — Adidas"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official Adidas India 2026 site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official Adidas India 2026 site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Before you buy: verify the exact offer",
+      "body": "Check the exact product, variant, or plan on the official Adidas India 2026 site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Compare real value, not banner value",
+      "body": "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "After purchase: save proof",
+      "body": "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official Adidas India 2026 product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact product/plan",
+        "Variants and inclusions can change value",
+        "Official Adidas India 2026 product page"
+      ],
+      [
+        "Current price and eligibility",
+        "Offers can be cart-, user-, or time-specific",
+        "Checkout"
+      ],
+      [
+        "Shipping/fees/taxes",
+        "Final payable can differ from headline price",
+        "Checkout"
+      ],
+      [
+        "Return/refund/warranty policy",
+        "Policy terms affect risk after purchase",
+        "Official policy pages"
+      ],
+      [
+        "Promo code/cashback",
+        "Codes may be expired or ineligible",
+        "Checkout before payment"
+      ]
     ],
   },
   checkoutSteps: [
     "Open the official product page and confirm the exact item, variant, and current price.",
     "Check any offer or code in checkout before paying; do not assume it applies.",
-    "Review shipping, return, and warranty/policy terms before completing the purchase.",
+    "Review shipping, return/refund, and warranty/policy terms before completing the purchase.",
+    "Save order confirmation, invoice, and offer terms."
   ],
   checkoutNote: "Durza does not claim Adidas India 2026 promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -81,23 +111,28 @@ export const guideDocument: GuideDocument = {
     "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/adidas", label: "Store hub View all Adidas coupons & deals" },
-    { href: "/stores/charles-keith", label: "Related store Charles Keith coupons" },
-    { href: "/stores/vero-moda", label: "Related store Veromoda coupons" },
+    {
+      "href": "/stores/adidas",
+      "label": "Store hub View all Adidas coupons & deals"
+    },
+    {
+      "href": "/stores/charles-keith",
+      "label": "Related store Charles Keith coupons"
+    },
+    {
+      "href": "/stores/vero-moda",
+      "label": "Related store Veromoda coupons"
+    }
   ],
   faqs: [
     {
-      question: "Which Adidas runner is best for Indian roads?",
-      answer: "Ultraboost Light for daily 5-10 km sessions; Adizero Adios Pro 3 for race and tempo — the Indian climate kills pure speed training for most beginners.",
+      "question": "Does Durza have a working Adidas India 2026 coupon code?",
+      "answer": "Not claimed as active here. We do not list Adidas India 2026 codes as active unless verified in checkout. Test any code in the official cart before paying."
     },
     {
-      question: "How do Adidas Originals fit on Indian feet?",
-      answer: "Half a size up for wide feet; true to size for standard. Originals run narrower (especially Gazelle and Samba) — try before you buy or return free within 30 days.",
-    },
-    {
-      question: "Does Adidas India offer free returns?",
-      answer: "Yes — full-price items within 30 days. Sale items may differ; check each product page before ordering. Returns do not affect affiliate attribution.",
-    },
+      "question": "What should I check before buying from Adidas India 2026?",
+      "answer": "Check the exact product/plan, current price, offer eligibility, shipping/fees, and return/refund/warranty policy before completing payment."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

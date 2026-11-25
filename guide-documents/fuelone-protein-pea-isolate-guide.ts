@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "fuelone-protein-pea-isolate-guide",
   url: "https://durza.in/guides/fuelone-protein-pea-isolate-guide",
-  title: "Fuel One Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating Fuel One offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "Fuel One Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical Fuel One buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating Fuel One products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers evaluating Fuel One nutrition products and wanting to verify labels, pricing, and offer claims.","Buyers who want to check authenticity, ingredients, and policy terms before ordering."],
+    skipIf: ["You need medical or dietary advice — consult a qualified professional for health conditions or supplement decisions.","You want a guaranteed coupon code; verify any code in checkout."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,46 +22,70 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a Fuel One offer before buying?",
-    answer: "Check the exact Fuel One product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact Fuel One product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "/go/fuelone?src=guide&sub=guide_fuelone-protein-pea-isolate-guide", label: "Unlock Deal — Fuelone" },
+    {
+      "href": "/go/fuelone?src=guide&sub=guide_fuelone-protein-pea-isolate-guide",
+      "label": "Unlock Deal — Fuelone"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official Fuel One site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official Fuel One site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Label first: verify what you're buying",
+      "body": "Check serving size, ingredients, allergens, certifications, and expiry/pack size on the exact product page. Don't rely on front-of-pack marketing alone.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Value check: compare per-serving cost",
+      "body": "Compare pack size, servings, and final cart total. A discount on a smaller or different variant may not be better value.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "Authenticity/policy: buy safely",
+      "body": "Use authorised sellers, check seal/expiry on delivery, and review return/refund terms for consumables before ordering.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official Fuel One product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact product/variant",
+        "Flavour/size/formula can differ",
+        "Official Fuel One product page"
+      ],
+      [
+        "Ingredients/allergens",
+        "Suitability depends on label",
+        "Product label/page"
+      ],
+      [
+        "Per-serving value",
+        "Discounts can hide smaller packs",
+        "Cart/checkout"
+      ],
+      [
+        "Authenticity/expiry",
+        "Consumables need trusted sourcing",
+        "Seller/invoice/delivery check"
+      ],
+      [
+        "Return/refund policy",
+        "Consumable returns may be limited",
+        "Official policy page"
+      ]
     ],
   },
   checkoutSteps: [
-    "Pick pea isolate if dairy-sensitive; else Iso-Max 90% for serious training.",
-    "Add creatine monohydrate — the single strongest ergogenic powder in the catalogue.",
-    "Add daily multivitamin only if your diet is erratic — it's they add vitamin gaps.",
-    "Pair Iso-Max with UPI 5% prepaid — confirm in the pay panel.",
+    "Confirm the exact product, flavour, size, and ingredient/allergen label.",
+    "Compare per-serving value and final payable price.",
+    "Test any coupon/offer in checkout.",
+    "Review shipping, return/refund, and authenticity/seller terms.",
+    "Check seal, expiry, and invoice on delivery."
   ],
   checkoutNote: "Durza does not claim Fuel One promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -78,23 +96,28 @@ export const guideDocument: GuideDocument = {
     "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/fuelone", label: "Store hub View all Fuelone coupons & deals" },
-    { href: "/stores/truebasics", label: "Related store Truebasics coupons" },
-    { href: "/stores/beast-life", label: "Related store Beast Life coupons" },
+    {
+      "href": "/stores/fuelone",
+      "label": "Store hub View all Fuelone coupons & deals"
+    },
+    {
+      "href": "/stores/truebasics",
+      "label": "Related store Truebasics coupons"
+    },
+    {
+      "href": "/stores/beast-life",
+      "label": "Related store Beast Life coupons"
+    }
   ],
   faqs: [
     {
-      question: "Pea protein isolate vs whey concentrate?",
-      answer: "Pea isolate is hypoallergenic, soy-free and pulses-free — ideal for dairy-sensitive users. Whey Iso-Max (90% protein tier) roughly matches anyway in digestibility — choose on your budget.",
+      "question": "Does Durza have a working Fuel One coupon code?",
+      "answer": "Not claimed as active here. Test any code in the official checkout and only count the saving if it applies to your exact cart."
     },
     {
-      question: "Are Fuel One supplements certified?",
-      answer: "Fuel One's core line carries FSSAI licence and GMP facilities. Ask customer support for the batch COA before first subscription — the better batches show >90% protein concentration per scoop.",
-    },
-    {
-      question: "Which is better for muscle gain?",
-      answer: "Fuel One's Whey Iso-Max 90% (>₹2,800 (verify current offer) per kg) — 0.9g fat per scoop, clinically clean. Budget lifters are fine with their Impact Whey line; higher-trainees want the Max line.",
-    },
+      "question": "What should I check before buying Fuel One supplements?",
+      "answer": "Check the exact variant, ingredient/allergen label, serving size, expiry, seller authenticity, and return/refund policy. For health or medical conditions, consult a qualified professional."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

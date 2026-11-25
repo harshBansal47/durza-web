@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "amazon-home-office-setup-deals-india",
   url: "https://durza.in/guides/amazon-home-office-setup-deals-india",
-  title: "Amazon Home Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating Amazon Home offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "Amazon Home Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical Amazon Home buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating Amazon Home products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers comparing Amazon Home electronics and wanting to verify specs, price, and offer claims.","Buyers who want to confirm warranty, seller, and return terms before paying."],
+    skipIf: ["You need hands-on lab testing or benchmarks; use this as a buying/verification checklist.","You want a guaranteed coupon code — verify any code in checkout."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,50 +22,86 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a Amazon Home offer before buying?",
-    answer: "Check the exact Amazon Home product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact Amazon Home product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "https://durza.in/coupons/amazon-basics-ergonomic-adjustable-laptop-stand-with-fan-edition-476", label: "Amazon Basics Adjustable Laptop Stand (Fan)" },
-    { href: "https://durza.in/coupons/zebronics-zeb-juke-bar-3900-80w-soundbar", label: "Zebronics Zeb-Juke Bar 3900 80W Soundbar" },
-    { href: "https://durza.in/coupons/d-link-dir-615-wireless-n300-router", label: "D-Link DIR-615 Wireless N300 Router" },
-    { href: "https://durza.in/coupons/ambrane-100w-braided-type-c-cable", label: "Ambrane 100W Braided Type-C Cable" },
-    { href: "https://durza.in/coupons/zebronics-zeb-klarity-usb-gaming-mic", label: "Zebronics Zeb-Klarity USB Gaming Mic" },
+    {
+      "href": "https://durza.in/coupons/amazon-basics-ergonomic-adjustable-laptop-stand-with-fan-edition-476",
+      "label": "Amazon Basics Adjustable Laptop Stand (Fan)"
+    },
+    {
+      "href": "https://durza.in/coupons/zebronics-zeb-juke-bar-3900-80w-soundbar",
+      "label": "Zebronics Zeb-Juke Bar 3900 80W Soundbar"
+    },
+    {
+      "href": "https://durza.in/coupons/d-link-dir-615-wireless-n300-router",
+      "label": "D-Link DIR-615 Wireless N300 Router"
+    },
+    {
+      "href": "https://durza.in/coupons/ambrane-100w-braided-type-c-cable",
+      "label": "Ambrane 100W Braided Type-C Cable"
+    },
+    {
+      "href": "https://durza.in/coupons/zebronics-zeb-klarity-usb-gaming-mic",
+      "label": "Zebronics Zeb-Klarity USB Gaming Mic"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official Amazon Home site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official Amazon Home site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Spec check: match the exact model",
+      "body": "Confirm the exact Amazon Home model/SKU, configuration, and included accessories. Similar names can hide major spec differences.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Price check: compare final payable",
+      "body": "Compare price across authorised sellers, including shipping, card offers, exchange, and return terms. Don't rely on MRP alone.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "After-sales: verify warranty/support",
+      "body": "Check warranty length, service coverage, and seller authenticity before buying, especially on discounted or marketplace listings.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official Amazon Home product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact model/SKU",
+        "Specs vary by configuration",
+        "Official Amazon Home product page"
+      ],
+      [
+        "Price and offers",
+        "Final payable matters more than MRP",
+        "Checkout/seller page"
+      ],
+      [
+        "Warranty/support",
+        "After-sales value affects total cost",
+        "Official warranty/policy page"
+      ],
+      [
+        "Seller/stock",
+        "Marketplace listings can differ",
+        "Seller details/checkout"
+      ],
+      [
+        "Return/replacement",
+        "Dead-on-arrival/return terms matter for electronics",
+        "Official policy page"
+      ]
     ],
   },
   checkoutSteps: [
-    "Add the items to cart — the coupon must be visible on the product page (\"Clip this coupon and save ₹X\").",
-    "At checkout, select any EMI or bank-card offer that applies.",
-    "Switch payment to UPI if a UPI discount is running — usually 5%.",
-    "Finish with a rewards or cashback credit card if you want points on top.",
+    "Identify the exact model/SKU and required configuration.",
+    "Compare final payable price across authorised sellers.",
+    "Test any coupon/bank/exchange offer in checkout.",
+    "Verify warranty, return/replacement, and delivery timeline.",
+    "Save invoice and warranty details after purchase."
   ],
   checkoutNote: "Durza does not claim Amazon Home promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -84,13 +114,13 @@ export const guideDocument: GuideDocument = {
   exploreLinks: [],
   faqs: [
     {
-      question: "Does Durza have a working Amazon Home coupon code?",
-      answer: "Not in this guide. We do not list Amazon Home codes as active unless verified in checkout. Test any code in the official cart before paying.",
+      "question": "How do I avoid buying the wrong Amazon Home variant?",
+      "answer": "Match the exact model/SKU, RAM/storage/size/configuration, and included accessories on the official page. Do not rely on a short product title alone."
     },
     {
-      question: "What should I check before buying from Amazon Home?",
-      answer: "Check the exact product/plan, current price, offer eligibility, shipping/fees, and return/refund/warranty policy before completing payment.",
-    },
+      "question": "Is a big MRP discount a good deal?",
+      "answer": "Only if the final payable price, seller authenticity, warranty, and return terms are good. Compare the actual checkout price, not just the MRP."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

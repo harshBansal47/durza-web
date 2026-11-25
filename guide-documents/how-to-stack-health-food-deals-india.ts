@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "how-to-stack-health-food-deals-india",
   url: "https://durza.in/guides/how-to-stack-health-food-deals-india",
-  title: "How to Stack Health Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating How to Stack Health offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "How to Stack Health Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical How to Stack Health buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating How to Stack Health products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers evaluating How to Stack Health products or offers and wanting to verify claims before paying.","Buyers who want to confirm final cart price, eligibility, and policy terms before ordering."],
+    skipIf: ["You want a guaranteed working coupon code; verify any code in the official checkout before paying.","You need product-specific medical, legal, or financial advice — use qualified professional guidance."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,7 +22,7 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a How to Stack Health offer before buying?",
-    answer: "Check the exact How to Stack Health product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact How to Stack Health product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
@@ -36,35 +30,56 @@ export const guideDocument: GuideDocument = {
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official How to Stack Health site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official How to Stack Health site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Before you buy: verify the exact offer",
+      "body": "Check the exact product, variant, or plan on the official How to Stack Health site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Compare real value, not banner value",
+      "body": "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "After purchase: save proof",
+      "body": "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official How to Stack Health product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact product/plan",
+        "Variants and inclusions can change value",
+        "Official How to Stack Health product page"
+      ],
+      [
+        "Current price and eligibility",
+        "Offers can be cart-, user-, or time-specific",
+        "Checkout"
+      ],
+      [
+        "Shipping/fees/taxes",
+        "Final payable can differ from headline price",
+        "Checkout"
+      ],
+      [
+        "Return/refund/warranty policy",
+        "Policy terms affect risk after purchase",
+        "Official policy pages"
+      ],
+      [
+        "Promo code/cashback",
+        "Codes may be expired or ineligible",
+        "Checkout before payment"
+      ]
     ],
   },
   checkoutSteps: [
     "Open the official product page and confirm the exact item, variant, and current price.",
     "Check any offer or code in checkout before paying; do not assume it applies.",
-    "Review shipping, return, and warranty/policy terms before completing the purchase.",
+    "Review shipping, return/refund, and warranty/policy terms before completing the purchase.",
+    "Save order confirmation, invoice, and offer terms."
   ],
   checkoutNote: "Durza does not claim How to Stack Health promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -77,13 +92,13 @@ export const guideDocument: GuideDocument = {
   exploreLinks: [],
   faqs: [
     {
-      question: "Does Durza have a working How to Stack Health coupon code?",
-      answer: "Not in this guide. We do not list How to Stack Health codes as active unless verified in checkout. Test any code in the official cart before paying.",
+      "question": "Does Durza have a working How to Stack Health coupon code?",
+      "answer": "Not claimed as active here. We do not list How to Stack Health codes as active unless verified in checkout. Test any code in the official cart before paying."
     },
     {
-      question: "What should I check before buying from How to Stack Health?",
-      answer: "Check the exact product/plan, current price, offer eligibility, shipping/fees, and return/refund/warranty policy before completing payment.",
-    },
+      "question": "What should I check before buying from How to Stack Health?",
+      "answer": "Check the exact product/plan, current price, offer eligibility, shipping/fees, and return/refund/warranty policy before completing payment."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],

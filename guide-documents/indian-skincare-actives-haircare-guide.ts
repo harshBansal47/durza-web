@@ -3,19 +3,13 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "indian-skincare-actives-haircare-guide",
   url: "https://durza.in/guides/indian-skincare-actives-haircare-guide",
-  title: "Beginner's  to Skincare Actives & Sulfate Buying Guide (2026): How to Check Offers and Product Claims",
-  description: "A cautious guide to evaluating Beginner's  to Skincare Actives & Sulfate offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  title: "Beginner's  to Skincare Actives & Sulfate Buying Guide (2026): What to Check Before You Buy",
+  description: "Practical Beginner's  to Skincare Actives & Sulfate buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
   researchReviewedDate: "26 Nov 2026",
   evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
   audience: {
-    bestFor: [
-      "Shoppers evaluating Beginner's  to Skincare Actives & Sulfate products or offers and want to verify claims before paying.",
-      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
-    ],
-    skipIf: [
-      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
-      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
-    ],
+    bestFor: ["Shoppers evaluating Beginner's  to Skincare Actives & Sulfate beauty/personal-care products and wanting to verify claims before buying.","Buyers who want to check ingredients, shade/variant, and policy terms before paying."],
+    skipIf: ["You need dermatological advice for skin/hair conditions — consult a qualified professional.","You want a guaranteed coupon code; verify any code in checkout."],
   },
   byline: {
     author: "Harsh Bansal",
@@ -28,45 +22,70 @@ export const guideDocument: GuideDocument = {
   },
   quickAnswer: {
     question: "How should you evaluate a Beginner's  to Skincare Actives & Sulfate offer before buying?",
-    answer: "Check the exact Beginner's  to Skincare Actives & Sulfate product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    answer: "Check the exact Beginner's  to Skincare Actives & Sulfate product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
     jumpHref: "#checklist",
     jumpLabel: "See the buying checklist",
   },
   ctas: [
-    { href: "/go/amazon-in?src=guide-indian-skincare-actives-haircare-guide", label: "Unlock Deal — Amazon In" },
+    {
+      "href": "/go/amazon-in?src=guide-indian-skincare-actives-haircare-guide",
+      "label": "Unlock Deal — Amazon In"
+    }
   ],
   methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official Beginner's  to Skincare Actives & Sulfate site before buying.",
   scenarios: [
     {
-      heading: "Before you buy: verify the exact offer",
-      body: "Check the exact product, variant, or plan on the official Beginner's  to Skincare Actives & Sulfate site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
-      icon: null,
+      "heading": "Ingredient/claim check",
+      "body": "Verify the exact product's ingredient list, usage directions, and any certification/claim on the label or official page. Don't assume claims apply across all SKUs.",
+      "icon": null
     },
     {
-      heading: "Compare real value, not banner value",
-      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
-      icon: null,
+      "heading": "Variant/shade check",
+      "body": "Confirm shade, size, skin/hair type fit, and return eligibility before ordering. Beauty purchases are often hard to return once opened.",
+      "icon": null
     },
     {
-      heading: "After purchase: save proof",
-      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
-      icon: null,
-    },
+      "heading": "Offer check",
+      "body": "Test coupons, bundles, or gifts-with-purchase in checkout. Only count savings/benefits that appear in the final cart.",
+      "icon": null
+    }
   ],
   skuTable: {
     headers: ["What to check", "Why it matters", "Where to verify"],
     rows: [
-      ["Exact product/plan", "Variants and inclusions can change value", "Official Beginner's  to Skincare Actives & Sulfate product page"],
-      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
-      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
-      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
-      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
+      [
+        "Exact SKU/variant",
+        "Shade/size/formula can differ",
+        "Official Beginner's  to Skincare Actives & Sulfate product page"
+      ],
+      [
+        "Ingredients/directions",
+        "Fit and sensitivity depend on actual label",
+        "Product label/page"
+      ],
+      [
+        "Claim/certification",
+        "Claims should be SKU-specific",
+        "Official page/label"
+      ],
+      [
+        "Final cart price",
+        "Bundles/codes change payable amount",
+        "Checkout"
+      ],
+      [
+        "Return/exchange policy",
+        "Opened cosmetics may have restrictions",
+        "Official policy page"
+      ]
     ],
   },
   checkoutSteps: [
-    "Open the official product page and confirm the exact item, variant, and current price.",
-    "Check any offer or code in checkout before paying; do not assume it applies.",
-    "Review shipping, return, and warranty/policy terms before completing the purchase.",
+    "Confirm the exact SKU, variant, ingredient list, and usage directions.",
+    "Check any certification/claim on the official page or label.",
+    "Test any code/offer in checkout and confirm final payable.",
+    "Review shipping and return/exchange terms before paying.",
+    "Save order confirmation and product details."
   ],
   checkoutNote: "Durza does not claim Beginner's  to Skincare Actives & Sulfate promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
   verifiedFacts: null,
@@ -77,27 +96,28 @@ export const guideDocument: GuideDocument = {
     "Check the final checkout screen before paying; that is the source of truth for eligibility.",
   ],
   exploreLinks: [
-    { href: "/stores/amazon-in", label: "Store hub View all Amazon In coupons & deals" },
-    { href: "/stores/amazon-in", label: "Related store Amazon In coupons" },
-    { href: "/stores/dot-and-key", label: "Related store Dot And Key coupons" },
+    {
+      "href": "/stores/amazon-in",
+      "label": "Store hub View all Amazon In coupons & deals"
+    },
+    {
+      "href": "/stores/amazon-in",
+      "label": "Related store Amazon In coupons"
+    },
+    {
+      "href": "/stores/dot-and-key",
+      "label": "Related store Dot And Key coupons"
+    }
   ],
   faqs: [
     {
-      question: "Can I use niacinamide and salicylic acid together?",
-      answer: "Some routines can include both, but beginners should introduce one active at a time and monitor skin tolerance. If using salicylic acid, start slowly (2–3 nights/week), keep the rest of the routine gentle, and use sunscreen in the morning. If irritation, peeling, or burning occurs, stop and consult a dermatologist.",
+      "question": "Does Durza have a working Beginner's  to Skincare Actives & Sulfate coupon code?",
+      "answer": "Not claimed as active here. Test any code in the official checkout for your selected products."
     },
     {
-      question: "How often should I use a 2% salicylic acid serum?",
-      answer: "For most beginners, 2–3 nights per week is a safer starting point than daily use. Do not layer multiple strong actives on day one, and always use broad-spectrum sunscreen the next morning because exfoliating routines can increase sun sensitivity.",
-    },
-    {
-      question: "Is apple cider vinegar shampoo for daily use?",
-      answer: "Clarifying shampoos are often better used as a reset wash (for example 1–2 times per week), especially if you have buildup or hard-water residue. Daily use may feel too drying for some hair types—adjust frequency based on scalp oiliness and dryness.",
-    },
-    {
-      question: "Do I need to patch test new skincare products?",
-      answer: "Yes. Do a 24-hour inner-arm patch test before first use, especially with active serums. Introduce new products one at a time so you can identify what causes irritation.",
-    },
+      "question": "What should I check before buying Beginner's  to Skincare Actives & Sulfate products online?",
+      "answer": "Check the exact variant, ingredient list, usage directions, any claim/certification you rely on, final cart total, and return/exchange policy."
+    }
   ],
   editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],
