@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CollectionArticle from "@/components/collections/CollectionArticle";
+import CollectionKitPage from "@/components/collections/CollectionKitPage";
+import { getCollectionKit } from "@/data/collection-kits";
 import { COLLECTIONS, getCollectionBySlug } from "@/data/collections";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -41,5 +43,6 @@ export default async function CollectionPage({ params }: Props) {
   const { slug } = await params;
   const entry = getCollectionBySlug(slug);
   if (!entry) notFound();
+  if (getCollectionKit(entry)) return <CollectionKitPage entry={entry} />;
   return <CollectionArticle entry={entry} />;
 }

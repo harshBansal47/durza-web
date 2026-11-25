@@ -48,7 +48,16 @@ export const COLLECTION_CATEGORIES: CollectionCategory[] = [
   "Home & Appliances",
 ];
 
-const U = (url: string) => url;
+/**
+ * Normalise legacy `https://link.amazon/<ASIN>` placeholders into tagged
+ * Amazon Associates product links. No new products or prices are invented —
+ * only the destination of an existing pick is corrected.
+ */
+function U(url: string): string {
+  const match = /^https?:\/\/link\.amazon\/([A-Za-z0-9]+)\/?$/.exec(url.trim());
+  if (!match) return url;
+  return `https://www.amazon.in/dp/${match[1]}?tag=durza02-21&ascsubtag=collection_kit`;
+}
 
 export const COLLECTIONS: CollectionEntry[] = [
   {
