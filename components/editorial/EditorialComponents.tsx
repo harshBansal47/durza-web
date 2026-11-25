@@ -17,6 +17,7 @@ import GuideArt from "./GuideArt";
 import AdidasStyleCompare from "@/components/guides/AdidasStyleCompare";
 import { SITE_URL } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
+import { ArrowRight } from "lucide-react";
 import { renderBrandText } from "@/lib/brandMentions";
 
 /**
@@ -124,13 +125,14 @@ export function EditorialCard({ content, wide = false }: { content: EditorialCon
   );
 }
 
+
 export function EditorialSection({
   title,
   items,
   href,
   label,
   eyebrow = "Make a confident choice",
-  wideFirst = false,
+  wideFirst = true,
 }: {
   title: string;
   items: EditorialContent[];
@@ -140,24 +142,71 @@ export function EditorialSection({
   wideFirst?: boolean;
 }) {
   if (items.length === 0) return null;
+
+  const featured = items[0];
+  const supporting = items.slice(1, 3);
+
   return (
     <section className="mt-12" aria-label={title}>
+      {/* Section heading */}
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-durza-deep">
             {eyebrow}
           </p>
-          <h2 className="mt-1 font-serif text-2xl font-extrabold text-ink sm:text-3xl">{title}</h2>
+
+          <h2 className="mt-1 font-serif text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+            {title}
+          </h2>
+
+          <p className="mt-1 text-sm text-ink-soft">
+            Research and insights to help you make smarter decisions.
+          </p>
         </div>
-        <Link href={href} className="min-h-11 inline-flex items-center text-sm font-bold text-durza-deep hover:underline">
-          {label} <span aria-hidden="true">→</span>
+
+        <Link
+          href={href}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-ledger-line bg-white px-3 py-2 text-xs font-bold text-durza-deep transition-colors hover:border-durza/40"
+        >
+          {label}
+          <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {items.slice(0, 3).map((item, index) => (
-          <EditorialCard key={item.id} content={item} wide={wideFirst && index === 0} />
-        ))}
-      </div>
+
+      {wideFirst ? (
+        /* Featured editorial layout */
+        <div className="grid gap-3 lg:grid-cols-[1.3fr_1fr]">
+          <EditorialCard
+            content={featured}
+            wide
+          />
+
+          <div className="flex flex-col gap-3">
+            {supporting.map((item) => (
+              <EditorialCard
+                key={item.id}
+                content={item}
+              />
+            ))}
+
+            {supporting.length === 0 && (
+              <div className="flex flex-1 items-center justify-center rounded-2xl border border-dashed border-ledger-line p-6 text-center text-sm text-ink-soft">
+                More articles coming soon.
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        /* Standard compact editorial grid */
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {items.slice(0, 3).map((item) => (
+            <EditorialCard
+              key={item.id}
+              content={item}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
