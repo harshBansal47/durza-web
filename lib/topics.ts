@@ -240,6 +240,8 @@ export interface DiscoverableContent {
   title: string;
   summary: string;
   href: string;
+  /** Editorial hero image, when one exists. Guides may fall back to generated art. */
+  heroImage?: string | null;
   updatedAt: string | null;
   authorName: string | null;
   /** Owner-curated priority (1-10). Default 5 when not explicitly set. */

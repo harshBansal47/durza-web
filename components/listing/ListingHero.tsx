@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { CalendarCheck, ShieldCheck, TimerOff } from "lucide-react";
+import { ShieldCheck, TimerOff } from "lucide-react";
 import "@/components/home/hero/hero.css";
 import "./listing.css";
 
@@ -28,6 +28,7 @@ export default function ListingHero({
   chips,
   stats,
   mobile = "show",
+  trust = true,
 }: {
   eyebrow?: ReactNode;
   title: string;
@@ -37,6 +38,8 @@ export default function ListingHero({
   chips?: { href: string; label: string }[];
   stats?: ListingStat[];
   mobile?: "show" | "title-only";
+  /** Editorial hubs opt out of the offer-oriented trust band. */
+  trust?: boolean;
 }) {
   const words = title.trim().split(/\s+/);
   const last = words.pop() ?? "";
@@ -83,15 +86,12 @@ export default function ListingHero({
         )}
       </div>
 
+      {trust && (
       <div className="lx-hero-band hx-rise" style={{ ["--i" as string]: 4 }}>
         <ul className="lx-trust">
           <li>
             <ShieldCheck aria-hidden="true" size={15} strokeWidth={2.4} />
             Offer type on every card
-          </li>
-          <li className="amber">
-            <CalendarCheck aria-hidden="true" size={15} strokeWidth={2.4} />
-            
           </li>
           <li className="blue">
             <TimerOff aria-hidden="true" size={15} strokeWidth={2.4} />
@@ -117,6 +117,7 @@ export default function ListingHero({
           </dl>
         )}
       </div>
+      )}
       <div className="hx-seam" aria-hidden="true" />
     </section>
   );

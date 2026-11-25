@@ -18,7 +18,7 @@ const FILTERS: { label: string; value: Filter }[] = [
   { label: "EdTech & Careers", value: "EdTech & Careers" },
 ];
 
-export default function ReviewsHub({ items }: { items: ReviewEntry[] }) {
+export default function ReviewsHub({ items, hideHeader = false }: { items: ReviewEntry[]; hideHeader?: boolean }) {
   const [active, setActive] = useState<Filter>("All");
   const filtered = useMemo(
     () => (active === "All" ? items : items.filter((i) => i.category === active)),
@@ -27,17 +27,19 @@ export default function ReviewsHub({ items }: { items: ReviewEntry[] }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:py-14">
-      <header className="max-w-3xl">
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
-          Honest Buyer Assessments
-        </p>
-        <h1 className="mt-3 font-serif text-3xl font-extrabold tracking-tight text-[#141413] sm:text-5xl">
-          Independent Reviews
-        </h1>
-        <p className="mt-4 text-base leading-7 text-[#4a463f] sm:text-lg">
-          Real pros, honest trade-offs, and break-even math before you spend on memberships, tech, fashion, and wellness.
-        </p>
-      </header>
+      {!hideHeader && (
+        <header className="max-w-3xl">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
+            Honest Buyer Assessments
+          </p>
+          <h1 className="mt-3 font-serif text-3xl font-extrabold tracking-tight text-[#141413] sm:text-5xl">
+            Independent Reviews
+          </h1>
+          <p className="mt-4 text-base leading-7 text-[#4a463f] sm:text-lg">
+            Real pros, honest trade-offs, and break-even math before you spend on memberships, tech, fashion, and wellness.
+          </p>
+        </header>
+      )}
 
       <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Review categories">
         {FILTERS.map((f) => {

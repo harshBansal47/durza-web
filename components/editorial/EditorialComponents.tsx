@@ -87,7 +87,7 @@ export function EditorialCard({ content, wide = false }: { content: EditorialCon
 
   return (
     <article className={`info-card lift flex h-full flex-col ${wide ? "sm:col-span-2 lg:col-span-3" : ""} p-5`}>
-      {isGuide && (
+      {(isGuide || content.hero_image_url) && (
         <GuideArt
           title={content.title}
           summary={content.summary}

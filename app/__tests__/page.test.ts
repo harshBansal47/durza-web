@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomePage, { generateMetadata } from "@/app/page";
-import EditorialRail from "@/components/home/EditorialRail";
+import RedesignedSections from "@/components/home/RedesignedSections";
 import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
 import { BRAND } from "@/lib/brand";
@@ -150,28 +150,33 @@ describe("homepage structured data", () => {
   });
 });
 
-describe("homepage editorial rails", () => {
-  it("shows comparisons and reviews below the guides desk", async () => {
+describe("homepage redesigned sections", () => {
+  it("passes comparisons, reviews and their images to the sections", async () => {
     vi.mocked(discoverableContent).mockResolvedValue([
       {
         id: "c1", topicId: "tech", contentType: "comparison", title: "Phone comparison",
-        summary: "Two phones side by side", href: "/compare/phone", updatedAt: "2026-11-25T00:00:00Z",
+        summary: "Two phones side by side", href: "/compare/phone",
+        heroImage: "/collections/amazon-beauty-toolkit/hero-vanity.webp",
+        updatedAt: "2026-11-25T00:00:00Z",
         authorName: "Desk", priority: 6, hasMethod: true, hasFaq: false,
       },
       {
         id: "r1", topicId: "tech", contentType: "review", title: "Phone review",
-        summary: "A detailed review", href: "/reviews/phone", updatedAt: "2026-11-24T00:00:00Z",
+        summary: "A detailed review", href: "/reviews/phone",
+        heroImage: "/collections/amazon-beauty-toolkit/hero-vanity.webp",
+        updatedAt: "2026-11-24T00:00:00Z",
         authorName: "Desk", priority: 6, hasMethod: true, hasFaq: false,
       },
     ]);
 
-    const rails = findElements(await HomePage(), EditorialRail).map((props) => props as {
-      title: string;
-      items: Array<{ title: string }>;
+    const sections = findElements(await HomePage(), RedesignedSections).map((props) => props as {
+      comparisons: Array<{ title: string; heroImage?: string | null }>;
+      reviews: Array<{ title: string; heroImage?: string | null }>;
     });
-    expect(rails.map((rail) => rail.title)).toEqual(["Comparisons", "Reviews"]);
-    expect(rails[0].items.map((item) => item.title)).toContain("Phone comparison");
-    expect(rails[1].items.map((item) => item.title)).toContain("Phone review");
+    expect(sections).toHaveLength(1);
+    expect(sections[0].comparisons.map((item) => item.title)).toContain("Phone comparison");
+    expect(sections[0].reviews.map((item) => item.title)).toContain("Phone review");
+    expect(sections[0].comparisons[0].heroImage).toBe("/collections/amazon-beauty-toolkit/hero-vanity.webp");
   });
 });
 

@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -204,6 +205,16 @@ export default function DecisionDesk({
               className="group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-xl border border-orange-200/80 bg-gradient-to-br from-orange-50 via-white to-amber-50 p-4 transition-all hover:border-durza/50 hover:shadow-md sm:p-5"
             >
               <div>
+                {featured.heroImage ? (
+                  <Image
+                    src={featured.heroImage}
+                    alt=""
+                    width={800}
+                    height={300}
+                    unoptimized
+                    className="mb-3 h-28 w-full rounded-lg border border-orange-200/70 object-cover"
+                  />
+                ) : null}
                 <div className="flex items-center justify-between gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-wider text-durza-deep">
                     <Sparkles className="h-3 w-3" />
@@ -248,6 +259,16 @@ export default function DecisionDesk({
                   className="group flex flex-1 flex-col justify-between rounded-xl border border-ledger-line bg-white p-4 transition-all hover:border-durza/40 hover:shadow-sm"
                 >
                   <div>
+                    {item.heroImage ? (
+                      <Image
+                        src={item.heroImage}
+                        alt=""
+                        width={640}
+                        height={360}
+                        unoptimized
+                        className="mb-2 h-24 w-full rounded-lg border border-ledger-line object-cover"
+                      />
+                    ) : null}
                     <div className="flex items-center justify-between gap-2">
                       <ArticleMeta
                         type={TYPE_LABELS[item.contentType]}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { COMPARISONS } from "@/data/comparisons";
 import CompareHub from "@/components/compare/CompareHub";
+import ListingHero from "@/components/listing/ListingHero";
 import { absoluteUrl } from "@/lib/seo";
 
 export const revalidate = 21600;
@@ -28,20 +29,17 @@ const TOP_COMPARED_STORES = [
 
 export default function ComparisonsPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#141413]">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">
-          Side-by-Side Buying Comparisons
-        </p>
-        <h1 className="mt-3 font-serif text-4xl font-extrabold leading-tight tracking-tight text-[#141413] sm:text-5xl">
-          Compare Before You Buy
-        </h1>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-[#3f3b35]">
-          Real price-bracket breakdowns, bank card stacking rules, and store-vs-store verdicts for Indian shoppers.
-        </p>
-        <div className="mt-8">
-          <CompareHub items={COMPARISONS} />
-        </div>
+    <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-12">
+      <ListingHero
+        eyebrow="Side-by-Side Buying Comparisons"
+        title="Compare Before You Buy"
+        lead="Real price-bracket breakdowns, bank card stacking rules, and store-vs-store verdicts for Indian shoppers."
+        stats={[{ value: COMPARISONS.length.toLocaleString("en-IN"), label: "Comparisons" }]}
+        trust={false}
+      />
+      <div className="mt-8">
+        <CompareHub items={COMPARISONS} />
+      </div>
 
         <section aria-labelledby="top-compared-stores" className="mt-12 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-6">
           <h2 id="top-compared-stores" className="text-lg font-semibold text-[#141413]">
@@ -62,7 +60,6 @@ export default function ComparisonsPage() {
             ))}
           </div>
         </section>
-      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { DiscoverableContent } from "@/lib/topics";
@@ -54,7 +55,18 @@ export default function EditorialRail({
         {items.map((item) => {
           const updated = formatUpdated(item.updatedAt);
           return (
-            <li key={item.id} className="rounded-2xl border border-ledger-line bg-white p-4">
+            <li key={item.id} className="flex flex-col rounded-2xl border border-ledger-line bg-white p-3">
+              {item.heroImage ? (
+                <Image
+                  src={item.heroImage}
+                  alt=""
+                  width={640}
+                  height={360}
+                  unoptimized
+                  className="mb-3 aspect-[16/9] w-full rounded-xl border border-ledger-line object-cover"
+                />
+              ) : null}
+              <div className="px-1 pb-1">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">
                 {updated ? `Checked ${updated}` : "Research desk"}
               </p>
@@ -67,6 +79,7 @@ export default function EditorialRail({
                 <p className="mt-1.5 line-clamp-2 text-xs leading-5 text-ink-soft">{item.summary}</p>
               ) : null}
               <p className="mt-3 text-xs font-medium text-ink-soft">{item.authorName ?? "Durza Research Desk"}</p>
+              </div>
             </li>
           );
         })}

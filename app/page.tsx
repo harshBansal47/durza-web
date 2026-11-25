@@ -1,23 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Flame } from "lucide-react";
-import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
-import OfferRail from "@/components/home/OfferRail";
+import RedesignedSections from "@/components/home/RedesignedSections";
 import JsonLd from "@/components/JsonLd";
 import { api } from "@/lib/api";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import { formatStoreDisplayName } from "@/lib/store-display";
 import { categoryNameMap, popularStores as pickPopularStores, toHeroDeal, toHeroStore } from "@/lib/home-hero";
 import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
-import { REDESIGN_ENABLED } from "@/lib/flags";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
-import { EditorialCard } from "@/components/editorial/EditorialComponents";
-import DecisionDesk from "@/components/home/DecisionDesk";
-import EditorialRail from "@/components/home/EditorialRail";
-import { buildTopicSpotlights } from "@/lib/topics";
 import { discoverableContent } from "@/lib/topic-content";
 import { COLLECTIONS } from "@/data/collections";
 import { collectionFromEditorial } from "@/lib/collections";
@@ -104,23 +96,18 @@ export default async function HomePage() {
     safe(discoverableContent(), [] as DiscoverableContent[], "topic content"),
   ]);
 
-  // The editorial layer ranks the content we already have. Topics with no
-  // published pieces are omitted, so nothing here is a hardcoded section.
-  const topicSpotlights = buildTopicSpotlights(allEditorial, { limit: 4, perTopic: 3 });
-
-  // The same ranked editorial pool feeds two more homepage rails so the pages
-  // beyond guides are discoverable without inventing any content.
-  const editorialByType = (contentType: "comparison" | "review") =>
+  // One ranked editorial pool feeds all three reading sections below the hero.
+  const rankedEditorial = (contentType: DiscoverableContent["contentType"]) =>
     allEditorial
       .filter((item) => item.contentType === contentType)
       .sort((a, b) =>
         b.priority - a.priority
         || (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "")
         || a.title.localeCompare(b.title),
-      )
-      .slice(0, 3);
-  const homepageComparisons = editorialByType("comparison");
-  const homepageReviews = editorialByType("review");
+      );
+  const homepageGuides = rankedEditorial("guide");
+  const homepageComparisons = rankedEditorial("comparison").slice(0, 3);
+  const homepageReviews = rankedEditorial("review").slice(0, 3);
 
   // Indian shoppers today — deals that make sense for that audience only.
   // The excluded set lives in lib/homepage-curation.ts; this section filters every
@@ -144,25 +131,8 @@ export default async function HomePage() {
   );
   const isHomepageRelevant = (coupon: CouponPublic) => relevantStoreIds.has(coupon.store_id);
 
-  // The store list is a lookup table for card badges (every card needs its store); the
-  // stores rail only shows the first dozen.
-  // Real per-category offer counts for the redesign's category tiles. Only
-  // fetched when the redesign is on, since the legacy grid doesn't show them.
-  const categoryCounts: Record<string, number> = {};
-  if (REDESIGN_ENABLED && categories.items.length > 0) {
-    const totals = await Promise.all(
-      categories.items.slice(0, 7).map((c) =>
-        safe(api.listCoupons({ category_id: c.id, active_only: true, limit: 1 }), emptyPage as Paginated<CouponPublic>, `category count: ${c.slug}`),
-      ),
-    );
-    categories.items.slice(0, 7).forEach((c, i) => {
-      categoryCounts[c.id] = totals[i].total;
-    });
-  }
-
-  // One offer id appears once in the visible page. Sections claim offers in the
-  // order they render: hero, "Worth a look", then the two explorer rails. This
-  // is a presentation filter over the backend's orders, not a re-ranking.
+  // One offer id appears once in the visible page. This is a presentation filter
+  // over the backend's orders, not a re-ranking.
   const shown = new Set<string>();
   const take = <T extends { id: string }>(items: T[], limit: number): T[] => {
     const picked: T[] = [];
@@ -198,19 +168,8 @@ export default async function HomePage() {
         const checked = (c: (typeof a)) => (c.last_checked_at ? 1 : 0);
         return checked(b) - checked(a) || b.clicks_count - a.clicks_count || a.id.localeCompare(b.id);
       }),
-    6,
+    4,
   );
-
-  // Explorer rails take what is left, so no offer appears twice on the page.
-  const fill = (pool: CouponPublic[]): CouponPublic[] =>
-    take(
-      dedupeCoupons(pool.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c))),
-      6,
-    );
-  const explorerTabs = {
-    codes: fill(bestCoupons.items),
-    deals: fill(latestDeals.items),
-  };
 
   const collectionsForRail = [
     ...editorial.collections.map((item) => collectionFromEditorial(item)).filter((entry) => entry !== null),
@@ -277,9 +236,16 @@ export default async function HomePage() {
     );
   }
 
-  // Structured data follows the rails and steps actually rendered below.
+  const homepageCollections = collectionsForRail.slice(0, 3).map((item) => ({
+    slug: item.slug,
+    title: item.title,
+    summary: item.summary,
+    heroImage: item.heroImage,
+  }));
+
+  // Structured data follows the offers actually rendered below.
   const visibleOffers = [...new Map(
-    [...featuredCoupons, ...worthLooking, ...explorerTabs.deals, ...explorerTabs.codes].map((coupon) => [coupon.id, coupon]),
+    [...featuredCoupons, ...worthLooking].map((coupon) => [coupon.id, coupon]),
   ).values()];
   const offerItemListJsonLd = itemListJsonLd(
     visibleOffers.map((coupon) => ({ name: coupon.title, path: `/coupons/${coupon.slug}` })),
@@ -310,94 +276,15 @@ export default async function HomePage() {
         }
       />
 
-      {isEmpty ? (
-       <section className="section-panel mt-12 px-6 py-14 text-center">
-          <h2 className="font-serif text-title font-medium text-ink">No deals listed yet</h2>
-          <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
-            The catalogue is empty. That is the honest state — we would rather show nothing than
-            pad the page with offers we cannot source.
-          </p>
-        </section>
-      ) : (
-        <>
-          {worthLooking.length > 0 && (
-            <section className="mt-10" aria-labelledby="worth-looking-heading">
-              <SectionTitle hint="from offers we tracked" icon={Flame}>
-                <span id="worth-looking-heading">Worth a look</span>
-              </SectionTitle>
-              <OfferRail
-                offers={worthLooking}
-                storesById={storesById}
-                placement="home_worth_a_look"
-              />
-            </section>
-          )}
-
-          {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
-
-          <EditorialRail
-            id="home-comparisons"
-            eyebrow="Side by side"
-            title="Comparisons"
-            href="/compare"
-            linkLabel="All comparisons"
-            items={homepageComparisons}
-          />
-
-          <EditorialRail
-            id="home-reviews"
-            eyebrow="Tested and reviewed"
-            title="Reviews"
-            href="/reviews"
-            linkLabel="All reviews"
-            items={homepageReviews}
-          />
-
-          {collectionsForRail.length > 0 && (
-            <section className="mt-12" aria-label="Curated savings collections">
-              <div className="mb-5 flex items-end justify-between gap-3">
-                <div>
-                  <p className="font-mono text-caption font-semibold uppercase tracking-widest text-durza-deep">Built around your goals</p>
-                  <h2 className="mt-1 font-serif text-title font-medium text-ink">Curated collections</h2>
-                </div>
-                <Link href="/collections" className="min-h-11 inline-flex items-center text-sm font-medium text-durza-deep hover:underline">
-                  All collections
-                  <ArrowRight aria-hidden="true" className="inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} />
-                </Link>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {collectionsForRail.slice(0, 3).map((item) => <EditorialCard key={item.slug} content={{
-                  id: item.slug,
-                  content_type: "collection" as const,
-                  status: "published" as const,
-                  title: item.title,
-                  slug: item.slug,
-                  summary: item.summary,
-                  content_blocks: [],
-                  structured_data: {},
-                  hero_image_url: item.heroImage,
-                  author_name: null,
-                  market: "IN",
-                  seo_title: item.seoTitle,
-                  meta_description: item.metaDescription,
-                  canonical_url: null,
-                  is_indexable: true,
-                  is_featured: false,
-                  published_at: null,
-                  created_at: "",
-                  updated_at: "",
-                  relations: [],
-                  entity_links: [],
-                  faqs: [],
-                  adsense_eligible: false,
-                }} />)}
-              </div>
-            </section>
-          )}
-
-         
-        </>
-      )}
+      <RedesignedSections
+        offers={worthLooking}
+        couponTotal={coupons.total}
+        storesById={storesById}
+        guides={homepageGuides}
+        comparisons={homepageComparisons}
+        reviews={homepageReviews}
+        collections={homepageCollections}
+      />
     </div>
   );
 }
