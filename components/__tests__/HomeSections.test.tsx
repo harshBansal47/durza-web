@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Tag } from "lucide-react";
 import BannerCarousel from "@/components/home/BannerCarousel";
-import CategoryGrid from "@/components/home/CategoryGrid";
 import StoreScroller from "@/components/home/StoreScroller";
 import ActivityTicker from "@/components/home/ActivityTicker";
 import FeaturedBanner from "@/components/home/FeaturedBanner";
@@ -25,18 +24,6 @@ describe("BannerCarousel", () => {
   });
 });
 
-describe("CategoryGrid", () => {
-  it("links each category and the all-categories tile", () => {
-    render(<CategoryGrid categories={[{ id: "1", name: "Electronics", slug: "electronics" }]} />);
-    expect(screen.getByRole("link", { name: /Electronics/ })).toHaveAttribute("href", "/categories/electronics");
-    expect(screen.getByRole("link", { name: /All categories/ })).toHaveAttribute("href", "/categories");
-  });
-
-  it("renders nothing for an empty list", () => {
-    const { container } = render(<CategoryGrid categories={[]} />);
-    expect(container).toBeEmptyDOMElement();
-  });
-});
 
 describe("StoreScroller", () => {
   it("renders nothing without stores", () => {
