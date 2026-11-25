@@ -293,7 +293,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "levis",
     category: "Fashion",
     featured: false,
-    heroImage: "/guides/levis-denim-offers-and-sale-guide.webp",
+    heroImage: "/guides/tata-cliq-bank-offers-and-sale-guide.webp",
     seo: {
       title: "Levi's India — 501 vs 511 Sizing, Shrink & Sale Math (2026)",
       description: "Levi's India: 501 vs 511 cuts, waist-true carry, sanforised shrink realities, and which sale slab reaches a real price floor.",
@@ -2539,7 +2539,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "aldo-new",
     category: "Fashion & Women Footwear",
     featured: true,
-    heroImage: "/stores/aldo-new.webp",
+    heroImage: "/guides/aldo-shoes-india-heels-comfort-guide.webp",
     seo: {
       title: "ALDO Shoes India Guide 2026 — Heels, Loafers, Comfort & Caring",
       description: "ALDO India: occasion heels, boardroom loafers, suede ankle boots. Fit, comfort, material notes and Indian occasion wisdom. No discounts, only the collection.",
@@ -2578,7 +2578,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "veromoda",
     category: "Fashion & Women's Workwear",
     featured: true,
-    heroImage: "/stores/veromoda.webp",
+    heroImage: "/guides/vero-moda-india-work-dresses-guide.webp",
     seo: {
       title: "Vero Moda India Work Dresses Guide 2026 — Fit, Fit & More Fit",
       description: "Vero Moda India: silk dresses, tailored blouses & denim that survives the Monday meeting. Sizing, fit advice & only the official collection.",
@@ -2652,7 +2652,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "palmonas",
     category: "Fashion & Jewellery",
     featured: true,
-    heroImage: "/stores/palmonas.webp",
+    heroImage: "/guides/palmonas-demi-fine-jewelry-tarnish-care-guide.webp",
     seo: {
       title: "Palmonas Demi-Fine Jewelry India — Styling, Tarnish & Care",
       description: "Palmonas: 18k gold plated waterproof jewellery, lab-grown diamonds. Tarnish care, styling tips, honest value for the Indian wardrobe.",
@@ -2999,7 +2999,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "bliss-club",
     category: "Sports & Women's Activewear",
     featured: true,
-    heroImage: "/guides/blissclub-ultimate-leggings-fit-guide.webp",
+    heroImage: "/guides/shop-tupperware-kitchen-storage-guide.webp",
     seo: {
       title: "BlissClub Ultimate Leggings Fit Guide — Sizing & Brand Truth",
       description: "BlissClub India: Ultimate leggings, flares, joggers. True sizing, true fit, honest comparison to Nike & Lululemon.",
@@ -3035,7 +3035,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "digihaat",
     category: "Home & ONDC",
     featured: false,
-    heroImage: "/stores/digihaat.webp",
+    heroImage: "/guides/digihaat-ONDC-zero-platform-fees-guide.webp",
     seo: {
       title: "Digihaat ONDC Guide — Swadeshi, Zero Platform Fees & Local",
       description: "Digihaat: India's ONDC-backed marketplace — swadeshi electronics, kirana staples, local pharmacies. Zero platform fees guide.",
@@ -3656,7 +3656,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "how-to-match-laptop-model-codes-india",
     storeSlug: "lenovo-india",
-    heroImage: "/guides/how-to-match-laptop-model-codes-india.webp",
+    heroImage: "/guides/sale-calendar-india-eors-pink-friday-2026.webp",
     category: "Electronics",
     seo: {
       title: "How to Match Laptop Model Codes Across Indian Stores | Durza",
