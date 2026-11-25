@@ -320,33 +320,6 @@ export default async function HomePage() {
 
           {topicSpotlights.length > 0 && <DecisionDesk topics={topicSpotlights} />}
 
-         
-
-          {explorerTabs.deals.length > 0 && (
-            <section className="mt-12" aria-labelledby="no-code-heading">
-              <SectionTitle hint="no code listed" icon={Zap}>
-                <span id="no-code-heading">Deals without a code listed</span>
-              </SectionTitle>
-              <OfferRail
-                offers={explorerTabs.deals.slice(0, 6)}
-                storesById={storesById}
-                placement="home_no_code_deals"
-              />
-            </section>
-          )}
-
-          {explorerTabs.codes.length > 0 && (
-            <section className="mt-12" aria-labelledby="codes-heading">
-              <SectionTitle hint="codes shown on the offer page" icon={Flame}>
-                <span id="codes-heading">Current coupon codes</span>
-              </SectionTitle>
-              <OfferRail
-                offers={explorerTabs.codes.slice(0, 6)}
-                storesById={storesById}
-                placement="home_coupon_codes"
-              />
-            </section>
-          )}
 
           {collectionsForRail.length > 0 && (
             <section className="mt-12" aria-label="Curated savings collections">
