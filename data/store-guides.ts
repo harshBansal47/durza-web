@@ -146,7 +146,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "nykaa",
     category: "Beauty & Personal Care",
     featured: true,
-    heroImage: "/stores/nykaa.png",
+    heroImage: "/guides/nykaa-coupons-and-sale-guide.webp",
     seo: {
       title: "Nykaa Coupons, Pink Sale & Bank Offer Stacking Guide (2026)",
       description: "Nykaa's real discount engine: Pink Sale slabs, Nykaa Prive cashback and bank cards — apply in the right order.",
@@ -195,7 +195,7 @@ const RAW_GUIDES: StaticGuide[] = [
     storeSlug: "lenskart",
     category: "Eyewear",
     featured: true,
-    heroImage: "/stores/lenskart.png",
+    heroImage: "/guides/lenskart-eyewear-offers-and-stacking-guide.webp",
     seo: {
       title: "Lenskart Coupons, BFFs & Bank Offers — How to Pay Less (2026)",
       description: "Lenskart's live stack: first-order max-saving codes, frame deals and Tata/Kotak card instant discounts — the correct pay order.",
@@ -428,7 +428,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "boldfit",
     category: "Fitness & Home Gym",
     featured: false,
-    heroImage: "/stores/boldfit.png",
+    heroImage: "/guides/boldfit-home-gym-deals-and-offers-guide.webp",
     seo: {
       title: "Boldfit Home-Gym Gear — Specs, Safety & Cart Threshold Math (2026)",
       description: "How to compare Boldfit doorway bars, resistance tubes and foam rollers on real specs and safety, with worked ₹2,500 cart-threshold maths and brand/Amazon CTAs. Reviewed 25 Nov 2026.",
@@ -580,7 +580,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "gritzo",
     category: "Kids & Baby Nutrition",
     featured: false,
-    heroImage: "/stores/gritzo.png",
+    heroImage: "/guides/gritzo-kids-nutrition-and-growth-guide.webp",
     seo: {
       title: "Gritzo Kids Nutrition — Offers & Subscription Guide (2026)",
       description: "Gritzo live deals: single-box codes, subscription-stack codes and the bundle pack math for kids.",
@@ -622,7 +622,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "fitspire",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/fitspire.png",
+    heroImage: "/guides/fitspire-plant-protein-and-vegan-guide.webp",
     seo: {
       title: "Fitspire Plant Protein & Vegan Nutrition Offers (2026)",
       description: "Fitspire live codes: subscription vs single-tub discounts and the B2G1 bundle math for plant-based eaters.",
@@ -665,7 +665,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "kapiva",
     category: "Ayurveda & Wellness",
     featured: true,
-    heroImage: "/stores/kapiva.png",
+    heroImage: "/guides/kapiva-ayurveda-daily-wellness-guide.webp",
     seo: {
       title: "Kapiva Deals — Subscription vs. One-Off, What Actually Saves (2026)",
       description: "Kapiva subscription vs one-off maths using a verified ₹999 Shilajit Resin 20g price, with safety exclusions, batch-report checks and brand/Amazon CTAs. Reviewed 24 Nov 2026.",
@@ -743,7 +743,7 @@ const RAW_GUIDES_B: StaticGuide[] = [
     storeSlug: "truebasics",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/truebasics.png",
+    heroImage: "/guides/truebasics-clinical-strength-guide.webp",
     seo: {
       title: "TrueBasics Supplements — Label Numbers & Bundle Math (2026)",
       description: "TrueBasics Omega-3 and KSM-66 Ashwagandha label figures, vegan/allergen checks, single-vs-bundle cost maths and brand/Amazon CTAs. Reviewed 25 Nov 2026.",
@@ -946,7 +946,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "milton",
     category: "Home & Kitchen",
     featured: false,
-    heroImage: "/stores/milton.png",
+    heroImage: "/guides/milton-thermosteel-offers-guide.webp",
     seo: {
       title: "Milton Thermosteel — Flask Tiers, Insulation Loss & When to Buy (2026)",
       description: "Milton: Asiana vs Pacer vs Office Master, insulation loss in year one, and the sale price that actually beats retail.",
@@ -1082,7 +1082,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "kama-ayurveda",
     category: "Ayurveda & Skincare",
     featured: false,
-    heroImage: "/stores/kama-ayurveda.png",
+    heroImage: "/guides/kama-ayurveda-bringadi-and-kumkumadi-guide.webp",
     seo: {
       title: "Kama Ayurveda — Bringadi & Kumkumadi Offer Guide (2026)",
       description: "Kama Ayurveda live codes: ritual-bundle discounts and how to stack them with site offers.",
@@ -1210,7 +1210,7 @@ const RAW_GUIDES_C: StaticGuide[] = [
     storeSlug: "zoff-foods",
     category: "Grocery & Health Food",
     featured: false,
-    heroImage: "/stores/zoff-foods.png",
+    heroImage: "/guides/zoff-foods-pantry-clean-labels-guide.webp",
     seo: {
       title: "Zoff Foods Pantry — Clean-Label Spices Offer Guide (2026)",
       description: "Zoff Foods live deals: bundle codes, single-cart discounts and the clean-pantry stacking order.",
@@ -1414,7 +1414,7 @@ const RAW_GUIDES_D: StaticGuide[] = [
     storeSlug: "indus-valley",
     category: "Beauty & Haircare",
     featured: false,
-    heroImage: "/stores/indus-valley.png",
+    heroImage: "/guides/indus-valley-hair-serum-guide.webp",
     seo: {
       title: "Indus Valley Cosmetics — Skin & Hair Offer Guide (2026)",
       description: "Indus Valley live codes: sitewide discounts, prepaid UPI and the best combo stacking order.",
@@ -1649,7 +1649,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "firstcry",
     category: "Baby & Kids",
     featured: true,
-    heroImage: "/stores/firstcry.png",
+    heroImage: "/guides/firstcry-parenting-deals-and-firstcry-club-guide.webp",
     seo: {
       title: "FirstCry Deals & FirstCry Club — Parent Offer Guide (2026)",
       description: "FirstCry live offers: clothing and diaper codes, Club points math and the FirstCry stacking order.",
@@ -1692,7 +1692,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "guvi",
     category: "Education & Upskilling",
     featured: false,
-    heroImage: "/stores/guvi.png",
+    heroImage: "/guides/guvi-skill-course-codes-guide.webp",
     seo: {
       title: "GUVI Course Offers — Vernacular Tech Career Guide (2026)",
       description: "GUVI live deals: career-track bundle discounts, trial-code access and where to start.",
@@ -1734,7 +1734,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "igp",
     category: "Gifting & Cakes",
     featured: false,
-    heroImage: "/stores/igp.png",
+    heroImage: "/guides/igp-cake-delivery-and-gifts-guide.webp",
     seo: {
       title: "IGP Cake Delivery & Gifts — Same-Day Offer Guide (2026)",
       description: "IGP live deals: same-day cake discounts, hamper bundles and the midnight-delivery stack.",
@@ -1818,7 +1818,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "hkvitals",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/hkvitals.png",
+    heroImage: "/guides/hkvitals-daily-multivitamin-guide.webp",
     seo: {
       title: "HK Vitals Daily Nutrition — Offers & Bundles Guide (2026)",
       description: "Single-pack vs bundle maths for HK Vitals using a verified ₹909 Marine Collagen 200g price, with per-serving actives, YMYL safety exclusions and brand/Amazon CTAs. Reviewed 24 Nov 2026.",
@@ -1932,7 +1932,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "lavie-world",
     category: "Fashion & Accessories",
     featured: false,
-    heroImage: "/stores/lavie-world.png",
+    heroImage: "/guides/lavie-world-handbag-offers-guide.webp",
     seo: {
       title: "Lavie World Handbags — Satchel & Tote Offer Guide (2026)",
       description: "Lavie World live deals: satchel-stack codes, sitewide discounts and the office-vs-weekend picks.",
@@ -1974,7 +1974,7 @@ const RAW_GUIDES_E: StaticGuide[] = [
     storeSlug: "life-changing-astro",
     category: "Spiritual Services",
     featured: false,
-    heroImage: "/stores/life-changing-astro.png",
+    heroImage: "/guides/life-changing-astro-consultation-guide.webp",
     seo: {
       title: "Life Changing Astro Offers — Consultation & Rudraksha (2026)",
       description: "Life Changing Astro live deals: rudraksha discounts, consultation codes and the Gemstone stack.",
@@ -2066,7 +2066,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "bytepe",
     category: "Utilities & Bill Payments",
     featured: false,
-    heroImage: "/stores/bytepe.svg",
+    heroImage: "/guides/bytepe-bill-payments-fastag-vouchers-guide.webp",
     seo: {
       title: "BytePe Offers — Bill Payments, Fastag & Voucher Cashback (2026)",
       description: "BytePe codes: FIRSTBILL (₹50 first bill), FASTAG25 (₹25 NETC Fastag), RECHARGE10 (5% mobile/DTH), VOUCHER5 (2–8% vouchers) — India's BBPS one-stop decoded.",
@@ -2109,7 +2109,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "boult",
     category: "Electronics & Audio",
     featured: false,
-    heroImage: "/stores/boult.png",
+    heroImage: "/guides/boult-audio-earbuds-anc-codes-guide.webp",
     seo: {
       title: "Boult Audio Offers — ANC Earbuds & W50 Codes (2026)",
       description: "Boult codes: ANC200 (₹200 off ANC), BOULT100 (₹100 off > ₹999), EXTRA5 (5% UPI/cards) — India's loudest budget-ANC decoded.",
@@ -2151,7 +2151,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "the-bear-house",
     category: "Fashion & Casual Wear",
     featured: false,
-    heroImage: "/stores/the-bear-house.png",
+    heroImage: "/guides/the-bear-house-linen-chinos-oxford-guide.webp",
     seo: {
       title: "The Bear House Offers — Linen Shirts, Chinos & Polo Guide (2026)",
       description: "The Bear House codes: BEAR10 (10% off shirts & polos), BUNDLE500 (₹500 off > ₹2,999), EXTRA5 (5% UPI/cards) — Indian men's linen & chinos at festival-sane prices.",
@@ -2200,7 +2200,7 @@ const RAW_GUIDES_F: StaticGuide[] = [
     storeSlug: "fuelone",
     category: "Supplements",
     featured: false,
-    heroImage: "/stores/fuelone.webp",
+    heroImage: "/guides/fuelone-protein-pea-isolate-guide.webp",
     seo: {
       title: "Fuel One Offers — Pea Isolate, Whey & Creatine Guide (2026)",
       description: "Fuel One offers: pea protein isolate, Impact Whey, Whey Iso-Max, creatine — the Indian plant-protein stack and bank deals.",
@@ -2286,7 +2286,7 @@ const RAW_GUIDES_G: StaticGuide[] = [
     storeSlug: "reliance-digital",
     category: "Electronics & Home Appliances",
     featured: false,
-    heroImage: "/stores/reliance-digital.png",
+    heroImage: "/guides/reliance-digital-appliance-laptop-offers-guide.webp",
     seo: {
       title: "Reliance Digital Offers — Laptops, Appliances, Bank Cards (2026)",
       description: "Reliance Digital deals: up to 10% bank cashback and 6-month no-cost EMI on laptops + HDFC payzapp points.",
@@ -2373,7 +2373,7 @@ const RAW_GUIDES_H: StaticGuide[] = [
     storeSlug: "healthkart",
     category: "Supplements",
     featured: true,
-    heroImage: "/stores/healthkart.png",
+    heroImage: "/guides/healthkart-whey-creator-and-stacking-guide.webp",
     seo: {
       title: "HealthKart Whey & Creatine — Honest ₹/gram Buyer's Guide (2026)",
       description: "Verified ₹/gram maths for MuscleBlaze Biozyme Whey 1kg at ₹3,999, plus creatine checks, authenticity steps, medical exclusions and HealthKart/Amazon CTAs. Reviewed 24 Nov 2026.",
@@ -2689,7 +2689,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "lenovo-india",
     category: "Technology & Lenovo",
     featured: true,
-    heroImage: "/stores/lenovo-india.png",
+    heroImage: "/guides/lenovo-india-laptop-offers-2026-guide.webp",
     seo: {
       title: "Lenovo India 2026 — Legion, ThinkPad, Ideapad & Yoga Buying Guide",
       description: "Lenovo India 2026: Legion gaming laptops, ThinkPad business, Yoga convertibles & IdeaPad everyday. Use-case matcher with honest trade-offs.",
@@ -2999,7 +2999,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "bliss-club",
     category: "Sports & Women's Activewear",
     featured: true,
-    heroImage: "/stores/bliss-club.webp",
+    heroImage: "/guides/blissclub-ultimate-leggings-fit-guide.webp",
     seo: {
       title: "BlissClub Ultimate Leggings Fit Guide — Sizing & Brand Truth",
       description: "BlissClub India: Ultimate leggings, flares, joggers. True sizing, true fit, honest comparison to Nike & Lululemon.",
@@ -3074,7 +3074,7 @@ const RAW_GUIDES_J: StaticGuide[] = [
     storeSlug: "amazon-in",
     category: "Finance & cards",
     featured: false,
-    heroImage: "/stores/amazon-in.png",
+    heroImage: "/guides/amazon-finance-card-smarts-buying-guide.webp",
     seo: {
       title: "Amazon India Finance & Card Smarts 2026 — ICICI Credit Card, Gift Cards, EMI, UPI",
       description: "The five ways to pay on Amazon India — the ICICI co-brand card, welcome bonus, UPI cashback, no-cost EMI and Amazon Pay gift cards — read as they are actually worded, not as the poster claims.",
@@ -3160,7 +3160,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
     storeSlug: "amazon-in",
     category: "Software & subscriptions",
     featured: false,
-    heroImage: "/stores/amazon-in.png",
+    heroImage: "/guides/amazon-prime-audible-kindle-subscriptions-guide.webp",
     seo: {
       title: "Amazon Prime, Audible & Kindle Unlimited India 2026 — Subscriptions, Trials & Renewed Guide",
       description:
@@ -3285,6 +3285,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "amazon-living-room-tv-echo-kindle-guide",
     storeSlug: "amazon-in",
+    heroImage: "/guides/amazon-living-room-tv-echo-kindle-guide.webp"
     category: "Electronics",
     featured: false,
     seo: {
@@ -3430,6 +3431,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "indian-skincare-actives-haircare-guide",
     storeSlug: "amazon-in",
+    heroImage: "/guides/indian-skincare-actives-haircare-guide.webp"
     category: "Beauty & Grooming",
     featured: false,
     seo: {
@@ -3654,6 +3656,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
   {
     slug: "how-to-match-laptop-model-codes-india",
     storeSlug: "lenovo-india",
+    heroImage: "/guides/how-to-match-laptop-model-codes-india.webp"
     category: "Electronics",
     seo: {
       title: "How to Match Laptop Model Codes Across Indian Stores | Durza",
