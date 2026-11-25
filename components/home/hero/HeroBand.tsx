@@ -24,11 +24,10 @@ export default function HeroBand({
     : [];
 
   return (
-    <div className="hx-band hx-rise" style={{ ["--i" as string]: 4 }}>
-      {popular.length > 0 && (
-        <>
-          <div className="hx-vline" aria-hidden="true" />
-          <div>
+    <>
+      <div className="hx-band hx-rise" style={{ ["--i" as string]: 4 }}>
+        {popular.length > 0 && (
+          <>
             <div className="hx-pop-label">Popular stores</div>
             <div className="hx-poprow">
               {popular.map((store) => (
@@ -43,13 +42,12 @@ export default function HeroBand({
                 </PendingLink>
               )}
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
 
       {items.length > 0 && (
-        <>
-          <div className="hx-vline" aria-hidden="true" />
+        <div className="hx-band-meta hx-rise" style={{ ["--i" as string]: 5 }}>
           <dl className="hx-statcol" style={{ margin: 0 }}>
             {items.map((s) => (
               <div key={s.label}>
@@ -68,8 +66,8 @@ export default function HeroBand({
               </div>
             ))}
           </dl>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Compass, Store, Flame, Zap } from "lucide-react";
+import { ArrowRight, Flame, Zap } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import HomeHero from "@/components/home/hero/HomeHero";
 import OfferRail from "@/components/home/OfferRail";
@@ -9,7 +9,7 @@ import { api } from "@/lib/api";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import { formatStoreDisplayName } from "@/lib/store-display";
 import { categoryNameMap, popularStores as pickPopularStores, toHeroDeal, toHeroStore } from "@/lib/home-hero";
-import { absoluteUrl, howToJsonLd, itemListJsonLd } from "@/lib/seo";
+import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
 import { REDESIGN_ENABLED } from "@/lib/flags";
 import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";

@@ -115,13 +115,13 @@ describe("homepage metadata", () => {
 });
 
 describe("homepage structured data", () => {
-  it("describes the rails and steps actually rendered", async () => {
+  it("describes the offers actually rendered", async () => {
     configureApi([offer("c1", "Test offer")]);
     const schemas = jsonLdSchemas(await HomePage() as ReactElement);
     const types = schemas.map((schema) => schema["@type"]);
 
     expect(types).toContain("ItemList");
-    expect(types).toContain("HowTo");
+    expect(types).not.toContain("HowTo");
     const itemList = schemas.find((schema) => schema["@type"] === "ItemList");
     expect(itemList?.itemListElement).toEqual([
       {
@@ -131,8 +131,6 @@ describe("homepage structured data", () => {
         url: expect.stringContaining("/coupons/c1"),
       },
     ]);
-    const howTo = schemas.find((schema) => schema["@type"] === "HowTo");
-    expect(howTo?.step).toHaveLength(3);
   });
 });
 
