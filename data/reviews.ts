@@ -723,6 +723,13 @@ export const REVIEWS: ReviewEntry[] = [
           "During dotandkey.com B2G2 events, focus on restocking products you already know work for you. Bundle deals are only good value when they match your actual routine.",
         ],
       },
+      {
+        heading: "Product-by-product routine comparison",
+        paragraphs: [
+          "Watermelon SPF 50+ gel: daily sunscreen for humid Indian weather; verify SPF/UVA protection and reapplication needs on the exact product.",
+          "Barrier Repair Ceramide cream: routine barrier support; patch test and avoid medical claims.",
+        ],
+      },
     ],
     faqs: [
       { question: "Is Dot & Key Watermelon Sunscreen good for oily skin?", answer: "Many users with oily or combination skin prefer its lightweight gel texture for humid weather. Individual tolerance varies, so patch test and monitor for irritation or breakouts." },

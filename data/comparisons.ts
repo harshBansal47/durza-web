@@ -1441,6 +1441,15 @@ export const COMPARISONS: CompareEntry[] = [
           "A 25 Nov 2026 evidence pass read the official Boult Z40 Pro page and Cashify comparison listings. Smartprix and Gadgets Now URLs returned no extractable SKU data in that pass, so they are not cited here. Sources conflict on the Z40 Pro driver size (13 mm claimed by Boult vs 10 mm listed by Cashify), and on current pricing: ₹1,299 for the Z40 Pro, ₹1,399 for the W50, ₹1,699 for the Airdopes 141 ANC and ₹2,199 for the Nord Buds 2r were the figures available, not confirmed live checkout quotes. We did not purchase, wear or acoustically test any of these earbuds; all dB, battery and latency figures are manufacturer or listing claims.",
         ],
       },
+      {
+        heading: "Recommendations by use case",
+        paragraphs: [
+          "Commuting and calls: prioritise call-microphone quality and ENC over headline ANC dB claims.",
+          "Music: prioritise battery, driver and codec; use ANC when steady fan/AC hum is the problem.",
+          "Gaming: latency matters; even sub-₹2,000 gaming modes trail wired earphones.",
+          "General: choose by fit, IP rating, warranty and price; ANC under ₹2,000 mostly reduces steady hum rather than road noise.",
+        ],
+      },
     ],
     storeActions: [
       { storeSlug: "boult", storeName: "Boult", bullets: ["Official store for Z40 Pro specs, current price and e-warranty.", "Use the Audio Decision Snippet on the store hub if you are unsure which model fits."] },
