@@ -193,7 +193,7 @@ export default function Hero({
                 </p>
 
                 <div className="flex flex-wrap gap-2">
-                  {popularStores.slice(0, 5).map((store) => (
+                  {popularStores.slice(0, 10).map((store) => (
                     <PendingLink
                       key={store.id}
                       href={`/stores/${store.slug}`}

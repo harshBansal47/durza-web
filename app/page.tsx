@@ -245,7 +245,7 @@ export default async function HomePage() {
     const store = heroStoreById.get(coupon.store_id);
     return store ? [toHeroDeal(coupon, store, heroCategoryNames)] : [];
   });
-  const heroPopularStores = pickPopularStores(heroStores, 5);
+  const heroPopularStores = pickPopularStores(heroStores, 10);
 
   const hasEditorial = Object.values(editorial).some((items) => items.length > 0);
   const isEmpty = coupons.total === 0 && stores.total === 0 && categories.total === 0 && !hasEditorial;

@@ -89,86 +89,92 @@ export default function OfferCard({
   }
 
   return (
-    <article className="group flex h-full flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs transition-all hover:border-slate-300 hover:shadow-md">
-      {brand ? <OfferBrandMark brand={brand} /> : null}
-      <OfferEvidence
-        typeLabel={typeLabelOverride ?? (isCoded ? offerTypeLabel("coupon_code") : offerTypeLabel("no_code_deal"))}
-        lastChecked={lastChecked}
-      />
-      {/* Top row — discount anchor pill + live-verification pill, bookmark on the right */}
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <span
-            className={`inline-flex items-center rounded-md border px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider ${toneClasses}`}
-          >
-            {badge ?? (isCoded ? "OFFER" : "SITEWIDE DEAL")}
-          </span>
-          {expiringSoon ? (
-            <span className="hidden text-[11px] font-medium text-slate-400 sm:inline">
-              · ends in {days}d
-            </span>
-          ) : null}
-        </div>
-        {bookmarkId ? (
-          <CardSaveButton couponId={bookmarkId} compact />
+    
+<article className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-3 transition-all hover:border-slate-300 hover:shadow-sm">
+
+  {/* Brand + Save */}
+  <div className="flex items-center justify-between">
+    {brand ? <OfferBrandMark brand={brand} /> : <span />}
+
+    {bookmarkId ? (
+      <CardSaveButton couponId={bookmarkId} compact />
+    ) : null}
+  </div>
+
+  {/* Metadata */}
+  <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+    <OfferEvidence
+      typeLabel={typeLabelOverride ?? (isCoded
+        ? offerTypeLabel("coupon_code")
+        : offerTypeLabel("no_code_deal"))}
+      lastChecked={lastChecked}
+    />
+
+    <span className={`rounded-md border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide ${toneClasses}`}>
+      {badge ?? (isCoded ? "OFFER" : "SITEWIDE DEAL")}
+    </span>
+
+    {expiringSoon ? (
+      <span className="text-[10px] text-slate-400">
+        Ends in {days}d
+      </span>
+    ) : null}
+  </div>
+
+  {/* Title */}
+  <h3 className="mt-1.5 text-sm font-semibold leading-snug text-slate-900 transition-colors group-hover:text-indigo-600">
+    {title}
+  </h3>
+
+  {description ? (
+    <p className="mt-1 line-clamp-1 text-[11px] leading-snug text-slate-500">
+      {description}
+    </p>
+  ) : null}
+
+  {/* Actions */}
+  <div className="mt-2.5 flex items-center justify-between gap-2 border-t border-slate-100 pt-2">
+
+    {isCoded ? (
+      <button
+        type="button"
+        onClick={copyCode}
+        aria-label={copied ? "Code copied" : `Copy code ${code}`}
+        className="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-2 py-1.5 font-mono text-[10px] font-bold text-slate-800"
+      >
+        {copied ? (
+          <>
+            <Check className="h-3 w-3 text-emerald-600" />
+            Copied
+          </>
         ) : (
-          <span aria-hidden="true" className="h-8 w-8" />
+          <>
+            <Copy className="h-3 w-3" />
+            {code}
+          </>
         )}
-      </div>
+      </button>
+    ) : (
+      <span className="text-[10px] font-medium text-emerald-700">
+        Offer page
+      </span>
+    )}
 
-      {/* Title + eligibility context */}
-      <div className="min-w-0">
-        <h3 className="text-base font-semibold leading-snug text-slate-900 transition-colors group-hover:text-indigo-600">
-          {title}
-        </h3>
-        {description ? (
-          <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-500">{description}</p>
-        ) : null}
-      </div>
+    <a
+      href={trackedHref}
+      target="_blank"
+      rel="nofollow sponsored noopener noreferrer"
+      className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white hover:bg-slate-800"
+    >
+      {ctaLabel ?? (isCoded ? "Use Code" : "View Offer")}
+      {isCoded ? (
+        <ArrowUpRight className="h-3 w-3" />
+      ) : (
+        <ArrowRight className="h-3 w-3" />
+      )}
+    </a>
+  </div>
+</article>
 
-      {/* Bottom action bar — split code box + compact CTA */}
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-3.5">
-        {isCoded ? (
-          <button
-            type="button"
-            onClick={copyCode}
-            aria-label={copied ? "Code copied" : `Copy code ${code}`}
-            title="Copy code"
-            className="inline-flex items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50/80 px-3 py-1.5 font-mono text-xs font-bold text-slate-800 transition-colors hover:border-slate-400"
-          >
-            {copied ? (
-              <>
-                <Check aria-hidden="true" className="h-3.5 w-3.5 text-emerald-600" strokeWidth={2.5} />
-                <span className="text-emerald-700">Copied</span>
-              </>
-            ) : (
-              <>
-                <Copy aria-hidden="true" className="h-3.5 w-3.5 text-slate-500" strokeWidth={2} />
-                {code}
-              </>
-            )}
-          </button>
-        ) : (
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700">
-            <Zap aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-            Offer page
-          </span>
-        )}
-
-        <a
-          href={trackedHref}
-          target="_blank"
-          rel="nofollow sponsored noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-slate-800"
-        >
-          {ctaLabel ?? (isCoded ? "Use Code" : "View Offer")}
-          {isCoded ? (
-            <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-          ) : (
-            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
-          )}
-        </a>
-      </div>
-    </article>
   );
 }
