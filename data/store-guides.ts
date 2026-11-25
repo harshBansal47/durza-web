@@ -2999,7 +2999,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "bliss-club",
     category: "Sports & Women's Activewear",
     featured: true,
-    heroImage: "/guides/r-for-rabbit-baby-safety-guide.webp",
+    heroImage: "/guides/perfora-oral-care-electric-brush-guide.webp",
     seo: {
       title: "BlissClub Ultimate Leggings Fit Guide — Sizing & Brand Truth",
       description: "BlissClub India: Ultimate leggings, flares, joggers. True sizing, true fit, honest comparison to Nike & Lululemon.",
