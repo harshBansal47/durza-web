@@ -2737,7 +2737,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "asus",
     category: "Technology & ASUS",
     featured: true,
-    heroImage: "/stores/asus.svg",
+    heroImage: "/guides/asus-india-rog-tuf-zenbook-vhpbook-2026-guide.webp",
     seo: {
       title: "ASUS India 2026 — ROG, TUF, Zenbook, Vivobook Buying Guide",
       description: "ASUS India: ROG vs TUF, Zenbook OLED vs Vivobook — the Indian gamer, student and creative's honest guide to the 2026 range.",
@@ -2999,7 +2999,7 @@ const RAW_GUIDES_I: StaticGuide[] = [
     storeSlug: "bliss-club",
     category: "Sports & Women's Activewear",
     featured: true,
-    heroImage: "/guides/shop-tupperware-kitchen-storage-guide.webp",
+    heroImage: "/guides/r-for-rabbit-baby-safety-guide.webp",
     seo: {
       title: "BlissClub Ultimate Leggings Fit Guide — Sizing & Brand Truth",
       description: "BlissClub India: Ultimate leggings, flares, joggers. True sizing, true fit, honest comparison to Nike & Lululemon.",
