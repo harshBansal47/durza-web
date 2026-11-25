@@ -44,7 +44,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "nitro",
-    image: "/images/acer/nitro.jpg",
+    image: "/images/acer/nitro.webp",
     alt: "Acer Nitro gaming laptop powered by NVIDIA GeForce RTX graphics",
     headline: "Power-Packed Deals on Nitro Gaming Laptops",
     points: [
@@ -60,7 +60,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "swift",
-    image: "/images/acer/swift.jpg",
+    image: "/images/acer/swift.webp",
     alt: "Acer Swift Go 14 AI ultrabook with OLED display",
     headline: "Sleek. Stylish. Powered by AI.",
     points: [
