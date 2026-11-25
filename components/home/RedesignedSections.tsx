@@ -29,14 +29,6 @@ const GUIDE_CHIPS: { id: TopicId; label: string }[] = [
   { id: "tech", label: "Tech and Gadgets" },
 ];
 
-const START_PATHS = [
-  { href: "#offers", label: "SAVE NOW", title: "Grab a coupon or deal", meta: "Codes checked by us", tone: "orange" },
-  { href: "#guides", label: "LEARN FIRST", title: "Read a buying guide", meta: "Know what matters before you pay", tone: "blue" },
-  { href: "#compare", label: "CAN'T DECIDE", title: "Compare two or three", meta: "Side-by-side, with a verdict", tone: "teal" },
-  { href: "#reviews", label: "NEED PROOF", title: "See a hands-on review", meta: "Honest, tested, dated", tone: "violet" },
-  { href: "#collections", label: "JUST SHOW ME", title: "Shop a ready-made set", meta: "Curated product picks", tone: "green" },
-] as const;
-
 function formatChecked(iso: string | null | undefined): string {
   if (!iso) return "Check date not listed";
   const date = new Date(iso);

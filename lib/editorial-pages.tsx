@@ -8,6 +8,8 @@ import { staticGuideBySlug } from "@/data/store-guides";
 import { getComparisonBySlug } from "@/data/comparisons";
 import StaticGuidePage, { staticGuideMetadata } from "@/components/guides/StaticGuidePage";
 import { getGuideCoverImage } from "@/lib/guide-cover";
+import GuideDocumentPage from "@/components/guides/redesign/GuideDocumentPage";
+import { getGuideDocument } from "@/guide-documents";
 
 function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null, title?: string, summary?: string) {
   const guide = type === "guide" ? staticGuideBySlug(slug) : undefined;
@@ -80,6 +82,8 @@ export async function editorialMetadata(type: EditorialType, slug: string): Prom
 }
 
 export async function renderEditorialPage(type: EditorialType, slug: string) {
+  const document = type === "guide" ? getGuideDocument(slug) : undefined;
+  if (document) return <GuideDocumentPage doc={document} />;
   if (type === "comparison") {
     const entry = getComparisonBySlug(slug);
     if (entry) {

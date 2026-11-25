@@ -16,6 +16,8 @@ import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { toolHref } from "@/data/store-glossary";
 import { getGuideCoverImage } from "@/lib/guide-cover";
+import GuideDocumentPage from "@/components/guides/redesign/GuideDocumentPage";
+import { getGuideDocument } from "@/guide-documents";
 
 /**
  * Renders a statically authored buying guide — used only when the DB editorial
@@ -106,6 +108,16 @@ export default function StaticGuidePage({ guide }: { guide: StaticGuide }) {
   const contentAdSlot = process.env.NEXT_PUBLIC_ADSENSE_CONTENT_SLOT;
   const topAdSlot = process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP || BRAND.adsenseSlots.top || contentAdSlot;
   const endAdSlot = process.env.NEXT_PUBLIC_ADSENSE_SLOT_END || BRAND.adsenseSlots.end || contentAdSlot;
+
+  const redesigned = getGuideDocument(guide.slug);
+  if (redesigned) {
+    return (
+      <>
+        <StaticGuideJsonLd guide={guide} />
+        <GuideDocumentPage doc={redesigned} />
+      </>
+    );
+  }
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
