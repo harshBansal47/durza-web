@@ -3,88 +3,105 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "how-durza-verifies-offers-methodology-2026",
   url: "https://durza.in/guides/how-durza-verifies-offers-methodology-2026",
-  title: "How Durza verifies offers — our crawl, restore and audit methodology (2026)",
+  title: "How Durza Verifies Offers (2026): Methodology and Limits",
   description:
-    "How we really check offers at Durza — crawl pipeline, eligibility parse, vip-store routing, restore rules, audit thresholds — published for readers, contributors and partners.",
-  researchReviewedDate: null,
-  evidenceBadges: [],
+    "How Durza approaches offer verification: crawl and parse signals, click-through checks, manual review, and clear limits. What 'verified' means, what it does not mean, and how to check before paying.",
+  researchReviewedDate: "26 Nov 2026",
+  evidenceBadges: ["Methodology guide", "No live offer claims"],
   audience: {
     bestFor: [
-      "Knowledge consumers, affiliate partners and journalists verifying our offer data — and any buyer wondering if 'verification' at Durza means what it says on the tin.",
+      "Readers who want to understand how Durza checks offers and what verification can and cannot guarantee.",
+      "Partners, contributors, or shoppers evaluating whether to trust a Durza offer label.",
     ],
-    skipIf: [],
+    skipIf: [
+      "You need a guarantee that any specific offer will work for your account/cart — always verify in checkout.",
+    ],
   },
   byline: {
-    author: "Durza Editors",
+    author: "Harsh Bansal",
     role: "Senior software engineer · 8+ years in technology",
     published: "14 Nov 2026",
-    updated: "14 Nov 2026",
-    factsChecked: "14 Nov 2026",
+    updated: "26 Nov 2026",
+    factsChecked: "26 Nov 2026",
     bio: "Harsh builds and audits data-driven products. On Durza he reviews the research method, the comparison logic and the numbers behind each recommendation — so a verdict is something you can check, not just something you are told.",
     methodHref: "/methodology",
   },
   quickAnswer: {
-    question: "The short answer",
+    question: "What does 'verified' mean at Durza?",
     answer:
-      "Durza runs a storefront-aware crawl → eligibility parse → click-through verification pipeline that manually de-lists expired offers every 7 days and automates eligibility hygiene for the rest.",
-    jumpHref: "#why-we-publish",
-    jumpLabel: "Why we publish the pipeline instead of hiding it",
+      "A verified offer has passed Durza's available checks at the time of review, such as source parsing, click-through/routing checks, and eligibility review where possible. It does not guarantee the offer will work for every user, cart, card, location, or time. Always confirm the final offer in the official checkout before paying.",
+    jumpHref: "#checklist",
+    jumpLabel: "See verification limits",
   },
   ctas: [],
   methodNote:
-    "Authored from Durza internal pipeline docs (backend crawlers, eligibility request matrices, click audit using /click_id, India-bot fingerprinting) – 14 Nov 2026.",
-  scenarios: null,
+    "This page describes Durza's verification approach at a high level. It does not publish internal secrets, private thresholds, or guarantees. Specific offers can change after review; checkout is the final source of truth.",
+  scenarios: [
+    {
+      heading: "Before clicking: check the label context",
+      body: "Look for the offer's checked date, eligibility notes, and any caveats. A code or deal without clear eligibility context should be treated as unverified until you confirm it.",
+      icon: null,
+    },
+    {
+      heading: "At checkout: confirm the actual benefit",
+      body: "The merchant checkout is the source of truth. Confirm the discount/cashback applies to your exact cart, account, card, and location before paying.",
+      icon: null,
+    },
+    {
+      heading: "When something fails: treat it as stale",
+      body: "If an offer does not apply, it may be expired, targeted, out of stock, or ineligible. Do not force a purchase based on an old listing; re-check the current terms.",
+      icon: null,
+    },
+  ],
   skuTable: {
-    headers: ["Step", "What happens", "Output state"],
+    headers: ["Step", "What Durza tries to do", "What it does not guarantee"],
     rows: [
-      [
-        "Crawl",
-        "Bot fetches offer page + card-check tags via product-page parser; multiparameter queries tag each sitefront (e.g. sAmazon.in Sale, Flipkart Cat)",
-        "rows stored with raw HTML snippet + timestamp",
-      ],
-      [
-        "Eligibility parse",
-        "Rules engine extracts eligible slabs: min spend, max cap, applicable card, EMI excluded, expired sale.",
-        "normalized fields: eligibility_slab, eligibility_min, eligibility_credit, eligibility_emi",
-      ],
-      [
-        "Click-through audit",
-        "Our system fires through /go/{storeSlug}, records click_id + HTTP status, sets last_verified_at if 200",
-        "fresh 'live' rows eligible for re-cut; failures flagged for review",
-      ],
-      [
-        "Manual review",
-        "A human opens the affected offer URL and accepts/rejects the live offer; revalidates eligibility that parser missed",
-        "Final state: verified / unverified / de-listed",
-      ],
+      ["Source/crawl", "Collect offer signals from merchant/storefront sources", "That the source is complete, current, or unchanged after capture"],
+      ["Parse/normalize", "Extract offer details like code, discount, eligibility and expiry where available", "That every eligibility rule or exclusion was captured correctly"],
+      ["Click-through/routing check", "Confirm the offer route resolves and the destination is reachable", "That the offer applies to your account, cart, or payment method"],
+      ["Manual/editorial review", "Review unclear or high-impact claims before publishing", "That a human can catch every merchant-side change or edge case"],
+      ["Recheck/de-list", "Update or remove offers when evidence shows they are stale or invalid", "Real-time removal the moment a merchant changes an offer"],
     ],
   },
-  checkoutSteps: null,
-  checkoutNote: null,
+  checkoutSteps: [
+    "Check the offer's date, eligibility notes, and source/context on Durza.",
+    "Open the official merchant page through the offer link and confirm the exact product/cart.",
+    "Apply the code or check the offer in checkout and confirm the final payable amount.",
+    "Review shipping, fees, taxes, return/refund and card/wallet eligibility before paying.",
+    "If the offer does not apply, do not count the saving; treat the listing as stale or ineligible.",
+  ],
+  checkoutNote:
+    "Durza verification reduces risk but does not replace checkout verification. The merchant's final checkout screen and current terms control eligibility.",
   verifiedFacts: null,
-  verificationParagraph: null,
-  verificationNotes: null,
-  exploreLinks: null,
+  verificationParagraph:
+    "This methodology page was reviewed on 26 Nov 2026. It describes Durza's general verification approach and limits. It intentionally avoids invented performance metrics. For any specific offer, confirm the current merchant terms and checkout result before purchasing.",
+  verificationNotes: [
+    "No specific offer, coupon code, or discount is claimed as active on this page.",
+    "Verification is time-bound: merchant offers can change after review.",
+    "Checkout eligibility can vary by account, cart, location, device, card, wallet, or merchant rules.",
+  ],
+  exploreLinks: [
+    { href: "/guides", label: "All Durza guides" },
+    { href: "/stores", label: "Browse stores" },
+  ],
   faqs: [
     {
-      question: "Does Durza really verify every offer?",
-      answer: "Every eligible offer (requires at least one click-through and a parse-eligibility match pass). Offers fail at one or the other roughly 30% of the time.",
-    },
-    {
-      question: "How long does verification take?",
-      answer: "Automated crawl fires every 6 hours; click-through audit runs within an hour of publishing; manual review cycles rotate daily offers. Verify-to-Publish time is ~15-45 minutes per offer.",
-    },
-    {
-      question: "Why should I trust Durza over sale-catalogs?",
-      answer: "Durza adds human elegance — automated parse cascades produce 'not definitely expired' badge = safe bet sizing to the margin where we'll simply not say 'Verified' incorrectly.",
-    },
-    {
-      question: "What about Amazon?",
+      question: "Does Durza verify every offer?",
       answer:
-        "Amazon offers require yet deeper audits — cart-rate verification is mandatory; Amazon's dynamic prices rotate weekly, so an 'offer' verified today carries limited temporal distance vs a new offer from the next catalog drop.",
+        "Durza aims to review offers before publishing or labeling them, but verification coverage and depth can vary by source, offer type, and available evidence. Treat verification as a confidence signal, not a guarantee, and always confirm in checkout.",
+    },
+    {
+      question: "Why can a verified offer still fail?",
+      answer:
+        "Merchant offers can expire, become targeted, exclude certain products/carts/cards, run out of stock, or change after review. Checkout is the final authority for whether an offer applies to you.",
+    },
+    {
+      question: "What should I do if an offer doesn't work?",
+      answer:
+        "Do not complete the purchase assuming the discount will apply later. Check the offer terms, eligibility, and cart details. If it still fails, treat it as ineligible or stale and look for a currently applicable alternative.",
     },
   ],
   editorialNote:
-    "Prices and product features can change. Check the provider’s current terms before purchasing. Recommendations are editorial; paid placements are labeled.",
+    "Methodology reviewed 26 Nov 2026. This page describes process and limits, not a live offer guarantee. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],
 };

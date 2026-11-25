@@ -58,6 +58,18 @@ export async function editorialMetadata(type: EditorialType, slug: string): Prom
   if (!content && type === "guide") {
     const staticGuide = staticGuideBySlug(slug);
     if (staticGuide) return staticGuideMetadata(staticGuide);
+    // Statically authored guide documents (guide-documents/*.ts) render through
+    // this route as well — serve their metadata from the document itself.
+    const doc = getGuideDocument(slug);
+    if (doc) {
+      return {
+        title: doc.title,
+        description: doc.description,
+        alternates: { canonical: doc.url },
+        robots: { index: true, follow: true },
+        openGraph: { title: doc.title, description: doc.description, url: doc.url, type: "article" },
+      };
+    }
   }
   if (!content) return { title: "Content not found", robots: { index: false, follow: false } };
   const canonical = content.canonical_url ?? editorialPath(content);

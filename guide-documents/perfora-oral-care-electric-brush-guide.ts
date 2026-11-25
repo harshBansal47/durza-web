@@ -1,0 +1,211 @@
+import type { GuideDocument } from "@/lib/guide-document";
+
+export const guideDocument: GuideDocument = {
+  slug: "perfora-oral-care-electric-brush-guide",
+  url: "https://durza.in/guides/perfora-oral-care-electric-brush-guide",
+  title: "Perfora Oral Care (2026): Brush Specs, Head Costs and a 30-Day Routine",
+  description:
+    "Official brush specifications and prices, an ADA-aligned safety checklist and the real annual cost of replacement heads. Peroxide percentages, AI coaching and the old subscriptions claim could not be verified.",
+  researchReviewedDate: "26 Nov 2026",
+  evidenceBadges: ["Official product listings", "ADA guidance", "Head-cost model shown", "Clinical claims not verified"],
+  audience: {
+    bestFor: [
+      "Buyers comparing Perfora's battery, sonic and oscillating brushes on published specs and replacement-head cost rather than marketing badges.",
+      "People building a modest twice-daily routine who want a 30-day plan with clear stop rules for sensitivity.",
+    ],
+    skipIf: [
+      "Anyone needing treatment for gum disease, persistent sensitivity or stained restorations — see a dentist; cosmetics and brushes are not a substitute for care.",
+      "Buyers relying on the earlier guide's 22% vs 35% peroxide comparison, 'AI coaching' claim or under-₹200/month subscription — none was verified.",
+    ],
+  },
+  byline: {
+    author: "Harsh Bansal",
+    role: "Senior software engineer · 8+ years in technology",
+    published: "16 Nov 2026",
+    updated: "26 Nov 2026",
+    factsChecked: "26 Nov 2026",
+    bio: "Harsh builds and audits data-driven products. On Durza he reviews the research method, the comparison logic and the numbers behind each recommendation — so a verdict is something you can check, not just something you are told.",
+    methodHref: "/methodology",
+  },
+  quickAnswer: {
+    question: "Which Perfora brush is worth buying, and what do replacement heads really cost?",
+    answer:
+      "The official electric-toothbrush collection listed the Smart Sonic at ₹2,999 (MRP ₹3,499), the pressure-sensor oscillating brush at ₹3,499 (MRP ₹3,999), the basic oscillating brush at ₹1,850 and the M001 battery brush at ₹1,199 on 26 Nov 2026. The Smart Sonic product page states 24,000–48,000 strokes/min, IPX7, roughly 60 days per charge, indicator bristles and a two-minute timer with 30-second area reminders. Using ADA's 3–4 month replacement guidance and a pack-of-two at ₹449, M001 rechargeable heads cost ₹898/year — about ₹74.83/month. The older peroxide percentages, AI coaching and subscription-price claims were not verified.",
+    jumpHref: "#scenarios",
+    jumpLabel: "See the routine and head-cost model",
+  },
+  ctas: [
+    {
+      href: "https://track.vcommission.com/click?campaign_id=11206&pub_id=133499&url=https%3A%2F%2Fperforacare.com%2F&p1=guide_perfora-oral-care-electric-brush-guide",
+      label: "Check the official Perfora collection",
+      primary: true,
+    },
+    { href: "/stores/perfora-care", label: "Perfora store hub on Durza" },
+    { href: "/topics/health", label: "Health topic hub" },
+  ],
+  methodNote:
+    "We read the official Perfora homepage, electric-toothbrush collection and indexed official product pages, plus ADA toothbrush guidance, on 26 Nov 2026. Some product pages returned rate-limit errors, so specifications were read from indexed official snippets. We did not brush, test, or clinically evaluate any product; 'clinically proven' badges are brand claims.",
+  scenarios: [
+    {
+      heading: "Start simple: M001 battery brush at ₹1,199",
+      body: "The official collection lists Model 001 (battery operated) at ₹1,199 against ₹1,299 MRP, with two brush heads and two modes. It is the lowest-cost way to test whether an electric brush suits you. Replacement heads are listed at ₹449 for two, which drives the annualised cost model below.",
+      icon: null,
+    },
+    {
+      heading: "Step up: Smart Sonic at ₹2,999",
+      body: "The Smart Sonic is listed at ₹2,999 (MRP ₹3,499) with a travel case, four brush heads and four modes. Its official page states 24,000–48,000 strokes/min, IPX7 waterproofing, roughly 60 days battery per charge, indicator bristles that signal replacement at about three months, and a two-minute timer with 30-second area reminders. We did not measure strokes, battery life or waterproofing.",
+      icon: null,
+    },
+    {
+      heading: "Pressure control: oscillating brush at ₹3,499",
+      body: "The 'Pressure Sensor – Oscillating Electric Toothbrush' is listed at ₹3,499 (MRP ₹3,999) with three cleaning modes and a case. A pressure alert is useful because the ADA advises soft bristles and gentle pressure to reduce gingival injury. We did not verify the sensor's threshold or accuracy.",
+      icon: null,
+    },
+    {
+      heading: "The 30-day routine, with stop rules",
+      body: "Days 1–3: brush twice for two minutes with the supplied soft brush, no whitening product. Days 4–7: add a water flosser at night if you already own one; the official homepage lists the Smart Dental Flosser at ₹2,799 (MRP ₹3,999). Days 8–14: introduce a whitening serum twice weekly, not daily, and stop if sensitivity appears. Days 15–30: continue the full routine. Persistent sensitivity, bleeding gums or pain means see a dentist, not add another product.",
+      icon: null,
+    },
+  ],
+  skuTable: {
+    headers: ["Product (official listing, 26 Nov 2026)", "Listed price / MRP", "Stated features", "Editorial read"],
+    rows: [
+      ["Smart Sonic Electric Toothbrush", "₹2,999 / ₹3,499", "4 heads, 4 modes, travel case; page states 24,000–48,000 strokes/min, IPX7, ~60-day battery", "Feature-rich starting point; strokes/min is a brand figure"],
+      ["Pressure Sensor Oscillating Toothbrush", "₹3,499 / ₹3,999", "3 modes, case, pressure sensor (brand claim)", "Consider if you brush too hard; sensor not independently tested"],
+      ["Oscillating Electric Toothbrush", "₹1,850 / ₹1,999", "1 head, 2 modes, 360° rotating head", "Mid-price alternative without the sensor"],
+      ["M001 Battery Operated", "₹1,199 / ₹1,299", "2 heads, 2 modes, charcoal bristles", "Lowest entry cost for trying an electric brush"],
+      ["Purple Serum (30 ml)", "₹769 / ₹1,098", "Brand-stated '2X whiter' and 'enamel safe'", "Cosmetic claim; peroxide percentage not verified"],
+      ["Smart Dental Flosser", "₹2,799 / ₹3,999", "5 modes, 5 nozzles (indexed official listing)", "Optional step; learn the angle to avoid splashing"],
+    ],
+  },
+  checkoutSteps: [
+    "Choose on features you will use: timer and soft bristles first, pressure alert second, stroke count last. The ADA says both manual and powered brushes can remove plaque effectively.",
+    "Check the listed price and MRP on the exact variant. The collection showed several models from ₹949 to ₹3,499; colours and packs can differ.",
+    "Price the heads before the handle. Formula: heads per year = 12 ÷ months per head. At ADA's three-month interval that is four heads/year; a pack of two costing ₹449 means two packs, or ₹898/year.",
+    "Compare pack sizes. Oscillating heads were listed at ₹499 for two and Smart Sense heads at ₹649 for two; a cheaper handle can be dearer to maintain if its heads cost more.",
+    "Do not buy every whitening product at once. Start with a brush, add one adjunct after a week, and stop anything that causes sensitivity.",
+    "If an offer claims a subscription or guaranteed monthly price, verify the actual charge at checkout. The earlier 'under ₹200/month' figure was not confirmed on official pages.",
+  ],
+  checkoutNote:
+    "Prices are official-listing snapshots checked 26 Nov 2026; some product pages were rate-limited and read via indexed official snippets. Durza did not test brushes, serums or flossers, and makes no dental claims.",
+  verifiedFacts: {
+    kicker: "Perfora · checked 26 Nov 2026 · checked 26 Nov 2026",
+    title: "What the official pages and ADA say",
+    facts: [
+      {
+        label: "Smart Sonic published specifications.",
+        detail:
+          "The official product page states 24,000–48,000 strokes/min, smart indicator bristles signalling replacement at roughly three months, IPX7 waterproofing, about 60 days of battery per charge and a two-minute timer with 30-second area reminders. These are brand-stated specifications, not Durza measurements.",
+        href: "https://perforacare.com/products/smart-sonic-electric-toothbrush-rechargeable-edition",
+      },
+      {
+        label: "Head packs are listed at ₹449–₹649 for two.",
+        detail:
+          "The official electric-toothbrush collection listed M001 rechargeable heads at ₹449 for two, oscillating heads at ₹499 for two and Smart Sense oscillating heads at ₹649 for two on 26 Nov 2026.",
+        href: "https://perforacare.com/collections/electric-toothbrush",
+      },
+      {
+        label: "ADA: two minutes twice daily, soft bristles.",
+        detail:
+          "The American Dental Association's toothbrush guidance recommends brushing two minutes twice a day with a soft-bristled brush and gentle pressure, and states that both manual and powered brushes can be effective.",
+        href: "https://ada.org/resources/ada-library/oral-health-topics/toothbrushes",
+      },
+      {
+        label: "ADA: replace every three to four months.",
+        detail:
+          "The ADA recommends replacing toothbrushes approximately every three to four months, or sooner if bristles are matted or frayed. That is the basis of the head-cost model here.",
+        href: "https://ada.org/resources/ada-library/oral-health-topics/toothbrushes",
+      },
+      {
+        label: "Whitening percentages could not be verified.",
+        detail:
+          "The older guide compared 22% and 35% hydrogen peroxide and claimed potassium nitrate for sensitivity. We found official pages showing 'peroxide-free' on some products and enamel-safe/whitening claims on others, but no verified peroxide concentration for the serum, so no percentage is repeated.",
+        href: "https://perforacare.com/products/purple-magic-whitening-serum",
+      },
+      {
+        label: "ADA Seal status was not verified for Perfora.",
+        detail:
+          "The ADA explains that its Seal requires scientific evidence reviewed by the Council on Scientific Affairs. We did not confirm a Perfora listing, so no Seal is claimed; brand 'clinically proven' badges are treated as brand claims.",
+        href: "https://www.ada.org/resources/research/science/ada-seal-of-acceptance",
+      },
+    ],
+    note: "Product pages were intermittently rate-limited; specifications and prices were read from official collection pages and indexed official listings on 26 Nov 2026. Nothing was purchased or clinically tested.",
+    methodHref: "/methodology",
+  },
+  verificationParagraph:
+    "We checked official Perfora collection, product and homepage content and ADA toothbrush guidance on 26 Nov 2026. Prices and device specifications are attributed to Perfora; replacement-head costs are our arithmetic on the official pack prices and the ADA's three-to-four-month interval. Peroxide concentrations, AI coaching, subscription pricing and independent clinical results could not be verified and are not claimed. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you.",
+  verificationNotes: [
+    "Head-cost formula: 12 months ÷ 3 months per head = 4 heads/year; 4 ÷ 2 per pack = 2 packs; M001 rechargeable: 2 × ₹449 = ₹898/year ≈ ₹74.83/month.",
+    "Oscillating heads: 2 × ₹499 = ₹998/year ≈ ₹83.17/month. Smart Sense heads: 2 × ₹649 = ₹1,298/year ≈ ₹108.17/month. All are official listed pack prices, not subscription rates.",
+    "Sonic strokes per minute, battery days and IPX7 rating are brand-stated figures; Durza did not instrument a brush.",
+    "Whitening products are cosmetics. Do not ingest them, and stop use if sensitivity or irritation appears; consult a dentist for persistent symptoms.",
+    "The older 40,000 strokes/min vs 25,000 comparison, 22% vs 35% peroxide claim and 'AI coaching' description were not verified and are excluded.",
+    "Brush heads should not be shared, and bristles should be rinsed and air-dried after use, per ADA care guidance.",
+  ],
+  exploreLinks: [
+    { href: "/topics/health", label: "Health topic hub" },
+    { href: "/categories/beauty", label: "Beauty & Grooming category hub" },
+    { href: "/stores/perfora-care", label: "Perfora store hub" },
+  ],
+  faqs: [
+    {
+      question: "How is the Perfora smart brush better than a basic electric brush?",
+      answer:
+        "On the official page, the Smart Sonic adds four modes, a case, indicator bristles, a two-minute timer with 30-second area reminders, IPX7 and roughly 60 days of battery. We could not verify 'AI coaching' or a 40,000 vs 25,000 strokes/min comparison; the published range is 24,000–48,000 strokes/min.",
+    },
+    {
+      question: "What do replacement heads cost per month?",
+      answer:
+        "Using ADA's three-month replacement guidance: four heads a year, or two packs of two. At ₹449 per M001 rechargeable pack that is ₹898/year, about ₹74.83/month. At ₹499 for oscillating heads it is about ₹83.17/month. These are our calculations, not a subscription price.",
+    },
+    {
+      question: "Is the whitening serum safe?",
+      answer:
+        "The official page calls it enamel-safe, but we could not verify a peroxide concentration or independent clinical data. The older 22% vs 35% comparison is not repeated. Use as directed, do not ingest, and stop if you develop sensitivity.",
+    },
+    {
+      question: "How often should I change heads?",
+      answer:
+        "The ADA says every three to four months, or sooner if bristles are frayed. Perfora's indicator bristles are described as signalling replacement at about three months; that is a brand feature, not an independent measurement.",
+    },
+    {
+      question: "Did Durza test any Perfora product?",
+      answer:
+        "No. We compared published listings and ADA guidance on 26 Nov 2026. All costs and schedules are shown with inputs and assumptions.",
+    },
+  ],
+  editorialNote:
+    "Research reviewed 26 Nov 2026. Prices and specifications are dated snapshots; some product pages were rate-limited and read via indexed official results. Durza may earn a commission on tracked links at no extra cost to you.",
+  sources: [
+    {
+      label: "Official Perfora homepage (prices and collection links)",
+      href: "https://perforacare.com/",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "Official electric toothbrush collection",
+      href: "https://perforacare.com/collections/electric-toothbrush",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "Official Smart Sonic product page (indexed)",
+      href: "https://perforacare.com/products/smart-sonic-electric-toothbrush-rechargeable-edition",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "Official Purple Serum product page",
+      href: "https://perforacare.com/products/purple-magic-whitening-serum",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "ADA toothbrush guidance",
+      href: "https://ada.org/resources/ada-library/oral-health-topics/toothbrushes",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "ADA Seal of Acceptance criteria",
+      href: "https://www.ada.org/resources/research/science/ada-seal-of-acceptance",
+      checkedAt: "26 Nov 2026",
+    },
+  ],
+};

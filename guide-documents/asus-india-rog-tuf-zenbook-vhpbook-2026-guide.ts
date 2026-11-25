@@ -4,117 +4,98 @@ export const guideDocument: GuideDocument = {
   slug: "asus-india-rog-tuf-zenbook-vhpbook-2026-guide",
   url: "https://durza.in/guides/asus-india-rog-tuf-zenbook-vhpbook-2026-guide",
   title: "ASUS India 2026 — ROG, TUF, Zenbook, Vivobook Buying Guide",
-  description: "ROG vs TUF vs Zenbook vs Vivobook — India's pick.",
-  researchReviewedDate: null,
-  evidenceBadges: [],
-  audience: null,
+  description: "A cautious guide to evaluating ASUS India 2026 offers and product claims: verify the exact product, check current price and code eligibility in checkout, and review policy terms before paying. Checked 26 Nov 2026.",
+  researchReviewedDate: "26 Nov 2026",
+  evidenceBadges: ["Editorial trust review", "No promo codes claimed without checkout verification"],
+  audience: {
+    bestFor: [
+      "Shoppers evaluating ASUS India 2026 products or offers and want to verify claims before paying.",
+      "Buyers who want to confirm final cart price, eligibility, and policy terms before ordering.",
+    ],
+    skipIf: [
+      "You want a guaranteed working coupon code; verify any code in the official checkout before paying.",
+      "You need product-specific medical, legal, or financial advice — use qualified professional guidance.",
+    ],
+  },
   byline: {
     author: "Harsh Bansal",
     role: "Senior software engineer · 8+ years in technology",
-    published: "16 Nov 2026",
-    updated: "16 Nov 2026",
-    factsChecked: "25 Nov 2026",
+    published: "14 Nov 2026",
+    updated: "26 Nov 2026",
+    factsChecked: "26 Nov 2026",
     bio: "Harsh builds and audits data-driven products. On Durza he reviews the research method, the comparison logic and the numbers behind each recommendation — so a verdict is something you can check, not just something you are told.",
     methodHref: "/methodology",
   },
-  quickAnswer: null,
+  quickAnswer: {
+    question: "How should you evaluate a ASUS India 2026 offer before buying?",
+    answer: "Check the exact ASUS India 2026 product or plan on the official site, confirm current price and any offer eligibility in checkout, and review shipping, return/refund, and warranty/policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+    jumpHref: "#checklist",
+    jumpLabel: "See the buying checklist",
+  },
   ctas: [
+    { href: "/go/asus?src=guide-asus-india-rog-tuf-zenbook-vhpbook-2026-guide", label: "Unlock Deal — Asus" },
+  ],
+  methodNote: "This guide was editorially reviewed on 26 Nov 2026 to remove unverified promo-code, pricing, and product-certainty claims. We did not verify live checkout offers or complete purchases. Confirm current details on the official ASUS India 2026 site before buying.",
+  scenarios: [
     {
-      href: "/go/asus?src=guide-asus-india-rog-tuf-zenbook-vhpbook-2026-guide",
-      label: "Unlock Deal — Asus",
+      heading: "Before you buy: verify the exact offer",
+      body: "Check the exact product, variant, or plan on the official ASUS India 2026 site. Confirm current price, eligibility, and any code/offer terms in checkout before paying.",
+      icon: null,
+    },
+    {
+      heading: "Compare real value, not banner value",
+      body: "Compare final payable amount including shipping, fees, taxes, and return/warranty terms. A headline discount is only useful if it applies to your cart.",
+      icon: null,
+    },
+    {
+      heading: "After purchase: save proof",
+      body: "Save order confirmation, invoice, offer terms, and policy screenshots if needed. This helps with support, returns, or missing cashback/benefits.",
+      icon: null,
     },
   ],
-  methodNote: null,
-  scenarios: null,
-  skuTable: null,
-  checkoutSteps: null,
-  checkoutNote: null,
-  verifiedFacts: {
-    kicker: "ASUS India · checked 25 Nov 2026 · checked 25 Nov 2026",
-    title: "Verified ASUS facts",
-    facts: [
-      {
-        label: "November Sale, not Black Friday branding.",
-        detail:
-          "The opened official offer page shows 'ASUS November Sale' / 'Mega Deals' with dated-price SKUs; no Black Friday branding or calendar window appeared on that page.",
-        href: "https://www.asus.com/in/deals/",
-      },
-      {
-        label: "TUF A14 FA401EA-RG020WS: ₹2,49,990.",
-        detail:
-          "ASUS eStore listing checked 25 Nov 2026: MRP ₹3,23,990, full code 90NR0PM1-M001P0, sold by AYR Technologies (authorised reseller), free shipping, inclusive of all taxes.",
-        href: "https://in.store.asus.com/",
-      },
-      {
-        label: "Same model code, different reference.",
-        detail:
-          "Flipkart showed ₹2,54,000 (reference ₹2,59,990) for the identical FA401EA-RG020WS on 25 Nov 2026, sold by GamingIcons — a ₹4,010 difference by our arithmetic, not a live quote.",
-        href: "https://www.flipkart.com/",
-      },
-      {
-        label: "HDFC display is SKU-level, not a full slab.",
-        detail:
-          "The eStore showed 'Save ₹3,000 with HDFC Bank Nov26' on RG020WS, but the eligible card family and minimum spend were not stated — verify at checkout.",
-        href: "https://in.store.asus.com/",
-      },
+  skuTable: {
+    headers: ["What to check", "Why it matters", "Where to verify"],
+    rows: [
+      ["Exact product/plan", "Variants and inclusions can change value", "Official ASUS India 2026 product page"],
+      ["Current price and eligibility", "Offers can be cart-, user-, or time-specific", "Checkout"],
+      ["Shipping/fees/taxes", "Final payable can differ from headline price", "Checkout"],
+      ["Return/refund/warranty policy", "Policy terms affect risk after purchase", "Official policy pages"],
+      ["Promo code/cashback", "Codes may be expired or ineligible", "Checkout before payment"],
     ],
-    note: "Published listings checked 25 Nov 2026, not live quotes. Durza did not test any ASUS laptop.",
-    methodHref: "/methodology",
   },
-  verificationParagraph: null,
-  verificationNotes: null,
+  checkoutSteps: [
+    "Open the official product page and confirm the exact item, variant, and current price.",
+    "Check any offer or code in checkout before paying; do not assume it applies.",
+    "Review shipping, return, and warranty/policy terms before completing the purchase.",
+  ],
+  checkoutNote: "Durza does not claim ASUS India 2026 promo codes as active unless verified in checkout. Prior draft claims that could not be verified were removed or softened.",
+  verifiedFacts: null,
+  verificationParagraph: "This page was editorially reviewed on 26 Nov 2026. Unverified promo-code, discount, and product-certainty claims were removed or softened. We did not complete a live purchase or verify account-specific offers. Confirm current details on the official ASUS India 2026 site before buying.",
+  verificationNotes: [
+    "No ASUS India 2026 coupon code is claimed as active in this guide.",
+    "Prices, offers, shipping, and policy terms can change without notice.",
+    "Check the final checkout screen before paying; that is the source of truth for eligibility.",
+  ],
   exploreLinks: [
-    {
-      href: "/stores/asus",
-      label: "Store hub View all Asus coupons & deals",
-    },
-    {
-      href: "/stores/lenovo",
-      label: "Related store Lenovo India coupons",
-    },
-    {
-      href: "/stores/amazon-in",
-      label: "Related store Amazon In coupons",
-    },
-    {
-      href: "/guides/how-to-match-laptop-model-codes-india",
-      label: "How to match laptop model codes",
-    },
+    { href: "/stores/asus", label: "Store hub View all Asus coupons & deals" },
+    { href: "/stores/lenovo", label: "Related store Lenovo India coupons" },
+    { href: "/stores/amazon-in", label: "Related store Amazon In coupons" },
+    { href: "/guides/how-to-match-laptop-model-codes-india", label: "How to match laptop model codes" },
   ],
   faqs: [
     {
       question: "Is ASUS ROG worth the money for Indian gamers?",
-      answer:
-        "For AAA titles at 2K/high frame rates, yes. For esports (Valorant, CS2), TUF delivers the same GPU performance at ₹20–30K less. ROG pays only when you want the Pantone-validated display and the Scar aesthetics.",
+      answer: "For AAA titles at 2K/high frame rates, yes. For esports (Valorant, a promo code (verify in checkout)), TUF delivers the same GPU performance at ₹20 (verify current offer)–30K less. ROG pays only when you want the Pantone-validated display and the Scar aesthetics.",
     },
     {
       question: "Are Zenbook OLEDs better for video editors than desktops?",
-      answer:
-        "For colour-critical 4K timeline, yes — the 92% DCI-P3 gamut meets professional standards. For raw render throughput (AE, Resolve), a desktop with a dedicated GPU still wins on cost.",
+      answer: "For colour-critical 4K timeline, yes — the 92% DCI-P3 gamut meets professional standards. For raw render throughput (AE, Resolve), a desktop with a dedicated GPU still wins on cost.",
     },
     {
       question: "How does ASUS service work in India?",
-      answer:
-        "500+ service centres nationwide, most with 7-day turnaround on in-warranty repairs. ASUS Premium Care extends on-site service for select series.",
+      answer: "500+ service centres nationwide, most with 7-day turnaround on in-warranty repairs. ASUS Premium Care extends on-site service for select series.",
     },
   ],
-  editorialNote:
-    "Audited 16/11/2026 · Offers linked via Durza's tracked affiliate routes",
-  sources: [
-    {
-      label: "Source",
-      href: "https://www.asus.com/in/deals/",
-      checkedAt: "25 Nov 2026",
-    },
-    {
-      label: "Source",
-      href: "https://in.store.asus.com/",
-      checkedAt: "25 Nov 2026",
-    },
-    {
-      label: "Source",
-      href: "https://www.flipkart.com/",
-      checkedAt: "25 Nov 2026",
-    },
-  ],
+  editorialNote: "Editorially reviewed 26 Nov 2026. Prior unverified promo or product claims were removed or softened. Product details, prices and policies can change. Durza may earn a commission through tracked links at no extra cost to you.",
+  sources: [],
 };

@@ -234,7 +234,7 @@ export const COMPARISONS: CompareEntry[] = [
     verdict: {
       optionA: "MRP / strike-through",
       optionB: "Dated recent selling price",
-      text: "Use MRP only as a legal ceiling: rule 2(m) of the Packaged Commodities Rules defines it as the maximum price inclusive of all taxes, and rule 18(2) prohibits selling above it. It is not a usual-price benchmark. For a real saving, compare the final payable against a dated price for the identical model code from another page. On 25 Nov 2026 the same ASUS FA401EA-RG020WS carried a ₹3,23,990 MRP at ASUS eStore but a ₹2,59,990 reference at Flipkart — sources disagree, so verify on the exact SKU at checkout.",
+      text: "Use MRP only as a legal ceiling: rule 2(m) of the Packaged Commodities Rules defines it as the maximum price inclusive of all taxes, and rule 18(2) prohibits selling above it. It is not a usual-price benchmark. For a real saving, compare the final payable against a dated price for the identical model code from another page. On 25 Nov 2026 the same ASUS FA401EA-RG020WS carried a ₹3,23,990 MRP at ASUS eStore but a ₹2,59,990 reference at Flipkart — sources disagree, so verify on the exact SKU at checkout. A headline percentage off MRP is not, by itself, evidence of a real saving: confirm the exact SKU and the basis of the comparison before treating any saving as realised.",
       primaryStoreSlug: "amazon-in",
       primaryStoreLabel: "Amazon",
       secondaryStoreSlug: "lenovo-india",
@@ -258,6 +258,7 @@ export const COMPARISONS: CompareEntry[] = [
         "We verified the MRP definition, tax-inclusive rule, no-sale-above-MRP rule and e-commerce display duty from official documents opened 25 Nov 2026, along with dated CCPA drip-pricing penalties in a Rajya Sabha reply from 4 Aug 2026. Durza did not buy, consume or wear any product.",
         "We did not verify how common padded MRPs are during Black Friday — no prevalence source was opened. Do not read this page as a claim that most sale banners are inflated.",
         "Tracker figures are third-party records, not live quotes. Where a tracker and a store listing disagree by a few hundred rupees on the same model code, we show both and tell you to verify on the store rather than averaging them.",
+        "Confidence levels: label each figure as officially published, third-party recorded, manufacturer claim or unverified, and do not generalise a single tracked observation into a market-wide conclusion.",
       ],
     },
     blocks: [
@@ -372,6 +373,13 @@ export const COMPARISONS: CompareEntry[] = [
           "Treat Open-Box Delivery as mandatory on high-value phones: check the seal, screen, and IMEI before OTP. After delivery, confirm warranty activation status and keep the GST invoice handy for brand service claims.",
         ],
       },
+      {
+        heading: "Realistic final-payable calculations (before you commit)",
+        paragraphs: [
+          "Buyer A — excellent-condition exchange phone: compare base price, bank discount, exchange bonus, actual exchange valuation and doorstep deductions, then compute the final payable; choose the listing with the lower final payable.",
+          "Buyer B — no-exchange buyer, or buyer whose exchange value is reduced: compare base price and flat card discount directly, without exchange deductions; where exchange haircuts are high, the no-exchange route can win.",
+        ],
+      },
     ],
     storeActions: [
       {
@@ -463,6 +471,12 @@ export const COMPARISONS: CompareEntry[] = [
         heading: "Before you place the order",
         paragraphs: [
           "Confirm the exact model number, RAM type (soldered vs upgradable), SSD slots, display specs, and included warranty. After delivery, keep the invoice and run a warranty/serial check immediately.",
+        ],
+      },
+      {
+        heading: "Exact-configuration cost comparison",
+        paragraphs: [
+          "Compare two realistic buyer profiles at the same budget: a ready-to-ship marketplace configuration versus an official-store configuration with CTO upgrades, protection and delivery. Compute final payable (price after bank offers, upgrades, protection, delivery) rather than comparing headline discounts in isolation.",
         ],
       },
     ],
@@ -569,6 +583,14 @@ export const COMPARISONS: CompareEntry[] = [
           "At delivery, inspect the package and device before OTP where possible. After delivery, download the invoice, verify serial/warranty status if applicable, and keep packaging until you’re confident the product is fine.",
         ],
       },
+      {
+        heading: "What to check per category",
+        paragraphs: [
+          "Phones: compare the final payable after bank offers, exchange deductions and seller/invoice checks; use Open-Box Delivery and inspect before sharing the OTP on eligible high-value items.",
+          "Laptops: compare the exact SKU, RAM/slot configuration, warranty and ownership cost rather than making a platform-level call.",
+          "Audio and accessories: compare seller authorization and final price; for large appliances confirm pincode serviceability and installation terms before ordering.",
+        ],
+      },
     ],
     storeActions: [
       { storeSlug: "amazon-in", storeName: "Amazon", bullets: ["Reliable for accessories and smaller electronics with quick delivery options.", "Easy to review seller info and invoices for warranty records."] },
@@ -650,6 +672,12 @@ export const COMPARISONS: CompareEntry[] = [
           "If you need a standard configuration quickly and a card discount makes the price clearly lower, Amazon or Flipkart can be the practical choice. Just confirm the exact SKU, seller, and warranty terms before ordering.",
         ],
       },
+      {
+        heading: "Total-cost comparison: standard config vs official-store config",
+        paragraphs: [
+          "Compare the final payable of a standard ready-to-ship marketplace configuration against the official-store configuration for the same buyer, including any CTO upgrade, protection plan and delivery cost. Marketplace wins on upfront price/fast delivery; official store can win on configuration quality, protection value and long-term ownership cost.",
+        ],
+      },
     ],
     storeActions: [
       { storeSlug: "lenovo-india", storeName: "Lenovo India", bullets: ["Best for configuration options, student/corporate benefits, and official support.", "Compare total value with protection plans included."] },
@@ -729,6 +757,13 @@ export const COMPARISONS: CompareEntry[] = [
           "Use Myntra/Ajio for discovery, basics, and stacking sale prices. Use official stores when you need a specific size, the latest drop, or assured presentation. If authenticity and condition are top priorities, brand-direct is usually the calmer option.",
         ],
       },
+      {
+        heading: "Policy comparison and when convenience wins",
+        paragraphs: [
+          "Marketplace: convenient app-based returns and discovery, but sizing/stock risk and packaging condition vary; keep tags/boxes intact.",
+          "Brand-direct: fresher stock and fuller packaging, but brand-specific return strictness and stricter condition requirements may apply; compare final payable including shipping before choosing.",
+        ],
+      },
     ],
     storeActions: [
       { storeSlug: "vero-moda", storeName: "Vero Moda", bullets: ["Good for current-season women’s fashion and consistent sizing info.", "Useful when you want brand-direct stock and packaging."] },
@@ -771,7 +806,7 @@ export const COMPARISONS: CompareEntry[] = [
     verdict: {
       optionA: "Kama Ayurveda / Forest Essentials",
       optionB: "Indus Valley / Dot & Key (by need)",
-      text: "Choose Kama Ayurveda for classical cold-pressed/steam-distilled oils and targeted rituals, and Forest Essentials for luxury sensorial Ayurveda and gifting. Choose Indus Valley for ammonia-free/PPD-free botanical hair color and everyday hair care, or Dot & Key if you prefer active-led skincare (ceramides, niacinamide, SPF) for humid weather.",
+      text: "Choose Kama Ayurveda for classical cold-pressed/steam-distilled oils and targeted rituals, and Forest Essentials for luxury sensorial Ayurveda and gifting. Choose Indus Valley for ammonia-free/PPD-free botanical hair color and everyday hair care. This comparison covers those three named brands only; active-led skincare from other brands sits outside this page's scope.",
       primaryStoreSlug: "kama-ayurveda",
       primaryStoreLabel: "Kama Ayurveda",
       secondaryStoreSlug: "indus-valley",
@@ -888,7 +923,7 @@ export const COMPARISONS: CompareEntry[] = [
     verdict: {
       optionA: "Kapiva Himalayan Shilajit Resin",
       optionB: "HK Vitals Marine Collagen / MuscleBlaze whey via HealthKart",
-      text: "Pick by category, not by brand loyalty. Kapiva Himalayan Shilajit Resin 20g is ₹999 on the brand site with a 250mg serving (80 servings, ≈₹12.5 per serving) and the brand states NABL reports are available per pack. HK Vitals Skin Radiance Marine Collagen 200g is ₹909 with 5g collagen and 40mg vitamin C stated per serving (≈40 servings, ≈₹22.7 per serving) and is non-vegetarian (fish). MuscleBlaze Biozyme Performance Whey 1kg is listed at ₹3,999 with 25g protein per 36g scoop across 28 servings (≈₹142.8 per serving, ≈₹5.7 per gram of protein); the retailer states third-party certification, which you should verify on the exact batch. All figures were checked on 24 Nov 2026.",
+      text: "Pick by category, not by brand loyalty. Kapiva Himalayan Shilajit Resin 20g is ₹999 on the brand site with a 250mg serving (80 servings, ≈₹12.5 per serving) and the brand states NABL reports are available per pack. HK Vitals Skin Radiance Marine Collagen 200g is ₹909 with 5g collagen and 40mg vitamin C stated per serving (≈40 servings, ≈₹22.7 per serving) and is non-vegetarian (fish). MuscleBlaze Biozyme Performance Whey 1kg is listed at ₹3,999 with 25g protein per 36g scoop across 28 servings (≈₹142.8 per serving, ≈₹5.7 per gram of protein); the retailer states third-party certification, which you should verify on the exact batch. All figures were checked on 24 Nov 2026. Because these are different product categories, no single winner should be declared across all three; choose within the category that matches your buying goal.",
       primaryStoreSlug: "kapiva",
       primaryStoreLabel: "Kapiva",
       secondaryStoreSlug: "healthkart",
@@ -1004,8 +1039,8 @@ export const COMPARISONS: CompareEntry[] = [
       text: "Choose Adidas for strong wet-road grip options (e.g. Continental rubber on select models) and easy domestic buying/returns, ASICS for stability and long-run cushioning on hard surfaces, and Nike for responsive performance and lifestyle picks—if you get the right fit and buy from trusted sources.",
       primaryStoreSlug: "adidas",
       primaryStoreLabel: "Adidas",
-      secondaryStoreSlug: "boldfit",
-      secondaryStoreLabel: "Boldfit",
+      secondaryStoreSlug: "nike",
+      secondaryStoreLabel: "Nike",
     },
     table: {
       leftName: "Best fit for",
@@ -1042,7 +1077,7 @@ export const COMPARISONS: CompareEntry[] = [
     ],
     storeActions: [
       { storeSlug: "adidas", storeName: "Adidas", bullets: ["Official source for popular models, sizing support, and member perks.", "Good for grip-focused trainers and everyday sneakers."] },
-      { storeSlug: "boldfit", storeName: "Boldfit", bullets: ["Useful for affordable fitness accessories and training essentials.", "Pair with the right footwear choice for your workout routine."] },
+      { storeSlug: "nike", storeName: "Nike", bullets: ["Responsive performance models and lifestyle picks; buy from trusted sources for popular models.", "Confirm sizing in centimeters and watch delivery/KYC timelines for some orders."] },
     ],
     faqs: [
       { question: "Which shoes are best for Indian monsoon roads?", answer: "Look for durable outsoles with reliable wet grip and a stable fit. Model choice matters more than brand name—check outsole material and tread suited to wet tiles/roads.", sort_order: 0 },
@@ -1130,6 +1165,7 @@ export const COMPARISONS: CompareEntry[] = [
         "Element warranty is not tank warranty. Havells offers 4 years on the element; AO Smith offers 2+2 years only if you register within 60 days; Crompton offers 2 years. The longest tank warranty does not mean the longest element cover.",
         "Anodes are consumables. AO Smith's warranty document states the anode is not covered and that the tank warranty can be void if it is removed or not replaced when consumed — budget for periodic service in hard-water areas.",
         "*We did not purchase, install or physically test these water heaters. Prices are listing snapshots seen on 24 Nov 2026, not live quotes. Check the current price, pincode installation terms and exact SKU before paying.",
+        "Source quality: rows based on the Havells catalogue / AO Smith user guide draw on official documents; the Crompton standing-loss figure is unverified, and listing-based price rows should not be read as live quotes — treat each row accordingly before deciding.",
       ],
     },
     blocks: [
@@ -1260,6 +1296,7 @@ export const COMPARISONS: CompareEntry[] = [
         "Lenovo calls its 2026 benefit cashback: you pay the full website price and the cashback is posted to your bank account later. The T&C explicitly says it is not valid on EMI. The offer page, product badges and worked examples disagree on the cashback amount (e.g., a ₹6,500 band versus a 'FLAT 10K' badge) and on timing (20 versus 30 days) — sources disagree; verify on the offer page at checkout.",
         "Tata CLiQ's press release names Amex, Axis and Kotak at 12.5% for its 19–30 Nov 2026 Black Friday sale, but only the Amex T&C was readable. It gives the full string: min ₹3,000, max ₹1,500, once per card, code AMEXTCFBFS. Axis and Kotak caps and minimums are not stated — check the store.",
         "Do not treat a displayed percentage as locked. Opened terms reserve the right to modify or withdraw offers without notice and describe them as best effort. Per-card caps, daily or periodic refreshes and payment-mode exclusions are documented; a shared campaign quota exhausting at OTP is not documented in any source we opened.",
+        "Lenovo T&C discrepancy (unresolved): the opened offer terms conflict on the cashback amount (a ₹6,500 band versus a FLAT 10K badge) and on timing (20 versus 30 days) — keep the figure flagged as unverified rather than resolved.",
       ],
     },
     blocks: [

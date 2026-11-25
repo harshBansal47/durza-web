@@ -7,9 +7,8 @@ import { guideDocument } from "@/guide-documents/amazon-flipkart-sale-dates-2026
 
 export const revalidate = 21600;
 
-const title = "Amazon & Flipkart Sale Dates India 2026 — Black Friday, Christmas & New Year";
-const description =
-  "When are Amazon and Flipkart sales in India 2026? The full calendar — Great Indian Festival, Big Billion Days, Black Friday (Nov 27), Cyber Monday (Nov 30), Christmas & New Year — plus how to stack sale prices with bank card discounts.";
+const title = guideDocument.title;
+const description = guideDocument.description;
 const canonical = "/guides/amazon-flipkart-sale-dates-2026";
 
 export const metadata: Metadata = {
@@ -34,7 +33,7 @@ const articleSchema = {
   headline: title,
   description,
   datePublished: "2026-11-15",
-  dateModified: "2026-11-15",
+  dateModified: "2026-11-26",
   publisher: {
     "@type": "Organization",
     name: "Durza",

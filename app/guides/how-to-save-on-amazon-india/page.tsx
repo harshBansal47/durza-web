@@ -5,9 +5,8 @@ import GuideDocumentPage from "@/components/guides/redesign/GuideDocumentPage";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { guideDocument } from "@/guide-documents/how-to-save-on-amazon-india";
 
-const title = "How to Save on Amazon India: Coupons, Bank Offers & Exchange Deals";
-const description =
-  "A repeatable Amazon India checkout order: deal price, clipped coupon, exchange check, bank instant discount or co-branded cashback. Worked examples with all inputs shown. Reviewed 24 Nov 2026.";
+const title = guideDocument.title;
+const description = guideDocument.description;
 const canonical = "/guides/how-to-save-on-amazon-india";
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ const articleSchema = {
   headline: title,
   description,
   datePublished: "2026-10-18",
-  dateModified: "2026-11-24",
+  dateModified: "2026-11-26",
   author: { "@type": "Person", name: "Harsh Bansal", url: absoluteUrl("/about") },
   publisher: {
     "@type": "Organization",

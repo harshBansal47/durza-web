@@ -4,6 +4,7 @@ import { CreditCard, ArrowRight, ArrowUpRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import EditorialByline from "@/components/editorial/EditorialByline";
+import VerifiedResearchPanel from "@/components/editorial/VerifiedResearchPanel";
 import { absoluteUrl, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { fetchLiveBankSnapshot } from "@/lib/bank-offers-fetch";
 import { BANKS } from "@/lib/bank-offers";
@@ -12,9 +13,9 @@ import QuickAnswer from "@/components/ui/QuickAnswer";
 
 export const revalidate = 3600;
 
-const title = "Best Credit Card for Online Shopping India 2026 — the honest answer, with live offers";
+const title = "Best Credit Card for Online Shopping in India (2026): How to Pick the Right One";
 const description =
-  "There is no single best online-shopping credit card — there is the card running a live offer on the cart you have this month. Live bank offers, worked checkout maths and a 6-factor decision framework.";
+  "There is no single best card for every cart. Use live bank offers, instant-discount vs cashback maths, and a 6-point checkout checklist. Checked 26 Nov 2026.";
 const canonical = "/guides/best-credit-card-online-shopping-india-2026";
 
 export const metadata: Metadata = {
@@ -29,32 +30,27 @@ const FAQS = [
   {
     question: "Which credit card is best for online shopping in India in 2026?",
     answer:
-      "No card wins every month. The best card is the one with a live offer on the exact cart you have — bank offers rotate weekly by category and merchant. Check the live panel below, then match your cart to it. Card fees and reward rates change often; verify them on the issuer's own Most Important Terms & Conditions page before applying.",
+      "There is no single winner for every cart. A card with a live instant-discount slab on the merchant you are using can beat a cashback card on that purchase. On days with no live slab, a rewards or co-brand card may be better. Check the live panel below, then confirm eligibility and the final payment-page discount.",
   },
   {
-    question: "Co-brand card (Amazon Pay ICICI) vs a general bank card — which should I hold?",
+    question: "Is instant discount better than cashback?",
     answer:
-      "They do different jobs. Amazon state that eligible Prime members, including Shopping Edition members, earn 5% cashback on Amazon.in with the Amazon Pay ICICI card. A core bank card can beat that when a 10% instant-discount banner is live on your cart — but co-brand cards are routinely excluded from those core-bank banners. Compare the final payable amount on the day you buy.",
+      "Usually, for a specific eligible purchase. Instant discount reduces what you pay now. Cashback arrives later and may have exclusions, caps or redemption conditions. Compare the effective cost after all conditions, not just the headline percentage.",
   },
   {
-    question: "Instant discount vs cashback — which is actually better?",
+    question: "Can I use a coupon code and a bank offer together?",
     answer:
-      "Instant discount, almost always. In our worked example, a 10% instant discount on a ₹30,000 cart saves ₹3,000 today; 5% cashback on the same cart returns ₹1,500 later as balance. Cashback is only equal if you redeem it, it holds its value, and you were going to buy anyway.",
+      "Sometimes. Many checkouts apply a merchant coupon first and then evaluate the bank offer on the qualifying net amount. But some campaigns exclude discounted carts, EMI, wallets, or specific card variants. Two bank offers on the same transaction generally do not stack.",
   },
   {
-    question: "Do credit card offers stack with coupon codes?",
+    question: "Should I get a co-brand card or a general rewards card?",
     answer:
-      "Order matters: promo code first (reduces item value), bank instant discount second (applies on the reduced value), EMI rewards last. Two bank offers never stack. If a brand coupon says 'not valid with bank offers', the payment page will drop the bank line. There is no order that bends gateway rules.",
+      "It depends on where you spend. Co-brand cards can be strong on one merchant but are often excluded from general bank instant-discount campaigns. A general rewards/cashback card can be more flexible across merchants. The right answer is the card that gives the better verified value on your actual spending pattern.",
   },
   {
-    question: "Can I redeem my credit card reward points for these carts?",
+    question: "What should I check before applying for a card because of an offer?",
     answer:
-      "Often yes, through your card's redemption portal — HDFC SmartBuy converts points to online shopping vouchers for major marketplaces, and ICICI/RBL have equivalent portals. The value per point varies by campaign; the rate shown at the redemption step is the real one. We do not publish point valuations because they change daily.",
-  },
-  {
-    question: "Why did a friend get a discount I did not qualify for?",
-    answer:
-      "Most offers have caps — per day, per campaign, per customer per month — and eligibility lists by card family. Two people on the same store on the same day can see different outcomes. Check four things: card family variant, minimum transaction value after exclusions, whether the campaign cap is exhausted, and whether the offer is targeted at existing holders of a specific card.",
+      "Check the issuer's current fees, waiver conditions, interest rate, reward exclusions, foreign markup, and the offer's eligibility/cap rules. A one-time discount is not worth a card whose ongoing cost or credit behaviour does not fit you.",
   },
 ];
 
@@ -64,7 +60,7 @@ const articleSchema = {
   headline: title,
   description,
   datePublished: "2026-11-15",
-  dateModified: "2026-11-24",
+  dateModified: "2026-11-26",
   author: { "@type": "Person", name: "Harsh Bansal", url: absoluteUrl("/about") },
   publisher: {
     "@type": "Organization",
@@ -75,60 +71,31 @@ const articleSchema = {
   mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(canonical) },
 };
 
-const FACTORS = [
+const DECISION_STEPS = [
   {
-    step: "1",
-    title: "Check the live panel, not the banner",
-    winner: "Winner: the card with a live offer on your store today",
-    number: "Live offers counted on this page at render time",
-    detail: "Open the store you're buying from, then check the live panel below or /bank-offers. If a bank you hold has a live offer there, that bank wins for this cart. The panel is re-read from the catalogue, not copied from a banner.",
+    title: "Start with the cart, not the card",
+    detail: "The best card for a ₹30,000 electronics cart today may be different from the best card for groceries next week. Check live merchant offers first.",
   },
   {
-    step: "2",
-    title: "Match your card's family, not just the bank name",
-    winner: "Winner: the exact eligible card variant",
-    number: "Eligibility list is always narrower than the bank name",
-    detail: "Offer copy says 'ICICI Bank credit cards' but the eligible family list is narrower. Open the offer and read the variants; if yours is not named, move to the next bank.",
+    title: "Match the exact card variant",
+    detail: "Bank-name banners often hide narrower eligibility. Credit, debit, co-brand, EMI and corporate cards can be treated differently.",
   },
   {
-    step: "3",
-    title: "Run the minimum-spend maths at your real cart value",
-    winner: "Winner: no filler purchase when the net benefit is zero",
-    number: "₹400 filler to reach a ₹5,000 slab on an 8% offer yields ₹0 net saving",
-    detail: "An 8% discount that requires adding ₹400 you did not need is not a saving. Worked calculation below shows the cart reaching exactly the same payable amount.",
+    title: "Compare effective value",
+    detail: "Instant discount now, cashback later, reward points with redemption conditions — convert them into an effective rupee value only when the terms are clear.",
   },
   {
-    step: "4",
-    title: "Stack in the working order",
-    winner: "Winner: promo code → instant discount → rewards",
-    number: "Two bank offers cannot be combined on one transaction",
-    detail: "The gateway applies one bank offer. A brand coupon marked 'not valid with bank offers' will silently drop the bank line, so verify the payment summary before paying.",
+    title: "Check the minimum-spend trap",
+    detail: "Adding filler to hit a slab can erase the benefit. Calculate net saving on the items you actually wanted.",
   },
   {
-    step: "5",
-    title: "Prefer instant deduction over later cashback",
-    winner: "Winner: 10% instant discount on a ₹30,000 cart",
-    number: "₹3,000 today vs ₹1,500 as cashback later",
-    detail: "An instant discount lowers what you physically pay. Cashback is real only if you redeem it and it holds value — see the worked maths below.",
+    title: "Confirm the payment page",
+    detail: "The discount line before confirmation is the real answer. A banner, SMS or screenshot is not.",
   },
   {
-    step: "6",
-    title: "Check the cap before assuming next month repeats",
-    winner: "Winner: wait a cycle only if the cart can wait",
-    number: "Caps apply per day, per campaign and per customer per month",
-    detail: "Today's offer may not run for the full window. If your cart is flexible, waiting for a fresh slab is a legitimate strategy.",
+    title: "Do not let a discount drive bad credit behaviour",
+    detail: "If you revolve a balance, interest and fees can wipe out the savings quickly. A card is only a good deal when the repayment plan is also good.",
   },
-];
-
-const EXPLORE_LINKS = [
-  { href: "/categories/finance", label: "Finance & Cards deals and card guides" },
-  { href: "/bank-offers", label: "Live multi-bank instant-discount matrix" },
-  { href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india", label: "Instant discount vs No-Cost EMI: hidden GST & fees" },
-  { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
-  { href: "/reviews/amazon-prime-india-review-2026", label: "Amazon Prime India review: ₹399 vs ₹1,499" },
-  { href: "/guides/amazon-finance-card-smarts-buying-guide", label: "Amazon finance & card smarts" },
-  { href: "/stores/amazon-in", label: "Amazon India coupons & deals" },
-  { href: "/stores/flipkart", label: "Flipkart coupons & store hub" },
 ];
 
 export default async function BestOnlineShoppingCardPage() {
@@ -146,39 +113,41 @@ export default async function BestOnlineShoppingCardPage() {
         ]}
       />
       <JsonLd data={articleSchema} />
-      <JsonLd data={breadcrumbJsonLd([
-        { name: "Home", path: "/" },
-        { name: "Guides", path: "/guides" },
-        { name: "Best Credit Card for Online Shopping 2026", path: canonical },
-      ])} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Guides", path: "/guides" },
+          { name: "Best Credit Card for Online Shopping 2026", path: canonical },
+        ])}
+      />
       <JsonLd data={faqPageJsonLd(FAQS)} />
 
       <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
         <p className="flex items-center gap-2 text-xs font-semibold text-ink-soft">
           <CreditCard aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
-          <span>Research reviewed 24 Nov 2026 · Offer layer read live from Durza&apos;s catalogue</span>
+          <span>Checked 26 Nov 2026 · Live offer panel read from Durza&apos;s catalogue</span>
         </p>
 
         <h1 className="mt-4 font-serif text-4xl font-extrabold leading-tight tracking-tight text-ink sm:text-5xl">
-          Which credit card is best for online shopping in India (2026)?
+          Best Credit Card for Online Shopping in India (2026)
         </h1>
         <p className="mt-3 font-serif text-xl leading-snug text-ink-soft">
-          There is no single winner all year. The right card is the one with a live offer on the cart you have today — plus a clear view of what that offer actually saves after minimum spends and caps.
+          The best card is usually the one that gives you the best verified value on the cart in front of you. This guide helps you choose between live instant discounts, co-brand cashback and regular rewards without over-trusting the banner.
         </p>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-ledger-line bg-white p-4">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Who it is for</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Useful for</p>
             <ul className="mt-2 space-y-1 text-sm leading-6 text-ink-soft">
-              <li>• Shoppers choosing between a zero-fee co-brand card, a flat cashback card and a core bank card for sale instant discounts.</li>
-              <li>• Buyers checking live merchant slabs and minimum-spend rules before paying on Amazon, Flipkart or Tata CLiQ.</li>
+              <li>• Shoppers deciding which card to use at checkout today.</li>
+              <li>• People comparing a co-brand card against general bank instant-discount campaigns.</li>
             </ul>
           </div>
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-800">Who should skip it</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-800">Not a fit for</p>
             <ul className="mt-2 space-y-1 text-sm leading-6 text-ink-soft">
-              <li>• Revolvers carrying an unpaid balance — interest plus GST wipes out a 5–10% shopping discount in one cycle.</li>
-              <li>• Buyers seeking lounge access, air miles or concierge perks — this covers online-shopping discounts and cashback maths only.</li>
+              <li>• Anyone carrying revolving credit-card debt for the sake of a discount.</li>
+              <li>• Card applications made only because of a short-lived offer without checking issuer fees.</li>
             </ul>
           </div>
         </div>
@@ -186,27 +155,27 @@ export default async function BestOnlineShoppingCardPage() {
         <EditorialByline
           authorName="Harsh Bansal"
           publishedAt="2026-11-15"
-          updatedAt="2026-11-24"
-          checkedAt="2026-11-24"
+          updatedAt="2026-11-26"
+          checkedAt="2026-11-26"
           hasMethod
         />
 
         <QuickAnswer
-          question="Which card should I use at checkout right now?"
-          answer={`No single card wins all year. If a core HDFC, ICICI, SBI or Axis card has a live 10% instant-discount banner on your store today, swipe that card — a checkout deduction beats later cashback. When no instant slab is live, a dedicated online cashback card such as Amazon Pay ICICI wins for everyday spends. The live panel below currently reads ${liveOffers} offer${liveOffers === 1 ? "" : "s"} from ${liveBanks} bank${liveBanks === 1 ? "" : "s"}.`}
+          question="Which card should you use for this purchase?"
+          answer={`Use the card with a verified live instant discount on your exact cart when available. If no eligible instant-discount slab is live, use the card with the clearest effective reward value for that merchant. The live panel below currently reads ${liveOffers} offer${liveOffers === 1 ? "" : "s"} from ${liveBanks} bank${liveBanks === 1 ? "" : "s"} in Durza's catalogue.`}
           jumpHref="#live-offers"
-          jumpLabel="See the live multi-bank panel"
+          jumpLabel="See live bank offers"
         />
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/bank-offers" className="inline-flex min-h-12 items-center rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white hover:bg-ink-soft">
-            View all live bank &amp; card offers <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+            All live bank offers <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
           </Link>
           <Link href="/go/amazon-in?src=guide-cc-verdict" className="inline-flex min-h-12 items-center rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold text-ink hover:bg-paper-raised">
-            Check Amazon India deals <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
+            Check Amazon India <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
           </Link>
           <Link href="/go/flipkart?src=guide-cc-verdict" className="inline-flex min-h-12 items-center rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold text-ink hover:bg-paper-raised">
-            Check Flipkart deals <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
+            Check Flipkart <ArrowUpRight aria-hidden="true" className="ml-2 h-4 w-4" />
           </Link>
         </div>
 
@@ -214,40 +183,69 @@ export default async function BestOnlineShoppingCardPage() {
           <LiveBankOffers
             groups={snapshot.groups}
             requestedBankIds={BANKS.map((bank) => bank.id)}
-            heading={`Live offers across every bank we track — ${liveOffers} live offer${liveOffers === 1 ? "" : "s"} from ${liveBanks} bank${liveBanks === 1 ? "" : "s"}`}
-            asOfLabel="Read live from Durza's coupon catalogue. Lists refresh as offers expire or rotate; nothing here is a cached banner headline."
+            heading={`Live offers across tracked banks — ${liveOffers} offer${liveOffers === 1 ? "" : "s"} from ${liveBanks} bank${liveBanks === 1 ? "" : "s"}`}
+            asOfLabel="Read live from Durza's catalogue. Open each offer for card-family eligibility, minimum spend, cap and exclusions."
           />
         </div>
 
+        <section aria-labelledby="decision" className="mt-12">
+          <h2 id="decision" className="font-serif text-2xl font-extrabold text-ink">A simple decision framework</h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            {DECISION_STEPS.map((step, index) => (
+              <div key={step.title} className="rounded-2xl border border-ledger-line bg-white p-4">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-durza-deep">Step {index + 1}</p>
+                <h3 className="mt-2 font-serif text-lg font-bold text-ink">{step.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">{step.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="worked" className="mt-12 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-7">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Worked maths</p>
+          <h2 id="worked" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">Compare effective value, not marketing copy</h2>
+          <p className="mt-2 text-sm leading-6 text-[#5a564f]">Illustrative examples. Verify the live offer and your card&apos;s current terms before paying or applying.</p>
+          <h3 className="mt-6 font-serif text-lg font-bold text-ink">1. Instant discount vs cashback</h3>
+          <ul className="mt-2 space-y-2 text-sm leading-7 text-ink-soft">
+            <li>• Cart: ₹30,000. Card A gives 10% instant discount. Card B gives 5% cashback later.</li>
+            <li>• Card A: pay ₹27,000 now.</li>
+            <li>• Card B: pay ₹30,000 now, get ₹1,500 later if eligible and redeemed. Effective cost ₹28,500.</li>
+            <li>• Card A wins by ₹1,500 in this example.</li>
+          </ul>
+          <h3 className="mt-7 font-serif text-lg font-bold text-ink">2. The filler-item trap</h3>
+          <ul className="mt-2 space-y-2 text-sm leading-7 text-ink-soft">
+            <li>• Cart: ₹4,600. Offer: 8% off on ₹5,000 minimum spend. Filler: ₹400.</li>
+            <li>• Without filler: pay ₹4,600, no discount.</li>
+            <li>• With filler: ₹5,000 − ₹400 discount = ₹4,600 payable, but you bought ₹400 extra.</li>
+            <li>• Only worth it if the ₹400 item was already on your list.</li>
+          </ul>
+        </section>
+
         <section aria-labelledby="reference" className="mt-12">
-          <h2 id="reference" className="font-serif text-2xl font-extrabold text-ink">
-            Card reference: what we can verify and what you must check
-          </h2>
+          <h2 id="reference" className="font-serif text-2xl font-extrabold text-ink">Card-type reference</h2>
           <p className="mt-2 text-sm leading-7 text-ink-soft">
-            We publish rates only where the issuer or a Durza reference page states them. Annual fees, waiver thresholds and caps change often — check the issuer&apos;s Most Important Terms &amp; Conditions before applying.
+            Rates, fees and exclusions change. Use this as a map of what to verify, not as a live rate card.
           </p>
           <div className="mt-4 overflow-x-auto rounded-2xl border border-ledger-line bg-white">
             <table className="min-w-full text-left text-sm">
               <thead className="bg-paper-raised">
                 <tr>
-                  <th scope="col" className="px-4 py-3 font-bold text-ink">Card</th>
-                  <th scope="col" className="px-4 py-3 font-bold text-ink">Rate we can cite</th>
-                  <th scope="col" className="px-4 py-3 font-bold text-ink">Fee / cap</th>
-                  <th scope="col" className="px-4 py-3 font-bold text-ink">Key exclusion</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Card type</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Usually strong when</th>
+                  <th scope="col" className="px-4 py-3 font-bold text-ink">Verify before relying on it</th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  ["Amazon Pay ICICI Bank", "5% on Amazon.in for eligible Prime members (incl. ₹399 Shopping Edition); 3% non-Prime — Amazon India help page", "Verify on issuer MITC", "Excluded from core ICICI instant-discount banners and EMI orders"],
-                  ["Cashback SBI Card", "Advertised online cashback rate — verify on sbicard.com", "Verify on issuer MITC", "Typically excluded from core SBI instant-discount banners, EMI and gift cards"],
-                  ["Flipkart Axis Bank", "Advertised marketplace cashback — verify on axisbank.com", "Verify on issuer MITC", "Converting an order to EMI can forfeit cashback"],
-                  ["HDFC Bank Millennia", "Advertised partner-app rewards — verify on hdfcbank.com", "Verify on issuer MITC", "Co-brand/cashback variants are often excluded from core HDFC instant-discount banners"],
+                  ["Co-brand marketplace card", "You spend repeatedly on one merchant and no general instant-discount slab is live", "Current earn rate, exclusions, EMI treatment, and whether it is excluded from bank banners"],
+                  ["General cashback card", "You want simple value across many merchants", "Monthly caps, category exclusions, fee waiver and cashback posting rules"],
+                  ["Core bank credit card", "A merchant is running an eligible instant-discount campaign", "Exact eligible variants, minimum spend, cap, channel and payment mode"],
+                  ["Rewards/points card", "You can redeem points at a clear value for something you would buy anyway", "Point value at redemption, expiry, transfer partners and excluded categories"],
                 ].map((row) => (
-                  <tr key={row[0]} className="border-t border-ledger-line">
+                  <tr key={row[0]} className="border-t border-ledger-line align-top">
                     <th scope="row" className="px-4 py-3 font-semibold text-ink">{row[0]}</th>
                     <td className="px-4 py-3 text-ink-soft">{row[1]}</td>
                     <td className="px-4 py-3 text-ink-soft">{row[2]}</td>
-                    <td className="px-4 py-3 text-ink-soft">{row[3]}</td>
                   </tr>
                 ))}
               </tbody>
@@ -255,81 +253,29 @@ export default async function BestOnlineShoppingCardPage() {
           </div>
         </section>
 
-        <section aria-labelledby="worked" className="mt-12 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-7">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a4b12]">Worked maths</p>
-          <h2 id="worked" className="mt-2 font-serif text-2xl font-extrabold text-[#141413]">
-            Two checkout traps, quantified
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-[#5a564f]">
-            Illustrative arithmetic with all inputs shown — not live offers or guaranteed slabs.
-          </p>
-          <h3 className="mt-6 font-serif text-lg font-bold text-ink">1. 10% instant discount vs 5% cashback on a ₹30,000 cart</h3>
-          <ul className="mt-2 space-y-2 text-sm leading-7 text-ink-soft">
-            <li>• Core card instant discount: 10% × ₹30,000 = ₹3,000 off today → payable ₹27,000.</li>
-            <li>• Cashback card: pay ₹30,000 today, receive 5% × ₹30,000 = ₹1,500 as balance later → effective cost ₹28,500.</li>
-            <li>• Verdict: the instant slab wins by ₹1,500 on this cart, assuming both offers are actually live and eligible.</li>
-          </ul>
-          <h3 className="mt-7 font-serif text-lg font-bold text-ink">2. The “add ₹400 to qualify” trap</h3>
-          <ul className="mt-2 space-y-2 text-sm leading-7 text-ink-soft">
-            <li>• Inputs: cart ₹4,600, bank offer 8% on ₹5,000 minimum spend, filler item ₹400.</li>
-            <li>• Without filler: you pay ₹4,600. With filler: cart ₹5,000 − 8% (₹400) = ₹4,600 payable.</li>
-            <li>• Verdict: net saving is ₹0 unless the ₹400 item was already on your list. The filler is not free money.</li>
-          </ul>
-        </section>
-
-        <section aria-labelledby="factors" className="mt-12">
-          <h2 id="factors" className="font-serif text-2xl font-extrabold text-ink">
-            Six decision factors — each with a winner and a number
-          </h2>
-          <ol className="mt-5 space-y-4">
-            {FACTORS.map((item) => (
-              <li key={item.step} className="rounded-2xl border border-ledger-line bg-white p-4">
-                <span className="font-serif font-bold text-ink">{item.step}. {item.title}</span>
-                <p className="mt-1 text-sm font-semibold text-durza-deep">{item.winner}</p>
-                <p className="mt-1 text-sm text-ink-soft">{item.number}</p>
-                <p className="mt-2 text-sm leading-6 text-ink-soft">{item.detail}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section aria-labelledby="by-bank" className="mt-12">
-          <h2 id="by-bank" className="font-serif text-2xl font-extrabold text-ink">Deep-dives for the banks with the most live offers</h2>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <Link href="/guides/icici-bank-offers-india-2026" className="group rounded-2xl border border-ledger-line bg-white p-5 transition hover:border-inkblue hover:shadow-sm">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">ICICI deep-dive</p>
-              <p className="mt-2 font-serif font-bold text-ink">ICICI Bank Offers India 2026</p>
-              <p className="mt-1 text-sm leading-6 text-ink-soft">How ICICI instant discounts apply at checkout, eligibility, and common reasons they fail.</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-inkblue">Read the guide <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
-            </Link>
-            <Link href="/guides/rbl-bank-offers-india-2026" className="group rounded-2xl border border-ledger-line bg-white p-5 transition hover:border-inkblue hover:shadow-sm">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-inkblue">RBL deep-dive</p>
-              <p className="mt-2 font-serif font-bold text-ink">RBL Bank Offers India 2026</p>
-              <p className="mt-1 text-sm leading-6 text-ink-soft">How RBL card instant discounts work at checkout, eligibility and monthly caps.</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-inkblue">Read the guide <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} /></span>
-            </Link>
-          </div>
-        </section>
-
-        <section aria-labelledby="when" className="mt-12">
-          <h2 id="when" className="font-serif text-2xl font-extrabold text-ink">When new offers actually appear</h2>
-          <p className="mt-4 text-base leading-8 text-ink-soft">
-            Three recurring waves: the festive mega-sale fortnight, bank quarter closes (March and December), and travel-partner campaign pushes. Between waves the field narrows to co-brands and targeted cardholder emails. The panel above shows whatever is readable on any given day — if it is empty, no bank is currently running an offer we can honestly show.
-          </p>
-        </section>
-
         <section aria-labelledby="verification" className="mt-12 rounded-2xl border border-ledger-line bg-white p-5">
           <h2 id="verification" className="font-serif text-xl font-bold text-ink">What we verified, and what we did not</h2>
           <p className="mt-2 text-sm leading-7 text-ink-soft">
-            We read the live bank-offer panel from Durza&apos;s catalogue and cross-checked the Amazon Pay ICICI cashback rate against Amazon India&apos;s published help pages on 24 Nov 2026. Both worked examples are illustrative arithmetic, not guaranteed live slabs. We do not hold or test every card listed. Issuer fees, caps and eligible card families change without notice — verify the final discount line on the payment page and check issuer MITC before applying. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you.
+            We read live bank-offer data from Durza&apos;s catalogue on 26 November 2026. Card rates, fees, exclusions and issuer terms change frequently and were not re-verified for every card issuer in this pass; verify the issuer&apos;s Most Important Terms and Conditions and the payment-page discount line before acting. Worked examples are illustrative arithmetic. Durza may earn a commission on qualifying purchases through tracked links at no extra cost to you.
           </p>
           <p className="mt-3 text-sm"><Link href="/methodology" className="font-semibold text-durza-deep hover:underline">How Durza researches →</Link></p>
         </section>
 
+        <div className="mt-10">
+          <VerifiedResearchPanel kind="bank" />
+        </div>
+
         <section aria-labelledby="explore" className="mt-12 border-t border-ledger-line pt-8">
-          <h2 id="explore" className="font-serif text-2xl font-extrabold text-ink">Explore related money &amp; card guides</h2>
+          <h2 id="explore" className="font-serif text-2xl font-extrabold text-ink">Related guides</h2>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-            {EXPLORE_LINKS.map((link) => (
+            {[
+              { href: "/bank-offers", label: "Live multi-bank offers" },
+              { href: "/guides/icici-bank-offers-india-2026", label: "ICICI Bank offers guide" },
+              { href: "/guides/rbl-bank-offers-india-2026", label: "RBL Bank offers guide" },
+              { href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india", label: "Instant discount vs No-Cost EMI" },
+              { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },
+              { href: "/stores/amazon-in", label: "Amazon India store hub" },
+            ].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="inline-flex min-h-11 items-start gap-1.5 text-sm text-durza-deep hover:underline">
                   <ArrowRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
@@ -355,7 +301,7 @@ export default async function BestOnlineShoppingCardPage() {
         <div className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-ink-soft">
           <p className="font-semibold text-ink">Editorial note</p>
           <p className="mt-1">
-            Research reviewed 24 Nov 2026. Bank slabs, reward rates and cap rules change constantly — the payment summary and the issuer&apos;s MITC are the only sources of truth. The live offer panel re-reads our catalogue; we do not publish static offer counts.
+            Checked 26 Nov 2026. Bank offers, reward rates and card terms change frequently. Use the live panel for current catalogue offers, but treat the merchant payment page and issuer MITC as the final source of truth.
           </p>
         </div>
       </article>

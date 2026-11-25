@@ -75,7 +75,7 @@ export const REVIEWS: ReviewEntry[] = [
       { label: "About Amazon India — Black Friday Sale teaser (updated 19 Nov 2026)", href: "https://www.aboutamazon.in/news/retail/amazon-black-friday-sale-india", checkedAt: "25 Nov 2026" },
       { label: "Amazon.in help — Great Indian Festival 2026 start date", href: "https://www.amazon.in/gp/help/customer/display.html?nodeId=TTOLfLWVy6YRkUJc35", checkedAt: "25 Nov 2026" },
       { label: "About Amazon India — Great Indian Festival 2026 savings update (3 Nov 2026)", href: "https://www.aboutamazon.in/news/retail/amazon-great-indian-festival-2026-record-customer-savings", checkedAt: "25 Nov 2026" },
-      { label: "About Amazon Australia — Black Friday 2026 calendar explainer", href: "https://www.aboutamazon.com.au/news/retail/when-is-black-friday-2026-heres-everything-aussies-need-to-know", checkedAt: "25 Nov 2026" },
+      { label: "Amazon.in help — Prime membership plans and benefits", href: "https://www.amazon.in/help/prime", checkedAt: "25 Nov 2026" },
     ],
     secondaryCta: { label: "Check bank & card offers", href: "/bank-offers" },
     productLinks: [
@@ -91,7 +91,7 @@ export const REVIEWS: ReviewEntry[] = [
       },
     ],
     verdict:
-      "Pick Prime Shopping Edition at ₹399/year if you mainly want delivery and sale access — it breaks even after about 10 standard-delivery orders or 5 one-day orders a year. Pay ₹1,499 for Full Prime only if you also use Prime Video or Music enough to replace roughly ₹92/month of other streaming spend. The ₹299 monthly plan only wins if you need Prime for a single sale or show window.",
+      "Pick Prime Shopping Edition at ₹399/year if you mainly want delivery and sale access — it breaks even after about 10 standard-delivery orders or 5 one-day orders a year. Pay ₹1,499 for Full Prime only if you also use Prime Video or Music enough to replace roughly ₹92/month of other streaming spend. The ₹299 monthly plan only wins if you need Prime for a single sale or show window. Confirm current plan names, prices and benefits on the live Amazon.in Prime membership page before subscribing; treat the tier structure reviewed on 24 Nov 2026 as the basis for the break-even math.",
     whoShouldBuy: [
       "Shoppers placing 5–10 small Amazon orders a year who want free same/one-day delivery and early sale access without paying for streaming.",
       "Households that will actively use Prime Video or Prime Music all year and can justify ₹1,499 over the ₹399 shopping tier.",
@@ -240,6 +240,8 @@ export const REVIEWS: ReviewEntry[] = [
       { label: "Offer window (checked 25 Nov 2026)", value: "24 Nov–2 Dec 2026 per Lenovo India's official offer terms" },
       { label: "Benefit type", value: "Post-payment cashback, not an instant checkout discount; not valid on EMI" },
       { label: "Verified listing", value: "LOQ 83DV01KYIN ₹1,58,491 (MRP ₹2,49,591), Lenovo India, 25 Nov 2026 — not a live quote" },
+      { label: "Store experience vs hardware", value: "Official-store review covers buying experience; laptop hardware quality requires exact model/SKU verification." },
+      { label: "Delivery policy split", value: "Standard vs CTO orders can differ in timelines; verify on the product page before ordering." },
     ],
     body: [
       {
@@ -416,6 +418,13 @@ export const REVIEWS: ReviewEntry[] = [
         paragraphs: [
           "Shilajit resin is not a same-day pre-workout stimulant. If it fits your routine, any perceived benefits around stamina or recovery are typically gradual and may take several weeks (often around 6–8 weeks) alongside sleep, diet, and training consistency.",
           "If you have underlying health conditions, take medications, or are pregnant, get medical advice before using Shilajit or any mineral supplement.",
+        ],
+      },
+      {
+        heading: "Batch-report verification checklist",
+        paragraphs: [
+          "Before relying on any Shilajit batch claim, check: the batch code printed on your pack, the certificate of analysis matching that batch, what the report tests (identity, heavy metals, microbes, fulvic acid), and whether the testing is NABL-accredited and publicly accessible. A generic report from a different batch is not the same evidence.",
+          "Separate manufacturer claims, independent laboratory findings and published research: a brand statement or accreditation is not by itself clinical proof of efficacy, safety or dosing.",
         ],
       },
     ],

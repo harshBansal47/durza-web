@@ -54,7 +54,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
 
       <GuideMain>
         {doc.audience ? (
-          <GuideSection>
+          <GuideSection id="audience">
             <Reveal>
               <GuideGrid columns={2}>
                 <GuideCard>
@@ -75,7 +75,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.byline ? (
-          <GuideSection>
+          <GuideSection id="byline">
             <Reveal>
               <GuideCard>
                 <div className="gd-chip-row gd-num">
@@ -95,7 +95,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.quickAnswer ? (
-          <GuideSection tone="mist">
+          <GuideSection id="quick-answer" tone="mist">
             <Reveal>
               <GuideCard className="gd-quick">
                 <span className="gd-eyebrow">Answer in 10 seconds</span>
@@ -111,7 +111,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.ctas.length > 0 || doc.methodNote ? (
-          <GuideSection>
+          <GuideSection id="ctas">
             <Reveal>
               {doc.ctas.length > 0 ? <GuideCtaRow ctas={doc.ctas} /> : null}
               {doc.methodNote ? <p style={{ marginTop: 32, maxWidth: "72ch" }}>{doc.methodNote}</p> : null}
@@ -120,7 +120,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.scenarios && doc.scenarios.length > 0 ? (
-          <GuideSection>
+          <GuideSection id="scenarios">
             <Reveal>
               <GuideGrid columns={3}>
                 {doc.scenarios.map((scenario) => {
@@ -141,13 +141,13 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.skuTable ? (
-          <GuideSection>
+          <GuideSection id="sku-table">
             <Reveal><GuideTable headers={doc.skuTable.headers} rows={doc.skuTable.rows} /></Reveal>
           </GuideSection>
         ) : null}
 
         {doc.checkoutSteps ? (
-          <GuideSection>
+          <GuideSection id="checkout">
             <Reveal>
               <GuideSteps steps={doc.checkoutSteps} />
               {doc.checkoutNote ? <p className="gd-callout--caution">{doc.checkoutNote}</p> : null}
@@ -156,7 +156,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.verifiedFacts ? (
-          <GuideSection>
+          <GuideSection id="verified-facts">
             <Reveal>
               <GuideCard className="gd-verified">
                 <span className="gd-eyebrow">{doc.verifiedFacts.kicker}</span>
@@ -181,7 +181,7 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.verificationParagraph || doc.verificationNotes ? (
-          <GuideSection>
+          <GuideSection id="verification">
             <Reveal>
               {doc.verificationParagraph ? <p style={{ maxWidth: "72ch" }}>{doc.verificationParagraph}</p> : null}
               {doc.verificationNotes ? (
@@ -194,19 +194,40 @@ export default function GuideDocumentPage({ doc }: { doc: GuideDocument }) {
         ) : null}
 
         {doc.exploreLinks && doc.exploreLinks.length > 0 ? (
-          <GuideSection>
+          <GuideSection id="explore">
             <Reveal><GuideExploreLinks links={doc.exploreLinks} /></Reveal>
           </GuideSection>
         ) : null}
 
         {doc.faqs && doc.faqs.length > 0 ? (
-          <GuideSection>
+          <GuideSection id="faq">
             <Reveal><GuideFaq items={doc.faqs} /></Reveal>
           </GuideSection>
         ) : null}
 
+        {doc.sources && doc.sources.length > 0 ? (
+          <GuideSection id="sources">
+            <Reveal>
+              <GuideCard>
+                <span className="gd-eyebrow">Sources</span>
+                <h2 style={{ marginTop: 6, fontSize: 22 }}>Sources and checks</h2>
+                <ul className="gd-bullets" style={{ marginTop: 16 }}>
+                  {doc.sources.map((source) => (
+                    <li key={`${source.href}-${source.label}`}>
+                      <a href={source.href} target="_blank" rel="noopener noreferrer nofollow">
+                        {source.label} <ExternalLink aria-hidden="true" size={12} />
+                      </a>
+                      {source.checkedAt ? <span> — checked {source.checkedAt}</span> : null}
+                    </li>
+                  ))}
+                </ul>
+              </GuideCard>
+            </Reveal>
+          </GuideSection>
+        ) : null}
+
         {doc.editorialNote ? (
-          <GuideSection>
+          <GuideSection id="editorial-note">
             <Reveal>
               <div className="gd-card gd-editorial-note"><p>{doc.editorialNote}</p></div>
             </Reveal>

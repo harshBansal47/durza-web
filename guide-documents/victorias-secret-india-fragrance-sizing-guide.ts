@@ -1,0 +1,232 @@
+import type { GuideDocument } from "@/lib/guide-document";
+
+export const guideDocument: GuideDocument = {
+  slug: "victorias-secret-india-fragrance-sizing-guide",
+  url: "https://durza.in/guides/victorias-secret-india-fragrance-sizing-guide",
+  title: "Victoria's Secret India — Mists, Candles & Bra Sizing (2026)",
+  description:
+    "Use the official fit tools, compare mist and lotion honestly, and see which candle and licensing claims we could not verify. Only India-specific, checked information.",
+  researchReviewedDate: "26 Nov 2026",
+  evidenceBadges: ["Official India storefront", "Official fit tools", "Some claims unverified"],
+  audience: {
+    bestFor: [
+      "Shoppers in India buying fragrance or lingerie from the official storefront who want to measure rather than guess a bra size.",
+      "Gift buyers comparing body mist, lotion and home fragrance formats for the same scent family.",
+    ],
+    skipIf: [
+      "Anyone relying on an old '40–45 hours' candle figure or a specific licensing statement — neither could be verified from an official source.",
+      "Shoppers expecting US collection prices or offers to apply in India; the Indian site runs its own pricing and promotions.",
+      "Anyone treating a fragrance-mist claim as a measure of perfume-oil concentration — neither the brand nor a regulator published one for the formats we checked.",
+    ],
+  },
+  byline: {
+    author: "Harsh Bansal",
+    role: "Senior software engineer · 8+ years in technology",
+    published: "16 Nov 2026",
+    updated: "26 Nov 2026",
+    factsChecked: "26 Nov 2026",
+    bio: "Harsh builds and audits data-driven products. On Durza he reviews the research method, the comparison logic and the numbers behind each recommendation — so a verdict is something you can check, not just something you are told.",
+    methodHref: "/methodology",
+  },
+  quickAnswer: {
+    question: "How do I pick a size and a scent on Victoria's Secret India without guessing?",
+    answer:
+      "Use the official 'How to Measure Bra Size' calculator on victoriassecret.in rather than converting a label from an Indian brand. If the band rides up but the cups fit, move up one band and down one cup letter — 32B and 34A hold roughly the same cup volume. For scent, a body mist is a light, wearable format and a matching lotion is a layering base; we could not verify any concentration percentage for these formats. The old 40–45-hour candle figure and the 'exclusive Indian licensing partner' statement were not verified and have been removed.",
+    jumpHref: "#scenarios",
+    jumpLabel: "See the sizing and scent notes",
+  },
+  ctas: [
+    {
+      href: "/go/victorias-secret?src=guide-victorias-secret-india-fragrance-sizing-guide",
+      label: "Shop the official Victoria's Secret India store",
+      primary: true,
+    },
+    { href: "https://www.victoriassecret.in/", label: "Open victoriassecret.in" },
+    { href: "/stores/victorias-secret", label: "Victoria's Secret store hub" },
+  ],
+  methodNote:
+    "We read the official India storefront, its bra-measuring pages and published offer terms, plus a general fragrance-concentration reference, on 26 Nov 2026. We did not buy or fit any product, and no candle burn test or laboratory measurement was performed.",
+  scenarios: [
+    {
+      heading: "Bra sizing — measure, then sister-size",
+      body: "The India site publishes two measuring pages and links to a bra-size calculator. Measure snugly under the bust for the band and at the fullest point for the bust, then use the calculator. Sister sizes keep cup volume roughly constant while the band changes: 32B, 34A and 30C are sister sizes. If the band feels tight, go up a band and down a cup letter; if the band rides up, go down a band and up a cup letter. Fit, not the letter on the label, is the verdict.",
+      icon: null,
+    },
+    {
+      heading: "Do not convert from a local label by guesswork",
+      body: "Indian brands often print centimetre-based labels alongside inch sizes, while Victoria's Secret-style bands are commonly inch numbers such as 32 or 34. Without a tape measure, an '80' label tells you very little about the right band here. Older Durza copy claimed 'India sizing follows UK band size with cup letters A–DD' and that a 32B in UK brands maps directly — we found no official India source for that rule and do not present it as verified.",
+      icon: null,
+    },
+    {
+      heading: "Mist, lotion and perfume — different jobs",
+      body: "The official India navigation separates Fragrance Mists, Fragrance Lotions, Perfumes and Rollerballs & Travel Size under Fine Fragrance, with Body Mists and Body Lotions under Mist & Body. A mist is a light all-over spray; a lotion is primarily a moisturiser that carries the same scent and is commonly used as a layering base; a perfume is the more concentrated personal-fragrance format. None of these concentration figures were published by the brand on the pages we read. Industry ranges for parfum, EDP and EDT are conventions rather than regulated definitions.",
+      icon: null,
+    },
+    {
+      heading: "Season and scent in Indian weather",
+      body: "Delhi heat and Mumbai humidity change how a scent opens and how long it seems to last. Gourmand and vanilla-leaning families often feel warmer in winter evenings; floral and fresh families are easier in daytime heat. This is a wearing-preference judgement, not a measured longevity result. We removed the older claim that one named gourmand mist 'outlasts' another because we found no comparative test behind it.",
+      icon: null,
+    },
+    {
+      heading: "Candles — what we could not verify",
+      body: "Older Durza copy gave a precise 40–45-hour burn time for a 14.5-oz three-wick candle, a wick-trim height and a 'house test panel' layering routine. We found no official Victoria's Secret India page supporting those numbers, and the only comparable 25–45-hour figure we found belongs to a different brand. Treat the old figure as unverified. For any candle, trim the wick before each burn and never leave it unattended — that is general safety practice, not a VS specification.",
+      icon: null,
+    },
+  ],
+  skuTable: {
+    headers: ["Format / question", "What the official India site shows", "What we verified", "What remains unverified"],
+    rows: [
+      [
+        "Bra size calculator and measuring guide",
+        "Two 'How to Measure Bra Size' pages linked under BRA GUIDE",
+        "Pages exist on victoriassecret.in",
+        "No independent fit test; use your own measurements",
+      ],
+      [
+        "Sister sizing (32B ↔ 34A ↔ 30C)",
+        "A Victoria's Secret customer-care sister-sizing article exists",
+        "General bra-fit convention, consistent with the brand's own guidance topic",
+        "Not a promise that every style fits identically",
+      ],
+      [
+        "Fragrance Mists / Lotions / Perfumes",
+        "Listed as separate categories under Beauty",
+        "Category structure confirmed on the official storefront",
+        "No concentration percentage or comparative longevity published by VS India",
+      ],
+      [
+        "14.5-oz three-wick candle burn time",
+        "Home Fragrance category exists",
+        "No VS India-specific burn figure located",
+        "Old '40–45 hours' figure withdrawn as unverified",
+      ],
+      [
+        "Indian licensing arrangement",
+        "India-specific pricing, banners and offer terms",
+        "Storefront is India-focused",
+        "The 'exclusive Indian partner' statement in older copy was not verified",
+      ],
+    ],
+  },
+  checkoutSteps: [
+    "Measure first. Use the official bra-size calculator on the India site and keep your under-bust and fullest-bust numbers handy.",
+    "Try a sister size if the band or cups are close but not right; remember that band and cup change in opposite directions.",
+    "Choose the fragrance format for the job: mist for light all-over wear, lotion for layering, perfume for a more concentrated personal scent.",
+    "Read the live offer terms. We saw SHIP50 and a VSAPP10 app-only code with conditions including non-clearance items, one use per user and no combination with other codes; terms can change.",
+    "Do not budget around the old candle-hour figure. If burn time matters, check the product page for the exact candle you are buying.",
+  ],
+  checkoutNote:
+    "Storefront structure, offer text and measuring pages were checked on 26 Nov 2026. Offers, collections and prices are India-specific and change often. No product was purchased or fitted.",
+  verifiedFacts: {
+    kicker: "Victoria's Secret India · checked 26 Nov 2026",
+    title: "What the official site confirms — and what it does not",
+    facts: [
+      {
+        label: "The India site publishes bra-measuring tools.",
+        detail:
+          "Under BRA GUIDE the storefront links 'How to Measure Bra Size' and 'Bra Fit Guide'. The measuring page asks for a band and bust measurement rather than a label conversion.",
+        href: "https://www.victoriassecret.in/vs/bras/how-to-measure-bra",
+      },
+      {
+        label: "Sister sizing is an official brand guidance topic.",
+        detail:
+          "Victoria's Secret customer care maintains a sister-sizing article with conversion charts. The principle is that adjacent band sizes with inverted cup letters hold roughly the same cup volume.",
+        href: "https://customercare.victoriassecret.com/s/article/2050",
+      },
+      {
+        label: "Fragrance formats are separate official categories.",
+        detail:
+          "The India navigation lists Fragrance Mists, Fragrance Lotions, Perfumes and Rollerballs & Travel Size under Fine Fragrance, and Body Mists and Body Lotions under Mist & Body.",
+        href: "https://www.victoriassecret.in/",
+      },
+      {
+        label: "Offer codes have printed conditions.",
+        detail:
+          "The storefront listed VSAPP10 as an app-only, once-per-user extra 10% on non-clearance items, not combinable with other codes or promotions, and a SHIP50 offer requiring sign-in to view. These are the terms as displayed on the check date.",
+        href: "https://www.victoriassecret.in/",
+      },
+      {
+        label: "The candle burn-time claim failed verification.",
+        detail:
+          "No Victoria's Secret India page we read gave the 40–45-hour figure from an older Durza draft. A 25–45-hour figure found in search belongs to a different retailer's three-wick candle and is not evidence for this brand.",
+        href: "https://customercare.bathandbodyworks.com/hc/en-us/articles/4410663141651-Is-there-a-difference-in-burn-hours-between-Single-Wick-and-3-Wick-Candles",
+      },
+    ],
+    note: "We read the India storefront and its published terms; no fitting, candle burn test or fragrance measurement was performed. The candle source above is a different brand, cited only to show why the old figure was withdrawn.",
+    methodHref: "/methodology",
+  },
+  verificationParagraph:
+    "We checked the official Victoria's Secret India storefront, its bra-measuring pages, published offer terms and a general fragrance-concentration reference on 26 Nov 2026. We did not buy, fit or burn-test anything. The old 40–45-hour candle figure, the gourmand-longevity comparison and the licensing statement could not be verified and are not repeated as facts. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you.",
+  verificationNotes: [
+    "Bra fit is individual; sister sizing preserves approximate cup volume, not an identical fit across styles.",
+    "Fragrance concentration ranges are industry conventions, not regulated definitions, and VS India did not publish them for these formats.",
+    "Candle burn time depends on wick care, room conditions and how long each burn lasts; a single figure is not a promise.",
+    "India-specific offers are not the same as US offers; check the India cart.",
+    "A fraud warning on the official site asks customers to pay only through its secure checkout and ignore third-party payment requests.",
+  ],
+  exploreLinks: [
+    { href: "/topics/beauty", label: "Beauty & Grooming topic hub" },
+    { href: "/categories/beauty", label: "Beauty & Grooming category" },
+    { href: "/guides/bath-and-body-works-india-mists-candles-guide", label: "Bath & Body Works mist and candle guide" },
+    { href: "/stores/victorias-secret", label: "Victoria's Secret store hub" },
+    { href: "/stores/bath-and-body-works", label: "Bath & Body Works store hub" },
+    { href: "/stores/charles-keith", label: "Charles & Keith store hub" },
+  ],
+  faqs: [
+    {
+      question: "How do I know my Victoria's Secret India bra size?",
+      answer:
+        "Measure snugly under the bust and at the fullest point, then use the calculator on the India site. If the band is tight, move up one band and down one cup letter; if it rides up, move down a band and up a cup letter. The fit on your body matters more than the letter.",
+    },
+    {
+      question: "Which lasts longer in India — mist, lotion or perfume?",
+      answer:
+        "A mist is a light format and a lotion is mainly a moisturising layering base; neither is a substitute for a more concentrated perfume. We did not find published concentration or comparative longevity data for VS India formats, so we do not rank them by hours.",
+    },
+    {
+      question: "How many hours does the three-wick candle burn?",
+      answer:
+        "We cannot give you a verified figure. The 40–45-hour number in an older Durza draft had no official source, and the comparable figure we found belongs to another brand. Check the exact candle's product page and follow basic wick-trimming and fire-safety practice.",
+    },
+    {
+      question: "Can I combine the store's offer codes?",
+      answer:
+        "The VSAPP10 terms we read explicitly say it cannot be combined with other coupon codes or special promotions and is app-only and once per user. Other offers such as SHIP50 carry their own conditions. Read the live terms before paying.",
+    },
+    {
+      question: "Did Durza test or fit any of this?",
+      answer:
+        "No. We read official pages and published offer terms on 26 Nov 2026 and make no performance or fit guarantees.",
+    },
+  ],
+  editorialNote:
+    "Research reviewed 26 Nov 2026. The candle burn-time, scent-longevity and licensing statements from an older draft failed verification and were removed. Durza may earn a commission on tracked links at no extra cost to you.",
+  sources: [
+    { label: "Official Victoria's Secret India storefront", href: "https://www.victoriassecret.in/", checkedAt: "26 Nov 2026" },
+    {
+      label: "How to Measure Bra Size — Victoria's Secret India",
+      href: "https://www.victoriassecret.in/vs/bras/how-to-measure-bra",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "How to Measure Bra Size (calculator) — Victoria's Secret India",
+      href: "https://www.victoriassecret.in/vs/how-to-measure-bra-size",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "Sister Sizing: Bras — Victoria's Secret customer care",
+      href: "https://customercare.victoriassecret.com/s/article/2050",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "Fragrance concentration conventions (industry reference, not a regulator)",
+      href: "https://luxeformulalabs.com/blog/perfume-concentration-guide/",
+      checkedAt: "26 Nov 2026",
+    },
+    {
+      label: "Comparison only — another retailer's three-wick burn-hours article",
+      href: "https://customercare.bathandbodyworks.com/hc/en-us/articles/4410663141651-Is-there-a-difference-in-burn-hours-between-Single-Wick-and-3-Wick-Candles",
+      checkedAt: "26 Nov 2026",
+    },
+  ],
+};

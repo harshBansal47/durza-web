@@ -3,94 +3,110 @@ import type { GuideDocument } from "@/lib/guide-document";
 export const guideDocument: GuideDocument = {
   slug: "how-to-save-on-amazon-india",
   url: "https://durza.in/guides/how-to-save-on-amazon-india",
-  title: "How to Save on Amazon India: Coupons, Bank Offers & Exchange Deals",
+  title: "How to Save on Amazon India (2026): A Practical Checkout Checklist",
   description:
-    "Amazon India rarely uses public text promo codes. The real savings live in product-page clip coupons, payment-page bank slabs and exchange offers — and the order you apply them changes the final payable amount.",
-  researchReviewedDate: "24 Nov 2026",
-  evidenceBadges: [],
+    "A repeatable Amazon India savings checklist: compare deal price, check coupons, evaluate exchange, verify bank/card offers, and confirm the final checkout total before paying. Checked 26 Nov 2026.",
+  researchReviewedDate: "26 Nov 2026",
+  evidenceBadges: ["Checkout checklist", "No live offer claimed"],
   audience: {
     bestFor: [
-      "Shoppers buying electronics, appliances or household staples who want one repeatable checkout order.",
-      "Cardholders choosing between a core-bank 10% slab, Amazon Pay ICICI cashback and no-cost EMI.",
+      "Shoppers who want a repeatable way to check Amazon India savings before buying.",
+      "Buyers comparing coupons, exchange, and bank offers on the same order.",
     ],
     skipIf: [
-      "Buyers hunting for third-party “secret codes” — Amazon mostly uses clip checkboxes and bank slabs.",
-      "Single-item buyers under ₹499 without Prime: ₹40–₹100 shipping can erase a small coupon saving.",
+      "You want guaranteed live coupon/bank offers; verify them on the product and checkout pages.",
+      "You need price-history tooling inside this guide — use it as a checkout decision process.",
     ],
   },
   byline: {
     author: "Harsh Bansal",
     role: "Senior software engineer · 8+ years in technology",
     published: "18 Oct 2026",
-    updated: "24 Nov 2026",
-    factsChecked: "24 Nov 2026",
+    updated: "26 Nov 2026",
+    factsChecked: "26 Nov 2026",
     bio: "Harsh builds and audits data-driven products. On Durza he reviews the research method, the comparison logic and the numbers behind each recommendation — so a verdict is something you can check, not just something you are told.",
     methodHref: "/methodology",
   },
   quickAnswer: {
-    question: "What is the exact stacking order on Amazon India?",
+    question: "What is the best order to check Amazon India savings?",
     answer:
-      "Deal price → product clip coupon → exchange (only after checking the post-exchange total still clears the bank offer's minimum spend) → bank instant discount at payment, or Amazon Pay ICICI cashback if no instant slab is active. Verify the separate discount lines before clicking Pay.",
-    jumpHref: "#worked-maths",
-    jumpLabel: "See the worked maths",
+      "Start with the exact product and seller, then check the deal price, apply any visible coupon, evaluate exchange value separately, and finally test bank/card offers in checkout. Only count savings that appear in the final payable amount. A discount is not real until checkout confirms it for your cart.",
+    jumpHref: "#checklist",
+    jumpLabel: "See the checkout checklist",
   },
   ctas: [
-    { href: "/go/amazon-in?src=guide-amazon-save-verdict", label: "Check live deals on Amazon India" },
-    { href: "/bank-offers", label: "Compare live bank slabs" },
+    { href: "/stores/amazon-in", label: "Amazon India store hub", primary: true },
+    { href: "/guides/amazon-flipkart-sale-dates-2026", label: "Amazon & Flipkart sale dates 2026" },
   ],
-  methodNote: null,
-  scenarios: null,
-  skuTable: null,
-  checkoutSteps: null,
-  checkoutNote: null,
+  methodNote:
+    "This guide is a verification process, not a live deal feed. We did not verify live coupons, exchange values, or bank-offer eligibility. Amazon prices, seller stock, and offer terms can change quickly; confirm the final checkout before paying.",
+  scenarios: [
+    {
+      heading: "Regular purchase: check seller and final price",
+      body: "Before chasing offers, confirm the exact product, variant, seller, delivery date and return policy. A low price from the wrong seller or variant is not a saving.",
+      icon: null,
+    },
+    {
+      heading: "Coupon + bank offer: verify stacking",
+      body: "Some coupons apply automatically, others need clipping. Bank offers may have minimum spend, caps, eligible cards, or category exclusions. Test the full combination in checkout.",
+      icon: null,
+    },
+    {
+      heading: "Exchange: treat as a separate trade-off",
+      body: "Exchange can reduce upfront cost, but it depends on device condition, eligibility, and pickup/verification. Compare the exchange-adjusted effective price against selling separately only if you have a realistic alternative value.",
+      icon: null,
+    },
+  ],
+  skuTable: {
+    headers: ["Saving lever", "What to check", "Common caveat"],
+    rows: [
+      ["Deal/listing price", "Exact variant, seller, delivery, return policy", "Price can change or vary by seller"],
+      ["Coupon", "Whether it is clipped/applied and eligible for your cart", "May be account-, product-, or quantity-specific"],
+      ["Exchange", "Eligible model, condition questions, pickup terms", "Final value can be reduced after inspection"],
+      ["Bank/card offer", "Min spend, cap, eligible cards, instant/cashback timing", "May not stack or may apply only on certain payment modes"],
+      ["No-cost EMI/fees", "Total payable amount, processing fees, interest terms", "Low monthly payment can hide higher total cost"],
+    ],
+  },
+  checkoutSteps: [
+    "Confirm the exact Amazon product, variant, seller, price, delivery date and return policy.",
+    "Check for a coupon on the product page and confirm it is applied in cart.",
+    "If using exchange, enter accurate device details and review the exchange terms before relying on the value.",
+    "On the payment page, check eligible bank/card offers and confirm the discount type, cap and minimum spend.",
+    "Confirm the final payable amount in checkout before paying; save the order/offer confirmation.",
+  ],
+  checkoutNote:
+    "Durza does not claim Amazon coupons, exchange values, or bank offers as active unless verified in the relevant checkout flow. The final payment screen is the source of truth.",
   verifiedFacts: null,
   verificationParagraph:
-    "A 25 Nov 2026 evidence pass confirmed Amazon's plan pages and checkout mechanics, but the only supplied bank-offer terms page documenting an SBI 10% slab lists a validity window of 10–14 June 2023. That campaign is historical and is not presented here as a live offer. Both scenarios are illustrative arithmetic built to show the order of operations — not live product quotes. We have not verified today's bank slab on your specific SKU or pincode. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you.",
-  verificationNotes: null,
+    "This page was editorially reviewed on 26 Nov 2026. It provides a checkout verification process, not live offer claims. We did not verify live Amazon coupons, exchange values, or bank/card eligibility. Confirm the final product, seller, and checkout total on Amazon India before purchasing.",
+  verificationNotes: [
+    "No Amazon coupon, exchange value, or bank offer is claimed as active in this guide.",
+    "Offer eligibility can vary by account, product, seller, card, and payment method.",
+    "Check the total payable amount, not just the headline discount.",
+  ],
   exploreLinks: [
-    { href: "/categories/finance", label: "Finance & Cards deals and card guides" },
-    { href: "/bank-offers", label: "Credit Card & Bank Instant Discount Offers India" },
-    {
-      href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india",
-      label: "Instant Bank Discount vs No-Cost EMI: hidden GST & fees",
-    },
-    {
-      href: "/compare/amazon-vs-flipkart-electronics-2026",
-      label: "Amazon India vs Flipkart: returns, OBD & bank offers",
-    },
-    { href: "/reviews/amazon-prime-india-review-2026", label: "Amazon Prime India review: ₹399 vs ₹1,499" },
-    { href: "/guides/amazon-finance-card-smarts-buying-guide", label: "Amazon finance & card smarts" },
-    { href: "/stores/amazon-in", label: "Amazon India coupons & deals" },
-    { href: "/stores/flipkart", label: "Flipkart coupons & store hub" },
+    { href: "/stores/amazon-in", label: "Amazon India store hub" },
+    { href: "/guides/amazon-flipkart-sale-dates-2026", label: "Amazon & Flipkart sale dates 2026" },
+    { href: "/guides/how-durza-verifies-offers-methodology-2026", label: "How Durza verifies offers" },
   ],
   faqs: [
     {
-      question: "Do Amazon clip coupons and bank offers combine?",
+      question: "Should I apply coupon or bank offer first on Amazon?",
       answer:
-        "Often, yes — the clip coupon reduces the item price at cart level and the bank instant discount applies at payment. But the bank slab has a minimum net transaction value, so a large exchange credit can push the cart below that threshold and void the bank offer. Read the payment summary with each option selected.",
+        "Check them in the order Amazon's checkout applies them, but evaluate the final payable total. Some offers stack, some don't, and some have caps or minimum spend. The final payment screen is what matters.",
     },
     {
-      question: "Is the exchange offer worth it?",
+      question: "Is Amazon exchange always worth it?",
       answer:
-        "Only if the exchange credit beats what you would get by selling the old device yourself, and only if applying it does not disqualify a larger bank discount. Compare the final payable amount with and without exchange on the payment page.",
+        "Not always. Exchange reduces upfront cost, but the value depends on condition, eligibility and inspection. Compare the exchange-adjusted price against your realistic alternative before deciding.",
     },
     {
-      question: "When is the best time to shop on Amazon India?",
+      question: "Why did a bank offer not apply at checkout?",
       answer:
-        "The Great Indian Festival and Prime Day typically carry the deepest bank slabs and exchange bonuses, but prices are often inflated before the sale. Track the price for a few weeks and compare against Flipkart before paying. Our Black Friday vs regular sales comparison explains the pattern.",
-    },
-    {
-      question: "Does no-cost EMI really cost nothing?",
-      answer:
-        "Not necessarily. Banks may charge GST on the discounted interest component and a processing fee, and choosing EMI can make you ineligible for a flat instant discount. In our illustrative scenario, a full-card swipe with a ₹3,000 instant discount worked out cheaper than a no-cost EMI that kept the discount off the table.",
-    },
-    {
-      question: "How do I know if a bank offer applied?",
-      answer:
-        "The payment page must show a separate discount line before you click Pay. If the line is missing after you select a card or EMI, the offer has not applied — do not assume it will be adjusted later.",
+        "Common reasons include ineligible card, minimum spend not met, cap exhausted, wrong payment mode, excluded category/product, or offer expiry. Check the offer terms on the product/payment page and confirm in checkout.",
     },
   ],
   editorialNote:
-    "First published 18 Oct 2026. Research reviewed 24 Nov 2026. Bank slabs, exchange values and coupon eligibility change constantly — the payment summary is the only source of truth for what you actually pay. We do not fabricate codes or claim a discount we have not seen accepted at checkout.",
+    "Editorially reviewed 26 Nov 2026. This is a process guide; live prices and offers can change. Durza may earn a commission through tracked links at no extra cost to you.",
   sources: [],
 };
