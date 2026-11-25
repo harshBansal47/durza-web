@@ -518,7 +518,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Amazon vs Flipkart for Electronics in India (2026): Returns, OBD & Bank Offers | Durza",
     metaDescription:
       "Amazon vs Flipkart electronics in India (2026): compare service-center replacement policies, Open-Box Delivery, seller/invoice checks, and where bank offers or delivery wins.",
-    heroImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/guides/amazon-vs-flipkart-electronics-2026.webp",
     summary:
       "For electronics, the safest buy is often the one with the right seller, clear invoice, and inspection at delivery—not just the lowest price. Both platforms have tightened returns on phones, laptops, and many appliances.",
     updatedLabel: "Updated 18/11/2026",
@@ -605,7 +605,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Lenovo & ASUS Official Stores vs Amazon/Flipkart: Laptop Price & Warranty | Durza",
     metaDescription:
       "Compare Lenovo and ASUS official stores vs Amazon/Flipkart for laptops in India: CTO configs, ADP value, student discounts, delivery time, and long-term ownership cost.",
-    heroImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/guides/official-brand-store-vs-amazon-flipkart-laptops-india.webp",
     summary:
       "Official brand stores can look ₹2,000 costlier upfront, but custom configs, cheaper ADP, and verified discounts often make them better value over 3 years. Marketplaces still win for speed and some card deals.",
     updatedLabel: "Updated 18/11/2026",
@@ -764,7 +764,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Kama Ayurveda vs Forest Essentials vs Indus Valley (India): What to Buy Where | Durza",
     metaDescription:
       "Compare Kama Ayurveda, Forest Essentials, and Indus Valley in India: cold-pressed oils, sensorial luxury Ayurveda, ammonia/PPD-free hair color, and why buying direct matters.",
-    heroImage: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/guides/kama-ayurveda-vs-forest-essentials-vs-indus-valley.webp",
     summary:
       "“Ayurvedic” can mean very different things. Choose based on formulation style and routine: classical oils and distillates, luxury sensorial care, or everyday botanical hair color—then buy from trusted sources to avoid near-expiry stock.",
     updatedLabel: "Updated 18/11/2026",
@@ -843,7 +843,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Kapiva vs HK Vitals vs HealthKart India 2026: Labels, Lab Reports & Cost Per Serving | Durza",
     metaDescription:
       "Compare three different supplement routes in India using published label data: Kapiva Shilajit resin, HK Vitals marine collagen and MuscleBlaze whey via HealthKart — with serving counts, cost per serving and verification checks.",
-    heroImage: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/guides/kapiva-vs-hkvitals-vs-healthkart-supplements-india.webp",
     summary:
       "These are not direct substitutes: Kapiva sells Ayurvedic resins, HK Vitals sells daily nutraceuticals, and HealthKart is a multi-brand sports-nutrition marketplace. Compare label transparency, cost per serving and verification options — not headline discounts. No health or efficacy claims are made here.",
     updatedLabel: "Updated 24/11/2026",
@@ -1442,7 +1442,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Best Laptops Under ₹50,000 India 2026: Acer vs Lenovo vs ASUS Compared | Durza",
     metaDescription:
       "Compare the Acer Aspire 3, Lenovo IdeaPad Slim 3 and ASUS Vivobook 15 under ₹50,000 in India on CPU class, RAM upgradeability, display, battery and service — with sourced numbers and honest caveats.",
-    heroImage: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/guides/best-laptops-under-50000-india-coding-office-2026.webp",
     summary:
       "Under ₹50,000 the headline spec is rarely the thing that decides whether a laptop feels good in year three. Processor class, a spare RAM slot and a readable display do. Here is how three common 2026 picks compare, using published lab data rather than manufacturer claims.",
     updatedLabel: "Updated 24/11/2026",

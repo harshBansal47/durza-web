@@ -172,7 +172,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "A lightweight 5-step routine for humid Indian weather and hard water: non-greasy SPF, oil-control actives, scalp reset, soothing mist, and gentle hair colour options.",
     heroImage:
-      "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=1200&q=80",
+      "/guides/indian-monsoon-humidity-skincare-haircare-kit.webp",
     summary:
       "A 5-piece routine built for 80% humidity and hard-water buildup—light textures, scalp clarity, and practical actives without heavy, melting layers.",
     updatedLabel: "Updated Nov 2026",
@@ -481,7 +481,7 @@ export const COLLECTIONS: CollectionEntry[] = [
     metaDescription:
       "A practical student and junior-developer tech kit for India: student-priced laptops, long-battery audio, pocket TWS, and skill-building picks for classes and placements.",
     heroImage:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
+      "/guides/indian-college-student-and-coder-backpack-essentials.webp",
     summary:
       "A durable, carry-friendly tech stack for lectures, hostel Wi-Fi, coding, and placements—prioritizing battery life, comfort, and smart student perks.",
     updatedLabel: "Updated Nov 2026",
