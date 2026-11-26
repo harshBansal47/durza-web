@@ -52,8 +52,8 @@ describe("GuideArt", () => {
     );
 
     const found = srcs(container).join(" ");
-    expect(found).toContain("public/stores/flipkart.webp");
-    expect(found).toContain("public/stores/myntra.webp");
+    expect(found).toContain("/stores/flipkart.webp");
+    expect(found).toContain("/stores/myntra.webp");
     expect(container.querySelector("svg")).not.toBeNull();
   });
 

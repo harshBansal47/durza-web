@@ -79,37 +79,37 @@ export const VICTORIAS_SECRET_SLOTS: LuxurySlot[] = [
   {
     collection: "Fine Fragrance Mists",
     styling: "A veil of warmth — amber, florals and soft musk that lingers from first light to late evening, chosen by those who like their presence remembered, never announced.",
-    image: "public/stores/victorias-secret/fine-fragrance-mists.webp",
+    image: "/stores/victorias-secret/fine-fragrance-mists.webp",
     alt: "Golden fine fragrance mist bottle in warm, luxurious light",
   },
   {
     collection: "Signature Fragrance — Eau de Parfum",
     styling: "Sculpted glass, ambered depth and a sillage that feels intimate — the kind of fragrance worn as a quiet signature, not a statement.",
-    image: "public/stores/victorias-secret/signature-eau-de-parfum.webp",
+    image: "/stores/victorias-secret/signature-eau-de-parfum.webp",
     alt: "Luxury sculpted glass eau de parfum bottle",
   },
   {
     collection: "Body & Hand Lotions",
     styling: "Silken, slow-absorbing care in the house’s most loved scents — a small daily ritual that leaves skin luminous and evenings softly perfumed.",
-    image: "public/stores/victorias-secret/body-hand-lotions.webp",
+    image: "/stores/victorias-secret/body-hand-lotions.webp",
     alt: "Minimalist luxury body cream and skincare jar",
   },
   {
     collection: "Silk Satin Lingerie",
     styling: "Ruby, noir and midnight satin with delicate lace — pieces cut to feel like a private indulgence, confident, refined and unmistakably feminine.",
-    image: "public/stores/victorias-secret/silk-satin-lingerie.webp",
+    image: "/stores/victorias-secret/silk-satin-lingerie.webp",
     alt: "Deep ruby silk and lace lingerie flatlay",
   },
   {
     collection: "Signature Sleepwear",
     styling: "Fluid slips and soft lounge silhouettes in the house palette — the kind of comfort you gift to someone special, or keep for yourself.",
-    image: "public/stores/victorias-secret/signature-sleepwear.webp",
+    image: "/stores/victorias-secret/signature-sleepwear.webp",
     alt: "Elegant silk slip sleepwear in soft light",
   },
   {
     collection: "Angels & Bombshell Collections",
     styling: "The icons — blush florals, petal-soft sweetness and timeless allure, a heritage line for those who collect moments as much as scents.",
-    image: "public/stores/victorias-secret/angels-bombshell.webp",
+    image: "/stores/victorias-secret/angels-bombshell.webp",
     alt: "Blush rose luxury perfume with petals, Bombshell aesthetic",
   },
 ];
@@ -120,7 +120,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Accessory: Butter-Soft Leather Sandals",
     styling:
       "Butter-soft leather straps with hand-finished edges and Pillow Walk™ comfort lasts — airy, fold-flat ease in EU sizes made for sunlit getaways.",
-    image: "public/stores/aldo-shoes/butter-soft-leather-sandals.webp",
+    image: "/stores/aldo-shoes/butter-soft-leather-sandals.webp",
     alt: "Butter-soft leather sandals in warm neutral tones",
   },
   {
@@ -128,7 +128,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Work & Boardroom Loafers",
     styling:
       "Sleek grained leather with brushed hardware and Pillow Walk™ comfort lasts — a polished, slip-on silhouette in EU sizing that carries you from desk to dinner.",
-    image: "public/stores/aldo-shoes/boardroom-loafers.webp",
+    image: "/stores/aldo-shoes/boardroom-loafers.webp",
     alt: "Polished leather loafers for work and boardroom wear",
   },
   {
@@ -136,7 +136,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Evening Heels & Pumps",
     styling:
       "Sculpted profiles in patent and suede with brushed hardware accents and Pillow Walk™ comfort lasts — poised height, EU sizing, and all-evening ease.",
-    image: "public/stores/aldo-shoes/evening-heels-pumps.webp",
+    image: "/stores/aldo-shoes/evening-heels-pumps.webp",
     alt: "Elegant evening heels and pumps",
   },
   {
@@ -144,7 +144,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Structured Top-Handle Bags",
     styling:
       "Crisp, architectural lines in croc-embossed leather with brushed hardware — a structured top-handle that holds its form from gallery afternoons to evening plans.",
-    image: "public/stores/aldo-shoes/structured-top-handle-bags.webp",
+    image: "/stores/aldo-shoes/structured-top-handle-bags.webp",
     alt: "Structured top-handle handbag with refined silhouette",
   },
   {
@@ -152,7 +152,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Trainers & Casual Sneakers",
     styling:
       "Clean leather uppers, subtle brushed hardware details and Pillow Walk™ comfort lasts — refined off-duty ease in EU sizing for the everyday stride.",
-    image: "public/stores/aldo-shoes/trainers-casual-sneakers.webp",
+    image: "/stores/aldo-shoes/trainers-casual-sneakers.webp",
     alt: "Casual trainers and lifestyle sneakers",
   },
   {
@@ -160,7 +160,7 @@ export const ALDO_SHOES_SLOTS: LuxurySlot[] = [
     collection: "Suede Ankle Boots",
     styling:
       "Genuine suede with an almond toe, brushed hardware and Pillow Walk™ comfort lasts — a stacked-heel boot in EU sizing for composed winter layering.",
-    image: "public/stores/aldo-shoes/suede-ankle-boots.webp",
+    image: "/stores/aldo-shoes/suede-ankle-boots.webp",
     alt: "Suede ankle boots with stacked heel",
   },
 ];
@@ -211,7 +211,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Japanese Cherry Blossom and twilight florals wrapped in soft musk — a fine mist veil that lingers from morning rituals to evening plans.",
     image:
-      "public/guides/vero-moda-evening-silk.webp",
+      "/guides/vero-moda-evening-silk.webp",
     alt: "Bath & Body Works aromatherapy fine fragrance mist",
   },
   {
@@ -220,7 +220,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Soy-blend 3-wick candles with a warm, gourmand glow — rich throw and an inviting ambience that fills the room for unhurried evenings.",
     image:
-      "public/guides/vero-moda-denim.webp",
+      "/guides/vero-moda-denim.webp",
     alt: "Bath & Body Works signature 3-wick candle",
   },
   {
@@ -229,7 +229,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Cushioning shea body creams and lotions that melt in fast — plush hydration and a soft scent trail for comfortable, cared-for skin.",
     image:
-      "public/guides/vero-moda-tailoring.webp",
+      "/guides/vero-moda-tailoring.webp",
     alt: "Bath & Body Works body lotion and shea butter cream",
   },
   {
@@ -238,7 +238,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Gentle foaming hand soaps and PocketBac essentials in bright botanical notes — everyday freshness that feels clean, light and uplifting.",
     image:
-      "public/guides/bath-body-works-aromatherapy-fine-fragrance-mist.webp",
+      "/guides/bath-body-works-aromatherapy-fine-fragrance-mist.webp",
     alt: "Bath & Body Works foaming hand soaps and PocketBac sanitisers",
   },
   {
@@ -247,7 +247,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Silky foaming body wash that layers beautifully — a sensorial cleanse that carries from a refreshing shower to an all-day soft scent.",
     image:
-      "public/guides/bath-body-works-signature-3-wick-candle.webp",
+      "/guides/bath-body-works-signature-3-wick-candle.webp",
     alt: "Bath & Body Works gentle foaming body wash",
   },
   {
@@ -256,7 +256,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Ready-to-gift fragrance sets and festive hampers — thoughtfully paired mists, creams and candles for effortless, memorable gifting.",
     image:
-      "public/guides/bath-body-works-body-lotion-and-shea-butter-cream.webp",
+      "/guides/bath-body-works-body-lotion-and-shea-butter-cream.webp",
     alt: "Bath & Body Works home and dorm gift set",
   },
 ];
@@ -268,7 +268,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Anti-tarnish 18k gold-vermeil Singapore, paperclip and snake chains — waterproof, sweat-proof layers that stay luminous from gym sessions to dinner plans.",
     image:
-      "public/guides/bath-body-works-foaming-hand-soaps-and-pocketbac-sanitisers.webp",
+      "/guides/bath-body-works-foaming-hand-soaps-and-pocketbac-sanitisers.webp",
     alt: "Everyday 18k gold-plated chain necklaces",
   },
   {
@@ -277,7 +277,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Brilliant lab-grown diamond solitaires set in 925 silver and gold vermeil — refined sparkle and everyday elegance without the heirloom markup.",
     image:
-      "public/guides/bath-body-works-gentle-foaming-body-wash.webp",
+      "/guides/bath-body-works-gentle-foaming-body-wash.webp",
     alt: "Lab-grown diamond ring and fine jewelry accent",
   },
   {
@@ -286,7 +286,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Sculptural cuffs, paperclip and herringbone bracelets in anti-tarnish gold finishes — designed to stack effortlessly for a polished wrist story.",
     image:
-      "public/guides/bath-body-works-home-and-dorm-gift-set.webp",
+      "/guides/bath-body-works-home-and-dorm-gift-set.webp",
     alt: "Stackable gold bracelets and bangles",
   },
   {
@@ -295,7 +295,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Understated studs and huggie hoops with a clean, modern profile — lightweight, waterproof demi-fine essentials for all-day Indian wear.",
     image:
-      "public/guides/everyday-18k-gold-plated-chain-necklaces.webp",
+      "/guides/everyday-18k-gold-plated-chain-necklaces.webp",
     alt: "Minimal daily-wear gold stud earrings and hoops",
   },
   {
@@ -304,7 +304,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Meaningful charms and pendant drops in warm gold tones — layer over chains for a personal, modern neck-mess that moves from desk to dinner.",
     image:
-      "public/guides/lab-grown-diamond-ring-and-fine-jewelry-accent.webp",
+      "/guides/lab-grown-diamond-ring-and-fine-jewelry-accent.webp",
     alt: "Gold charm and pendant necklace edit",
   },
   {
@@ -313,7 +313,7 @@ export const PALMONAS_SLOTS: LuxurySlot[] = [
     styling:
       "Curated gift-ready sets and couple edits with premium presentation — thoughtful, demi-fine keepsakes for anniversaries, milestones and celebrations.",
     image:
-      "public/guides/stackable-gold-bracelets-and-bangles.webp",
+      "/guides/stackable-gold-bracelets-and-bangles.webp",
     alt: "Curated jewelry gift box set",
   },
 ];

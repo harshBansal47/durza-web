@@ -81,7 +81,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Black Friday 2026 India vs Regular Sales: What to Check First | Durza",
     metaDescription:
       "Flipkart and Tata CLiQ have confirmed 2026 Black Friday windows; Amazon India has not. Compare final payable prices, bank-slab caps and recent same-SKU baselines instead of trusting a strike-through MRP.",
-    heroImage: "public/guides/sale.webp",
+    heroImage: "/guides/sale.webp",
     summary:
       "A sale banner is not proof of a lower price: MRP is a tax-inclusive ceiling (PC Rules 2011, r.2(m)), and tracked laptop prices in Black Friday week sat above their earlier-2026 prices. Compare the final payable against recent prices for the same SKU.",
     updatedLabel: "Updated 18/11/2026",
@@ -204,7 +204,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "MRP vs Recent Selling Price in India: Sale Price Baseline | Durza",
     metaDescription:
       "MRP is a tax-inclusive legal ceiling, not a usual-price benchmark. Compare a dated recent selling price for the identical SKU; the same model showed different strike-throughs across two stores on 25 Nov 2026.",
-    heroImage: "public/guides/mrp-vs-recent-price-india-sale-baseline.webp",
+    heroImage: "/guides/mrp-vs-recent-price-india-sale-baseline.webp",
     summary:
       "MRP is a legal ceiling inclusive of all taxes, not a record of what a product usually sells for. During a sale, compare the final payable against a dated recent price for the same exact model code — never against the strike-through alone.",
     updatedLabel: "Updated 25/11/2026",
@@ -320,7 +320,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Amazon vs Flipkart for Smartphones in India (2026): Exchange & Card Offers | Durza",
     metaDescription:
       "Compare Amazon vs Flipkart smartphone deals in India (₹10K–₹80K): exchange bonus deductions, Open-Box Delivery rules, bank discounts, and which platform wins for your checkout.",
-    heroImage: "public/guides/mobile.webp",
+    heroImage: "/guides/mobile.webp",
     summary:
       "Flipkart can look cheaper with a big exchange bump, but doorstep deductions can erase it. Amazon often wins on flat card discounts and cleaner non-exchange pricing—especially if your old phone isn’t mint.",
     updatedLabel: "Updated 18/11/2026",
@@ -421,7 +421,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Best Laptop Deals in India (₹35K–₹75K): Amazon vs Flipkart vs Brand Stores | Durza",
     metaDescription:
       "Compare laptop deals in India (₹35K–₹75K): Amazon vs Flipkart vs Lenovo/ASUS eStores. Learn the soldered-RAM trap, ADP value, student discounts, and warranty checks.",
-    heroImage: "public/guides/laptops.webp",
+    heroImage: "/guides/laptops.webp",
     summary:
       "Two laptops with the same CPU/RAM label can be very different machines. Marketplaces can be cheaper upfront, but official stores often win on RAM upgrades, warranty protection, and student pricing.",
     updatedLabel: "Updated 18/11/2026",
@@ -712,7 +712,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Myntra vs Ajio vs Official Brand Stores in India: Sizing, Authenticity & Returns | Durza",
     metaDescription:
       "Compare Myntra, Ajio, and official brand sites (Vero Moda, ALDO, Charles & Keith) in India for sizing, freshness of stock, authenticity cues, and return hygiene.",
-    heroImage: "public/guides/fashion.webp",
+    heroImage: "/guides/fashion.webp",
     summary:
       "Aggregators are great for variety and markdowns, but current-season pieces, gifting, and hard-to-find sizes are often safer to buy direct from brand stores for fresher stock and complete packaging.",
     updatedLabel: "Updated 18/11/2026",
@@ -1029,7 +1029,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Adidas vs Nike vs ASICS for Indian Roads (2026): Grip, Cushioning & Sizing | Durza",
     metaDescription:
       "Compare Adidas, Nike, and ASICS for Indian roads and monsoon conditions: outsole grip, cushioning, UK-to-CM sizing, and why buying official can reduce counterfeit risk.",
-    heroImage: "public/guides/adidas-vs-nike-vs-asics-running-shoes-india.webp",
+    heroImage: "/guides/adidas-vs-nike-vs-asics-running-shoes-india.webp",
     summary:
       "Indian concrete, broken footpaths, and monsoon-slick tiles punish the wrong shoes. Pick based on grip and support for your use, get sizing right in CM, and buy from trusted channels for popular models.",
     updatedLabel: "Updated 18/11/2026",
@@ -1104,7 +1104,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Havells vs AO Smith vs Crompton Geyser India 2026: 15L 5-Star Compared | Durza",
     metaDescription:
       "Compare the Havells Adonia Spin 15L, AO Smith HSE-SDS-015 and Crompton Arno Neo 15L on 8-bar pressure, BEE standing loss, hard-water tank protection and warranty — with numbers from official spec sheets.",
-    heroImage: "public/guides/havells-vs-ao-smith-vs-crompton-water-heaters-india.webp",
+    heroImage: "/guides/havells-vs-ao-smith-vs-crompton-water-heaters-india.webp",
     summary:
       "In Indian high-rises and hard-water cities, a 5-star sticker does not stop a tank from leaking in year three. Here is how three 15L storage geysers compare on rated pressure, tank coating, standing heat loss and warranty — using manufacturer spec sheets and published label data rather than marketing claims.",
     updatedLabel: "Updated 24/11/2026",
@@ -1244,7 +1244,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "Instant Bank Discount vs No-Cost EMI in India: Checked Terms | Durza",
     metaDescription:
       "Official 2026 offer terms show some bank benefits are post-payment cashback, capped per card and unavailable on EMI. Compare final payable, eligibility and reward-point impact before paying.",
-    heroImage: "public/guides/bank.webp",
+    heroImage: "/guides/bank.webp",
     summary:
       "A discount shown on a product page is not always an instant reduction: Lenovo India's 2026 offer pays cashback after delivery and is not valid on EMI. Check payment-mode eligibility, per-card caps and reward-point terms before choosing.",
     updatedLabel: "Updated 18/11/2026",
@@ -1349,7 +1349,7 @@ export const COMPARISONS: CompareEntry[] = [
     seoTitle: "boAt vs Boult vs OnePlus Earbuds Under ₹2000 India 2026: Specs Compared | Durza",
     metaDescription:
       "Compare Boult Z40 Pro, boAt Airdopes 141 ANC and OnePlus Nord Buds 2r under ₹2,000 on mic count, ANC claims, battery, IP rating, latency and price — with all figures labelled as manufacturer or listing data.",
-    heroImage: "public/guides/boat-vs-boult-vs-oneplus-tws-under-2000-india.webp",
+    heroImage: "/guides/boat-vs-boult-vs-oneplus-tws-under-2000-india.webp",
     summary:
       "Under ₹2,000, a “32dB ANC” sticker will not make your voice clearer on a noisy auto or metro. Call microphones and ENC do that. Here are three specific models compared on published specs, with every decibel and battery figure clearly labelled as a manufacturer claim.",
     updatedLabel: "Updated 24/11/2026",
