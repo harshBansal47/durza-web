@@ -296,11 +296,24 @@ export default async function HomePage() {
                 <SectionTitle hint="from offers we tracked" icon={Flame}>
                   <span id="worth-looking-heading">Worth a look</span>
                 </SectionTitle>
-                <OfferRail
-                  offers={worthLooking}
-                  storesById={storesById}
-                  placement="home_worth_a_look"
-                />
+                {/* Desktop: full offers rail, with the "View all" after the offers. */}
+                <div className="hidden md:block">
+                  <OfferRail
+                    offers={worthLooking}
+                    storesById={storesById}
+                    placement="home_worth_a_look"
+                    viewAll={{ href: "/deals", label: "View all" }}
+                  />
+                </div>
+                {/* Mobile: only 5 offers in the rail, then the "View all". */}
+                <div className="md:hidden">
+                  <OfferRail
+                    offers={worthLooking.slice(0, 5)}
+                    storesById={storesById}
+                    placement="home_worth_a_look"
+                    viewAll={{ href: "/deals", label: "View all" }}
+                  />
+                </div>
               </div>
             </section>
           ) : null

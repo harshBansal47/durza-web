@@ -198,8 +198,11 @@ describe("homepage offers", () => {
     configureApi([offer("c1", "Featured offer"), { ...offer("c2", "Worth a look offer"), store_id: "s2" }]);
     vi.mocked(api.listStores).mockResolvedValue(pageOf([store, secondStore]) as never);
     const rails = findElements(await HomePage(), OfferRail);
-    expect(rails).toHaveLength(1);
+    // Desktop renders the full rail (with the "View all"); mobile renders a
+    // 5-offer preview of the same rail before the "View all".
+    expect(rails).toHaveLength(2);
     expect(rails[0].placement).toBe("home_worth_a_look");
+    expect(rails[1].placement).toBe("home_worth_a_look");
   });
 });
 
