@@ -28,7 +28,6 @@
   --hx-line: rgba(28, 22, 16, 0.1);
   --hx-line2: rgba(28, 22, 16, 0.18);
   --hx-orange: #ee5a0b;
-  --hx-orange-hot: #ff7a2f;
   --hx-orange-deep: #c2410c;
   --hx-amber: #ffb020;
   --hx-amber-ink: #92400e;
@@ -37,9 +36,6 @@
   --hx-green-ink: #15803d;
   --hx-green-bg: #eaf8ef;
   --hx-blue: #1d4ed8;
-  --hx-red: #b91c1c;
-  --hx-red-bg: #fee9ec;
-  --hx-magenta: #a21caf;
   --hx-tx: #1c1610;
   --hx-tx2: #5c5347;
   --hx-tx3: #766b5d;
@@ -210,8 +206,6 @@
 /* ---------- bottom band ---------- */
 .hx-band { padding: 18px clamp(14px, 2vw, 26px) 14px; border-top: 1px solid var(--hx-line); }
 .hx-band-meta { padding: 0 clamp(14px, 2vw, 26px) 18px; }
-.hx-trustcol { display: flex; flex-direction: column; gap: 9px; }
-.hx-trust { display: flex; align-items: center; gap: 9px; white-space: nowrap; font-size: 12.5px; font-weight: 600; color: var(--hx-tx2); }
 .hx-trust svg { flex-shrink: 0; color: var(--hx-green-ink); }
 .hx-trust.amber svg { color: #b45309; }
 .hx-trust.blue svg { color: var(--hx-blue); }

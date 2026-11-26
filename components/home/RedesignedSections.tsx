@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import SectionHead from "@/components/SectionHead";
 import { useState, type ReactNode } from "react";
-import { ArrowRight } from "lucide-react";
 import type { DiscoverableContent, TopicId } from "@/lib/topics";
 
 interface CollectionCardData {
@@ -69,33 +69,6 @@ function SmartImage({
   return (
     <div className={`${className} hs-fallback`} style={{ backgroundColor: tint }} role="img" aria-label={fallbackLabel}>
       <span>{fallbackLabel}</span>
-    </div>
-  );
-}
-
-function SectionHead({
-  id,
-  pill,
-  title,
-  description,
-  href,
-  linkLabel,
-}: {
-  id: string;
-  pill: string;
-  title: string;
-  description: string;
-  href: string;
-  linkLabel: string;
-}) {
-  return (
-    <div className="hs-head" aria-labelledby={`${id}-heading`}>
-      <div>
-        <span className="hs-pill">{pill}</span>
-        <h2 id={`${id}-heading`} className="hs-h2">{title}</h2>
-        <p className="hs-sub">{description}</p>
-      </div>
-      <Link href={href} className="hs-more">{linkLabel} <ArrowRight aria-hidden="true" size={15} /></Link>
     </div>
   );
 }

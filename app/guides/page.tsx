@@ -39,10 +39,12 @@ export default async function GuidesPage() {
   const dbGuides = await fetchAllDbGuides();
 
   const dbItems: GuideHubItem[] = dbGuides.map((g) => {
+    const summaryText = g.summary ?? g.meta_description ?? "";
+    const hubCategory = guideHubCategory({ slug: g.slug, title: g.title, summary: summaryText, category: "guide" });
     const coverImage = getGuideCoverImage({
       slug: g.slug,
       title: g.title,
-      summary: g.summary ?? g.meta_description ?? "",
+      summary: summaryText,
       category: "Buying guide",
       image: g.hero_image_url,
     });
@@ -50,9 +52,9 @@ export default async function GuidesPage() {
       slug: g.slug,
       href: `/guides/${g.slug}`,
       title: g.title,
-      summary: g.summary ?? g.meta_description ?? "Practical buying advice for Indian shoppers.",
-      categoryLabel: guideHubCategory({ slug: g.slug, title: g.title, summary: g.summary ?? "", category: "guide" }),
-      hubCategory: guideHubCategory({ slug: g.slug, title: g.title, summary: g.summary ?? "", category: "guide" }),
+      summary: summaryText || "Practical buying advice for Indian shoppers.",
+      categoryLabel: hubCategory,
+      hubCategory,
       updatedLabel: formatUpdated(g.updated_at),
       coverImage,
     };
@@ -87,7 +89,7 @@ export default async function GuidesPage() {
   const bySlug = new Map<string, GuideHubItem>();
   for (const item of dbItems) bySlug.set(item.slug, item);
   for (const item of staticItems) if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
-  const items = Array.from(bySlug.values()).sort(() => 0); // keep stable mixed order; server-rendered as-is
+  const items = Array.from(bySlug.values()); // stable DB-first, then static guides
 
   return (
     <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">

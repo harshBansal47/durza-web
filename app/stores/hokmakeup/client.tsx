@@ -1,5 +1,7 @@
 "use client";
 
+import LiveOffersSection from "@/components/store/LiveOffersSection";
+
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +11,6 @@ import TrustStats, { type TrustStatsProps } from "@/components/store/TrustStats"
 import FaqSection, { type FaqItem } from "@/components/store/FaqSection";
 import AffiliateDisclosure from "@/components/store/AffiliateDisclosure";
 import ExploreStoreCta from "@/components/store/ExploreStoreCta";
-import OfferCard from "@/components/OfferCard";
 import type { StoreOfferCard } from "@/lib/store-offers";
 import { GO_REL, storeGoHref } from "@/lib/go";
 
@@ -191,19 +192,7 @@ export default function HokMakeupClient({ offers, faqs, stats, heroImageUrl, off
         </div>
       </section>
 
-      {offers.length > 0 && (
-        <section className="mt-10" aria-labelledby="live-offers">
-          <h2 id="live-offers" className="font-serif text-2xl font-extrabold text-ink">Live offers from our feed</h2>
-          <p className="mt-1 text-sm text-ink-soft">Offers below are synced from our affiliate feed when available. Always confirm final pricing and terms on hokmakeup.com.</p>
-          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {offers.map((offer) => (
-              <li key={offer.id} className="min-h-0">
-                <OfferCard bookmarkId={offer.id} code={offer.code} badge={offer.badge} title={offer.title} description={offer.description} ctaHref={href("offer-card", offer.targetUrl || storeGoHref("hokmakeup", "offer-card", forcedStoreHref ?? undefined))} expiresAt={offer.expiresAt} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <LiveOffersSection offers={offers} storeSlug="hokmakeup" domain="hokmakeup" />
 
       <section className="mt-10 rounded-2xl border border-ledger-line bg-white p-5 sm:p-7">
         <h2 className="font-serif text-2xl font-extrabold text-ink">Buyer FAQs &amp; related links</h2>

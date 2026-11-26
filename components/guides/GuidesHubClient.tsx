@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import DiscoveryStrip from "@/components/DiscoveryStrip";
 import { ArrowRight, Search } from "lucide-react";
 import type { GuideHubCategory } from "@/lib/guide-cover";
 
@@ -17,7 +18,6 @@ export interface GuideHubItem {
   /** ISO-verified fact-check date, shown as a separate badge when present. */
   checkedLabel?: string | null;
   coverImage: string;
-  featured?: boolean;
 }
 
 const FILTERS: GuideHubCategory[] = [
@@ -186,19 +186,14 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
       </section>
       )}
 
-      <section className="mt-12 grid gap-4 sm:grid-cols-3" aria-label="Explore more">
-        {[
+      <DiscoveryStrip
+        ariaLabel="Explore more"
+        items={[
           { href: "/compare", title: "Side-by-Side Comparisons", note: "Amazon vs Flipkart, brand stores vs marketplaces, and bank card math." },
           { href: "/collections", title: "Curated Buying Kits", note: "Multi-store kits for WFH desks, humidity skincare, home gyms, and more." },
           { href: "/stores", title: "Official Brand Stores", note: "Browse verified brand hubs and partner storefronts on Durza." },
-        ].map((item) => (
-          <Link key={item.href} href={item.href} className="group rounded-3xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
-            <p className="font-serif text-lg font-extrabold text-ink">{item.title}</p>
-            <p className="mt-2 text-sm leading-6 text-ink-soft">{item.note}</p>
-            <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8a4b12]">Explore <ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
-          </Link>
-        ))}
-      </section>
+        ]}
+      />
     </div>
   );
 }

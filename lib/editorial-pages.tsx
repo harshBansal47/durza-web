@@ -1,7 +1,11 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { resilient } from "@/lib/api";
-import type { EditorialType } from "@/lib/types";
+import type { EditorialContent, EditorialType } from "@/lib/types";
+import type { GuideDocument } from "@/lib/guide-document";
+import type { StaticGuide } from "@/data/store-guides";
+import type { CompareEntry } from "@/data/comparisons";
 import { editorialPath } from "@/lib/editorial-path";
 import { metaDescription, absoluteUrl } from "@/lib/seo";
 import { staticGuideBySlug } from "@/data/store-guides";
@@ -10,6 +14,13 @@ import StaticGuidePage, { staticGuideMetadata } from "@/components/guides/Static
 import { getGuideCoverImage } from "@/lib/guide-cover";
 import GuideDocumentPage from "@/components/guides/redesign/GuideDocumentPage";
 import { getGuideDocument } from "@/guide-documents";
+
+type ResolvedEditorial =
+  | { kind: "doc"; doc: GuideDocument }
+  | { kind: "comparison"; entry: CompareEntry }
+  | { kind: "editorial"; content: EditorialContent; heroImage: string | null }
+  | { kind: "staticGuide"; guide: StaticGuide }
+  | null;
 
 function guideHeroImage(type: EditorialType, slug: string, fallback?: string | null, title?: string, summary?: string) {
   const guide = type === "guide" ? staticGuideBySlug(slug) : undefined;
@@ -28,9 +39,35 @@ function guideHeroImage(type: EditorialType, slug: string, fallback?: string | n
   return fallback;
 }
 
-function staticComparisonMetadata(slug: string): Metadata | null {
-  const entry = getComparisonBySlug(slug);
-  if (!entry) return null;
+/** One resolution path for metadata and page rendering, memoized per request. */
+const resolveEditorial = cache(async (type: EditorialType, slug: string): Promise<ResolvedEditorial> => {
+  if (type === "guide") {
+    const doc = getGuideDocument(slug);
+    if (doc) return { kind: "doc", doc };
+  }
+  if (type === "comparison") {
+    const entry = getComparisonBySlug(slug);
+    if (entry) return { kind: "comparison", entry };
+  }
+  const content = await resilient.getEditorial(type, slug);
+  if (content) {
+    const heroImage = guideHeroImage(
+      type,
+      slug,
+      content.hero_image_url,
+      content.title,
+      content.summary ?? content.meta_description ?? undefined,
+    ) ?? null;
+    return { kind: "editorial", content, heroImage };
+  }
+  if (type === "guide") {
+    const guide = staticGuideBySlug(slug);
+    if (guide) return { kind: "staticGuide", guide };
+  }
+  return null;
+});
+
+function comparisonMetadata(entry: CompareEntry): Metadata {
   const canonical = absoluteUrl(`/compare/${entry.slug}`);
   return {
     title: entry.seoTitle,
@@ -49,71 +86,74 @@ function staticComparisonMetadata(slug: string): Metadata | null {
 }
 
 export async function editorialMetadata(type: EditorialType, slug: string): Promise<Metadata> {
-  if (type === "comparison") {
-    const meta = staticComparisonMetadata(slug);
-    if (meta) return meta;
-  }
-  const content = await resilient.getEditorial(type, slug);
-  // Store buying guides authored in data/store-guides.ts fall through here.
-  if (!content && type === "guide") {
-    const staticGuide = staticGuideBySlug(slug);
-    if (staticGuide) return staticGuideMetadata(staticGuide);
-    // Statically authored guide documents (guide-documents/*.ts) render through
-    // this route as well — serve their metadata from the document itself.
-    const doc = getGuideDocument(slug);
-    if (doc) {
+  const resolved = await resolveEditorial(type, slug);
+  if (!resolved) return { title: "Content not found", robots: { index: false, follow: false } };
+
+  switch (resolved.kind) {
+    case "doc":
       return {
-        title: doc.title,
-        description: doc.description,
-        alternates: { canonical: doc.url },
+        title: resolved.doc.title,
+        description: resolved.doc.description,
+        alternates: { canonical: resolved.doc.url },
         robots: { index: true, follow: true },
-        openGraph: { title: doc.title, description: doc.description, url: doc.url, type: "article" },
+        openGraph: {
+          title: resolved.doc.title,
+          description: resolved.doc.description,
+          url: resolved.doc.url,
+          type: "article",
+        },
+      };
+    case "comparison":
+      return comparisonMetadata(resolved.entry);
+    case "staticGuide":
+      return staticGuideMetadata(resolved.guide);
+    case "editorial": {
+      const { content, heroImage } = resolved;
+      const canonical = content.canonical_url ?? editorialPath(content);
+      const title = content.seo_title ?? content.title;
+      const description = metaDescription(content.meta_description) ?? metaDescription(content.summary);
+      return {
+        title,
+        description,
+        alternates: { canonical },
+        robots: { index: content.is_indexable, follow: true },
+        openGraph: {
+          title,
+          description,
+          url: canonical,
+          type: "article",
+          ...(heroImage ? { images: [heroImage] } : {}),
+        },
       };
     }
   }
-  if (!content) return { title: "Content not found", robots: { index: false, follow: false } };
-  const canonical = content.canonical_url ?? editorialPath(content);
-  const title = content.seo_title ?? content.title;
-  const heroImage = guideHeroImage(type, slug, content.hero_image_url, content.title, content.summary ?? content.meta_description ?? undefined);
-  // Either field can be missing; the first one that says something becomes a
-  // single-line description the result page can show in full.
-  const description = metaDescription(content.meta_description) ?? metaDescription(content.summary);
-  return {
-    title,
-    description,
-    alternates: { canonical },
-    robots: { index: content.is_indexable, follow: true },
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      type: "article",
-      ...(heroImage ? { images: [heroImage] } : {}),
-    },
-  };
 }
 
 export async function renderEditorialPage(type: EditorialType, slug: string) {
-  const document = type === "guide" ? getGuideDocument(slug) : undefined;
-  if (document) return <GuideDocumentPage doc={document} />;
-  if (type === "comparison") {
-    const entry = getComparisonBySlug(slug);
-    if (entry) {
+  const resolved = await resolveEditorial(type, slug);
+  if (!resolved) notFound();
+
+  switch (resolved.kind) {
+    case "doc":
+      return <GuideDocumentPage doc={resolved.doc} />;
+    case "comparison": {
       const { default: ComparisonArticle } = await import("@/components/compare/ComparisonArticle");
-      return <ComparisonArticle entry={entry} />;
+      return <ComparisonArticle entry={resolved.entry} />;
+    }
+    case "staticGuide":
+      return <StaticGuidePage guide={resolved.guide} />;
+    case "editorial": {
+      const { default: EditorialArticle } = await import("@/components/editorial/EditorialComponents");
+      const { content, heroImage } = resolved;
+      return (
+        <EditorialArticle
+          content={
+            heroImage === content.hero_image_url
+              ? content
+              : { ...content, hero_image_url: heroImage ?? null }
+          }
+        />
+      );
     }
   }
-  const content = await resilient.getEditorial(type, slug);
-  if (!content && type === "guide") {
-    const staticGuide = staticGuideBySlug(slug);
-    if (staticGuide) return <StaticGuidePage guide={staticGuide} />;
-  }
-  if (!content) notFound();
-  const { default: EditorialArticle } = await import("@/components/editorial/EditorialComponents");
-  const heroImage = guideHeroImage(type, slug, content.hero_image_url, content.title, content.summary ?? content.meta_description ?? undefined);
-  return (
-    <EditorialArticle
-      content={heroImage === content.hero_image_url ? content : { ...content, hero_image_url: heroImage ?? null }}
-    />
-  );
 }

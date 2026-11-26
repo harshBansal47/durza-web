@@ -18,8 +18,8 @@ import {
   GuideSteps,
   GuideTable,
   GuideTemplate,
-  Reveal,
 } from "@/components/guides/redesign/GuideTemplate";
+import Reveal from "@/components/guides/redesign/Reveal";
 
 const title = "Best Acer Laptop Deals & Promo Codes in India (2026): Aspire, Swift Go & Nitro V";
 const description =

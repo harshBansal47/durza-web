@@ -193,7 +193,6 @@
 .gd-table thead th { font-size: 11px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 .gd-table tbody th { font-weight: 600; color: var(--ink); }
 .gd-table tbody tr:last-child th, .gd-table tbody tr:last-child td { border-bottom: 0; }
-.gd-mono { font-family: ui-monospace, "JetBrains Mono", SFMono-Regular, Menlo, monospace; }
 .gd-cards-table { display: none; }
 
 /* Steps */

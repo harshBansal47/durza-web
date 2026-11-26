@@ -7,11 +7,15 @@ export default function DiscoveryStrip({
     { href: "/compare", title: "Side-by-Side Comparisons", note: "See where brand stores, marketplaces, and card offers actually win." },
     { href: "/collections", title: "Curated Buying Kits", note: "Multi-store picks built around real goals and everyday Indian use cases." },
   ],
+  className = "mt-12",
+  ariaLabel = "Keep exploring",
 }: {
   items?: { href: string; title: string; note: string }[];
+  className?: string;
+  ariaLabel?: string;
 }) {
   return (
-    <section className="mt-12 grid gap-4 sm:grid-cols-3" aria-label="Keep exploring">
+    <section className={`${className} grid gap-4 sm:grid-cols-3`} aria-label={ariaLabel}>
       {items.map((item) => (
         <Link key={item.href} href={item.href} className="group rounded-3xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
           <p className="font-serif text-lg font-extrabold text-ink">{item.title}</p>

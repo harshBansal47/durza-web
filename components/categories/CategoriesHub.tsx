@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import DiscoveryStrip from "@/components/DiscoveryStrip";
 import { ArrowRight, Search } from "lucide-react";
 import CategoryIcon from "@/components/CategoryIcon";
 import type { Category } from "@/lib/types";
@@ -99,31 +100,15 @@ export default function CategoriesHub({ items }: { items: CategoryCardData[] }) 
         </p>
       )}
 
-      <section className="mt-10 grid gap-4 sm:grid-cols-3" aria-label="More ways to browse">
-        {[
-          {
-            href: "/collections",
-            title: "Curated Buying Kits",
-            note: "Multi-store kits built for WFH desks, humidity skincare & home gyms.",
-          },
-          {
-            href: "/compare",
-            title: "Side-by-Side Comparisons",
-            note: "Amazon vs. Flipkart, brand eStores vs. marketplaces, and bank card math.",
-          },
-          {
-            href: "/stores",
-            title: "All Stores A–Z",
-            note: "Browse every brand hub and affiliate storefront on Durza.",
-          },
-        ].map((item) => (
-          <Link key={item.href} href={item.href} className="group rounded-3xl border border-ledger-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-inkblue/30 hover:shadow-md">
-            <p className="font-serif text-lg font-extrabold text-ink">{item.title}</p>
-            <p className="mt-2 text-sm leading-6 text-ink-soft">{item.note}</p>
-            <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8a4b12]">Explore <ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
-          </Link>
-        ))}
-      </section>
+      <DiscoveryStrip
+        className="mt-10"
+        ariaLabel="More ways to browse"
+        items={[
+          { href: "/collections", title: "Curated Buying Kits", note: "Multi-store kits built for WFH desks, humidity skincare & home gyms." },
+          { href: "/compare", title: "Side-by-Side Comparisons", note: "Amazon vs. Flipkart, brand eStores vs. marketplaces, and bank card math." },
+          { href: "/stores", title: "All Stores A–Z", note: "Browse every brand hub and affiliate storefront on Durza." },
+        ]}
+      />
     </div>
   );
 }

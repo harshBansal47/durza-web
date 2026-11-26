@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowDownRight, BadgeCheck, ExternalLink, Gamepad2, GraduationCap, Laptop } from "lucide-react";
 import type { GuideDocument } from "@/lib/guide-document";
@@ -15,8 +13,8 @@ import {
   GuideSteps,
   GuideTable,
   GuideTemplate,
-  Reveal,
 } from "./GuideTemplate";
+import Reveal from "./Reveal";
 
 const SCENARIO_ICONS = {
   gamepad: Gamepad2,

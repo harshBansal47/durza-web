@@ -14,7 +14,7 @@ import { isHomepageIndiaRelevant } from "@/lib/homepage-curation";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { discoverableContent } from "@/lib/topic-content";
-import { COLLECTIONS } from "@/data/collections";
+import { COLLECTIONS, type CollectionEntry } from "@/data/collections";
 import { collectionFromEditorial } from "@/lib/collections";
 import type { DiscoverableContent } from "@/lib/topics";
 import type { EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
@@ -50,8 +50,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const EMPTY_DISCOVERABLE: DiscoverableContent[] = [];
+
+function toCollectionCard(item: CollectionEntry) {
+  return {
+    slug: item.slug,
+    title: item.title,
+    summary: item.summary,
+    heroImage: item.heroImage,
+  };
+}
+
 export default async function HomePage() {
-  const emptyPage: Paginated<never> = { items: [], total: 0, skip: 0, limit: 0 };
+  const emptyPage = <T,>(): Paginated<T> => ({ items: [], total: 0, skip: 0, limit: 0 });
   const emptyEditorial: EditorialHomepage = { guides: [], comparisons: [], reviews: [], collections: [] };
   const failedSources = new Set<string>();
 
@@ -77,13 +88,13 @@ export default async function HomePage() {
     bestCoupons,
     allEditorial,
   ] = await Promise.all([
-    safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage as Paginated<CouponPublic>, "recommended coupons"),
-    safe(api.listStores({ limit: 100 }), emptyPage as Paginated<never>, "stores"),
-    safe(api.listCategories({ limit: 24, live_only: true }), emptyPage as Paginated<never>, "categories"),
+    safe(api.listCoupons({ active_only: true, sort: "recommended", limit: 24 }), emptyPage<CouponPublic>(), "recommended coupons"),
+    safe(api.listStores({ limit: 100 }), emptyPage<never>(), "stores"),
+    safe(api.listCategories({ limit: 24, live_only: true }), emptyPage<never>(), "categories"),
     safe(api.getEditorialHomepage(), emptyEditorial, "editorial homepage"),
     safe(
       api.listCoupons({ active_only: true, discount_type: "deal", has_code: false, sort: "newest", limit: 8 }),
-      emptyPage as Paginated<CouponPublic>,
+      emptyPage<CouponPublic>(),
       "no-code deals",
     ),
     safe(
@@ -93,21 +104,27 @@ export default async function HomePage() {
         sort: "newest",
         limit: 30,
       }),
-      emptyPage as Paginated<CouponPublic>,
+      emptyPage<CouponPublic>(),
       "coupon codes",
     ),
-    safe(discoverableContent(), [] as DiscoverableContent[], "topic content"),
+    safe(discoverableContent(), EMPTY_DISCOVERABLE, "topic content"),
   ]);
 
-  // One ranked editorial pool feeds all three reading sections below the hero.
-  const rankedEditorial = (contentType: DiscoverableContent["contentType"]) =>
-    allEditorial
-      .filter((item) => item.contentType === contentType)
-      .sort((a, b) =>
-        b.priority - a.priority
-        || (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "")
-        || a.title.localeCompare(b.title),
-      );
+  // Group and rank the editorial pool once; all reading sections reuse it.
+  const editorialByType = new Map<DiscoverableContent["contentType"], DiscoverableContent[]>();
+  for (const item of allEditorial) {
+    const bucket = editorialByType.get(item.contentType) ?? [];
+    bucket.push(item);
+    editorialByType.set(item.contentType, bucket);
+  }
+  for (const bucket of editorialByType.values()) {
+    bucket.sort((a, b) =>
+      b.priority - a.priority
+      || (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "")
+      || a.title.localeCompare(b.title),
+    );
+  }
+  const rankedEditorial = (contentType: DiscoverableContent["contentType"]) => editorialByType.get(contentType) ?? [];
   const homepageGuides = rankedEditorial("guide");
   const homepageComparisons = rankedEditorial("comparison").slice(0, 3);
   const homepageReviews = rankedEditorial("review").slice(0, 3);
@@ -115,20 +132,6 @@ export default async function HomePage() {
   // Indian shoppers today — deals that make sense for that audience only.
   // The excluded set lives in lib/homepage-curation.ts; this section filters every
   // offer pool the homepage will render.
-  // Plain id → identity lookup for the explorer cards (serialisable across the
-  // client boundary): logo + name + slug + website, keyed by store_id.
-  const storesById = Object.fromEntries(
-    stores.items.map((s) => [
-      s.id,
-      {
-        name: formatStoreDisplayName({ slug: s.slug, name: s.name }),
-        slug: s.slug,
-        logo_url: s.logo_url,
-        website_url: s.website_url,
-      },
-    ]),
-  );
-
   const relevantStoreIds = new Set(
     stores.items.filter((s) => isHomepageIndiaRelevant(s.slug)).map((s) => s.id),
   );
@@ -148,20 +151,21 @@ export default async function HomePage() {
     return picked;
   };
 
-  // The hero's "Featured right now" panel: single spotlight card.
-  const featuredCoupons = take(
-    dedupeCoupons(coupons.items.filter(isHomepageRelevant).map((c) => sanitizeCouponForDisplay(c))),
-    1,
+  // Sanitize and dedupe each pool once, then derive every view from the same map.
+  const sanitizedPools = [coupons.items, bestCoupons.items, latestDeals.items].map((pool) =>
+    dedupeCoupons(pool.filter(isHomepageRelevant).map((coupon) => sanitizeCouponForDisplay(coupon))),
   );
+  const couponById = new Map(sanitizedPools.flat().map((coupon) => [coupon.id, coupon]));
+
+  // The hero's "Featured right now" panel: single spotlight card.
+  const featuredCoupons = take(sanitizedPools[0] ?? [], 1);
 
   // "Worth a look": prefer a real check date, then curated priority. One offer
   // per store is a separate presentation rule, not a second idea of "same".
   const seenStores = new Set<string>();
   const worthLooking = take(
-    [...coupons.items, ...bestCoupons.items, ...latestDeals.items]
-      .map((coupon) => sanitizeCouponForDisplay(coupon))
+    [...couponById.values()]
       .filter((coupon) => coupon.is_active && !coupon.auto_suppressed)
-      .filter((coupon) => isHomepageRelevant(coupon))
       .filter((coupon) => {
         if (seenStores.has(coupon.store_id)) return false;
         seenStores.add(coupon.store_id);
@@ -172,6 +176,22 @@ export default async function HomePage() {
         return checked(b) - checked(a) || b.clicks_count - a.clicks_count || a.id.localeCompare(b.id);
       }),
     6,
+  );
+
+  // Only project the stores the offer rail actually renders.
+  const usedStoreIds = new Set(worthLooking.map((coupon) => coupon.store_id));
+  const storesById = Object.fromEntries(
+    stores.items
+      .filter((s) => usedStoreIds.has(s.id))
+      .map((s) => [
+        s.id,
+        {
+          name: formatStoreDisplayName({ slug: s.slug, name: s.name }),
+          slug: s.slug,
+          logo_url: s.logo_url,
+          website_url: s.website_url,
+        },
+      ]),
   );
 
   const collectionsForRail = [
@@ -205,23 +225,23 @@ export default async function HomePage() {
   const heroStores = stores.items
     .filter((s) => isHomepageIndiaRelevant(s.slug) && !REDIRECTED_HERO_STORE_SLUGS.has(s.slug))
     .map(toHeroStore);
-  const heroStoreById = new Map(stores.items.map((s) => [s.id, toHeroStore(s)]));
+  const neededStoreIds = new Set([...couponById.values()].map((coupon) => coupon.store_id));
+  const heroStoreById = new Map(
+    stores.items
+      .filter((s) => neededStoreIds.has(s.id))
+      .map((s) => [s.id, toHeroStore(s)]),
+  );
   const heroCategoryNames = categoryNameMap(categories.items);
-  const heroPool = new Map<string, CouponPublic>();
-  for (const list of [coupons.items, bestCoupons.items, latestDeals.items]) {
-    for (const coupon of list) {
-      if (heroPool.size >= 40) break;
-      if (isHomepageRelevant(coupon) && !heroPool.has(coupon.id)) heroPool.set(coupon.id, sanitizeCouponForDisplay(coupon));
-    }
-  }
-  const heroDeals = [...heroPool.values()].flatMap((coupon) => {
+  let heroPoolCount = 0;
+  const heroDeals = [...couponById.values()].flatMap((coupon) => {
+    if (heroPoolCount >= 40) return [];
     const store = heroStoreById.get(coupon.store_id);
-    return store ? [toHeroDeal(coupon, store, heroCategoryNames)] : [];
+    if (!store) return [];
+    heroPoolCount += 1;
+    return [toHeroDeal(coupon, store, heroCategoryNames)];
   });
-  const heroFeatured = featuredCoupons.flatMap((coupon) => {
-    const store = heroStoreById.get(coupon.store_id);
-    return store ? [toHeroDeal(coupon, store, heroCategoryNames)] : [];
-  });
+  const heroFeaturedIds = new Set(featuredCoupons.map((coupon) => coupon.id));
+  const heroFeatured = heroDeals.filter((deal) => heroFeaturedIds.has(deal.id));
   const heroPopularStores = pickPopularStores(heroStores, 10);
 
   const hasEditorial = Object.values(editorial).some((items) => items.length > 0);
@@ -239,12 +259,7 @@ export default async function HomePage() {
     );
   }
 
-  const homepageCollections = collectionsForRail.slice(0, 3).map((item) => ({
-    slug: item.slug,
-    title: item.title,
-    summary: item.summary,
-    heroImage: item.heroImage,
-  }));
+  const homepageCollections = collectionsForRail.slice(0, 3).map(toCollectionCard);
 
   // Structured data follows the offers actually rendered below.
   const visibleOffers = [...new Map(
@@ -268,13 +283,7 @@ export default async function HomePage() {
         stats={{ coupons: coupons.total, stores: stores.total, categories: categories.total }}
         toolkit={
           toolkitCollection
-            ? {
-                slug: toolkitCollection.slug,
-                title: toolkitCollection.title,
-                summary: toolkitCollection.summary,
-                itemCountLabel: toolkitCollection.itemCountLabel,
-                heroImage: toolkitCollection.heroImage,
-              }
+            ? { ...toCollectionCard(toolkitCollection), itemCountLabel: toolkitCollection.itemCountLabel }
             : null
         }
       />
