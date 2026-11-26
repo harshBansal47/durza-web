@@ -1,0 +1,866 @@
+[
+  {
+    "merchant": "2ndNumber.tel Virtual SMS",
+    "slug": "2ndnumber-tel-virtual-sms",
+    "domain": "2ndnumber.tel",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/2ndnumber.tel.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Acer",
+    "slug": "acer",
+    "domain": "acer.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/acer.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "AdGuard Many GEOs",
+    "slug": "adguard-many-geos",
+    "domain": "adguard.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/adguard.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Adidas",
+    "slug": "adidas",
+    "domain": "adidas.co.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/adidas.co.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Ageasy",
+    "slug": "ageasy",
+    "domain": "ageasy.co.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/ageasy.co.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Air India",
+    "slug": "air-india",
+    "domain": "airindia.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/airindia.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Ajio.com",
+    "slug": "ajio-com-ecommerce-cps-india",
+    "domain": "ajio.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/ajio.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Aldo New",
+    "slug": "aldo-new",
+    "domain": "aldoshoes.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/aldoshoes.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Alpino.store",
+    "slug": "alpino",
+    "domain": "alpino.store",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/alpino.store.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Amantelingerie.in",
+    "slug": "amantelingerie-in-cps-india",
+    "domain": "amantelingerie.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/amantelingerie.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Amazon India",
+    "slug": "amazon-in",
+    "domain": "amazon.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/amazon.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Asus",
+    "slug": "asus",
+    "domain": "asus.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/asus.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Baccabucci.com",
+    "slug": "baccabucci-com-ecommerce-cps-india",
+    "domain": "baccabucci.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/baccabucci.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Bath & Body works",
+    "slug": "bath-body-works",
+    "domain": "bathandbodyworks.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/bathandbodyworks.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Beastlife.in",
+    "slug": "beast-life",
+    "domain": "beastlife.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/beastlife.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Bewakoof",
+    "slug": "bewakoof",
+    "domain": "bewakoof.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/bewakoof.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Blabliblulife.com",
+    "slug": "blabliblulife-com-ecommerce-cps-india",
+    "domain": "blabliblulife.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/blabliblulife.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Bliss Club",
+    "slug": "bliss-club",
+    "domain": "blissclub.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/blissclub.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Boggbag.com",
+    "slug": "boggbag-com-ecommerce-cps-united-states",
+    "domain": "boggbag.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/boggbag.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Boldfit.com",
+    "slug": "boldfit",
+    "domain": "boldfit.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/boldfit.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Brillare.co.in",
+    "slug": "brillare",
+    "domain": "brillare.co.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/brillare.co.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Buyindusvalley.in",
+    "slug": "indus-valley",
+    "domain": "buyindusvalley.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/buyindusvalley.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Bytepe.com",
+    "slug": "bytepe",
+    "domain": "bytepe.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/bytepe.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Charles & Keith",
+    "slug": "charles-keith",
+    "domain": "charleskeith.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/charleskeith.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Croma",
+    "slug": "croma",
+    "domain": "croma.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/croma.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Ctrl8",
+    "slug": "ctrl8",
+    "domain": "ctrl8.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/ctrl8.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Cumin co",
+    "slug": "cumin-co",
+    "domain": "cuminco.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/cuminco.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Digihaat",
+    "slug": "digihaat",
+    "domain": "digihaat.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/digihaat.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Dotandkey.com",
+    "slug": "dot-and-key",
+    "domain": "dotandkey.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/dotandkey.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Emami Zanducare",
+    "slug": "emami-zanducare",
+    "domain": "zanducare.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/zanducare.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "FirstCry.com",
+    "slug": "firstcry",
+    "domain": "firstcry.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/firstcry.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Fitspire.online",
+    "slug": "fitspire",
+    "domain": "fitspire.online",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/fitspire.online.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Fiverr Many GEO's",
+    "slug": "fiverr-many-geo-s",
+    "domain": "fiverr.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/fiverr.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Flipkart",
+    "slug": "flipkart",
+    "domain": "flipkart.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/flipkart.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Fuelone.in",
+    "slug": "fuelone",
+    "domain": "fuelone.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/fuelone.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Glasseslit",
+    "slug": "glasseslit",
+    "domain": "glasseslit.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/glasseslit.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Goboult.co.in",
+    "slug": "boult",
+    "domain": "goboult.co.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/goboult.co.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Gritzo.com",
+    "slug": "gritzo",
+    "domain": "gritzo.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/gritzo.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Guvi.in",
+    "slug": "guvi",
+    "domain": "guvi.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/guvi.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Hacoo",
+    "slug": "hacoo",
+    "domain": "hacoo.app",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/hacoo.app.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Havells.com",
+    "slug": "havells",
+    "domain": "havells.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/havells.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Healthkart.com",
+    "slug": "healthkart",
+    "domain": "healthkart.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/healthkart.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Hirafragrances.com",
+    "slug": "hirafragrance",
+    "domain": "hirafragrances.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/hirafragrances.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "HKvitals.com",
+    "slug": "hkvitals",
+    "domain": "hkvitals.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/hkvitals.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "HOK Makeup",
+    "slug": "hok-makeup",
+    "domain": "hokmakeup.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/hokmakeup.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Homecentre Web & App",
+    "slug": "homecentre-web-app",
+    "domain": "homecentre.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/homecentre.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Ibacosmetics.com",
+    "slug": "iba-cosmetics",
+    "domain": "ibacosmetics.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/ibacosmetics.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "IGP.com",
+    "slug": "igp",
+    "domain": "igp.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/igp.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "InVideo",
+    "slug": "invideo",
+    "domain": "invideo.io",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/invideo.io.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Italiarail Many GEOs",
+    "slug": "italiarail-many-geos",
+    "domain": "italiarail.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/italiarail.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Italojewelry",
+    "slug": "italojewerly",
+    "domain": "italojewelry.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/italojewelry.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "ixigo",
+    "slug": "ixigo",
+    "domain": "ixigo.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/ixigo.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Kamaayurveda.com",
+    "slug": "kama-ayurveda",
+    "domain": "kamaayurveda.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/kamaayurveda.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Kapiva.in",
+    "slug": "kapiva",
+    "domain": "kapiva.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/kapiva.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Lavieworld.com",
+    "slug": "lavie-world",
+    "domain": "lavieworld.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/lavieworld.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Lenovo India",
+    "slug": "lenovo-india",
+    "domain": "lenovo.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/lenovo.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Lenskart",
+    "slug": "lenskart",
+    "domain": "lenskart.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/lenskart.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Levi.in",
+    "slug": "levis",
+    "domain": "levi.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/levi.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Lifechangingastro.com",
+    "slug": "life-changing-astro",
+    "domain": "lifechangingastro.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/lifechangingastro.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "MakeMyTrip",
+    "slug": "makemytrip",
+    "domain": "makemytrip.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/makemytrip.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Meesho",
+    "slug": "meesho",
+    "domain": "meesho.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/meesho.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Milton",
+    "slug": "milton-in",
+    "domain": "milton.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/milton.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Milton.in",
+    "slug": "milton",
+    "domain": "milton.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/milton.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Moglix.com",
+    "slug": "moglix",
+    "domain": "moglix.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/moglix.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Movavi",
+    "slug": "movavi",
+    "domain": "movavi.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/movavi.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Muscleblaze.com",
+    "slug": "muscleblaze-com-ecommerce-cps-india",
+    "domain": "muscleblaze.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/muscleblaze.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Mymuse.in",
+    "slug": "mymuse",
+    "domain": "mymuse.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/mymuse.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Myntra",
+    "slug": "myntra",
+    "domain": "myntra.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/myntra.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Neeshperfumes.com",
+    "slug": "neesh-perfumes",
+    "domain": "neeshperfumes.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/neeshperfumes.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Netwall",
+    "slug": "netwall",
+    "domain": "netwall.host",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/netwall.host.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "NilkamalFurniture.com",
+    "slug": "nilkamalfurniture",
+    "domain": "nilkamalfurniture.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/nilkamalfurniture.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "NordPass.com",
+    "slug": "nordpass",
+    "domain": "nordpass.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/nordpass.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Notta AI",
+    "slug": "notta-ai",
+    "domain": "notta.ai",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/notta.ai.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Nourishmantra.in",
+    "slug": "nourish-mantra",
+    "domain": "nourishmantra.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/nourishmantra.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Nuawoman.com",
+    "slug": "nuawoman-com-ecommerce-cps-india",
+    "domain": "nuawoman.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/nuawoman.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Nykaa",
+    "slug": "nykaa",
+    "domain": "nykaa.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/nykaa.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Palmonas",
+    "slug": "palmonas",
+    "domain": "palmonas.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/palmonas.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Pepperfry.com",
+    "slug": "pepperfry-com-cps-india",
+    "domain": "pepperfry.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/pepperfry.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Pepperfry.com",
+    "slug": "pepperfry-com-ecommerce-cps-india",
+    "domain": "pepperfry.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/pepperfry.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Perforacare.com",
+    "slug": "perforacare-com-ecommerce-cps-india",
+    "domain": "perforacare.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/perforacare.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "ProHoster",
+    "slug": "prohoster",
+    "domain": "prohoster.info",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/prohoster.info.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "PureVPN.com",
+    "slug": "purevpn-com-utility-cpa-worldwide",
+    "domain": "purevpn.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/purevpn.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Redmagic",
+    "slug": "redmagic",
+    "domain": "global.redmagic.gg",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/global.redmagic.gg.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Reliance Digital",
+    "slug": "reliance-digital",
+    "domain": "reliancedigital.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/reliancedigital.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "RforRabbit.com",
+    "slug": "rforrabbit-com-ecommerce-cps-india",
+    "domain": "rforrabbit.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/rforrabbit.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Salty",
+    "slug": "salty",
+    "domain": "salty.co.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/salty.co.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Salty.co.in",
+    "slug": "salty-co-in-ecommerce-cps-india",
+    "domain": "salty.co.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/salty.co.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Sanskrutihomes.in",
+    "slug": "sanskrutihomes-in-ecommerce-cps-india",
+    "domain": "sanskrutihomes.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/sanskrutihomes.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Shoptupperware.in",
+    "slug": "shoptupperware-in-ecommerce-cps-india",
+    "domain": "shoptupperware.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/shoptupperware.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Skullcandy.in",
+    "slug": "skullcandy-in-ecommerce-cps-india",
+    "domain": "skullcandy.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/skullcandy.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Store.jeenasikho.com",
+    "slug": "store-jeenasikho-com-ecommerce-cps-india",
+    "domain": "jeenasikho.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/jeenasikho.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Swiggy",
+    "slug": "swiggy",
+    "domain": "swiggy.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/swiggy.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Tatacliq.com",
+    "slug": "tatacliq-com-ecommerce-cps-india",
+    "domain": "tatacliq.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/tatacliq.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Tenxyou.com",
+    "slug": "tenxyou-com-ecommerce-cps-india",
+    "domain": "tenxyou.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/tenxyou.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Thebearhouse.com",
+    "slug": "the-bear-house",
+    "domain": "thebearhouse.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/thebearhouse.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "TheManCompany.com",
+    "slug": "the-man-company",
+    "domain": "themancompany.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/themancompany.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Thenaturalwash.com",
+    "slug": "the-natural-wash",
+    "domain": "thenaturalwash.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/thenaturalwash.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Thesirona.com",
+    "slug": "sirona",
+    "domain": "thesirona.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/thesirona.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Thordata",
+    "slug": "thordata",
+    "domain": "thordata.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/thordata.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Truebasics.com",
+    "slug": "truebasics",
+    "domain": "truebasics.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/truebasics.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "TurboVPN",
+    "slug": "turbovpn",
+    "domain": "turbovpn.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/turbovpn.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Veromoda",
+    "slug": "veromoda",
+    "domain": "veromoda.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/veromoda.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Victoria's secret",
+    "slug": "victorias-secret",
+    "domain": "victoriassecret.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/victoriassecret.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Wonderchef.com",
+    "slug": "wonderchef",
+    "domain": "wonderchef.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/wonderchef.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Wondershare",
+    "slug": "wondershare",
+    "domain": "wondershare.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/wondershare.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Zeroharm.in",
+    "slug": "zeroharm",
+    "domain": "zeroharm.in",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/zeroharm.in.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Zofffoods.com",
+    "slug": "zoff-foods",
+    "domain": "zofffoods.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/zofffoods.com.webp",
+    "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Zomato",
+    "slug": "zomato",
+    "domain": "zomato.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/zomato.com.webp",
+    "source": "cached",
+    "status": "success"
+  }
+]

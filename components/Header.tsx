@@ -147,7 +147,7 @@ export default function Header() {
           {/* ROW 2 — primary nav + the single rotating trust message */}
           <nav
             aria-label="Primary"
-            className="mx-auto flex h-[40px] max-w-[1280px] items-center justify-between border-t border-ledger-line/70 px-4 sm:px-6 lg:px-12"
+            className="mx-auto flex h-[40px] max-w-[1280px] items-center justify-between border-t border-ledger-line/70 px-4 sm:px-6 lg:px-8"
           >
             <NavScrollStrip>
               {PRIMARY_NAV.map((item) => renderLink(item, "primary"))}
@@ -172,7 +172,7 @@ export default function Header() {
           aria-label="Secondary"
           className="h-[38px] border-b border-ledger-line bg-accent-faint"
         >
-          <div className="mx-auto flex h-full max-w-[1280px] items-center px-2 sm:px-4 lg:px-8">
+          <div className="mx-auto flex h-full max-w-[1280px] items-center px-4 sm:px-6 lg:px-8">
             <NavScrollStrip tone="cream">
               {SECONDARY_NAV.map((item) => renderLink(item, "secondary"))}
             </NavScrollStrip>

@@ -1,17 +1,25 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { LOCAL_STORE_LOGOS, STORE_ACCENTS, storeAccent, storeLogoUrl } from "@/lib/storeLogos";
+import { STORE_DOMAINS } from "@/lib/store-domains.generated";
+import { STORE_ACCENTS, storeAccent, storeLogoUrl } from "@/lib/storeLogos";
 
 describe("storeLogoUrl", () => {
-  it("prefers the backend logo when a store ships one", () => {
-    expect(storeLogoUrl({ slug: "myntra", logo_url: "https://cdn.example.com/my.png" })).toBe(
-      "https://cdn.example.com/my.png",
+  it("resolves a store logo from the generated domain map", () => {
+    expect(storeLogoUrl({ slug: "myntra", logo_url: null })).toBe("/store-logos/myntra.com.webp");
+    expect(storeLogoUrl({ slug: "amazon-in", logo_url: null })).toBe("/store-logos/amazon.in.webp");
+  });
+
+  it("prefers the website domain over a slug alias", () => {
+    expect(storeLogoUrl({ slug: "brand-new-store", website_url: "https://shop.example.com/" })).toBe(
+      "/store-logos/example.com.webp",
     );
   });
 
-  it("falls back to the self-hosted icon by slug", () => {
-    expect(storeLogoUrl({ slug: "myntra", logo_url: null })).toBe("/stores/myntra.webp");
+  it("falls back to the backend logo when no domain is known", () => {
+    expect(storeLogoUrl({ slug: "brand-new-store", logo_url: "https://cdn.example.com/my.png" })).toBe(
+      "https://cdn.example.com/my.png",
+    );
   });
 
   it("returns null for stores with no icon, so initials stay", () => {
@@ -22,14 +30,12 @@ describe("storeLogoUrl", () => {
   });
 });
 
-describe("self-hosted icons", () => {
-  it("every mapped icon exists in /public/stores", () => {
+describe("generated store logos", () => {
+  it("every mapped domain has a synced WebP file", () => {
     const root = path.join(process.cwd(), "public");
-    for (const [slug, url] of Object.entries(LOCAL_STORE_LOGOS)) {
-      // Several feed slugs intentionally share one self-hosted icon
-      // (e.g. the Ajio network slug uses the Ajio brand icon).
-      expect(url, slug).toMatch(/^\/stores\/[^/]+\.png$/);
-      expect(existsSync(path.join(root, url)), `${slug} icon missing from public/`).toBe(true);
+    for (const [slug, domain] of Object.entries(STORE_DOMAINS)) {
+      const url = `/store-logos/${domain}.webp`;
+      expect(existsSync(path.join(root, url)), `${slug} logo missing from public/`).toBe(true);
     }
   });
 });
@@ -45,11 +51,9 @@ describe("storeAccent", () => {
     expect(storeAccent(undefined)).toBeNull();
   });
 
-  it("every self-hosted icon has a sampled accent colour", () => {
-    // STORE_ACCENTS also covers stores served by network-fetched icons, so it
-    // is a superset of the self-hosted map by design.
-    for (const slug of Object.keys(LOCAL_STORE_LOGOS)) {
-      expect(STORE_ACCENTS[slug], `${slug} accent missing`).toMatch(/^#[0-9a-f]{6}$/);
+  it("every sampled accent is a hex colour", () => {
+    for (const [slug, colour] of Object.entries(STORE_ACCENTS)) {
+      expect(colour, `${slug} accent invalid`).toMatch(/^#[0-9a-f]{6}$/);
     }
   });
 });
