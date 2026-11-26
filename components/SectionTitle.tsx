@@ -16,7 +16,7 @@ export default function SectionTitle({
 }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
-      <div className="flex min-w-0 items-center gap-3">
+      <div className="flex min-w-0 flex-col-reverse items-start gap-1 sm:flex-row sm:items-center sm:gap-3">
         {hint ? (
           <span aria-hidden="true" className="text-[13px] font-medium uppercase tracking-[0.24em] text-durza-deep">
             {hint}

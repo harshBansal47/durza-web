@@ -1,17 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Check, Copy } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check, Copy, Ticket } from "lucide-react";
 import { CardSaveButton } from "./CardSaveButton";
-import OfferEvidence from "./OfferEvidence";
-import { offerTypeLabel } from "@/lib/offer-presentation";
 import { useTrackedHref } from "@/lib/useTrackedHref";
 import OfferBrandMark, { type OfferBrand } from "./OfferBrandMark";
 
 export interface OfferCardProps {
   /** Coupon id — enables the bookmark save button when provided. */
   bookmarkId?: string;
-  /** Code to reveal, or null/undefined for auto-applied deals. */
+  /** Code to copy, or null/undefined for auto-applied deals. Never rendered. */
   code?: string | null;
   /** Short marketing badge from the DB (e.g. "SITEWIDE EXTRA", "APPLIANCE SAVER"). */
   badge?: string | null;
@@ -37,144 +35,155 @@ export interface OfferCardProps {
   lastChecked?: string | null;
 }
 
-function daysUntil(iso: string | null | undefined): number | null {
-  if (!iso) return null;
-  const diff = Math.ceil((new Date(iso).getTime() - Date.now()) / 86_400_000);
-  return Number.isFinite(diff) ? diff : null;
+const REDIRECT_DELAY_MS = 2000;
+
+async function writeToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return;
+  } catch {
+    // Fall through to legacy copy.
+  }
+  try {
+    const el = document.createElement("textarea");
+    el.value = text;
+    el.setAttribute("readonly", "");
+    el.style.position = "fixed";
+    el.style.opacity = "0";
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  } catch {
+    // Clipboard fully blocked — still continue to the offer.
+  }
 }
 
 /**
  * The high-density store offer card shared by the generic store template and
- * every custom brand page. Coded offers get a dashed copy box + "Use Code";
- * no-code offers are shown as offer pages with a clear "View Offer" CTA. All CTAs
- * are nofollow sponsored noopener noreferrer.
+ * every custom brand page.
+ *
+ * Coded offers: the code is never displayed. The user clicks "Copy Code", the
+ * code is copied, and after 2 seconds the offer opens via the tracked link.
+ * No-code offers: a plain "View Offer" link. All CTAs are nofollow sponsored.
  */
 export default function OfferCard({
   bookmarkId,
   code,
-  badge,
   title,
-  description,
   ctaHref,
   ctaLabel,
   autoSuppressed = false,
-  expiresAt,
-  badgeTone,
   brand,
-  typeLabelOverride,
-  lastChecked,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<number | null>(null);
   const trackedHref = useTrackedHref(ctaHref);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+    };
+  }, []);
+
   if (autoSuppressed) return null;
   const isCoded = Boolean(code);
-  const tone = badgeTone ?? (isCoded ? "amber" : "emerald");
-  const days = daysUntil(expiresAt);
-  const expiringSoon = days !== null && days >= 0 && days <= 7;
 
-  const toneClasses =
-    tone === "amber"
-      ? "border-amber-200/70 bg-amber-50 text-amber-800"
-      : "border-emerald-200/70 bg-emerald-50 text-emerald-700";
+  async function copyAndRedirect() {
+    if (!code || copied) return;
 
-  async function copyCode() {
-    if (!code) return;
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard blocked — leave the button in its default state.
+    // Open the tab synchronously inside the click so popup blockers allow it,
+    // then point it at the offer after the delay.
+    const win = window.open("", "_blank");
+    if (win) {
+      win.opener = null;
+      try {
+        win.document.write(
+          "<p style='font-family:sans-serif;padding:24px'>Code copied. Opening offer…</p>",
+        );
+      } catch {
+        // Ignore — the tab will simply stay blank until redirected.
+      }
     }
+
+    setCopied(true);
+    await writeToClipboard(code);
+
+    const target = trackedHref;
+    timerRef.current = window.setTimeout(() => {
+      if (win && !win.closed) {
+        win.location.href = target;
+      } else {
+        // Popup blocked or closed — fall back to same-tab navigation.
+        window.location.href = target;
+      }
+      setCopied(false);
+    }, REDIRECT_DELAY_MS);
   }
 
   return (
-    
-<article className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-3 transition-all hover:border-slate-300 hover:shadow-sm">
+    <article className="group flex h-full w-full sm:max-w-[300px] flex-col rounded-xl border border-slate-200 bg-white p-3 transition-all hover:border-slate-300 hover:shadow-sm">
+      {/* Brand + Save */}
+      <div className="flex items-start justify-between">
+        {brand ? <OfferBrandMark brand={brand} /> : <span />}
 
-  {/* Brand + Save */}
-  <div className="flex items-center justify-between">
-    {brand ? <OfferBrandMark brand={brand} /> : <span />}
+        {bookmarkId ? (
+          <CardSaveButton couponId={bookmarkId} compact />
+        ) : null}
+      </div>
 
-    {bookmarkId ? (
-      <CardSaveButton couponId={bookmarkId} compact />
-    ) : null}
-  </div>
+      {/* Title */}
+      <h3 className="mt-1.5 text-sm font-semibold leading-snug text-slate-900 transition-colors group-hover:text-indigo-600">
+        {title}
+      </h3>
 
-  {/* Metadata */}
-  <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-    <OfferEvidence
-      typeLabel={typeLabelOverride ?? (isCoded
-        ? offerTypeLabel("coupon_code")
-        : offerTypeLabel("no_code_deal"))}
-      lastChecked={lastChecked}
-    />
-
-    <span className={`rounded-md border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide ${toneClasses}`}>
-      {badge ?? (isCoded ? "OFFER" : "SITEWIDE DEAL")}
-    </span>
-
-    {expiringSoon ? (
-      <span className="text-[10px] text-slate-400">
-        Ends in {days}d
-      </span>
-    ) : null}
-  </div>
-
-  {/* Title */}
-  <h3 className="mt-1.5 text-sm font-semibold leading-snug text-slate-900 transition-colors group-hover:text-indigo-600">
-    {title}
-  </h3>
-
-  {description ? (
-    <p className="mt-1 line-clamp-1 text-[11px] leading-snug text-slate-500">
-      {description}
-    </p>
-  ) : null}
-
-  {/* Actions */}
-  <div className="mt-2.5 flex items-center justify-between gap-2 border-t border-slate-100 pt-2">
-
-    {isCoded ? (
-      <button
-        type="button"
-        onClick={copyCode}
-        aria-label={copied ? "Code copied" : `Copy code ${code}`}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-2 py-1.5 font-mono text-[10px] font-bold text-slate-800"
-      >
-        {copied ? (
+      {/* Actions */}
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-slate-100 pt-2.5">
+        {isCoded ? (
           <>
-            <Check className="h-3 w-3 text-emerald-600" />
-            Copied
+            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-amber-700">
+              <Ticket className="h-3 w-3" aria-hidden="true" />
+              Coupon code
+            </span>
+
+            <button
+              type="button"
+              onClick={copyAndRedirect}
+              disabled={copied}
+              aria-live="polite"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-slate-800 disabled:cursor-default disabled:bg-emerald-600"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3 w-3" />
+                  Copied! Opening…
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3 w-3" />
+                  {ctaLabel ?? "Copy Code"}
+                </>
+              )}
+            </button>
           </>
         ) : (
           <>
-            <Copy className="h-3 w-3" />
-            {code}
+            <span className="text-[10px] font-medium text-emerald-700">
+              Offer page
+            </span>
+
+            <a
+              href={trackedHref}
+              target="_blank"
+              rel="nofollow sponsored noopener noreferrer"
+              className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white hover:bg-slate-800"
+            >
+              {ctaLabel ?? "View Offer"}
+              <ArrowRight className="h-3 w-3" />
+            </a>
           </>
         )}
-      </button>
-    ) : (
-      <span className="text-[10px] font-medium text-emerald-700">
-        Offer page
-      </span>
-    )}
-
-    <a
-      href={trackedHref}
-      target="_blank"
-      rel="nofollow sponsored noopener noreferrer"
-      className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white hover:bg-slate-800"
-    >
-      {ctaLabel ?? (isCoded ? "Use Code" : "View Offer")}
-      {isCoded ? (
-        <ArrowUpRight className="h-3 w-3" />
-      ) : (
-        <ArrowRight className="h-3 w-3" />
-      )}
-    </a>
-  </div>
-</article>
-
+      </div>
+    </article>
   );
 }
