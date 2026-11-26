@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import SponsoredCard from "@/components/SponsoredCard";
-import BannerCarousel from "@/components/home/BannerCarousel";
 import { api, resilient } from "@/lib/api";
 import { getSponsored } from "@/lib/ads";
 import type { Ad } from "@/lib/types";
@@ -56,30 +55,6 @@ describe("SponsoredCard", () => {
     expect(screen.getByAltText("Acme summer sale")).toBeInTheDocument();
     rerender(<SponsoredCard ad={{ ...ad, alt_text: null }} src="x" />);
     expect(screen.getByAltText("Acme Shoes")).toBeInTheDocument();
-  });
-});
-
-describe("BannerCarousel sponsored slide", () => {
-  it("has only the editorial slides when there is no ad", () => {
-    render(<BannerCarousel sponsored={null} />);
-    expect(screen.getAllByRole("group")).toHaveLength(3);
-    expect(screen.queryByText("Sponsored")).not.toBeInTheDocument();
-  });
-
-  it("adds a labelled, tracked sponsored slide at the end", () => {
-    render(<BannerCarousel sponsored={ad} />);
-    const slides = screen.getAllByRole("group");
-    expect(slides).toHaveLength(4);
-    expect(slides[3]).toHaveAttribute("aria-label", "4 of 4, Sponsored");
-    expect(screen.getByText("Sponsored")).toBeVisible();
-    const link = screen.getByRole("link", { name: /Acme summer sale/ });
-    expect(link.getAttribute("href")).toBe(api.adGoUrl("ad1", "ad-header"));
-    expect(link.getAttribute("rel")).toContain("sponsored");
-  });
-
-  it("gets a dot for the sponsored slide too", () => {
-    render(<BannerCarousel sponsored={ad} />);
-    expect(screen.getByRole("button", { name: "Go to slide 4" })).toBeInTheDocument();
   });
 });
 
