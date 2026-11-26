@@ -3414,7 +3414,7 @@ const RAW_GUIDES_K: StaticGuide[] = [
       {
         type: "paragraph",
         text:
-          "Related reading: compare device/store deal timing and checkout value on /stores/amazon-in, /compare/amazon-vs-flipkart-electronics-2026, and /compare/black-friday-2026-india-best-deals-vs-regular-sale.",
+          "Related reading: compare device/store deal timing and checkout value on /stores/amazon-in and /compare/black-friday-2026-india-best-deals-vs-regular-sale.",
       },
     ],
     relatedStores: ["amazon-in"],

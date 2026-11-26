@@ -92,7 +92,6 @@ const EXPLORE_LINKS = [
   { href: "/black-friday", label: "Black Friday 2026 hub" },
   { href: "/compare/black-friday-2026-india-best-deals-vs-regular-sale", label: "Black Friday vs regular sales: what actually drops" },
   { href: "/compare/credit-card-instant-discount-vs-no-cost-emi-india", label: "Instant bank discount vs No-Cost EMI" },
-  { href: "/compare/amazon-vs-flipkart-electronics-2026", label: "Amazon India vs Flipkart: returns, OBD and bank offers" },
   { href: "/guides/cyber-monday-2026-india-electronics-home-gifts", label: "Cyber Monday 2026 India guide" },
   { href: "/bank-offers", label: "Live bank & card instant discounts" },
   { href: "/guides/how-to-save-on-amazon-india", label: "How to save on Amazon India" },

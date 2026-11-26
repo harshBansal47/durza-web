@@ -91,7 +91,6 @@ const HUB_LINKS = [
   { href: "/compare/best-laptops-under-50000-india-coding-office-2026", label: "Best laptops under ₹50,000 compared" },
   { href: "/compare/official-brand-store-vs-amazon-flipkart-laptops-india", label: "Official brand stores vs Amazon & Flipkart" },
   { href: "/guides/lenovo-laptop-offers-india-2026", label: "Lenovo laptop offers guide" },
-  { href: "/compare/amazon-vs-flipkart-electronics-2026", label: "Amazon vs Flipkart for electronics" },
   { href: "/stores/acer", label: "Acer store hub" },
   { href: "/stores/amazon-in", label: "Amazon India store hub" },
   { href: "/stores/flipkart", label: "Flipkart store hub" },

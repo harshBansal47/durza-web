@@ -20,7 +20,6 @@ function vsBadge(item: CompareEntry): string {
     "black-friday-2026-india-best-deals-vs-regular-sale": "Black Friday vs Regular Sale",
     "best-smartphone-deals-india-amazon-vs-flipkart-2026": "Amazon vs Flipkart",
     "best-laptop-deals-india-amazon-vs-flipkart-2026": "Amazon vs Flipkart vs Brand eStores",
-    "amazon-vs-flipkart-electronics-2026": "Amazon vs Flipkart",
     "official-brand-store-vs-amazon-flipkart-laptops-india": "Brand Stores vs Amazon & Flipkart",
     "myntra-vs-ajio-vs-brand-stores-fashion-india": "Myntra vs Ajio vs Brand Stores",
     "kama-ayurveda-vs-forest-essentials-vs-indus-valley": "Kama vs Forest Essentials vs Indus Valley",

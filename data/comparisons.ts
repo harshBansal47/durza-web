@@ -400,7 +400,6 @@ export const COMPARISONS: CompareEntry[] = [
       { question: "How do I avoid warranty issues after buying online?", answer: "Buy from authorized sellers, save the GST invoice, and verify the device IMEI/serial and warranty status with the brand soon after delivery.", sort_order: 3 },
     ],
     relatedComparisons: [
-      "amazon-vs-flipkart-electronics-2026",
       "credit-card-instant-discount-vs-no-cost-emi-india",
       "best-laptop-deals-india-amazon-vs-flipkart-2026",
     ],
@@ -511,7 +510,6 @@ export const COMPARISONS: CompareEntry[] = [
     relatedComparisons: [
       "official-brand-store-vs-amazon-flipkart-laptops-india",
       "credit-card-instant-discount-vs-no-cost-emi-india",
-      "amazon-vs-flipkart-electronics-2026",
     ],
     relatedGuides: [
       { href: "/guides/lenovo-india-laptop-offers-2026-guide", label: "Lenovo India laptop offers guide" },
@@ -524,101 +522,6 @@ export const COMPARISONS: CompareEntry[] = [
       { href: "/stores/amazon-in", label: "Amazon India store hub" },
     ],
     keywords: ["best laptop deals India 35000 to 75000", "Amazon vs Flipkart laptops", "Lenovo ASUS official store laptop", "soldered RAM laptop India", "ADP warranty laptop"],
-  },
-  {
-    slug: "amazon-vs-flipkart-electronics-2026",
-    category: "Electronics & Laptops",
-    title: "Amazon India vs. Flipkart in 2026: Returns, Open-Box Delivery & Bank Offers",
-    seoTitle: "Amazon vs Flipkart for Electronics in India (2026): Returns, OBD & Bank Offers | Durza",
-    metaDescription:
-      "Amazon vs Flipkart electronics in India (2026): compare service-center replacement policies, Open-Box Delivery, seller/invoice checks, and where bank offers or delivery wins.",
-    heroImage: "/guides/amazon-vs-flipkart-electronics-2026.webp",
-    summary:
-      "For electronics, the safest buy is often the one with the right seller, clear invoice, and inspection at delivery—not just the lowest price. Both platforms have tightened returns on phones, laptops, and many appliances.",
-    updatedLabel: "Updated 18/11/2026",
-    verdict: {
-      optionA: "Amazon",
-      optionB: "Flipkart",
-      text: "Choose Amazon for accessories, audio gear, routers, small appliances, and consistent delivery/invoice access. Choose Flipkart when scheduled installation, large-appliance exchange, or a specific festive bundle offers better value. On high-value electronics, prioritize authorized sellers and Open-Box checks over a small discount.",
-      primaryStoreSlug: "amazon-in",
-      primaryStoreLabel: "Amazon",
-      secondaryStoreSlug: "flipkart",
-      secondaryStoreLabel: "Flipkart",
-    },
-    table: {
-      leftName: "Amazon",
-      rightName: "Flipkart",
-      rows: [
-        { factor: "Returns/replacement", left: "Many electronics follow service-center/brand-led replacement (DOA rules apply)", right: "Similar 7-day service-center replacement patterns on many electronics" },
-        { factor: "Delivery", left: "Strong Prime/metro delivery consistency; OBD on eligible items", right: "OBD on eligible items; good for scheduled large-appliance delivery in many areas" },
-        { factor: "Best categories", left: "Audio, PC accessories, routers, kitchen/small appliances", right: "Large appliances with installation/exchange, select festive bundles" },
-        { factor: "Invoice & warranty", left: "Easy invoice access; verify GST seller details", right: "Invoice available; verify seller authorization and warranty terms" },
-        { factor: "Key risk", left: "Wrong seller/listing can complicate warranty claims", right: "Exchange/installation promises vary by pincode and seller" },
-      ],
-    },
-    insider: {
-      title: "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
-      points: [
-        "“No-questions returns” are mostly gone for phones/laptops and many electronics: expect service-center replacement with a brand DOA/job-sheet process if something is faulty. Your leverage is delivery inspection, correct invoice, and authorized seller.",
-        "Open-Box Delivery matters more than the platform logo. Inspect before OTP on eligible high-value items—especially screens, seals, and accessories.",
-        "A ₹800 cheaper listing from an unknown seller can cost you weeks if warranty registration or service support gets messy. Check seller name, GST invoice, and brand authorization cues.",
-      ],
-    },
-    blocks: [
-      {
-        heading: "The ₹800 discount that wasn’t worth it",
-        paragraphs: [
-          "Saving ₹800 on a ₹40,000 monitor feels great—until it arrives with issues and you’re stuck collecting service-center paperwork. For electronics, post-purchase support and documentation matter as much as the checkout price.",
-        ],
-      },
-      {
-        heading: "What to compare beyond price",
-        paragraphs: [
-          "Compare the final price after bank offers, but also check delivery timelines, Open-Box availability, seller reputation, and whether installation/exchange is included where relevant. For large appliances, confirm pincode serviceability and installation terms before ordering.",
-        ],
-      },
-      {
-        heading: "Protect your purchase in 2 minutes",
-        paragraphs: [
-          "At delivery, inspect the package and device before OTP where possible. After delivery, download the invoice, verify serial/warranty status if applicable, and keep packaging until you’re confident the product is fine.",
-        ],
-      },
-      {
-        heading: "What to check per category",
-        paragraphs: [
-          "Phones: compare the final payable after bank offers, exchange deductions and seller/invoice checks; use Open-Box Delivery and inspect before sharing the OTP on eligible high-value items.",
-          "Laptops: compare the exact SKU, RAM/slot configuration, warranty and ownership cost rather than making a platform-level call.",
-          "Audio and accessories: compare seller authorization and final price; for large appliances confirm pincode serviceability and installation terms before ordering.",
-        ],
-      },
-    ],
-    storeActions: [
-      { storeSlug: "amazon-in", storeName: "Amazon", bullets: ["Reliable for accessories and smaller electronics with quick delivery options.", "Easy to review seller info and invoices for warranty records."] },
-      { storeSlug: "flipkart", storeName: "Flipkart", bullets: ["Useful for large appliances with installation/exchange offers in supported pincodes.", "Compare festive bank bundles and delivery commitments before checkout."] },
-      { storeSlug: "havells", storeName: "Havells", bullets: ["Check official product info and service/installation pathways for appliances.", "Good reference when comparing marketplace appliance listings."] },
-      { storeSlug: "boult", storeName: "Boult", bullets: ["Buy direct for official warranty registration and authentic audio products.", "Compare with marketplace pricing, but prioritize authorized purchase paths."] },
-    ],
-    faqs: [
-      { question: "Can I return electronics easily on Amazon or Flipkart?", answer: "It depends on the category and listing. Many phones, laptops, and electronics have service-center replacement or limited return windows, often requiring brand DOA verification. Check the listing’s return policy before buying.", sort_order: 0 },
-      { question: "What is the most important thing to check at delivery?", answer: "For eligible high-value items, use Open-Box Delivery and inspect before sharing OTP. Also check packaging condition and that included accessories match the listing.", sort_order: 1 },
-      { question: "Does seller choice matter for warranty?", answer: "Yes. Authorized sellers and correct GST invoices make warranty registration and service claims smoother. Avoid unclear listings when the price difference is small.", sort_order: 2 },
-      { question: "Which platform is better for large appliances?", answer: "It varies by product and pincode. Flipkart often promotes installation/exchange bundles, while Amazon can be strong on delivery and pricing for some items—compare final cost and service terms locally.", sort_order: 3 },
-    ],
-    relatedComparisons: [
-      "best-smartphone-deals-india-amazon-vs-flipkart-2026",
-      "best-laptop-deals-india-amazon-vs-flipkart-2026",
-      "boat-vs-boult-vs-oneplus-tws-under-2000-india",
-    ],
-    relatedGuides: [
-      { href: "/guides/lenovo-india-laptop-offers-2026-guide", label: "Lenovo laptop offers guide" },
-      { href: "/guides/best-credit-card-online-shopping-india-2026", label: "Credit card offers guide" },
-    ],
-    relatedReviewsStores: [
-      { href: "/stores/amazon-in", label: "Amazon India store hub" },
-      { href: "/stores/flipkart", label: "Flipkart store hub" },
-      { href: "/stores/havells", label: "Havells store hub" },
-    ],
-    keywords: ["Amazon vs Flipkart electronics India 2026", "service center replacement only", "Open Box Delivery", "GST invoice warranty", "authorized seller electronics"],
   },
   {
     slug: "official-brand-store-vs-amazon-flipkart-laptops-india",
@@ -1218,7 +1121,6 @@ export const COMPARISONS: CompareEntry[] = [
       { question: "Did Durza physically test these water heaters?", answer: "No. We compared manufacturer spec sheets, warranty documents and published retail listings accessed on 24 Nov 2026. Prices are dated snapshots, not live quotes, and we have not verified pincode-specific installation charges.", sort_order: 4 },
     ],
     relatedComparisons: [
-      "amazon-vs-flipkart-electronics-2026",
       "credit-card-instant-discount-vs-no-cost-emi-india",
     ],
     relatedGuides: [
@@ -1463,7 +1365,6 @@ export const COMPARISONS: CompareEntry[] = [
       { question: "Did Durza test these earbuds?", answer: "No. We compared official product pages and published spec listings on 24 Nov 2026. All decibel, battery and latency numbers are manufacturer or listing claims, and prices are dated snapshots.", sort_order: 4 },
     ],
     relatedComparisons: [
-      "amazon-vs-flipkart-electronics-2026",
       "best-smartphone-deals-india-amazon-vs-flipkart-2026",
     ],
     relatedGuides: [
@@ -1607,7 +1508,6 @@ export const COMPARISONS: CompareEntry[] = [
     relatedComparisons: [
       "best-laptop-deals-india-amazon-vs-flipkart-2026",
       "official-brand-store-vs-amazon-flipkart-laptops-india",
-      "amazon-vs-flipkart-electronics-2026",
     ],
     relatedGuides: [
       { href: "/guides/best-acer-laptop-deals-promo-codes", label: "Acer laptop deals and promo codes" },
