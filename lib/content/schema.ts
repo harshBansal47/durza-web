@@ -5,8 +5,9 @@ import { z } from "zod";
  *
  * Single source of truth for the JSON content document shape served by
  * `GET /api/v1/editorial/{kind}/{slug}` and used by the content data layer
- * (`lib/content`). Block types mirror the editorial block catalog; unknown
- * blocks are rejected here and skipped/logged by the reader in production.
+ * (`lib/content`). Block types mirror the editorial block catalog as it is
+ * actually emitted by the content sources (built from the existing pages; new
+ * blocks are added here and in the renderer together).
  */
 
 export const contentKinds = ["guide", "review", "comparison", "collection"] as const;
@@ -77,6 +78,7 @@ export const bulletsBlockSchema = z
 export const calloutBlockSchema = z
   .object({
     type: z.literal("callout"),
+    text: z.string().optional(),
     tone: z.enum(calloutTones).optional(),
     title: z.string().optional(),
     body: z.string().optional(),
@@ -88,7 +90,7 @@ export const tableBlockSchema = z
     type: z.literal("table"),
     id: z.string().optional(),
     caption: z.string().optional(),
-    columns: z.array(z.string()).default([]),
+    columns: z.array(z.string()).optional(),
     rows: z.array(z.array(z.string())).default([]),
   })
   .passthrough();
@@ -215,6 +217,33 @@ export const relatedBlockSchema = z
   })
   .passthrough();
 
+// Heading blocks as emitted by the current content sources ("heading", "h2", "h3").
+export const headingBlockSchema = z.object({ type: z.literal("heading"), heading: z.string() }).passthrough();
+export const h2BlockSchema = z.object({ type: z.literal("h2"), heading: z.string() }).passthrough();
+export const h3BlockSchema = z.object({ type: z.literal("h3"), heading: z.string() }).passthrough();
+
+export const paragraphBlockSchema = z
+  .object({
+    type: z.literal("paragraph"),
+    text: z.string(),
+    opinion: z.string().optional(),
+  })
+  .passthrough();
+
+export const listBlockSchema = z
+  .object({
+    type: z.literal("list"),
+    items: z.array(z.string()).default([]),
+  })
+  .passthrough();
+
+export const orderedListBlockSchema = z
+  .object({
+    type: z.literal("ordered_list"),
+    items: z.array(z.string()).default([]),
+  })
+  .passthrough();
+
 const blocks = [
   audienceBlockSchema,
   verdictBlockSchema,
@@ -233,6 +262,12 @@ const blocks = [
   faqBlockSchema,
   sourcesBlockSchema,
   relatedBlockSchema,
+  headingBlockSchema,
+  h2BlockSchema,
+  h3BlockSchema,
+  paragraphBlockSchema,
+  listBlockSchema,
+  orderedListBlockSchema,
 ];
 
 export const contentBlockSchema = z.union(blocks);

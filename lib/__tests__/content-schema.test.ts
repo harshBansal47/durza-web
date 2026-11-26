@@ -51,6 +51,37 @@ describe("contentBlockSchema", () => {
     expect(block.type).toBe("table");
   });
 
+  it("accepts an h2 heading block", () => {
+    const block = contentBlockSchema.parse({ type: "h2", heading: "What Black Friday actually costs you" });
+    expect(block.type).toBe("h2");
+  });
+
+  it("accepts a paragraph block", () => {
+    const block = contentBlockSchema.parse({
+      type: "paragraph",
+      text: "We pick combinations we would actually recommend to a colleague.",
+    });
+    expect(block.type).toBe("paragraph");
+  });
+
+  it("accepts a list block", () => {
+    const block = contentBlockSchema.parse({ type: "list", items: ["One", "Two"] });
+    expect(block.type).toBe("list");
+  });
+
+  it("accepts an ordered_list block", () => {
+    const block = contentBlockSchema.parse({ type: "ordered_list", items: ["First", "Second"] });
+    expect(block.type).toBe("ordered_list");
+  });
+
+  it("accepts a callout block", () => {
+    const block = contentBlockSchema.parse({
+      type: "callout",
+      text: "The short version: stack in this order.",
+    });
+    expect(block.type).toBe("callout");
+  });
+
   it("rejects an unknown block type", () => {
     expect(contentBlockSchema.safeParse({ type: "not-a-block", body: "x" }).success).toBe(false);
   });
@@ -73,6 +104,22 @@ describe("contentPageSchema", () => {
     });
     expect(page.kind).toBe("guide");
     expect(page.content_blocks).toHaveLength(1);
+  });
+
+  it("accepts a published review content page with paragraph blocks", () => {
+    const page = contentPageSchema.parse({
+      kind: "review",
+      slug: "amazon-prime-india-review-2026",
+      title: "Amazon Prime India 2026",
+      description: "Prime review.",
+      status: "published",
+      content_blocks: [
+        { type: "callout", text: "Prime pays off under ~2 shipments a year." },
+        { type: "paragraph", text: "Amazon Prime India is four plans, not one." },
+      ],
+      structured_data: {},
+    });
+    expect(page.content_blocks).toHaveLength(2);
   });
 
   it("rejects a page missing its title", () => {
