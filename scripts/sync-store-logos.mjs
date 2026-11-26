@@ -204,7 +204,13 @@ async function main() {
     stores = await fetchStores();
   } catch (error) {
     console.error(`Store API unavailable: ${error instanceof Error ? error.message : error}`);
-    await fs.writeFile(path.join(OUTPUT_DIR, "report.json"), JSON.stringify([], null, 2));
+    const reportPath = path.join(OUTPUT_DIR, "report.json");
+    try {
+      await fs.access(reportPath);
+      console.log("Keeping the existing report and domain map.");
+    } catch {
+      await fs.writeFile(reportPath, JSON.stringify([], null, 2));
+    }
     return;
   }
 
