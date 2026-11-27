@@ -654,4 +654,4 @@ export function MobileSearch({ isOpen, onClose }: { isOpen: boolean; onClose: ()
   );
 }
 
-export default HeaderSearch;
+

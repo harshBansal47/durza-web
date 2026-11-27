@@ -89,7 +89,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 });
 
 /** An internal link that looks like a Button. */
-export function ButtonLink({
+function ButtonLink({
   href,
   variant,
   size,
@@ -111,7 +111,7 @@ export function ButtonLink({
 }
 
 /** An external link (or one we want a full page load for) that looks like a Button. */
-export function ButtonAnchor({ href, variant, size, leftIcon, rightIcon, fullWidth, children, className, ...props }: ButtonLinkProps) {
+function ButtonAnchor({ href, variant, size, leftIcon, rightIcon, fullWidth, children, className, ...props }: ButtonLinkProps) {
   return (
     <a href={href} className={classes({ variant, size, fullWidth, className })} {...props}>
       {leftIcon && <span aria-hidden="true">{leftIcon}</span>}

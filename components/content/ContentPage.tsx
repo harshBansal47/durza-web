@@ -151,4 +151,4 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
   );
 }
 
-export { KIND_LABEL };
+

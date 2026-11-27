@@ -39,7 +39,7 @@ const ICONS: [RegExp, (className?: string) => ReactElement][] = [
  * string (an emoji on some seeds) is ignored in favour of these so every
  * tile shares one stroke width; a Tag icon is the fallback.
  */
-export function CategoryIcon({ category, className }: { category: Category; className?: string }) {
+function CategoryIcon({ category, className }: { category: Category; className?: string }) {
   const probe = `${category.slug} ${category.name}`;
   const render = ICONS.find(([re]) => re.test(probe))?.[1] ?? ((c?: string) => <Tag aria-hidden="true" strokeWidth={1.75} className={c} />);
   return render(className);

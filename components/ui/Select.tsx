@@ -133,7 +133,7 @@ interface MultiSelectProps extends Omit<SelectProps, "onChange" | "value"> {
   maxDisplay?: number;
 }
 
-export const MultiSelect = forwardRef<HTMLSelectElement, MultiSelectProps>(function MultiSelect(
+const MultiSelect = forwardRef<HTMLSelectElement, MultiSelectProps>(function MultiSelect(
   {
     label,
     error,
