@@ -287,7 +287,7 @@ export default function SaltyStoreClient({ offers, faqs, stats, storeUrl, forced
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
             <a
-              href={storeUrl || officialHref}
+              href={officialHref}
               target="_blank"
               rel={GO_REL}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ledger-line bg-white px-7 text-sm font-bold text-ink transition hover:-translate-y-0.5 hover:border-amber-200 hover:shadow-[var(--shadow-raised)]"
