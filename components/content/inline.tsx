@@ -32,7 +32,7 @@ export function renderInline(text: string | null | undefined): ReactNode {
           <a
             key={index}
             href={token.href}
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            {...(token.href.startsWith("/go/") ? { target: "_blank", rel: "sponsored nofollow noopener noreferrer" } : external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className={LINK_CLASS}
           >
             {token.text}

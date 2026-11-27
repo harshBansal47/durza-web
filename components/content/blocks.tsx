@@ -81,7 +81,7 @@ export function VerdictBlock({
       {ctas && ctas.length ? (
         <div className="mt-4 flex flex-wrap gap-3">
           {ctas.map((cta, i) => (
-            <a key={i} href={cta.href} className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper-raised hover:bg-ink-soft">
+            <a key={i} href={cta.href} {...(cta.href.startsWith("/go/") ? { target: "_blank", rel: "sponsored nofollow noopener noreferrer" } : {})} className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper-raised hover:bg-ink-soft">
               {cta.label}
             </a>
           ))}
@@ -315,7 +315,7 @@ export function OfferCardsBlock({
           <div key={i} className="rounded-2xl border border-ledger-line bg-paper-raised p-5">
             <p className="font-serif text-lg font-semibold text-ink">{item.store}</p>
             <ul className="mt-3 space-y-1 text-sm leading-6 text-ink-soft">{asStringArray(item.points).map((p, j) => <li key={j}>{renderInline(p)}</li>)}</ul>
-            <a href={item.href} className="mt-4 inline-block rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper-raised hover:bg-ink-soft">{item.ctaLabel}</a>
+            <a href={item.href} {...(item.href.startsWith("/go/") ? { target: "_blank", rel: "sponsored nofollow noopener noreferrer" } : {})} className="mt-4 inline-block rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper-raised hover:bg-ink-soft">{item.ctaLabel}</a>
           </div>
         ))}
       </div>

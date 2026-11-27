@@ -142,7 +142,7 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
 
       {page.stickyCta ? (
         <div className="md:hidden fixed inset-x-0 bottom-0 z-30 border-t border-ledger-line bg-paper-raised px-4 py-3">
-          <a href={page.stickyCta.href} className="block w-full rounded-lg bg-ink px-4 py-3 text-center text-sm font-semibold text-paper-raised hover:bg-ink-soft">
+          <a href={page.stickyCta.href} {...(page.stickyCta.href.startsWith("/go/") ? { target: "_blank", rel: "sponsored nofollow noopener noreferrer" } : {})} className="block w-full rounded-lg bg-ink px-4 py-3 text-center text-sm font-semibold text-paper-raised hover:bg-ink-soft">
             {page.stickyCta.label}
           </a>
         </div>

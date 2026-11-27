@@ -23,12 +23,12 @@
       "body": "Use MRP only as a legal ceiling: rule 2(m) of the Packaged Commodities Rules defines it as the maximum price inclusive of all taxes, and rule 18(2) prohibits selling above it. It is not a usual-price benchmark. For a real saving, compare the final payable against a dated price for the identical model code from another page. On 25 Nov 2026 the same ASUS FA401EA-RG020WS carried a ₹3,23,990 MRP at ASUS eStore but a ₹2,59,990 reference at Flipkart — sources disagree, so verify on the exact SKU at checkout. A headline percentage off MRP is not, by itself, evidence of a real saving: confirm the exact SKU and the basis of the comparison before treating any saving as realised.",
       "ctas": [
         {
-          "label": "Amazon",
+          "label": "Check Live Price on Amazon",
           "href": "/go/amazon-in?src=compare-verdict"
         },
         {
-          "label": "Lenovo India",
-          "href": "/go/lenovo-india?src=compare-verdict-secondary"
+          "label": "Check Live Price on Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict"
         }
       ]
     },
@@ -117,7 +117,7 @@
             "Do not publish a price from a snippet — verify on the store."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "href": "/go/amazon-in?src=compare-mid"
         },
         {
           "store": "Lenovo India",
@@ -126,7 +126,7 @@
             "Offers and cashback are separate from the listed selling price."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/lenovo-india?src=compare-offer-card"
+          "href": "/go/lenovo-india?src=compare-mid"
         },
         {
           "store": "ASUS India",
@@ -135,7 +135,7 @@
             "A different store showed a different reference price for the same model code."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/asus?src=compare-offer-card"
+          "href": "/go/asus?src=compare-mid"
         },
         {
           "store": "Acer India",
@@ -144,7 +144,7 @@
             "Use the exact Ref code, not the series name."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/acer?src=compare-offer-card"
+          "href": "/go/acer?src=compare-mid"
         }
       ]
     },
@@ -284,6 +284,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Amazon",
+    "href": "/go/amazon-in?src=compare-mobile-sticky"
+  },
   "keywords": [
     "MRP vs selling price India",
     "strike through price reliability",

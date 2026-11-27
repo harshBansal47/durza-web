@@ -23,12 +23,12 @@
       "body": "Choose a genuine instant discount when your card, product and payment mode are eligible and the final amount on the payment screen is lower. Do not assume an advertised benefit is instant: Lenovo India's 2026 offer is post-payment cashback, is not valid on EMI, and the opened T&Cs disagree on the cashback amount and timing. Compare the payment-page amount, the total outflow over the EMI tenure and any reward points you lose.",
       "ctas": [
         {
-          "label": "Amazon",
+          "label": "Check Live Price on Amazon",
           "href": "/go/amazon-in?src=compare-verdict"
         },
         {
-          "label": "Lenovo India",
-          "href": "/go/lenovo-india?src=compare-verdict-secondary"
+          "label": "Check Live Price on Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict"
         }
       ]
     },
@@ -109,7 +109,7 @@
             "Check the discount line on the payment page before confirming."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "href": "/go/amazon-in?src=compare-mid"
         },
         {
           "store": "Lenovo India",
@@ -118,7 +118,7 @@
             "Offer terms checked 25 Nov 2026 list 24 Nov–2 Dec 2026, one transaction per card and cashback within 30 days of delivery."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/lenovo-india?src=compare-offer-card"
+          "href": "/go/lenovo-india?src=compare-mid"
         },
         {
           "store": "Tata CLiQ",
@@ -127,7 +127,7 @@
             "Axis and Kotak are named in the press release, but their caps and minimums are not stated — check the store."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/tatacliq-com-ecommerce-cps-india?src=compare-offer-card"
+          "href": "/go/tatacliq-com-ecommerce-cps-india?src=compare-mid"
         }
       ]
     },
@@ -253,6 +253,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Amazon",
+    "href": "/go/amazon-in?src=compare-mobile-sticky"
+  },
   "keywords": [
     "instant discount vs No Cost EMI India",
     "bank offer cashback after delivery",
