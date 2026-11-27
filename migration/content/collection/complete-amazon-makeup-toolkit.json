@@ -1,0 +1,99 @@
+{
+  "kind": "collection",
+  "slug": "complete-amazon-makeup-toolkit",
+  "title": "Complete Makeup Toolkit on Amazon India",
+  "seo_title": "Complete Makeup Toolkit on Amazon India | Durza",
+  "description": "Build your complete makeup kit step by step—from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.",
+  "meta_description": "Build your complete makeup kit step by step—from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "Complete Makeup Toolkit on Amazon India",
+      "dek": "A step-by-step makeup toolkit organized by routine categories—from cleanser and SPF to foundation, lips, mascara, and tools—with curated Amazon.in picks.",
+      "items": [
+        {
+          "product": "prep-base-routine",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Prep & Base Routine",
+            "storeBadge": "Amazon India",
+            "tier": "Essential First Buy",
+            "why": "Start with cleanser, moisturizer, SPF, primer, foundation, concealer, and powder for a solid base.",
+            "skipIf": "You already have your base routine sorted.",
+            "ctaLabel": "Explore Base Steps",
+            "ctaHref": "/collections/complete-amazon-makeup-toolkit#cleanser",
+            "external": false
+          }
+        },
+        {
+          "product": "eyes-lips-glow",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Eyes, Lips & Glow",
+            "storeBadge": "Amazon India",
+            "tier": "Daily Non-Negotiable",
+            "why": "Build your look with blush, highlighter, brows, eyeshadow, liner, mascara, and lip picks.",
+            "skipIf": "You only need one specific refill.",
+            "ctaLabel": "Browse Color Steps",
+            "ctaHref": "/collections/complete-amazon-makeup-toolkit#blush",
+            "external": false
+          }
+        },
+        {
+          "product": "lock-in-tools",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Lock In & Tools",
+            "storeBadge": "Amazon India",
+            "tier": "Sweet-Spot Upgrade",
+            "why": "Finish with setting spray and tools that make application easier and longer lasting.",
+            "skipIf": "You already own setting and tool essentials.",
+            "ctaLabel": "View Final Steps",
+            "ctaHref": "/collections/complete-amazon-makeup-toolkit#setting-spray",
+            "external": false
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "18 Steps · 100+ Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "complete makeup kit Amazon India",
+      "makeup toolkit step by step",
+      "makeup routine essentials India",
+      "foundation concealer mascara Amazon India",
+      "beginner makeup kit India"
+    ],
+    "relatedCollections": [
+      "indian-monsoon-humidity-skincare-haircare-kit",
+      "wedding-and-festive-luxury-gifting-edit-india"
+    ]
+  },
+  "hero_image_url": "/collections/amazon-beauty-toolkit/hero-vanity.webp",
+  "author_name": null,
+  "canonical_url": "/collections/complete-amazon-makeup-toolkit",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "How is the makeup toolkit organized?",
+      "answer": "Products are organized by routine steps—from cleanser and moisturizer to mascara and tools—so you can build a complete kit in order."
+    },
+    {
+      "question": "Are prices and discounts live?",
+      "answer": "Prices, MRP, and discount labels shown on Durza are indicative and may change. Always check the latest price, offer, and availability on Amazon.in before buying."
+    },
+    {
+      "question": "Do all products have images and verified links?",
+      "answer": "Existing verified picks keep their images and affiliate links. New slots being added may use placeholders until verified product images and links are provided."
+    }
+  ],
+  "updated_at": null
+}

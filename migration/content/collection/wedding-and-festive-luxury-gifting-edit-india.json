@@ -1,0 +1,126 @@
+{
+  "kind": "collection",
+  "slug": "wedding-and-festive-luxury-gifting-edit-india",
+  "title": "Effortless Luxury Gifting for Indian Weddings, Anniversaries & Festive Hosting",
+  "seo_title": "Luxury Wedding, Anniversary & Festive Gift Ideas in India (2026) | Durza Collections",
+  "description": "Curated luxury gift ideas for Indian weddings, anniversaries, and festive hosting—presentation-ready picks across fragrance, skincare, jewelry, grooming, and accessories.",
+  "meta_description": "Curated luxury gift ideas for Indian weddings, anniversaries, and festive hosting—presentation-ready picks across fragrance, skincare, jewelry, grooming, and accessories.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "Effortless Luxury Gifting for Indian Weddings, Anniversaries & Festive Hosting",
+      "dek": "Presentation-ready gifts people actually keep and use—from hostess candles to keepsake skincare, jewelry, grooming hampers, and signature accessories.",
+      "items": [
+        {
+          "product": "bath-body-works-signature-3-wick-candle-spa-trio",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Bath & Body Works Signature 3-Wick Candle & Spa Trio",
+            "storeBadge": "Bath & Body Works (Official Store)",
+            "tier": "Hostess & Housewarming",
+            "why": "Fragrance-led home and body sets feel instantly giftable and are easy to use, making them a reliable choice for hosts and housewarmings.",
+            "skipIf": "The recipient is sensitive to fragrances or prefers unscented home products.",
+            "ctaLabel": "Check Live Price on Bath & Body Works",
+            "ctaHref": "/go/bath-body-works?src=col-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "kama-ayurveda-gold-embossed-kumkumadi-gift-box",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Kama Ayurveda Gold-Embossed Kumkumadi Gift Box",
+            "storeBadge": "Kama Ayurveda (Official Store)",
+            "tier": "Bridal & Festive Icon",
+            "why": "A classic Ayurvedic skincare gift box with premium presentation works well for bridal, festive, and family gifting when you want something thoughtful and traditional.",
+            "skipIf": "The recipient prefers clinical/minimal skincare or has known ingredient sensitivities—check product details.",
+            "ctaLabel": "Check Live Price on Kama Ayurveda",
+            "ctaHref": "/go/kama-ayurveda?src=col-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "palmonas-18k-waterproof-gold-vermeil-jewelry-set",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Palmonas 18K Waterproof Gold-Vermeil Jewelry Set",
+            "storeBadge": "Palmonas (Official Store)",
+            "tier": "Anniversary & Birthday",
+            "why": "Everyday-wear jewelry in gift-ready packaging is a versatile milestone gift that balances style with practicality for regular use.",
+            "skipIf": "You’re unsure of the recipient’s metal/finish preference—choose simpler designs or confirm taste first.",
+            "ctaLabel": "Check Live Price on Palmonas",
+            "ctaHref": "/go/palmonas?src=col-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "the-man-company-signature-edp-grooming-hamper",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "The Man Company Signature EDP & Grooming Hamper",
+            "storeBadge": "The Man Company (Official Store)",
+            "tier": "Luxury Gift for Him",
+            "why": "A fragrance-and-grooming hamper offers a complete, ready-to-gift experience that suits birthdays, anniversaries, and festive occasions.",
+            "skipIf": "The recipient is particular about fragrance notes or grooming products—check variants and preferences.",
+            "ctaLabel": "Check Live Price on The Man Company",
+            "ctaHref": "/go/the-man-company?src=col-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "charles-keith-sculpted-saddle-bag-or-cardholder",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Charles & Keith Sculpted Saddle Bag or Cardholder",
+            "storeBadge": "Charles & Keith (Official Store)",
+            "tier": "Milestone Fashion Gift",
+            "why": "A structured accessory from an official boutique makes a polished milestone gift with strong everyday utility and premium presentation.",
+            "skipIf": "You’re unsure about size/color preferences—small leather goods like cardholders are safer picks.",
+            "ctaLabel": "Check Live Price on Charles & Keith",
+            "ctaHref": "/go/charles-keith?src=col-gifting",
+            "external": true
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "5 Vetted Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "luxury gift hampers India",
+      "wedding return gifts and hostess gifts India",
+      "best perfume and skincare gift sets India"
+    ],
+    "relatedCollections": [
+      "boardroom-to-dinner-capsule-wardrobe-india"
+    ]
+  },
+  "hero_image_url": "/guides/festive.webp",
+  "author_name": null,
+  "canonical_url": "/collections/wedding-and-festive-luxury-gifting-edit-india",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "What makes a good luxury gift for Indian weddings or festive hosting?",
+      "answer": "Presentation-ready gifts that are useful beyond the occasion—like fragrance sets, keepsake skincare boxes, jewelry, grooming hampers, or classic accessories—tend to feel more thoughtful."
+    },
+    {
+      "question": "How do I choose a safe gift when I don’t know the recipient’s exact taste?",
+      "answer": "Pick versatile options (neutral accessories, cardholders, or popular home fragrance sets) and avoid highly personal shades or strong fragrance assumptions unless you know their preferences."
+    },
+    {
+      "question": "Should I buy gift sets from official brand stores?",
+      "answer": "Official stores are often a good choice for authentic products, current gift packaging, and clear return/support policies—always verify delivery timelines for occasion dates."
+    }
+  ],
+  "updated_at": null
+}

@@ -1,0 +1,126 @@
+{
+  "kind": "collection",
+  "slug": "high-rise-indian-apartment-utility-and-diy-kit",
+  "title": "The New-Flat & High-Rise Apartment Setup Kit: Water Heaters, Power Tools & Storage",
+  "seo_title": "New Flat & High-Rise Apartment Essentials in India (2026) | Durza Collections",
+  "description": "Practical first-week essentials for Indian flats and high-rises: pressure-rated water heating, efficient fans, space-saving storage, and DIY tools for setup tasks.",
+  "meta_description": "Practical first-week essentials for Indian flats and high-rises: pressure-rated water heating, efficient fans, space-saving storage, and DIY tools for setup tasks.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "The New-Flat & High-Rise Apartment Setup Kit: Water Heaters, Power Tools & Storage",
+      "dek": "A practical move-in kit for Indian apartments—pressure-safe utilities, bill-saving fans, space-multiplying furniture, and DIY basics for week-one fixes.",
+      "items": [
+        {
+          "product": "havells-8-bar-pressure-storage-water-heater-15l-25l",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Havells 8-Bar Pressure Storage Water Heater (15L–25L)",
+            "storeBadge": "Havells (Official Store)",
+            "tier": "High-Rise Essential",
+            "why": "A pressure-rated storage geyser is a safer fit for many multi-story buildings, helping handle high inlet pressure when correctly sized and installed.",
+            "skipIf": "Your building has low pressure or you need an instant heater—confirm capacity, pressure rating, and installation requirements first.",
+            "ctaLabel": "Check Live Price on Havells",
+            "ctaHref": "/go/havells?src=col-home",
+            "external": true
+          }
+        },
+        {
+          "product": "havells-bee-5-star-bldc-ceiling-fans",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Havells BEE 5-Star BLDC Ceiling Fans",
+            "storeBadge": "Havells (Official Store)",
+            "tier": "Bill Saver",
+            "why": "BLDC fans can use significantly less power than older induction fans, making them a practical upgrade for multi-room apartments during long summer use.",
+            "skipIf": "Your existing fans are efficient and in good condition, or your rental doesn’t allow replacements.",
+            "ctaLabel": "Check Live Price on Havells",
+            "ctaHref": "/go/havells?src=col-home",
+            "external": true
+          }
+        },
+        {
+          "product": "nilkamal-hydraulic-storage-bed-study-desk",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Nilkamal Hydraulic Storage Bed & Study Desk",
+            "storeBadge": "Nilkamal Furniture",
+            "tier": "Space Multiplier",
+            "why": "Hydraulic storage beds and compact desks help reclaim floor space in urban bedrooms while keeping daily essentials organized.",
+            "skipIf": "You already have adequate storage or need custom-sized furniture for a specific layout.",
+            "ctaLabel": "Check Live Price on Nilkamal Furniture",
+            "ctaHref": "/go/nilkamalfurniture?src=col-home",
+            "external": true
+          }
+        },
+        {
+          "product": "moglix-home-diy-13mm-impact-drill-tool-kit",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Moglix Home DIY 13mm Impact Drill & Tool Kit",
+            "storeBadge": "Moglix (Official Store)",
+            "tier": "Wall-Mounting Independence",
+            "why": "A basic impact drill kit with masonry bits and wall plugs makes common move-in tasks—curtains, shelves, hooks—much easier to handle.",
+            "skipIf": "Your society restricts drilling or you only need one-time installation—consider professional help instead.",
+            "ctaLabel": "Check Live Price on Moglix",
+            "ctaHref": "/go/moglix?src=col-home",
+            "external": true
+          }
+        },
+        {
+          "product": "boldfit-nilkamal-balcony-utility-organizers",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Boldfit / Nilkamal Balcony & Utility Organizers",
+            "storeBadge": "Official Brand Stores",
+            "tier": "Weatherproof Seating",
+            "why": "Durable balcony seating and ventilated utility organizers can make small outdoor/entry spaces more usable in monsoon and summer conditions.",
+            "skipIf": "You don’t have balcony/utility space or your building provides fixed fittings.",
+            "ctaLabel": "Check Live Price on Nilkamal Furniture",
+            "ctaHref": "/go/nilkamalfurniture?src=col-home",
+            "external": true
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "5 Vetted Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "new flat essentials checklist India",
+      "8 bar pressure geyser for high rise India",
+      "home DIY drill kit India"
+    ],
+    "relatedCollections": [
+      "amazon-home-office-essentials-collection"
+    ]
+  },
+  "hero_image_url": "/guides/home.webp",
+  "author_name": null,
+  "canonical_url": "/collections/high-rise-indian-apartment-utility-and-diy-kit",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "Why does water pressure rating matter for geysers in high-rise apartments?",
+      "answer": "Many high-rise buildings have higher inlet pressure. Choosing a geyser with an appropriate pressure rating (and proper installation) helps reduce risk of damage and improves long-term reliability."
+    },
+    {
+      "question": "Are BLDC ceiling fans worth it for a new flat?",
+      "answer": "They can be, especially if you run fans for long hours in multiple rooms. Check airflow, warranty, and installation compatibility along with energy efficiency."
+    },
+    {
+      "question": "What should I buy first when setting up a new apartment?",
+      "answer": "Prioritize essentials that affect daily comfort and safety—water heating, ventilation/cooling, and basic storage—before adding DIY tools or decor items."
+    }
+  ],
+  "updated_at": null
+}

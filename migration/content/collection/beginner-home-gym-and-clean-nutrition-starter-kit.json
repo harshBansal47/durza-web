@@ -1,0 +1,126 @@
+{
+  "kind": "collection",
+  "slug": "beginner-home-gym-and-clean-nutrition-starter-kit",
+  "title": "The Apartment Home-Gym & Clean Protein Starter Kit: Zero-Clutter Gear & Lab-Tested Nutrition",
+  "seo_title": "Apartment Home Gym & Clean Nutrition Starter Kit in India (2026) | Durza Collections",
+  "description": "A compact 5-piece home workout and nutrition starter kit for Indian apartments: space-saving gear, comfortable activewear, and batch-verified supplements.",
+  "meta_description": "A compact 5-piece home workout and nutrition starter kit for Indian apartments: space-saving gear, comfortable activewear, and batch-verified supplements.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "The Apartment Home-Gym & Clean Protein Starter Kit: Zero-Clutter Gear & Lab-Tested Nutrition",
+      "dek": "Space-saving workout essentials and practical nutrition picks that fit a small Indian apartment—focused on consistency, comfort, and verified products.",
+      "items": [
+        {
+          "product": "boldfit-6mm-tpe-anti-slip-yoga-exercise-mat",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Boldfit 6mm TPE Anti-Slip Yoga & Exercise Mat",
+            "storeBadge": "Boldfit (Official Store)",
+            "tier": "Foundation Gear",
+            "why": "A firm, easy-to-roll mat gives stable footing for bodyweight workouts, stretching, and floor exercises in tight living-room spaces.",
+            "skipIf": "You already have a non-slip mat with enough cushioning for your joints and flooring.",
+            "ctaLabel": "Check Live Price on Boldfit",
+            "ctaHref": "/go/boldfit?src=col-gym",
+            "external": true
+          }
+        },
+        {
+          "product": "boldfit-heavy-duty-resistance-band-tube-set",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Boldfit Heavy-Duty Resistance Band Tube Set",
+            "storeBadge": "Boldfit (Official Store)",
+            "tier": "Compact Strength",
+            "why": "Stackable tube resistance lets you train push, pull, and accessory movements at home without bulky machines or fixed racks.",
+            "skipIf": "You prefer free weights and already have adjustable dumbbells or access to a gym.",
+            "ctaLabel": "Check Live Price on Boldfit",
+            "ctaHref": "/go/boldfit?src=col-gym",
+            "external": true
+          }
+        },
+        {
+          "product": "blissclub-ultimate-4-pocket-leggings",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "BlissClub Ultimate 4-Pocket Leggings",
+            "storeBadge": "BlissClub (Official Store)",
+            "tier": "Zero-Roll Movement",
+            "why": "Comfortable, secure-fit activewear with practical pockets can make daily movement easier to stick with, especially for home workouts and walks.",
+            "skipIf": "You already own comfortable workout bottoms that stay put during movement.",
+            "ctaLabel": "Check Live Price on BlissClub",
+            "ctaHref": "/go/bliss-club?src=col-gym",
+            "external": true
+          }
+        },
+        {
+          "product": "beastlife-lab-tested-super-whey-protein",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "BeastLife Lab-Tested Super Whey Protein",
+            "storeBadge": "BeastLife (Official Store)",
+            "tier": "Clean Recovery",
+            "why": "A direct-from-brand whey option that emphasizes batch-level testing can be a practical way to support protein intake when your diet falls short.",
+            "skipIf": "You meet your protein needs through food or have dietary/medical reasons to avoid whey—check labels and consult a professional if needed.",
+            "ctaLabel": "Check Live Price on BeastLife",
+            "ctaHref": "/go/beast-life?src=col-gym",
+            "external": true
+          }
+        },
+        {
+          "product": "muscleblaze-creamp-micronized-creatine-starter-pouch",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "MuscleBlaze CreAMP Micronized Creatine (Starter Pouch)",
+            "storeBadge": "Amazon India",
+            "tier": "Strength Booster",
+            "why": "Creatine monohydrate is a well-studied supplement for strength training progress; a starter pouch is a simple way to assess tolerance and routine fit.",
+            "skipIf": "You don’t do resistance training or have a medical condition—check suitability with a healthcare professional.",
+            "ctaLabel": "Check Live Price on Amazon India",
+            "ctaHref": "https://www.amazon.in/dp/B0iU3vLmN?tag=durza02-21&ascsubtag=collection_kit",
+            "external": true
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "5 Vetted Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "home workout equipment kit India",
+      "lab tested whey protein India",
+      "best yoga mat and resistance bands India"
+    ],
+    "relatedCollections": [
+      "daily-longevity-and-desk-worker-wellness-stack"
+    ]
+  },
+  "hero_image_url": "/guides/fitness.webp",
+  "author_name": null,
+  "canonical_url": "/collections/beginner-home-gym-and-clean-nutrition-starter-kit",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "Do I need supplements to start a home gym routine?",
+      "answer": "No. Consistent training, sleep, and adequate daily protein from food matter most. Supplements are optional add-ons if they fit your goals, budget, and health needs."
+    },
+    {
+      "question": "Are resistance bands enough for beginners?",
+      "answer": "Yes, bands can support full-body strength training at home when used progressively. They’re especially useful in apartments where space and noise are constraints."
+    },
+    {
+      "question": "How should I choose protein or creatine products in India?",
+      "answer": "Prefer reputable brands, clear ingredient labels, and batch/testing transparency where available. Check serving sizes, allergens, and consult a professional if you have medical conditions."
+    }
+  ],
+  "updated_at": null
+}

@@ -1,0 +1,126 @@
+{
+  "kind": "collection",
+  "slug": "daily-longevity-and-desk-worker-wellness-stack",
+  "title": "The Desk-Worker Daily Wellness Stack: Joint Mobility, Eye/Skin Support & Clean Energy",
+  "seo_title": "Daily Wellness Stack for Desk Workers in India (2026) | Durza Collections",
+  "description": "A simple, sustainable wellness stack for Indian desk workers: omega-3, multivitamins, morning juices, mineral support, and a quick high-protein breakfast option.",
+  "meta_description": "A simple, sustainable wellness stack for Indian desk workers: omega-3, multivitamins, morning juices, mineral support, and a quick high-protein breakfast option.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "The Desk-Worker Daily Wellness Stack: Joint Mobility, Eye/Skin Support & Clean Energy",
+      "dek": "A simple daily routine for 9+ hour desk days—focused on consistency, verified basics, and practical nutrition rather than complicated supplement stacks.",
+      "items": [
+        {
+          "product": "hk-vitals-triple-strength-omega-3-fish-oil",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "HK Vitals Triple-Strength Omega-3 Fish Oil",
+            "storeBadge": "HK Vitals (Official Store)",
+            "tier": "Heart, Eye & Joint Support",
+            "why": "A concentrated omega-3 supplement can be a convenient way to support intake when dietary sources are inconsistent, especially for desk-heavy routines.",
+            "skipIf": "You already consume enough omega-3-rich foods or have medical conditions/allergies—consult a healthcare professional.",
+            "ctaLabel": "Check Live Price on HK Vitals",
+            "ctaHref": "/go/hkvitals?src=col-wellness",
+            "external": true
+          }
+        },
+        {
+          "product": "hk-vitals-gender-specific-daily-multivitamin-men-women-50",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "HK Vitals Gender-Specific Daily Multivitamin (Men / Women / 50+)",
+            "storeBadge": "HK Vitals (Official Store)",
+            "tier": "Micronutrient Insurance",
+            "why": "A daily multivitamin can help cover common micronutrient gaps, but it works best as a supplement to—not a replacement for—a balanced diet.",
+            "skipIf": "You’re already taking similar supplements or prescribed vitamins—avoid overlap without professional guidance.",
+            "ctaLabel": "Check Live Price on HK Vitals",
+            "ctaHref": "/go/hkvitals?src=col-wellness",
+            "external": true
+          }
+        },
+        {
+          "product": "kapiva-cold-pressed-thar-aloe-vera-wild-amla-juice",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Kapiva Cold-Pressed Thar Aloe Vera & Wild Amla Juice",
+            "storeBadge": "Kapiva (Official Store)",
+            "tier": "Morning Gut & Immunity",
+            "why": "A simple morning juice routine can be an easy habit for hydration and fruit/plant intake, as long as you choose unsweetened options and use it consistently.",
+            "skipIf": "You have digestive sensitivities or medical conditions—check ingredients and consult a professional if needed.",
+            "ctaLabel": "Check Live Price on Kapiva",
+            "ctaHref": "/go/kapiva?src=col-wellness",
+            "external": true
+          }
+        },
+        {
+          "product": "kapiva-nabl-tested-himalayan-shilajit-resin",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Kapiva NABL-Tested Himalayan Shilajit Resin",
+            "storeBadge": "Kapiva (Official Store)",
+            "tier": "Natural Stamina",
+            "why": "A batch-tested mineral resin option for those exploring traditional wellness supplements; start cautiously and prioritize verified sourcing and label clarity.",
+            "skipIf": "You’re pregnant, have medical conditions, or take medications—seek medical advice before use.",
+            "ctaLabel": "Check Live Price on Kapiva",
+            "ctaHref": "/go/kapiva?src=col-wellness",
+            "external": true
+          }
+        },
+        {
+          "product": "yoga-bar-high-protein-dark-chocolate-oats",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Yoga Bar High-Protein Dark Chocolate Oats",
+            "storeBadge": "Amazon India",
+            "tier": "5-Minute Desk Breakfast",
+            "why": "A quick, high-protein breakfast option can help avoid skipped meals on busy workdays and make it easier to stay consistent with nutrition.",
+            "skipIf": "You prefer freshly cooked breakfasts or have ingredient/allergen concerns—check the label.",
+            "ctaLabel": "Check Live Price on Amazon India",
+            "ctaHref": "https://www.amazon.in/dp/B05uwpEeL?tag=durza02-21&ascsubtag=collection_kit",
+            "external": true
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "5 Vetted Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "best multivitamin and omega 3 India",
+      "supplements for IT professionals India",
+      "daily Ayurvedic immunity routine"
+    ],
+    "relatedCollections": [
+      "beginner-home-gym-and-clean-nutrition-starter-kit"
+    ]
+  },
+  "hero_image_url": "/guides/daily-longevity-and-desk-worker-wellness-stack.webp",
+  "author_name": null,
+  "canonical_url": "/collections/daily-longevity-and-desk-worker-wellness-stack",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "Do desk workers need a multivitamin or omega-3 supplement?",
+      "answer": "Not everyone does. Diet, sunlight exposure, and lab results matter. Supplements can help fill gaps, but it’s best to choose them based on actual needs and professional guidance when possible."
+    },
+    {
+      "question": "Is it safe to take multiple supplements together?",
+      "answer": "Avoid starting many new supplements at once. Check for overlapping ingredients and interactions, and consult a healthcare professional—especially if you have conditions or take medications."
+    },
+    {
+      "question": "What’s the simplest wellness habit for a busy desk routine?",
+      "answer": "Start with one sustainable habit: a consistent breakfast, regular movement breaks, hydration, or sleep routine. Supplements should support—not replace—those basics."
+    }
+  ],
+  "updated_at": null
+}

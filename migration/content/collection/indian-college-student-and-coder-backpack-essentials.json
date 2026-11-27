@@ -1,0 +1,126 @@
+{
+  "kind": "collection",
+  "slug": "indian-college-student-and-coder-backpack-essentials",
+  "title": "The College & First-Job Tech Backpack: Coding Laptops, ANC Audio & Smart Perks",
+  "seo_title": "Best College & Coder Backpack Tech Essentials in India (2026) | Durza Collections",
+  "description": "A practical student and junior-developer tech kit for India: student-priced laptops, long-battery audio, pocket TWS, and skill-building picks for classes and placements.",
+  "meta_description": "A practical student and junior-developer tech kit for India: student-priced laptops, long-battery audio, pocket TWS, and skill-building picks for classes and placements.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "The College & First-Job Tech Backpack: Coding Laptops, ANC Audio & Smart Perks",
+      "dek": "A durable, carry-friendly tech stack for lectures, hostel Wi-Fi, coding, and placements—prioritizing battery life, comfort, and smart student perks.",
+      "items": [
+        {
+          "product": "lenovo-ideapad-slim-5-loq-sheerid-student-store",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Lenovo IdeaPad Slim 5 / LOQ (SheerID Student Store)",
+            "storeBadge": "Lenovo India (Official Store)",
+            "tier": "Primary Coding Machine",
+            "why": "Buying through Lenovo’s official student flow can unlock education pricing on configurable laptops suited for coding, projects, and everyday campus work.",
+            "skipIf": "You already have a capable laptop with enough RAM/SSD for your coursework and tools.",
+            "ctaLabel": "Check Live Price on Lenovo India",
+            "ctaHref": "/go/lenovo-india?src=col-student",
+            "external": true
+          }
+        },
+        {
+          "product": "asus-vivobook-s-oled-series",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "ASUS Vivobook S / OLED Series",
+            "storeBadge": "ASUS (Official Store)",
+            "tier": "Eye-Comfort Screen",
+            "why": "OLED Vivobook options can offer sharp visuals and comfortable viewing for long coding, reading, and documentation sessions when configured well.",
+            "skipIf": "You prioritize battery longevity over display vibrancy or already have a good external monitor setup.",
+            "ctaLabel": "Check Live Price on ASUS",
+            "ctaHref": "/go/asus?src=col-student",
+            "external": true
+          }
+        },
+        {
+          "product": "sony-wh-ch520-wireless-multipoint-headphones",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Sony WH-CH520 Wireless Multipoint Headphones",
+            "storeBadge": "Amazon India",
+            "tier": "50-Hour Study Battery",
+            "why": "Lightweight on-ear headphones with long battery life and multipoint convenience are practical for lectures, study sessions, and switching between devices.",
+            "skipIf": "You need strong active noise cancellation or prefer in-ear earbuds for all-day use.",
+            "ctaLabel": "Check Live Price on Amazon India",
+            "ctaHref": "https://www.amazon.in/dp/B0fLYREmW?tag=durza02-21&ascsubtag=collection_kit",
+            "external": true
+          }
+        },
+        {
+          "product": "boult-quad-mic-enc-low-latency-tws-earbuds",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Boult Quad-Mic ENC & Low-Latency TWS Earbuds",
+            "storeBadge": "Boult (Official Store)",
+            "tier": "Pocket Commute Audio",
+            "why": "Compact TWS earbuds are handy for commutes and quick calls, with ENC and low-latency modes useful for noisy campuses and casual gaming breaks.",
+            "skipIf": "You already own reliable earbuds with clear mic quality and comfortable fit.",
+            "ctaLabel": "Check Live Price on Boult",
+            "ctaHref": "/go/boult?src=col-student",
+            "external": true
+          }
+        },
+        {
+          "product": "guvi-vernacular-full-stack-placement-tracks",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "GUVI Vernacular & Full-Stack Placement Tracks",
+            "storeBadge": "GUVI (Official Store)",
+            "tier": "Skill & Placement Edge",
+            "why": "Structured coding tracks and practice can complement college learning, especially if you prefer vernacular explanations and guided placement-focused paths.",
+            "skipIf": "You already follow a consistent learning roadmap that’s working for your goals.",
+            "ctaLabel": "Check Live Price on GUVI",
+            "ctaHref": "/go/guvi?src=col-student",
+            "external": true
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "5 Vetted Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "best student laptop deals India 2026",
+      "coding laptop under 60000 India",
+      "best headphones for college students India"
+    ],
+    "relatedCollections": [
+      "amazon-home-office-essentials-collection"
+    ]
+  },
+  "hero_image_url": "/guides/indian-college-student-and-coder-backpack-essentials.webp",
+  "author_name": null,
+  "canonical_url": "/collections/indian-college-student-and-coder-backpack-essentials",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "What specs matter most for a student coding laptop in India?",
+      "answer": "Prioritize enough RAM and fast SSD storage for multitasking and dev tools, a comfortable keyboard/screen for long sessions, and reliable battery/thermals for campus use. Choose based on your coursework and budget."
+    },
+    {
+      "question": "Is it better to buy laptops from official brand stores or marketplaces?",
+      "answer": "Official stores can offer student pricing, custom configurations, and clearer warranty/support options, while marketplaces may have different bank offers. Compare final payable value and service terms before buying."
+    },
+    {
+      "question": "Do I need both headphones and TWS earbuds?",
+      "answer": "Not necessarily. Headphones are great for long study sessions and battery life, while TWS earbuds are more portable for commutes. Pick the one you’ll use most and add the other later if needed."
+    }
+  ],
+  "updated_at": null
+}

@@ -1,0 +1,126 @@
+{
+  "kind": "collection",
+  "slug": "indian-monsoon-humidity-skincare-haircare-kit",
+  "title": "The Indian Humidity & Hard-Water Survival Kit: Non-Greasy SPF, Frizz Control & Scalp Care",
+  "seo_title": "Best Skincare & Haircare for Indian Humidity and Hard Water (2026) | Durza Collections",
+  "description": "A lightweight 5-step routine for humid Indian weather and hard water: non-greasy SPF, oil-control actives, scalp reset, soothing mist, and gentle hair colour options.",
+  "meta_description": "A lightweight 5-step routine for humid Indian weather and hard water: non-greasy SPF, oil-control actives, scalp reset, soothing mist, and gentle hair colour options.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "collectionGroup",
+      "id": "picks",
+      "heading": "The Indian Humidity & Hard-Water Survival Kit: Non-Greasy SPF, Frizz Control & Scalp Care",
+      "dek": "A 5-piece routine built for 80% humidity and hard-water buildup—light textures, scalp clarity, and practical actives without heavy, melting layers.",
+      "items": [
+        {
+          "product": "dot-key-watermelon-hyaluronic-cooling-sunscreen-spf-50",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Dot & Key Watermelon Hyaluronic Cooling Sunscreen SPF 50+",
+            "storeBadge": "Dot & Key (Official Store)",
+            "tier": "Daily Non-Negotiable",
+            "why": "A water-light gel texture that absorbs quickly and is designed to feel comfortable in humid commutes, helping daily SPF use feel less sticky.",
+            "skipIf": "You already use a broad-spectrum sunscreen you’ll apply consistently every morning.",
+            "ctaLabel": "Check Live Price on Dot & Key",
+            "ctaHref": "/go/dot-and-key?src=col-humidity",
+            "external": true
+          }
+        },
+        {
+          "product": "minimalist-10-niacinamide-zinc-face-serum",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Minimalist 10% Niacinamide + Zinc Face Serum",
+            "storeBadge": "Amazon India",
+            "tier": "Oil & Mark Control",
+            "why": "Niacinamide can help balance excess midday oil and support fading the look of post-acne marks without using harsh exfoliating acids.",
+            "skipIf": "Your skin is irritated or you’re already using multiple new actives—introduce slowly and patch test first.",
+            "ctaLabel": "Check Live Price on Amazon India",
+            "ctaHref": "/go/amazon-in?src=col-humidity",
+            "external": true
+          }
+        },
+        {
+          "product": "wow-skin-science-apple-cider-vinegar-shampoo",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "WOW Skin Science Apple Cider Vinegar Shampoo",
+            "storeBadge": "Amazon India",
+            "tier": "Weekly Scalp Reset",
+            "why": "Works as a clarifying reset for sweat, styling residue, and hard-water buildup when used occasionally alongside a gentler conditioner routine.",
+            "skipIf": "Your scalp and hair are very dry—clarifying too often can feel stripping.",
+            "ctaLabel": "Check Live Price on Amazon India",
+            "ctaHref": "/go/amazon-in?src=col-humidity",
+            "external": true
+          }
+        },
+        {
+          "product": "kama-ayurveda-pure-kannauj-rosewater-mist",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Kama Ayurveda Pure Kannauj Rosewater Mist",
+            "storeBadge": "Kama Ayurveda (Official Store)",
+            "tier": "Midday Refresh",
+            "why": "A simple, alcohol-free rosewater mist can feel calming and refreshing after heat or AC exposure when you want a light reset without heavy layers.",
+            "skipIf": "You prefer to keep your routine minimal and don’t enjoy facial mists.",
+            "ctaLabel": "Check Live Price on Kama Ayurveda",
+            "ctaHref": "/go/kama-ayurveda?src=col-humidity",
+            "external": true
+          }
+        },
+        {
+          "product": "indus-valley-damage-free-gel-hair-colour-botanical-henna",
+          "badge": null,
+          "tags": [],
+          "_original": {
+            "name": "Indus Valley Damage-Free Gel Hair Colour / Botanical Henna",
+            "storeBadge": "Indus Valley (Official Store)",
+            "tier": "Ammonia-Free Color",
+            "why": "A gentler, ammonia-free colour option for grey coverage; choose the specific formula that matches your sensitivity needs and always follow the brand’s instructions.",
+            "skipIf": "You need a specific salon-grade shade result or have known sensitivities—patch test and review ingredient details before use.",
+            "ctaLabel": "Check Live Price on Indus Valley",
+            "ctaHref": "/go/indus-valley?src=col-humidity",
+            "external": true
+          }
+        }
+      ]
+    }
+  ],
+  "structured_data": {
+    "itemCountLabel": "5 Vetted Picks",
+    "updatedLabel": "Updated Nov 2026",
+    "keywords": [
+      "best skincare for humid weather India",
+      "hard water hair fall shampoo India",
+      "no white cast gel sunscreen India"
+    ],
+    "relatedCollections": [
+      "daily-longevity-and-desk-worker-wellness-stack"
+    ]
+  },
+  "hero_image_url": "/guides/indian-monsoon-humidity-skincare-haircare-kit.webp",
+  "author_name": null,
+  "canonical_url": "/collections/indian-monsoon-humidity-skincare-haircare-kit",
+  "is_indexable": true,
+  "needs_review": true,
+  "faqs": [
+    {
+      "question": "What skincare texture works best in Indian humidity?",
+      "answer": "Lightweight, fast-absorbing textures like gel sunscreens and simple serums are often easier to wear consistently in humid weather than heavy creams that can feel greasy."
+    },
+    {
+      "question": "How often should I use a clarifying shampoo for hard water?",
+      "answer": "Many people do well using a clarifying shampoo as a weekly or occasional reset wash, paired with a moisturizing conditioner. Frequency depends on scalp oiliness, buildup, and dryness."
+    },
+    {
+      "question": "Can I start niacinamide and other actives at the same time?",
+      "answer": "It’s safer to introduce one new active at a time and patch test first. Start slowly, especially if your skin barrier is sensitive, and consult a dermatologist for persistent concerns."
+    }
+  ],
+  "updated_at": null
+}
