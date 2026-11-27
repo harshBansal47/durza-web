@@ -12,6 +12,7 @@ interface CollectionCardData {
   title: string;
   summary: string;
   heroImage: string;
+  productImages?: string[];
 }
 
 interface RedesignedSectionsProps {
@@ -165,7 +166,7 @@ function GuidesSection({ guides }: { guides: DiscoverableContent[] }) {
   const [featured, ...others] = items;
 
   return (
-    <Shell id="guides" tone="soft">
+    <Shell id="guides" tone="white">
       <SectionHead
         id="guides"
         pill="Buying guides"
@@ -345,31 +346,59 @@ function ReviewsSection({ items }: { items: DiscoverableContent[] }) {
 /* Collections                                                                */
 /* -------------------------------------------------------------------------- */
 
+function CollectionImageGrid({ images, title, fallback }: { images: string[]; title: string; fallback: string }) {
+  const cells = images.length > 0 ? images.slice(0, 4) : [fallback];
+  while (cells.length < 4 && cells.length > 1) cells.push(cells[cells.length - 1]);
+  const isSingle = cells.length === 1;
+
+  if (isSingle) {
+    return (
+      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-slate-100">
+        <Image src={cells[0]} alt={`Products in ${title}`} fill sizes="(min-width: 1024px) 33vw, 100vw" loading="lazy" unoptimized className="object-cover object-center" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid aspect-[4/3] grid-cols-2 gap-1 overflow-hidden rounded-lg bg-slate-100">
+      {cells.map((src, i) => (
+        <div key={`${src}-${i}`} className="relative overflow-hidden bg-slate-100">
+          <Image
+            src={src}
+            alt={i === 0 ? `Products in ${title}` : ""}
+            aria-hidden={i === 0 ? undefined : true}
+            fill
+            sizes="(min-width: 1024px) 16vw, 50vw"
+            loading="lazy"
+            unoptimized
+            className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function CollectionsSection({ items }: { items: CollectionCardData[] }) {
   if (items.length === 0) return null;
   return (
-    <Shell id="collections" tone="white">
+    <Shell id="collections" tone="soft">
       <SectionHead
         id="collections"
         pill="Curated collections"
-        title="Done-for-you shopping lists"
-        description="Hand-picked product sets for one goal. Open one and buy straight from the catalog."
+        title="Shop by collection"
+        description="Product sets picked for a goal — browse the grid, open the collection, and shop the picks."
         href="/collections"
         linkLabel="All collections"
       />
       <div className={GRID}>
         {items.map((item) => (
           <Link key={item.slug} href={`/collections/${item.slug}`} className={CARD}>
-            <SmartImage
-              src={item.heroImage}
-              alt={`Products in ${item.title}`}
-              fallbackLabel="Collection cover"
-              className="aspect-[4/3]"
-            />
+            <CollectionImageGrid images={item.productImages ?? []} title={item.title} fallback={item.heroImage} />
             <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
               <h3 className={CARD_TITLE}>{item.title}</h3>
               <p className={CARD_TEXT}>{item.summary}</p>
-              <CardCta>Browse collection</CardCta>
+              <CardCta>View collection</CardCta>
             </div>
           </Link>
         ))}
@@ -388,10 +417,10 @@ export default function RedesignedSections({
   return (
     <div className="hs-root">
       {offersSlot}
+      <CollectionsSection items={collections} />
       <GuidesSection guides={guides} />
       <ComparisonsSection items={comparisons} />
       <ReviewsSection items={reviews} />
-      <CollectionsSection items={collections} />
     </div>
   );
 }
