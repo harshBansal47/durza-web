@@ -23,12 +23,12 @@
       "body": "Pick by category, not by brand loyalty. Kapiva Himalayan Shilajit Resin 20g is ₹999 on the brand site with a 250mg serving (80 servings, ≈₹12.5 per serving) and the brand states NABL reports are available per pack. HK Vitals Skin Radiance Marine Collagen 200g is ₹909 with 5g collagen and 40mg vitamin C stated per serving (≈40 servings, ≈₹22.7 per serving) and is non-vegetarian (fish). MuscleBlaze Biozyme Performance Whey 1kg is listed at ₹3,999 with 25g protein per 36g scoop across 28 servings (≈₹142.8 per serving, ≈₹5.7 per gram of protein); the retailer states third-party certification, which you should verify on the exact batch. All figures were checked on 24 Nov 2026. Because these are different product categories, no single winner should be declared across all three; choose within the category that matches your buying goal.",
       "ctas": [
         {
-          "label": "Kapiva",
+          "label": "Check Live Price on Kapiva",
           "href": "/go/kapiva?src=compare-verdict"
         },
         {
-          "label": "HealthKart",
-          "href": "/go/healthkart?src=compare-verdict-secondary"
+          "label": "Check Live Price on HealthKart",
+          "href": "/go/healthkart?src=compare-verdict"
         }
       ]
     },
@@ -149,7 +149,7 @@
             "₹999 seen 24 Nov 2026 — verify current price."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/kapiva?src=compare-offer-card"
+          "href": "/go/kapiva?src=compare-mid"
         },
         {
           "store": "HK Vitals",
@@ -158,7 +158,7 @@
             "₹909 seen 24 Nov 2026 — verify current price."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/hkvitals?src=compare-offer-card"
+          "href": "/go/hkvitals?src=compare-mid"
         },
         {
           "store": "HealthKart",
@@ -167,7 +167,7 @@
             "Use authentication checks where the product supports them."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/healthkart?src=compare-offer-card"
+          "href": "/go/healthkart?src=compare-mid"
         }
       ]
     },
@@ -317,6 +317,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Kapiva",
+    "href": "/go/kapiva?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Kapiva vs HK Vitals vs HealthKart India",
     "Shilajit NABL lab report check",

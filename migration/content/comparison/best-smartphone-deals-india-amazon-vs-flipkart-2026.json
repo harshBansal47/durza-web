@@ -12,12 +12,12 @@
       "body": "Choose Flipkart if your old phone is in excellent condition and the exchange bonus genuinely holds after pickup checks. Choose Amazon if you want a simpler checkout with flat bank discounts, no exchange risk, or a model where the base price and support matter more than a headline exchange bump.",
       "ctas": [
         {
-          "label": "Amazon",
+          "label": "Check Live Price on Amazon",
           "href": "/go/amazon-in?src=compare-verdict"
         },
         {
-          "label": "Flipkart",
-          "href": "/go/flipkart?src=compare-verdict-secondary"
+          "label": "Check Live Price on Flipkart",
+          "href": "/go/flipkart?src=compare-verdict"
         }
       ]
     },
@@ -107,7 +107,7 @@
             "Good place to compare final payable price across variants and sellers."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "href": "/go/amazon-in?src=compare-mid"
         },
         {
           "store": "Flipkart",
@@ -116,7 +116,7 @@
             "Check sale-exclusive models and confirm exchange terms before checkout."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/flipkart?src=compare-offer-card"
+          "href": "/go/flipkart?src=compare-mid"
         }
       ]
     },
@@ -194,6 +194,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Amazon",
+    "href": "/go/amazon-in?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Amazon vs Flipkart smartphone deals India 2026",
     "Flipkart exchange bonus deduction",

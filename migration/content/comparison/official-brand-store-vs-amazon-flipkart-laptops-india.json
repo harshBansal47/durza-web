@@ -12,12 +12,12 @@
       "body": "Choose official brand stores when you care about the exact configuration, bundled accidental damage protection, and student/corporate benefits. Choose marketplaces when you need fast delivery on a standard config and a strong card discount makes the upfront price clearly lower.",
       "ctas": [
         {
-          "label": "Lenovo India",
+          "label": "Check Live Price on Lenovo India",
           "href": "/go/lenovo-india?src=compare-verdict"
         },
         {
-          "label": "ASUS",
-          "href": "/go/asus?src=compare-verdict-secondary"
+          "label": "Check Live Price on ASUS",
+          "href": "/go/asus?src=compare-verdict"
         }
       ]
     },
@@ -97,7 +97,7 @@
             "Compare total value with protection plans included."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/lenovo-india?src=compare-offer-card"
+          "href": "/go/lenovo-india?src=compare-mid"
         },
         {
           "store": "ASUS",
@@ -106,7 +106,7 @@
             "Check eStore bundles and warranty coverage before deciding."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/asus?src=compare-offer-card"
+          "href": "/go/asus?src=compare-mid"
         },
         {
           "store": "Amazon",
@@ -115,7 +115,7 @@
             "Verify exact model specs and seller authorization."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "href": "/go/amazon-in?src=compare-mid"
         }
       ]
     },
@@ -197,6 +197,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Lenovo India",
+    "href": "/go/lenovo-india?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Lenovo official website vs Amazon Flipkart",
     "ASUS eShop India laptop",

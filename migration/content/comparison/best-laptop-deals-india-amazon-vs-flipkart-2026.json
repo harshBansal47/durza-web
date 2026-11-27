@@ -12,12 +12,12 @@
       "body": "Choose Amazon or Flipkart for fast delivery and strong card discounts on ready-to-ship configs. Choose Lenovo or ASUS official stores if you need the right RAM/storage config, ₹999-style ADP bundles, or student/corporate pricing—those can save more over the laptop’s life than a small upfront discount.",
       "ctas": [
         {
-          "label": "Lenovo India",
+          "label": "Check Live Price on Lenovo India",
           "href": "/go/lenovo-india?src=compare-verdict"
         },
         {
-          "label": "ASUS",
-          "href": "/go/asus?src=compare-verdict-secondary"
+          "label": "Check Live Price on ASUS",
+          "href": "/go/asus?src=compare-verdict"
         }
       ]
     },
@@ -105,7 +105,7 @@
             "Check seller details, exact SKU, and included warranty before ordering."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "href": "/go/amazon-in?src=compare-mid"
         },
         {
           "store": "Flipkart",
@@ -114,7 +114,7 @@
             "Verify model number/specs carefully—similar names can hide different configs."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/flipkart?src=compare-offer-card"
+          "href": "/go/flipkart?src=compare-mid"
         },
         {
           "store": "Lenovo India",
@@ -123,7 +123,7 @@
             "Compare total 3-year ownership value, not just upfront price."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/lenovo-india?src=compare-offer-card"
+          "href": "/go/lenovo-india?src=compare-mid"
         },
         {
           "store": "ASUS",
@@ -132,7 +132,7 @@
             "Good option when you want a specific configuration or brand-direct purchase."
           ],
           "ctaLabel": "Check live price",
-          "href": "/go/asus?src=compare-offer-card"
+          "href": "/go/asus?src=compare-mid"
         }
       ]
     },
@@ -218,6 +218,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Lenovo India",
+    "href": "/go/lenovo-india?src=compare-mobile-sticky"
+  },
   "keywords": [
     "best laptop deals India 35000 to 75000",
     "Amazon vs Flipkart laptops",
