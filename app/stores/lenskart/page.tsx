@@ -48,7 +48,7 @@ export default async function Page() {
   }
   offers.sort((a, b) => (a.code ? 0 : 1) - (b.code ? 0 : 1));
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store);
   const storeUrl = destination?.store.website_url ?? undefined;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 

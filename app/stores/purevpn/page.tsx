@@ -40,7 +40,7 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("purevpn-com-utility-cpa-worldwide", { skip: 0, limit: 10 });
   const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store);
   const storeUrl = destination?.store.website_url ?? "https://www.purevpn.com/order-now.php";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 

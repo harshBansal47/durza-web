@@ -37,7 +37,7 @@ export const revalidate = 21600;
 export default async function Page() {
   const destination = await resilient.getStoreDestination("veromoda", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store);
   const storeUrl = destination?.store.website_url ?? "https://www.veromoda.in/";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
