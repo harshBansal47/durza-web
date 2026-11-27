@@ -41,9 +41,18 @@ function formatDate(value?: string | null): string | null {
   return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 }
 
-function faqItems(blocks: ContentBlock[]): { q: string; a: string }[] {
-  const faq = blocks.find((b) => b.type === "faq") as { items?: { q: string; a: string }[] } | undefined;
-  return (faq?.items ?? []).map((i) => ({ q: i.q, a: i.a }));
+function faqItems(blocks: ContentBlock[], pageFaqs?: { question: string; answer: string }[]): { q: string; a: string }[] {
+  const fromBlock = (blocks.find((b) => b.type === "faq") as { items?: { q: string; a: string }[] } | undefined)?.items ?? [];
+  const fromPage = (pageFaqs ?? []).map((i) => ({ q: i.question, a: i.answer }));
+  const seen = new Set<string>();
+  const out: { q: string; a: string }[] = [];
+  for (const i of [...fromBlock, ...fromPage]) {
+    const key = i.q.trim().toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push({ q: i.q, a: i.a });
+  }
+  return out;
 }
 
 export default function ContentPage({ page, kind }: { page: ContentPage; kind?: ContentKind }) {
@@ -85,8 +94,9 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
     articleSection: KIND_LABEL[pageKind],
   };
 
-  const faqLd = faqItems(page.content_blocks).length
-    ? { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems(page.content_blocks).map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: i.a } })) }
+  const faqs = faqItems(page.content_blocks, page.faqs);
+  const faqLd = faqs.length
+    ? { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: i.a } })) }
     : null;
 
   return (

@@ -55,6 +55,7 @@ function toContentPage(content: EditorialContent, kind: ContentKind): ContentPag
     updated_at: content.updated_at ?? null,
     needs_review: (content as EditorialContent & { needs_review?: boolean }).needs_review,
     facts_checked_at: (content as EditorialContent & { facts_checked_at?: string | null }).facts_checked_at ?? null,
+    faqs: (content.faqs ?? []).map((f) => ({ question: f.question, answer: f.answer, sort_order: f.sort_order })),
   });
   if (!parsed.success) {
     const issue = parsed.error.issues[0];

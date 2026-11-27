@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ContentPage from "@/components/content/ContentPage";
 import { getPage } from "@/lib/content";
+import { editorialPath } from "@/lib/editorial-path";
+import { absoluteUrl } from "@/lib/seo";
 import type { ContentKind } from "@/lib/content/schema";
 
 /**
@@ -39,10 +41,20 @@ export async function generateMetadata({
   const { kind, slug } = await params;
   const normalized = normalizeKind(kind);
   const page = normalized ? await getPage(normalized, slug) : null;
+  const title = page?.seo_title ?? page?.title ?? "Preview";
+  const description = page?.meta_description ?? page?.description ?? undefined;
+  const canonical = absoluteUrl(
+    page?.canonical_url ?? editorialPath({ content_type: normalized ?? "guide", slug }),
+  );
+  const image = absoluteUrl(page?.hero_image_url ?? "/opengraph-image.png");
+  const indexable = page?.is_indexable !== false;
   return {
-    title: page?.seo_title ?? page?.title ?? "Preview",
-    description: page?.meta_description ?? page?.description ?? undefined,
-    robots: { index: false, follow: false },
+    title,
+    description,
+    robots: { index: indexable, follow: true },
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical, type: "article", images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 

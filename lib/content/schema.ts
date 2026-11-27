@@ -294,6 +294,7 @@ export const contentPageSchema = z
     needs_review: z.boolean().optional(),
     facts_checked_at: z.string().nullable().optional(),
     stickyCta: ctaSchema.optional(),
+    faqs: z.array(z.object({ question: z.string(), answer: z.string(), sort_order: z.number().optional() })).default([]),
   })
   .passthrough();
 
