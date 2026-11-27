@@ -40,7 +40,7 @@ export default async function Page() {
   const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const storeUrl = destination?.store.website_url ?? "https://www.sanskrutihomes.in/";
-  const heroImageUrl = storeLogoUrl({ slug: "sanskruti-homes", logo_url: destination?.store.hero_image_url ?? null, website_url: storeUrl }) ?? null;
+  const heroImageUrl = storeLogoUrl({ slug: "sanskruti-homes", logo_url: storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null, website_url: storeUrl }) ?? null;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
   return (

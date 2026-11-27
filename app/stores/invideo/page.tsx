@@ -7,6 +7,7 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
 const title = "InVideo Coupons, Plans & AI Video Offers";
@@ -50,7 +51,7 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("invideo", { skip: 0, limit: 50 }).catch(() => null);
   const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
   const forcedStoreHref = destination?.admitad_store_cps_url ?? null;

@@ -7,6 +7,7 @@ import StoreClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { toOfferCards, type StoreOfferCard } from "@/lib/store-offers";
 
 const title = "Hacoo Official Store Guide — Streetwear & Social Finds";
@@ -45,7 +46,7 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("hacoo", { skip: 0, limit: 10 }).catch(() => null);
   const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? "https://www.hacoo.app/";
   const offerCount =
     destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
@@ -36,7 +37,7 @@ export const revalidate = 21600;
 export default async function Page() {
   const destination = await resilient.getStoreDestination("victorias-secret", { skip: 0, limit: 10 });
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? "https://www.victoriassecret.in/";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 

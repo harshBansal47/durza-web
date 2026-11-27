@@ -7,6 +7,7 @@ import LavieWorldClient from "./client";
 import RelatedGuides from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { toOfferCards, toProductCards, type StoreOfferCard, type StoreProductCard } from "@/lib/store-offers";
 
 const title = "Lavie World Coupons, Handbags, Totes & Sling Deals";
@@ -38,7 +39,7 @@ export default async function Page() {
   const offers: StoreOfferCard[] = destination ? toOfferCards(destination.coupons) : [];
   const products: StoreProductCard[] = destination ? toProductCards(destination.deals) : [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? undefined;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
   return (

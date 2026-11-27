@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { storeLogoUrl } from "@/lib/storeLogos";
 import { customStoreMetadata } from "@/lib/custom-store-metadata";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
@@ -55,7 +56,7 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("lenovo-india", { skip: 0, limit: 10 });
   const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const heroImageUrl = destination?.store.hero_image_url ?? null;
+  const heroImageUrl = storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null;
   const storeUrl = destination?.store.website_url ?? "https://www.lenovo.com/in/en/";
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 

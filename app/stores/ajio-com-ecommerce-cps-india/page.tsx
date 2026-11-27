@@ -43,7 +43,7 @@ export default async function Page() {
   const offers: CouponPublic[] = [...(destination?.deals ?? []), ...(secondPage?.deals ?? [])];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], offers);
   const storeUrl = destination?.store.website_url ?? undefined;
-  const heroImageUrl = storeLogoUrl({ slug: "ajio-com-ecommerce-cps-india", logo_url: destination?.store.hero_image_url ?? null, website_url: storeUrl }) ?? null;
+  const heroImageUrl = storeLogoUrl({ slug: "ajio-com-ecommerce-cps-india", logo_url: storeLogoUrl(destination?.store) ?? destination?.store?.hero_image_url ?? null, website_url: storeUrl }) ?? null;
   const offerCount = destination?.offer_total ?? offers.length;
 
   return (
