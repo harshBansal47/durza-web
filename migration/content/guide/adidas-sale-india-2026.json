@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "adidas-sale-india-2026",
+  "title": "Adidas Sale in India (2026): How to Check Real Discounts and Stacking",
+  "description": "A practical guide to Adidas India sales: check what 'up to' discounts actually cover, compare final cart price, verify member/coupon/bank eligibility, and confirm return terms before buying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers looking at Adidas India sale banners and wanting to check what is actually discounted.",
+        "Buyers trying to stack member, coupon, or bank offers without overestimating savings."
+      ],
+      "skipIf": [
+        "You want a guaranteed working Adidas promo code; verify any code in checkout before paying.",
+        "You need live product-level stock/pricing for a specific size — check the official product page."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate an Adidas India sale claim?",
+      "body": "Treat 'up to X% off' as a maximum, not a typical price. Open the exact product page, confirm your size/color is discounted, check the final cart total, and test any member/coupon/bank offer in checkout. Verify return/exchange terms before paying, especially on outlet or end-of-season items.",
+      "ctas": [
+        {
+          "label": "See the sale checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Sale banner: check the exact SKU",
+          "body": "A sitewide banner can exclude core/new releases or apply only to selected sizes/colors. Open the exact product page and confirm the discounted price for your size before assuming the banner applies."
+        },
+        {
+          "title": "Stacking: test in checkout",
+          "body": "Member discounts, promo codes, app offers, and bank instant discounts may have exclusions or may not stack. Add the item to cart and verify the final payable amount before paying."
+        },
+        {
+          "title": "Outlet/end-of-season: check returns",
+          "body": "Discounted items can have different return/exchange conditions. Review the current Adidas return policy and product-page terms before buying, especially for final-sale or heavily discounted items."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Exact product, size, color",
+          "Discounts often vary by variant",
+          "Official product page"
+        ],
+        [
+          "Final cart price",
+          "'Up to' banners overstate typical savings",
+          "Cart/checkout"
+        ],
+        [
+          "Member/coupon eligibility",
+          "Offers may exclude certain products or require login",
+          "Checkout/offer terms"
+        ],
+        [
+          "Bank/card offer terms",
+          "Instant discounts can have caps, min spend, or card exclusions",
+          "Bank/merchant offer terms"
+        ],
+        [
+          "Return/exchange policy",
+          "Discounted items may have different conditions",
+          "Official policy page"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Open the exact Adidas product page for your size and color and confirm the displayed price."
+        },
+        {
+          "body": "Add to cart and check the final payable amount before applying any code or bank offer."
+        },
+        {
+          "body": "Test any member/coupon/bank offer in checkout; only count savings that appear in the final total."
+        },
+        {
+          "body": "Review delivery, return and exchange terms for that specific item."
+        },
+        {
+          "body": "Save the order confirmation and offer terms shown at checkout."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. We removed unverified promo-code and blanket discount claims. We did not verify live product-level pricing, stock, or checkout eligibility. Confirm the current product page, cart, and policy terms on Adidas India before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No Adidas coupon code or bank offer is claimed as active in this guide.",
+        "'Up to' discount claims should be treated as maximums; verify the price for your exact size/color.",
+        "Return/exchange terms can differ for discounted items; check the current policy before paying."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Adidas store hub on Durza",
+              "href": "/stores/adidas"
+            },
+            {
+              "title": "Amazon & Flipkart sale dates 2026",
+              "href": "/guides/amazon-flipkart-sale-dates-2026"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does 'up to 60% off' mean everything is 60% off?",
+          "a": "No. 'Up to' means the maximum discount on selected items. The actual discount depends on the product, size, color, and current sale inventory. Check the exact product page and cart total."
+        },
+        {
+          "q": "Can I stack an Adidas coupon with a bank offer?",
+          "a": "Sometimes, but it depends on the current offer terms. Test the combination in checkout and only count savings that appear in the final payable amount. Check exclusions, minimum spend, and card eligibility."
+        },
+        {
+          "q": "Should I buy discounted Adidas items without checking returns?",
+          "a": "No. Review the current return/exchange policy before paying, especially for outlet or heavily discounted items. Save the order confirmation and policy terms that applied at purchase."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Adidas Sale in India (2026): How to Check Real Discounts and Stacking",
+  "meta_description": "A practical guide to Adidas India sales: check what 'up to' discounts actually cover, compare final cart price, verify member/coupon/bank eligibility, and confirm return terms before buying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "15 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check Adidas India official store",
+    "href": "/go/adidas?src=guide&sub=guide_adidas-sale-india-2026"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No live discount claimed without checkout verification"
+  ]
+}

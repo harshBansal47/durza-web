@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "myntra-vs-ajio-vs-brand-stores-fashion-india",
+  "title": "Myntra vs. Ajio vs. Official Brand Sites (Vero Moda, ALDO, Charles & Keith): Sizing & Authenticity",
+  "description": "Aggregators are great for variety and markdowns, but current-season pieces, gifting, and hard-to-find sizes are often safer to buy direct from brand stores for fresher stock and complete packaging.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Choose Myntra or Ajio for multi-brand browsing, basics, and end-of-season discounts. Choose official brand stores (Vero Moda, ALDO, Charles & Keith) for current-season drops, gifting, precise size availability, and fresher warehouse stock with full packaging.",
+      "ctas": [
+        {
+          "label": "Vero Moda",
+          "href": "/go/vero-moda?src=compare-verdict"
+        },
+        {
+          "label": "Charles & Keith",
+          "href": "/go/charles-keith?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Myntra / Ajio",
+        "Official brand stores"
+      ],
+      "rows": [
+        [
+          "Selection",
+          "Wide multi-brand catalog and quick comparison",
+          "Focused current-season brand inventory"
+        ],
+        [
+          "Pricing",
+          "Strong during EoSS/sale events and coupons",
+          "Brand promos; value in freshness, size range, and packaging"
+        ],
+        [
+          "Sizing/stock",
+          "Popular sizes can sell out or come from return cycles",
+          "Better chance of fresh stock and full size matrices (varies by item)"
+        ],
+        [
+          "Gifting/presentation",
+          "Packaging can vary; boxes may be worn",
+          "More consistent brand packaging, dust bags, and presentation"
+        ],
+        [
+          "Returns",
+          "Convenient app-based flows; keep tags/boxes intact",
+          "Brand-specific policies; usually strict on condition/tags"
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      "items": [
+        "Marketplace return-cycle issue: popular sizes (e.g. UK 5–7 footwear, XS–M blazers) may arrive tried/returned multiple times, sometimes with crushed boxes or missing extras. For gifting or pristine pieces, brand-direct can be worth it.",
+        "Dust bags and accessories matter: check for included dust bags, straps, or care cards at delivery/unboxing—especially for handbags and premium footwear.",
+        "Return hygiene tip: keep tags, barcodes, and shoe boxes intact; test footwear indoors on a clean surface to avoid scuffs that can void exchanges."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "When a “great deal” arrives in a tired box",
+      "paragraphs": [
+        "If you’ve ever received a handbag in a battered carton with a missing dust bag, you’ve seen the downside of high-velocity marketplace returns. For current-season fashion and gifts, where the item comes from can matter as much as the discount."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "How to choose the right channel",
+      "paragraphs": [
+        "Use Myntra/Ajio for discovery, basics, and stacking sale prices. Use official stores when you need a specific size, the latest drop, or assured presentation. If authenticity and condition are top priorities, brand-direct is usually the calmer option."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Policy comparison and when convenience wins",
+      "paragraphs": [
+        "Marketplace: convenient app-based returns and discovery, but sizing/stock risk and packaging condition vary; keep tags/boxes intact.",
+        "Brand-direct: fresher stock and fuller packaging, but brand-specific return strictness and stricter condition requirements may apply; compare final payable including shipping before choosing."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Vero Moda",
+          "points": [
+            "Good for current-season women’s fashion and consistent sizing info.",
+            "Useful when you want brand-direct stock and packaging."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/vero-moda?src=compare-offer-card"
+        },
+        {
+          "store": "ALDO",
+          "points": [
+            "Brand-direct footwear and accessories with fresh inventory.",
+            "Better for gifting and specific size availability."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/aldo-new?src=compare-offer-card"
+        },
+        {
+          "store": "Charles & Keith",
+          "points": [
+            "Reliable for latest bags/shoes and complete presentation.",
+            "Helpful when marketplace boxes or extras are a concern."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/charles-keith?src=compare-offer-card"
+        },
+        {
+          "store": "AJIO",
+          "points": [
+            "Strong for multi-brand deals and seasonal discounts.",
+            "Compare final price and return terms before buying premium pieces."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/ajio-com-ecommerce-cps-india?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is it safer to buy branded fashion from official websites?",
+          "a": "For current-season items, gifting, and hard-to-find sizes, official brand stores often provide fresher stock and consistent packaging. Aggregators can still be great for deals—just check seller/listing details and return policies."
+        },
+        {
+          "q": "Why do marketplace orders sometimes arrive without extras?",
+          "a": "High return volumes can lead to packaging wear or missing non-essential extras in some cases. Inspect on delivery, keep proof, and use the platform’s return flow if something is missing or not as described."
+        },
+        {
+          "q": "How can I avoid return issues for shoes and bags?",
+          "a": "Keep all tags, inserts, and boxes intact, and try shoes indoors on a clean surface. Review the return/exchange window and condition requirements before purchasing."
+        },
+        {
+          "q": "Which is better for sale prices: Myntra/Ajio or brand sites?",
+          "a": "Myntra and Ajio often lead during large sale events, while brand sites run their own promos. Compare the final payable price including shipping and any member offers."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "adidas-vs-nike-vs-asics-running-shoes-india",
+              "href": "/compare/adidas-vs-nike-vs-asics-running-shoes-india"
+            },
+            {
+              "title": "kama-ayurveda-vs-forest-essentials-vs-indus-valley",
+              "href": "/compare/kama-ayurveda-vs-forest-essentials-vs-indus-valley"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Charles & Keith India style guide",
+              "href": "/guides/charles-and-keith-india-style-guide"
+            },
+            {
+              "title": "Adidas India buying guide",
+              "href": "/guides/adidas-india-ultraboost-originals-training-2026-guide"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Vero Moda store hub",
+              "href": "/stores/vero-moda"
+            },
+            {
+              "title": "ALDO store hub",
+              "href": "/stores/aldo-shoes"
+            },
+            {
+              "title": "Charles & Keith store hub",
+              "href": "/stores/charles-and-keith"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/fashion.webp",
+  "author_name": "Durza Research Desk",
+  "seo_title": "Myntra vs Ajio vs Official Brand Stores in India: Sizing, Authenticity & Returns | Durza",
+  "meta_description": "Compare Myntra, Ajio, and official brand sites (Vero Moda, ALDO, Charles & Keith) in India for sizing, freshness of stock, authenticity cues, and return hygiene.",
+  "facts_checked_at": null,
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "Myntra vs Ajio vs brand store India",
+    "Charles and Keith India authentic",
+    "ALDO Vero Moda official site",
+    "fashion sizing returns India"
+  ],
+  "category": "Fashion & Beauty"
+}

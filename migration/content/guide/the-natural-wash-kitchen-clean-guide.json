@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "the-natural-wash-kitchen-clean-guide",
+  "title": "The Natural Wash — Claim Audit & What the Catalogue Sells (2026)",
+  "description": "We could not verify kitchen cleaners, dish bundles or an ISO 9001 grease claim on the official catalogue. Here is the label audit of a real TNW SKU and how to read cleaning claims safely.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers who saw an older Durza page promising kitchen-acid cleaners and want to know whether those products exist.",
+        "Buyers who want a plain-English INCI audit of an actual The Natural Wash product before ordering."
+      ],
+      "skipIf": [
+        "Anyone specifically looking for dishwash liquid, utensil cleaners or floor cleaner on this storefront — we could not find those categories on 26 Nov 2026.",
+        "Anyone relying on the old '₹0.40 per week' or 'ISO 9001 lab-certified grease' statements as verified facts; they were not verified.",
+        "Anyone with a beeswax, honey or fragrance allergy — the lip balm INCI we decoded contains all three."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "Does The Natural Wash sell kitchen cleaners, and are the old grease claims true?",
+      "body": "We could not verify that. The official catalogue we read is organised around skin care, makeup, body care, hair care, baby care and lip care — no dishwash, utensil-cleaner or floor-cleaner category appeared. Searches for 'The Natural Wash dishwash' and for kitchen cleaner on the official domain returned no results. The old Durza statements about a lemon-and-bicarbonate grease base, ISO 9001 lab certification and ₹0.40 a week have no source we could find and are withdrawn. What we could audit is a real product: the Herbal Beetroot Lip Balm INCI lists beeswax, honey and fragrance alongside plant oils.",
+      "ctas": [
+        {
+          "label": "See the claim audit",
+          "href": "#scenarios"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "What the official catalogue actually lists",
+          "body": "The storefront menu we read on 26 Nov 2026 shows All Products, Combos, Skin Care (facewash, serum, toner, moisturisers, masks, scrubs, face oil, SPF, eye care), Makeup, Body Care, Hair Care, Baby Care and Lip Care, plus concern-based collections. There is no home-cleaning or kitchen-cleaning category in that navigation. The banner advertised 'Upto 60% Off Sitewide + Extra 5% OFF' at the time of the check."
+        },
+        {
+          "title": "INCI audit — Herbal Beetroot Lip Balm",
+          "body": "A third-party transcription lists Shea Butter, Bees Wax, Cocoa Butter, Kokum Butter, Almond Oil, Sunflower Oil, Jojoba Oil, Honey, Beet Root Extract, Carrot Seed Oil, Licorice, Wheat Germ Oil, Aloe Vera Extract, Glycerine, Apricot Oil, Avocado Oil, Grapeseed Oil, Vitamin E, Fragrance, Sepilift DPHP and colour. Two findings matter: beeswax and honey mean this is not a vegan formula, and Fragrance is listed despite 'natural' positioning. 'Natural' is a marketing word, not an allergen guarantee."
+        },
+        {
+          "title": "The old 'kitchen-acid physics' paragraph",
+          "body": "Previous Durza copy described a lemon, bicarbonate and vinegar base, a 'कर्षिका acid' ingredient, ISO 9001 lab certification for surface safety, and a ₹0.40-per-week cost advantage over dish soap. We found no official page or independent source for any of those statements. They have been removed from the verdict rather than softened."
+        },
+        {
+          "title": "How to read a cleaning claim without a lab report",
+          "body": "For any household cleaner, ask what the active is, what it is approved or tested against, the contact time, and whether the certification covers the product or only the factory. 'ISO 9001' is a quality-management standard for processes; by itself it does not prove a grease-cutting result. Never mix acidic cleaners with bleach — the combination can release chlorine gas. That is general household safety guidance, not a claim about any TNW product."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Item / claim",
+        "What older Durza copy said",
+        "What we verified on 26 Nov 2026",
+        "Status"
+      ],
+      "rows": [
+        [
+          "Kitchen-acid cleaner / dish bundles",
+          "Lemon + bicarbonate + 'कर्षिका acid' base for tough grease",
+          "No cleaning category or product found in the official catalogue navigation or domain search",
+          "Unverified — do not buy expecting this product"
+        ],
+        [
+          "ISO 9001 'lab-certified for surface safety'",
+          "Presented as a test result",
+          "No certificate or product-specific testing statement located",
+          "Unverified — ISO 9001 is a process standard, not a performance test"
+        ],
+        [
+          "₹0.40 per week versus branded dish soap",
+          "Presented as a worked cost-per-wash saving",
+          "No pack size, price or usage rate found to support the calculation",
+          "Unverified — arithmetic without inputs is not a saving"
+        ],
+        [
+          "B2G1 on dish sets, TNW15 sitewide, UPI prepaid stack",
+          "Presented as live offers",
+          "Only 'Upto 60% Off Sitewide + Extra 5% OFF' was visible on the storefront banner we read",
+          "Codes not verified; read the live cart"
+        ],
+        [
+          "Herbal Beetroot Lip Balm (real SKU)",
+          "Not covered by the old kitchen-clean copy",
+          "Third-party INCI lists beeswax, honey, plant oils and Fragrance",
+          "Ingredient list audited; not an official label scan"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Decide what you actually want. If it is kitchen cleaning, this storefront did not show those products when we checked — do not add items hoping they are cleaners."
+        },
+        {
+          "body": "If you are buying a TNW SKU, read the INCI on the pack rather than relying on the 'natural' banner."
+        },
+        {
+          "body": "Check for beeswax, honey and fragrance if you have allergies or reactive skin; the lip balm transcription contains all three."
+        },
+        {
+          "body": "The sitewide banner and any extra percentage are snapshots; confirm the final payable amount and whether discounts combine before paying."
+        },
+        {
+          "body": "For kitchen grease, compare an actual cleaner with a stated active ingredient and a printed safe-use direction instead of substituting a beauty product."
+        }
+      ]
+    },
+    {
+      "type": "keyValue",
+      "items": [
+        {
+          "label": "The catalogue is beauty and personal care, not home cleaning.",
+          "value": "The official navigation lists Skin Care, Makeup, Body Care, Hair Care, Baby Care and Lip Care. We found no dishwash, utensil-cleaner or floor-cleaner category in the material we read."
+        },
+        {
+          "label": "A sitewide offer was visible; specific codes were not.",
+          "value": "The storefront banner read 'Upto 60% Off Sitewide + Extra 5% OFF'. We did not verify TNW15, B2G1 on dish sets or a UPI prepaid stack from an official source."
+        },
+        {
+          "label": "A real TNW lip balm lists beeswax, honey and fragrance.",
+          "value": "The third-party INCI for TNW Herbal Beetroot Lip Balm includes Bees Wax, Honey and Fragrance as well as plant butters and oils. That is inconsistent with a blanket 'vegan' reading of the brand."
+        },
+        {
+          "label": "Kitchen-acid and grease claims could not be sourced.",
+          "value": "A domain-restricted search for dishwash or kitchen cleaner returned no results, and a general search for the quoted phrases also returned nothing. We found no official product or independent test behind those claims."
+        },
+        {
+          "label": "The ₹0.40-per-week figure has no inputs behind it.",
+          "value": "Without a verified pack size, price and dose, a cost-per-wash figure cannot be checked. We have removed it from the guide rather than repeating it."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "We checked the official The Natural Wash storefront, searched its domain for cleaning products, and decoded a third-party INCI transcription on 26 Nov 2026. Verification failed for the kitchen-cleaning premise: no cleaning category, dish bundle, ISO 9001 test claim or ₹0.40-per-week calculation could be confirmed. Those older statements are withdrawn, not merely caveated. We did not purchase or test any product and make no cleaning-performance claims. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "ISO 9001 certifies a quality-management process; it is not a laboratory result for grease removal.",
+        "Never mix an acid-based cleaner with bleach — it can release chlorine gas. Mixing cleaning products is not a shortcut.",
+        "'Natural' and 'herbal' describe positioning, not the absence of allergens; this brand's lip balm contains beeswax, honey and fragrance.",
+        "The catalogue may change. A product that is absent today may appear later, and vice versa.",
+        "Cost-per-use figures need a verified pack size, price and dose; we found none for the old kitchen claim."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Beauty & Grooming topic hub",
+              "href": "/topics/beauty"
+            },
+            {
+              "title": "Beauty & Grooming category",
+              "href": "/categories/beauty"
+            },
+            {
+              "title": "How we audit an INCI list",
+              "href": "/guides/dot-and-key-skin-active-guide"
+            },
+            {
+              "title": "The Natural Wash store hub",
+              "href": "/stores/the-natural-wash"
+            },
+            {
+              "title": "Wonderchef store hub",
+              "href": "/stores/wonderchef"
+            },
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Where can I buy The Natural Wash kitchen cleaner?",
+          "a": "We cannot point you to one. On 26 Nov 2026 the official catalogue showed beauty and personal-care categories only, and searches for a dishwash or kitchen cleaner on the official domain returned no results. If you need a kitchen cleaner, choose one with a stated active ingredient and safe-use directions."
+        },
+        {
+          "q": "Was the ISO 9001 grease-safety claim made up?",
+          "a": "We cannot say it was made up, but we could not verify it from any official page or certificate. ISO 9001 is a process standard, not a performance test. We have removed the claim because a badge is not evidence of a cleaning result."
+        },
+        {
+          "q": "What did the INCI audit actually find?",
+          "a": "In the third-party transcription of TNW Herbal Beetroot Lip Balm we found Shea Butter, Bees Wax, Cocoa Butter, Kokum Butter, several seed oils, Honey, Beet Root Extract, Aloe Vera Extract, Glycerine, Vitamin E, Fragrance and colour. Beeswax and honey mean it is not vegan, and fragrance is present. It is a 2026 label check, not a kitchen-cleaning test."
+        },
+        {
+          "q": "Did Durza test these products?",
+          "a": "No. We read the official catalogue and one third-party INCI transcription, did not purchase or test any product, and make no performance or dermatological claims."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Official The Natural Wash storefront",
+          "url": "https://www.thenaturalwash.in",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "The Natural Wash product catalogue (alternate domain)",
+          "url": "https://www.thenaturalwash.com",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "INKEDEcoder — TNW Herbal Beetroot Lip Balm INCI",
+          "url": "https://inkeedecoder.com/products/tnw-the-natural-wash-herbal-beetroot-lip-balm",
+          "checkedAt": "26 Nov 2026"
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "The Natural Wash — Claim Audit & What the Catalogue Sells (2026)",
+  "meta_description": "We could not verify kitchen cleaners, dish bundles or an ISO 9001 grease claim on the official catalogue. Here is the label audit of a real TNW SKU and how to read cleaning claims safely.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check the official TNW catalogue",
+    "href": "https://track.vcommission.com/click?campaign_id=12839&pub_id=133499&url=https%3A%2F%2Fwww.thenaturalwash.in&p1=guide_the-natural-wash-kitchen-clean-guide"
+  },
+  "evidenceBadges": [
+    "Official catalogue checked",
+    "Third-party INCI transcription",
+    "Verification failed on old claims"
+  ]
+}

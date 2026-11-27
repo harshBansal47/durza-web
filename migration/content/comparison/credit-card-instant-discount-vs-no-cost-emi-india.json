@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "credit-card-instant-discount-vs-no-cost-emi-india",
+  "title": "Instant Bank Discount vs. No-Cost EMI in India: What the 2026 Terms Actually Say",
+  "description": "A discount shown on a product page is not always an instant reduction: Lenovo India's 2026 offer pays cashback after delivery and is not valid on EMI. Check payment-mode eligibility, per-card caps and reward-point terms before choosing.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers choosing between a bank offer and EMI at checkout on a laptop or appliance.",
+        "Anyone who wants to know whether an advertised discount is instant, post-payment cashback, or EMI-only."
+      ],
+      "skipIf": [
+        "Anyone expecting a guaranteed discount — opened T&Cs cap savings per card, exclude payment modes and allow withdrawal without notice.",
+        "Readers who want a hands-on tested verdict. This page uses official offer terms checked 25 Nov 2026; Durza did not attempt a purchase or payment."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Choose a genuine instant discount when your card, product and payment mode are eligible and the final amount on the payment screen is lower. Do not assume an advertised benefit is instant: Lenovo India's 2026 offer is post-payment cashback, is not valid on EMI, and the opened T&Cs disagree on the cashback amount and timing. Compare the payment-page amount, the total outflow over the EMI tenure and any reward points you lose.",
+      "ctas": [
+        {
+          "label": "Amazon",
+          "href": "/go/amazon-in?src=compare-verdict"
+        },
+        {
+          "label": "Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Instant discount",
+        "EMI / cashback"
+      ],
+      "rows": [
+        [
+          "When it applies",
+          "Tata CLiQ's Amex T&C (checked 25 Nov 2026): 12.5% instant on full swipe, min ₹3,000, max ₹1,500, once per card, code AMEXTCFBFS, 19–30 Nov 2026.",
+          "Lenovo India's offer T&C (checked 25 Nov 2026): post-payment cashback, not an instant checkout reduction, not valid on EMI."
+        ],
+        [
+          "Payment-mode exclusions",
+          "Amex CLiQ excludes debit, EMI, net banking and COD; Amazon's HDFC terms exclude net banking, debit non-EMI, COD and Amazon Pay balance part-payment.",
+          "Lenovo allows credit-card cashback OR UPI cashback, not both; cashback is not valid on EMI transactions."
+        ],
+        [
+          "Per-card limits",
+          "SBI Card's festive offer capped total savings at ₹48,000 per card with refreshes on 29/30/31 Oct and 1/6 Nov 2026; Amazon's HDFC offer capped ₹22,000 per card with a daily base refresh.",
+          "Lenovo limits the offer to one transaction per card and three units, with cashback posted within 30 days of delivery (examples in the same T&C say 20 days)."
+        ],
+        [
+          "Reward points",
+          "SBI Card forfeits reward points on eligible non-EMI transactions; Amazon's HDFC terms reverse reward points within 120 days (official terms, checked 25 Nov 2026).",
+          "Check the card's own reward rules before counting points on top of a discount."
+        ],
+        [
+          "What does not stack",
+          "Opened T&Cs bar bank + another promotion (Amex CLiQ, HDFC Amazon), and two bank offers on one order.",
+          "Lenovo cashback is not valid on EMI; Lenovo also excludes employee, ambassador, O2O, Pro and refurbished purchases."
+        ],
+        [
+          "Best practice",
+          "Flipkart's SBI Debit T&C says to enter card details and check the discount on the Payment page.",
+          "Compare the payment-page amount and total outflow before confirming."
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "What the opened terms actually say",
+      "items": [
+        "Lenovo calls its 2026 benefit cashback: you pay the full website price and the cashback is posted to your bank account later. The T&C explicitly says it is not valid on EMI. The offer page, product badges and worked examples disagree on the cashback amount (e.g., a ₹6,500 band versus a 'FLAT 10K' badge) and on timing (20 versus 30 days) — sources disagree; verify on the offer page at checkout.",
+        "Tata CLiQ's press release names Amex, Axis and Kotak at 12.5% for its 19–30 Nov 2026 Black Friday sale, but only the Amex T&C was readable. It gives the full string: min ₹3,000, max ₹1,500, once per card, code AMEXTCFBFS. Axis and Kotak caps and minimums are not stated — check the store.",
+        "Do not treat a displayed percentage as locked. Opened terms reserve the right to modify or withdraw offers without notice and describe them as best effort. Per-card caps, daily or periodic refreshes and payment-mode exclusions are documented; a shared campaign quota exhausting at OTP is not documented in any source we opened.",
+        "Lenovo T&C discrepancy (unresolved): the opened offer terms conflict on the cashback amount (a ₹6,500 band versus a FLAT 10K badge) and on timing (20 versus 30 days) — keep the figure flagged as unverified rather than resolved."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Instant is not always instant",
+      "paragraphs": [
+        "From the terms opened on 25 Nov 2026, Tata CLiQ's Amex Black Friday benefit is a real checkout instant discount with a stated minimum, cap and code. Lenovo India's 2026 benefit is post-payment cashback: you pay the full price first and the cashback arrives after delivery, and it is not valid on EMI. These are different products with different cash-flow effects.",
+        "The HDFC Amazon EasyEMI listing ('up to ₹4,000', all HDFC credit cards except co-branded, valid to 30 Nov 2026) did not state a minimum spend or tenure on the listing; the detail page was not readable. Verify those terms on the offer page rather than assuming a cap or percentage."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Why the payment screen is the source of truth",
+      "paragraphs": [
+        "Flipkart's SBI Debit offer T&C says the discount displayed on the product page applies only to select cards and instructs shoppers to enter card details on the Payment page to see whether it applies. Amazon's HDFC terms exclude net banking, debit non-EMI, COD and Amazon Pay balance part-payment; SBI's terms forfeit reward points on eligible non-EMI transactions.",
+        "Per-card caps matter too: SBI's festive offer capped total savings at ₹48,000 per card across refresh dates, and Amazon's HDFC offer capped ₹22,000 per card with a daily base refresh. Recheck the final amount rather than carrying a discount forward from the product page."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Amazon",
+          "points": [
+            "HDFC terms exclude net banking, debit non-EMI, COD and wallet part-payment; ₹22,000 per-card cap on the GIF offer.",
+            "Check the discount line on the payment page before confirming."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        },
+        {
+          "store": "Lenovo India",
+          "points": [
+            "2026 benefit is post-payment cashback, not an instant checkout discount, and is not valid on EMI.",
+            "Offer terms checked 25 Nov 2026 list 24 Nov–2 Dec 2026, one transaction per card and cashback within 30 days of delivery."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/lenovo-india?src=compare-offer-card"
+        },
+        {
+          "store": "Tata CLiQ",
+          "points": [
+            "Black Friday 19–30 Nov 2026; Amex full-swipe 12.5%, min ₹3,000, max ₹1,500, once per card, code AMEXTCFBFS.",
+            "Axis and Kotak are named in the press release, but their caps and minimums are not stated — check the store."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/tatacliq-com-ecommerce-cps-india?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Lenovo India — offer terms and conditions",
+          "url": "https://www.lenovo.com/in/en/lenovo-offer-details/",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Tata CLiQ — American Express Black Friday offer T&C",
+          "url": "https://www.tatacliq.com/terms/amx-bfs-tnc",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Amazon Pay India / HDFC — GIF 2026 promotion terms",
+          "url": "https://www.amazon.in/promotion/details/popup/AB3VHKV8ABYA2",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "SBI Card — Flipkart festive offer page",
+          "url": "https://www.sbicard.com/en/personal/offer/flipkart-festive-oct26.page",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Flipkart / SBI — debit-card offer T&C",
+          "url": "https://www.flipkart.com/pages/bobcarda-tnc",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "HDFC Bank — Amazon offers listing",
+          "url": "https://www.hdfc.bank.in/ps/offers/retail-stores/amazon",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Tata CLiQ — Black Friday sale press release (19–30 Nov 2026)",
+          "url": "https://www.businesswireindia.com/tata-cliq-luxury-and-tata-cliq-fashion's-black-friday-sale-promises-an-exciting-start-to-the-holiday-shopping-season-102737.html",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is an advertised bank discount always instant?",
+          "a": "No. Lenovo India's 2026 offer is post-payment cashback with the full price paid first, and it is not valid on EMI (offer T&C checked 25 Nov 2026). Check whether the benefit is instant, cashback or EMI-only in the terms."
+        },
+        {
+          "q": "Why is my discount missing when I choose EMI?",
+          "a": "Opened terms exclude EMI for Lenovo cashback and for the Amex Tata CLiQ full-swipe offer. Some ICICI EMI codes exist (TCFICICIEMI, TCLICICIEMI), but the merchant and exclusions were not captured in readable text — verify in the live code box at checkout."
+        },
+        {
+          "q": "Do bank discounts affect reward points?",
+          "a": "SBI Card's terms forfeit reward points on eligible non-EMI transactions; Amazon's HDFC terms reverse reward points within 120 days (checked 25 Nov 2026). Check your card's reward rules before counting points on top of a discount."
+        },
+        {
+          "q": "Can I stack a bank offer with a coupon or exchange?",
+          "a": "Opened T&Cs bar bank + another promotion at Amex CLiQ and HDFC Amazon, and two bank offers on one order. Amazon's HDFC terms allow exchange only if the card-paid amount after exchange still meets the minimum. Verify on the payment screen."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "black-friday-2026-india-best-deals-vs-regular-sale",
+              "href": "/compare/black-friday-2026-india-best-deals-vs-regular-sale"
+            },
+            {
+              "title": "mrp-vs-recent-price-india-sale-baseline",
+              "href": "/compare/mrp-vs-recent-price-india-sale-baseline"
+            },
+            {
+              "title": "best-laptop-deals-india-amazon-vs-flipkart-2026",
+              "href": "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Best online-shopping card guide",
+              "href": "/guides/best-credit-card-online-shopping-india-2026"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Bank & card offers hub",
+              "href": "/bank-offers"
+            },
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Lenovo store hub",
+              "href": "/stores/lenovo"
+            },
+            {
+              "title": "Tata CLiQ store hub",
+              "href": "/stores/tatacliq-com-ecommerce-cps-india"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/bank.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "Instant Bank Discount vs No-Cost EMI in India: Checked Terms | Durza",
+  "meta_description": "Official 2026 offer terms show some bank benefits are post-payment cashback, capped per card and unavailable on EMI. Compare final payable, eligibility and reward-point impact before paying.",
+  "facts_checked_at": "2026-11-25T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "instant discount vs No Cost EMI India",
+    "bank offer cashback after delivery",
+    "credit card EMI hidden charges",
+    "per card offer cap India"
+  ],
+  "category": "Sale & Card Math"
+}

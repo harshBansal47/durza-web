@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "review",
+  "slug": "kapiva-himalayan-shilajit-resin-india-review",
+  "title": "Kapiva Himalayan Shilajit Resin Review (2026): Lab Reports, Fulvic Acid & Who Should Skip It",
+  "description": "Kapiva’s Shilajit resin stands out when you care about batch verification and ingredient transparency—but it’s a slow, routine supplement, not an instant stimulant.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "You prefer resin over gummies/sweetened formats and want to verify batch reports before using.",
+        "You’re looking for gradual stamina/recovery support over weeks, not a same-day pre-workout kick."
+      ],
+      "skipIf": [
+        "You want immediate stimulant-like effects or guaranteed outcomes.",
+        "You’re pregnant, have a medical condition, or take medications—consult a healthcare professional before use."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Kapiva Himalayan Shilajit Resin is a reasonable pick for adults who want a resin format with batch-level lab transparency and can commit to consistent use. Skip it if you expect overnight energy or have medical conditions without professional guidance.",
+      "ctas": [
+        {
+          "label": "Check Kapiva Himalayan Shilajit on Kapiva",
+          "href": "/go/kapiva?src=review-kapiva"
+        }
+      ]
+    },
+    {
+      "type": "prosCons",
+      "pros": [
+        "Resin format avoids sugary gummy additives and appeals to users prioritizing purity-focused formats.",
+        "Kapiva highlights batch-specific lab verification (including heavy-metal testing/fulvic acid details on product pages/reports where provided).",
+        "Can fit into a consistent wellness routine for users with realistic expectations."
+      ],
+      "cons": [
+        "Benefits, if noticed, are typically gradual (often discussed over 6–8 weeks), not immediate.",
+        "Taste/texture of resin can be inconvenient compared to capsules or gummies.",
+        "Supplements are not substitutes for sleep, nutrition, and medical care; suitability varies by individual."
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "How do I check Kapiva Shilajit lab reports?",
+          "a": "Check the product page on kapiva.in for batch-specific testing information (including NABL/heavy-metal and fulvic acid details where provided). Verify the report details for the batch/product you purchase."
+        },
+        {
+          "q": "How long does Shilajit resin take to show effects?",
+          "a": "It varies by individual. Many users evaluate it over several weeks (around 6–8 weeks) as part of a consistent routine. It is not an overnight stimulant."
+        },
+        {
+          "q": "Is Shilajit resin better than gummies?",
+          "a": "Resin is often preferred by users avoiding sugary additives, but ‘better’ depends on purity, verification, tolerance, and consistency. Choose based on transparent testing and what you can use safely and regularly."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/supplements.webp",
+  "author_name": "Durza Research Desk",
+  "seo_title": "Kapiva Himalayan Shilajit Resin Review (2026): Lab Reports & Realistic Results | Durza",
+  "meta_description": "Honest Kapiva Shilajit Resin review for India: how to verify NABL/heavy-metal and fulvic acid reports on kapiva.in, realistic 6–8 week timelines, and who should skip it.",
+  "facts_checked_at": null,
+  "published_at": null,
+  "updated_at": "Updated Nov 2026",
+  "needs_review": false,
+  "category": "Health & Supplements"
+}

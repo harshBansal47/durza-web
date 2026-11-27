@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "amazon-flipkart-sale-dates-2026",
+  "title": "Amazon & Flipkart Sale Dates India 2026: What’s Confirmed and What to Verify",
+  "description": "A practical sale-calendar guide for Amazon India and Flipkart: confirmed dates where available, unconfirmed/typical windows clearly labeled, and a checklist for verifying real deal value before buying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers planning purchases around Amazon India or Flipkart sale events and wanting date clarity.",
+        "Buyers who want to separate confirmed sale dates from typical/unconfirmed windows."
+      ],
+      "skipIf": [
+        "You need a guaranteed price drop on a specific product — sale inclusion and pricing vary by SKU and seller.",
+        "You want live deal listings; this guide is a planning and verification guide, not a live price feed."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "Which Amazon/Flipkart 2026 sale dates are confirmed?",
+      "body": "Only treat a sale date as confirmed when the merchant has publicly announced it. As checked on 26 Nov 2026, Amazon India's Black Friday page said the sale starts 27 Nov 2026. Other major sale windows may be expected based on past patterns, but specific dates, bank offers, prices and product inclusion should be verified on the official event pages before you buy.",
+      "ctas": [
+        {
+          "label": "See the sale checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Planning a purchase: use confirmed dates only for commitments",
+          "body": "If you need to time a purchase, rely on merchant-announced dates. For expected-but-unannounced events, keep a backup plan because dates, bank offers and product inclusion can change."
+        },
+        {
+          "title": "During a sale: verify the real price",
+          "body": "A sale banner does not guarantee the lowest price. Compare the current price against recent pricing where possible, check seller/variant, and confirm the final cart total including bank/coupon effects."
+        },
+        {
+          "title": "Bank/card offers: check eligibility at checkout",
+          "body": "Bank instant discounts usually have caps, minimum cart values, eligible cards, and category exclusions. Confirm the offer on the official event page and in the final checkout screen."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Event/date claim",
+        "Status",
+        "What to verify"
+      ],
+      "rows": [
+        [
+          "Amazon India Black Friday starts 27 Nov 2026",
+          "Confirmed by Amazon India page (checked 26 Nov 2026)",
+          "Event end time, product inclusion, bank offers, final cart price"
+        ],
+        [
+          "Cyber Monday 2026 (30 Nov 2026 calendar date)",
+          "Calendar date; merchant participation unconfirmed",
+          "Whether Amazon/Flipkart run a named event, deal prices, card offers"
+        ],
+        [
+          "Christmas/New Year sale windows",
+          "Typical/expected; dates vary by merchant",
+          "Official event page, dates, eligible products, bank offers"
+        ],
+        [
+          "Flipkart Big Billion Days / Amazon Great Indian Festival 2026",
+          "Recurring events; specific 2026 dates unconfirmed unless announced",
+          "Official announcement, start/end times, early access, bank partners"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Check the official Amazon/Flipkart event page for the exact sale name, dates, and terms."
+        },
+        {
+          "body": "Open the exact product page and confirm seller, variant, price, and delivery date."
+        },
+        {
+          "body": "Check coupon/bank offer eligibility on the product and payment pages."
+        },
+        {
+          "body": "Confirm the final payable amount in checkout before paying."
+        },
+        {
+          "body": "Save screenshots/order confirmation if you rely on a time-limited offer."
+        }
+      ]
+    },
+    {
+      "type": "keyValue",
+      "items": [
+        {
+          "label": "Amazon India Black Friday start date",
+          "value": "Amazon India's public Black Friday page stated the sale starts 27 Nov 2026 (checked 26 Nov 2026). Treat end time, deals, and bank offers as separate details to verify on the official event pages."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "We checked Amazon India's public Black Friday page on 26 Nov 2026 and confirmed it stated the sale starts 27 Nov 2026. Other sale windows in this guide are labeled as typical/expected unless publicly announced. We did not verify live product pricing, seller stock, or bank-offer eligibility. Confirm official event pages and checkout before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No live deal price or bank discount is claimed as active in this guide.",
+        "Calendar dates (e.g., Cyber Monday) are not the same as merchant sale confirmations.",
+        "Product inclusion, seller, variant, and card eligibility can change during a sale."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Flipkart store hub",
+              "href": "/stores/flipkart"
+            },
+            {
+              "title": "How to save on Amazon India",
+              "href": "/guides/how-to-save-on-amazon-india"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is Amazon India Black Friday 2026 confirmed?",
+          "a": "Amazon India's public Black Friday page stated the sale starts 27 Nov 2026 (checked 26 Nov 2026). Verify the event page for current details, including end time, deals, and bank offers."
+        },
+        {
+          "q": "Are Flipkart sale dates for 2026 confirmed in this guide?",
+          "a": "Only dates publicly announced by the merchant should be treated as confirmed. If a Flipkart event date is not announced on an official Flipkart page, treat it as expected/typical, not confirmed."
+        },
+        {
+          "q": "How do I check if a sale deal is actually good?",
+          "a": "Check the exact product and seller, compare the final checkout price, confirm coupon/bank eligibility, and factor in delivery and return terms. A banner discount alone is not enough."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Amazon India Black Friday page",
+          "url": "https://www.amazon.in/blackfriday",
+          "checkedAt": "26 Nov 2026"
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Amazon & Flipkart Sale Dates India 2026: What’s Confirmed and What to Verify",
+  "meta_description": "A practical sale-calendar guide for Amazon India and Flipkart: confirmed dates where available, unconfirmed/typical windows clearly labeled, and a checklist for verifying real deal value before buying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "15 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Amazon India store hub",
+    "href": "/stores/amazon-in"
+  },
+  "evidenceBadges": [
+    "Date claims labeled",
+    "Checkout verification required"
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "kama-ayurveda-bringadi-and-kumkumadi-guide",
+  "title": "Kama Ayurveda Buying Guide (2026): How to Check Ritual, Product and Offer Claims",
+  "description": "A cautious guide to buying Kama Ayurveda products: verify the exact product or ritual bundle, check ingredients and usage, confirm final cart price, and review offer/policy terms before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers considering Kama Ayurveda products or ritual bundles and want to verify claims before buying.",
+        "Buyers who want to check bundle inclusions, final price and policy terms before applying an offer."
+      ],
+      "skipIf": [
+        "You need medical/dermatological advice for skin or scalp conditions — consult a qualified professional.",
+        "You want a guaranteed working coupon code; verify any code in checkout before paying."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate a Kama Ayurveda offer?",
+      "body": "Confirm the exact Kama Ayurveda product or ritual bundle on the official site, check ingredients, size and usage directions, and review the final cart total. Test any promo code in checkout and verify shipping, gift-with-purchase and return terms before paying.",
+      "ctas": [
+        {
+          "label": "See the buying checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Ritual bundle: verify what's included",
+          "body": "Before buying a bundle, confirm the exact products, sizes, and included gifts. A ritual name alone does not tell you the full cart value or suitability for your routine."
+        },
+        {
+          "title": "Ingredient-sensitive purchase: check the label",
+          "body": "If you have allergies, sensitivities, or specific ingredient requirements, check the exact product ingredient list and usage directions. Do not rely on legacy or summary claims."
+        },
+        {
+          "title": "Offer checking: confirm thresholds in cart",
+          "body": "Gift-with-purchase, free shipping and promo codes can be threshold- or SKU-specific. Only count them when the official cart shows them for your selected items."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Exact product/bundle",
+          "Inclusions and sizes vary",
+          "Official product page"
+        ],
+        [
+          "Ingredients and directions",
+          "Suitability depends on the actual formula",
+          "Product label/page"
+        ],
+        [
+          "Gift/threshold offer terms",
+          "GWP and shipping thresholds can change",
+          "Checkout/offer terms"
+        ],
+        [
+          "Final cart total",
+          "Codes and thresholds affect payable amount",
+          "Checkout"
+        ],
+        [
+          "Return/exchange policy",
+          "Cosmetics/wellness returns may have conditions",
+          "Official policy page"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Open the exact Kama Ayurveda product or bundle page and confirm inclusions, sizes, ingredients and directions."
+        },
+        {
+          "body": "Check the current price and any offer/gift terms on the official site."
+        },
+        {
+          "body": "Apply any promo code in checkout and confirm the final payable amount before paying."
+        },
+        {
+          "body": "Verify shipping, gift-with-purchase and return policy terms in the current cart flow."
+        },
+        {
+          "body": "Save order confirmation and offer details."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. We removed previously listed promo-code, gift-threshold, stacking and unverified formulation claims. We did not test products or verify live checkout offers. Confirm current product details and policies on the official Kama Ayurveda site before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No Kama Ayurveda coupon code or gift-with-purchase threshold is claimed as active in this guide.",
+        "Ingredient and formulation claims should be verified on the exact product page/label.",
+        "Offer stacking and thresholds can change; checkout is the source of truth."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Kama Ayurveda store hub on Durza",
+              "href": "/stores/kama-ayurveda"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza have a working Kama Ayurveda coupon code?",
+          "a": "Not in this guide. We do not list Kama Ayurveda codes or gift thresholds as active unless verified in checkout. Test any code in the official cart for your selected products."
+        },
+        {
+          "q": "Can I assume a ritual bundle includes a gift or free shipping?",
+          "a": "No. Gift-with-purchase and shipping thresholds can change and may be SKU- or cart-specific. Confirm them in the current checkout before paying."
+        },
+        {
+          "q": "What should I check before buying an Ayurvedic beauty product online?",
+          "a": "Check the exact product/bundle, ingredient list, size, usage directions, final cart total, and current return/shipping terms. For medical or dermatological concerns, consult a qualified professional."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Kama Ayurveda Buying Guide (2026): How to Check Ritual, Product and Offer Claims",
+  "meta_description": "A cautious guide to buying Kama Ayurveda products: verify the exact product or ritual bundle, check ingredients and usage, confirm final cart price, and review offer/policy terms before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check Kama Ayurveda official store",
+    "href": "/go/kama-ayurveda?src=guide&sub=guide_kama-ayurveda-bringadi-and-kumkumadi-guide"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No promo codes claimed without checkout verification"
+  ]
+}

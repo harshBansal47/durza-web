@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "mrp-vs-recent-price-india-sale-baseline",
+  "title": "MRP vs Recent Selling Price in India: What to Trust During a Sale",
+  "description": "MRP is a legal ceiling inclusive of all taxes, not a record of what a product usually sells for. During a sale, compare the final payable against a dated recent price for the same exact model code — never against the strike-through alone.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers comparing a sale price against a 'was' price or MRP on an Indian store page.",
+        "Anyone who wants a dated same-SKU baseline before deciding whether a discount is real."
+      ],
+      "skipIf": [
+        "Anyone looking for a universal 'true price' formula — a baseline exists only when an identical model code has a dated price on another page.",
+        "Readers who want first-hand testing. This page uses official rules and dated listings checked 25 Nov 2026; Durza did not buy or test any product."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Use MRP only as a legal ceiling: rule 2(m) of the Packaged Commodities Rules defines it as the maximum price inclusive of all taxes, and rule 18(2) prohibits selling above it. It is not a usual-price benchmark. For a real saving, compare the final payable against a dated price for the identical model code from another page. On 25 Nov 2026 the same ASUS FA401EA-RG020WS carried a ₹3,23,990 MRP at ASUS eStore but a ₹2,59,990 reference at Flipkart — sources disagree, so verify on the exact SKU at checkout. A headline percentage off MRP is not, by itself, evidence of a real saving: confirm the exact SKU and the basis of the comparison before treating any saving as realised.",
+      "ctas": [
+        {
+          "label": "Amazon",
+          "href": "/go/amazon-in?src=compare-verdict"
+        },
+        {
+          "label": "Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "MRP / strike-through",
+        "Dated recent selling price"
+      ],
+      "rows": [
+        [
+          "What it means",
+          "Rule 2(m), PC Rules 2011: the maximum price at which a packaged commodity may be sold, inclusive of all taxes (official text, checked 25 Nov 2026).",
+          "A dated listing for the identical full model code — never a series-name match and never MRP."
+        ],
+        [
+          "Can it change?",
+          "A reduced MRP may be shown only if the original remains visible and legible (rule 6(3) proviso, DoCA FAQ, checked 25 Nov 2026).",
+          "Yes; a 2026 baseline must come from a dated page for the same SKU, such as a tracker record or earlier store listing."
+        ],
+        [
+          "Taxes",
+          "The official Legal Metrology GST FAQ says GST is included in MRP and is not to be charged over MRP (checked 25 Nov 2026).",
+          "Confirm tax treatment on the listing; marketplace records may state it separately."
+        ],
+        [
+          "Worked example",
+          "GoBoult Anchor at ₹2,499 against ₹9,999 MRP is 75.0% off MRP — our arithmetic on published figures, not a live quote.",
+          "Lenovo LOQ 83DV01AAIN was ₹1,04,990 on 1 Nov 2026 and ₹1,17,990 on 24 Nov 2026 — 12.38% higher by our calculation from a third-party record."
+        ],
+        [
+          "Same SKU, two references",
+          "ASUS FA401EA-RG020WS: ₹3,23,990 MRP at ASUS eStore on 25 Nov 2026.",
+          "The same model code at Flipkart showed a ₹2,59,990 reference (not labelled MRP) the same day — compare the final payable."
+        ],
+        [
+          "Enforcement",
+          "Rajya Sabha reply (4 Aug 2026) records CCPA penalties of ₹2,00,000 on FirstCry and ₹7,00,000 on Zepto for charges added at checkout, among ₹20 lakh total actions.",
+          "Record the final payable on the payment screen; a headline percentage is not evidence of the amount you pay."
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "What we verified, and what we did not",
+      "items": [
+        "We verified the MRP definition, tax-inclusive rule, no-sale-above-MRP rule and e-commerce display duty from official documents opened 25 Nov 2026, along with dated CCPA drip-pricing penalties in a Rajya Sabha reply from 4 Aug 2026. Durza did not buy, consume or wear any product.",
+        "We did not verify how common padded MRPs are during Black Friday — no prevalence source was opened. Do not read this page as a claim that most sale banners are inflated.",
+        "Tracker figures are third-party records, not live quotes. Where a tracker and a store listing disagree by a few hundred rupees on the same model code, we show both and tell you to verify on the store rather than averaging them.",
+        "Confidence levels: label each figure as officially published, third-party recorded, manufacturer claim or unverified, and do not generalise a single tracked observation into a market-wide conclusion."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "MRP is a ceiling, not a baseline",
+      "paragraphs": [
+        "Rule 2(m) of the Legal Metrology (Packaged Commodities) Rules, 2011 defines retail sale price as the maximum price at which a packaged commodity may be sold, inclusive of all taxes (official text checked 25 Nov 2026). Rule 18(2) says no seller may charge above it. That makes MRP a legal ceiling — it does not tell you what a product usually sold for last month.",
+        "The Department of Consumer Affairs FAQ says a lower revised MRP may be shown only while the original remains visible and legible (rule 6(3) proviso, checked 25 Nov 2026). A big gap between MRP and the selling price is therefore not, on its own, proof of a good deal."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "How to build a same-SKU baseline",
+      "paragraphs": [
+        "Match the full model code, not the series name. For example, Lenovo LOQ 15IRX9 is a series containing distinct MTMs such as 83DV01KYIN and 83DV01K7IN with different processors, storage and availability. A tracker record for 83DV01AAIN showed ₹1,04,990 on 1 Nov 2026 and ₹1,17,990 on 24 Nov 2026 — by our arithmetic, the later price was 12.38% higher. These are third-party records; verify on the store.",
+        "Another tracker record shows 83DV00BHIN at ₹87,999 on 20 Mar 2026 versus ₹1,14,690 on 23 Nov 2026, with a 933-day average of ₹85,924. Using a December 2024 low as a 2026 baseline would be misleading — keep the baseline inside the same year and the same exact code."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "A revealed sale price is not a payable price",
+      "paragraphs": [
+        "Nykaa's price-reveal page checked 25 Nov 2026 showed L'Oréal Extraordinary Oil Serum at a regular ₹799, a current ₹719 and a revealed Pink Friday price of ₹439. Against the current price that is 38.94% additional saving by our arithmetic on published figures; against the list price it is 45.06%. The reveal is not yet a payable price — verify when the sale goes live.",
+        "For packaged goods, the official GST FAQ says GST is included in MRP and cannot be charged over it. Checkout additions were the subject of CCPA penalties recorded in the 4 Aug 2026 Rajya Sabha reply: FirstCry was penalised ₹2,00,000 for charging GST over an 'inclusive of all taxes' MRP, and Zepto ₹7,00,000 for adding handling and membership fees at checkout."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Amazon",
+          "points": [
+            "Compare a dated same-SKU listing against the sale price; Amazon buyboxes were not readable on 25 Nov 2026.",
+            "Do not publish a price from a snippet — verify on the store."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        },
+        {
+          "store": "Lenovo India",
+          "points": [
+            "Match the MTM, not the series name: 83DV01KYIN was ₹1,58,491 against MRP ₹2,49,591 on 25 Nov 2026.",
+            "Offers and cashback are separate from the listed selling price."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/lenovo-india?src=compare-offer-card"
+        },
+        {
+          "store": "ASUS India",
+          "points": [
+            "The eStore listing for FA401EA-RG020WS showed ₹2,49,990 against MRP ₹3,23,990 on 25 Nov 2026, sold by AYR Technologies.",
+            "A different store showed a different reference price for the same model code."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/asus?src=compare-offer-card"
+        },
+        {
+          "store": "Acer India",
+          "points": [
+            "Acer's official store lists Special Prices against MRP with taxes included; offer stacking is restricted.",
+            "Use the exact Ref code, not the series name."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/acer?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Legal Metrology (Maharashtra) — Packaged Commodities Rules text",
+          "url": "https://www.legalmetrologymh.in/public/temp/368/919d4d8be0fbda825b0d10da72f6e1e7.pdf",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Rule 18(2) — no sale above retail sale price",
+          "url": "https://indiankanoon.org/doc/162329261/",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Department of Consumer Affairs — Legal Metrology FAQ",
+          "url": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Frequently_Asked_Questions_on_Legal_Metrology_whatsnews.pdf",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Rajya Sabha Q1798 reply (4 Aug 2026) — CCPA drip-pricing penalties",
+          "url": "https://sansad.in/getFile/annex/271/AU1798_Gxsxwg.pdf?source=pqars",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "ASUS eStore — TUF A14 FA401EA-RG020WS listing",
+          "url": "https://in.store.asus.com/asus-tuf-gaming-a14-fa401ea-rg020ws-copilot-pc-gaming-laptop.html",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Flipkart — TUF A14 FA401EA-RG020WS listing",
+          "url": "https://www.flipkart.com/asus-tuf-gaming-a14-2026-office-2024-m365-basic-ai-pc-npu-upto-50tops-amd-ryzen-max-32-gb-1-tb-ssd-windows-11-home-amd-radeon-8060s-165-hz-fa401ea-rg020ws-laptop/p/itm456a598c5ceae",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "PriceHistory.app — Lenovo LOQ 83DV01AAIN record",
+          "url": "https://pricehistory.app/p/lenovo-loq-15irx9-intel-core-i5-13th-H36pSjG5",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "PriceHistory.app — Lenovo LOQ 83DV00BHIN record",
+          "url": "https://pricehistory.app/p/lenovo-loq-intel-core-i5-13450hx-13th-yhKf7t2h",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Nykaa — price reveal season page",
+          "url": "https://www.nykaa.com/price-reveal-season-s-hottest-offers-hot-pink-sale-2026/c/108343",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is MRP the usual selling price in India?",
+          "a": "No. MRP is the maximum tax-inclusive price defined in rule 2(m) of the Packaged Commodities Rules, 2011; rule 18(2) prohibits selling above it (official text checked 25 Nov 2026). It is a ceiling, not a recent-price benchmark."
+        },
+        {
+          "q": "Can a store charge GST over MRP?",
+          "a": "The official Legal Metrology GST FAQ states GST is included in MRP and is not to be charged over MRP (checked 25 Nov 2026)."
+        },
+        {
+          "q": "What counts as a fair baseline?",
+          "a": "The identical full model code or exact item on a dated page from a regular sale — never MRP and never a different variant. Tracker records are third-party; verify on the store."
+        },
+        {
+          "q": "Does a 75% strike-through mean 75% off the real price?",
+          "a": "It means 75% off MRP by our arithmetic on published figures. For GoBoult Anchor, ₹2,499 against ₹9,999 MRP is 75.01% off MRP; the saving against its recent selling price is a different number and is not sourced here."
+        },
+        {
+          "q": "Has anyone been penalised for checkout price tricks?",
+          "a": "The Rajya Sabha reply dated 4 Aug 2026 records CCPA penalties of ₹2,00,000 on FirstCry and ₹7,00,000 on Zepto for drip pricing, among actions totalling ₹20 lakh."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "black-friday-2026-india-best-deals-vs-regular-sale",
+              "href": "/compare/black-friday-2026-india-best-deals-vs-regular-sale"
+            },
+            {
+              "title": "credit-card-instant-discount-vs-no-cost-emi-india",
+              "href": "/compare/credit-card-instant-discount-vs-no-cost-emi-india"
+            },
+            {
+              "title": "best-laptop-deals-india-amazon-vs-flipkart-2026",
+              "href": "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Lenovo India laptop offers guide",
+              "href": "/guides/lenovo-laptop-offers-india-2026"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Lenovo store hub",
+              "href": "/stores/lenovo"
+            },
+            {
+              "title": "ASUS store hub",
+              "href": "/stores/asus"
+            },
+            {
+              "title": "Acer store hub",
+              "href": "/stores/acer"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/mrp-vs-recent-price-india-sale-baseline.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "MRP vs Recent Selling Price in India: Sale Price Baseline | Durza",
+  "meta_description": "MRP is a tax-inclusive legal ceiling, not a usual-price benchmark. Compare a dated recent selling price for the identical SKU; the same model showed different strike-throughs across two stores on 25 Nov 2026.",
+  "facts_checked_at": "2026-11-25T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "MRP vs selling price India",
+    "strike through price reliability",
+    "Legal Metrology MRP rules",
+    "same SKU price baseline",
+    "CCPA drip pricing penalties"
+  ],
+  "category": "Sale & Card Math"
+}

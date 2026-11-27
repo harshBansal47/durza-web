@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "best-laptops-under-50000-india-coding-office-2026",
+  "title": "Best Laptops Under ₹50,000 in India (2026): Acer Aspire vs Lenovo IdeaPad vs ASUS Vivobook",
+  "description": "Under ₹50,000 the headline spec is rarely the thing that decides whether a laptop feels good in year three. Processor class, a spare RAM slot and a readable display do. Here is how three common 2026 picks compare, using published lab data rather than manufacturer claims.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Students and office buyers who need 16GB RAM, a usable keyboard and a clean Windows install under ₹50,000.",
+        "Buyers planning to keep the machine 3+ years and wanting a spare RAM or SSD slot rather than a sealed chassis."
+      ],
+      "skipIf": [
+        "Anyone doing CAD, native macOS-only work or sustained 3D rendering — none of these are workstations.",
+        "Buyers who need a bright, colour-accurate screen for outdoor or photo work without checking the exact panel first."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Pick the Acer Aspire 3 if you carry the laptop daily and want 16GB RAM with a fast Gen 4 SSD at the lowest reviewed price (₹40,990). Pick the ASUS Vivobook 15 if the screen and keyboard matter more than portability — its 144Hz 300-nit panel is the best display here. Pick the Lenovo IdeaPad Slim 3 if multitasking and upgradeable RAM matter most. If your work is compile-heavy, save longer for a 45W HS-series machine such as the Lenovo ThinkBook 16, whose Ryzen 5 7535HS posted a Cinebench R23 multi-core score of 9,393 in 91mobiles' 2026 testing — well clear of the 15W chips below.",
+      "ctas": [
+        {
+          "label": "Amazon India",
+          "href": "/go/amazon-in?src=compare-verdict"
+        },
+        {
+          "label": "Flipkart",
+          "href": "/go/flipkart?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Acer Aspire 3 A324-53",
+        "Lenovo IdeaPad Slim 3",
+        "ASUS Vivobook 15"
+      ],
+      "rows": [
+        [
+          "Processor class",
+          "Intel Core i5-1334U (15W efficiency chip)",
+          "AMD Ryzen 5 7530U (15W, 6C/12T)",
+          "Intel Core i5-1335U (13th gen, 10-core)"
+        ],
+        [
+          "RAM & upgrade path",
+          "16GB DDR4, expandable to 32GB",
+          "16GB DDR4 across 2 DIMM slots",
+          "16GB DDR4 soldered — non-upgradeable"
+        ],
+        [
+          "Storage",
+          "512GB Gen 4 SSD; 7,039 MB/s read in 91mobiles' CrystalDiskMark test",
+          "512GB SSD — verify Gen 3 vs Gen 4 on the exact SKU",
+          "512GB SSD — verify Gen 3 vs Gen 4 on the exact SKU"
+        ],
+        [
+          "Display",
+          "14-inch FHD, 45% NTSC — flat colours, poor for creative work",
+          "15.6-inch FHD IPS, 250 nits — adequate indoors",
+          "15.6-inch FHD IPS, 144Hz, 300 nits — best panel here"
+        ],
+        [
+          "Battery (published tests)",
+          "45.6Wh, 7h 25m in PCMark 10 video loop; 65W USB-C",
+          "45Wh, ~6.5h real-world",
+          "50Wh, ~7.5h real-world"
+        ],
+        [
+          "Carry weight",
+          "Under 1.5kg, 19.4mm — easiest to carry daily",
+          "~1.6–1.7kg",
+          "1.7kg with aluminium lid"
+        ],
+        [
+          "Price as reviewed*",
+          "₹40,990 (91mobiles, 6 Sep 2026)",
+          "₹43,990 (BuysmarterIn roundup, 8 Oct 2026)",
+          "₹44,990 (BuysmarterIn roundup, 8 Oct 2026)"
+        ],
+        [
+          "What to verify at checkout",
+          "Exact SKU A324-53, RAM slot count and panel part number",
+          "Exact Ryzen 5 SKU and free DIMM slot",
+          "Exact processor and RAM — 'Vivobook 15' covers several SKUs"
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      "items": [
+        "The series name hides the spec. 'Vivobook 15' in Indian listings spans an 11th-gen i5 with 8GB and a 13th-gen i5 with 16GB and a 144Hz panel. Match the exact model number, not the family name.",
+        "15W is not 45W. 91mobiles' tested ₹50,000 winner was the Lenovo ThinkBook 16 with a 45W Ryzen 5 7535HS (Cinebench R23 multi 9,393). The 15W i5-1334U in the Acer is quicker in day-to-day responsiveness but will not keep up on long compiles or large spreadsheets.",
+        "Soldered RAM is the expensive mistake. An 8GB soldered base with one free slot is only acceptable if you budget for the second stick immediately; by 2026, 8GB is the thing that makes a laptop feel old in year two.",
+        "*Every price above is the price at the time the source reviewed it, not a live quote. Memory costs rose through 2026. Check the live listing before treating any of these numbers as current.",
+        "We did not physically test these units. Figures come from published lab tests by 91mobiles (Sep 2026) and Indian buying roundups (Oct 2026), reviewed on 24 Nov 2026. That is a real method, and we are labelling it as such."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "1. CPU class first, everything else second (Winner: Lenovo ThinkBook 16 for compiling; Acer Aspire 3 for light responsiveness)",
+      "paragraphs": [
+        "A 16GB/512GB configuration can still feel slow if the processor is a low-power U-series part built for battery life. In 91mobiles' September 2026 testing, the HS-series Ryzen 5 7535HS in the Lenovo ThinkBook 16 scored 9,393 in Cinebench R23 multi-core, while the 15W i5-1334U in the Acer Aspire 3 scored 8,061 in Geekbench 6 multi-core and led the group in PCMark 10 day-to-day responsiveness. Neither is \"better\" in the abstract — one sustains heavy work, the other feels quick and cool in ordinary use.",
+        "If your day is browser tabs, Zoom, Office and light photo work, the 15W chips are enough. If it is compiling, Python scripts or large Excel models, the extra watts are worth saving for."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "2. The upgrade slot matters more than shipped RAM (Winner: tie — Acer Aspire 3 and Lenovo IdeaPad Slim 3)",
+      "paragraphs": [
+        "The Acer ships 16GB DDR4 and can be taken to 32GB. The Lenovo IdeaPad Slim 3 variant in the October 2026 roundup ships 16GB across two DIMM slots. The ASUS Vivobook 15 configuration at ₹44,990 ships 16GB soldered. A soldered 16GB is fine for a machine you will replace in three years; a spare slot is better for one you want to keep in five."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "3. Display and battery are the daily experience (Winner: ASUS Vivobook 15 — 144Hz, 300 nits, 50Wh)",
+      "paragraphs": [
+        "The Acer's 45% NTSC panel is the weakest part of an otherwise strong value package — flat colours that make creative work frustrating. The ASUS 144Hz, 300-nit IPS panel is the best screen here. The Lenovo's 250-nit panel is adequate indoors and dim in bright rooms.",
+        "Published battery tests put the Acer at 7h 25m in a PCMark 10 video loop from a 45.6Wh cell, the ASUS around 7.5 hours real-world from 50Wh, and the Lenovo around 6.5 hours from 45Wh. Treat these as comparable indications, not guarantees — brightness and workload move the result."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "4. Portability and daily carry (Winner: Acer Aspire 3 — under 1.5kg with 65W USB-C)",
+      "paragraphs": [
+        "The Aspire 3 weighs under 1.5kg at 19.4mm and charges over 65W USB-C, so one adapter handles the laptop and phone. The Lenovo is around 1.6–1.7kg and the ASUS 1.7kg. If you carry the laptop across campus or through a metro commute every day, that difference is felt more than a small benchmark gain."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "5. Marketplace bank slabs vs official eStore perks (Winner: Amazon/Flipkart on flat discounts; Lenovo.com on ADP)",
+      "paragraphs": [
+        "On a ₹40,000–₹50,000 laptop, a flat ₹3,000 bank instant discount on Amazon India or Flipkart lowers the payable amount by roughly 6–7.5% — often more than an official-store coupon. Brand-direct checkout can still win on warranty extras: Lenovo.com India has offered student verification and discounted multi-year Accidental Damage Protection. Compare the final payable amount on both carts, including any EMI processing fee, before choosing."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "6. Where each one fits — summary",
+      "paragraphs": [
+        "Acer Aspire 3 A324-53: the student pick. Under 1.5kg, a complete port selection, 65W USB-C charging and the fastest SSD in 91mobiles' group. Accept the display and basic webcam.",
+        "Lenovo IdeaPad Slim 3: the multitasking pick. Ryzen multi-thread performance and upgradeable RAM at a reviewed ₹43,990, with a dimmer screen and shorter battery.",
+        "ASUS Vivobook 15: the display-and-keyboard pick. 144Hz, 300 nits, a backlit numpad keyboard and an aluminium lid, with soldered RAM as the tradeoff.",
+        "Upgrade pick: Lenovo ThinkBook 16 at a reviewed ₹46,990, with dual RAM and dual M.2 slots and a 45W chip — the closest thing to a future-proof machine under ₹50,000."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "What we verified, and what we did not",
+      "paragraphs": [
+        "A 25 Nov 2026 evidence pass re-read 91mobiles' laptop test, BuySmarterIn's October 2026 roundup and Gadgets 360. Sources disagree on the Lenovo IdeaPad Slim 3: Gadgets 360 lists a 15ABR8 with a Ryzen 5 5625U at ₹42,490, while the October 2026 roundup lists a Ryzen 5 7530U variant at ₹43,990. Treat these as different SKUs and verify the exact model code at checkout. Acer 'Aspire Lite' and 'Aspire 3' are also listed with conflicting RAM and storage. We did not purchase or physically test these machines, and we have not checked live prices; the dates refer to when sources were reviewed, not a hands-on test by Durza."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Amazon India",
+          "points": [
+            "Compare exact SKUs, seller authorization and current price.",
+            "Keep the GST invoice for warranty claims."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        },
+        {
+          "store": "Flipkart",
+          "points": [
+            "Check the exact processor/RAM variant before buying.",
+            "Inspect under Open-Box Delivery before sharing the OTP."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/flipkart?src=compare-offer-card"
+        },
+        {
+          "store": "Lenovo India",
+          "points": [
+            "Direct eStore for warranty extension and student offers.",
+            "Compare direct price against marketplace bank slabs."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/lenovo?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "91mobiles — best laptops under ₹50,000 (lab tests)",
+          "url": "https://www.91mobiles.com/reviews/best-laptops-under-rs-50000-in-india/",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "BuySmarterIn — October 2026 roundup",
+          "url": "https://buysmarter.in/reviews/laptops/best-laptops-under-50000-india-2026",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Gadgets 360 — best laptops under ₹50,000",
+          "url": "https://www.gadgets360.com/laptops/features/best-laptops-under-rs-50000-in-india-lenovo-ideapad-slim-3-acer-aspire-lite-asus-vivobook-go-14-dell-inspiron-15-moto-book-60-9609700",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Which is the best laptop under ₹50,000 for coding in India in 2026?",
+          "a": "For browser-based work and light development, the Acer Aspire 3 A324-53 is good value: 16GB expandable RAM, a fast Gen 4 SSD and under 1.5kg. For compiling or heavy Excel, the 45W Lenovo ThinkBook 16 (Ryzen 5 7535HS, reviewed at ₹46,990) is the stronger choice — its sustained multi-core performance is well ahead of the 15W chips."
+        },
+        {
+          "q": "Is 16GB RAM enough in 2026?",
+          "a": "Yes for most students and office users, provided it is 16GB as shipped. 8GB — especially soldered — is the configuration most likely to feel slow within two years. A spare slot matters more than a slightly faster processor if you plan to keep the laptop 3–5 years."
+        },
+        {
+          "q": "Are the prices in this article current?",
+          "a": "No. These are prices reported by the sources at review time in September and October 2026. Memory prices moved through 2026, so check the live listing before deciding. Use our Amazon vs Flipkart payment comparison to calculate the final payable amount after bank offers and exchange deductions."
+        },
+        {
+          "q": "Which has the best display?",
+          "a": "The ASUS Vivobook 15 configuration discussed here — 15.6-inch FHD IPS at 144Hz and 300 nits. The Acer Aspire 3's 45% NTSC panel is the weakest for colour work, and the Lenovo's 250-nit panel is indoor-only in bright rooms."
+        },
+        {
+          "q": "Did Durza physically test these laptops?",
+          "a": "No. We reviewed published lab testing from 91mobiles (September 2026) and Indian buying roundups from October 2026, and cross-checked configurations against retail listings. We say so explicitly rather than implying hands-on testing we did not do."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "best-laptop-deals-india-amazon-vs-flipkart-2026",
+              "href": "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026"
+            },
+            {
+              "title": "official-brand-store-vs-amazon-flipkart-laptops-india",
+              "href": "/compare/official-brand-store-vs-amazon-flipkart-laptops-india"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Acer laptop deals and promo codes",
+              "href": "/guides/best-acer-laptop-deals-promo-codes"
+            },
+            {
+              "title": "Lenovo India offers guide",
+              "href": "/guides/lenovo-laptop-offers-india-2026"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Electronics category hub",
+              "href": "/categories/electronics"
+            },
+            {
+              "title": "Tech & Gadgets topic hub",
+              "href": "/topics/tech"
+            },
+            {
+              "title": "Bank & card instant discounts",
+              "href": "/bank-offers"
+            },
+            {
+              "title": "Buying direct from Lenovo India",
+              "href": "/reviews/lenovo-loq-and-thinkpad-india-official-store-review"
+            },
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Flipkart store hub",
+              "href": "/stores/flipkart"
+            },
+            {
+              "title": "Acer official store hub",
+              "href": "/stores/acer"
+            },
+            {
+              "title": "Lenovo India store hub",
+              "href": "/stores/lenovo"
+            },
+            {
+              "title": "ASUS store hub",
+              "href": "/stores/asus"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/best-laptops-under-50000-india-coding-office-2026.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "Best Laptops Under ₹50,000 India 2026: Acer vs Lenovo vs ASUS Compared | Durza",
+  "meta_description": "Compare the Acer Aspire 3, Lenovo IdeaPad Slim 3 and ASUS Vivobook 15 under ₹50,000 in India on CPU class, RAM upgradeability, display, battery and service — with sourced numbers and honest caveats.",
+  "facts_checked_at": "2026-11-24T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "best laptop under 50000 India 2026",
+    "Acer Aspire 3 vs Lenovo IdeaPad vs ASUS Vivobook",
+    "laptop for coding under 50000 India",
+    "best laptop for students India 2026",
+    "i5 1334U vs Ryzen 5 7530U",
+    "16GB RAM laptop under 50000"
+  ],
+  "category": "Electronics & Laptops"
+}

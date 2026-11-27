@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "indus-valley-hair-serum-guide",
+  "title": "Indus Valley Buying Guide (2026): How to Check Product and Offer Claims",
+  "description": "A cautious guide to buying Indus Valley hair and skin products: verify the exact product, check ingredients and usage directions, confirm final cart price, and review policy terms before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers considering Indus Valley hair or skin products and want to verify claims before buying.",
+        "Buyers who want to confirm final price, shipping and return terms before applying any offer."
+      ],
+      "skipIf": [
+        "You need dermatological advice for hair/skin conditions — consult a qualified professional.",
+        "You want a guaranteed working coupon code; verify any code in checkout before paying."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate an Indus Valley offer?",
+      "body": "Check the exact Indus Valley product on the official site, confirm ingredients, size and usage directions, then review the final cart total including shipping. Test any promo code in checkout and read current shipping/return terms before paying.",
+      "ctas": [
+        {
+          "label": "See the buying checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Hair/skin sensitivity: verify ingredients",
+          "body": "Check the full ingredient list and usage directions on the exact product page. If you have allergies, sensitivity, or an active condition, patch-test where appropriate and seek professional advice."
+        },
+        {
+          "title": "Regimen/cart bundles: compare actual need",
+          "body": "Bundle discounts can be useful only if you need every product. Compare the bundle price against buying the specific product you want and check expiry/shelf-life practicality."
+        },
+        {
+          "title": "Offer checking: confirm in cart",
+          "body": "Apply any code in the official checkout and confirm the final payable amount. Do not count a discount or free-shipping claim until the cart reflects it."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Exact product and size",
+          "Ingredients and value vary by SKU",
+          "Official product page"
+        ],
+        [
+          "Ingredient list and directions",
+          "Fit and sensitivity depend on the actual formula",
+          "Product label/page"
+        ],
+        [
+          "Final cart total",
+          "Shipping, codes and prepaid offers change payable amount",
+          "Checkout"
+        ],
+        [
+          "Shipping/return policy",
+          "Thresholds and eligibility can change",
+          "Official policy pages"
+        ],
+        [
+          "Promo code",
+          "Codes may be expired or first-order only",
+          "Checkout"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Open the exact Indus Valley product page and confirm ingredients, size, and usage directions."
+        },
+        {
+          "body": "Check the current price and any offer terms on the official site."
+        },
+        {
+          "body": "Apply any promo code in checkout and confirm the final payable total before paying."
+        },
+        {
+          "body": "Review shipping and return/exchange terms before ordering."
+        },
+        {
+          "body": "Save order confirmation and product details."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. We removed previously listed promo-code, shipping-threshold and unverified product claims. We did not test products or verify live checkout offers. Confirm current details on the official Indus Valley site before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No Indus Valley coupon code is claimed as active in this guide.",
+        "Product performance and storage claims should be verified on the exact product page/label.",
+        "Shipping, return and promotion terms can change; checkout is the source of truth."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Indus Valley store hub on Durza",
+              "href": "/stores/indus-valley"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza have a working Indus Valley coupon code?",
+          "a": "Not in this guide. We do not list Indus Valley codes as active unless verified in checkout. Test any code in the official cart before paying."
+        },
+        {
+          "q": "What should I check before buying a hair serum online?",
+          "a": "Check the exact product variant, full ingredient list, usage directions, size, final cart price, and shipping/return terms. For sensitivity or scalp conditions, consult a qualified professional."
+        },
+        {
+          "q": "Can I rely on shipping or prepaid-offer claims in old guides?",
+          "a": "No. Shipping thresholds, prepaid offers and promo codes can change. Confirm the current cart and policy terms on the official site before ordering."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Indus Valley Buying Guide (2026): How to Check Product and Offer Claims",
+  "meta_description": "A cautious guide to buying Indus Valley hair and skin products: verify the exact product, check ingredients and usage directions, confirm final cart price, and review policy terms before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check Indus Valley official store",
+    "href": "/go/indus-valley?src=guide&sub=guide_indus-valley-hair-serum-guide"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No promo codes claimed without checkout verification"
+  ]
+}

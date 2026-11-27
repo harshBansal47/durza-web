@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "kind": "review",
+  "slug": "amazon-prime-india-review-2026",
+  "title": "Amazon Prime India Review (2026): ₹399 Shopping Edition vs. ₹1,499 Full Plan — Which Pays Back?",
+  "description": "Prime in India is four plans, not one. The right choice depends on how many sub-₹499 orders you place, whether you stream, and whether you actually use the Amazon Pay ICICI cashback. All figures below were checked on 24 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers placing 5–10 small Amazon orders a year who want free same/one-day delivery and early sale access without paying for streaming.",
+        "Households that will actively use Prime Video or Prime Music all year and can justify ₹1,499 over the ₹399 shopping tier."
+      ],
+      "skipIf": [
+        "Occasional buyers who batch carts above ₹499 — batching costs ₹0 in shipping, so no plan pays back.",
+        "Viewers who only want ad-free streaming: Prime Video ads need a separate ₹699/year add-on, and Prime Lite members must upgrade to Prime first."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Pick Prime Shopping Edition at ₹399/year if you mainly want delivery and sale access — it breaks even after about 10 standard-delivery orders or 5 one-day orders a year. Pay ₹1,499 for Full Prime only if you also use Prime Video or Music enough to replace roughly ₹92/month of other streaming spend. The ₹299 monthly plan only wins if you need Prime for a single sale or show window. Confirm current plan names, prices and benefits on the live Amazon.in Prime membership page before subscribing; treat the tier structure reviewed on 24 Nov 2026 as the basis for the break-even math.",
+      "ctas": [
+        {
+          "label": "Check Live Prime Plans on Amazon India",
+          "href": "/go/amazon-in?src=review-prime"
+        },
+        {
+          "label": "Check bank & card offers",
+          "href": "/bank-offers"
+        }
+      ]
+    },
+    {
+      "type": "prosCons",
+      "pros": [
+        "₹399 Shopping Edition includes unlimited free same/one-day delivery on eligible items and early sale access, with no streaming bundled in.",
+        "Amazon states 5% cashback on Amazon.in with the Amazon Pay ICICI card for eligible Prime members, including Shopping Edition.",
+        "Annual ₹1,499 works out to ₹124.92/month versus ₹299 monthly — ₹295 cheaper over six months and ₹2,089 cheaper over twelve."
+      ],
+      "cons": [
+        "Prime Shopping Edition has no Prime Video, Prime Music, Prime Reading or Luna — a common checkout misunderstanding.",
+        "Prime Video still shows ads; removing them costs a separate ₹699/year add-on on eligible plans.",
+        "Same-day delivery is limited to select cities and Prime-eligible items — Amazon calls it a limited-time offer and can change it."
+      ]
+    },
+    {
+      "type": "productLinks",
+      "items": [
+        {
+          "label": "Compare live Prime plans on Amazon India",
+          "href": "https://www.amazon.in/amazonprime?tag=durza02-21&ascsubtag=review_prime",
+          "note": "Plan prices and benefits checked 24 Nov 2026 — confirm on the live plan page."
+        },
+        {
+          "label": "Check Amazon Pay ICICI credit card eligibility",
+          "href": "https://www.amazon.in/s?k=Amazon+Pay+ICICI+Bank+Credit+Card&tag=durza02-21&ascsubtag=review_prime_card",
+          "note": "Amazon states 5% cashback for eligible Prime members, including Shopping Edition."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "About Amazon India — Black Friday Sale teaser (updated 19 Nov 2026)",
+          "url": "https://www.aboutamazon.in/news/retail/amazon-black-friday-sale-india",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Amazon.in help — Great Indian Festival 2026 start date",
+          "url": "https://www.amazon.in/gp/help/customer/display.html?nodeId=TTOLfLWVy6YRkUJc35",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "About Amazon India — Great Indian Festival 2026 savings update (3 Nov 2026)",
+          "url": "https://www.aboutamazon.in/news/retail/amazon-great-indian-festival-2026-record-customer-savings",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Amazon.in help — Prime membership plans and benefits",
+          "url": "https://www.amazon.in/help/prime",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Prime Shopping Edition include Prime Video?",
+          "a": "No. Amazon's help page states that Prime Video, Prime Music, eBooks and Luna are not available with the ₹399 Shopping Edition. You can rent titles or subscribe separately through Prime Video."
+        },
+        {
+          "q": "Is Prime Annual cheaper than Prime Monthly?",
+          "a": "Yes if you stay past five months. ₹1,499 ÷ ₹299 = 5.01 months. Six months of monthly billing costs ₹1,794 (₹295 more than annual); twelve months costs ₹3,588 (₹2,089 more)."
+        },
+        {
+          "q": "How many orders does ₹399 Shopping Edition need to pay back?",
+          "a": "Using Amazon's published non-Prime delivery charges: ₹399 ÷ ₹40 standard ≈ 10 orders a year, ₹399 ÷ ₹79 one-day ≈ 5 orders, or ₹399 ÷ ₹99 same-day ≈ 4 orders. Below that, batching orders above the free-delivery threshold costs nothing."
+        },
+        {
+          "q": "Does the ₹399 plan earn 5% Amazon Pay ICICI cashback?",
+          "a": "Amazon's Prime Shopping Edition help page states that eligible Prime members earn 5% cashback on Amazon.in with the Amazon Pay ICICI card, and lists Shopping Edition as a Prime plan. Confirm eligibility on your own checkout page — we have not verified the non-Prime rate."
+        },
+        {
+          "q": "How do I remove ads on Prime Video in India?",
+          "a": "Ad-free viewing is a separate ₹699/year add-on on eligible plans. Amazon states that Prime Lite members must upgrade to Prime before they can access Ad-Free. Check primevideo.com/your-account for current eligibility."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/amazon-prime-india-review-2026.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "Amazon Prime India Review (2026): ₹399 Shopping Edition vs ₹1,499 Full Plan Worth It? | Durza",
+  "meta_description": "Amazon Prime India plans compared with worked break-even math: Shopping Edition ₹399, Prime Lite ₹799, Annual ₹1,499, Monthly ₹299 and the ₹699 ad-free add-on. Prices and shipping fees checked 24 Nov 2026.",
+  "facts_checked_at": "2026-11-24T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": "Updated 24/11/2026",
+  "needs_review": false,
+  "category": "Memberships & Cards"
+}

@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "kama-ayurveda-vs-forest-essentials-vs-indus-valley",
+  "title": "Ayurvedic Skincare & Haircare in India: Luxury Cold-Pressed vs. Everyday Botanicals",
+  "description": "“Ayurvedic” can mean very different things. Choose based on formulation style and routine: classical oils and distillates, luxury sensorial care, or everyday botanical hair color—then buy from trusted sources to avoid near-expiry stock.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Choose Kama Ayurveda for classical cold-pressed/steam-distilled oils and targeted rituals, and Forest Essentials for luxury sensorial Ayurveda and gifting. Choose Indus Valley for ammonia-free/PPD-free botanical hair color and everyday hair care. This comparison covers those three named brands only; active-led skincare from other brands sits outside this page's scope.",
+      "ctas": [
+        {
+          "label": "Kama Ayurveda",
+          "href": "/go/kama-ayurveda?src=compare-verdict"
+        },
+        {
+          "label": "Indus Valley",
+          "href": "/go/indus-valley?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Luxury/classical Ayurveda",
+        "Everyday botanicals & actives"
+      ],
+      "rows": [
+        [
+          "Kama Ayurveda",
+          "Cold-pressed oils/distillates, consultations, discovery sizes",
+          "—"
+        ],
+        [
+          "Forest Essentials",
+          "Sensorial textures, premium gifting, higher price/ml",
+          "—"
+        ],
+        [
+          "Indus Valley",
+          "—",
+          "Ammonia-free/PPD-free hair color options and botanical hair care"
+        ],
+        [
+          "Dot & Key",
+          "—",
+          "Fruit-actives/ceramides/niacinamide/SPF for daily skincare routines"
+        ],
+        [
+          "Buying tip",
+          "Buy direct for freshness, minis, and brand guidance",
+          "Buy direct/authorized to avoid near-expiry or mishandled stock"
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      "items": [
+        "Not all “Ayurvedic” products are formulated the same: classical oils/distillates, luxury sensorial blends, and functional hair-color botanicals serve different needs and budgets.",
+        "Check ingredient and safety details that matter to you (e.g. ammonia/peroxide/PPD-free claims for hair color, or active ingredients and SPF filters for skincare) rather than relying on buzzwords.",
+        "Buying direct from brand sites can reduce the risk of near-expiry or poorly stored stock and may include consultations, samples, or routine guidance."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Picking the right kind of “Ayurveda” for your routine",
+      "paragraphs": [
+        "A ₹250 green-tinted shampoo and a classical hair oil are not interchangeable. Start with your goal—scalp/hair rituals, luxury self-care, grey coverage, or active-led skincare—then choose the brand and formulation style that fits."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Practical checks before you buy",
+      "paragraphs": [
+        "Read ingredient lists, usage instructions, and patch-test guidance (especially for hair color and actives). If you have sensitivities, verify claims on the official product page and consult a professional when needed."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Kama Ayurveda",
+          "points": [
+            "Classical oils and distillates with brand guidance and discovery options.",
+            "Good for targeted rituals and gifting."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/kama-ayurveda?src=compare-offer-card"
+        },
+        {
+          "store": "Indus Valley",
+          "points": [
+            "Botanical hair color and hair care with clear ingredient positioning.",
+            "Buy direct for product authenticity and current batches."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/indus-valley?src=compare-offer-card"
+        },
+        {
+          "store": "Dot & Key",
+          "points": [
+            "Active-led skincare routines (ceramides, niacinamide, sunscreen, etc.).",
+            "Useful if you prefer lightweight formulas for humid weather."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/dot-and-key?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Which brand is best for hair oils?",
+          "a": "It depends on your preference: Kama Ayurveda is known for classical oil rituals, while Indus Valley focuses more on botanical hair color/care ranges. Check ingredients and choose based on your scalp/hair needs."
+        },
+        {
+          "q": "Is Indus Valley hair color ammonia-free or PPD-free?",
+          "a": "Indus Valley markets ammonia-free and 100% PPD-free options in parts of its range, but always verify the exact product label and ingredient list on the official page before buying."
+        },
+        {
+          "q": "Why buy skincare/haircare direct from brand sites?",
+          "a": "Direct purchases can reduce the chance of near-expiry or mishandled stock and may offer samples, consultations, or clearer return/support policies."
+        },
+        {
+          "q": "Where does Dot & Key fit in?",
+          "a": "Dot & Key is more active-led (e.g. ceramides, niacinamide, SPF) than traditional Ayurvedic oils, which can suit daily skincare routines—especially in humid climates."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "myntra-vs-ajio-vs-brand-stores-fashion-india",
+              "href": "/compare/myntra-vs-ajio-vs-brand-stores-fashion-india"
+            },
+            {
+              "title": "kapiva-vs-hkvitals-vs-healthkart-supplements-india",
+              "href": "/compare/kapiva-vs-hkvitals-vs-healthkart-supplements-india"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Indus Valley hair care guide",
+              "href": "/guides/indus-valley-hair-serum-guide"
+            },
+            {
+              "title": "Dot & Key skin actives guide",
+              "href": "/guides/dot-and-key-skin-active-guide"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Kama Ayurveda store hub",
+              "href": "/stores/kama-ayurveda"
+            },
+            {
+              "title": "Indus Valley store hub",
+              "href": "/stores/indus-valley"
+            },
+            {
+              "title": "Dot & Key store hub",
+              "href": "/stores/dot-and-key"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/kama-ayurveda-vs-forest-essentials-vs-indus-valley.webp",
+  "author_name": "Durza Research Desk",
+  "seo_title": "Kama Ayurveda vs Forest Essentials vs Indus Valley (India): What to Buy Where | Durza",
+  "meta_description": "Compare Kama Ayurveda, Forest Essentials, and Indus Valley in India: cold-pressed oils, sensorial luxury Ayurveda, ammonia/PPD-free hair color, and why buying direct matters.",
+  "facts_checked_at": null,
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "Kama Ayurveda vs Forest Essentials",
+    "Indus Valley ammonia free PPD free hair color",
+    "Ayurvedic skincare India",
+    "Dot and Key actives",
+    "buy direct skincare"
+  ],
+  "category": "Fashion & Beauty"
+}

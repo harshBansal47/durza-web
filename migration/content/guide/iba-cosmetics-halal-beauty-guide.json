@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "iba-cosmetics-halal-beauty-guide",
+  "title": "IBA Cosmetics Buying Guide (2026): How to Check Halal, Ingredient and Offer Claims",
+  "description": "A cautious guide to buying IBA Cosmetics: verify halal/vegan/cruelty-free claims on the exact product, check ingredients, confirm final price, and review offer terms before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers considering IBA Cosmetics and want to verify certification, ingredient and offer claims before buying.",
+        "Buyers who need to confirm final cart value and policy terms rather than relying on promo banners."
+      ],
+      "skipIf": [
+        "You need medical/dermatological advice for skin conditions or allergies — consult a qualified professional.",
+        "You want a guaranteed working coupon code; verify any code in checkout before paying."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate an IBA Cosmetics offer?",
+      "body": "Verify the exact product on the official IBA site: check current certification/ingredient claims on the product label or page, confirm shade/variant, and review the final cart total. Test any promo code in checkout and read shipping/return terms before paying.",
+      "ctas": [
+        {
+          "label": "See the buying checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Certification-sensitive purchase: verify the exact SKU",
+          "body": "If halal, vegan, cruelty-free, or ingredient restrictions matter to you, verify the current claim on the exact product page/label. Do not assume every SKU or batch has the same certification or formulation."
+        },
+        {
+          "title": "Shade/variant buying: check return terms",
+          "body": "For makeup, confirm shade, size, finish and ingredient list before ordering. Check return/exchange eligibility for opened cosmetics on the official policy page."
+        },
+        {
+          "title": "Offer checking: confirm cart behavior",
+          "body": "If you have a promo code or see a B2G1/banner offer, test it in the official cart. Only count the discount after checkout shows it for your selected products."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Exact product and variant",
+          "Shade, size and formulation can differ",
+          "Official product page"
+        ],
+        [
+          "Certification claims",
+          "Halal/vegan/cruelty-free claims should be verified per SKU/current documentation",
+          "Product page/label/official certification info"
+        ],
+        [
+          "Ingredient list",
+          "Allergies and preferences depend on the actual formula",
+          "Product label/page"
+        ],
+        [
+          "Final cart price",
+          "Codes, bundles and shipping affect payable amount",
+          "Checkout"
+        ],
+        [
+          "Return/exchange policy",
+          "Cosmetics may have condition-specific returns",
+          "Official policy page"
+        ],
+        [
+          "Promo code/offer",
+          "Offers can be expired or SKU-specific",
+          "Checkout"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Open the exact IBA product page and confirm variant, ingredient list, and any certification claims you rely on."
+        },
+        {
+          "body": "Check the current price and offer terms on the official site."
+        },
+        {
+          "body": "Apply any promo code in checkout and confirm the final payable amount before paying."
+        },
+        {
+          "body": "Review shipping and return/exchange terms, especially for cosmetics."
+        },
+        {
+          "body": "Save order confirmation and product/offer details."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. We removed previously listed promo-code, B2G1, certification and ingredient claims that were not verified in this pass. We did not test products or verify certification documents. Confirm current product claims, certifications and checkout terms on the official IBA site before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No IBA coupon code or B2G1 offer is claimed as active in this guide.",
+        "Certification and ingredient claims should be verified on the exact SKU and current official documentation/label.",
+        "Cosmetics return eligibility can be condition-specific; check the current policy before ordering."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "IBA store hub on Durza",
+              "href": "/stores/iba-cosmetics"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza have a working IBA Cosmetics coupon code?",
+          "a": "Not in this guide. We do not list IBA codes or automatic offers as active unless verified in checkout. Test any code in the official cart for your selected products."
+        },
+        {
+          "q": "Can I assume every IBA product is halal, vegan or cruelty-free?",
+          "a": "Do not assume; verify the current claim on the exact product page, label, or official certification information you rely on. Product formulations and certifications can vary by SKU and over time."
+        },
+        {
+          "q": "What should I check before buying IBA makeup online?",
+          "a": "Check the exact shade/variant, ingredient list, current certification claims, final cart price, shipping, and return/exchange policy before paying."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "IBA Cosmetics Buying Guide (2026): How to Check Halal, Ingredient and Offer Claims",
+  "meta_description": "A cautious guide to buying IBA Cosmetics: verify halal/vegan/cruelty-free claims on the exact product, check ingredients, confirm final price, and review offer terms before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check IBA official store",
+    "href": "/go/iba-cosmetics?src=guide&sub=guide_iba-cosmetics-halal-beauty-guide"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No promo codes claimed without checkout verification"
+  ]
+}

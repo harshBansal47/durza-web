@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "boat-vs-boult-vs-oneplus-tws-under-2000-india",
+  "title": "boAt vs. Boult vs. OnePlus TWS Under ₹2,000 in India (2026): Call Mics, ANC & Battery",
+  "description": "Under ₹2,000, a “32dB ANC” sticker will not make your voice clearer on a noisy auto or metro. Call microphones and ENC do that. Here are three specific models compared on published specs, with every decibel and battery figure clearly labelled as a manufacturer claim.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Commuters and remote workers under ₹2,000 who care more about clear voice pickup than heavy bass.",
+        "Students comparing battery endurance, low-latency modes and a one-year brand warranty."
+      ],
+      "skipIf": [
+        "Buyers expecting true engine or flight-noise cancellation — sub-₹2,000 ANC mostly dulls steady fan and AC hum.",
+        "Competitive FPS players: even 45–94 ms “gaming modes” still trail wired earphones."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Pick the Boult Z40 Pro at ₹1,299 if battery and low latency matter most: its official page lists 100 hours total playback, Zen Quad Mic ENC, Bluetooth 5.3, IPX5 and a 45 ms gaming mode. Pick the boAt Airdopes 141 ANC (₹1,256–₹1,399 across listings) if you want an advertised 32 dB ANC rating and quad mics, accepting 42 hours total. Pick the OnePlus Nord Buds 2r (₹1,649 seen on Smartprix) if IP55 dust protection and a 12.4 mm driver matter more than battery — but check the live price, since it can sit above ₹2,000. All figures are manufacturer or retail-listing claims; we did not test these earbuds.",
+      "ctas": [
+        {
+          "label": "Boult",
+          "href": "/go/boult?src=compare-verdict"
+        },
+        {
+          "label": "Amazon India",
+          "href": "/go/amazon-in?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Boult Z40 Pro",
+        "boAt Airdopes 141 ANC",
+        "OnePlus Nord Buds 2r"
+      ],
+      "rows": [
+        [
+          "Price as reviewed*",
+          "₹1,299 (goboult.co.in)",
+          "₹1,256–₹1,399 (Gadgets Now / Smartprix / Cashify)",
+          "₹1,649 (Smartprix); other listings up to ₹2,299"
+        ],
+        [
+          "Call mic setup",
+          "Zen Quad Mic ENC (official page)",
+          "Quad mic (Smartprix)",
+          "Dual mic with AI noise reduction (Smartprix)"
+        ],
+        [
+          "ANC (manufacturer claim)",
+          "Not listed on official page — ENC only; verify exact SKU",
+          "32 dB ANC claimed in listings",
+          "25 dB ANC claimed in listings"
+        ],
+        [
+          "Bluetooth / codecs",
+          "5.3 · AAC, SBC",
+          "5.3 · codecs not published in sources checked",
+          "5.3 · codecs not published in sources checked"
+        ],
+        [
+          "Battery (brand/listings)",
+          "8 h buds · 100 h with case",
+          "6 h buds ANC off · 42 h total; 5 h / 35 h ANC on",
+          "8 h buds · 38 h total ANC off; 5 h / 27 h ANC on"
+        ],
+        [
+          "Driver",
+          "Official page lists 10 mm in specs and 13 mm in feature text — verify SKU",
+          "10 mm",
+          "12.4 mm titanium"
+        ],
+        [
+          "Latency mode",
+          "45 ms (official)",
+          "50 ms Beast mode (listing)",
+          "94 ms (listing)"
+        ],
+        [
+          "Water resistance / warranty",
+          "IPX5 · 1 year",
+          "IPX5 · 1 year",
+          "IP55 (dust + splash) · 1 year"
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      "items": [
+        "ENC and ANC do different jobs. ENC suppresses noise picked up by the microphone so the caller hears you; ANC reduces noise you hear. A bigger dB number on the box says nothing about call clarity.",
+        "Every dB figure here is a manufacturer or retail-listing claim, not a measurement. We did not run an acoustic chamber or wind-tunnel test.",
+        "Turning ANC on costs battery: the listed OnePlus figures drop from 8 h / 38 h to 5 h / 27 h, and the boAt figures from 6 h / 42 h to 5 h / 35 h.",
+        "Check the driver spec on the exact SKU: Boult's own Z40 Pro page lists both 10 mm and 13 mm in different sections.",
+        "*Prices are snapshots seen on 24 Nov 2026 and move during sales. Register e-warranty with the GST invoice and test both buds immediately after delivery."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "1. Call microphones — Winner: Boult and boAt on mic count (4 vs 2)",
+      "paragraphs": [
+        "The Boult Z40 Pro and boAt Airdopes 141 ANC are both listed with four-microphone arrays; the OnePlus Nord Buds 2r is listed with two. More mics can help isolate speech in traffic, but tuning and fit matter as much as the count. We did not test call quality."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "2. ANC claims — Winner: boAt on paper (32 dB claimed)",
+      "paragraphs": [
+        "Listings claim 32 dB ANC for the boAt Airdopes 141 ANC and 25 dB for the OnePlus Nord Buds 2r, while Boult's Z40 Pro page lists ENC but no ANC rating. These are peak laboratory figures at narrow frequencies, not real-world street silence. Expect a modest reduction in steady fan or AC hum, not horn cancellation."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "3. Battery — Winner: Boult Z40 Pro (100 h total claimed)",
+      "paragraphs": [
+        "Boult claims 100 hours total playback for the Z40 Pro and 8 hours on the buds. The boAt is listed at 42 hours total and the OnePlus at 38 hours with ANC off. With ANC on, the published figures fall to 35 hours (boAt) and 27 hours (OnePlus). Judge on bud runtime first — a large case number does not save a mid-day top-up."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "4. Durability — Winner: OnePlus (IP55)",
+      "paragraphs": [
+        "The Nord Buds 2r carry an IP55 rating, covering dust as well as splashes. The Boult and boAt models are IPX5 — splash protection with no dust rating. For gym bags and dusty commutes, that distinction is more useful than a headline dB figure."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "5. Latency and price — Winner: Boult Z40 Pro",
+      "paragraphs": [
+        "Boult lists a 45 ms gaming mode against 50 ms for boAt and 94 ms for OnePlus, and its ₹1,299 official price is the lowest of the three. Even 45 ms is not competitive with wired earphones for competitive play."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "What we verified, and what we did not",
+      "paragraphs": [
+        "A 25 Nov 2026 evidence pass read the official Boult Z40 Pro page and Cashify comparison listings. Smartprix and Gadgets Now URLs returned no extractable SKU data in that pass, so they are not cited here. Sources conflict on the Z40 Pro driver size (13 mm claimed by Boult vs 10 mm listed by Cashify), and on current pricing: ₹1,299 for the Z40 Pro, ₹1,399 for the W50, ₹1,699 for the Airdopes 141 ANC and ₹2,199 for the Nord Buds 2r were the figures available, not confirmed live checkout quotes. We did not purchase, wear or acoustically test any of these earbuds; all dB, battery and latency figures are manufacturer or listing claims."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Recommendations by use case",
+      "paragraphs": [
+        "Commuting and calls: prioritise call-microphone quality and ENC over headline ANC dB claims.",
+        "Music: prioritise battery, driver and codec; use ANC when steady fan/AC hum is the problem.",
+        "Gaming: latency matters; even sub-₹2,000 gaming modes trail wired earphones.",
+        "General: choose by fit, IP rating, warranty and price; ANC under ₹2,000 mostly reduces steady hum rather than road noise."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Boult",
+          "points": [
+            "Official store for Z40 Pro specs, current price and e-warranty.",
+            "Use the Audio Decision Snippet on the store hub if you are unsure which model fits."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/boult?src=compare-offer-card"
+        },
+        {
+          "store": "Amazon India",
+          "points": [
+            "Compare seller authorization and final price across all three models.",
+            "Check the exact model code — similarly named SKUs differ on ANC."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Boult official — Z40 Pro",
+          "url": "https://goboult.co.in/products/goboult-z40-pro",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Cashify — Boult Z40 Pro vs W50 vs AirBass W50",
+          "url": "https://www.cashify.in/compare-earbuds/boult-audio-z40-pro-vs-boult-audio-w40-vs-boult-audio-airbass-w50",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Cashify — Z40 Pro vs Airdopes 141 ANC vs Nord Buds 2r",
+          "url": "https://www.cashify.in/compare-earbuds/boult-audio-z40-pro-vs-boat-airdopes-141-anc-vs-oneplus-nord-buds-2r",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "What is the difference between ANC and ENC?",
+          "a": "ANC reduces sound you hear, such as fan or AC hum. ENC reduces noise picked up by the microphone so callers hear you more clearly. For traffic calls, mic quality and ENC matter more than a dB figure."
+        },
+        {
+          "q": "Which of these three has the best battery?",
+          "a": "On published figures, the Boult Z40 Pro leads with 8 hours on the buds and 100 hours total. The boAt Airdopes 141 ANC is listed at 6 h / 42 h with ANC off and 5 h / 35 h with ANC on; the OnePlus Nord Buds 2r at 8 h / 38 h and 5 h / 27 h respectively."
+        },
+        {
+          "q": "Is a 32 dB ANC claim meaningful?",
+          "a": "It is a manufacturer peak figure at narrow frequencies, not a measurement of a noisy Indian street. We did not test it. Expect some reduction in steady hum and little effect on voices or horns."
+        },
+        {
+          "q": "Which has the best dust and water protection?",
+          "a": "The OnePlus Nord Buds 2r carry IP55, which covers both dust and splashes. The Boult Z40 Pro and boAt Airdopes 141 ANC are listed as IPX5 — splash protection without a dust rating."
+        },
+        {
+          "q": "Did Durza test these earbuds?",
+          "a": "No. We compared official product pages and published spec listings on 24 Nov 2026. All decibel, battery and latency numbers are manufacturer or listing claims, and prices are dated snapshots."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "best-smartphone-deals-india-amazon-vs-flipkart-2026",
+              "href": "/compare/best-smartphone-deals-india-amazon-vs-flipkart-2026"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Boult Audio ANC earbuds and codes guide",
+              "href": "/guides/boult-audio-earbuds-anc-codes-guide"
+            },
+            {
+              "title": "How to save on Amazon India",
+              "href": "/guides/how-to-save-on-amazon-india"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Tech & Gadgets topic hub",
+              "href": "/topics/tech"
+            },
+            {
+              "title": "Electronics category hub",
+              "href": "/categories/electronics"
+            },
+            {
+              "title": "Boult W50 live offer",
+              "href": "/coupons/boult-audio-w50-with-30db-active-noise-cancellation"
+            },
+            {
+              "title": "Boult Z40 Pro live offer",
+              "href": "/coupons/boult-audio-z40-pro-earbuds"
+            },
+            {
+              "title": "Boult store hub & Audio Decision Snippet",
+              "href": "/stores/boult"
+            },
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Flipkart store hub",
+              "href": "/stores/flipkart"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/boat-vs-boult-vs-oneplus-tws-under-2000-india.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "boAt vs Boult vs OnePlus Earbuds Under ₹2000 India 2026: Specs Compared | Durza",
+  "meta_description": "Compare Boult Z40 Pro, boAt Airdopes 141 ANC and OnePlus Nord Buds 2r under ₹2,000 on mic count, ANC claims, battery, IP rating, latency and price — with all figures labelled as manufacturer or listing data.",
+  "facts_checked_at": "2026-11-24T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "boAt vs Boult vs OnePlus earbuds under 2000 India",
+    "best TWS under 2000 India 2026",
+    "ANC vs ENC calling earbuds",
+    "Boult Z40 Pro vs boAt Airdopes 141 ANC",
+    "OnePlus Nord Buds 2r specs India"
+  ],
+  "category": "Electronics & Laptops"
+}

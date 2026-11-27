@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "vero-moda-india-work-dresses-guide",
+  "title": "Vero Moda India Work Dresses — Fit Matrix & Cost Per Wear (2026)",
+  "description": "Which Vero Moda silhouette survives a Monday meeting, how to read the fit categories, and a cost-per-wear method that uses real checkout numbers.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Indian office-goers choosing between Vero Moda's Office Looks, dresses, blazers and trousers for a Monday-to-Friday wardrobe.",
+        "Shoppers comparing the cost per wear of a dress against a blazer-and-trouser combination before committing."
+      ],
+      "skipIf": [
+        "Anyone relying on the older 'size down from Zara' rule or specific fabric percentages — neither was verified on the official site.",
+        "Buyers wanting certified sustainable or natural-fibre claims; the site's own FAQ lists cotton, viscose and polyester without certification detail."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "Which Vero Moda dress works for the office, and how do I judge its value?",
+      "body": "The official India site has an 'Office Looks' collection, a Dresses & Jumpsuits category, Blazers, Trousers and a Curve range in sizes 42–54. Its FAQ lists cotton, viscose and polyester fabrics and refers shoppers to a size guide. The older 'size down from Zara' rule and silk/crepe composition claims were NOT verified. On 26 Nov 2026 the site showed VM300 (₹300 off ₹4,499+), WELCOME10 (10% off in the app) and free shipping above ₹1,999 — check which apply to your cart rather than assuming they stack.",
+      "ctas": [
+        {
+          "label": "See the fit matrix",
+          "href": "#scenarios"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "The Office Looks collection — start here",
+          "body": "The site lists 'Office Looks' under Collections alongside Marquee, Everyday Essentials and Best Sellers, and its homepage copy explicitly describes 'power clothing' with tailored trousers, crisp blazers and feminine dresses. For a Monday meeting, this is the most relevant filter. We did not verify any specific dress SKU or price, so treat the collection as a starting point, not a recommendation of a particular cut."
+        },
+        {
+          "title": "Fit matrix: choose by silhouette and day, not by label",
+          "body": "Our editorial framework: a straight or shift-shaped dress in a structured fabric reads as office-safe and works for long sittings; a flowy or draped dress reads softer and is better for a dinner or sangeet; a blazer plus trousers gives the most adjustable fit across a day. The site's FAQ says a size guide exists and lists clothing measurements, so use it — we did not verify a universal 'size down' rule. Check the product page for length and lining before assuming a dress is boardroom-appropriate."
+        },
+        {
+          "title": "Fabric reality check",
+          "body": "Vero Moda's own FAQ says it uses fabrics ranging from 'breezy cotton to flowy viscose and everyday polyesters'. That is the extent of what we verified. The older guide's silk dresses, crepe shift dresses and 'upcycled wool-blend' trousers were not confirmed on the pages we read. Read the fabric callout on the exact product page and care for viscose and polyester differently from cotton in Indian humidity."
+        },
+        {
+          "title": "Size range and Curve",
+          "body": "The site describes VERO MODA Curve as sizes 42–54 and says the brand offers a broad size range with a size guide. We verified that statement; we did not verify how the fit differs from other brands. If you are between sizes, order two and keep tags — the fit matrix above is a decision aid, not a substitute for a try-on."
+        },
+        {
+          "title": "Cost per wear — the number that actually helps",
+          "body": "Formula: net payable price ÷ number of planned wears. A dress worn 20 times costs far less per wear than a similar-priced trend piece worn twice, even if the trend piece carries a bigger discount badge. Use your real checkout price after VM300/WELCOME10 and add alteration or dry-cleaning costs. We publish the method rather than a price, because we did not verify a live SKU price on 26 Nov 2026."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Category on the official site",
+        "Best editorial use",
+        "Fabric status",
+        "Price / offer status (26 Nov 2026)"
+      ],
+      "rows": [
+        [
+          "Office Looks",
+          "Monday meetings, interviews, client calls — the most relevant filter",
+          "Site FAQ lists cotton, viscose and polyester across the range; check the SKU",
+          "No SKU price verified; VM300 banner observed at ₹300 off ₹4,499+"
+        ],
+        [
+          "Dresses & Jumpsuits",
+          "Shift-style shapes for office; draped shapes for evening",
+          "Older 'silk' and 'crepe' claims not verified",
+          "No price verified — check the live product page"
+        ],
+        [
+          "Blazers",
+          "Layer over a dress or trousers; easiest fit to adjust across a day",
+          "Fabric not verified on the pages we read",
+          "No price verified"
+        ],
+        [
+          "Trousers and Co-ords",
+          "Build a mix-and-match work capsule; co-ords double as weekend sets",
+          "Fabric not verified on the pages we read",
+          "Free shipping above ₹1,999 observed on the homepage"
+        ],
+        [
+          "Curve (sizes 42–54) and Marquee",
+          "Extended size range and occasion-focused capsule; check each product page",
+          "No certification claim verified",
+          "No price verified"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Choose the category first: Office Looks for work, Dresses & Jumpsuits for a broader mix, Curve if you need sizes 42–54."
+        },
+        {
+          "body": "Use the site's size guide and the product page's measurements. Do not apply the old 'size down from Zara' rule — we could not verify it."
+        },
+        {
+          "body": "Read the fabric callout on the exact SKU. Vero Moda's own FAQ lists cotton, viscose and polyester; it is not a silk-only range."
+        },
+        {
+          "body": "Check the offer banners: on 26 Nov 2026 the site showed VM300 (₹300 off ₹4,499+), WELCOME10 (flat 10% in the app) and free shipping above ₹1,999. We did not verify which stack."
+        },
+        {
+          "body": "Compute cost per wear with the final payable amount: price ÷ planned wears, plus any alteration or dry-cleaning cost."
+        },
+        {
+          "body": "Compare with the tracked link before paying; marketplace sellers and return windows can differ from the official store."
+        }
+      ]
+    },
+    {
+      "type": "keyValue",
+      "items": [
+        {
+          "label": "Office Looks is a real collection.",
+          "value": "The homepage lists Office Looks alongside Marquee, Everyday Essentials and Best Sellers, and describes workwear as tailored trousers, blazers and dresses."
+        },
+        {
+          "label": "The brand's own FAQ lists cotton, viscose and polyester.",
+          "value": "Its FAQ answers the fabric question with 'breezy cotton to flowy viscose and everyday polyesters'. No silk, crepe or wool-blend claim was found on the pages we read."
+        },
+        {
+          "label": "Curve is sized 42–54.",
+          "value": "The homepage states that VERO MODA Curve covers sizes 42–54 and that a size guide with measurements is available."
+        },
+        {
+          "label": "Offer banners were visible on 26 Nov 2026.",
+          "value": "The site showed 'USE VM300 & GET ₹300 OFF ON ₹4,499+', 'USE WELCOME10 & GET FLAT 10% OFF ONLY ON THE VERO MODA APP', a first-order 10% message and 'Free Shipping Above Rs 1999'. We did not verify stacking."
+        },
+        {
+          "label": "The Zara size-down rule is unverified.",
+          "value": "Older Durza copy claimed Vero Moda fits relaxed where Zara fits trim and advised sizing down. We found no official support for that comparison and do not repeat it as guidance."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "We checked the official Vero Moda India site on 26 Nov 2026 for its collections, size guidance, fabric FAQ and offer banners. We did not purchase or try on any product. The older guide's Zara size comparison, silk/crepe fabric claims and specific price slabs were not verified and are not asserted here. The fit matrix and cost-per-wear formula are Durza's own editorial framework. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "A collection name such as Office Looks is a shopping filter, not a guarantee that every piece in it suits every workplace.",
+        "Cotton, viscose and polyester behave differently in humidity — check the product page before assuming a dress is breathable.",
+        "Cost per wear only works if the wear estimate is honest; a dress worn twice a year is an occasion purchase, not a workhorse.",
+        "Free shipping above ₹1,999 and the VM300/WELCOME10 banners are snapshots; the payment summary decides the final amount.",
+        "Curve 42–54 is a size range, not a verified fit promise — use the size guide and keep tags until you have tried it on."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Vero Moda store hub",
+              "href": "/stores/veromoda"
+            },
+            {
+              "title": "Charles & Keith store hub",
+              "href": "/stores/charles-keith"
+            },
+            {
+              "title": "Charles & Keith style guide",
+              "href": "/guides/charles-and-keith-india-style-guide"
+            },
+            {
+              "title": "Palmonas store hub",
+              "href": "/stores/palmonas"
+            },
+            {
+              "title": "Palmonas plating & care guide",
+              "href": "/guides/palmonas-demi-fine-jewelry-tarnish-care-guide"
+            },
+            {
+              "title": "Aldo store hub",
+              "href": "/stores/aldo-new"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "How does Vero Moda fit compared with Zara India?",
+          "a": "We cannot confirm the old 'size down from Zara' rule. We found no official comparison on 26 Nov 2026. Use Vero Moda's own size guide and product measurements, and order two sizes if returns allow."
+        },
+        {
+          "q": "What fabrics does Vero Moda India use?",
+          "a": "The brand's own FAQ says cotton, viscose and everyday polyesters. We did not verify silk, crepe or wool-blend claims from older Durza copy. Check the exact product page for the fabric callout and care instructions."
+        },
+        {
+          "q": "Can one dress work for both the office and a sangeet?",
+          "a": "Possibly, but not every silhouette will. Our editorial matrix puts structured, straight shapes in the office column and draped shapes in the evening column. A solid-colour dress with a blazer is the most flexible combination; judge it using the product page's length, lining and fabric."
+        },
+        {
+          "q": "Are VM300 and WELCOME10 applicable together?",
+          "a": "We saw both banners on 26 Nov 2026 — VM300 at ₹300 off ₹4,499+ and WELCOME10 for 10% off in the app — but we did not verify stacking or eligibility. Only the checkout panel can confirm what applies to your cart."
+        },
+        {
+          "q": "Did Durza try these dresses on?",
+          "a": "No. We read the official site on 26 Nov 2026, purchased nothing and make no fit or fabric guarantee. The fit matrix is an editorial decision aid, not a measurement chart."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Vero Moda India official homepage — collections, FAQ and offer banners",
+          "url": "https://www.veromoda.in/",
+          "checkedAt": "26 Nov 2026"
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Vero Moda India Work Dresses — Fit Matrix & Cost Per Wear (2026)",
+  "meta_description": "Which Vero Moda silhouette survives a Monday meeting, how to read the fit categories, and a cost-per-wear method that uses real checkout numbers.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "16 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Shop the official Vero Moda India collection",
+    "href": "/go/veromoda?src=guide&sub=guide_vero-moda-india-work-dresses-guide"
+  },
+  "evidenceBadges": [
+    "Official India site",
+    "Observed offer banners",
+    "Editorial fit framework"
+  ]
+}

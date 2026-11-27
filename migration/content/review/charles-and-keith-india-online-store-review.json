@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "review",
+  "slug": "charles-and-keith-india-online-store-review",
+  "title": "Charles & Keith India Online Store Review (2026): Gabine Bags, EU Sizing & Packaging Quality",
+  "description": "Charles & Keith’s official India store is a dependable place to buy structured bags and occasion footwear with proper sizing, packaging, and brand presentation—if you care for faux leather correctly.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "You want authentic Gabine-style structured bags or occasion footwear with official packaging and dust bags.",
+        "You prefer shopping by full EU sizing (35–41) and want a predictable brand-store experience."
+      ],
+      "skipIf": [
+        "You need low-maintenance bags/shoes for rough daily use in heavy rain without care routines.",
+        "You’re unsure about size/fit and don’t want to deal with exchanges—check size guides carefully."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "A strong choice for shoppers who want authentic Charles & Keith bags, heels, and gifting-ready packaging with clear EU sizing. Skip impulse buys if you need rugged everyday materials for heavy monsoon use without maintenance.",
+      "ctas": [
+        {
+          "label": "Check Charles & Keith India Store",
+          "href": "/go/charles-keith?src=review-ck"
+        }
+      ]
+    },
+    {
+      "type": "prosCons",
+      "pros": [
+        "Official store experience for structured faux-leather bags and heels, including presentation boxes and dust bags.",
+        "Clear EU size range (typically 35–41) helps reduce guesswork compared to fragmented marketplace listings.",
+        "Good option for gifting and milestone accessories where packaging and authenticity matter."
+      ],
+      "cons": [
+        "Faux-leather edges and finishes need care in humid/monsoon conditions to avoid wear.",
+        "Structured styles prioritize look over rugged utility for heavy daily commuting.",
+        "Prices and availability vary by drop; popular styles can sell out in common sizes/colors."
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is Charles & Keith India’s official site better than marketplaces?",
+          "a": "For authenticity, packaging, and clearer EU sizing information, the official store is usually a safer choice. Marketplaces may vary by seller, stock, and listing accuracy."
+        },
+        {
+          "q": "What size range does Charles & Keith India usually offer?",
+          "a": "Footwear commonly spans EU sizes around 35–41, but availability varies by style. Always check the size guide on the product page."
+        },
+        {
+          "q": "How do I care for faux-leather bags in monsoon season?",
+          "a": "Keep them dry, wipe moisture promptly, store with airflow (and dust bags when dry), and avoid prolonged exposure to rain or humidity to reduce edge wear and peeling."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/charles-and-keith-india-online-store-review.webp",
+  "author_name": "Durza Research Desk",
+  "seo_title": "Charles & Keith India Online Store Review (2026): Bags, Heels & EU Sizing | Durza",
+  "meta_description": "Honest Charles & Keith India review: why charleskeith.in is reliable for Gabine bags and heels, EU 35–41 sizing, packaging quality, and faux-leather care in monsoon humidity.",
+  "facts_checked_at": null,
+  "published_at": null,
+  "updated_at": "Updated Nov 2026",
+  "needs_review": false,
+  "category": "Fashion & Activewear"
+}

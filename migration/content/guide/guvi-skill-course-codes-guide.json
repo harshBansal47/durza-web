@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "guvi-skill-course-codes-guide",
+  "title": "GUVI Course Buying Guide (2026): How to Evaluate Offers and Fit",
+  "description": "A practical guide to evaluating GUVI course offers: verify the exact course/bundle, check current pricing and code eligibility, review trial/refund terms, and assess fit before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Learners comparing GUVI courses or bundles and want to check offer terms before enrolling.",
+        "Buyers who want to evaluate course fit, trial access, and final price rather than relying on a coupon claim."
+      ],
+      "skipIf": [
+        "You need a guaranteed active GUVI coupon code — verify any code in checkout before paying.",
+        "You need career/legal/placement guarantees; confirm any such claims directly with GUVI's current terms."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate a GUVI course offer?",
+      "body": "Check the exact course or bundle on GUVI's official site, confirm the current price and what is included, and test any coupon in checkout before paying. Also review trial, refund/cancellation, certification, and placement-support terms as they currently apply to that specific program.",
+      "ctas": [
+        {
+          "label": "See the course checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Career track: verify bundle scope",
+          "body": "If you're considering a multi-course/career track, confirm exactly which courses, projects, mentorship, certification, and support are included. Compare bundle price against buying only what you need."
+        },
+        {
+          "title": "Single course: test fit before paying",
+          "body": "Look for syllabus, prerequisites, language, duration, and any free trial/preview. A discount is not useful if the course format or level does not match your goal."
+        },
+        {
+          "title": "Offer code: verify at checkout",
+          "body": "If you have a GUVI code from any source, test it in the official checkout. Only count the discount if the cart accepts it for the exact course/bundle you selected."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Exact course/bundle",
+          "Inclusions and outcomes vary by program",
+          "Official GUVI course page"
+        ],
+        [
+          "Current price and code eligibility",
+          "Codes may be bundle-specific, expired, or account-specific",
+          "Checkout"
+        ],
+        [
+          "Syllabus and prerequisites",
+          "Fit matters more than discount",
+          "Course curriculum page"
+        ],
+        [
+          "Trial/refund/cancellation terms",
+          "Policies vary by product and offer",
+          "GUVI current terms/policy pages"
+        ],
+        [
+          "Certification/placement claims",
+          "These can be program-specific and conditional",
+          "Official program details/terms"
+        ],
+        [
+          "Language/support format",
+          "Delivery language and mentor/support model affect value",
+          "Course page"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Open the exact GUVI course or bundle page and review syllabus, prerequisites, duration, and inclusions."
+        },
+        {
+          "body": "Check the current price and any offer terms on the official page."
+        },
+        {
+          "body": "If using a code, apply it in checkout and confirm the final payable amount before paying."
+        },
+        {
+          "body": "Review refund/cancellation/trial terms applicable to that specific program."
+        },
+        {
+          "body": "Save the invoice, enrollment confirmation, and any offer terms you relied on."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. We removed previously listed promo-code and unverified institutional/placement claims. We did not enroll, test courses, or verify live code acceptance. Confirm current course details and checkout terms on GUVI's official site before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No GUVI coupon code is claimed as active in this guide.",
+        "Course inclusions, pricing, trials, certification and placement-support terms can be program-specific.",
+        "Use official GUVI terms and program pages for any claim that affects your purchase decision."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "GUVI store hub on Durza",
+              "href": "/stores/guvi"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza have a working GUVI coupon code?",
+          "a": "Not in this guide. We do not list GUVI codes as active unless verified in checkout. Test any code on the official GUVI checkout for the exact course or bundle you want."
+        },
+        {
+          "q": "What matters more than a GUVI discount?",
+          "a": "Course fit: syllabus, prerequisites, language, project/mentor support, schedule, and current refund/trial terms. A discount on the wrong course is still a bad purchase."
+        },
+        {
+          "q": "Should I rely on placement or certification claims?",
+          "a": "Only after verifying them on the specific GUVI program page and current terms. Conditions, eligibility, and inclusions can vary by program and may change over time."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "GUVI Course Buying Guide (2026): How to Evaluate Offers and Fit",
+  "meta_description": "A practical guide to evaluating GUVI course offers: verify the exact course/bundle, check current pricing and code eligibility, review trial/refund terms, and assess fit before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check GUVI official site",
+    "href": "/go/guvi?src=guide&sub=guide_guvi-skill-course-codes-guide"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No promo codes claimed without checkout verification"
+  ]
+}

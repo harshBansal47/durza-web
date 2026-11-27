@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "how-to-save-on-amazon-india",
+  "title": "How to Save on Amazon India (2026): A Practical Checkout Checklist",
+  "description": "A repeatable Amazon India savings checklist: compare deal price, check coupons, evaluate exchange, verify bank/card offers, and confirm the final checkout total before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers who want a repeatable way to check Amazon India savings before buying.",
+        "Buyers comparing coupons, exchange, and bank offers on the same order."
+      ],
+      "skipIf": [
+        "You want guaranteed live coupon/bank offers; verify them on the product and checkout pages.",
+        "You need price-history tooling inside this guide — use it as a checkout decision process."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "What is the best order to check Amazon India savings?",
+      "body": "Start with the exact product and seller, then check the deal price, apply any visible coupon, evaluate exchange value separately, and finally test bank/card offers in checkout. Only count savings that appear in the final payable amount. A discount is not real until checkout confirms it for your cart.",
+      "ctas": [
+        {
+          "label": "See the checkout checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Regular purchase: check seller and final price",
+          "body": "Before chasing offers, confirm the exact product, variant, seller, delivery date and return policy. A low price from the wrong seller or variant is not a saving."
+        },
+        {
+          "title": "Coupon + bank offer: verify stacking",
+          "body": "Some coupons apply automatically, others need clipping. Bank offers may have minimum spend, caps, eligible cards, or category exclusions. Test the full combination in checkout."
+        },
+        {
+          "title": "Exchange: treat as a separate trade-off",
+          "body": "Exchange can reduce upfront cost, but it depends on device condition, eligibility, and pickup/verification. Compare the exchange-adjusted effective price against selling separately only if you have a realistic alternative value."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Saving lever",
+        "What to check",
+        "Common caveat"
+      ],
+      "rows": [
+        [
+          "Deal/listing price",
+          "Exact variant, seller, delivery, return policy",
+          "Price can change or vary by seller"
+        ],
+        [
+          "Coupon",
+          "Whether it is clipped/applied and eligible for your cart",
+          "May be account-, product-, or quantity-specific"
+        ],
+        [
+          "Exchange",
+          "Eligible model, condition questions, pickup terms",
+          "Final value can be reduced after inspection"
+        ],
+        [
+          "Bank/card offer",
+          "Min spend, cap, eligible cards, instant/cashback timing",
+          "May not stack or may apply only on certain payment modes"
+        ],
+        [
+          "No-cost EMI/fees",
+          "Total payable amount, processing fees, interest terms",
+          "Low monthly payment can hide higher total cost"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Confirm the exact Amazon product, variant, seller, price, delivery date and return policy."
+        },
+        {
+          "body": "Check for a coupon on the product page and confirm it is applied in cart."
+        },
+        {
+          "body": "If using exchange, enter accurate device details and review the exchange terms before relying on the value."
+        },
+        {
+          "body": "On the payment page, check eligible bank/card offers and confirm the discount type, cap and minimum spend."
+        },
+        {
+          "body": "Confirm the final payable amount in checkout before paying; save the order/offer confirmation."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. It provides a checkout verification process, not live offer claims. We did not verify live Amazon coupons, exchange values, or bank/card eligibility. Confirm the final product, seller, and checkout total on Amazon India before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No Amazon coupon, exchange value, or bank offer is claimed as active in this guide.",
+        "Offer eligibility can vary by account, product, seller, card, and payment method.",
+        "Check the total payable amount, not just the headline discount."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Amazon & Flipkart sale dates 2026",
+              "href": "/guides/amazon-flipkart-sale-dates-2026"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Should I apply coupon or bank offer first on Amazon?",
+          "a": "Check them in the order Amazon's checkout applies them, but evaluate the final payable total. Some offers stack, some don't, and some have caps or minimum spend. The final payment screen is what matters."
+        },
+        {
+          "q": "Is Amazon exchange always worth it?",
+          "a": "Not always. Exchange reduces upfront cost, but the value depends on condition, eligibility and inspection. Compare the exchange-adjusted price against your realistic alternative before deciding."
+        },
+        {
+          "q": "Why did a bank offer not apply at checkout?",
+          "a": "Common reasons include ineligible card, minimum spend not met, cap exhausted, wrong payment mode, excluded category/product, or offer expiry. Check the offer terms on the product/payment page and confirm in checkout."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "How to Save on Amazon India (2026): A Practical Checkout Checklist",
+  "meta_description": "A repeatable Amazon India savings checklist: compare deal price, check coupons, evaluate exchange, verify bank/card offers, and confirm the final checkout total before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "18 Oct 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Amazon India store hub",
+    "href": "/stores/amazon-in"
+  },
+  "evidenceBadges": [
+    "Checkout checklist",
+    "No live offer claimed"
+  ]
+}

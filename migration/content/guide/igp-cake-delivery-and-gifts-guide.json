@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "igp-cake-delivery-and-gifts-guide",
+  "title": "IGP Cake Delivery & Gifts Buying Guide (2026): What to Check Before You Buy",
+  "description": "Practical IGP Cake Delivery & Gifts buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers using IGP Cake Delivery & Gifts for delivery/gifting and wanting to verify fees, timing, and offer terms.",
+        "Buyers who want to confirm final total, delivery window, and refund/replacement terms before ordering."
+      ],
+      "skipIf": [
+        "You need guaranteed delivery at a specific minute; check the live app/checkout for your address and slot.",
+        "You want a guaranteed coupon code; verify any code in checkout."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate a IGP Cake Delivery & Gifts offer before buying?",
+      "body": "Check the exact IGP Cake Delivery & Gifts product/offer on the official site, confirm the final checkout price and eligibility, and review shipping, return/refund, and policy terms before paying. Do not count a promo code or cashback claim unless it is clearly applied to your cart.",
+      "ctas": [
+        {
+          "label": "See the buying checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Address/slot check",
+          "body": "Delivery availability, fees, and timing vary by address and slot. Check the live checkout for your location before relying on an offer."
+        },
+        {
+          "title": "Final total check",
+          "body": "Look beyond item price: delivery fees, packaging, surge, small-cart fees, and taxes can change the real total."
+        },
+        {
+          "title": "Issue handling",
+          "body": "For perishables/gifts, check replacement/refund terms and order support before buying. Save order confirmation and delivery proof."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Address/slot availability",
+          "Delivery varies by location/time",
+          "App/checkout"
+        ],
+        [
+          "Final total",
+          "Fees and taxes change payable amount",
+          "Checkout"
+        ],
+        [
+          "Offer eligibility",
+          "Codes can be user/cart-specific",
+          "Checkout"
+        ],
+        [
+          "Replacement/refund policy",
+          "Perishables/gifts need clear support terms",
+          "Official policy/help page"
+        ],
+        [
+          "Delivery instructions",
+          "Gifting/perishables need accurate details",
+          "Order flow"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Set your delivery address and check availability/slot."
+        },
+        {
+          "body": "Confirm item details, quantities, and any customisation."
+        },
+        {
+          "body": "Test any code/offer in checkout and confirm final total."
+        },
+        {
+          "body": "Review replacement/refund/support terms for your order type."
+        },
+        {
+          "body": "Save order confirmation and track delivery."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. Unverified promo-code, discount, and product-certainty claims were removed or softened. We did not complete a live purchase or verify account-specific offers. Confirm current details on the official IGP Cake Delivery & Gifts site before buying."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No IGP Cake Delivery & Gifts coupon code is claimed as active in this guide.",
+        "Prices, offers, shipping, and policy terms can change without notice.",
+        "Check the final checkout screen before paying; that is the source of truth for eligibility."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Store hub View all Igp coupons & deals",
+              "href": "/stores/igp"
+            },
+            {
+              "title": "Related store Firstcry coupons",
+              "href": "/stores/firstcry"
+            },
+            {
+              "title": "Related store Lavie World coupons",
+              "href": "/stores/lavie-world"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza have a working IGP Cake Delivery & Gifts coupon code?",
+          "a": "Not claimed as active here. Test any code in the official app/checkout for your account and cart."
+        },
+        {
+          "q": "What should I check before placing a IGP Cake Delivery & Gifts order?",
+          "a": "Check address/slot availability, final total including fees, offer eligibility, and replacement/refund terms before paying."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "IGP Cake Delivery & Gifts Buying Guide (2026): What to Check Before You Buy",
+  "meta_description": "Practical IGP Cake Delivery & Gifts buying guide: verify the exact product/offer, check final checkout price, and review policy terms before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Copy Code & Go — Igp",
+    "href": "/go/igp?src=guide&sub=guide_igp-cake-delivery-and-gifts-guide"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No promo codes claimed without checkout verification"
+  ]
+}

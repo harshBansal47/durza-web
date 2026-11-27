@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "lavie-world-handbag-offers-guide",
+  "title": "Lavie World Buying Guide (2026): How to Check Bag, Material and Offer Claims",
+  "description": "A cautious guide to buying Lavie World handbags and accessories: verify the exact product, check material/care claims, confirm final cart price, and review offer/policy terms before paying. Checked 26 Nov 2026.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers comparing Lavie bags, wallets or accessories and want to verify product and offer claims before buying.",
+        "Buyers who want to confirm final cart value, shipping and return terms before paying."
+      ],
+      "skipIf": [
+        "You need a guaranteed working coupon code; verify any code in checkout before paying.",
+        "You need lab-verified material certification — check the exact product page/label and official documentation."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "How should you evaluate a Lavie World offer?",
+      "body": "Check the exact Lavie product on the official site, confirm size, material, color and care instructions, and review the final cart total. Test any promo code in checkout and verify shipping and return terms before paying.",
+      "ctas": [
+        {
+          "label": "See the buying checklist",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Everyday bag: verify size and compartments",
+          "body": "Check dimensions, compartment layout, strap type and closure on the exact product page. Photos can be misleading; use measurements and product specs."
+        },
+        {
+          "title": "Material/care: verify the exact claim",
+          "body": "If vegan leather, PU, or care restrictions matter, check the exact product description and care instructions. Do not rely on generic brand claims for a specific SKU."
+        },
+        {
+          "title": "Offer checking: confirm cart total",
+          "body": "Apply any promo code in checkout and confirm the final payable amount, shipping, and return terms. Do not count a threshold or code until the cart shows it."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "What to check",
+        "Why it matters",
+        "Where to verify"
+      ],
+      "rows": [
+        [
+          "Exact product, size and color",
+          "Fit and capacity vary by SKU",
+          "Official product page"
+        ],
+        [
+          "Material and care instructions",
+          "Durability and maintenance depend on actual material",
+          "Product page/label"
+        ],
+        [
+          "Final cart price",
+          "Codes and shipping thresholds change payable amount",
+          "Checkout"
+        ],
+        [
+          "Shipping/return policy",
+          "Accessory returns and delivery terms can change",
+          "Official policy pages"
+        ],
+        [
+          "Promo code",
+          "Codes may be expired or cart-threshold specific",
+          "Checkout"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Open the exact Lavie product page and confirm size, material, color, compartments and care instructions."
+        },
+        {
+          "body": "Check the current price and any offer terms on the official site."
+        },
+        {
+          "body": "Apply any promo code in checkout and confirm the final payable total before paying."
+        },
+        {
+          "body": "Review shipping and return/exchange terms before ordering."
+        },
+        {
+          "body": "Save order confirmation and product details."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This page was editorially reviewed on 26 Nov 2026. We removed previously listed promo-code, shipping-threshold and unverified material-certification claims. We did not inspect products or verify live checkout offers. Confirm current product details and policies on the official Lavie site before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No Lavie coupon code or free-shipping threshold is claimed as active in this guide.",
+        "Material and manufacturing claims should be verified on the exact product page or official documentation.",
+        "Offer thresholds and return policies can change; checkout is the source of truth."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Lavie store hub on Durza",
+              "href": "/stores/lavie-world"
+            },
+            {
+              "title": "How Durza verifies offers",
+              "href": "/guides/how-durza-verifies-offers-methodology-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza have a working Lavie coupon code?",
+          "a": "Not in this guide. We do not list Lavie codes as active unless verified in checkout. Test any code in the official cart for your selected products."
+        },
+        {
+          "q": "Can I assume a Lavie bag material or certification claim?",
+          "a": "No. Verify material, care instructions and any certification claim on the exact product page or official documentation for the specific SKU you are buying."
+        },
+        {
+          "q": "What should I check before buying a handbag online?",
+          "a": "Check dimensions, compartments, strap/closure, material, care instructions, final cart total, shipping, and return/exchange terms before paying."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Lavie World Buying Guide (2026): How to Check Bag, Material and Offer Claims",
+  "meta_description": "A cautious guide to buying Lavie World handbags and accessories: verify the exact product, check material/care claims, confirm final cart price, and review offer/policy terms before paying. Checked 26 Nov 2026.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check Lavie official store",
+    "href": "/go/lavie-world?src=guide&sub=guide_lavie-world-handbag-offers-guide"
+  },
+  "evidenceBadges": [
+    "Editorial trust review",
+    "No promo codes claimed without checkout verification"
+  ]
+}

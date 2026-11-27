@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "official-brand-store-vs-amazon-flipkart-laptops-india",
+  "title": "Lenovo & ASUS Official Stores vs. Amazon & Flipkart: Where Do You Get Better Warranty & Price?",
+  "description": "Official brand stores can look ₹2,000 costlier upfront, but custom configs, cheaper ADP, and verified discounts often make them better value over 3 years. Marketplaces still win for speed and some card deals.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Choose official brand stores when you care about the exact configuration, bundled accidental damage protection, and student/corporate benefits. Choose marketplaces when you need fast delivery on a standard config and a strong card discount makes the upfront price clearly lower.",
+      "ctas": [
+        {
+          "label": "Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict"
+        },
+        {
+          "label": "ASUS",
+          "href": "/go/asus?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Official brand stores",
+        "Amazon / Flipkart"
+      ],
+      "rows": [
+        [
+          "Configuration",
+          "More control (CTO/options on select models)",
+          "Fixed ready-to-ship SKUs"
+        ],
+        [
+          "Protection plans",
+          "Often better-value ADP bundles (model/offer dependent)",
+          "Add-ons can be pricier; terms vary"
+        ],
+        [
+          "Discounts",
+          "Student/corporate programs + brand rewards on eligible purchases",
+          "Bank instant discounts and sale pricing on listed SKUs"
+        ],
+        [
+          "Delivery",
+          "Custom builds may take longer",
+          "Usually faster for in-stock units"
+        ],
+        [
+          "Ownership value",
+          "Can save money over 3 years with right config + protection",
+          "Can win upfront if you don’t need upgrades or extra coverage"
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      "items": [
+        "CTO vs ready-to-ship: paying a bit more on lenovo.com or asus.com/in can get you the RAM/display you actually need, instead of spending later on compromises or external workarounds.",
+        "ADP math matters: a low-cost official accidental damage plan can be far cheaper than marketplace protection or a single out-of-warranty repair.",
+        "Avoid pre-activated warranty surprises by checking serial/warranty status on Day 1 and keeping your GST invoice—whether you buy direct or from a marketplace."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Why “₹2,000 more” can be the cheaper choice",
+      "paragraphs": [
+        "Many buyers compare only the checkout price. But for laptops, the 3-year cost includes upgrades you wish you had, accidental damage risk, and support quality. Official stores can bundle value that doesn’t show up in a marketplace headline price."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "When marketplaces are still the right call",
+      "paragraphs": [
+        "If you need a standard configuration quickly and a card discount makes the price clearly lower, Amazon or Flipkart can be the practical choice. Just confirm the exact SKU, seller, and warranty terms before ordering."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Total-cost comparison: standard config vs official-store config",
+      "paragraphs": [
+        "Compare the final payable of a standard ready-to-ship marketplace configuration against the official-store configuration for the same buyer, including any CTO upgrade, protection plan and delivery cost. Marketplace wins on upfront price/fast delivery; official store can win on configuration quality, protection value and long-term ownership cost."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Lenovo India",
+          "points": [
+            "Best for configuration options, student/corporate benefits, and official support.",
+            "Compare total value with protection plans included."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/lenovo-india?src=compare-offer-card"
+        },
+        {
+          "store": "ASUS",
+          "points": [
+            "Good for official ROG/TUF/Zenbook/Vivobook purchases and brand-direct offers.",
+            "Check eStore bundles and warranty coverage before deciding."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/asus?src=compare-offer-card"
+        },
+        {
+          "store": "Amazon",
+          "points": [
+            "Fast delivery on standard configs with periodic bank discounts.",
+            "Verify exact model specs and seller authorization."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Do official Lenovo/ASUS stores offer better warranty?",
+          "a": "They can offer clearer purchase records and bundled protection options (like ADP) on eligible models. Warranty terms depend on the product and plan, so compare what’s included, not just the label."
+        },
+        {
+          "q": "What is CTO and why does it matter?",
+          "a": "CTO (custom-to-order) lets you choose certain specs/configurations on eligible models. It helps avoid being stuck with soldered RAM or a weaker display when you need better long-term performance."
+        },
+        {
+          "q": "How long does official store delivery take?",
+          "a": "Ready-to-ship models can be quick, but custom builds may take longer than marketplace delivery. Check estimated shipping timelines on the product page before ordering."
+        },
+        {
+          "q": "Should I still check marketplace prices?",
+          "a": "Yes. Compare final payable amounts after card offers and confirm the exact SKU. Choose the option that gives the best total value for how you’ll use the laptop."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "best-laptop-deals-india-amazon-vs-flipkart-2026",
+              "href": "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026"
+            },
+            {
+              "title": "credit-card-instant-discount-vs-no-cost-emi-india",
+              "href": "/compare/credit-card-instant-discount-vs-no-cost-emi-india"
+            },
+            {
+              "title": "black-friday-2026-india-best-deals-vs-regular-sale",
+              "href": "/compare/black-friday-2026-india-best-deals-vs-regular-sale"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Lenovo India laptop offers guide",
+              "href": "/guides/lenovo-india-laptop-offers-2026-guide"
+            },
+            {
+              "title": "ASUS India buying guide",
+              "href": "/guides/asus-india-rog-tuf-zenbook-vhpbook-2026-guide"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Lenovo store hub",
+              "href": "/stores/lenovo"
+            },
+            {
+              "title": "ASUS store hub",
+              "href": "/stores/asus"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/official-brand-store-vs-amazon-flipkart-laptops-india.webp",
+  "author_name": "Durza Research Desk",
+  "seo_title": "Lenovo & ASUS Official Stores vs Amazon/Flipkart: Laptop Price & Warranty | Durza",
+  "meta_description": "Compare Lenovo and ASUS official stores vs Amazon/Flipkart for laptops in India: CTO configs, ADP value, student discounts, delivery time, and long-term ownership cost.",
+  "facts_checked_at": null,
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "Lenovo official website vs Amazon Flipkart",
+    "ASUS eShop India laptop",
+    "CTO laptop India",
+    "ADP accidental damage protection",
+    "student discount laptop India"
+  ],
+  "category": "Electronics & Laptops"
+}

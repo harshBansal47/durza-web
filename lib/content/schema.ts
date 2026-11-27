@@ -290,7 +290,7 @@ export const contentPageSchema = z
     is_indexable: z.boolean().optional(),
     is_featured: z.boolean().optional(),
     published_at: z.string().nullable().optional(),
-    updated_at: z.string().optional(),
+    updated_at: z.string().nullable().optional(),
     needs_review: z.boolean().optional(),
     facts_checked_at: z.string().nullable().optional(),
     stickyCta: ctaSchema.optional(),

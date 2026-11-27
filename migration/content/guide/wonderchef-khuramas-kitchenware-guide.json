@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "wonderchef-khuramas-kitchenware-guide",
+  "title": "Wonderchef Offers 2026: Cart-Slab Math for Cookware and Nutri-Blends",
+  "description": "The official site's current percentage slabs are 5%, 10% and 15% at three cart thresholds. Here is exactly what a ₹3,299 Nutri-blend and a ₹7,500 basket do under those slabs — and which older codes we could not verify.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Buyers assembling a cookware or Nutri-blend basket and deciding whether to add an item to cross the next discount slab.",
+        "Shoppers who want the warranty and non-stick care terms checked before paying, rather than a list of possibly expired codes."
+      ],
+      "skipIf": [
+        "Anyone expecting CHEF10, KITCHEN500 or PREPAID5 to work — none of those codes was found on the official offers page on 26 Nov 2026.",
+        "Buyers comparing mixer-grinder or hard-anodised kadhai prices across brands; this guide only covers what the official Wonderchef pages support."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "Which Wonderchef offer actually pays, and is it worth adding an item to cross a slab?",
+      "body": "On 26 Nov 2026 the official store showed Black Friday slabs of 5% above ₹2,499, 10% above ₹3,999 and 15% above ₹7,499, plus free delivery above ₹799. A ₹3,299 Nutri-blend (an indexed official listing, verify the live price) draws 5% = ₹164.95; lifting the cart to ₹3,999 draws 10% = ₹399.90, an extra ₹234.95 of discount. Adding ₹1 from ₹7,499 to ₹7,500 moves the discount from ₹749.90 to ₹1,125 — but only when you were already buying at that level. CHEF10, KITCHEN500 and PREPAID5 were not found on the official offers page and are not claimed.",
+      "ctas": [
+        {
+          "label": "See the slab calculations",
+          "href": "#scenarios"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Single Nutri-blend: ₹3,299 at 5%",
+          "body": "An indexed official offer listing showed the Wonderchef Nutriblend (White) at ₹3,299 against ₹5,000 MRP. Under the current 5%-above-₹2,499 slab, discount = 3,299 × 0.05 = ₹164.95, leaving about ₹3,134.05 before taxes and any delivery charge. The exact live price and variant must be confirmed in the cart; this is a worked illustration, not a quote."
+        },
+        {
+          "title": "Add ₹700 of utensils to cross ₹3,999",
+          "body": "Cart = ₹3,299 + ₹700 = ₹3,999. Discount = ₹3,999 × 0.10 = ₹399.90, payable about ₹3,599.10. Incremental discount over the single item = ₹399.90 − ₹164.95 = ₹234.95. You spend ₹700 more and get ₹234.95 more discount: the extra items still cost about ₹465.05 net. Cross a slab only for things you needed."
+        },
+        {
+          "title": "The ₹7,499 cliff",
+          "body": "At ₹7,499 the 10% slab gives ₹749.90 off, payable ₹6,749.10. At ₹7,500 the 15% slab gives ₹1,125 off, payable ₹6,375. Paying ₹1 more lowers the payable amount by ₹374.10 in this illustration. Slab jumps can be real, but they are only useful if the ₹1 item is one you actually want."
+        },
+        {
+          "title": "Small utensils order",
+          "body": "Free delivery is advertised above ₹799. A ₹499 bowl pair plus a ₹399 katori pair totals ₹898, clearing that floor; below ₹799, check whether delivery costs more than the missing amount. The percentage slabs do not start until ₹2,499."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Cart value (illustrative input)",
+        "Applicable banner slab",
+        "Discount",
+        "Payable before taxes/fees"
+      ],
+      "rows": [
+        [
+          "₹3,299 — one Nutriblend (indexed listing)",
+          "5% above ₹2,499",
+          "₹164.95",
+          "≈ ₹3,134.05"
+        ],
+        [
+          "₹3,999 — Nutriblend + ₹700 utensils",
+          "10% above ₹3,999",
+          "₹399.90",
+          "≈ ₹3,599.10"
+        ],
+        [
+          "₹7,499 — large cookware basket",
+          "10% (15% needs above ₹7,499)",
+          "₹749.90",
+          "≈ ₹6,749.10"
+        ],
+        [
+          "₹7,500 — same basket + ₹1 item",
+          "15% above ₹7,499",
+          "₹1,125.00",
+          "₹6,375.00"
+        ],
+        [
+          "₹898 — two small dinnerware sets",
+          "No percentage slab; free delivery above ₹799",
+          "₹0 slab discount",
+          "₹898 + taxes"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Fix the cart first: choose the exact Nutri-blend or cookware set and confirm its live listed price. Our ₹3,299 figure comes from an indexed official offer listing and may have changed."
+        },
+        {
+          "body": "Apply the slab mentally using discount = cart value × slab rate. Current banner slabs on 26 Nov 2026: 5% above ₹2,499, 10% above ₹3,999, 15% above ₹7,499."
+        },
+        {
+          "body": "Check the ₹799 free-delivery floor for small utensil orders. Delivery can erase the benefit of a small discount."
+        },
+        {
+          "body": "Do not add filler purely to cross a slab. Compare the net extra cost: extra spend minus extra discount. At ₹3,299 → ₹3,999 that is ₹700 − ₹234.95 = ₹465.05."
+        },
+        {
+          "body": "Test old codes in the cart if you have them. CHEF10, KITCHEN500 and PREPAID5 were not found on the official offers page on 26 Nov 2026; their availability and stacking are unverified."
+        },
+        {
+          "body": "For non-stick cookware, check the product page for coating statements and warranty terms, then register the purchase on the official warranty page. Use wooden or silicone utensils to reduce film damage — that is general care advice, not a Wonderchef test result."
+        }
+      ]
+    },
+    {
+      "type": "keyValue",
+      "items": [
+        {
+          "label": "Three live percentage slabs and a delivery floor.",
+          "value": "The official offers banner showed 15% off above ₹7,499, 10% off above ₹3,999, 5% off above ₹2,499 and free delivery above ₹799 on 26 Nov 2026. Eligibility and exclusions were not published in the banner we read."
+        },
+        {
+          "label": "An indexed official listing showed Nutriblend at ₹3,299.",
+          "value": "A search-indexed official offer listing gave 'Wonderchef Nutriblend – White ₹3,299, MRP ₹5,000, 34% off'. This is a dated indexed figure, not a live quote, and variant prices may differ."
+        },
+        {
+          "label": "Non-stick listing states PFOA/heavy-metal free and 2-year warranty.",
+          "value": "An indexed official cookware product listing describes PFOA/heavy-metals-free non-stick, a 3 mm construction and a 2-year warranty limited to manufacturing defects. We did not test the coating or verify the label."
+        },
+        {
+          "label": "Warranty registration is an official step.",
+          "value": "Wonderchef's warranty-registration page asks owners to register products for better service. Registration does not by itself extend or alter the warranty terms on the product page."
+        },
+        {
+          "label": "The Sanjeev Kapoor association is stated on the official site.",
+          "value": "The official about page describes Wonderchef as Sanjeev Kapoor's kitchen and home appliance store. This is a brand association, not an endorsement of any specific discount."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "We checked the official Wonderchef offers banner, warranty page, about page and indexed official product listings on 26 Nov 2026. Slab calculations are our arithmetic on the published thresholds and on an indexed ₹3,299 Nutriblend price; no checkout was simulated and no bank or code stacking is claimed. The older CHEF10, KITCHEN500 and PREPAID5 codes could not be verified on the official offers page and are not presented as live. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Slab formula: discount = cart value × rate, where the rate applies only above the stated threshold. Payable = cart value − discount, before taxes and fees.",
+        "The ₹3,299 Nutriblend price is an indexed official figure; confirm the exact variant price before relying on any calculation.",
+        "A slab 'above ₹3,999' is treated as strictly greater than ₹3,999 in the worked example; at exactly ₹3,999 the banner wording should be checked in the cart.",
+        "Crossing a slab is worthwhile only when the added goods were wanted; the marginal-benefit arithmetic is shown, not hidden in a headline percentage.",
+        "PFOA-free and heavy-metal-free are listing claims. Durza did not verify coating composition or EU contact audits; an earlier draft's certification wording is not repeated.",
+        "Registering a product and using gentle utensils are practical steps, not guarantees against coating failure."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Home & Kitchen category hub",
+              "href": "/categories/home-kitchen"
+            },
+            {
+              "title": "Home & Appliances topic hub",
+              "href": "/topics/home"
+            },
+            {
+              "title": "Wonderchef store hub",
+              "href": "/stores/wonderchef"
+            },
+            {
+              "title": "Milton Thermosteel guide",
+              "href": "/guides/milton-thermosteel-offers-guide"
+            },
+            {
+              "title": "Instant discount vs No-Cost EMI",
+              "href": "/compare/credit-card-instant-discount-vs-no-cost-emi-india"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Which Wonderchef code should I use?",
+          "a": "We cannot name a verified code. On 26 Nov 2026 the official offers page showed automatic percentage slabs, not CHEF10 or KITCHEN500. If you hold a code, test it in the cart and keep whichever route gives the lower final payable amount."
+        },
+        {
+          "q": "Is it worth adding items to cross ₹3,999?",
+          "a": "Only if you wanted them. Using the indexed ₹3,299 Nutriblend price, the 5% discount is ₹164.95. At ₹3,999 the 10% discount is ₹399.90 — ₹234.95 more. Adding ₹700 of goods therefore still costs about ₹465.05 net."
+        },
+        {
+          "q": "Does PREPAID5 stack with the slabs?",
+          "a": "Unverified. The code was not found on the official offers page we checked, and no stacking rule was published in the banner. Check the payment summary rather than trusting an article."
+        },
+        {
+          "q": "Are Wonderchef non-stick pans safe?",
+          "a": "An indexed official listing states PFOA/heavy-metals-free construction and a 2-year manufacturing-defect warranty. Durza did not test the coating or independently verify certifications. Use wooden or silicone utensils and replace the pan when the film is visibly damaged."
+        },
+        {
+          "q": "What does free delivery above ₹799 mean for small orders?",
+          "a": "The official banner sets the floor at ₹799. For a small dinnerware cart below that amount, compare the delivery charge with the cost of adding an item you actually need; do not assume the percentage slabs apply below ₹2,499."
+        },
+        {
+          "q": "Did Durza test any Wonderchef appliance?",
+          "a": "No. This guide is a comparison of published banners, listings and policy pages checked 26 Nov 2026, with our own arithmetic shown in full."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Official Wonderchef offers page",
+          "url": "https://wonderchef.in/offer.html",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Official Nutriblend offer listing (indexed)",
+          "url": "https://wonderchef.in/offer/wonderchef-nutriblend-white.html",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Official Nutri-blend product page (indexed)",
+          "url": "https://www.wonderchef.in/wonderchef-nutri-blend-champagne-with-jar.html",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Official warranty registration",
+          "url": "https://wonderchef.in/warranty-registration",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Official about page",
+          "url": "https://wonderchef.in/about-us",
+          "checkedAt": "26 Nov 2026"
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Wonderchef Offers 2026: Cart-Slab Math for Cookware and Nutri-Blends",
+  "meta_description": "The official site's current percentage slabs are 5%, 10% and 15% at three cart thresholds. Here is exactly what a ₹3,299 Nutri-blend and a ₹7,500 basket do under those slabs — and which older codes we could not verify.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check live Wonderchef slabs",
+    "href": "https://track.vcommission.com/click?campaign_id=12979&pub_id=133499&url=https%3A%2F%2Fwww.wonderchef.in&p1=guide_wonderchef-khuramas-kitchenware-guide"
+  },
+  "evidenceBadges": [
+    "Official store banners",
+    "Cart-slab arithmetic shown",
+    "Codes not verified",
+    "No product testing"
+  ]
+}

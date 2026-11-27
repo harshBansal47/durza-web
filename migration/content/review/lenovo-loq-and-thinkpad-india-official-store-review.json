@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "review",
+  "slug": "lenovo-loq-and-thinkpad-india-official-store-review",
+  "title": "Buying Direct from Lenovo.com India (2026 Review): Custom CTO Builds, ₹999 ADP & Delivery Reality",
+  "description": "Lenovo’s official India store is excellent for custom configurations and protection add-ons, but it rewards planners—not buyers who need a laptop delivered this week.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "You want a specific RAM/SSD/display configuration (CTO) that marketplace listings don’t match.",
+        "You can use SheerID student/corporate benefits, MyLenovo Rewards, or want ₹999 3-year ADP for peace of mind."
+      ],
+      "skipIf": [
+        "You need the laptop urgently and can’t wait 10–21 days for build/dispatch timelines.",
+        "A ready-to-ship marketplace configuration with a strong bank offer gives better final value today."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "Buy direct from Lenovo.com/in if you want a specific CTO configuration, student/corporate perks, and accidental damage protection value. Skip it if fast delivery matters more than customization, and compare final checkout value against Amazon/Flipkart first.",
+      "ctas": [
+        {
+          "label": "Check Lenovo India Official Store",
+          "href": "/go/lenovo-india?src=review-lenovo"
+        }
+      ]
+    },
+    {
+      "type": "prosCons",
+      "pros": [
+        "CTO options on ThinkPad/LOQ/Legion can help you get the right RAM, storage, and display without compromise.",
+        "SheerID student/corporate perks, rewards, and ₹999 3-year Accidental Damage Protection can add meaningful value versus marketplaces.",
+        "Official store checkout makes warranty/add-on choices clearer for long-term ownership."
+      ],
+      "cons": [
+        "Factory/custom orders can take 10–21 days (sometimes longer depending on configuration and location).",
+        "Marketplace sales with instant bank discounts can beat official-store pricing on prebuilt models.",
+        "Return/exchange expectations differ from quick-delivery marketplace purchases—read terms before ordering."
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Lenovo India — offer terms and conditions",
+          "url": "https://www.lenovo.com/in/en/lenovo-offer-details/",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Lenovo India — LOQ 15IRX9 listing (MTMs and prices)",
+          "url": "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/len101q0005",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Lenovo India — 83DV01K7IN listing (not available)",
+          "url": "https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15irx9/83dv01k7in",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "MRP rules — Legal Metrology (Maharashtra)",
+          "url": "https://www.legalmetrologymh.in/public/temp/368/919d4d8be0fbda825b0d10da72f6e1e7.pdf",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is Lenovo’s official store cheaper than Amazon or Flipkart?",
+          "a": "Sometimes, but not always. Official-store value often comes from CTO configurations, student/corporate perks, rewards, and add-ons like ADP. Marketplaces can win on fast delivery and instant bank discounts for prebuilt models."
+        },
+        {
+          "q": "How long does Lenovo India take to deliver CTO laptops?",
+          "a": "Custom/factory orders typically take around 10–21 days, but timelines vary by configuration, availability, and delivery location. Check the estimated timeline shown at checkout."
+        },
+        {
+          "q": "Is ₹999 Accidental Damage Protection worth it?",
+          "a": "It can be good value for students and frequent travelers who want protection against accidental drops/spills, but eligibility and coverage terms vary by product and plan. Read the ADP terms before adding it."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/lenovo-loq-and-thinkpad-india-official-store-review.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "Lenovo.com India Official Store Review (2026): CTO, Student Perks & Delivery | Durza",
+  "meta_description": "Honest review of buying Lenovo LOQ/Legion and ThinkPad laptops from Lenovo.com/in: CTO customization, student/corporate perks, ₹999 ADP value, and 10–21 day delivery reality.",
+  "facts_checked_at": "2026-11-25T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": "Updated Nov 2026",
+  "needs_review": false,
+  "category": "Laptops & Tech"
+}

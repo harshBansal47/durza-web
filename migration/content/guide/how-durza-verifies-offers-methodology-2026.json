@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "how-durza-verifies-offers-methodology-2026",
+  "title": "How Durza Verifies Offers (2026): Methodology and Limits",
+  "description": "How Durza approaches offer verification: crawl and parse signals, click-through checks, manual review, and clear limits. What 'verified' means, what it does not mean, and how to check before paying.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Readers who want to understand how Durza checks offers and what verification can and cannot guarantee.",
+        "Partners, contributors, or shoppers evaluating whether to trust a Durza offer label."
+      ],
+      "skipIf": [
+        "You need a guarantee that any specific offer will work for your account/cart — always verify in checkout."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "What does 'verified' mean at Durza?",
+      "body": "A verified offer has passed Durza's available checks at the time of review, such as source parsing, click-through/routing checks, and eligibility review where possible. It does not guarantee the offer will work for every user, cart, card, location, or time. Always confirm the final offer in the official checkout before paying.",
+      "ctas": [
+        {
+          "label": "See verification limits",
+          "href": "#checklist"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Before clicking: check the label context",
+          "body": "Look for the offer's checked date, eligibility notes, and any caveats. A code or deal without clear eligibility context should be treated as unverified until you confirm it."
+        },
+        {
+          "title": "At checkout: confirm the actual benefit",
+          "body": "The merchant checkout is the source of truth. Confirm the discount/cashback applies to your exact cart, account, card, and location before paying."
+        },
+        {
+          "title": "When something fails: treat it as stale",
+          "body": "If an offer does not apply, it may be expired, targeted, out of stock, or ineligible. Do not force a purchase based on an old listing; re-check the current terms."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Step",
+        "What Durza tries to do",
+        "What it does not guarantee"
+      ],
+      "rows": [
+        [
+          "Source/crawl",
+          "Collect offer signals from merchant/storefront sources",
+          "That the source is complete, current, or unchanged after capture"
+        ],
+        [
+          "Parse/normalize",
+          "Extract offer details like code, discount, eligibility and expiry where available",
+          "That every eligibility rule or exclusion was captured correctly"
+        ],
+        [
+          "Click-through/routing check",
+          "Confirm the offer route resolves and the destination is reachable",
+          "That the offer applies to your account, cart, or payment method"
+        ],
+        [
+          "Manual/editorial review",
+          "Review unclear or high-impact claims before publishing",
+          "That a human can catch every merchant-side change or edge case"
+        ],
+        [
+          "Recheck/de-list",
+          "Update or remove offers when evidence shows they are stale or invalid",
+          "Real-time removal the moment a merchant changes an offer"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Check the offer's date, eligibility notes, and source/context on Durza."
+        },
+        {
+          "body": "Open the official merchant page through the offer link and confirm the exact product/cart."
+        },
+        {
+          "body": "Apply the code or check the offer in checkout and confirm the final payable amount."
+        },
+        {
+          "body": "Review shipping, fees, taxes, return/refund and card/wallet eligibility before paying."
+        },
+        {
+          "body": "If the offer does not apply, do not count the saving; treat the listing as stale or ineligible."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "This methodology page was reviewed on 26 Nov 2026. It describes Durza's general verification approach and limits. It intentionally avoids invented performance metrics. For any specific offer, confirm the current merchant terms and checkout result before purchasing."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "No specific offer, coupon code, or discount is claimed as active on this page.",
+        "Verification is time-bound: merchant offers can change after review.",
+        "Checkout eligibility can vary by account, cart, location, device, card, wallet, or merchant rules."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "All Durza guides",
+              "href": "/guides"
+            },
+            {
+              "title": "Browse stores",
+              "href": "/stores"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does Durza verify every offer?",
+          "a": "Durza aims to review offers before publishing or labeling them, but verification coverage and depth can vary by source, offer type, and available evidence. Treat verification as a confidence signal, not a guarantee, and always confirm in checkout."
+        },
+        {
+          "q": "Why can a verified offer still fail?",
+          "a": "Merchant offers can expire, become targeted, exclude certain products/carts/cards, run out of stock, or change after review. Checkout is the final authority for whether an offer applies to you."
+        },
+        {
+          "q": "What should I do if an offer doesn't work?",
+          "a": "Do not complete the purchase assuming the discount will apply later. Check the offer terms, eligibility, and cart details. If it still fails, treat it as ineligible or stale and look for a currently applicable alternative."
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "How Durza Verifies Offers (2026): Methodology and Limits",
+  "meta_description": "How Durza approaches offer verification: crawl and parse signals, click-through checks, manual review, and clear limits. What 'verified' means, what it does not mean, and how to check before paying.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "evidenceBadges": [
+    "Methodology guide",
+    "No live offer claims"
+  ]
+}

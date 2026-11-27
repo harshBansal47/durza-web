@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "havells-vs-ao-smith-vs-crompton-water-heaters-india",
+  "title": "Havells vs. AO Smith vs. Crompton Geysers in India (2026): 8-Bar, Hard Water & Warranty Compared",
+  "description": "In Indian high-rises and hard-water cities, a 5-star sticker does not stop a tank from leaking in year three. Here is how three 15L storage geysers compare on rated pressure, tank coating, standing heat loss and warranty — using manufacturer spec sheets and published label data rather than marketing claims.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "High-rise apartment owners and homes with pressure pumps that need an 8-bar rated 15L–25L storage geyser.",
+        "Buyers in hard-water cities comparing glass-lined tanks, anode protection and tank warranty terms."
+      ],
+      "skipIf": [
+        "Buyers needing a 3L instant kitchen geyser or a gas/solar heater — this compares 15L bathroom storage models.",
+        "Renters in low-pressure independent houses where a basic 6.5-bar budget geyser is sufficient."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "All three are 8-bar, 2000W, 5-star 15L storage geysers, so the decision comes down to what you value. Havells Adonia Spin has the lowest published standing loss (0.419 kWh/24h) and the strongest warranty split (7-year tank, 4-year element, 2-year comprehensive). AO Smith HSE-SDS-015 uses a Blue Diamond glass-lined tank with a 7-year tank and 2+2-year element warranty, but its standing loss is higher at 0.451 kWh/24h and the anode is explicitly outside warranty. Crompton Arno Neo 15L is the value pick at a 5-year tank / 2-year element / 2-year product warranty — but we could not verify its standing-loss figure from an official source, so do not buy it on efficiency claims alone.",
+      "ctas": [
+        {
+          "label": "Havells",
+          "href": "/go/havells?src=compare-verdict"
+        },
+        {
+          "label": "Amazon India",
+          "href": "/go/amazon-in?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Havells Adonia Spin 15L",
+        "AO Smith HSE-SDS-015",
+        "Crompton Arno Neo 15L"
+      ],
+      "rows": [
+        [
+          "Rated pressure",
+          "8 bar (0.8 MPa)",
+          "8 bar (0.8 MPa)",
+          "8 bar (0.8 MPa)"
+        ],
+        [
+          "Tank & element",
+          "Feroglas single-weld steel tank; Incoloy 800 glass-coated element; heavy magnesium anode",
+          "Blue Diamond glass-lined tank; glass-coated Incoloy element; anode not covered by warranty",
+          "Anti-scale / Nano polymer-coated tank; copper-tube element; magnesium anode"
+        ],
+        [
+          "Standing loss (kWh/24h at 45°C)",
+          "0.419 (Havells brochure)",
+          "0.451 (AO Smith user guide)",
+          "Not published on the official page we checked — verify on the BEE label"
+        ],
+        [
+          "Reheat time",
+          "20 min to raise 50°C (Havells brochure)",
+          "12 min for a 35°C rise (AO Smith user guide)",
+          "Third-party listings say ~40 min; not confirmed on an official source"
+        ],
+        [
+          "Power / BEE rating",
+          "2000 W · 5 star",
+          "2000 W · 5 star",
+          "2000 W · 5 star"
+        ],
+        [
+          "Warranty (tank / element / product)",
+          "7 yr / 4 yr / 2 yr",
+          "7 yr / 2+2 yr / 2 yr (element extension needs registration within 60 days)",
+          "5 yr / 2 yr / 2 yr"
+        ],
+        [
+          "In the box",
+          "2 flexi pipes, wall-mounting accessory, shock-safe plug (Havells brochure)",
+          "Check the exact listing — hoses are not covered by AO Smith warranty",
+          "Geyser, multi-function valve, warranty card (listing)"
+        ],
+        [
+          "Price as reviewed*",
+          "MRP ₹19,510 on Havells brochure; street listing ₹10,990 seen on Smartprix",
+          "₹9,299 seen on Smartprix",
+          "₹5,699 seen in a third-party comparison; verify the live listing"
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "Out-of-the-Box Insider Reality (What Other Sites Won't Tell You)",
+      "items": [
+        "8 bar is a rating, not a guarantee. All three models here carry 8-bar (0.8 MPa) ratings, but the multi-function safety valve must be fitted correctly — AO Smith's manual explicitly warns against removing or tampering with it.",
+        "Wattage is not your electricity bill. Standing loss is what you pay while the tank sits hot between morning and evening use. Havells publishes 0.419 kWh/24h, AO Smith 0.451 kWh/24h. We could not confirm a Crompton figure from an official source, so treat any efficiency claim for it as unverified.",
+        "Element warranty is not tank warranty. Havells offers 4 years on the element; AO Smith offers 2+2 years only if you register within 60 days; Crompton offers 2 years. The longest tank warranty does not mean the longest element cover.",
+        "Anodes are consumables. AO Smith's warranty document states the anode is not covered and that the tank warranty can be void if it is removed or not replaced when consumed — budget for periodic service in hard-water areas.",
+        "*We did not purchase, install or physically test these water heaters. Prices are listing snapshots seen on 24 Nov 2026, not live quotes. Check the current price, pincode installation terms and exact SKU before paying.",
+        "Source quality: rows based on the Havells catalogue / AO Smith user guide draw on official documents; the Crompton standing-loss figure is unverified, and listing-based price rows should not be read as live quotes — treat each row accordingly before deciding."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "1. High-rise pressure — Winner: tie (all three are 8 bar)",
+      "paragraphs": [
+        "Every floor adds static pressure, and booster pumps push it higher. All three models in this comparison are rated to 8 bar (0.8 MPa), so none of them is automatically unsafe for a high-rise. Check the rating plate on the exact SKU you receive: older and budget variants from these brands can still be 6.5 bar."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "2. Hard-water tank longevity — Winner: Havells and AO Smith",
+      "paragraphs": [
+        "Havells uses a Feroglas single-weld steel tank with an Incoloy 800 glass-coated element and a heavy magnesium anode. AO Smith uses its Blue Diamond glass-lined tank with a glass-coated element. Crompton's anti-scale coating is rated for high TDS, but its element is a copper tube and the tank warranty is 5 years rather than 7. In high-TDS water, plan periodic descaling regardless of coating — AO Smith's own manual makes anode replacement a warranty condition."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "3. Standing heat loss — Winner: Havells (0.419 kWh/24h)",
+      "paragraphs": [
+        "Published standing loss is 0.419 kWh/24h at 45°C for the Havells Adonia Spin 15L and 0.451 kWh/24h for the AO Smith HSE-SDS-015. At typical Indian tariffs the gap is small in rupees per day, but it compounds over a year of standby operation. We could not verify a standing-loss number for the Crompton Arno Neo from an official page — do not assume 5-star means the same standby loss across brands."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "4. Price versus installation extras — Winner: Crompton (value)",
+      "paragraphs": [
+        "Listing snapshots on 24 Nov 2026 put the Crompton well below the other two, with a 5-year tank warranty. Havells' brochure lists 2 flexi pipes and a wall-mounting kit in the box; AO Smith's warranty excludes hoses and site plumbing work. Compare the final payable amount including installation and pipe kits, not just the product price."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "5. Warranty structure — Winner: Havells",
+      "paragraphs": [
+        "Havells: 7-year tank, 4-year element, 2-year comprehensive. AO Smith: 7-year tank, 2+2-year element only after registration within 60 days, 2-year product, with the anode excluded. Crompton: 5-year tank, 2-year element, 2-year product. If you plan to keep the geyser past year five, the element cover is the part that matters."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "What we verified, and what we did not",
+      "paragraphs": [
+        "A 25 Nov 2026 evidence pass confirmed the Havells Adonia Spin 15L official MRP of ₹19,510 against a Smartprix selling price of ₹10,990; the Crompton Arno Neo 15L at ₹5,699; and the AO Smith warranty and Blue Diamond lining from its official user manual. No verifiable live price was found for the AO Smith HSE-SDS-015, so we publish none. We did not purchase, install or physically test any of these water heaters, and we have not checked pincode-specific installation charges. Prices are dated snapshots and will change during sales."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Havells",
+          "points": [
+            "Check the exact 15L SKU, warranty card and installation terms.",
+            "Official store for model specs and service information."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/havells?src=compare-offer-card"
+        },
+        {
+          "store": "Amazon India",
+          "points": [
+            "Compare prices across all three brands and verify the seller.",
+            "Inspect the BEE label and rating plate on delivery."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "productLinks",
+      "items": [
+        {
+          "label": "Check live price — Crompton Arno Neo 15L",
+          "href": "https://www.amazon.in/dp/B08GSQXLJ2?tag=durza02-21&ascsubtag=compare_water_heater",
+          "note": "Verified ASIN. The Havells and AO Smith models do not yet have a verified product link on Durza."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Havells Water Heaters Catalogue",
+          "url": "https://havells.com/media/wysiwyg/Brochure-and-pricelist/Water_Heaters/Catalogue_Havells_Water_Heaters.pdf",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "AO Smith HSE-SDS user manual",
+          "url": "https://m.media-amazon.com/images/I/C1n43u2QsCL.pdf",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Smartprix — Havells vs AO Smith",
+          "url": "https://www.smartprix.com/geysers/havells_adonia_spin_15l_water__vs_ao_smith_hse_sds_15l_storage_w-cpd1zz56grqu_2310uv6sos9.php",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Smartprix — Havells vs Crompton",
+          "url": "https://www.smartprix.com/geysers/havells_adonia_spin_15l_water__vs_crompton_arno_neo_15_l_storage-cpd1zz56grqu_pd1apims3sp.php",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Which is the best 15L geyser for a high-rise in India?",
+          "a": "All three compared here are rated 8 bar (0.8 MPa), which is the figure to check for high-rise and pressure-pump use. On published data the Havells Adonia Spin 15L has the lowest standing loss (0.419 kWh/24h) and the longest element warranty (4 years); AO Smith HSE-SDS-015 has a 7-year tank but 2+2-year element cover; Crompton Arno Neo 15L is the value option with a 5-year tank warranty."
+        },
+        {
+          "q": "What does 8-bar pressure rating actually mean?",
+          "a": "It means the tank and its multi-function safety valve are designed for 0.8 MPa of water pressure — the figure that matters in tall buildings and with booster pumps. Verify it on the rating plate of the exact SKU, since budget variants from the same brands can be 6.5 bar."
+        },
+        {
+          "q": "Which geyser is better for hard water?",
+          "a": "Havells' Feroglas single-weld tank with an Incoloy 800 glass-coated element and AO Smith's Blue Diamond glass-lined tank are both designed for demanding water. Crompton's anti-scale coating is rated for high TDS too, but its element warranty is shorter. In all cases, periodic descaling and anode replacement matter more than the coating name."
+        },
+        {
+          "q": "Does the 5-star rating tell me my electricity bill?",
+          "a": "Not by itself. Standing loss (kWh per 24 hours at 45°C) is the number that reflects standby cost. Havells publishes 0.419 and AO Smith 0.451 for the models here. We could not verify Crompton's figure from an official source, so do not compare on the star sticker alone."
+        },
+        {
+          "q": "Did Durza physically test these water heaters?",
+          "a": "No. We compared manufacturer spec sheets, warranty documents and published retail listings accessed on 24 Nov 2026. Prices are dated snapshots, not live quotes, and we have not verified pincode-specific installation charges."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "credit-card-instant-discount-vs-no-cost-emi-india",
+              "href": "/compare/credit-card-instant-discount-vs-no-cost-emi-india"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Havells BLDC fan offers and honest savings math",
+              "href": "/guides/havells-bldc-fan-offers-guide"
+            },
+            {
+              "title": "How to save on Amazon India",
+              "href": "/guides/how-to-save-on-amazon-india"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Home & Appliances topic hub",
+              "href": "/topics/home"
+            },
+            {
+              "title": "Home & Kitchen category",
+              "href": "/categories/home-kitchen"
+            },
+            {
+              "title": "High-rise apartment setup kit",
+              "href": "/collections/high-rise-indian-apartment-utility-and-diy-kit"
+            },
+            {
+              "title": "Havells BLDC electricity savings calculator",
+              "href": "/stores/havells/bldc-calculator"
+            },
+            {
+              "title": "Havells Adonia Spin 15L offer",
+              "href": "/coupons/havells-adonia-spin-15-litre-storage-water-heater"
+            },
+            {
+              "title": "Crompton Arno Neo 15L offer",
+              "href": "/coupons/crompton-arno-neo-15l-storage-water-heater"
+            },
+            {
+              "title": "Havells store hub",
+              "href": "/stores/havells"
+            },
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/havells-vs-ao-smith-vs-crompton-water-heaters-india.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "Havells vs AO Smith vs Crompton Geyser India 2026: 15L 5-Star Compared | Durza",
+  "meta_description": "Compare the Havells Adonia Spin 15L, AO Smith HSE-SDS-015 and Crompton Arno Neo 15L on 8-bar pressure, BEE standing loss, hard-water tank protection and warranty — with numbers from official spec sheets.",
+  "facts_checked_at": "2026-11-24T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "Havells vs AO Smith vs Crompton geyser India",
+    "best 15L geyser high rise India",
+    "8 bar pressure water heater",
+    "BEE 5 star geyser standing loss",
+    "hard water geyser tank warranty",
+    "Havells Adonia Spin vs AO Smith HSE-SDS-015"
+  ],
+  "category": "Health & Home"
+}

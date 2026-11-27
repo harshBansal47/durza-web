@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "kind": "comparison",
+  "slug": "black-friday-2026-india-best-deals-vs-regular-sale",
+  "title": "Black Friday 2026 India vs. Regular Sales: Which Categories to Check First — and How to Verify the Final Price",
+  "description": "A sale banner is not proof of a lower price: MRP is a tax-inclusive ceiling (PC Rules 2011, r.2(m)), and tracked laptop prices in Black Friday week sat above their earlier-2026 prices. Compare the final payable against recent prices for the same SKU.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers in India who already have a laptop model in mind and want to compare final payable prices across stores.",
+        "Anyone who wants to know which 2026 sale windows are officially confirmed and which are still unannounced."
+      ],
+      "skipIf": [
+        "Anyone expecting a guaranteed bank discount — caps, minimums and payment-mode exclusions are documented in the offer terms, and offers can be withdrawn.",
+        "Readers who want a hands-on tested verdict. This page uses published listings and official documents checked 25 Nov 2026; Durza did not physically test any product."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "quick",
+      "body": "If you already have a laptop model in mind, check the live offers first — but verify the final payable against recent prices: on 25 Nov 2026, tracked Black-Friday-week laptop prices sat above their 1 November levels. For 4K TVs and premium ANC audio, no dated Black Friday price was verified — check the exact model on the store. For fashion, beauty and groceries, compare the same item against a regular-sale price before paying. Confirm the final amount with any card offer applied.",
+      "ctas": [
+        {
+          "label": "Amazon",
+          "href": "/go/amazon-in?src=compare-verdict"
+        },
+        {
+          "label": "Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict-secondary"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "side-by-side",
+      "columns": [
+        "Factor",
+        "Black Friday (India)",
+        "Regular sales"
+      ],
+      "rows": [
+        [
+          "Best for",
+          "Laptops have verified live offer listings (Lenovo, ASUS, Acer, checked 25 Nov 2026). For 4K TVs no dated Black Friday listing was verified — check the exact model before assuming a drop.",
+          "Fashion, beauty and groceries: compare against regular-sale prices. Nykaa's pages show regular versus revealed Pink Friday prices for the same item (checked 25 Nov 2026)."
+        ],
+        [
+          "Confirmed 2026 window",
+          "Flipkart's official page listed 21–27 Nov 2026; Tata CLiQ's release and T&C listed 19–30 Nov 2026; Lenovo India's offer terms listed 24 Nov–2 Dec 2026 (checked 25 Nov 2026).",
+          "Myntra's official blog lists summer EORS 2026 (29 May–14 June); winter EORS is only expected 5–15 Dec and is not confirmed on Myntra's live page."
+        ],
+        [
+          "Bank offers",
+          "Tata CLiQ's Amex T&C (checked 25 Nov 2026): 12.5% instant, min ₹3,000, max ₹1,500, once per card, code AMEXTCFBFS. Axis and Kotak are named at 12.5% in the press release, but caps and minimums are not stated — check the store.",
+          "Card offers have their own caps, minimums and exclusions in every event — check them before paying."
+        ],
+        [
+          "Price pattern",
+          "MRP is a legal tax-inclusive ceiling, not a baseline (PC Rules 2011 r.2(m), 6(1)(e), 18(2); checked 25 Nov 2026). The same ASUS FA401EA-RG020WS showed ₹3,23,990 MRP at ASUS eStore and a ₹2,59,990 reference at Flipkart that day — compare the final payable.",
+          "Match the full model code across dated pages; a series name is not a SKU."
+        ],
+        [
+          "Risk",
+          "Flipkart's SBI Debit T&C (checked 25 Nov 2026) says the product-page discount applies to select cards and to check the discount on the Payment page. Opened T&Cs cap savings per card, refresh offers and allow withdrawal without notice.",
+          "Outside big events, card offers still carry caps, minimums and payment-mode exclusions — check them before paying."
+        ],
+        [
+          "Smart move",
+          "Record the cart summary before paying; re-check if the amount changes.",
+          "Keep a note of the regular-sale price for the same SKU."
+        ]
+      ]
+    },
+    {
+      "type": "bullets",
+      "heading": "What we verified, and what we did not",
+      "items": [
+        "MRP is the maximum tax-inclusive price (rule 2(m)); a reduced MRP may be shown only without hiding the original (rule 6(3), DoCA FAQ, checked 25 Nov 2026). CCPA penalised FirstCry (₹2,00,000) and Zepto (₹7,00,000) for adding charges at checkout (Rajya Sabha reply, 4 Aug 2026). What matters is the final payable after card offers and exclusions — not how common padded MRPs are, which we did not verify.",
+        "A displayed discount can fail at payment if your card or product is ineligible, the payment mode is excluded (UPI, net banking, COD, debit non-EMI, Amazon Pay balance part-payment), the minimum is not met, or your per-card limit is exhausted (offers refresh daily or periodically). Flipkart's SBI T&C explicitly says to check the discount on the Payment page. Keep an eligible alternative ready.",
+        "Record the cart and payment summary before you pay. If the amount changes, that record lets you compare options instead of guessing."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Check the final amount before you pay",
+      "paragraphs": [
+        "The official 2026 windows we could verify on 25 Nov 2026 are Flipkart 21–27 Nov, Tata CLiQ 19–30 Nov and Lenovo India offers 24 Nov–2 Dec. Amazon India's official page (updated 19 Nov 2026) says its Black Friday Sale is returning but dates will be announced — not yet confirmed on the live site as of 25 Nov 2026. Treat a calendar date as evidence only when a store's own page confirms it.",
+        "Record the exact model code, selling price, MRP or reference shown, seller, coupon, bank-offer terms and final payable on the payment screen. That is the comparison that matters."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Categories worth checking during Black Friday",
+      "paragraphs": [
+        "Verified laptop examples checked 25 Nov 2026: Lenovo LOQ 83DV01KYIN ₹1,58,491 (MRP ₹2,49,591); ASUS FA401EA-RG020WS ₹2,49,990 (MRP ₹3,23,990); Acer Nitro UN.U7PSI.008 ₹1,64,990 (MRP ₹2,83,990). GoBoult Anchor (ANC-marketed) was ₹2,499 (MRP ₹9,999). No dated Black Friday listing was verified for 4K TVs or premium ANC audio outside Boult — verify on the store.",
+        "Match the full model code, not the series name. Worked example: FA401EA-RG020WS was ₹2,54,000 at Flipkart and ₹2,49,990 at ASUS eStore on 25 Nov 2026 — a ₹4,010 difference by our arithmetic on published listings, not a live quote. The sellers differ (GamingIcons vs AYR Technologies), so warranty and returns differ too. Amazon.in buyboxes were not readable on 25 Nov 2026 — verify on the store before treating any Amazon price as current."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Categories to compare against regular sales",
+      "paragraphs": [
+        "Tracked prices show why a baseline matters: PriceHistory.app recorded Lenovo LOQ 83DV01AAIN at ₹1,04,990 on 1 Nov 2026 and ₹1,17,990 on 24 Nov 2026 — 12.38% higher in Black Friday week, by our calculation from a third-party record, not a live quote. The same tracker shows 83DV00BHIN at ₹87,999 on 20 Mar 2026 versus ₹1,14,690 on 23 Nov 2026. Verify the exact SKU on the store.",
+        "For fashion, beauty and groceries, compare the exact item against a regular-sale price before paying. Nykaa's price-reveal page checked 25 Nov 2026 showed L'Oréal Extraordinary Oil Serum at ₹719 current and ₹439 as a revealed Pink Friday price — a reveal, not yet a payable price."
+      ]
+    },
+    {
+      "type": "offerCards",
+      "items": [
+        {
+          "store": "Amazon",
+          "points": [
+            "Compare final payable prices on electronics and check card-offer terms shown on the product page.",
+            "Useful as a reference point when you want a second listing for the same model."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/amazon-in?src=compare-offer-card"
+        },
+        {
+          "store": "Lenovo India",
+          "points": [
+            "Check official laptop pricing and warranty add-ons when a marketplace deal looks close.",
+            "Offer terms checked 25 Nov 2026 list 24 Nov–2 Dec 2026 cashback, paid after delivery, not at checkout."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/lenovo-india?src=compare-offer-card"
+        },
+        {
+          "store": "ASUS India",
+          "points": [
+            "The eStore listing names AYR Technologies as seller and ASUS India as importer — check warranty and returns.",
+            "Compare the full model code, not the series name."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/asus?src=compare-offer-card"
+        },
+        {
+          "store": "Acer India",
+          "points": [
+            "Official laptop listings checked 25 Nov 2026 show Special Prices against MRP with taxes included.",
+            "The opened pages state only one offer applies — verify terms before paying."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/acer?src=compare-offer-card"
+        },
+        {
+          "store": "Tata CLiQ",
+          "points": [
+            "Press release lists Black Friday 19–30 Nov 2026; Amex 12.5% slab has a ₹1,500 cap and ₹3,000 minimum.",
+            "Product pages were not readable on 25 Nov 2026 — verify prices on the store."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/tatacliq-com-ecommerce-cps-india?src=compare-offer-card"
+        },
+        {
+          "store": "Boult",
+          "points": [
+            "Anchor was ₹2,499 against ₹9,999 MRP on 25 Nov 2026; the page markets ANC but its spec block says ENC — verify on the store.",
+            "Compare the final amount with other listings before paying."
+          ],
+          "ctaLabel": "Check live price",
+          "href": "/go/boult?src=compare-offer-card"
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Flipkart — Black Friday Sale store (21–27 Nov 2026)",
+          "url": "https://www.flipkart.com/black-friday-sale-store",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Tata CLiQ — Black Friday sale press release (19–30 Nov 2026)",
+          "url": "https://www.businesswireindia.com/tata-cliq-luxury-and-tata-cliq-fashion's-black-friday-sale-promises-an-exciting-start-to-the-holiday-shopping-season-102737.html",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Tata CLiQ — American Express Black Friday offer T&C",
+          "url": "https://www.tatacliq.com/terms/amx-bfs-tnc",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Lenovo India — offer terms and conditions (24 Nov–2 Dec 2026)",
+          "url": "https://www.lenovo.com/in/en/lenovo-offer-details/",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Legal Metrology (Maharashtra) — Packaged Commodities Rules text",
+          "url": "https://www.legalmetrologymh.in/public/temp/368/919d4d8be0fbda825b0d10da72f6e1e7.pdf",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Department of Consumer Affairs — Legal Metrology FAQ",
+          "url": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Frequently_Asked_Questions_on_Legal_Metrology_whatsnews.pdf",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Rajya Sabha Q1798 reply (4 Aug 2026) — CCPA drip-pricing penalties",
+          "url": "https://sansad.in/getFile/annex/271/AU1798_Gxsxwg.pdf?source=pqars",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "PriceHistory.app — Lenovo LOQ 83DV01AAIN (Flipkart record)",
+          "url": "https://pricehistory.app/p/lenovo-loq-15irx9-intel-core-i5-13th-H36pSjG5",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "PriceHistory.app — Lenovo LOQ 83DV00BHIN (Amazon record)",
+          "url": "https://pricehistory.app/p/lenovo-loq-intel-core-i5-13450hx-13th-yhKf7t2h",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "ASUS eStore — TUF A14 FA401EA-RG020WS",
+          "url": "https://in.store.asus.com/asus-tuf-gaming-a14-fa401ea-rg020ws-copilot-pc-gaming-laptop.html",
+          "checkedAt": "25 Nov 2026"
+        },
+        {
+          "title": "Flipkart — TUF A14 FA401EA-RG020WS listing",
+          "url": "https://www.flipkart.com/asus-tuf-gaming-a14-2026-office-2024-m365-basic-ai-pc-npu-upto-50tops-amd-ryzen-max-32-gb-1-tb-ssd-windows-11-home-amd-radeon-8060s-165-hz-fa401ea-rg020ws-laptop/p/itm456a598c5ceae",
+          "checkedAt": "25 Nov 2026"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Is Black Friday actually cheaper in India?",
+          "a": "Not necessarily. Flipkart's Black Friday sale ran 21–27 Nov 2026 (official page, checked 25 Nov 2026), but a third-party record shows Lenovo LOQ 83DV01AAIN at ₹1,17,990 on 24 Nov versus ₹1,04,990 on 1 Nov 2026 — our calculation from published tracker figures (12.38% higher), not a live quote. Verify the exact SKU."
+        },
+        {
+          "q": "Why might my bank discount not appear at checkout?",
+          "a": "Flipkart's SBI Debit T&C says the product-page discount applies to select cards and to check the Payment page. Opened terms also exclude UPI, net banking, COD, debit non-EMI and wallet part-payment, require minimum spends, cap savings per card and allow withdrawal without notice. Re-check the final amount before paying."
+        },
+        {
+          "q": "Should I trust the MRP shown during Black Friday?",
+          "a": "MRP is a legal tax-inclusive ceiling (rule 2(m), 6(1)(e); rule 18(2) prohibits selling above it), not a 'usual price' benchmark. The same ASUS FA401EA-RG020WS showed different strike-through references at two stores on 25 Nov 2026. Compare the final payable."
+        },
+        {
+          "q": "What should I record before paying?",
+          "a": "Record the exact model code, selling price, MRP or reference shown, seller, coupon, bank-offer terms (family, cap, minimum), the final payable on the payment screen, and the date and time. That lets you compare if the amount changes."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Comparisons",
+          "links": [
+            {
+              "title": "credit-card-instant-discount-vs-no-cost-emi-india",
+              "href": "/compare/credit-card-instant-discount-vs-no-cost-emi-india"
+            },
+            {
+              "title": "mrp-vs-recent-price-india-sale-baseline",
+              "href": "/compare/mrp-vs-recent-price-india-sale-baseline"
+            },
+            {
+              "title": "best-laptop-deals-india-amazon-vs-flipkart-2026",
+              "href": "/compare/best-laptop-deals-india-amazon-vs-flipkart-2026"
+            }
+          ]
+        },
+        {
+          "label": "Guides",
+          "links": [
+            {
+              "title": "Lenovo India laptop offers guide",
+              "href": "/guides/lenovo-laptop-offers-india-2026"
+            },
+            {
+              "title": "How to match laptop model codes",
+              "href": "/guides/how-to-match-laptop-model-codes-india"
+            },
+            {
+              "title": "Acer laptop deals guide",
+              "href": "/guides/best-acer-laptop-deals-promo-codes"
+            },
+            {
+              "title": "India sale calendar 2026",
+              "href": "/guides/sale-calendar-india-eors-pink-friday-2026"
+            }
+          ]
+        },
+        {
+          "label": "Reviews & stores",
+          "links": [
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            },
+            {
+              "title": "Lenovo store hub",
+              "href": "/stores/lenovo"
+            },
+            {
+              "title": "ASUS store hub",
+              "href": "/stores/asus"
+            },
+            {
+              "title": "Boult store hub",
+              "href": "/stores/boult"
+            },
+            {
+              "title": "Tata CLiQ store hub",
+              "href": "/stores/tatacliq-com-ecommerce-cps-india"
+            },
+            {
+              "title": "Black Friday deals hub",
+              "href": "/black-friday"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hero_image_url": "/guides/sale.webp",
+  "author_name": "Harsh Bansal",
+  "seo_title": "Black Friday 2026 India vs Regular Sales: What to Check First | Durza",
+  "meta_description": "Flipkart and Tata CLiQ have confirmed 2026 Black Friday windows; Amazon India has not. Compare final payable prices, bank-slab caps and recent same-SKU baselines instead of trusting a strike-through MRP.",
+  "facts_checked_at": "2026-11-25T00:00:00.000Z",
+  "published_at": null,
+  "updated_at": null,
+  "needs_review": false,
+  "keywords": [
+    "Black Friday sale India 2026",
+    "Black Friday vs regular sale India",
+    "bank instant discount India",
+    "final payable price comparison",
+    "laptop TV deals India"
+  ],
+  "category": "Sale & Card Math"
+}

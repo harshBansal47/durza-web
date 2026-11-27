@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "kind": "guide",
+  "slug": "neesh-perfumes-extrait-de-parfum-guide",
+  "title": "Neesh Perfumes — Extrait, Concentration & Cost per ml (2026)",
+  "description": "We compared Neesh's stated ₹/ml across 15, 50 and 100 ml packs, then separated fragrance conventions from claims we could not verify. Trial first, bottle later.",
+  "status": "published",
+  "content_blocks": [
+    {
+      "type": "audience",
+      "forWho": [
+        "Shoppers deciding whether a 15 ml, 50 ml or 100 ml Neesh bottle gives the better cost per millilitre.",
+        "Buyers who want to trial a scent in Indian heat before committing to a full bottle."
+      ],
+      "skipIf": [
+        "Anyone expecting a regulated, published oil percentage for 'Extrait de Parfum' — we found none on the pages we checked.",
+        "Shoppers relying on the old LUXE20, NEESH10 or DISCOVERY codes and the '8–12 hours' figure — none were verified.",
+        "Anyone with fragrance sensitivity; an extrait is a concentrated leave-on product and should be patch tested on skin."
+      ]
+    },
+    {
+      "type": "verdict",
+      "variant": "answer10s",
+      "heading": "Which Neesh bottle size is best value, and is 'Extrait de Parfum' a regulated strength?",
+      "body": "The official Mehr product page, read via an indexed snippet because direct fetching was rate-limited, states ₹100 per ml at 15 ml, ₹99.8 per ml at 50 ml and ₹68.5 per ml at 100 ml — about ₹1,500, ₹4,990 and ₹6,850 respectively. The 100 ml pack is clearly the best stated rate, but only if you will wear that much. 'Extrait de Parfum' is an industry term, not a regulated percentage, and Neesh did not publish an oil percentage on the pages we checked. The old 18–30% and 8–12-hour claims are unverified.",
+      "ctas": [
+        {
+          "label": "See the cost-per-ml maths",
+          "href": "#scenarios"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Cost per ml — the numbers Neesh itself publishes",
+          "body": "The indexed Mehr product page states a USP of ₹100/ml at 15 ml, ₹99.8/ml at 50 ml and ₹68.5/ml at 100 ml. Multiplying out gives roughly ₹1,500, ₹4,990 and ₹6,850. The small and medium packs are almost identically priced per ml; the 100 ml pack is materially cheaper per ml. These are derived from the brand's own figures, not from a checked cart."
+        },
+        {
+          "title": "Trial sets before full bottles",
+          "body": "The storefront lists Trial Sets, Collector's Edition bottles, Combo offers including 'Buy any 2 × 15ml at ₹2499' and four-piece seasonal combos, My Closet (4 × 10 ml), gift sets and an offline-store locator. In a climate where heat changes how a scent opens, a trial set is a sensible first purchase. Older Durza copy named a DISCOVERY code and an eight-piece kit with ₹300 off; we could not verify that from the official site."
+        },
+        {
+          "title": "Extrait, EDP, EDT — conventions, not law",
+          "body": "General perfumery references put parfum or extrait around 20–30% fragrance oil, EDP around 15–20%, EDT around 5–15% and body mist lower, while noting that no regulator defines these terms and each house sets its own. Neesh describes its line as high-concentration extrait de parfum but did not publish a percentage on the pages we read. Do not convert the word 'extrait' into a guaranteed number."
+        },
+        {
+          "title": "Mehr's published note pyramid",
+          "body": "The indexed product snippet describes Mehr as fruity, floral and woody, with passionfruit, jasmine and bergamot at the top; red berries, amberwood and lily of the valley at the heart; and musk and sandalwood at the base. That is a brand description of the accord, not a laboratory analysis and not a statement about how long each note lasts on your skin."
+        },
+        {
+          "title": "What we could not verify",
+          "body": "Older Durza copy claimed 18–30% concentration, 8–12 hours of wear, that one dab beats three sprays, LUXE20 on gift boxes, NEESH10 sitewide and free delivery above ₹499. We found no official source for the percentage, the hours, the dab comparison or those specific codes and thresholds. A FESTIVE20 flat 20% banner was visible on the storefront on the check date, but banners rotate."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Pack / format",
+        "Brand-stated ₹ per ml",
+        "Derived pack total",
+        "Verification note"
+      ],
+      "rows": [
+        [
+          "Mehr Extrait de Parfum 15 ml",
+          "₹100/ml (official indexed product page)",
+          "≈₹1,500",
+          "Direct fetch rate-limited; marketplace listing showed ₹1,456 against ₹1,500 MRP"
+        ],
+        [
+          "Mehr Extrait de Parfum 50 ml",
+          "₹99.8/ml (official indexed product page)",
+          "≈₹4,990",
+          "Derived arithmetic; confirm at checkout"
+        ],
+        [
+          "Mehr Extrait de Parfum 100 ml",
+          "₹68.5/ml (official indexed product page)",
+          "≈₹6,850",
+          "Best stated rate per ml; only a saving if you will wear the full bottle"
+        ],
+        [
+          "My Closet 4 × 10 ml / trial sets",
+          "Not stated on the pages we read",
+          "Not calculated",
+          "Listed on the official storefront; no verified price or code"
+        ],
+        [
+          "Concentration percentage",
+          "Not published by Neesh on the pages we checked",
+          "Not applicable",
+          "18–30% and 8–12-hour claims from older copy remain unverified"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "body": "Trial first. Use a discovery or 10 ml format if you are unsure how a scent behaves in Indian heat."
+        },
+        {
+          "body": "Compare the brand's stated ₹/ml across sizes. At 100 ml the rate is clearly lower, but only buy that volume if you will finish it."
+        },
+        {
+          "body": "Check whether a storefront banner code such as FESTIVE20 applies to your cart; we did not verify fixed codes or stacking rules."
+        },
+        {
+          "body": "Patch test any concentrated fragrance on skin before regular wear, especially if you have sensitive skin."
+        },
+        {
+          "body": "Compare the final payable amount on the brand site and a marketplace listing — seller and return terms differ."
+        }
+      ]
+    },
+    {
+      "type": "keyValue",
+      "items": [
+        {
+          "label": "Neesh publishes a per-ml price on the Mehr page.",
+          "value": "The indexed official product listing states ₹100/ml at 15 ml, ₹99.8/ml at 50 ml and ₹68.5/ml at 100 ml. The 100 ml pack is the cheapest stated rate per ml."
+        },
+        {
+          "label": "The storefront is organised into named collections.",
+          "value": "Heritage, Haute, Bureau, Luxe and Florelle collections are listed, alongside Trial Sets, combos, My Closet 4 × 10 ml, gift sets and an offline-store page. A festive-season flat 20% banner was visible on the check date."
+        },
+        {
+          "label": "Mehr's note pyramid is brand-described.",
+          "value": "The product snippet lists passionfruit, jasmine and bergamot; red berries, amberwood and lily of the valley; musk and sandalwood. It is an accord description, not an ingredient or performance test."
+        },
+        {
+          "label": "Concentration terms are conventions, not regulated values.",
+          "value": "A perfumery reference explains that parfum/extrait, EDP and EDT ranges are industry practice and that no regulator defines the terms; houses set their own. We found no Neesh-published percentage."
+        },
+        {
+          "label": "Marketplace prices differ from the brand's stated rate.",
+          "value": "A marketplace listing showed Mehr 15 ml at ₹1456 against a ₹1500 MRP. That is a snapshot and not the official store price."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "We checked the official Neesh storefront, an indexed snippet of the Mehr product page, marketplace listings and a fragrance-concentration reference on 26 Nov 2026. Direct product-page fetching was rate-limited. Pack totals are arithmetic from the brand's own ₹/ml figures. The old 18–30% concentration, 8–12-hour wear, dab-versus-spray and fixed-code claims could not be verified and are not presented as facts. We did not buy, smell or wear any fragrance. Durza earns a commission on qualifying purchases through tracked links at no extra cost to you."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "'Extrait de Parfum' is a naming convention with no regulator-enforced oil percentage.",
+        "Longevity depends on skin chemistry, heat, humidity and application, not on a label word alone.",
+        "A lower ₹/ml only helps if you finish the bottle; fragrance can change over long storage in Indian heat.",
+        "Concentrated fragrance should be patch tested; stop use if irritation occurs.",
+        "Marketplace MRPs and discounts are snapshots and are not the brand's official price."
+      ]
+    },
+    {
+      "type": "related",
+      "groups": [
+        {
+          "label": "Explore",
+          "links": [
+            {
+              "title": "Beauty & Grooming category",
+              "href": "/categories/beauty"
+            },
+            {
+              "title": "Beauty & Grooming topic hub",
+              "href": "/topics/beauty"
+            },
+            {
+              "title": "Victoria's Secret fragrance guide",
+              "href": "/guides/victorias-secret-india-fragrance-sizing-guide"
+            },
+            {
+              "title": "Neesh Perfumes store hub",
+              "href": "/stores/neesh-perfumes"
+            },
+            {
+              "title": "Hira Fragrance store hub",
+              "href": "/stores/hirafragrance"
+            },
+            {
+              "title": "Amazon India store hub",
+              "href": "/stores/amazon-in"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Which Neesh size gives the best value?",
+          "a": "On the figures stated on the official Mehr page, 100 ml works out to about ₹68.5 per ml versus about ₹100 per ml at 15 ml and ₹99.8 at 50 ml. That is a better rate, but it is only a saving if you will wear the whole bottle."
+        },
+        {
+          "q": "Is Extrait de Parfum 18–30% oil?",
+          "a": "That range is a common industry convention, not a verified Neesh specification. We found no oil percentage published on the pages we checked, so we do not state one for this brand."
+        },
+        {
+          "q": "Will it last 8–12 hours?",
+          "a": "We cannot promise that. We found no official longevity test, and wear time depends on your skin and the weather. The old 8–12-hour figure in Durza copy was not verified."
+        },
+        {
+          "q": "Should I buy a trial set first?",
+          "a": "Yes, if you are unsure. The storefront lists trial sets, 10 ml formats and multi-piece combos, which let you test how a scent behaves before paying for a 100 ml bottle."
+        },
+        {
+          "q": "Did Durza smell or test these fragrances?",
+          "a": "No. We read official and indexed pages and marketplace listings on 26 Nov 2026, purchased nothing and make no performance claims."
+        }
+      ]
+    },
+    {
+      "type": "sources",
+      "items": [
+        {
+          "title": "Official Neesh Perfumes storefront",
+          "url": "https://www.neeshperfumes.com",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Neesh Mehr Extrait de Parfum product page (indexed snippet; direct fetch rate-limited)",
+          "url": "https://neeshperfumes.com/products/mehr-1",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Amazon India — Neesh Mehr Extrait de Parfum 15 ml",
+          "url": "https://www.amazon.in/NEESH-Extrait-Perfume-Lasting-High-Concentration/dp/B0CR8N2556",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Myntra — Neesh fragrance listings",
+          "url": "https://www.myntra.com/neesh-perfume",
+          "checkedAt": "26 Nov 2026"
+        },
+        {
+          "title": "Perfume concentration conventions (industry reference, not a regulator)",
+          "url": "https://luxeformulalabs.com/blog/perfume-concentration-guide/",
+          "checkedAt": "26 Nov 2026"
+        }
+      ]
+    }
+  ],
+  "hero_image_url": null,
+  "author_name": "Harsh Bansal",
+  "seo_title": "Neesh Perfumes — Extrait, Concentration & Cost per ml (2026)",
+  "meta_description": "We compared Neesh's stated ₹/ml across 15, 50 and 100 ml packs, then separated fragrance conventions from claims we could not verify. Trial first, bottle later.",
+  "facts_checked_at": "26 Nov 2026",
+  "published_at": "14 Nov 2026",
+  "updated_at": "26 Nov 2026",
+  "needs_review": false,
+  "stickyCta": {
+    "label": "Check live offers on neeshperfumes.com",
+    "href": "https://track.vcommission.com/click?campaign_id=10175&pub_id=133499&url=https%3A%2F%2Fwww.neeshperfumes.com&p1=guide_neesh-perfumes-extrait-de-parfum-guide"
+  },
+  "evidenceBadges": [
+    "Official product page (indexed)",
+    "Industry-convention reference",
+    "Unverified claims flagged"
+  ]
+}
