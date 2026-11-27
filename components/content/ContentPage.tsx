@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import DisclosureNote from "@/components/DisclosureNote";
 import JsonLd from "@/components/JsonLd";
@@ -128,6 +129,19 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
         </div>
         <p className="mt-2 text-xs leading-5 text-ink-soft">{AUTHOR_BIO}</p>
       </header>
+
+      {page.hero_image_url ? (
+        <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-3xl border border-ledger-line bg-paper-raised">
+          <Image
+            src={page.hero_image_url}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover"
+            priority
+          />
+        </div>
+      ) : null}
 
       <div className="prose-content">
         <BlockRenderer blocks={page.content_blocks} />
