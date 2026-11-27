@@ -462,25 +462,3 @@ export function OrderedListBlock({ items }: { items: string[] }) {
 }
 
 export type { ContentBlock };
-
-export function TierTableBlock() { return null; }
-export function ExplorerBlock() { return null; }
-export function CollectionGroupBlock({ items }: { items: any[] }) {
-  return (
-    <div>
-      {items?.map((it, i) => {
-        const o = it?._original || {};
-        const href = o.ctaHref || it?.href || "#";
-        return (
-          <div key={i}>
-            <a href={href}>{o.name || it?.product}</a>
-            {o.why ? <p>{o.why}</p> : null}
-            {o.skipIf ? <p>{o.skipIf}</p> : null}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-export function QuickPicksBlock() { return null; }
-export function KitTrayBlock() { return null; }
