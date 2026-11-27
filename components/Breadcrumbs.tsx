@@ -15,7 +15,7 @@ export interface Crumb {
  * and the visible links give crawlers a real path from each page up to its parents.
  * The last crumb is the current page: shown as text, not a link.
  */
-export default function Breadcrumbs({ items, className = "mb-4" }: { items: Crumb[]; className?: string }) {
+export default function Breadcrumbs({ items, className = "mb-4 px-4 pt-4 sm:px-6 lg:px-8" }: { items: Crumb[]; className?: string }) {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(items)} />
