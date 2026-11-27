@@ -36,13 +36,13 @@ describe("CouponFilterPanel", () => {
   });
 
   it("keeps every other filter when one control changes", () => {
-    h.search = "q=shoes&rate=80&expires=7";
+    h.search = "q=shoes&rate=80";
     render(<CouponFilterPanel stores={stores} categories={categories} />);
 
-    fireEvent.click(screen.getByRole("button", { name: /Any kind/ }));
-    fireEvent.click(screen.getByRole("option", { name: "Percentage off" }));
+    fireEvent.click(screen.getByRole("button", { name: /^All$/ }));
+    fireEvent.click(screen.getByRole("option", { name: "Codes only" }));
 
-    expect(lastPush()).toBe("/coupons?q=shoes&rate=80&expires=7&type=percentage");
+    expect(lastPush()).toBe("/coupons?q=shoes&rate=80&code=codes");
   });
 
   it("clears filters but keeps the search the visitor typed", () => {

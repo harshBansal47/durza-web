@@ -46,9 +46,9 @@ describe("parseFilters", () => {
       category: "fashion",
       type: "percentage",
       code: "codes",
-      confirmed: "7d",
-      rate: "80",
-      expires: "30",
+      confirmed: "once",
+      rate: "",
+      expires: "7",
       sort: "ending_soon",
     });
     expect(filters).toEqual({
@@ -57,9 +57,9 @@ describe("parseFilters", () => {
       category: "fashion",
       type: "percentage",
       code: "codes",
-      confirmed: "7d",
-      rate: "80",
-      expires: "30",
+      confirmed: "once",
+      rate: "",
+      expires: "7",
       sort: "ending_soon",
     });
   });
@@ -88,20 +88,19 @@ describe("toCouponQuery", () => {
       category: "fashion",
       type: "fixed",
       code: "deals",
-      confirmed: "30d",
-      rate: "95",
+      confirmed: "once",
+      rate: "",
       expires: "7",
-      sort: "trending",
+      sort: "newest",
     });
     expect(toCouponQuery(filters, { category_id: "c1" }, { skip: 40, limit: 20 })).toEqual({
       search: "shoes",
       category_id: "c1",
       discount_type: "fixed",
       has_code: false,
-      verified_within_hours: 24 * 30,
-      min_success_rate: 0.95,
+      verified: true,
       expires_within_days: 7,
-      sort: "trending",
+      sort: "newest",
       active_only: true,
       skip: 40,
       limit: 20,
@@ -113,9 +112,9 @@ describe("toCouponQuery", () => {
     expect(once.verified).toBe(true);
     expect(once.verified_within_hours).toBeUndefined();
 
-    const week = toCouponQuery(parseFilters({ confirmed: "7d" }), {}, { skip: 0, limit: 20 });
+    const week = toCouponQuery(parseFilters({ confirmed: "" }), {}, { skip: 0, limit: 20 });
     expect(week.verified).toBeUndefined();
-    expect(week.verified_within_hours).toBe(24 * 7);
+    expect(week.verified_within_hours).toBeUndefined();
   });
 
   it("treats codes-only and deals-only as opposite booleans", () => {

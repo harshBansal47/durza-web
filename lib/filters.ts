@@ -44,13 +44,9 @@ export interface FilterOption<T extends string = string> {
 
 export const SORT_OPTIONS: FilterOption<CouponSort>[] = [
   { value: "recommended", label: "Recommended" },
-  { value: "trending", label: "Trending this week", hint: "Only offers with real clicks in the last 7 days." },
-  { value: "newest", label: "Newest first" },
-  { value: "recently_verified", label: "Recently confirmed", hint: "Only offers somebody has confirmed." },
-  { value: "top_rated", label: "Highest success rate", hint: "Only offers with at least 5 reports." },
   { value: "biggest_discount", label: "Biggest discount", hint: "Percentage offers only — a flat amount and a percentage can't be compared." },
+  { value: "newest", label: "Newest first" },
   { value: "ending_soon", label: "Ending soonest", hint: "Only offers with an expiry date." },
-  { value: "most_used", label: "Most used" },
 ];
 
 export const DEFAULT_SORT: CouponSort = "recommended";
@@ -63,17 +59,14 @@ export const TYPE_OPTIONS: FilterOption<DiscountType | "">[] = [
 ];
 
 export const CODE_OPTIONS: FilterOption<CouponFilters["code"]>[] = [
-  { value: "", label: "Codes and deals" },
+  { value: "", label: "All" },
   { value: "codes", label: "Codes only" },
   { value: "deals", label: "Deals only" },
 ];
 
 export const CONFIRMED_OPTIONS: FilterOption<ConfirmedKey>[] = [
   { value: "", label: "Any, confirmed or not" },
-  { value: "once", label: "Confirmed at least once", hint: "Somebody has reported this working." },
-  { value: "24h", label: "Confirmed in the last 24h" },
-  { value: "7d", label: "Confirmed this week" },
-  { value: "30d", label: "Confirmed this month" },
+  { value: "once", label: "Verified only", hint: "Somebody has reported this working." },
 ];
 
 export const RATE_OPTIONS: FilterOption<RateKey>[] = [
@@ -84,11 +77,9 @@ export const RATE_OPTIONS: FilterOption<RateKey>[] = [
 ];
 
 export const EXPIRES_OPTIONS: FilterOption<ExpiresKey>[] = [
-  { value: "", label: "Any expiry" },
+  { value: "", label: "Anytime" },
   { value: "1", label: "Ending today" },
-  { value: "7", label: "Ending this week" },
-  { value: "30", label: "Ending this month" },
-  { value: "90", label: "Ending in 3 months" },
+  { value: "7", label: "This week" },
 ];
 
 /** Hours behind each `confirmed` value; `once` is "ever", which has no window. */

@@ -32,115 +32,52 @@ export default function DealsFilterPanel({
     navigate(query ? `${pathname}?${query}` : pathname);
   }
 
-  function toggleFacet(key: "stores" | "categories", slug: string, checked: boolean) {
-    // The catalogue API filters by a single store/category, so the checkboxes
-    // behave as single-select: picking one clears the others.
-    if (!checked) {
-      apply(key, "");
-      return;
-    }
-    apply(key, slug);
-  }
-
   return (
-    <div className="space-y-6">
-      <FacetGroup
-        label="Stores"
-        items={stores}
-        selected={filters.stores}
-        onToggle={(slug, checked) => toggleFacet("stores", slug, checked)}
-      />
-      <FacetGroup
-        label="Categories"
-        items={categories}
-        selected={filters.categories}
-        onToggle={(slug, checked) => toggleFacet("categories", slug, checked)}
-      />
-      <label className="block">
-        <span className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-          Recently checked
-        </span>
+    <div className="flex flex-wrap items-end gap-3">
+      <label className="block min-w-[12rem] flex-1">
+        <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">Store</span>
+        <select className="input" value={filters.stores[0] ?? ""} onChange={(e) => apply("stores", e.target.value)}>
+          <option value="">All stores</option>
+          {stores.map((s) => (
+            <option key={s.id} value={s.slug}>{s.name}</option>
+          ))}
+        </select>
+      </label>
+
+      <label className="block min-w-[12rem] flex-1">
+        <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">Category</span>
+        <select className="input" value={filters.categories[0] ?? ""} onChange={(e) => apply("categories", e.target.value)}>
+          <option value="">All categories</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.slug}>{c.name}</option>
+          ))}
+        </select>
+      </label>
+
+      <label className="block min-w-[10rem]">
+        <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">Verified</span>
         <select
           className="input"
           value={filters.verifiedWithinHours ?? ""}
-          onChange={(event) => apply("verified_within_hours", event.target.value)}
+          onChange={(e) => apply("verified_within_hours", e.target.value)}
         >
-          <option value="">Any time</option>
-          <option value="24">Within 24 hours</option>
-          <option value="168">Within 7 days</option>
-          <option value="720">Within 30 days</option>
+          <option value="">Any</option>
+          <option value="168">Verified recently</option>
         </select>
       </label>
-      <label className="block">
-        <span className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-          Expiration
-        </span>
+
+      <label className="block min-w-[10rem]">
+        <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-ink-soft">Expiring</span>
         <select
           className="input"
           value={filters.expiresWithinDays ?? ""}
-          onChange={(event) => apply("expires_within_days", event.target.value)}
+          onChange={(e) => apply("expires_within_days", e.target.value)}
         >
-          <option value="">Any expiration</option>
-          <option value="1">Within 1 day</option>
-          <option value="7">Within 7 days</option>
-          <option value="30">Within 30 days</option>
-          <option value="90">Within 90 days</option>
+          <option value="">Anytime</option>
+          <option value="1">Ending today</option>
+          <option value="7">This week</option>
         </select>
       </label>
     </div>
-  );
-}
-
-function FacetGroup({
-  label,
-  items,
-  selected,
-  onToggle,
-}: {
-  label: string;
-  items: Facet[];
-  selected: string[];
-  onToggle: (slug: string, checked: boolean) => void;
-}) {
-  return (
-    <fieldset>
-      <legend className="mb-2 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-        {label}
-      </legend>
-      <div className="max-h-56 space-y-1.5 overflow-y-auto">
-        {items.map((item) => (
-          <label
-            key={item.id}
-            className={`flex cursor-pointer items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
-              selected.includes(item.slug)
-                ? "bg-accent-faint text-ink"
-                : "text-ink-soft hover:bg-paper-raised hover:text-ink"
-            }`}
-          >
-            <span
-              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
-                selected.includes(item.slug)
-                  ? "border-accent bg-accent text-white"
-                  : "border-ledger-line bg-paper-raised"
-              }`}
-              aria-hidden="true"
-            >
-              {selected.includes(item.slug) && (
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              )}
-            </span>
-            <input
-              type="checkbox"
-              checked={selected.includes(item.slug)}
-              onChange={(event) => onToggle(item.slug, event.target.checked)}
-              className="sr-only"
-            />
-            <span className="truncate">{item.name}</span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
   );
 }

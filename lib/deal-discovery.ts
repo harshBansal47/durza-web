@@ -2,10 +2,8 @@ import type { CouponListParams } from "./api";
 
 export const DEAL_SORT_OPTIONS = [
   { value: "recommended", label: "Recommended" },
-  { value: "trending", label: "Trending" },
-  { value: "recently_verified", label: "Recently checked" },
-  { value: "top_rated", label: "Top rated" },
-  { value: "biggest_percent", label: "Biggest percentage" },
+  { value: "biggest_percent", label: "Biggest discount" },
+  { value: "newest", label: "Newest" },
 ] as const;
 
 export type DealSort = (typeof DEAL_SORT_OPTIONS)[number]["value"];

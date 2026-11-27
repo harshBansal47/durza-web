@@ -26,7 +26,7 @@ describe("deal discovery query", () => {
       categories: "fashion",
       verified_within_hours: "24",
       expires_within_days: "7",
-      sort: "trending",
+      sort: "biggest_percent",
     });
     const facets = resolveDealFacets(
       filters,
@@ -44,7 +44,7 @@ describe("deal discovery query", () => {
       category_id: "c1",
       verified_within_hours: 24,
       expires_within_days: 7,
-      sort: "trending",
+      sort: "biggest_percent",
       active_only: true,
       has_code: false,
       skip: 20,

@@ -116,15 +116,7 @@ export default function CouponFilterPanel({
       )}
 
       <Select
-        label="Offer type"
-        options={TYPE_OPTIONS}
-        value={filters.type}
-        onChange={(v) => apply("type", v)}
-        placeholder="Any kind"
-      />
-
-      <Select
-        label="Code"
+        label="Type"
         options={CODE_OPTIONS}
         value={filters.code}
         onChange={(v) => apply("code", v)}
@@ -137,14 +129,6 @@ export default function CouponFilterPanel({
         value={filters.confirmed}
         onChange={(v) => apply("confirmed", v)}
         placeholder="Any, confirmed or not"
-      />
-
-      <Select
-        label="Success rate"
-        options={RATE_OPTIONS}
-        value={filters.rate}
-        onChange={(v) => apply("rate", v)}
-        placeholder="Any success rate"
       />
 
       <Select
