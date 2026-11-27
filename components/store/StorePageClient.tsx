@@ -105,7 +105,7 @@ export default function StorePageClient({
   const storeDescription = cleanStoreDescription(store.description);
 
   return (
-    <div className="space-y-10 pb-24 sm:space-y-14 md:pb-0">
+    <div className="space-y-6 pb-24 sm:space-y-8 md:pb-0">
       <RecordView storeSlug={store.slug} />
       <StoreHero
         name={store.name}
@@ -179,7 +179,7 @@ export default function StorePageClient({
                 <span className="btn btn-cta shrink-0">View offer <span aria-hidden="true">→</span></span>
               </Link>
             )}
-            <div className="space-y-8">
+            <div className="space-y-4">
               {codedOffers.length > 0 && (
                 <section aria-labelledby="store-coded-offers">
                   <h3 id="store-coded-offers" className="mb-3 font-sans text-lg font-semibold text-ink">
