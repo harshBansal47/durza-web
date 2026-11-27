@@ -28,13 +28,7 @@ export default function OfferRail({
   viewAll?: { href: string; label?: string };
 }) {
   return (
-    <div
-      className={
-        viewAll
-          ? "flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
-          : undefined
-      }
-    >
+    <div>
       <div className="justify-center grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {offers.map((coupon) => {
           const brand: OfferBrand | undefined = storesById[coupon.store_id];
@@ -59,7 +53,7 @@ export default function OfferRail({
         })}
       </div>
       {viewAll ? (
-        <div className="flex justify-center md:justify-end">
+        <div className="mt-6 flex justify-center">
           <Link
             href={viewAll.href}
             className="group inline-flex min-h-9 items-center gap-1 whitespace-nowrap text-sm font-semibold text-durza-deep transition-colors hover:text-accent"
