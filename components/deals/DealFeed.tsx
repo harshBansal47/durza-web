@@ -1,7 +1,22 @@
 import { Fragment } from "react";
-import DealCard, { type DealCardStore } from "@/components/DealCard";
+import OfferCard from "@/components/OfferCard";
+import type { OfferBrand } from "@/components/OfferBrandMark";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import { api } from "@/lib/api";
 import { DEAL_FEED_DIVIDER_EVERY, dealFeedDividerLabel } from "@/lib/deal-feed";
 import type { CouponPublic } from "@/lib/types";
+
+/**
+ * Slim store shape used by the deals feed. A full `Store` is assignable.
+ */
+export type DealCardStore = {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url?: string | null;
+  website_url?: string | null;
+  currency?: string | null;
+};
 
 /**
  * One stretch of the deals feed: cards in the backend's order, with a quiet
@@ -47,10 +62,20 @@ export default function DealFeed({
           </p>
         ) : null}
         <div className={hidden.has(coupon.id) ? "hidden h-full md:block" : "h-full"}>
-          <DealCard
-            coupon={coupon}
-            store={storeById.get(coupon.store_id)}
-            position={feedIndex + 1}
+          <OfferCard
+            bookmarkId={coupon.id}
+            code={coupon.code}
+            badge={null}
+            badgeTone={coupon.code ? "amber" : "emerald"}
+            title={coupon.title}
+            description={coupon.description}
+            ctaHref={api.goUrl(coupon.id, "deals")}
+            ctaLabel={coupon.code ? "View code" : "View offer"}
+            expiresAt={coupon.expires_at}
+            brand={storeById.get(coupon.store_id) as OfferBrand | undefined}
+            typeLabelOverride={offerTypeLabel(offerType(coupon))}
+            lastChecked={lastCheckedLine(coupon)}
+            autoSuppressed={coupon.auto_suppressed}
           />
         </div>
       </Fragment>

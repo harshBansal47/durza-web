@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { resilient } from "@/lib/api";
-import type { DealCardStore } from "@/components/DealCard";
+import type { DealCardStore } from "@/components/deals/DealFeed";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
 import DiscoveryStrip from "@/components/DiscoveryStrip";
@@ -202,7 +202,7 @@ export default async function DealsFeedSection({
                 position={coupons.items.indexOf(spotlight) + 1}
               />
             ) : null}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <DealFeed
                 coupons={coupons.items}
                 startIndex={skip}

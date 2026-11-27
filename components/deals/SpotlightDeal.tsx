@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Flame } from "lucide-react";
 import { api } from "@/lib/api";
 import { CardImpressions } from "@/components/CardImpressions";
-import type { DealCardStore } from "@/components/DealCard";
+import type { DealCardStore } from "@/components/deals/DealFeed";
 import { storeInitials } from "@/lib/catalog";
 import { formatDiscount } from "@/lib/format";
 import { sourceLine } from "@/lib/requirements";

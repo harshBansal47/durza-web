@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import type { OfferBrand } from "@/components/OfferBrandMark";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
 import { storeInitials } from "@/lib/catalog";
 import { getFollowedStores, getSavedCouponIds } from "@/lib/personalization";
-import { CouponCardGrid, type CouponCardStore } from "@/components/CouponCard";
+import OfferCard from "@/components/OfferCard";
 import type { CouponPublic, Store } from "@/lib/types";
 
 /**
@@ -68,15 +70,6 @@ export function SavedPageClient() {
     );
   }
 
-  const cardStores: CouponCardStore[] = stores.map((s) => ({
-    id: s.id,
-    name: s.name,
-    slug: s.slug,
-    logo_url: s.logo_url,
-    website_url: s.website_url,
-    currency: s.currency,
-  }));
-
   return (
     <div className="space-y-10">
       {coupons.length > 0 && (
@@ -85,7 +78,26 @@ export function SavedPageClient() {
             Saved deals ({coupons.length})
           </h2>
           <div className="mt-4">
-            <CouponCardGrid coupons={coupons} stores={cardStores} />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {coupons.map((c) => (
+                <OfferCard
+                  key={c.id}
+                  bookmarkId={c.id}
+                  code={c.code}
+                  badge={null}
+                  badgeTone={c.code ? "amber" : "emerald"}
+                  title={c.title}
+                  description={c.description}
+                  ctaHref={api.goUrl(c.id, "coupons")}
+                  ctaLabel={c.code ? "View code" : "View offer"}
+                  expiresAt={c.expires_at}
+                  brand={stores.find((st) => st.id === c.store_id) as OfferBrand | undefined}
+                  typeLabelOverride={offerTypeLabel(offerType(c))}
+                  lastChecked={lastCheckedLine(c)}
+                  autoSuppressed={c.auto_suppressed}
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}

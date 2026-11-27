@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { CouponCard, type CouponCardStore } from "@/components/CouponCard";
-import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
+import OfferCard from "@/components/OfferCard";
+import type { OfferBrand } from "@/components/OfferBrandMark";
 import { api } from "@/lib/api";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
+import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
 import type { CouponListParams } from "@/lib/api";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import type { CouponPublic } from "@/lib/types";
@@ -28,7 +30,7 @@ export default function ViewMoreCoupons({
   initialCoupons: CouponPublic[];
   total: number;
   query: Omit<CouponListParams, "skip" | "limit">;
-  stores?: CouponCardStore[];
+  stores?: Array<{ id: string; name?: string; slug?: string; logo_url?: string | null; website_url?: string | null; currency?: string | null; }>;
   initialSkip?: number;
   limit?: number;
   gridClassName?: string;
@@ -45,7 +47,6 @@ export default function ViewMoreCoupons({
 
   const hasMore = items.length < total;
   const storeById = new Map(stores.map((store) => [store.id, store]));
-
   async function loadMore() {
     if (loading || !hasMore) return;
     setLoading(true);
@@ -68,10 +69,21 @@ export default function ViewMoreCoupons({
     <div>
       <div className={gridClassName}>
         {items.map((coupon) => (
-          <CouponCard
+          <OfferCard
             key={coupon.id}
-            coupon={coupon}
-            store={storeById.get(coupon.store_id)}
+            bookmarkId={coupon.id}
+            code={coupon.code}
+            badge={null}
+            badgeTone={coupon.code ? "amber" : "emerald"}
+            title={coupon.title}
+            description={coupon.description}
+            ctaHref={api.goUrl(coupon.id, "coupons")}
+            ctaLabel={coupon.code ? "View code" : "View offer"}
+            expiresAt={coupon.expires_at}
+            brand={storeById.get(coupon.store_id) as OfferBrand | undefined}
+            typeLabelOverride={offerTypeLabel(offerType(coupon))}
+            lastChecked={lastCheckedLine(coupon)}
+            autoSuppressed={coupon.auto_suppressed}
           />
         ))}
       </div>

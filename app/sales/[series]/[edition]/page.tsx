@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { SALE_HUBS_ENABLED } from "@/lib/flags";
 import { api } from "@/lib/api";
-import { CouponCardGrid } from "@/components/CouponCard";
+import OfferCard from "@/components/OfferCard";
 import type { CouponPublic } from "@/lib/types";
+import { lastCheckedLine, offerType, offerTypeLabel } from "@/lib/offer-presentation";
 
 export const revalidate = 1800;
 
@@ -38,7 +39,25 @@ export default async function SaleEditionPage({ params }: { params: Promise<{ se
       {coupons.length === 0 ? (
         <p>The coupons for this sale are being prepared.</p>
       ) : (
-        <CouponCardGrid coupons={coupons} pageType="coupon_card" />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {coupons.map((c) => (
+          <OfferCard
+            key={c.id}
+            bookmarkId={c.id}
+            code={c.code}
+            badge={null}
+            badgeTone={c.code ? "amber" : "emerald"}
+            title={c.title}
+            description={c.description}
+            ctaHref={api.goUrl(c.id, "coupons")}
+            ctaLabel={c.code ? "View code" : "View offer"}
+            expiresAt={c.expires_at}
+            typeLabelOverride={offerTypeLabel(offerType(c))}
+            lastChecked={lastCheckedLine(c)}
+            autoSuppressed={c.auto_suppressed}
+          />
+        ))}
+      </div>
       )}
     </div>
   );

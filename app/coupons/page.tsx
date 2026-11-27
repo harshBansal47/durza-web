@@ -66,6 +66,10 @@ export default async function CouponsPage({
   // ranks fine on its own merits.
   const indiaRelevantIds = allowedStoreIds(stores);
   const query = toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE });
+  // Coupons page defaults to coded offers so it does not duplicate the
+  // no-code deals already shown on /deals. Visitors can still pick "Deal, no
+  // code" from the code filter to browse auto-applied offers here.
+  if (filters.code === "" || filters.code === undefined) query.has_code = true;
   if (!filters.store) query.store_ids = indiaRelevantIds;
 
   // A slug the catalogue doesn't know is not "no filter" — it is an empty page,

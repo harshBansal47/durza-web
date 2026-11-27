@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
 import DealFeed from "@/components/deals/DealFeed";
-import type { DealCardStore } from "@/components/DealCard";
+import type { DealCardStore } from "@/components/deals/DealFeed";
 import { api } from "@/lib/api";
 import { toDealQuery, type DealFilters } from "@/lib/deal-discovery";
 import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
@@ -98,8 +98,8 @@ export default function LoadMoreDeals({
           error={Boolean(error)}
           onLoadMore={() => void loadMore()}
           noun="deals"
-          href={nextHref}
           suppressAction={facets.unresolved}
+          href={nextHref}
           errorMessage="Couldn't load more deals. Check your connection and try again."
         />
       </div>
