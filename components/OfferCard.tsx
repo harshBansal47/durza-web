@@ -35,7 +35,7 @@ export interface OfferCardProps {
   lastChecked?: string | null;
 }
 
-const REDIRECT_DELAY_MS = 2000;
+const REDIRECT_DELAY_MS = 3000;
 
 async function writeToClipboard(text: string) {
   try {
@@ -77,6 +77,9 @@ export default function OfferCard({
   brand,
 }: OfferCardProps) {
   const [copied, setCopied] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+  const [popupBlocked, setPopupBlocked] = useState(false);
+  const [opening, setOpening] = useState(false);
   const timerRef = useRef<number | null>(null);
   const trackedHref = useTrackedHref(ctaHref);
 
@@ -92,32 +95,30 @@ export default function OfferCard({
   async function copyAndRedirect() {
     if (!code || copied) return;
 
-    // Open the tab synchronously inside the click so popup blockers allow it,
-    // then point it at the offer after the delay.
-    const win = window.open("", "_blank");
-    if (win) {
-      win.opener = null;
-      try {
-        win.document.write(
-          "<p style='font-family:sans-serif;padding:24px'>Code copied. Opening offer…</p>",
-        );
-      } catch {
-        // Ignore — the tab will simply stay blank until redirected.
-      }
-    }
-
+    setRevealed(true);
     setCopied(true);
+    setPopupBlocked(false);
     await writeToClipboard(code);
 
     const target = trackedHref;
     timerRef.current = window.setTimeout(() => {
-      if (win && !win.closed) {
-        win.location.href = target;
-      } else {
-        // Popup blocked or closed — fall back to same-tab navigation.
-        window.location.href = target;
+      const win = window.open(target, "_blank", "noopener,noreferrer");
+      if (!win) {
+        // Popup blocked — surface a manual link instead of navigating away.
+        setPopupBlocked(true);
       }
       setCopied(false);
+    }, REDIRECT_DELAY_MS);
+  }
+
+    async function openOffer() {
+    if (opening) return;
+    setOpening(true);
+    setPopupBlocked(false);
+    timerRef.current = window.setTimeout(() => {
+      const win = window.open(trackedHref, "_blank", "noopener,noreferrer");
+      if (!win) setPopupBlocked(true);
+      setOpening(false);
     }, REDIRECT_DELAY_MS);
   }
 
@@ -136,6 +137,24 @@ export default function OfferCard({
       <h3 className="mt-1.5 text-sm font-semibold leading-snug text-slate-900 transition-colors group-hover:text-indigo-600">
         {title}
       </h3>
+
+      {isCoded && revealed ? (
+        <div className="mt-2 flex items-center justify-between gap-2 rounded-lg border border-dashed border-amber-300 bg-amber-50 px-3 py-2">
+          <code className="font-mono text-sm font-semibold text-amber-900">{code}</code>
+          {popupBlocked ? (
+            <a
+              href={trackedHref}
+              target="_blank"
+              rel="nofollow sponsored noopener noreferrer"
+              className="text-xs font-semibold text-amber-900 underline"
+            >
+              Open offer
+            </a>
+          ) : (
+            <span className="text-xs font-medium text-amber-700">Copied!</span>
+          )}
+        </div>
+      ) : null}
 
       {/* Actions */}
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-slate-100 pt-2.5">
@@ -172,15 +191,34 @@ export default function OfferCard({
               Offer page
             </span>
 
-            <a
-              href={trackedHref}
-              target="_blank"
-              rel="nofollow sponsored noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white hover:bg-slate-800"
+            <button
+              type="button"
+              onClick={() => void openOffer()}
+              disabled={opening}
+              className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-slate-800 disabled:cursor-default disabled:bg-emerald-600"
             >
-              {ctaLabel ?? "View Offer"}
-              <ArrowRight className="h-3 w-3" />
-            </a>
+              {opening ? (
+                <>
+                  <Check className="h-3 w-3" />
+                  Opening…
+                </>
+              ) : (
+                <>
+                  {ctaLabel ?? "View Offer"}
+                  <ArrowRight className="h-3 w-3" />
+                </>
+              )}
+            </button>
+            {popupBlocked ? (
+              <a
+                href={trackedHref}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="text-xs font-semibold text-emerald-700 underline"
+              >
+                Open offer
+              </a>
+            ) : null}
           </>
         )}
       </div>
