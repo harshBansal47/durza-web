@@ -46,12 +46,12 @@ function compareToDoc(entry: CompareEntry): Record<string, unknown> {
   }
 
   const primary = {
-    label: entry.verdict.primaryStoreLabel,
+    label: `Check Live Price on ${entry.verdict.primaryStoreLabel}`,
     href: `/go/${entry.verdict.primaryStoreSlug}?src=compare-verdict`,
   };
   const secondary = {
-    label: entry.verdict.secondaryStoreLabel,
-    href: `/go/${entry.verdict.secondaryStoreSlug}?src=compare-verdict-secondary`,
+    label: `Check Live Price on ${entry.verdict.secondaryStoreLabel}`,
+    href: `/go/${entry.verdict.secondaryStoreSlug}?src=compare-verdict`,
   };
   blocks.push({
     type: "verdict",
@@ -79,7 +79,7 @@ function compareToDoc(entry: CompareEntry): Record<string, unknown> {
         store: s.storeName,
         points: asArray(s.bullets),
         ctaLabel: "Check live price",
-        href: `/go/${s.storeSlug}?src=compare-offer-card`,
+        href: `/go/${s.storeSlug}?src=compare-mid`,
       })),
     });
   }
@@ -119,6 +119,7 @@ function compareToDoc(entry: CompareEntry): Record<string, unknown> {
     published_at: null,
     updated_at: null,
     needs_review: false,
+    stickyCta: { label: `Check Live Price on ${entry.verdict.primaryStoreLabel}`, href: `/go/${entry.verdict.primaryStoreSlug}?src=compare-mobile-sticky` },
     keywords: entry.keywords ?? [],
     category: entry.category,
   };
