@@ -393,6 +393,13 @@ export const api = {
       { revalidate: STATIC_REVALIDATE },
     ),
 
+  /** No-store read for the content system preview (always fresh; no Next data-cache). */
+  getEditorialFresh: (contentType: EditorialType, slug: string) =>
+    apiFetch<EditorialContent>(
+      `/editorial/${contentType}/${encodeURIComponent(slug)}`,
+      { cache: "no-store" },
+    ),
+
   getEditorialHomepage: () =>
     apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: STATIC_REVALIDATE }),
 

@@ -77,7 +77,9 @@ export async function getPage(
   kind: ContentKind,
   slug: string,
 ): Promise<ContentPage | null> {
-  const content = await resilient.getEditorial(kind, slug);
+  // no-store: preview always reads fresh content; production relies on tagged
+  // revalidation (editorial:* + sitemap) triggered by content writes/upsert.
+  const content = await api.getEditorialFresh(kind, slug).catch(() => null);
   if (!content) return null;
   const resolvedKind = contentKindOf(content);
   if (resolvedKind === null) return null;

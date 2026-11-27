@@ -15,6 +15,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { BRAND } from "@/lib/brand";
 import { discoverableContent } from "@/lib/topic-content";
 import { COLLECTIONS, type CollectionEntry } from "@/data/collections";
+import { getCollectionKit } from "@/data/collection-kits";
 import { collectionFromEditorial } from "@/lib/collections";
 import type { DiscoverableContent } from "@/lib/topics";
 import type { EditorialHomepage, Paginated, CouponPublic } from "@/lib/types";
@@ -53,11 +54,16 @@ export async function generateMetadata(): Promise<Metadata> {
 const EMPTY_DISCOVERABLE: DiscoverableContent[] = [];
 
 function toCollectionCard(item: CollectionEntry) {
+  const kit = getCollectionKit(item);
+  const productImages = kit
+    ? kit.sections.flatMap((s) => s.products.map((p) => p.image)).filter((img) => img && !img.includes("product-placeholder")).slice(0, 4)
+    : [];
   return {
     slug: item.slug,
     title: item.title,
     summary: item.summary,
     heroImage: item.heroImage,
+    productImages,
   };
 }
 
