@@ -23,7 +23,7 @@ import { parseFilters, resolveIds, toCouponQuery } from "@/lib/filters";
 import { categoryLabel } from "@/lib/catalog";
 import { allowedStoreIds } from "@/lib/homepage-curation";
 import { guidesForCategory } from "@/lib/category-content";
-import { storeLogoUrl } from "@/lib/storeLogos";
+import { getGuideCoverImage } from "@/lib/guide-cover";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { absoluteUrl, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
@@ -154,7 +154,7 @@ export default async function CategoryPage({
     .sort((a, b) => b.categoryOfferCount - a.categoryOfferCount || a.name.localeCompare(b.name));
 
   const storeSlugSet = new Set(offerStores.map((s) => s.slug));
-  const guides = guidesForCategory(category.slug, categoryName, storeSlugSet);
+  const guides = await guidesForCategory(category.slug, categoryName, storeSlugSet);
 
   const subcategories = categories.filter((c) => c.parent_id === category.id);
   const parent = category.parent_id ? categories.find((c) => c.id === category.parent_id) : null;
@@ -286,16 +286,22 @@ export default async function CategoryPage({
             </div>
             <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {guides.map((g) => {
-                const logo = storeLogoUrl({ slug: g.storeSlug, logo_url: null, website_url: null });
+                const coverImage = getGuideCoverImage({
+                  slug: g.slug,
+                  title: g.title,
+                  summary: g.description,
+                  category: categoryName,
+                  image: g.hero_image_url,
+                });
                 return (
                   <li key={g.slug}>
                     <Link href={`/guides/${g.slug}`} className="flex h-full gap-3 rounded-2xl border border-ledger-line bg-white p-4 shadow-[var(--shadow-hairline)] transition hover:-translate-y-0.5 hover:border-inkblue">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-ledger-line bg-paper">
-                        {logo ? <Image src={logo} alt="" width={28} height={28} className="h-7 w-7 object-contain" /> : <BookOpen className="h-5 w-5 text-ink-soft" strokeWidth={1.5} />}
-                      </div>
+                      <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-ledger-line bg-paper">
+                        <Image src={coverImage} alt="" fill sizes="44px" className="object-cover" />
+                      </span>
                       <div className="min-w-0">
-                        <p className="line-clamp-2 text-sm font-semibold text-ink">{g.seo?.title ?? g.slug}</p>
-                        <p className="mt-1 line-clamp-2 text-xs text-ink-soft">{g.summary}</p>
+                        <p className="line-clamp-2 text-sm font-semibold text-ink">{g.title}</p>
+                        <p className="mt-1 line-clamp-2 text-xs text-ink-soft">{g.description}</p>
                       </div>
                     </Link>
                   </li>

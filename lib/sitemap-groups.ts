@@ -46,9 +46,17 @@ export function isEditorialEndpointUnavailable(error: unknown): boolean {
   return error instanceof ApiError && error.status === 404;
 }
 
+/**
+ * Sitemaps are ISR routes, so production builds must use the cached lister —
+ * a no-store fetch during prerendering makes the route dynamic. Dev and tests
+ * bypass that cache so newly imported editorial rows appear immediately.
+ */
+export const listEditorialForSitemap =
+  process.env.NODE_ENV === "production" ? api.listEditorial : api.listEditorialFresh;
+
 async function editorialTotal(content_type: EditorialType): Promise<number> {
   try {
-    return (await api.listEditorial({ content_type, limit: 1 })).total;
+    return (await listEditorialForSitemap({ content_type, limit: 1 })).total;
   } catch (error) {
     if (isEditorialEndpointUnavailable(error)) return 0;
     throw error;

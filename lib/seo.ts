@@ -1,6 +1,9 @@
 import { SITE_URL } from "./site";
 
 export function absoluteUrl(path: string): string {
+  // Editorial rows may store a fully-qualified canonical/image URL. Prefixing
+  // those again would emit URLs like https://durza.in/https://durza.in/... .
+  if (/^https?:\/\//i.test(path)) return path;
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 

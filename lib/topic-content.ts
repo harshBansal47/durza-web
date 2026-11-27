@@ -12,10 +12,8 @@ import "server-only";
 import { api } from "@/lib/api";
 import { editorialPath } from "@/lib/editorial-path";
 import { getGuideCoverImage } from "@/lib/guide-cover";
-import { priorityForGuide } from "@/lib/static-editorial";
 import { REVIEWS } from "@/data/reviews";
 import { COLLECTIONS } from "@/data/collections";
-import { STORE_GUIDES } from "@/data/store-guides";
 import {
   classifyCategory,
   classifyText,
@@ -87,31 +85,6 @@ export function staticDiscoverableContent(): DiscoverableContent[] {
     }));
   }
 
-  for (const guide of STORE_GUIDES) {
-    items.push(entry({
-      id: `static-guide-${guide.slug}`,
-      category: guide.category,
-      contentType: "guide",
-      title: guide.seo.title,
-      summary: guide.summary,
-      href: `/guides/${guide.slug}`,
-      // Store-logo PNGs are tiny; the hub's cover fallback keeps them as small
-      // chips on generated art instead of stretching them across a card.
-      heroImage: getGuideCoverImage({
-        slug: guide.slug,
-        title: guide.seo.title,
-        summary: guide.summary,
-        category: guide.category,
-        image: guide.heroImage ?? null,
-      }),
-      updatedAt: guide.auditedOn ?? null,
-      authorName: "Durza Research Desk",
-      priority: priorityForGuide(guide.slug),
-      hasMethod: guide.blocks.length > 0,
-      hasFaq: guide.faqs.length > 0,
-    }));
-  }
-
   return items.filter((item): item is DiscoverableContent => item !== null);
 }
 
@@ -145,17 +118,37 @@ function fromEditorial(content: EditorialContent): DiscoverableContent | null {
     priority: 5,
     hasMethod:
       content.content_type === "guide" ? typeof structured.methodology === "string" : content.content_blocks.length > 0,
-    hasFaq: content.faqs.length > 0,
+    hasFaq:
+      content.faqs.length > 0 ||
+      content.content_blocks.some(
+        (block) =>
+          Boolean(block) &&
+          typeof block === "object" &&
+          (block as { type?: unknown }).type === "faq" &&
+          Array.isArray((block as { items?: unknown }).items) &&
+          ((block as { items: unknown[] }).items.length > 0),
+      ),
   };
 }
 
-/** Static content first; DB rows are appended when the API is reachable. */
+async function fetchAllEditorial(): Promise<EditorialContent[]> {
+  const items: EditorialContent[] = [];
+  // The editorial API caps `limit` at 100; paginate so every DB guide reaches
+  // topic hubs and the homepage.
+  for (let skip = 0; ; skip += 100) {
+    const page = await api.listEditorial({ skip, limit: 100 });
+    items.push(...page.items);
+    if (page.items.length < 100) break;
+  }
+  return items;
+}
+
+/** Static reviews/collections first; DB rows are appended when the API is reachable. */
 export async function discoverableContent(): Promise<DiscoverableContent[]> {
   const staticItems = staticDiscoverableContent();
   let dbItems: DiscoverableContent[] = [];
   try {
-    const page = await api.listEditorial({ limit: 200 });
-    dbItems = page.items.map(fromEditorial).filter((item): item is DiscoverableContent => item !== null);
+    dbItems = (await fetchAllEditorial()).map(fromEditorial).filter((item): item is DiscoverableContent => item !== null);
   } catch {
     // A backend outage must never blank the editorial layer.
   }

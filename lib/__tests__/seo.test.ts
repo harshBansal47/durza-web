@@ -16,6 +16,12 @@ describe("absoluteUrl", () => {
   it("adds a leading slash if missing", () => {
     expect(absoluteUrl("coupons/foo")).toBe("http://localhost:3000/coupons/foo");
   });
+
+  it("passes through an already absolute URL", () => {
+    expect(absoluteUrl("https://durza.in/guides/acer-deals")).toBe(
+      "https://durza.in/guides/acer-deals",
+    );
+  });
 });
 
 describe("metaDescription", () => {

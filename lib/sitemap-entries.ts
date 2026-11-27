@@ -5,6 +5,7 @@ import { SITE_URL } from "@/lib/site";
 import {
   EDITORIAL_SITEMAP_TYPES,
   isEditorialEndpointUnavailable,
+  listEditorialForSitemap,
   SITEMAP_CHUNK_SIZE,
   BACKEND_MAX_LIMIT,
   type SitemapId,
@@ -94,13 +95,6 @@ export const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/stores/havells/bldc-calculator`, changeFrequency: "weekly", priority: 0.75 },
   { url: `${SITE_URL}/categories`, changeFrequency: "daily", priority: 0.8 },
   { url: `${SITE_URL}/guides`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/best-acer-laptop-deals-promo-codes`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/guides/lenovo-laptop-offers-india-2026`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/guides/adidas-sale-india-2026`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/amazon-flipkart-sale-dates-2026`, changeFrequency: "weekly", priority: 0.85 },
-  { url: `${SITE_URL}/guides/icici-bank-offers-india-2026`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/rbl-bank-offers-india-2026`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${SITE_URL}/guides/best-credit-card-online-shopping-india-2026`, changeFrequency: "weekly", priority: 0.85 },
   // Utility/legal pages are intentionally NOT in the sitemap — they are crawled
   // via the footer and carry no standalone search demand.
   { url: `${SITE_URL}/reviews`, changeFrequency: "weekly", priority: 0.7 },
@@ -278,7 +272,7 @@ async function shardEntriesUnfiltered({ kind, chunk }: SitemapId): Promise<Metad
     let items: EditorialContent[];
     try {
       items = await fetchBatch(
-        (s, l) => api.listEditorial({ content_type: contentType, skip: s, limit: l }),
+        (s, l) => listEditorialForSitemap({ content_type: contentType, skip: s, limit: l }),
         skip,
         SITEMAP_CHUNK_SIZE,
       );
@@ -289,23 +283,17 @@ async function shardEntriesUnfiltered({ kind, chunk }: SitemapId): Promise<Metad
     const entries: MetadataRoute.Sitemap = items
       .filter((content) => content.is_indexable)
       .map((content) => ({
-        url: content.canonical_url ?? `${SITE_URL}${editorialPath(content)}`,
+        // A canonical saved under a different origin (e.g. production while
+        // verifying locally) must not be dropped from this deployment's shard.
+        url:
+          content.canonical_url && content.canonical_url.startsWith(SITE_URL)
+            ? content.canonical_url
+            : `${SITE_URL}${editorialPath(content)}`,
         lastModified: content.updated_at,
         changeFrequency: "monthly" as const,
         priority: content.is_featured ? 0.75 : 0.65,
       }));
-    if (kind === "guides") {
-      // Hand-authored static buying guides -- same weight as flagship guides.
-      const { STORE_GUIDES, THIN_GUIDE_SLUGS } = await import("@/data/store-guides");
-      entries.push(
-        ...STORE_GUIDES.filter((guide) => !THIN_GUIDE_SLUGS.has(guide.slug)).map((guide) => ({
-          url: `${SITE_URL}/guides/${guide.slug}`,
-          lastModified: guide.auditedOn ? new Date(guide.auditedOn) : undefined,
-          changeFrequency: "weekly" as const,
-          priority: 0.85,
-        })),
-      );
-    }
+    // Guides now come from editorial_contents like every other editorial kind.
     return entries;
   }
   // Categories: the page marks itself `noindex` when it has no live offers from

@@ -18,6 +18,8 @@ export interface GuideHubItem {
   /** ISO-verified fact-check date, shown as a separate badge when present. */
   checkedLabel?: string | null;
   coverImage: string;
+  /** Set from the editorial row's `is_featured` flag. */
+  featured?: boolean;
 }
 
 const FILTERS: GuideHubCategory[] = [
@@ -30,17 +32,6 @@ const FILTERS: GuideHubCategory[] = [
   "Home & Appliances",
   "Travel & Lifestyle",
 ];
-
-function matchesFeatured(item: GuideHubItem): boolean {
-  const s = item.slug.toLowerCase();
-  const t = item.title.toLowerCase();
-  return (
-    (s.includes("laptop") && (s.includes("deal") || t.includes("laptop deals"))) ||
-    s.includes("credit-card-instant-discount") ||
-    s.includes("best-credit-card-online-shopping") ||
-    s.includes("skincare-actives")
-  );
-}
 
 export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
   const [query, setQuery] = useState("");
@@ -65,27 +56,12 @@ export default function GuidesHubClient({ items }: { items: GuideHubItem[] }) {
     });
   }, [items, active, query]);
 
-  // Featured picks come from the current filter/search result set, so changing
-  // a category chip or typing in search updates them as well.
+  // Featured picks come from the editorial `is_featured` flag, filtered by the
+  // same search/category state as the main grid, then topped up if needed.
   const featured = useMemo(() => {
-    const picks = filtered.filter(matchesFeatured);
-    const preferred: GuideHubItem[] = [];
-    const want = [
-      (i: GuideHubItem) => i.slug.includes("best-laptop") || (i.title.toLowerCase().includes("laptop") && i.title.toLowerCase().includes("deal")),
-      (i: GuideHubItem) => i.slug.includes("credit-card-instant-discount") || i.slug.includes("best-credit-card-online-shopping"),
-      (i: GuideHubItem) => i.slug.includes("skincare-actives") || i.title.toLowerCase().includes("skincare actives"),
-    ];
-    for (const fn of want) {
-      const found = picks.find((p) => fn(p) && !preferred.includes(p)) || filtered.find((p) => fn(p) && !preferred.includes(p));
-      if (found) preferred.push(found);
-    }
-    if (preferred.length < 3) {
-      for (const item of filtered) {
-        if (preferred.length >= 3) break;
-        if (!preferred.includes(item)) preferred.push(item);
-      }
-    }
-    return preferred.slice(0, 3);
+    const flagged = filtered.filter((item) => item.featured);
+    const rest = filtered.filter((item) => !item.featured);
+    return [...flagged, ...rest].slice(0, 3);
   }, [filtered]);
 
   return (

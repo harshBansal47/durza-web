@@ -25,13 +25,14 @@ vi.mock("@/lib/api", () => ({
     listStores: vi.fn(),
     listCategories: vi.fn(),
     listEditorial: vi.fn(() => Promise.resolve({ items: [], total: 0, skip: 0, limit: 0 })),
+    listEditorialFresh: vi.fn(() => Promise.resolve({ items: [], total: 0, skip: 0, limit: 0 })),
   },
 }));
 
 const listCoupons = vi.mocked(api.listCoupons);
 const listStores = vi.mocked(api.listStores);
 const listCategories = vi.mocked(api.listCategories);
-const listEditorial = vi.mocked(api.listEditorial);
+const listEditorialFresh = vi.mocked(api.listEditorialFresh);
 
 function makeCoupons(count: number, start = 0): CouponPublic[] {
   return Array.from({ length: count }, (_, i) => ({
@@ -88,7 +89,7 @@ describe("sitemap shards (D1)", () => {
     listCoupons.mockResolvedValue(emptyPage);
     listStores.mockResolvedValue(emptyPage);
     listCategories.mockResolvedValue(emptyPage);
-    listEditorial.mockResolvedValue(emptyPage);
+    listEditorialFresh.mockResolvedValue(emptyPage);
   });
   afterEach(() => {
     vi.restoreAllMocks();
@@ -326,7 +327,7 @@ describe("sitemap shards (D1)", () => {
   });
 
   it("publishes indexable editorial URLs in their content-type sitemap", async () => {
-    listEditorial.mockResolvedValue({
+    listEditorialFresh.mockResolvedValue({
       items: [{
         id: "guide-1",
         content_type: "guide",
@@ -341,7 +342,8 @@ describe("sitemap shards (D1)", () => {
         market: "IN",
         seo_title: null,
         meta_description: null,
-        canonical_url: null,
+        // Production-origin canonical must not suppress this deployment's URL.
+        canonical_url: "https://durza.in/guides/best-hosting-under-200",
         is_indexable: true,
         is_featured: false,
         published_at: "2026-01-01T00:00:00Z",
@@ -360,30 +362,28 @@ describe("sitemap shards (D1)", () => {
     const response = await shardRequest("guides-0");
 
     expect(response.status).toBe(200);
-    expect(await response.text()).toContain(
-      "http://localhost:3000/guides/best-hosting-under-200",
-    );
-    expect(listEditorial).toHaveBeenCalledWith({
+    const body = await response.text();
+    expect(body).toContain("http://localhost:3000/guides/best-hosting-under-200");
+    expect(body).not.toContain("https://durza.in/guides/best-hosting-under-200");
+    expect(listEditorialFresh).toHaveBeenCalledWith({
       content_type: "guide",
       skip: 0,
       limit: BACKEND_MAX_LIMIT,
     });
   });
 
-  it("publishes the static guide catalogue even when the editorial API is not deployed", async () => {
-    // Pre-API contract used to require an empty guides shard ("never 404, never a
-    // stale placeholder"). The hand-authored static buying guides in
-    // data/store-guides.ts don't depend on the API, so they publish regardless —
-    // the shard stays 200 with only the static URLs.
-    listEditorial.mockRejectedValue(new ApiError("Not found", 404));
+  it("does not publish hardcoded guide URLs when the editorial API is unavailable", async () => {
+    // Guides are database-driven like every other editorial kind. The shard
+    // still returns 200 ("never 404, never a stale placeholder"), but it must
+    // not fall back to a static catalogue that no longer exists in the app.
+    listEditorialFresh.mockRejectedValue(new ApiError("Not found", 404));
 
     const response = await shardRequest("guides-0");
 
     expect(response.status).toBe(200);
     const body = await response.text();
-    expect(body).toContain("<loc>");
-    expect(body).toContain("/guides/");
-    expect(body).toContain("<priority>0.85</priority>");
+    expect(body).not.toContain("/guides/");
+    expect(body).not.toContain("<priority>0.85</priority>");
   });
 
   it("surfaces API failures instead of publishing an empty shard", async () => {
@@ -416,8 +416,9 @@ describe("sitemap shards (D1)", () => {
 
   it("does not duplicate a URL the static shard already owns", async () => {
     // `firstcry` is a curated static page and may also appear in the store
-    // catalogue; `best-acer-...` is both a static guide and an editorial row.
-    // Both must be submitted exactly once (from the static shard).
+    // catalogue, so the store shard must yield to the static shard. Editorial
+    // guides are DB-owned: even a formerly static URL like `best-acer-...`
+    // must now be submitted from the guides shard exactly once.
     listStores.mockResolvedValue({
       items: [{
         id: "firstcry-id",
@@ -430,7 +431,7 @@ describe("sitemap shards (D1)", () => {
       skip: 0,
       limit: 100,
     });
-    listEditorial.mockResolvedValue({
+    listEditorialFresh.mockResolvedValue({
       items: [{
         id: "g1",
         content_type: "guide",
@@ -466,9 +467,9 @@ describe("sitemap shards (D1)", () => {
     const guidesBody = await (await shardRequest("guides-0")).text();
 
     expect(staticBody).toContain("/stores/firstcry");
-    expect(staticBody).toContain("/guides/best-acer-laptop-deals-promo-codes");
+    expect(staticBody).not.toContain("/guides/best-acer-laptop-deals-promo-codes");
     expect(storesBody).not.toContain("/stores/firstcry");
-    expect(guidesBody).not.toContain("/guides/best-acer-laptop-deals-promo-codes");
+    expect(guidesBody).toContain("/guides/best-acer-laptop-deals-promo-codes");
   });
 
   it("excludes a store whose description is only Admitad boilerplate and has no live offers", async () => {

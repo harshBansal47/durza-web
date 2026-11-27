@@ -8,7 +8,7 @@ import StoreClient from "./client";
 import RelatedGuides, { type RelatedGuideItem } from "@/components/stores/RelatedGuides";
 import { resilient } from "@/lib/api";
 import { computeStoreStats, type StoreStats } from "@/lib/store-stats";
-import { STORE_GUIDES } from "@/data/store-guides";
+import { listPages } from "@/lib/content";
 import type { CouponPublic } from "@/lib/types";
 
 const title = "Amazon India Offers & Best Deals (2026) — Curated Professional Picks";
@@ -39,9 +39,9 @@ const FAQS = [
 export const revalidate = 21600;
 
 /**
- * Guides that relate to Amazon — the hand-built Amazon/bank guides plus every
- * static guide whose relatedStores points at amazon-in (Lenovo, ASUS, PureVPN).
- * The store's own finance guide rides on the StoreGuideLink banner.
+ * Hand-curated Amazon/bank guides. The full related set is completed from the
+ * editorial database at render time. The store's own finance guide rides on the
+ * StoreGuideLink banner.
  */
 const RELATED_GUIDES: RelatedGuideItem[] = [
   {
@@ -69,19 +69,21 @@ const RELATED_GUIDES: RelatedGuideItem[] = [
     title: "RBL Bank Offers India 2026 — the live list",
     hook: "RBL offers that land at checkout on sale weekends.",
   },
-  ...STORE_GUIDES.filter(
-    (guide) =>
-      guide.relatedStores?.includes("amazon-in") &&
-      guide.slug !== "amazon-prime-audible-kindle-subscriptions-guide",
-  ).map((guide) => ({
-    slug: guide.slug,
-    title: guide.seo.title,
-    hook: guide.summary,
-  })),
 ];
 
 export default async function Page() {
-  const destination = await resilient.getStoreDestination("amazon-in", { skip: 0, limit: 100 });
+  const [destination, allGuides] = await Promise.all([
+    resilient.getStoreDestination("amazon-in", { skip: 0, limit: 100 }),
+    listPages("guide").catch(() => []),
+  ]);
+  const relatedSlugs = new Set(RELATED_GUIDES.map((guide) => guide.slug));
+  const relatedGuides: RelatedGuideItem[] = [
+    ...RELATED_GUIDES,
+    ...allGuides
+      .filter((guide) => /amazon/i.test(`${guide.slug} ${guide.title} ${guide.description}`) && !relatedSlugs.has(guide.slug))
+      .slice(0, 6)
+      .map((guide) => ({ slug: guide.slug, title: guide.title, hook: guide.description })),
+  ];
   const offers: CouponPublic[] = destination?.deals ?? [];
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
   const heroImageUrl = storeLogoUrl(destination?.store);
@@ -106,7 +108,7 @@ export default async function Page() {
         offerCount={offerCount}
         storeUrl={storeUrl}
       />
-      <RelatedGuides slug="amazon-in" guides={RELATED_GUIDES} />
+      <RelatedGuides slug="amazon-in" guides={relatedGuides} />
     </>
   );
 }

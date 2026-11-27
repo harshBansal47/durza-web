@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import StoreGuideLink from "@/components/stores/StoreGuideLink";
-import { staticGuideForStore } from "@/data/store-guides";
+import { guideSlugForStore } from "@/data/store-guide-links";
 import { storeLogoUrl } from "@/lib/storeLogos";
 
 /** Unified store logo (brand/curated/favicon fallback), never a CPS-image logo. */
@@ -283,7 +283,7 @@ export default function RelatedGuides({
   guides?: RelatedGuideItem[];
 }) {
   const items = RELATED_GUIDES[slug];
-  if (!items?.length && !staticGuideForStore(slug) && !guides?.length) return null;
+  if (!items?.length && !guideSlugForStore(slug) && !guides?.length) return null;
   return (
     <section aria-label="Related stores" className="mx-auto max-w-6xl px-4 pb-10">
       <StoreGuideLink slug={slug} />

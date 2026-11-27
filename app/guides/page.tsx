@@ -3,10 +3,8 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import ListingHero from "@/components/listing/ListingHero";
 import GuidesHubClient, { type GuideHubItem } from "@/components/guides/GuidesHubClient";
-import { resilient } from "@/lib/api";
-import { STORE_GUIDES } from "@/data/store-guides";
+import { listPages, type ContentPage } from "@/lib/content";
 import { getGuideCoverImage, guideHubCategory } from "@/lib/guide-cover";
-import type { EditorialContent } from "@/lib/types";
 
 export const revalidate = 21600;
 
@@ -17,79 +15,60 @@ export const metadata: Metadata = {
   alternates: { canonical: "/guides" },
 };
 
-async function fetchAllDbGuides(): Promise<EditorialContent[]> {
-  const items: EditorialContent[] = [];
-  for (let page = 0; page < 5; page++) {
-    const result = await resilient.listEditorial({ content_type: "guide", limit: 100, skip: page * 100 }).catch(() => null);
-    if (!result) break;
-    items.push(...result.items);
-    if (result.items.length < 100) break;
+async function fetchAllGuides(): Promise<ContentPage[]> {
+  const pages: ContentPage[] = [];
+  for (let skip = 0; ; skip += 100) {
+    const batch = await listPages("guide", { skip, limit: 100 }).catch(() => []);
+    pages.push(...batch);
+    if (batch.length < 100) break;
   }
-  return items;
+  return pages;
 }
 
-function formatUpdated(iso?: string | null): string | null {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString("en-IN");
+function formatDate(value: unknown): string | null {
+  if (typeof value !== "string" || !value.trim()) return null;
+  const parsed = new Date(value);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
+  // structured_data dates are authored as "26 Nov 2026".
+  const human = new Date(`${value} 2026`);
+  return Number.isNaN(human.getTime()) ? null : human.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+}
+
+function toHubItem(page: ContentPage): GuideHubItem {
+  const summary = page.description || page.meta_description || "";
+  const structured = page.structured_data as Record<string, unknown>;
+  const declaredCategory = typeof structured.category === "string" ? structured.category : undefined;
+  const hubCategory = guideHubCategory({
+    slug: page.slug,
+    title: page.title,
+    summary,
+    category: declaredCategory,
+  });
+
+  return {
+    slug: page.slug,
+    href: `/guides/${page.slug}`,
+    title: page.title,
+    summary: summary || "Practical buying advice for Indian shoppers.",
+    categoryLabel: declaredCategory || hubCategory,
+    hubCategory,
+    updatedLabel: formatDate(page.updated_at),
+    checkedLabel: formatDate(structured.researchReviewedDate),
+    coverImage: getGuideCoverImage({
+      slug: page.slug,
+      title: page.title,
+      summary,
+      category: declaredCategory || hubCategory,
+      image: page.hero_image_url,
+    }),
+    featured: page.is_featured === true,
+  };
 }
 
 export default async function GuidesPage() {
-  const dbGuides = await fetchAllDbGuides();
-
-  const dbItems: GuideHubItem[] = dbGuides.map((g) => {
-    const summaryText = g.summary ?? g.meta_description ?? "";
-    const hubCategory = guideHubCategory({ slug: g.slug, title: g.title, summary: summaryText, category: "guide" });
-    const coverImage = getGuideCoverImage({
-      slug: g.slug,
-      title: g.title,
-      summary: summaryText,
-      category: "Buying guide",
-      image: g.hero_image_url,
-    });
-    return {
-      slug: g.slug,
-      href: `/guides/${g.slug}`,
-      title: g.title,
-      summary: summaryText || "Practical buying advice for Indian shoppers.",
-      categoryLabel: hubCategory,
-      hubCategory,
-      updatedLabel: formatUpdated(g.updated_at),
-      coverImage,
-    };
-  });
-
-  const staticItems: GuideHubItem[] = STORE_GUIDES.map((guide) => {
-    const hubCategory = guideHubCategory({
-      slug: guide.slug,
-      title: guide.seo.title,
-      summary: guide.summary,
-      category: guide.category,
-    });
-    return {
-      slug: guide.slug,
-      href: `/guides/${guide.slug}`,
-      title: guide.seo.title,
-      summary: guide.summary,
-      categoryLabel: guide.category || hubCategory,
-      hubCategory,
-      updatedLabel: formatUpdated(guide.auditedOn ?? null),
-      checkedLabel: formatUpdated(guide.factsCheckedOn ?? null),
-      coverImage: getGuideCoverImage({
-        slug: guide.slug,
-        title: guide.seo.title,
-        summary: guide.summary,
-        category: guide.category,
-        image: guide.heroImage ?? null,
-      }),
-    };
-  });
-
-  const bySlug = new Map<string, GuideHubItem>();
-  for (const item of dbItems) bySlug.set(item.slug, item);
-  for (const item of staticItems) if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
-  const items = Array.from(bySlug.values()); // stable DB-first, then static guides
+  const items = (await fetchAllGuides()).map(toHubItem);
 
   return (
     <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
