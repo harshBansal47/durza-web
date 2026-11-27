@@ -244,6 +244,49 @@ export const orderedListBlockSchema = z
   })
   .passthrough();
 
+
+export const tierTableBlockSchema = z
+  .object({
+    type: z.literal("tierTable"),
+    tiers: z.array(z.object({ label: z.string(), stepIds: z.array(z.string()).default([]), suits: z.string().optional() })).default([]),
+  })
+  .passthrough();
+
+export const explorerBlockSchema = z
+  .object({
+    type: z.literal("explorer"),
+    filters: z.record(z.string(), z.unknown()).optional(),
+    occasions: z.array(z.string()).default([]),
+  })
+  .passthrough();
+
+export const collectionGroupBlockSchema = z
+  .object({
+    type: z.literal("collectionGroup"),
+    id: z.string(),
+    step: z.string().optional(),
+    heading: z.string(),
+    dek: z.string().optional(),
+    collapseAfter: z.number().optional(),
+    items: z.array(z.record(z.string(), z.unknown())).default([]),
+  })
+  .passthrough();
+
+export const quickPicksBlockSchema = z
+  .object({
+    type: z.literal("quickPicks"),
+    lists: z.array(z.record(z.string(), z.unknown())).default([]),
+  })
+  .passthrough();
+
+export const kitTrayBlockSchema = z
+  .object({
+    type: z.literal("kitTray"),
+    enabled: z.boolean().optional(),
+    shareText: z.string().optional(),
+  })
+  .passthrough();
+
 const blocks = [
   audienceBlockSchema,
   verdictBlockSchema,
@@ -268,6 +311,11 @@ const blocks = [
   paragraphBlockSchema,
   listBlockSchema,
   orderedListBlockSchema,
+  tierTableBlockSchema,
+  explorerBlockSchema,
+  collectionGroupBlockSchema,
+  quickPicksBlockSchema,
+  kitTrayBlockSchema,
 ];
 
 export const contentBlockSchema = z.union(blocks);

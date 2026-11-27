@@ -462,3 +462,9 @@ export function OrderedListBlock({ items }: { items: string[] }) {
 }
 
 export type { ContentBlock };
+
+export function TierTableBlock(props: Record<string, unknown>) { return null; }
+export function ExplorerBlock(props: Record<string, unknown>) { return null; }
+export function CollectionGroupBlock(props: Record<string, unknown>) { return null; }
+export function QuickPicksBlock(props: Record<string, unknown>) { return null; }
+export function KitTrayBlock(props: Record<string, unknown>) { return null; }

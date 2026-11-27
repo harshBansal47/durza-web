@@ -30,6 +30,11 @@ export const BLOCK_REGISTRY: Record<string, ComponentType<Record<string, unknown
   paragraph: blocks.ParagraphBlock as ComponentType<Record<string, unknown>>,
   list: blocks.ListBlock as ComponentType<Record<string, unknown>>,
   ordered_list: blocks.OrderedListBlock as ComponentType<Record<string, unknown>>,
+  tierTable: blocks.TierTableBlock as ComponentType<Record<string, unknown>>,
+  explorer: blocks.ExplorerBlock as ComponentType<Record<string, unknown>>,
+  collectionGroup: blocks.CollectionGroupBlock as ComponentType<Record<string, unknown>>,
+  quickPicks: blocks.QuickPicksBlock as ComponentType<Record<string, unknown>>,
+  kitTray: blocks.KitTrayBlock as ComponentType<Record<string, unknown>>,
 };
 
 export type { ContentBlock };
