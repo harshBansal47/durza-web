@@ -23,12 +23,12 @@
       "body": "Pick the Boult Z40 Pro at ₹1,299 if battery and low latency matter most: its official page lists 100 hours total playback, Zen Quad Mic ENC, Bluetooth 5.3, IPX5 and a 45 ms gaming mode. Pick the boAt Airdopes 141 ANC (₹1,256–₹1,399 across listings) if you want an advertised 32 dB ANC rating and quad mics, accepting 42 hours total. Pick the OnePlus Nord Buds 2r (₹1,649 seen on Smartprix) if IP55 dust protection and a 12.4 mm driver matter more than battery — but check the live price, since it can sit above ₹2,000. All figures are manufacturer or retail-listing claims; we did not test these earbuds.",
       "ctas": [
         {
-          "label": "Boult",
+          "label": "Check Live Price on Boult",
           "href": "/go/boult?src=compare-verdict"
         },
         {
-          "label": "Amazon India",
-          "href": "/go/amazon-in?src=compare-verdict-secondary"
+          "label": "Check Live Price on Amazon India",
+          "href": "/go/amazon-in?src=compare-verdict"
         }
       ]
     },
@@ -164,8 +164,8 @@
             "Official store for Z40 Pro specs, current price and e-warranty.",
             "Use the Audio Decision Snippet on the store hub if you are unsure which model fits."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/boult?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/boult?src=compare-mid"
         },
         {
           "store": "Amazon India",
@@ -173,8 +173,8 @@
             "Compare seller authorization and final price across all three models.",
             "Check the exact model code — similarly named SKUs differ on ANC."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/amazon-in?src=compare-mid"
         }
       ]
     },
@@ -292,6 +292,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Boult",
+    "href": "/go/boult?src=compare-mobile-sticky"
+  },
   "keywords": [
     "boAt vs Boult vs OnePlus earbuds under 2000 India",
     "best TWS under 2000 India 2026",

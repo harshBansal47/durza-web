@@ -23,12 +23,12 @@
       "body": "If you already have a laptop model in mind, check the live offers first — but verify the final payable against recent prices: on 25 Nov 2026, tracked Black-Friday-week laptop prices sat above their 1 November levels. For 4K TVs and premium ANC audio, no dated Black Friday price was verified — check the exact model on the store. For fashion, beauty and groceries, compare the same item against a regular-sale price before paying. Confirm the final amount with any card offer applied.",
       "ctas": [
         {
-          "label": "Amazon",
+          "label": "Check Live Price on Amazon",
           "href": "/go/amazon-in?src=compare-verdict"
         },
         {
-          "label": "Lenovo India",
-          "href": "/go/lenovo-india?src=compare-verdict-secondary"
+          "label": "Check Live Price on Lenovo India",
+          "href": "/go/lenovo-india?src=compare-verdict"
         }
       ]
     },
@@ -115,8 +115,8 @@
             "Compare final payable prices on electronics and check card-offer terms shown on the product page.",
             "Useful as a reference point when you want a second listing for the same model."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/amazon-in?src=compare-mid"
         },
         {
           "store": "Lenovo India",
@@ -124,8 +124,8 @@
             "Check official laptop pricing and warranty add-ons when a marketplace deal looks close.",
             "Offer terms checked 25 Nov 2026 list 24 Nov–2 Dec 2026 cashback, paid after delivery, not at checkout."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/lenovo-india?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/lenovo-india?src=compare-mid"
         },
         {
           "store": "ASUS India",
@@ -133,8 +133,8 @@
             "The eStore listing names AYR Technologies as seller and ASUS India as importer — check warranty and returns.",
             "Compare the full model code, not the series name."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/asus?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/asus?src=compare-mid"
         },
         {
           "store": "Acer India",
@@ -142,8 +142,8 @@
             "Official laptop listings checked 25 Nov 2026 show Special Prices against MRP with taxes included.",
             "The opened pages state only one offer applies — verify terms before paying."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/acer?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/acer?src=compare-mid"
         },
         {
           "store": "Tata CLiQ",
@@ -151,8 +151,8 @@
             "Press release lists Black Friday 19–30 Nov 2026; Amex 12.5% slab has a ₹1,500 cap and ₹3,000 minimum.",
             "Product pages were not readable on 25 Nov 2026 — verify prices on the store."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/tatacliq-com-ecommerce-cps-india?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/tatacliq-com-ecommerce-cps-india?src=compare-mid"
         },
         {
           "store": "Boult",
@@ -160,8 +160,8 @@
             "Anchor was ₹2,499 against ₹9,999 MRP on 25 Nov 2026; the page markets ANC but its spec block says ENC — verify on the store.",
             "Compare the final amount with other listings before paying."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/boult?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/boult?src=compare-mid"
         }
       ]
     },
@@ -327,6 +327,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Amazon",
+    "href": "/go/amazon-in?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Black Friday sale India 2026",
     "Black Friday vs regular sale India",

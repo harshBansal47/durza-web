@@ -23,12 +23,12 @@
       "body": "All three are 8-bar, 2000W, 5-star 15L storage geysers, so the decision comes down to what you value. Havells Adonia Spin has the lowest published standing loss (0.419 kWh/24h) and the strongest warranty split (7-year tank, 4-year element, 2-year comprehensive). AO Smith HSE-SDS-015 uses a Blue Diamond glass-lined tank with a 7-year tank and 2+2-year element warranty, but its standing loss is higher at 0.451 kWh/24h and the anode is explicitly outside warranty. Crompton Arno Neo 15L is the value pick at a 5-year tank / 2-year element / 2-year product warranty — but we could not verify its standing-loss figure from an official source, so do not buy it on efficiency claims alone.",
       "ctas": [
         {
-          "label": "Havells",
+          "label": "Check Live Price on Havells",
           "href": "/go/havells?src=compare-verdict"
         },
         {
-          "label": "Amazon India",
-          "href": "/go/amazon-in?src=compare-verdict-secondary"
+          "label": "Check Live Price on Amazon India",
+          "href": "/go/amazon-in?src=compare-verdict"
         }
       ]
     },
@@ -155,8 +155,8 @@
             "Check the exact 15L SKU, warranty card and installation terms.",
             "Official store for model specs and service information."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/havells?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/havells?src=compare-mid"
         },
         {
           "store": "Amazon India",
@@ -164,8 +164,8 @@
             "Compare prices across all three brands and verify the seller.",
             "Inspect the BEE label and rating plate on delivery."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/amazon-in?src=compare-mid"
         }
       ]
     },
@@ -302,6 +302,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Havells",
+    "href": "/go/havells?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Havells vs AO Smith vs Crompton geyser India",
     "best 15L geyser high rise India",

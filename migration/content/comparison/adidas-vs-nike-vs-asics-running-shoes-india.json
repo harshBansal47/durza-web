@@ -12,12 +12,12 @@
       "body": "Choose Adidas for strong wet-road grip options (e.g. Continental rubber on select models) and easy domestic buying/returns, ASICS for stability and long-run cushioning on hard surfaces, and Nike for responsive performance and lifestyle picks—if you get the right fit and buy from trusted sources.",
       "ctas": [
         {
-          "label": "Adidas",
+          "label": "Check Live Price on Adidas",
           "href": "/go/adidas?src=compare-verdict"
         },
         {
-          "label": "Nike",
-          "href": "/go/nike?src=compare-verdict-secondary"
+          "label": "Check Live Price on Nike",
+          "href": "/go/nike?src=compare-verdict"
         }
       ]
     },
@@ -89,8 +89,8 @@
             "Official source for popular models, sizing support, and member perks.",
             "Good for grip-focused trainers and everyday sneakers."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/adidas?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/adidas?src=compare-mid"
         },
         {
           "store": "Nike",
@@ -98,8 +98,8 @@
             "Responsive performance models and lifestyle picks; buy from trusted sources for popular models.",
             "Confirm sizing in centimeters and watch delivery/KYC timelines for some orders."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/nike?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/nike?src=compare-mid"
         }
       ]
     },
@@ -169,6 +169,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Adidas",
+    "href": "/go/adidas?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Adidas vs Nike vs Asics running shoes India",
     "best running shoes Indian roads monsoon",

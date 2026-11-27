@@ -8,102 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The 6-Piece Boardroom-to-Dinner Capsule Wardrobe: Tailored Layers, Heels & Loafers",
-      "dek": "Six mix-and-match pieces for Indian workdays and evenings—breathable tailoring, commute-friendly footwear, and polished accessories that do double duty.",
+      "id": "core-layers",
+      "step": "Step 1 · Layers",
+      "heading": "Core layers",
+      "dek": "Breathable tailored layers, clean denim and cotton basics handle commutes and meetings.",
       "items": [
         {
           "product": "vero-moda-single-breasted-structured-blazer",
-          "badge": null,
-          "tags": [],
+          "name": "Vero Moda Single-Breasted Structured Blazer",
+          "badge": "Vetted pick",
+          "href": "/go/veromoda?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Vero Moda Single-Breasted Structured Blazer",
-            "storeBadge": "Vero Moda (Official Store)",
-            "tier": "Instant Authority",
-            "why": "A lightweight structured blazer can sharpen simple basics for meetings while still working as an easy layer for dinner plans.",
-            "skipIf": "Your workplace is very casual or you prefer softer layers—choose based on dress code and comfort.",
-            "ctaLabel": "Check Live Price on Vero Moda",
-            "ctaHref": "/go/vero-moda?src=col-wardrobe",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a lightweight structured silhouette designed to layer over office tops and transition to dinner (Durza Capsule Wardrobe collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if your workplace follows a strictly casual T-shirt dress code.",
+            "ctaHref": "/go/veromoda?src=collection-wardrobe",
             "external": true
           }
         },
         {
           "product": "vero-moda-pleated-wide-leg-trousers",
-          "badge": null,
-          "tags": [],
+          "name": "Vero Moda Pleated Wide-Leg Trousers",
+          "badge": "Vetted pick",
+          "href": "/go/veromoda?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Vero Moda Pleated Wide-Leg Trousers",
-            "storeBadge": "Vero Moda (Official Store)",
-            "tier": "All-Day Comfort",
-            "why": "A fluid, tailored trouser silhouette offers comfort during commutes and pairs easily with both formal footwear and clean sneakers.",
-            "skipIf": "You prefer fitted cuts or need a specific uniform silhouette for work.",
-            "ctaLabel": "Check Live Price on Vero Moda",
-            "ctaHref": "/go/vero-moda?src=col-wardrobe",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a tailored pleated wide-leg cut built for breathable comfort across long commutes and meetings (Durza Capsule Wardrobe collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer slim-fit trousers or require a specific corporate uniform cut.",
+            "ctaHref": "/go/veromoda?src=collection-wardrobe",
             "external": true
           }
         },
         {
-          "product": "charles-keith-gabine-structured-crossbody-bag",
-          "badge": null,
-          "tags": [],
+          "product": "levi-s-512-slim-taper-fit-jeans",
+          "name": "Levi's 512 Slim Taper Fit Jeans",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/levi-s-512tm-slim-taper-fit-jeans",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Charles & Keith Gabine / Structured Crossbody Bag",
-            "storeBadge": "Charles & Keith (Official Store)",
-            "tier": "Signature Carry",
-            "why": "A structured crossbody or shoulder bag adds polish and keeps daily essentials organized from office hours to evening plans.",
-            "skipIf": "You carry a laptop or larger items daily—consider a tote and add a compact bag later.",
-            "ctaLabel": "Check Live Price on Charles & Keith",
-            "ctaHref": "/go/charles-keith?src=col-wardrobe",
+            "name": "Levi's 512 Slim Taper Fit Jeans",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a roomy thigh with a tailored narrow ankle cut suitable for smart-casual Fridays and evening wear (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your workplace prohibits denim on client-facing days.",
+            "ctaHref": "https://durza.in/coupons/levi-s-512tm-slim-taper-fit-jeans",
             "external": true
           }
         },
+        {
+          "product": "textured-ribbed-knit-polo-t-shirt",
+          "name": "Textured Ribbed Knit Polo T-Shirt",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/textured-ribbed-knit-polo-t-shirt",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Textured Ribbed Knit Polo T-Shirt",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a cotton-modal blend with a self-ribbed collar and cuffs in a smart-casual fit (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need a formal button-down shirt for suit-and-tie environments.",
+            "ctaHref": "https://durza.in/coupons/textured-ribbed-knit-polo-t-shirt",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "footwear-and-carry",
+      "step": "Step 2 · Footwear & Bag",
+      "heading": "Footwear & carry",
+      "dek": "Cushioned loafers, clean court sneakers and structured bags support daily commutes.",
+      "items": [
         {
           "product": "aldo-pillow-walk-boardroom-loafers-or-slingbacks",
-          "badge": null,
-          "tags": [],
+          "name": "ALDO Pillow Walk Boardroom Loafers or Slingbacks",
+          "badge": "Vetted pick",
+          "href": "/go/aldo-new?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "ALDO Pillow Walk™ Boardroom Loafers or Slingbacks",
-            "storeBadge": "ALDO (Official Store)",
-            "tier": "Pain-Free Footwork",
-            "why": "Cushioned, office-ready footwear helps you stay comfortable through commutes and meetings without sacrificing a polished look.",
-            "skipIf": "You already have well-fitting work shoes that stay comfortable for full days.",
-            "ctaLabel": "Check Live Price on ALDO",
-            "ctaHref": "/go/aldo-new?src=col-wardrobe",
+            "name": "ALDO Pillow Walk Boardroom Loafers or Slingbacks",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a cushioned footbed designed for all-day office wear and commutes (Durza Capsule Wardrobe collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already own broken-in formal footwear suited to your commute.",
+            "ctaHref": "/go/aldo-new?src=collection-wardrobe",
             "external": true
           }
         },
         {
           "product": "adidas-samba-stan-smith-clean-court-classics",
-          "badge": null,
-          "tags": [],
+          "name": "Adidas Samba / Stan Smith Clean Court Classics",
+          "badge": "Vetted pick",
+          "href": "/go/adidas?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Adidas Samba / Stan Smith Clean Court Classics",
-            "storeBadge": "Adidas (Official Store)",
-            "tier": "Smart-Casual Friday",
-            "why": "Clean court sneakers pair well with tailored trousers and casual outfits, making them a versatile option for smart-casual days and weekends.",
-            "skipIf": "Your office requires formal footwear every day or you need sport-specific shoes.",
-            "ctaLabel": "Check Live Price on Adidas",
-            "ctaHref": "/go/adidas?src=col-wardrobe",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states low-profile court sneaker silhouettes suited to smart-casual Fridays and weekend wear (Durza Capsule Wardrobe collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if your office requires closed formal leather shoes; verify UK half-size-up fit on Samba.",
+            "ctaHref": "/go/adidas?src=collection-wardrobe",
             "external": true
           }
         },
         {
-          "product": "palmonas-daily-wear-18k-gold-hoops-delicate-chain",
-          "badge": null,
-          "tags": [],
+          "product": "charles-keith-gabine-structured-crossbody-bag",
+          "name": "Charles & Keith Gabine / Structured Crossbody Bag",
+          "badge": "Vetted pick",
+          "href": "/go/charles-keith?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Palmonas Daily-Wear 18K Gold Hoops & Delicate Chain",
-            "storeBadge": "Palmonas (Official Store)",
-            "tier": "Tarnish-Free Finish",
-            "why": "Simple, everyday jewelry adds a refined finish to work and dinner outfits without needing frequent swaps.",
-            "skipIf": "You prefer statement jewelry or have specific metal sensitivities—check product details.",
-            "ctaLabel": "Check Live Price on Palmonas",
-            "ctaHref": "/go/palmonas?src=col-wardrobe",
+            "name": "Charles & Keith Gabine / Structured Crossbody Bag",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a structured crossbody/shoulder silhouette designed to organise daily essentials from office to dinner (Durza Capsule Wardrobe collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if you carry a 14-inch or 15.6-inch laptop daily — use a larger work tote instead.",
+            "ctaHref": "/go/charles-keith?src=collection-wardrobe",
+            "external": true
+          }
+        },
+        {
+          "product": "lavie-betula-medium-dome-satchel-bag",
+          "name": "Lavie Betula Medium Dome Satchel Bag",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/lavie-betula-medium-dome-satchel-bag",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Lavie Betula Medium Dome Satchel Bag",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a Saffiano-finish dome satchel with dual top handles and a detachable sling strap (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer soft unstructured hobo bags over rigid dome silhouettes.",
+            "ctaHref": "https://durza.in/coupons/lavie-betula-medium-dome-satchel-bag",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "finishing-touches",
+      "step": "Step 3 · Finish",
+      "heading": "Finishing touches",
+      "dek": "Minimal jewellery, a lip tint and a compact watch elevate work basics for dinner.",
+      "items": [
+        {
+          "product": "palmonas-daily-wear-18k-gold-hoops-delicate-chain",
+          "name": "Palmonas Daily-Wear 18K Gold Hoops & Delicate Chain",
+          "badge": "Vetted pick",
+          "href": "/go/palmonas?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Palmonas Daily-Wear 18K Gold Hoops & Delicate Chain",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states tarnish-resistant 18K gold-toned hoops and chain designed for daily office-to-dinner wear (Durza Capsule Wardrobe collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer statement pieces or have known metal or plating sensitivities.",
+            "ctaHref": "/go/palmonas?src=collection-wardrobe",
+            "external": true
+          }
+        },
+        {
+          "product": "salty-everyday-tarnish-resistant-jewellery-piece",
+          "name": "Salty Everyday Tarnish-Resistant Jewellery Piece",
+          "badge": "Vetted pick",
+          "href": "/go/salty?src=collection-wardrobe",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Salty Everyday Tarnish-Resistant Jewellery Piece",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states lightweight everyday fashion jewellery suited for layering over office knitwear or blazers (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Verify base metal and plating care instructions on the listing before water exposure.",
+            "ctaHref": "/go/salty?src=collection-wardrobe",
+            "external": true
+          }
+        },
+        {
+          "product": "gloss-boss-tinted-lip-balm-spf-30-12g-tube",
+          "name": "Gloss Boss Tinted Lip Balm SPF 30 (12g Tube)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/gloss-boss-tinted-lip-balm-spf-30",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Gloss Boss Tinted Lip Balm SPF 30 (12g Tube)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states SPF 30 UV lip protection with sheer tint in a 12g pocket tube for quick touch-ups (Durza Beauty & Grooming catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer a high-pigment matte transfer-proof liquid lipstick.",
+            "ctaHref": "https://durza.in/coupons/gloss-boss-tinted-lip-balm-spf-30",
+            "external": true
+          }
+        },
+        {
+          "product": "renee-summer-slush-jelly-tint-for-lips-cheeks-luscious-cherry-13g",
+          "name": "RENEE Summer Slush Jelly Tint For Lips & Cheeks (Luscious Cherry, 13g)",
+          "badge": "Under ₹400",
+          "href": "/go/amazon-in?src=collection-wardrobe",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71EA4IRrFdL._SY355_.jpg",
+          "priceLabel": "₹379",
+          "mrpLabel": "₹499",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "RENEE Summer Slush Jelly Tint For Lips & Cheeks (Luscious Cherry, 13g)",
+            "storeBadge": "Under ₹400",
+            "why": "Brand states a dual-use lip and cheek jelly tint in a 13g stick for fast evening touch-ups (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Match your preferred berry or cherry tint shade on the listing before buying.",
+            "ctaHref": "/go/amazon-in?src=collection-wardrobe",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

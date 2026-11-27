@@ -17,7 +17,8 @@
     "run:ios": "npx cap run ios",
     "check:collections": "sh scripts/check-collections.sh",
     "logos:sync": "node scripts/sync-store-logos.mjs",
-    "logos:sync:missing": "node scripts/sync-store-logos.mjs --if-missing"
+    "logos:sync:missing": "node scripts/sync-store-logos.mjs --if-missing",
+    "content:check-links": "node scripts/check-links-collections.mjs"
   },
   "dependencies": {
     "@fontsource-variable/newsreader": "^5.3.0",

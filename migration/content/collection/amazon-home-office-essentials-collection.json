@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The No-Nonsense Work-From-Home Desk Kit (2026): Ergonomics, Video Calls & Storage Upgrades",
-      "dek": "Five high-impact WFH upgrades for Indian homes—better posture, clearer calls, and a faster laptop without wasting money on gimmicks.",
+      "id": "desk-comfort",
+      "step": "Step 1 · Ergonomics",
+      "heading": "Desk comfort",
+      "dek": "Raising screen height and supporting lower-back posture reduces strain before adding accessories.",
       "items": [
         {
           "product": "adjustable-aluminum-laptop-stand",
-          "badge": null,
-          "tags": [],
+          "name": "Adjustable Aluminum Laptop Stand",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-wfh",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Adjustable Aluminum Laptop Stand",
-            "storeBadge": "Amazon India",
-            "tier": "Essential First Buy",
-            "why": "Raises your laptop screen to eye level to ease neck strain by late afternoon and opens airflow underneath so thin laptops run cooler in Indian summers.",
-            "skipIf": "You already use an external monitor as your primary screen.",
-            "ctaLabel": "Check Live Price on Amazon India",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states it elevates laptop screens to eye level and improves underside airflow during extended desk sessions (Durza collection listing, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already use an external monitor as your primary screen.",
             "ctaHref": "/go/amazon-in?src=collection-wfh",
             "external": true
           }
         },
         {
-          "product": "1080p-full-hd-clip-on-webcam",
-          "badge": null,
-          "tags": [],
+          "product": "amazon-basics-ergonomic-adjustable-laptop-stand-with-fan",
+          "name": "Amazon Basics Ergonomic Adjustable Laptop Stand with Fan",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/amazon-basics-ergonomic-adjustable-laptop-stand-with-fan",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "1080p Full-HD Clip-On Webcam",
-            "storeBadge": "Amazon India",
-            "tier": "Sweet-Spot Upgrade",
-            "why": "A dedicated 1080p glass-lens webcam with dual mics makes you look and sound clearer on client calls than muddy built-in 720p laptop cameras, even in imperfect room lighting.",
-            "skipIf": "Your laptop already has a sharp webcam and your mic audio is consistently clear.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "/go/amazon-in?src=collection-wfh",
+            "name": "Amazon Basics Ergonomic Adjustable Laptop Stand with Fan",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a built-in quiet cooling fan to help manage laptop heat during extended desk work (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer a passive aluminum riser without USB fan power draw.",
+            "ctaHref": "https://durza.in/coupons/amazon-basics-ergonomic-adjustable-laptop-stand-with-fan",
             "external": true
           }
         },
         {
-          "product": "crucial-8gb-ddr4-3200mhz-laptop-memory-sodimm",
-          "badge": null,
-          "tags": [],
+          "product": "nilkamal-optima-high-back-ergonomic-mesh-office-chair",
+          "name": "Nilkamal Optima High Back Ergonomic Mesh Office Chair",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/nilkamal-optima-high-back-ergonomic-mesh-office-chair",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Crucial 8GB DDR4 3200MHz Laptop Memory (SODIMM)",
-            "storeBadge": "Amazon India",
-            "tier": "Performance Fix",
-            "why": "If Chrome with many tabs plus Teams freezes your 8GB Windows 11 laptop, adding a matching DDR4 SODIMM can unlock dual-channel memory and smoother multitasking.",
-            "skipIf": "Open Task Manager → Performance → Memory first: skip if your laptop isn’t DDR4 or has no empty slot.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "https://www.amazon.in/dp/B01jCjHAv?tag=durza02-21&ascsubtag=collection_kit",
+            "name": "Nilkamal Optima High Back Ergonomic Mesh Office Chair",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states adjustable lumbar support, breathable mesh, a chrome base and a 120 kg weight capacity (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already have a supportive ergonomic chair suited to your desk height.",
+            "ctaHref": "https://durza.in/coupons/nilkamal-optima-high-back-ergonomic-mesh-office-chair",
             "external": true
           }
         },
         {
-          "product": "crucial-bx500-500gb-2-5-sata-ssd",
-          "badge": null,
-          "tags": [],
+          "product": "amazon-basics-ergonomic-high-back-executive-chair",
+          "name": "Amazon Basics Ergonomic High-Back Executive Chair",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/amazon-basics-ergonomic-high-back-executive-chair",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Crucial BX500 500GB 2.5\" SATA SSD",
-            "storeBadge": "Amazon India",
-            "tier": "Old-Laptop Revival",
-            "why": "Swapping a slow hard drive for a SATA SSD can turn an older desktop or compatible laptop into a much faster boot-and-load machine for everyday work.",
-            "skipIf": "Your system already runs on an NVMe/SATA SSD or doesn’t support a 2.5\" SATA drive bay.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "https://www.amazon.in/dp/B0irTZ1MT?tag=durza02-21&ascsubtag=collection_kit",
-            "external": true
-          }
-        },
-        {
-          "product": "nilkamal-ergonomic-mesh-office-chair",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "Nilkamal Ergonomic Mesh Office Chair",
-            "storeBadge": "Nilkamal Furniture",
-            "tier": "Long-Term Comfort",
-            "why": "A breathable mesh chair with lumbar support is a practical upgrade over dining chairs for long remote-work days, especially during non-AC afternoons in many Indian homes.",
-            "skipIf": "You already have a supportive ergonomic chair that fits your desk height.",
-            "ctaLabel": "Check Live Price on Nilkamal Furniture",
-            "ctaHref": "/go/nilkamalfurniture?src=collection-wfh",
+            "name": "Amazon Basics Ergonomic High-Back Executive Chair",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states padded bonded leather with pneumatic height adjustment for home-office seating (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip in non-AC rooms where bonded leather retains more heat than breathable mesh.",
+            "ctaHref": "https://durza.in/coupons/amazon-basics-ergonomic-high-back-executive-chair",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "video-and-audio",
+      "step": "Step 2 · Calls",
+      "heading": "Video & audio",
+      "dek": "A dedicated 1080p webcam and multipoint headphones improve clarity on client calls.",
+      "items": [
+        {
+          "product": "logitech-c920-hd-pro-webcam-1080p",
+          "name": "Logitech C920 HD Pro Webcam — 1080p",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-wfh",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Logitech C920 HD Pro Webcam — 1080p",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states Full HD 1080p video with stereo audio for work-from-home video conferencing (Durza storefront listing, checked 25 Nov 2026).",
+            "skipIf": "Skip if your laptop already has a sharp 1080p webcam and clear microphone array.",
+            "ctaHref": "/go/amazon-in?src=collection-wfh",
+            "external": true
+          }
+        },
+        {
+          "product": "logitech-c922-pro-stream-full-hd-1080p-webcam",
+          "name": "Logitech C922 Pro Stream Full HD 1080p Webcam",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/logitech-c922-pro-stream-full-hd-1080p-webcam",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Logitech C922 Pro Stream Full HD 1080p Webcam",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 1080p video, 60 FPS 720p streaming, autofocus and dual stereo microphones (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if basic 1080p 30fps video is sufficient and you do not stream or record tutorials.",
+            "ctaHref": "https://durza.in/coupons/logitech-c922-pro-stream-full-hd-1080p-webcam",
+            "external": true
+          }
+        },
+        {
+          "product": "sony-wh-ch520-wireless-bluetooth-headphones",
+          "name": "Sony WH-CH520 Wireless Bluetooth Headphones",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/sony-wh-ch520-wireless-bluetooth-headphones",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Sony WH-CH520 Wireless Bluetooth Headphones",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states up to 50 hours of battery life with multipoint Bluetooth connection and DSEE audio upscaling (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need active noise cancellation (ANC) or prefer compact in-ear buds.",
+            "ctaHref": "https://durza.in/coupons/sony-wh-ch520-wireless-bluetooth-headphones",
+            "external": true
+          }
+        },
+        {
+          "product": "boult-audio-w50-with-30db-active-noise-cancellation",
+          "name": "Boult Audio W50 with 30dB Active Noise Cancellation",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/boult-audio-w50-with-30db-active-noise-cancellation",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Boult Audio W50 with 30dB Active Noise Cancellation",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states hybrid ANC rated up to 30dB and up to 50 hours of total playtime for calls and focus (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer over-ear headphones for 6+ hour continuous desk wear.",
+            "ctaHref": "https://durza.in/coupons/boult-audio-w50-with-30db-active-noise-cancellation",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "performance-and-storage",
+      "step": "Step 3 · Speed",
+      "heading": "Performance & storage",
+      "dek": "More memory or an SSD resolves tab freezes and slow boots without replacing the laptop.",
+      "items": [
+        {
+          "product": "crucial-8gb-ddr4-3200mhz-laptop-memory",
+          "name": "Crucial 8GB DDR4 3200MHz Laptop Memory",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/crucial-ram-8gb-ddr4-3200mhz-laptop-memory",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Crucial 8GB DDR4 3200MHz Laptop Memory",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states DDR4-3200 SODIMM memory to expand multitasking capacity on compatible laptops (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Check Task Manager → Performance → Memory first; skip if your laptop uses soldered RAM or DDR5.",
+            "ctaHref": "https://durza.in/coupons/crucial-ram-8gb-ddr4-3200mhz-laptop-memory",
+            "external": true
+          }
+        },
+        {
+          "product": "crucial-bx500-500gb-3d-nand-sata-2-5-inch-internal-ssd",
+          "name": "Crucial BX500 500GB 3D NAND SATA 2.5-inch Internal SSD",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/crucial-bx500-500gb-3d-nand-sata-2-5-inch-internal-ssd",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Crucial BX500 500GB 3D NAND SATA 2.5-inch Internal SSD",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 3D NAND SATA 2.5-inch storage with sequential read speeds up to 540 MB/s (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your laptop already boots from an NVMe M.2 SSD and lacks a 2.5-inch drive bay.",
+            "ctaHref": "https://durza.in/coupons/crucial-bx500-500gb-3d-nand-sata-2-5-inch-internal-ssd",
+            "external": true
+          }
+        },
+        {
+          "product": "kingston-a400-240gb-internal-solid-state-drive",
+          "name": "Kingston A400 240GB Internal Solid State Drive",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/kingston-a400-240gb-internal-solid-state-drive",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Kingston A400 240GB Internal Solid State Drive",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a 2.5-inch SATA SSD aimed at faster boot and application load times over mechanical hard drives (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you store large local video or code repositories where 240 GB fills quickly.",
+            "ctaHref": "https://durza.in/coupons/kingston-a400-240gb-internal-solid-state-drive",
+            "external": true
+          }
+        },
+        {
+          "product": "sandisk-ultra-128gb-microsdxc-memory-card",
+          "name": "SanDisk Ultra 128GB MicroSDXC Memory Card",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/sandisk-ultra-128gb-microsdxc-card",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "SanDisk Ultra 128GB MicroSDXC Memory Card",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states Class 10 UHS-I flash storage with read speeds up to 140 MB/s for secondary file backups (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip as a primary OS drive; use only for camera, tablet or secondary media expansion.",
+            "ctaHref": "https://durza.in/coupons/sandisk-ultra-128gb-microsdxc-card",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

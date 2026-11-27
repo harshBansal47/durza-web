@@ -1,7 +1,5 @@
 "use client";
-
 import { useState } from "react";
-
 export default function CollectionExplorer({ children }: { children?: React.ReactNode }) {
   const [expanded, setExpanded] = useState(false);
   return (

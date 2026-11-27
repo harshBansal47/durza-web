@@ -23,12 +23,12 @@
       "body": "Pick the Acer Aspire 3 if you carry the laptop daily and want 16GB RAM with a fast Gen 4 SSD at the lowest reviewed price (₹40,990). Pick the ASUS Vivobook 15 if the screen and keyboard matter more than portability — its 144Hz 300-nit panel is the best display here. Pick the Lenovo IdeaPad Slim 3 if multitasking and upgradeable RAM matter most. If your work is compile-heavy, save longer for a 45W HS-series machine such as the Lenovo ThinkBook 16, whose Ryzen 5 7535HS posted a Cinebench R23 multi-core score of 9,393 in 91mobiles' 2026 testing — well clear of the 15W chips below.",
       "ctas": [
         {
-          "label": "Amazon India",
+          "label": "Check Live Price on Amazon India",
           "href": "/go/amazon-in?src=compare-verdict"
         },
         {
-          "label": "Flipkart",
-          "href": "/go/flipkart?src=compare-verdict-secondary"
+          "label": "Check Live Price on Flipkart",
+          "href": "/go/flipkart?src=compare-verdict"
         }
       ]
     },
@@ -166,8 +166,8 @@
             "Compare exact SKUs, seller authorization and current price.",
             "Keep the GST invoice for warranty claims."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/amazon-in?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/amazon-in?src=compare-mid"
         },
         {
           "store": "Flipkart",
@@ -175,8 +175,8 @@
             "Check the exact processor/RAM variant before buying.",
             "Inspect under Open-Box Delivery before sharing the OTP."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/flipkart?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/flipkart?src=compare-mid"
         },
         {
           "store": "Lenovo India",
@@ -184,8 +184,8 @@
             "Direct eStore for warranty extension and student offers.",
             "Compare direct price against marketplace bank slabs."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/lenovo?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/lenovo?src=compare-mid"
         }
       ]
     },
@@ -315,6 +315,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Amazon India",
+    "href": "/go/amazon-in?src=compare-mobile-sticky"
+  },
   "keywords": [
     "best laptop under 50000 India 2026",
     "Acer Aspire 3 vs Lenovo IdeaPad vs ASUS Vivobook",

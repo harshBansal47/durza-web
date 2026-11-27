@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The Apartment Home-Gym & Clean Protein Starter Kit: Zero-Clutter Gear & Lab-Tested Nutrition",
-      "dek": "Space-saving workout essentials and practical nutrition picks that fit a small Indian apartment—focused on consistency, comfort, and verified products.",
+      "id": "home-equipment",
+      "step": "Step 1 · Gear",
+      "heading": "Home equipment",
+      "dek": "Compact resistance, a doorway bar and basic free weights allow progressive training in small apartments.",
       "items": [
         {
-          "product": "boldfit-6mm-tpe-anti-slip-yoga-exercise-mat",
-          "badge": null,
-          "tags": [],
+          "product": "titangrip-doorway-pull-up-bar",
+          "name": "TitanGrip Doorway Pull-Up Bar",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/titangrip-doorway-pull-up-bar",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Boldfit 6mm TPE Anti-Slip Yoga & Exercise Mat",
-            "storeBadge": "Boldfit (Official Store)",
-            "tier": "Foundation Gear",
-            "why": "A firm, easy-to-roll mat gives stable footing for bodyweight workouts, stretching, and floor exercises in tight living-room spaces.",
-            "skipIf": "You already have a non-slip mat with enough cushioning for your joints and flooring.",
-            "ctaLabel": "Check Live Price on Boldfit",
-            "ctaHref": "/go/boldfit?src=col-gym",
+            "name": "TitanGrip Doorway Pull-Up Bar",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a no-screw doorway pull-up bar for upper-body bodyweight training at home (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your apartment has hollow PVC door frames or weak wooden trim; verify the max weight spec.",
+            "ctaHref": "https://durza.in/coupons/titangrip-doorway-pull-up-bar",
             "external": true
           }
         },
         {
-          "product": "boldfit-heavy-duty-resistance-band-tube-set",
-          "badge": null,
-          "tags": [],
+          "product": "11-piece-resistance-tube-workout-set",
+          "name": "11-Piece Resistance Tube Workout Set",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/11-piece-resistance-tube-workout-set",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Boldfit Heavy-Duty Resistance Band Tube Set",
-            "storeBadge": "Boldfit (Official Store)",
-            "tier": "Compact Strength",
-            "why": "Stackable tube resistance lets you train push, pull, and accessory movements at home without bulky machines or fixed racks.",
-            "skipIf": "You prefer free weights and already have adjustable dumbbells or access to a gym.",
-            "ctaLabel": "Check Live Price on Boldfit",
-            "ctaHref": "/go/boldfit?src=col-gym",
+            "name": "11-Piece Resistance Tube Workout Set",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states five colour-coded resistance levels with handles, ankle straps and a door anchor (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already train with heavy barbell or dumbbell racks.",
+            "ctaHref": "https://durza.in/coupons/11-piece-resistance-tube-workout-set",
             "external": true
           }
         },
         {
-          "product": "blissclub-ultimate-4-pocket-leggings",
-          "badge": null,
-          "tags": [],
+          "product": "kore-pvc-20kg-home-gym-dumbbell-kit",
+          "name": "Kore PVC 20kg Home Gym Dumbbell Kit",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/kore-pvc-20kg-home-gym-dumbbell-kit",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "BlissClub Ultimate 4-Pocket Leggings",
-            "storeBadge": "BlissClub (Official Store)",
-            "tier": "Zero-Roll Movement",
-            "why": "Comfortable, secure-fit activewear with practical pockets can make daily movement easier to stick with, especially for home workouts and walks.",
-            "skipIf": "You already own comfortable workout bottoms that stay put during movement.",
-            "ctaLabel": "Check Live Price on BlissClub",
-            "ctaHref": "/go/bliss-club?src=col-gym",
+            "name": "Kore PVC 20kg Home Gym Dumbbell Kit",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states PVC plates, dumbbell rods, gym gloves and a skipping rope for starter home strength routines (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer compact cast-iron or rubber-coated hex dumbbells over bulky PVC plates.",
+            "ctaHref": "https://durza.in/coupons/kore-pvc-20kg-home-gym-dumbbell-kit",
             "external": true
           }
         },
         {
-          "product": "beastlife-lab-tested-super-whey-protein",
-          "badge": null,
-          "tags": [],
+          "product": "boldfit-skipping-rope-with-high-speed-ball-bearings",
+          "name": "Boldfit Skipping Rope with High Speed Ball Bearings",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/boldfit-skipping-rope-with-high-speed-ball-bearings",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "BeastLife Lab-Tested Super Whey Protein",
-            "storeBadge": "BeastLife (Official Store)",
-            "tier": "Clean Recovery",
-            "why": "A direct-from-brand whey option that emphasizes batch-level testing can be a practical way to support protein intake when your diet falls short.",
-            "skipIf": "You meet your protein needs through food or have dietary/medical reasons to avoid whey—check labels and consult a professional if needed.",
-            "ctaLabel": "Check Live Price on BeastLife",
-            "ctaHref": "/go/beast-life?src=col-gym",
-            "external": true
-          }
-        },
-        {
-          "product": "muscleblaze-creamp-micronized-creatine-starter-pouch",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "MuscleBlaze CreAMP Micronized Creatine (Starter Pouch)",
-            "storeBadge": "Amazon India",
-            "tier": "Strength Booster",
-            "why": "Creatine monohydrate is a well-studied supplement for strength training progress; a starter pouch is a simple way to assess tolerance and routine fit.",
-            "skipIf": "You don’t do resistance training or have a medical condition—check suitability with a healthcare professional.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "https://www.amazon.in/dp/B0iU3vLmN?tag=durza02-21&ascsubtag=collection_kit",
+            "name": "Boldfit Skipping Rope with High Speed Ball Bearings",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a tangle-free steel wire cable with ball-bearing handles for cardio and HIIT conditioning (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip on bare concrete floors without a mat, which wears down coated steel cables quickly.",
+            "ctaHref": "https://durza.in/coupons/boldfit-skipping-rope-with-high-speed-ball-bearings",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "nutrition-basics",
+      "step": "Step 2 · Fuel",
+      "heading": "Nutrition basics",
+      "dek": "Third-party-tested whey, plain creatine and protein oats help close intake gaps when food falls short.",
+      "items": [
+        {
+          "product": "muscleblaze-biozyme-performance-whey-1kg-rich-chocolate",
+          "name": "MuscleBlaze Biozyme Performance Whey 1kg (Rich Chocolate)",
+          "badge": "₹3,999 listing",
+          "href": "https://www.amazon.in/dp/B091HTLXL3?tag=durza02-21&ascsubtag=collection_kit",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": "₹3,999",
+          "mrpLabel": null,
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "MuscleBlaze Biozyme Performance Whey 1kg (Rich Chocolate)",
+            "storeBadge": "₹3,999 listing",
+            "why": "Brand states 25g protein, 11.75g EAA and 5.51g BCAA per 36g scoop across 28 servings, with third-party checks stated on the listing (Durza supplement comparison, checked 24 Nov 2026).",
+            "skipIf": "Contains milk and soy allergens; skip if you meet protein needs from food or have kidney or medical conditions.",
+            "ctaHref": "https://www.amazon.in/dp/B091HTLXL3?tag=durza02-21&ascsubtag=collection_kit",
+            "external": true
+          }
+        },
+        {
+          "product": "premium-gold-whey-2kg-rich-chocolate",
+          "name": "Premium Gold Whey [2kg, Rich Chocolate]",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-gym",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Premium Gold Whey [2kg, Rich Chocolate]",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 25g protein and 11g EAA per ~37g scoop with monthly Informed Choice (UK) batch testing (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer a 1kg starter tub before committing to 2kg, or have dairy intolerance.",
+            "ctaHref": "/go/amazon-in?src=collection-gym",
+            "external": true
+          }
+        },
+        {
+          "product": "micronised-creatine-monohydrate-creamp-powder-100g",
+          "name": "Micronised Creatine Monohydrate CreAMP Powder, 100g",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-gym",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Micronised Creatine Monohydrate CreAMP Powder, 100g",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 3g micronised creatine monohydrate per scoop (~33 servings) with Trustified certification (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if you do not perform resistance training or if a doctor has flagged kidney concerns.",
+            "ctaHref": "/go/amazon-in?src=collection-gym",
+            "external": true
+          }
+        },
+        {
+          "product": "high-protein-oats-1kg-pack-of-2-dark-chocolate",
+          "name": "High Protein Oats 1kg, Pack of 2 [Dark Chocolate]",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-gym",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "High Protein Oats 1kg, Pack of 2 [Dark Chocolate]",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 26g protein per 100g from a whey and soya blend with seeds and zero added sugar (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Contains milk (whey), soy and oats; skip if you prefer unflavoured plain rolled oats.",
+            "ctaHref": "/go/amazon-in?src=collection-gym",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "recovery-and-tracking",
+      "step": "Step 3 · Recover",
+      "heading": "Recovery & tracking",
+      "dek": "Mobility tools, joint support and a food scale support consistent recovery and portion tracking.",
+      "items": [
+        {
+          "product": "high-density-foam-roller",
+          "name": "High-Density Foam Roller",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/high-density-foam-roller",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "High-Density Foam Roller",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a grid trigger-point surface for post-workout muscle mobility and myofascial release (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you find firm trigger-point grids too intense compared to smooth EVA rollers.",
+            "ctaHref": "https://durza.in/coupons/high-density-foam-roller",
+            "external": true
+          }
+        },
+        {
+          "product": "heavy-duty-gym-wrist-wraps",
+          "name": "Heavy-Duty Gym Wrist Wraps",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/heavy-duty-gym-wrist-wraps",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Heavy-Duty Gym Wrist Wraps",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a cotton-elastic blend designed to stabilise wrists during pushups, presses and overhead lifts (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip for light bodyweight or cardio workouts where wrist support is unnecessary.",
+            "ctaHref": "https://durza.in/coupons/heavy-duty-gym-wrist-wraps",
+            "external": true
+          }
+        },
+        {
+          "product": "boldfit-pro-knee-compression-sleeve-pair",
+          "name": "Boldfit Pro Knee Compression Sleeve (Pair)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/boldfit-pro-knee-compression-sleeve-pair",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Boldfit Pro Knee Compression Sleeve (Pair)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 7mm ergonomic neoprene-style knee support for squats, lunges and lower-body training (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Not a medical brace; consult a doctor or physiotherapist for acute knee pain or ligament injuries.",
+            "ctaHref": "https://durza.in/coupons/boldfit-pro-knee-compression-sleeve-pair",
+            "external": true
+          }
+        },
+        {
+          "product": "atom-kitchen-weight-machine-digital-scale-sf400-a121",
+          "name": "Atom Kitchen Weight Machine Digital Scale (SF400 / A121)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-gym",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Atom Kitchen Weight Machine Digital Scale (SF400 / A121)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a 10kg capacity LCD scale with a 6-month warranty for weighing protein, oats and meal portions (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already own a working digital food scale accurate to 1g.",
+            "ctaHref": "/go/amazon-in?src=collection-gym",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

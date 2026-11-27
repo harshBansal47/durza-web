@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The New-Flat & High-Rise Apartment Setup Kit: Water Heaters, Power Tools & Storage",
-      "dek": "A practical move-in kit for Indian apartments—pressure-safe utilities, bill-saving fans, space-multiplying furniture, and DIY basics for week-one fixes.",
+      "id": "storage-and-space",
+      "step": "Step 1 · Organise",
+      "heading": "Storage & space",
+      "dek": "Termite-proof polymer cabinets and modular storage maximise compact urban flats.",
       "items": [
         {
-          "product": "havells-8-bar-pressure-storage-water-heater-15l-25l",
-          "badge": null,
-          "tags": [],
+          "product": "nilkamal-freedom-mini-medium-plastic-storage-cabinet",
+          "name": "Nilkamal Freedom Mini Medium Plastic Storage Cabinet",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/nilkamal-freedom-mini-medium-plastic-cabinet",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Havells 8-Bar Pressure Storage Water Heater (15L–25L)",
-            "storeBadge": "Havells (Official Store)",
-            "tier": "High-Rise Essential",
-            "why": "A pressure-rated storage geyser is a safer fit for many multi-story buildings, helping handle high inlet pressure when correctly sized and installed.",
-            "skipIf": "Your building has low pressure or you need an instant heater—confirm capacity, pressure rating, and installation requirements first.",
-            "ctaLabel": "Check Live Price on Havells",
-            "ctaHref": "/go/havells?src=col-home",
+            "name": "Nilkamal Freedom Mini Medium Plastic Storage Cabinet",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states corrosion- and termite-proof polymer construction with adjustable shelves for utility and balcony storage (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need heavy-load shelving for appliances or cast-iron cookware.",
+            "ctaHref": "https://durza.in/coupons/nilkamal-freedom-mini-medium-plastic-cabinet",
             "external": true
           }
         },
         {
-          "product": "havells-bee-5-star-bldc-ceiling-fans",
-          "badge": null,
-          "tags": [],
+          "product": "nilkamal-engineered-wood-3-door-wardrobe-with-mirror",
+          "name": "Nilkamal Engineered Wood 3-Door Wardrobe with Mirror",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/nilkamal-engineered-wood-3-door-wardrobe-with-mirror",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Havells BEE 5-Star BLDC Ceiling Fans",
-            "storeBadge": "Havells (Official Store)",
-            "tier": "Bill Saver",
-            "why": "BLDC fans can use significantly less power than older induction fans, making them a practical upgrade for multi-room apartments during long summer use.",
-            "skipIf": "Your existing fans are efficient and in good condition, or your rental doesn’t allow replacements.",
-            "ctaLabel": "Check Live Price on Havells",
-            "ctaHref": "/go/havells?src=col-home",
+            "name": "Nilkamal Engineered Wood 3-Door Wardrobe with Mirror",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states particle-board construction with a hanging rod, shelves, lockable drawer and full-length mirror (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip in damp ground-floor rooms prone to water seepage, which can swell engineered wood.",
+            "ctaHref": "https://durza.in/coupons/nilkamal-engineered-wood-3-door-wardrobe-with-mirror",
             "external": true
           }
         },
         {
-          "product": "nilkamal-hydraulic-storage-bed-study-desk",
-          "badge": null,
-          "tags": [],
+          "product": "presto-garbage-bags-medium-30-bags-6-rolls-19-21-inches-black-180-count",
+          "name": "Presto! Garbage Bags | Medium | 30 Bags × 6 Rolls | 19 × 21 Inches | Black (180 Count)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-apartment",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Nilkamal Hydraulic Storage Bed & Study Desk",
-            "storeBadge": "Nilkamal Furniture",
-            "tier": "Space Multiplier",
-            "why": "Hydraulic storage beds and compact desks help reclaim floor space in urban bedrooms while keeping daily essentials organized.",
-            "skipIf": "You already have adequate storage or need custom-sized furniture for a specific layout.",
-            "ctaLabel": "Check Live Price on Nilkamal Furniture",
-            "ctaHref": "/go/nilkamalfurniture?src=col-home",
+            "name": "Presto! Garbage Bags | Medium | 30 Bags × 6 Rolls | 19 × 21 Inches | Black (180 Count)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 180 medium oxo-biodegradable bin liners across six rolls for wet and dry apartment waste (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if your kitchen uses tall 30-litre+ pedal bins that require large-size liners.",
+            "ctaHref": "/go/amazon-in?src=collection-apartment",
             "external": true
           }
         },
         {
-          "product": "moglix-home-diy-13mm-impact-drill-tool-kit",
-          "badge": null,
-          "tags": [],
+          "product": "amazer-mini-sealing-machine-for-food-packets-plastic-bags-assorted",
+          "name": "Amazer Mini Sealing Machine for Food Packets / Plastic Bags (Assorted)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-apartment",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Moglix Home DIY 13mm Impact Drill & Tool Kit",
-            "storeBadge": "Moglix (Official Store)",
-            "tier": "Wall-Mounting Independence",
-            "why": "A basic impact drill kit with masonry bits and wall plugs makes common move-in tasks—curtains, shelves, hooks—much easier to handle.",
-            "skipIf": "Your society restricts drilling or you only need one-time installation—consider professional help instead.",
-            "ctaLabel": "Check Live Price on Moglix",
-            "ctaHref": "/go/moglix?src=col-home",
-            "external": true
-          }
-        },
-        {
-          "product": "boldfit-nilkamal-balcony-utility-organizers",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "Boldfit / Nilkamal Balcony & Utility Organizers",
-            "storeBadge": "Official Brand Stores",
-            "tier": "Weatherproof Seating",
-            "why": "Durable balcony seating and ventilated utility organizers can make small outdoor/entry spaces more usable in monsoon and summer conditions.",
-            "skipIf": "You don’t have balcony/utility space or your building provides fixed fittings.",
-            "ctaLabel": "Check Live Price on Nilkamal Furniture",
-            "ctaHref": "/go/nilkamalfurniture?src=col-home",
+            "name": "Amazer Mini Sealing Machine for Food Packets / Plastic Bags (Assorted)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a portable handheld heat sealer for resealing opened snack and pantry bags in humid kitchens (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already store all dry groceries in airtight glass or steel jars.",
+            "ctaHref": "/go/amazon-in?src=collection-apartment",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "mounting-and-tools",
+      "step": "Step 2 · Install & Fix",
+      "heading": "Mounting & tools",
+      "dek": "An impact drill, masonry bits and a hand-tool kit handle curtain rods, shelves and week-one fixes.",
+      "items": [
+        {
+          "product": "bosch-gsb-500w-professional-impact-drill-kit",
+          "name": "Bosch GSB 500W Professional Impact Drill Kit",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/bosch-gsb-500w-professional-impact-drill-kit",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Bosch GSB 500W Professional Impact Drill Kit",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a 500W corded impact hammer drill bundled with 100 accessories and a storage case for concrete and brick walls (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your housing society prohibits resident drilling or you only need a cordless screwdriver.",
+            "ctaHref": "https://durza.in/coupons/bosch-gsb-500w-professional-impact-drill-kit",
+            "external": true
+          }
+        },
+        {
+          "product": "bosch-x-line-50-piece-drill-screwdriver-bit-set",
+          "name": "Bosch X-Line 50-Piece Drill & Screwdriver Bit Set",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-apartment",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Bosch X-Line 50-Piece Drill & Screwdriver Bit Set",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 50 TiN-coated bits — metal, masonry, wood, screwdriver, spade, countersink and nutsetters (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if your drill kit already includes masonry bits and wall-plug drivers.",
+            "ctaHref": "/go/amazon-in?src=collection-apartment",
+            "external": true
+          }
+        },
+        {
+          "product": "stanley-38-piece-hand-tool-set-with-organizer-box",
+          "name": "Stanley 38-Piece Hand Tool Set with Organizer Box",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/stanley-38-piece-hand-tool-set-with-organizer-box",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Stanley 38-Piece Hand Tool Set with Organizer Box",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states precision screwdrivers, pliers, hammer and measuring tape in a portable organiser box (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you already own basic household screwdrivers, pliers and a claw hammer.",
+            "ctaHref": "https://durza.in/coupons/stanley-38-piece-hand-tool-set-with-organizer-box",
+            "external": true
+          }
+        },
+        {
+          "product": "black-decker-10-8v-cordless-drill-driver",
+          "name": "Black+Decker 10.8V Cordless Drill Driver",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/black-decker-10-8v-cordless-drill-driver",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Black+Decker 10.8V Cordless Drill Driver",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a lithium-ion variable-speed reversible cordless drill for furniture assembly and wood or metal fastening (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip for heavy RCC concrete ceiling drilling, where a corded impact hammer drill is required.",
+            "ctaHref": "https://durza.in/coupons/black-decker-10-8v-cordless-drill-driver",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "weather-and-seating",
+      "step": "Step 3 · Utilities & Balcony",
+      "heading": "Weather & seating",
+      "dek": "Storage geysers, BLDC fans and weather-resistant chairs solve high-rise pressure and balcony needs.",
+      "items": [
+        {
+          "product": "havells-adonia-spin-15-litre-storage-water-heater",
+          "name": "Havells Adonia Spin 15-Litre Storage Water Heater",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/havells-adonia-spin-15-litre-storage-water-heater",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Havells Adonia Spin 15-Litre Storage Water Heater",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states Feroglas tank technology and a shock-safe plug suited to high-rise apartment water pressure (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Verify the 8-bar pressure rating and PIN-code installation availability before ordering.",
+            "ctaHref": "https://durza.in/coupons/havells-adonia-spin-15-litre-storage-water-heater",
+            "external": true
+          }
+        },
+        {
+          "product": "crompton-arno-neo-15l-storage-water-heater",
+          "name": "Crompton Arno Neo 15L Storage Water Heater",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/crompton-arno-neo-15l-storage-water-heater",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Crompton Arno Neo 15L Storage Water Heater",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states BEE 5-star energy efficiency with three-level safety protection for apartment bathrooms (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Verify the exact 8-bar pressure rating on the SKU label if installed on lower floors of a tall tower.",
+            "ctaHref": "https://durza.in/coupons/crompton-arno-neo-15l-storage-water-heater",
+            "external": true
+          }
+        },
+        {
+          "product": "havells-stealth-air-bldc-1200mm-ceiling-fan",
+          "name": "Havells Stealth Air BLDC 1200mm Ceiling Fan",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/havells-stealth-air-bldc-1200mm-fan",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Havells Stealth Air BLDC 1200mm Ceiling Fan",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a 28W inverter-friendly BLDC motor with remote control for lower electricity consumption (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip in rooms running under 3 hours/day or if your landlord prohibits fixture swaps.",
+            "ctaHref": "https://durza.in/coupons/havells-stealth-air-bldc-1200mm-fan",
+            "external": true
+          }
+        },
+        {
+          "product": "nilkamal-premium-plastic-dining-garden-chairs-set-of-4",
+          "name": "Nilkamal Premium Plastic Dining / Garden Chairs (Set of 4)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/nilkamal-premium-plastic-dining-garden-chairs-set-of-4",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Nilkamal Premium Plastic Dining / Garden Chairs (Set of 4)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states virgin polypropylene weather-resistant stackable chairs for apartment balconies and utility areas (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you do not have balcony space or prefer cushioned indoor dining chairs.",
+            "ctaHref": "https://durza.in/coupons/nilkamal-premium-plastic-dining-garden-chairs-set-of-4",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

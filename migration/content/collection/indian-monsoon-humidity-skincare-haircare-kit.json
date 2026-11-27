@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The Indian Humidity & Hard-Water Survival Kit: Non-Greasy SPF, Frizz Control & Scalp Care",
-      "dek": "A 5-piece routine built for 80% humidity and hard-water buildup—light textures, scalp clarity, and practical actives without heavy, melting layers.",
+      "id": "cleanse-and-reset",
+      "step": "Step 1 · Cleanse",
+      "heading": "Cleanse & reset",
+      "dek": "Gentle cleansers and occasional scalp washes remove sweat and residue without stripping the skin barrier.",
       "items": [
         {
-          "product": "dot-key-watermelon-hyaluronic-cooling-sunscreen-spf-50",
-          "badge": null,
-          "tags": [],
+          "product": "cetaphil-gentle-skin-hydrating-face-wash-118ml",
+          "name": "Cetaphil Gentle Skin Hydrating Face Wash (118ml)",
+          "badge": "Under ₹400",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "https://m.media-amazon.com/images/I/61Ti2uv6V3L.SY355.jpg",
+          "priceLabel": "₹399",
+          "mrpLabel": "₹459",
+          "price_checked_at": "2026-11-25",
           "_original": {
-            "name": "Dot & Key Watermelon Hyaluronic Cooling Sunscreen SPF 50+",
-            "storeBadge": "Dot & Key (Official Store)",
-            "tier": "Daily Non-Negotiable",
-            "why": "A water-light gel texture that absorbs quickly and is designed to feel comfortable in humid commutes, helping daily SPF use feel less sticky.",
-            "skipIf": "You already use a broad-spectrum sunscreen you’ll apply consistently every morning.",
-            "ctaLabel": "Check Live Price on Dot & Key",
-            "ctaHref": "/go/dot-and-key?src=col-humidity",
+            "name": "Cetaphil Gentle Skin Hydrating Face Wash (118ml)",
+            "storeBadge": "Under ₹400",
+            "why": "Brand states a gentle hydrating face wash suited to daily cleansing without harsh stripping (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer a foaming salicylic-acid cleanser for heavy active acne.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
             "external": true
           }
         },
         {
-          "product": "minimalist-10-niacinamide-zinc-face-serum",
-          "badge": null,
-          "tags": [],
+          "product": "minimalist-anti-acne-salicylic-acid-2-face-wash-50ml",
+          "name": "Minimalist Anti-Acne Salicylic Acid 2% Face Wash (50ml)",
+          "badge": "Under ₹300",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61e31R15BDL._SX425_.jpg",
+          "priceLabel": "₹299",
+          "mrpLabel": "₹299",
+          "price_checked_at": "2026-11-25",
           "_original": {
-            "name": "Minimalist 10% Niacinamide + Zinc Face Serum",
-            "storeBadge": "Amazon India",
-            "tier": "Oil & Mark Control",
-            "why": "Niacinamide can help balance excess midday oil and support fading the look of post-acne marks without using harsh exfoliating acids.",
-            "skipIf": "Your skin is irritated or you’re already using multiple new actives—introduce slowly and patch test first.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "/go/amazon-in?src=col-humidity",
+            "name": "Minimalist Anti-Acne Salicylic Acid 2% Face Wash (50ml)",
+            "storeBadge": "Under ₹300",
+            "why": "Brand states 2% salicylic acid to target clogged pores and excess oil in humid weather (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Skip if your skin barrier is dry, peeling or irritated from over-exfoliation.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
             "external": true
           }
         },
         {
-          "product": "wow-skin-science-apple-cider-vinegar-shampoo",
-          "badge": null,
-          "tags": [],
+          "product": "wow-skin-science-apple-cider-vinegar-shampoo-300ml",
+          "name": "WOW Skin Science Apple Cider Vinegar Shampoo (300ml)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "WOW Skin Science Apple Cider Vinegar Shampoo",
-            "storeBadge": "Amazon India",
-            "tier": "Weekly Scalp Reset",
-            "why": "Works as a clarifying reset for sweat, styling residue, and hard-water buildup when used occasionally alongside a gentler conditioner routine.",
-            "skipIf": "Your scalp and hair are very dry—clarifying too often can feel stripping.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "/go/amazon-in?src=col-humidity",
+            "name": "WOW Skin Science Apple Cider Vinegar Shampoo (300ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a sulfate-free clarifying shampoo intended as a 1–2x weekly reset for oily scalps and hard-water buildup (Durza guide, checked 25 Nov 2026).",
+            "skipIf": "Skip for daily washing on dry or frizz-prone hair; pair with a conditioner.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
             "external": true
           }
         },
         {
-          "product": "kama-ayurveda-pure-kannauj-rosewater-mist",
-          "badge": null,
-          "tags": [],
+          "product": "tnw-black-seed-onion-hair-oil-with-jojoba-200ml",
+          "name": "TNW Black Seed Onion Hair Oil with Jojoba (200ml)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/tnw-black-seed-onion-hair-oil-with-jojoba",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Kama Ayurveda Pure Kannauj Rosewater Mist",
-            "storeBadge": "Kama Ayurveda (Official Store)",
-            "tier": "Midday Refresh",
-            "why": "A simple, alcohol-free rosewater mist can feel calming and refreshing after heat or AC exposure when you want a light reset without heavy layers.",
-            "skipIf": "You prefer to keep your routine minimal and don’t enjoy facial mists.",
-            "ctaLabel": "Check Live Price on Kama Ayurveda",
-            "ctaHref": "/go/kama-ayurveda?src=col-humidity",
-            "external": true
-          }
-        },
-        {
-          "product": "indus-valley-damage-free-gel-hair-colour-botanical-henna",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "Indus Valley Damage-Free Gel Hair Colour / Botanical Henna",
-            "storeBadge": "Indus Valley (Official Store)",
-            "tier": "Ammonia-Free Color",
-            "why": "A gentler, ammonia-free colour option for grey coverage; choose the specific formula that matches your sensitivity needs and always follow the brand’s instructions.",
-            "skipIf": "You need a specific salon-grade shade result or have known sensitivities—patch test and review ingredient details before use.",
-            "ctaLabel": "Check Live Price on Indus Valley",
-            "ctaHref": "/go/indus-valley?src=col-humidity",
+            "name": "TNW Black Seed Onion Hair Oil with Jojoba (200ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a blend of red onion, kalonji, jojoba and castor oils as a pre-wash scalp oil (Durza Beauty & Grooming catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you have an oily scalp prone to fungal dandruff or seborrheic dermatitis.",
+            "ctaHref": "https://durza.in/coupons/tnw-black-seed-onion-hair-oil-with-jojoba",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "treat-and-control",
+      "step": "Step 2 · Balance",
+      "heading": "Treat & control",
+      "dek": "Lightweight serums and oil-free gels control shine without heavy layers in 80% humidity.",
+      "items": [
+        {
+          "product": "minimalist-10-niacinamide-face-serum-30ml",
+          "name": "Minimalist 10% Niacinamide Face Serum (30ml)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Minimalist 10% Niacinamide Face Serum (30ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 10% niacinamide with zinc helps regulate excess sebum and improve the look of uneven tone in humid weather (Durza guide, checked 25 Nov 2026).",
+            "skipIf": "Patch test for 24 hours and start 3x/week if new to 10% niacinamide.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
+            "external": true
+          }
+        },
+        {
+          "product": "dot-key-72hr-hydrating-gel-moisturizer-60ml",
+          "name": "Dot & Key 72HR Hydrating Gel Moisturizer (60ml)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/72hr-hydrating-gel-moisturizer",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Dot & Key 72HR Hydrating Gel Moisturizer (60ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a lightweight, oil-free gel moisturizer formulated for humid Indian weather (Durza Beauty & Grooming catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you are sensitive to added fruit fragrance in skincare.",
+            "ctaHref": "https://durza.in/coupons/72hr-hydrating-gel-moisturizer",
+            "external": true
+          }
+        },
+        {
+          "product": "plum-green-tea-oil-free-face-moisturizer-50ml",
+          "name": "Plum Green Tea Oil-Free Face Moisturizer (50ml)",
+          "badge": "Under ₹500",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/41wT-0qMdgL._SY355_.jpg",
+          "priceLabel": "₹470",
+          "mrpLabel": "₹575",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Plum Green Tea Oil-Free Face Moisturizer (50ml)",
+            "storeBadge": "Under ₹500",
+            "why": "Brand states an oil-free moisturizer tailored for oily and combination skin (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Skip if you have very dry skin that needs a ceramide-rich cream.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
+            "external": true
+          }
+        },
+        {
+          "product": "neutrogena-hydro-boost-hyaluronic-acid-water-gel-moisturizer-50g",
+          "name": "Neutrogena Hydro Boost Hyaluronic Acid Water Gel Moisturizer (50g)",
+          "badge": "Under ₹900",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51YTdG8RPSL._SY355_.jpg",
+          "priceLabel": "₹850",
+          "mrpLabel": "₹1,050",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Neutrogena Hydro Boost Hyaluronic Acid Water Gel Moisturizer (50g)",
+            "storeBadge": "Under ₹900",
+            "why": "Brand states hyaluronic acid in a fast-absorbing water-gel base for lightweight hydration (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prefer a strictly fragrance-free gel moisturizer.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "protect-and-finish",
+      "step": "Step 3 · Protect",
+      "heading": "Protect & finish",
+      "dek": "Water-light SPF and matte powder prevent tanning and shine without melting in humidity.",
+      "items": [
+        {
+          "product": "minimalist-sunscreen-spf-50-pa-50g",
+          "name": "Minimalist Sunscreen SPF 50 PA++++ (50g)",
+          "badge": "Under ₹400",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51liYV8g2DL.SX425.jpg",
+          "priceLabel": "₹399",
+          "mrpLabel": "₹499",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Minimalist Sunscreen SPF 50 PA++++ (50g)",
+            "storeBadge": "Under ₹400",
+            "why": "Brand states broad-spectrum SPF 50 PA++++ UV protection in a lightweight daily formula (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need a water-resistant sport sunscreen for heavy outdoor swimming.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
+            "external": true
+          }
+        },
+        {
+          "product": "dot-key-watermelon-hyaluronic-cooling-sunscreen-spf-50-50g",
+          "name": "Dot & Key Watermelon Hyaluronic Cooling Sunscreen SPF 50+ (50g)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/watermelon-hyaluronic-cooling-sunscreen-spf-50",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Dot & Key Watermelon Hyaluronic Cooling Sunscreen SPF 50+ (50g)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states SPF 50+ PA++++ protection in a water-light gel fluid with hyaluronic acid and zero white cast (Durza catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your skin reacts to added fragrance or fruit extracts.",
+            "ctaHref": "https://durza.in/coupons/watermelon-hyaluronic-cooling-sunscreen-spf-50",
+            "external": true
+          }
+        },
+        {
+          "product": "la-shield-fisico-spf-50-pa-mineral-sunscreen-50g",
+          "name": "La Shield Fisico SPF 50+ PA++++ Mineral Sunscreen (50g)",
+          "badge": "Under ₹650",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51T8VbpY5HL._SY355_.jpg",
+          "priceLabel": "₹630",
+          "mrpLabel": "₹790",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "La Shield Fisico SPF 50+ PA++++ Mineral Sunscreen (50g)",
+            "storeBadge": "Under ₹650",
+            "why": "Brand states 100% mineral SPF 50+ PA++++ UV protection suited to sensitive or post-active skin (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Skip if you dislike any slight mineral tone-up cast on deeper skin tones.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
+            "external": true
+          }
+        },
+        {
+          "product": "faces-canada-weightless-stay-matte-finish-compact-powder-natural-almond-06-9g",
+          "name": "FACES CANADA Weightless Stay Matte Finish Compact Powder (Natural Almond 06, 9g)",
+          "badge": "Under ₹200",
+          "href": "/go/amazon-in?src=collection-monsoon",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": "₹169",
+          "mrpLabel": "₹249",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "FACES CANADA Weightless Stay Matte Finish Compact Powder (Natural Almond 06, 9g)",
+            "storeBadge": "Under ₹200",
+            "why": "Brand states a lightweight matte compact powder designed to set sunscreen or base and control T-zone shine (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Match your exact shade on the Amazon listing before ordering.",
+            "ctaHref": "/go/amazon-in?src=collection-monsoon",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

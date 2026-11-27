@@ -1,0 +1,162 @@
+{
+  "results": {
+    "total": 208,
+    "ok": 171,
+    "fail": 37,
+    "byStatus": {
+      "200": 171,
+      "404": 36,
+      "429": 1
+    }
+  },
+  "failures": [
+    {
+      "url": "https://durza.in/coupons/sandisk-ultra-128gb-microsdxc-card",
+      "status": 404
+    },
+    {
+      "url": "https://link.amazon/B09azDh1os",
+      "status": 404
+    },
+    {
+      "url": "https://link.amazon/B00xvb4PaL",
+      "status": 404
+    },
+    {
+      "url": "https://link.amazon/B019J3PvV",
+      "status": 429
+    },
+    {
+      "url": "https://www.amazon.in/dp/B019J3PvV?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B02wJTXtk?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B051I4tdP?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B087X0B5L?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B01rdo68h?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0eu1LgyE?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B08sYF4R6?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B07g4mBCp?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0aHLsvUr?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B06HGrdAW?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B06ItAIt6?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B00ZsyP8J?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0fJEyP9f?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0g6sbzyN?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B04iXIkVn?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0drFinUS?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B07ULHHRJ?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0je2FadW?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B05eel6oU?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0ioIDQcV?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/A07IQZnqD?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0aHPhLL7?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0f3JqZ2b?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0c40JHhI?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0hxFgmOs?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B06LnOEez?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B03zmZhzC?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0hrTgoE6?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://www.amazon.in/dp/B0iVblCLJ?tag=durza02-21&amp;ascsubtag=makeup_kit",
+      "status": 404
+    },
+    {
+      "url": "https://durza.in/coupons/nilkamal-freedom-mini-medium-plastic-cabinet",
+      "status": 404
+    },
+    {
+      "url": "https://durza.in/coupons/havells-stealth-air-bldc-1200mm-fan",
+      "status": 404
+    },
+    {
+      "url": "https://durza.in/coupons/milton-executive-insulated-3-container-lunch-box",
+      "status": 404
+    },
+    {
+      "url": "https://durza.in/coupons/classmate-spiral-notebook-6-subject-300-pages",
+      "status": 404
+    }
+  ]
+}

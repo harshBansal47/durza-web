@@ -12,12 +12,12 @@
       "body": "Choose Myntra or Ajio for multi-brand browsing, basics, and end-of-season discounts. Choose official brand stores (Vero Moda, ALDO, Charles & Keith) for current-season drops, gifting, precise size availability, and fresher warehouse stock with full packaging.",
       "ctas": [
         {
-          "label": "Vero Moda",
+          "label": "Check Live Price on Vero Moda",
           "href": "/go/vero-moda?src=compare-verdict"
         },
         {
-          "label": "Charles & Keith",
-          "href": "/go/charles-keith?src=compare-verdict-secondary"
+          "label": "Check Live Price on Charles & Keith",
+          "href": "/go/charles-keith?src=compare-verdict"
         }
       ]
     },
@@ -97,8 +97,8 @@
             "Good for current-season women’s fashion and consistent sizing info.",
             "Useful when you want brand-direct stock and packaging."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/vero-moda?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/vero-moda?src=compare-mid"
         },
         {
           "store": "ALDO",
@@ -106,8 +106,8 @@
             "Brand-direct footwear and accessories with fresh inventory.",
             "Better for gifting and specific size availability."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/aldo-new?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/aldo-new?src=compare-mid"
         },
         {
           "store": "Charles & Keith",
@@ -115,8 +115,8 @@
             "Reliable for latest bags/shoes and complete presentation.",
             "Helpful when marketplace boxes or extras are a concern."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/charles-keith?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/charles-keith?src=compare-mid"
         },
         {
           "store": "AJIO",
@@ -124,8 +124,8 @@
             "Strong for multi-brand deals and seasonal discounts.",
             "Compare final price and return terms before buying premium pieces."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/ajio-com-ecommerce-cps-india?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/ajio-com-ecommerce-cps-india?src=compare-mid"
         }
       ]
     },
@@ -207,6 +207,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Vero Moda",
+    "href": "/go/vero-moda?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Myntra vs Ajio vs brand store India",
     "Charles and Keith India authentic",

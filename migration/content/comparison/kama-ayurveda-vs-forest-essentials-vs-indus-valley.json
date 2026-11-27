@@ -12,12 +12,12 @@
       "body": "Choose Kama Ayurveda for classical cold-pressed/steam-distilled oils and targeted rituals, and Forest Essentials for luxury sensorial Ayurveda and gifting. Choose Indus Valley for ammonia-free/PPD-free botanical hair color and everyday hair care. This comparison covers those three named brands only; active-led skincare from other brands sits outside this page's scope.",
       "ctas": [
         {
-          "label": "Kama Ayurveda",
+          "label": "Check Live Price on Kama Ayurveda",
           "href": "/go/kama-ayurveda?src=compare-verdict"
         },
         {
-          "label": "Indus Valley",
-          "href": "/go/indus-valley?src=compare-verdict-secondary"
+          "label": "Check Live Price on Indus Valley",
+          "href": "/go/indus-valley?src=compare-verdict"
         }
       ]
     },
@@ -89,8 +89,8 @@
             "Classical oils and distillates with brand guidance and discovery options.",
             "Good for targeted rituals and gifting."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/kama-ayurveda?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/kama-ayurveda?src=compare-mid"
         },
         {
           "store": "Indus Valley",
@@ -98,8 +98,8 @@
             "Botanical hair color and hair care with clear ingredient positioning.",
             "Buy direct for product authenticity and current batches."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/indus-valley?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/indus-valley?src=compare-mid"
         },
         {
           "store": "Dot & Key",
@@ -107,8 +107,8 @@
             "Active-led skincare routines (ceramides, niacinamide, sunscreen, etc.).",
             "Useful if you prefer lightweight formulas for humid weather."
           ],
-          "ctaLabel": "Check live price",
-          "href": "/go/dot-and-key?src=compare-offer-card"
+          "ctaLabel": "Check Live Price",
+          "href": "/go/dot-and-key?src=compare-mid"
         }
       ]
     },
@@ -190,6 +190,10 @@
   "published_at": null,
   "updated_at": null,
   "needs_review": false,
+  "stickyCta": {
+    "label": "Check Live Price on Kama Ayurveda",
+    "href": "/go/kama-ayurveda?src=compare-mobile-sticky"
+  },
   "keywords": [
     "Kama Ayurveda vs Forest Essentials",
     "Indus Valley ammonia free PPD free hair color",
