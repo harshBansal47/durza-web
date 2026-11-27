@@ -56,6 +56,7 @@ function toContentPage(content: EditorialContent, kind: ContentKind): ContentPag
     needs_review: (content as EditorialContent & { needs_review?: boolean }).needs_review,
     facts_checked_at: (content as EditorialContent & { facts_checked_at?: string | null }).facts_checked_at ?? null,
     faqs: (content.faqs ?? []).map((f) => ({ question: f.question, answer: f.answer, sort_order: f.sort_order })),
+    stickyCta: (content.structured_data as { stickyCta?: { label: string; href: string } } | undefined)?.stickyCta,
   });
   if (!parsed.success) {
     const issue = parsed.error.issues[0];
