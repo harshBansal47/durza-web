@@ -3,66 +3,2022 @@
   "slug": "complete-amazon-makeup-toolkit",
   "title": "Complete Makeup Toolkit on Amazon India",
   "seo_title": "Complete Makeup Toolkit on Amazon India | Durza",
-  "description": "Build your complete makeup kit step by step—from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.",
-  "meta_description": "Build your complete makeup kit step by step—from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.",
+  "description": "Build your complete makeup kit step by step\u2014from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.",
+  "meta_description": "Build your complete makeup kit step by step\u2014from cleanser to mascara. Browse curated picks across budget to premium, with price, MRP, discount, and Amazon.in links.",
   "status": "published",
   "content_blocks": [
     {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "Complete Makeup Toolkit on Amazon India",
-      "dek": "A step-by-step makeup toolkit organized by routine categories—from cleanser and SPF to foundation, lips, mascara, and tools—with curated Amazon.in picks.",
+      "id": "cleanser",
+      "step": "Step 1: Cleanse",
+      "heading": "Step 1: Cleanse: Cleanser",
+      "dek": "Start fresh with a gentle face wash that suits your skin type.",
       "items": [
         {
-          "product": "prep-base-routine",
-          "badge": null,
-          "tags": [],
+          "product": "cetaphil-gentle-skin-hydrating-face-wash-118ml",
+          "name": "Cetaphil Gentle Skin Hydrating Face Wash (118ml)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B0jm7pKCZ",
+          "image_url": null,
+          "priceLabel": "\u20b9399",
+          "mrpLabel": "\u20b9459",
+          "price_checked_at": "2026-11-24",
           "_original": {
-            "name": "Prep & Base Routine",
+            "name": "Cetaphil Gentle Skin Hydrating Face Wash (118ml)",
             "storeBadge": "Amazon India",
-            "tier": "Essential First Buy",
-            "why": "Start with cleanser, moisturizer, SPF, primer, foundation, concealer, and powder for a solid base.",
-            "skipIf": "You already have your base routine sorted.",
-            "ctaLabel": "Explore Base Steps",
-            "ctaHref": "/collections/complete-amazon-makeup-toolkit#cleanser",
-            "external": false
+            "why": "Soap-free daily wash that suits most skin types and removes makeup residue gently.",
+            "ctaHref": "https://link.amazon/B0jm7pKCZ",
+            "external": true
           }
         },
         {
-          "product": "eyes-lips-glow",
-          "badge": null,
-          "tags": [],
+          "product": "neutrogena-hydro-boost-water-gel-cleanser-200ml",
+          "name": "Neutrogena Hydro Boost Water Gel Cleanser (200ml)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B02pVDmwh",
+          "image_url": null,
+          "priceLabel": "\u20b9599",
+          "mrpLabel": "\u20b9699",
+          "price_checked_at": "2026-11-24",
           "_original": {
-            "name": "Eyes, Lips & Glow",
+            "name": "Neutrogena Hydro Boost Water Gel Cleanser (200ml)",
             "storeBadge": "Amazon India",
-            "tier": "Daily Non-Negotiable",
-            "why": "Build your look with blush, highlighter, brows, eyeshadow, liner, mascara, and lip picks.",
-            "skipIf": "You only need one specific refill.",
-            "ctaLabel": "Browse Color Steps",
-            "ctaHref": "/collections/complete-amazon-makeup-toolkit#blush",
-            "external": false
+            "why": "Hyaluronic gel cleanser that cleans without leaving skin tight.",
+            "ctaHref": "https://link.amazon/B02pVDmwh",
+            "external": true
           }
         },
         {
-          "product": "lock-in-tools",
-          "badge": null,
-          "tags": [],
+          "product": "minimalist-anti-acne-salicylic-acid-2-face-wash-50ml",
+          "name": "Minimalist Anti-Acne Salicylic Acid 2% Face Wash (50ml)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B06RldsNS",
+          "image_url": null,
+          "priceLabel": "\u20b9299",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
           "_original": {
-            "name": "Lock In & Tools",
+            "name": "Minimalist Anti-Acne Salicylic Acid 2% Face Wash (50ml)",
             "storeBadge": "Amazon India",
-            "tier": "Sweet-Spot Upgrade",
-            "why": "Finish with setting spray and tools that make application easier and longer lasting.",
-            "skipIf": "You already own setting and tool essentials.",
-            "ctaLabel": "View Final Steps",
-            "ctaHref": "/collections/complete-amazon-makeup-toolkit#setting-spray",
-            "external": false
+            "why": "Gentle BHA wash for oily, breakout-prone skin; hugely popular with teens.",
+            "ctaHref": "https://link.amazon/B06RldsNS",
+            "external": true
+          }
+        },
+        {
+          "product": "cerave-hydrating-cleanser-for-normal-to-dry-skin-236ml",
+          "name": "CeraVe Hydrating Cleanser For Normal To Dry Skin (236ml)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B084u9pgQ",
+          "image_url": null,
+          "priceLabel": "\u20b91,350",
+          "mrpLabel": "\u20b91,600",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "CeraVe Hydrating Cleanser For Normal To Dry Skin (236ml)",
+            "storeBadge": "Amazon India",
+            "why": "Ceramide + hyaluronic non-foaming cleanser; a skincare-community favourite.",
+            "ctaHref": "https://link.amazon/B084u9pgQ",
+            "external": true
+          }
+        },
+        {
+          "product": "cerave-foaming-cleanser-for-normal-to-oily-skin-236ml",
+          "name": "CeraVe Foaming Cleanser for Normal to Oily Skin (236ml)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B04dngRZJ",
+          "image_url": null,
+          "priceLabel": "\u20b91,350",
+          "mrpLabel": "\u20b91,600",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "CeraVe Foaming Cleanser for Normal to Oily Skin (236ml)",
+            "storeBadge": "Amazon India",
+            "why": "Niacinamide + ceramide gel cleanser for oily or breakout-prone skin; pairs with the hydrating CeraVe for dry skin.",
+            "ctaHref": "https://link.amazon/B04dngRZJ",
+            "external": true
+          }
+        },
+        {
+          "product": "lakm-blush-glow-strawberry-refreshing-gel-face-wash-100g",
+          "name": "Lakm\u00e9 Blush & Glow Strawberry Refreshing Gel Face Wash (100g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B06Ldzgeo",
+          "image_url": null,
+          "priceLabel": "\u20b9175",
+          "mrpLabel": "\u20b9215",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 Blush & Glow Strawberry Refreshing Gel Face Wash (100g)",
+            "storeBadge": "Amazon India",
+            "why": "Cute, fruity, very affordable first face wash for teens.",
+            "ctaHref": "https://link.amazon/B06Ldzgeo",
+            "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "moisturizer",
+      "step": "Step 2: Moisturize",
+      "heading": "Step 2: Moisturize: Moisturizer",
+      "dek": "Hydrate and prep your skin for smooth makeup application.",
+      "items": [
+        {
+          "product": "renee-tinted-moisturiser-caramel-glint-50ml",
+          "name": "RENEE Tinted Moisturiser (Caramel Glint, 50ml)",
+          "badge": "Everyday Pick",
+          "href": "https://link.amazon/B08sYF4R6",
+          "image_url": null,
+          "priceLabel": "\u20b9379",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "RENEE Tinted Moisturiser (Caramel Glint, 50ml)",
+            "storeBadge": "Amazon India",
+            "why": "Light coverage with moisture for a quick, natural-looking base.",
+            "ctaHref": "https://link.amazon/B08sYF4R6",
+            "external": true
+          }
+        },
+        {
+          "product": "neutrogena-hydro-boost-hyaluronic-acid-water-gel-moisturizer-50g",
+          "name": "Neutrogena Hydro Boost Hyaluronic Acid Water Gel Moisturizer (50g)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B0e00S4ys",
+          "image_url": null,
+          "priceLabel": "\u20b9850",
+          "mrpLabel": "\u20b91,050",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Neutrogena Hydro Boost Hyaluronic Acid Water Gel Moisturizer (50g)",
+            "storeBadge": "Amazon India",
+            "why": "Light, non-sticky gel hydration that sits well under makeup.",
+            "ctaHref": "https://link.amazon/B0e00S4ys",
+            "external": true
+          }
+        },
+        {
+          "product": "cetaphil-moisturising-cream-100g",
+          "name": "Cetaphil Moisturising Cream (100g)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B08Fb83hL",
+          "image_url": null,
+          "priceLabel": "\u20b9450",
+          "mrpLabel": "\u20b9550",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Cetaphil Moisturising Cream (100g)",
+            "storeBadge": "Amazon India",
+            "why": "Rich, fragrance-free cream for dry skin; a reliable barrier basic.",
+            "ctaHref": "https://link.amazon/B08Fb83hL",
+            "external": true
+          }
+        },
+        {
+          "product": "plum-green-tea-oil-free-face-moisturizer-50ml",
+          "name": "Plum Green Tea Oil-Free Face Moisturizer (50ml)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B08FUoXrv",
+          "image_url": null,
+          "priceLabel": "\u20b9470",
+          "mrpLabel": "\u20b9575",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Plum Green Tea Oil-Free Face Moisturizer (50ml)",
+            "storeBadge": "Amazon India",
+            "why": "Oil-free gel-cream for oily/combination skin in humid weather.",
+            "ctaHref": "https://link.amazon/B08FUoXrv",
+            "external": true
+          }
+        },
+        {
+          "product": "minimalist-vitamin-b5-10-oil-free-moisturizer-50g",
+          "name": "Minimalist Vitamin B5 10% Oil-Free Moisturizer (50g)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B0itQ4be7",
+          "image_url": null,
+          "priceLabel": "\u20b9329",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Minimalist Vitamin B5 10% Oil-Free Moisturizer (50g)",
+            "storeBadge": "Amazon India",
+            "why": "Simple barrier-hydrating moisturizer with a big Gen Z following.",
+            "ctaHref": "https://link.amazon/B0itQ4be7",
+            "external": true
+          }
+        },
+        {
+          "product": "clinique-moisture-surge-100h-auto-replenishing-hydrator-15ml",
+          "name": "Clinique Moisture Surge 100H Auto-Replenishing Hydrator (15ml)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B0i4AZEAM",
+          "image_url": null,
+          "priceLabel": "\u20b91,150",
+          "mrpLabel": "\u20b91,250",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Clinique Moisture Surge 100H Auto-Replenishing Hydrator (15ml)",
+            "storeBadge": "Amazon India",
+            "why": "Premium gel-cream for plump, glassy skin before makeup.",
+            "ctaHref": "https://link.amazon/B0i4AZEAM",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "sunscreen",
+      "step": "Step 3: Protect",
+      "heading": "Step 3: Protect: Sunscreen",
+      "dek": "Daily SPF to protect skin from sun and tanning.",
+      "items": [
+        {
+          "product": "lakm-sunscreen-for-bright-skin-spf-50-pa-50ml",
+          "name": "Lakm\u00e9 Sunscreen for Bright Skin SPF 50 PA++++ (50ml)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B0d1EYEBt",
+          "image_url": null,
+          "priceLabel": "\u20b9299",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 Sunscreen for Bright Skin SPF 50 PA++++ (50ml)",
+            "storeBadge": "Amazon India",
+            "why": "Affordable matte sunscreen that is easy to find everywhere.",
+            "ctaHref": "https://link.amazon/B0d1EYEBt",
+            "external": true
+          }
+        },
+        {
+          "product": "minimalist-sunscreen-spf-50-pa-50g",
+          "name": "Minimalist Sunscreen SPF 50 PA++++ (50g)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B00rEuHGJ",
+          "image_url": null,
+          "priceLabel": "\u20b9399",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Minimalist Sunscreen SPF 50 PA++++ (50g)",
+            "storeBadge": "Amazon India",
+            "why": "Lightweight daily SPF with a strong following among Indian skincare fans.",
+            "ctaHref": "https://link.amazon/B00rEuHGJ",
+            "external": true
+          }
+        },
+        {
+          "product": "neutrogena-ultra-sheer-sunscreen-spf-50-30g",
+          "name": "Neutrogena Ultra Sheer Sunscreen SPF 50+ (30g)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B07Edm0pk",
+          "image_url": null,
+          "priceLabel": "\u20b9675",
+          "mrpLabel": "\u20b9780",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Neutrogena Ultra Sheer Sunscreen SPF 50+ (30g)",
+            "storeBadge": "Amazon India",
+            "why": "Non-greasy, dry-touch finish that works under makeup.",
+            "ctaHref": "https://link.amazon/B07Edm0pk",
+            "external": true
+          }
+        },
+        {
+          "product": "la-shield-fisico-spf-50-pa-mineral-sunscreen-50g",
+          "name": "La Shield Fisico SPF 50+ PA++++ Mineral Sunscreen (50g)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B0bqbwyUN",
+          "image_url": null,
+          "priceLabel": "\u20b9630",
+          "mrpLabel": "\u20b9790",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "La Shield Fisico SPF 50+ PA++++ Mineral Sunscreen (50g)",
+            "storeBadge": "Amazon India",
+            "why": "Mineral sunscreen often picked for sensitive skin.",
+            "ctaHref": "https://link.amazon/B0bqbwyUN",
+            "external": true
+          }
+        },
+        {
+          "product": "beauty-of-joseon-relief-sun-rice-probiotics-spf-50-pa-50ml",
+          "name": "Beauty of Joseon Relief Sun Rice + Probiotics SPF 50+ PA++++ (50ml)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0cq4gqfV",
+          "image_url": null,
+          "priceLabel": "\u20b91,259",
+          "mrpLabel": "\u20b91,688",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Beauty of Joseon Relief Sun Rice + Probiotics SPF 50+ PA++++ (50ml)",
+            "storeBadge": "Amazon India",
+            "why": "The viral K-beauty sunscreen with a light, creamy feel and no heavy white cast.",
+            "ctaHref": "https://link.amazon/B0cq4gqfV",
+            "external": true
+          }
+        },
+        {
+          "product": "aqualogica-glow-dewy-gel-sunscreen-spf-50-pa-50g",
+          "name": "Aqualogica Glow+ Dewy Gel Sunscreen SPF 50+ PA++++ (50g)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0iydoOsh",
+          "image_url": null,
+          "priceLabel": "\u20b9349",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Aqualogica Glow+ Dewy Gel Sunscreen SPF 50+ PA++++ (50g)",
+            "storeBadge": "Amazon India",
+            "why": "Dewy-finish SPF that is very popular with young Indian shoppers.",
+            "ctaHref": "https://link.amazon/B0iydoOsh",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "primer",
+      "step": "Step 4: Prime",
+      "heading": "Step 4: Prime: Primer",
+      "dek": "Create a smooth base so makeup lasts longer.",
+      "items": [
+        {
+          "product": "maybelline-baby-skin-instant-pore-eraser-primer-22ml",
+          "name": "Maybelline Baby Skin Instant Pore Eraser Primer (22ml)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B07NGJp40",
+          "image_url": null,
+          "priceLabel": "\u20b9499",
+          "mrpLabel": "\u20b9649",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Baby Skin Instant Pore Eraser Primer (22ml)",
+            "storeBadge": "Amazon India",
+            "why": "Pore-blurring primer that gives a smooth, matte base.",
+            "ctaHref": "https://link.amazon/B07NGJp40",
+            "external": true
+          }
+        },
+        {
+          "product": "lakm-absolute-blur-perfect-matte-face-primer-30ml",
+          "name": "Lakm\u00e9 Absolute Blur Perfect Matte Face Primer (30ml)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B080JURsn",
+          "image_url": null,
+          "priceLabel": "\u20b9750",
+          "mrpLabel": "\u20b9850",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 Absolute Blur Perfect Matte Face Primer (30ml)",
+            "storeBadge": "Amazon India",
+            "why": "Easy drugstore primer that smooths and helps makeup last.",
+            "ctaHref": "https://link.amazon/B080JURsn",
+            "external": true
+          }
+        },
+        {
+          "product": "swiss-beauty-oil-control-face-primer",
+          "name": "Swiss Beauty Oil Control Face Primer",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B01JgkkPR",
+          "image_url": null,
+          "priceLabel": "\u20b9399",
+          "mrpLabel": "\u20b9549",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Oil Control Face Primer",
+            "storeBadge": "Amazon India",
+            "why": "Budget primer to even out the base before foundation.",
+            "ctaHref": "https://link.amazon/B01JgkkPR",
+            "external": true
+          }
+        },
+        {
+          "product": "e-l-f-power-grip-primer-0-811-fl-oz",
+          "name": "e.l.f. Power Grip Primer (0.811 Fl Oz)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B09azDh1os",
+          "image_url": null,
+          "priceLabel": "\u20b91,050",
+          "mrpLabel": "\u20b91,299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "e.l.f. Power Grip Primer (0.811 Fl Oz)",
+            "storeBadge": "Amazon India",
+            "why": "Viral gripping primer that helps makeup stay put.",
+            "ctaHref": "https://link.amazon/B09azDh1os",
+            "external": true
+          }
+        },
+        {
+          "product": "smashbox-photo-finish-primer-minimize-pores",
+          "name": "Smashbox Photo Finish Primer Minimize Pores",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B0aRIGV6v",
+          "image_url": null,
+          "priceLabel": "\u20b93,200",
+          "mrpLabel": "\u20b93,800",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Smashbox Photo Finish Primer Minimize Pores",
+            "storeBadge": "Amazon India",
+            "why": "Premium primer loved for a smooth, photo-ready base.",
+            "ctaHref": "https://link.amazon/B0aRIGV6v",
+            "external": true
+          }
+        },
+        {
+          "product": "nyx-professional-makeup-pore-filler-targeted-primer-stick",
+          "name": "NYX Professional Makeup Pore Filler Targeted Primer Stick",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B06EIy2co",
+          "image_url": null,
+          "priceLabel": "\u20b91,250",
+          "mrpLabel": "\u20b91,450",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "NYX Professional Makeup Pore Filler Targeted Primer Stick",
+            "storeBadge": "Amazon India",
+            "why": "Mid-range pore-filling primer for oily or textured skin.",
+            "ctaHref": "https://link.amazon/B06EIy2co",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "foundation",
+      "step": "Step 5: Base",
+      "heading": "Step 5: Base: Foundation",
+      "dek": "Even out your skin tone with a base that matches you.",
+      "items": [
+        {
+          "product": "maybelline-fit-me-matte-poreless-liquid-foundation-228-18ml",
+          "name": "Maybelline Fit Me Matte + Poreless Liquid Foundation (228, 18ml)",
+          "badge": "Wedding Pick",
+          "href": "https://link.amazon/B0drFinUS",
+          "image_url": null,
+          "priceLabel": "\u20b9155",
+          "mrpLabel": "\u20b9217",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Fit Me Matte + Poreless Liquid Foundation (228, 18ml)",
+            "storeBadge": "Amazon India",
+            "why": "Matte, buildable base that helps control shine in warm, humid weather.",
+            "ctaHref": "https://link.amazon/B0drFinUS",
+            "external": true
+          }
+        },
+        {
+          "product": "garnier-skin-naturals-bb-cream-bright-complete-vitamin-c-30g",
+          "name": "Garnier Skin Naturals BB Cream - Bright Complete Vitamin C (30g)",
+          "badge": "Starter Pick",
+          "href": "https://link.amazon/B0c40JHhI",
+          "image_url": null,
+          "priceLabel": "\u20b9225",
+          "mrpLabel": "\u20b9249",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Garnier Skin Naturals BB Cream - Bright Complete Vitamin C (30g)",
+            "storeBadge": "Amazon India",
+            "why": "Light base with a natural finish\u2014easy for beginners who want minimal coverage.",
+            "ctaHref": "https://link.amazon/B0c40JHhI",
+            "external": true
+          }
+        },
+        {
+          "product": "l-or-al-paris-infaillible-32h-fresh-wear-foundation-145-rose-beige-30ml",
+          "name": "L'Or\u00e9al Paris Infaillible 32H Fresh Wear Foundation (145 Rose Beige, 30ml)",
+          "badge": "Long Wear",
+          "href": "https://link.amazon/B0egCKbyR",
+          "image_url": null,
+          "priceLabel": "\u20b91,099",
+          "mrpLabel": "\u20b91,399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "L'Or\u00e9al Paris Infaillible 32H Fresh Wear Foundation (145 Rose Beige, 30ml)",
+            "storeBadge": "Amazon India",
+            "why": "Long-wearing, breathable foundation in a wide shade range.",
+            "ctaHref": "https://link.amazon/B0egCKbyR",
+            "external": true
+          }
+        },
+        {
+          "product": "huda-beauty-fauxfilter-luminous-matte-foundation-150g-cr-me-brul-e-35ml",
+          "name": "Huda Beauty FauxFilter Luminous Matte Foundation (150G Cr\u00e8me Brul\u00e9e, 35ml)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B04DJTni8",
+          "image_url": null,
+          "priceLabel": "\u20b93,300",
+          "mrpLabel": "\u20b93,950",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Huda Beauty FauxFilter Luminous Matte Foundation (150G Cr\u00e8me Brul\u00e9e, 35ml)",
+            "storeBadge": "Amazon India",
+            "why": "Premium full-coverage foundation with a soft-matte glow.",
+            "ctaHref": "https://link.amazon/B04DJTni8",
+            "external": true
+          }
+        },
+        {
+          "product": "l-or-al-paris-infallible-24h-tinted-serum-foundation-6-7-tan-30ml",
+          "name": "L'Or\u00e9al Paris Infallible 24H Tinted Serum Foundation (6-7 Tan, 30ml)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0iOCj655",
+          "image_url": null,
+          "priceLabel": "\u20b9999",
+          "mrpLabel": "\u20b91,299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "L'Or\u00e9al Paris Infallible 24H Tinted Serum Foundation (6-7 Tan, 30ml)",
+            "storeBadge": "Amazon India",
+            "why": "Skin-tint style serum foundation for the 'tint instead of foundation' look.",
+            "ctaHref": "https://link.amazon/B0iOCj655",
+            "external": true
+          }
+        },
+        {
+          "product": "house-of-makeup-skin-tint-with-spf-25",
+          "name": "House Of Makeup Skin Tint with SPF 25+++",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0gDOUUha",
+          "image_url": null,
+          "priceLabel": "\u20b9799",
+          "mrpLabel": "\u20b9999",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "House Of Makeup Skin Tint with SPF 25+++",
+            "storeBadge": "Amazon India",
+            "why": "Viral Indian skin tint for a light, natural base.",
+            "ctaHref": "https://link.amazon/B0gDOUUha",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "concealer",
+      "step": "Step 6: Conceal",
+      "heading": "Step 6: Conceal: Concealer",
+      "dek": "Cover spots, dark circles, and brighten where needed.",
+      "items": [
+        {
+          "product": "maybelline-fit-me-concealer-36-golden-caramel",
+          "name": "Maybelline Fit Me Concealer (36 Golden Caramel)",
+          "badge": "Everyday Pick",
+          "href": "https://link.amazon/B04zfnp8V",
+          "image_url": null,
+          "priceLabel": "\u20b9419",
+          "mrpLabel": "\u20b9549",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Fit Me Concealer (36 Golden Caramel)",
+            "storeBadge": "Amazon India",
+            "why": "Easy spot coverage for under-eyes and blemishes in a quick routine.",
+            "ctaHref": "https://link.amazon/B04zfnp8V",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-instant-age-rewind-concealer-medium-6g",
+          "name": "Maybelline Instant Age Rewind Concealer (Medium, 6g)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B0b78dfaH",
+          "image_url": null,
+          "priceLabel": "\u20b9649",
+          "mrpLabel": "\u20b9799",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Instant Age Rewind Concealer (Medium, 6g)",
+            "storeBadge": "Amazon India",
+            "why": "Cult drugstore concealer for dark circles.",
+            "ctaHref": "https://link.amazon/B0b78dfaH",
+            "external": true
+          }
+        },
+        {
+          "product": "swiss-beauty-perfect-liquid-lightweight-concealer-medium-beige-6g",
+          "name": "Swiss Beauty Perfect Liquid Lightweight Concealer (Medium Beige, 6g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B021tbvXY",
+          "image_url": null,
+          "priceLabel": "\u20b9229",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Perfect Liquid Lightweight Concealer (Medium Beige, 6g)",
+            "storeBadge": "Amazon India",
+            "why": "Very affordable liquid concealer for spots and under-eyes.",
+            "ctaHref": "https://link.amazon/B021tbvXY",
+            "external": true
+          }
+        },
+        {
+          "product": "l-a-girl-hd-pro-conceal-multipurpose-concealer-natural-8g",
+          "name": "L.A. Girl HD Pro Conceal Multipurpose Concealer (Natural, 8g)",
+          "badge": "Long Wear",
+          "href": "https://link.amazon/B0bX4Khn4",
+          "image_url": null,
+          "priceLabel": "\u20b9695",
+          "mrpLabel": "\u20b9795",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "L.A. Girl HD Pro Conceal Multipurpose Concealer (Natural, 8g)",
+            "storeBadge": "Amazon India",
+            "why": "High-coverage, long-wear concealer.",
+            "ctaHref": "https://link.amazon/B0bX4Khn4",
+            "external": true
+          }
+        },
+        {
+          "product": "nars-radiant-creamy-concealer-custard",
+          "name": "NARS Radiant Creamy Concealer (Custard)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B061aI5yz",
+          "image_url": null,
+          "priceLabel": "\u20b92,800",
+          "mrpLabel": "\u20b93,200",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "NARS Radiant Creamy Concealer (Custard)",
+            "storeBadge": "Amazon India",
+            "why": "Iconic premium concealer with a creamy, brightening finish.",
+            "ctaHref": "https://link.amazon/B061aI5yz",
+            "external": true
+          }
+        },
+        {
+          "product": "kay-beauty-hd-liquid-natural-concealer",
+          "name": "Kay Beauty HD Liquid Natural Concealer",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B07c9vyiJ",
+          "image_url": null,
+          "priceLabel": "\u20b9799",
+          "mrpLabel": "\u20b9999",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Kay Beauty HD Liquid Natural Concealer",
+            "storeBadge": "Amazon India",
+            "why": "Indian celebrity brand with a wide shade range.",
+            "ctaHref": "https://link.amazon/B07c9vyiJ",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "compact-powder",
+      "step": "Step 7: Set Base",
+      "heading": "Step 7: Set Base: Compact & Setting Powder",
+      "dek": "Lock in base and control shine through the day.",
+      "items": [
+        {
+          "product": "faces-canada-weightless-stay-matte-finish-compact-powder-natural-almond-06-9g",
+          "name": "FACES CANADA Weightless Stay Matte Finish Compact Powder (Natural Almond 06, 9g)",
+          "badge": "Starter Pick",
+          "href": "https://link.amazon/B07ULHHRJ",
+          "image_url": null,
+          "priceLabel": "\u20b9169",
+          "mrpLabel": "\u20b9249",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "FACES CANADA Weightless Stay Matte Finish Compact Powder (Natural Almond 06, 9g)",
+            "storeBadge": "Amazon India",
+            "why": "Easy matte touch-up compact for controlling shine through the day.",
+            "ctaHref": "https://link.amazon/B07ULHHRJ",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-fit-me-matte-poreless-compact-powder-128-warm-nude",
+          "name": "Maybelline Fit Me Matte + Poreless Compact Powder (128 Warm Nude)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B08sbaKEu",
+          "image_url": null,
+          "priceLabel": "\u20b9230",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Fit Me Matte + Poreless Compact Powder (128 Warm Nude)",
+            "storeBadge": "Amazon India",
+            "why": "Drugstore compact for oil control through the day.",
+            "ctaHref": "https://link.amazon/B08sbaKEu",
+            "external": true
+          }
+        },
+        {
+          "product": "lakm-9-to-5-primer-with-matte-powder-foundation-compact-ivory-cream-9g",
+          "name": "Lakm\u00e9 9 to 5 Primer with Matte Powder Foundation Compact (Ivory Cream, 9g)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B02A4cgF7",
+          "image_url": null,
+          "priceLabel": "\u20b9500",
+          "mrpLabel": "\u20b9600",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 9 to 5 Primer with Matte Powder Foundation Compact (Ivory Cream, 9g)",
+            "storeBadge": "Amazon India",
+            "why": "Compact that doubles as a light base; good for beginners.",
+            "ctaHref": "https://link.amazon/B02A4cgF7",
+            "external": true
+          }
+        },
+        {
+          "product": "makeup-revolution-loose-baking-powder-translucent-30g",
+          "name": "Makeup Revolution Loose Baking Powder Translucent (30g)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0dFAyX8J",
+          "image_url": null,
+          "priceLabel": "\u20b9850",
+          "mrpLabel": "\u20b9999",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Makeup Revolution Loose Baking Powder Translucent (30g)",
+            "storeBadge": "Amazon India",
+            "why": "Viral 'baking' powder for crease-free, shine-free makeup at a mid price.",
+            "ctaHref": "https://link.amazon/B0dFAyX8J",
+            "external": true
+          }
+        },
+        {
+          "product": "swiss-beauty-ultra-fine-loose-finish-powder-shade-01-natural-8g",
+          "name": "Swiss Beauty Ultra Fine Loose Finish Powder (Shade-01 Natural, 8g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B08Z0nx0K",
+          "image_url": null,
+          "priceLabel": "\u20b9349",
+          "mrpLabel": "\u20b9449",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Ultra Fine Loose Finish Powder (Shade-01 Natural, 8g)",
+            "storeBadge": "Amazon India",
+            "why": "Budget loose powder to set the base.",
+            "ctaHref": "https://link.amazon/B08Z0nx0K",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "blush",
+      "step": "Step 8: Add Flush",
+      "heading": "Step 8: Add Flush: Blush",
+      "dek": "Add a natural flush of color to cheeks.",
+      "items": [
+        {
+          "product": "mars-liquid-blush-hour-02-twilight-12ml",
+          "name": "MARS Liquid Blush Hour (02-TWILIGHT, 12ml)",
+          "badge": "Trending \u00b7 Nov 2026",
+          "href": "https://link.amazon/B02wJTXtk",
+          "image_url": null,
+          "priceLabel": "\u20b9249",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Liquid Blush Hour (02-TWILIGHT, 12ml)",
+            "storeBadge": "Amazon India",
+            "why": "Blendable liquid blush for a quick, natural flush that\u2019s easy to build.",
+            "ctaHref": "https://link.amazon/B02wJTXtk",
+            "external": true
+          }
+        },
+        {
+          "product": "typsy-beauty-silk-cushion-liquid-blush-wand-bouquet-of-roses-12ml",
+          "name": "Typsy Beauty Silk Cushion Liquid Blush Wand (Bouquet of Roses, 12ml)",
+          "badge": "Trending \u00b7 Nov 2026",
+          "href": "https://link.amazon/B051I4tdP",
+          "image_url": null,
+          "priceLabel": "\u20b9879",
+          "mrpLabel": "\u20b91,099",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Typsy Beauty Silk Cushion Liquid Blush Wand (Bouquet of Roses, 12ml)",
+            "storeBadge": "Amazon India",
+            "why": "Cushion applicator makes blush placement quick for on-the-go touch-ups.",
+            "ctaHref": "https://link.amazon/B051I4tdP",
+            "external": true
+          }
+        },
+        {
+          "product": "blue-heaven-blush-juicy-lip-cheek-tint-berry-juice-9ml",
+          "name": "Blue Heaven Blush & Juicy Lip & Cheek Tint (Berry Juice, 9ml)",
+          "badge": "Trending \u00b7 Nov 2026",
+          "href": "https://link.amazon/B087X0B5L",
+          "image_url": null,
+          "priceLabel": "\u20b9149",
+          "mrpLabel": "\u20b9225",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Blue Heaven Blush & Juicy Lip & Cheek Tint (Berry Juice, 9ml)",
+            "storeBadge": "Amazon India",
+            "why": "One product for lips and cheeks when you want a fast, coordinated look.",
+            "ctaHref": "https://link.amazon/B087X0B5L",
+            "external": true
+          }
+        },
+        {
+          "product": "renee-summer-slush-jelly-tint-for-lips-cheeks-luscious-cherry-13g",
+          "name": "RENEE Summer Slush Jelly Tint For Lips & Cheeks (Luscious Cherry, 13g)",
+          "badge": "Trending \u00b7 Nov 2026",
+          "href": "https://link.amazon/B01rdo68h",
+          "image_url": null,
+          "priceLabel": "\u20b9379",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "RENEE Summer Slush Jelly Tint For Lips & Cheeks (Luscious Cherry, 13g)",
+            "storeBadge": "Amazon India",
+            "why": "Jelly texture gives a fresh, dewy tint for lips and cheeks.",
+            "ctaHref": "https://link.amazon/B01rdo68h",
+            "external": true
+          }
+        },
+        {
+          "product": "lakm-9-to-5-weightless-matte-mousse-lip-cheek-color-coca-soft-9g",
+          "name": "Lakm\u00e9 9 to 5 Weightless Matte Mousse Lip & Cheek Color (Coca Soft, 9g)",
+          "badge": "Everyday Pick",
+          "href": "https://link.amazon/B07g4mBCp",
+          "image_url": null,
+          "priceLabel": "\u20b9449",
+          "mrpLabel": "\u20b9699",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 9 to 5 Weightless Matte Mousse Lip & Cheek Color (Coca Soft, 9g)",
+            "storeBadge": "Amazon India",
+            "why": "Mousse texture works on lips and cheeks for a fast, coordinated look.",
+            "ctaHref": "https://link.amazon/B07g4mBCp",
+            "external": true
+          }
+        },
+        {
+          "product": "pixi-on-the-glow-blush-hydrating-cheek-lip-tint-fleur-19g",
+          "name": "Pixi On-the-Glow Blush Hydrating Cheek & Lip Tint (Fleur, 19g)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0fhZRdWF",
+          "image_url": null,
+          "priceLabel": "\u20b91,650",
+          "mrpLabel": "\u20b91,950",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Pixi On-the-Glow Blush Hydrating Cheek & Lip Tint (Fleur, 19g)",
+            "storeBadge": "Amazon India",
+            "why": "Hyped blush stick for a fresh flush; easy for beginners.",
+            "ctaHref": "https://link.amazon/B0fhZRdWF",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "highlighter",
+      "step": "Step 9: Glow",
+      "heading": "Step 9: Glow: Highlighter",
+      "dek": "Add glow to high points for a fresh look.",
+      "items": [
+        {
+          "product": "maybelline-master-strobing-liquid-illuminating-highlighter-light-iridescent",
+          "name": "Maybelline Master Strobing Liquid Illuminating Highlighter (Light/Iridescent)",
+          "badge": "Glam Pick",
+          "href": "https://link.amazon/B0g6sbzyN",
+          "image_url": null,
+          "priceLabel": "\u20b9749",
+          "mrpLabel": "\u20b9799",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Master Strobing Liquid Illuminating Highlighter (Light/Iridescent)",
+            "storeBadge": "Amazon India",
+            "why": "Liquid highlighter adds a photo-ready glow to cheekbones and high points.",
+            "ctaHref": "https://link.amazon/B0g6sbzyN",
+            "external": true
+          }
+        },
+        {
+          "product": "swiss-beauty-baked-shimmer-blusher-and-highlighter-palette-multicolor-1-7g",
+          "name": "Swiss Beauty Baked Shimmer Blusher And Highlighter Palette (Multicolor-1, 7g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B0jiN3mfb",
+          "image_url": null,
+          "priceLabel": "\u20b9299",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Baked Shimmer Blusher And Highlighter Palette (Multicolor-1, 7g)",
+            "storeBadge": "Amazon India",
+            "why": "Budget baked highlighter for a soft glow.",
+            "ctaHref": "https://link.amazon/B0jiN3mfb",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-wonder-highlighter-makeup-powder-01-petal-7g",
+          "name": "MARS Wonder Highlighter Makeup Powder (01-PETAL, 7g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B0gB5SpGT",
+          "image_url": null,
+          "priceLabel": "\u20b9329",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Wonder Highlighter Makeup Powder (01-PETAL, 7g)",
+            "storeBadge": "Amazon India",
+            "why": "Affordable glow with a trendy Indian brand.",
+            "ctaHref": "https://link.amazon/B0gB5SpGT",
+            "external": true
+          }
+        },
+        {
+          "product": "rare-beauty-positive-light-liquid-luminizer-mesmerize",
+          "name": "Rare Beauty Positive Light Liquid Luminizer (Mesmerize)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B0aWOjWmR",
+          "image_url": null,
+          "priceLabel": "\u20b92,700",
+          "mrpLabel": "\u20b93,200",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Rare Beauty Positive Light Liquid Luminizer (Mesmerize)",
+            "storeBadge": "Amazon India",
+            "why": "Hyped celebrity-brand liquid highlighter.",
+            "ctaHref": "https://link.amazon/B0aWOjWmR",
+            "external": true
+          }
+        },
+        {
+          "product": "makeup-revolution-highlight-reloaded-golden-lights",
+          "name": "Makeup Revolution Highlight Reloaded (Golden Lights)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B03Xnj8Xl",
+          "image_url": null,
+          "priceLabel": "\u20b9830",
+          "mrpLabel": "\u20b9850",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Makeup Revolution Highlight Reloaded (Golden Lights)",
+            "storeBadge": "Amazon India",
+            "why": "Popular pressed highlighter with a strong glow; huge Amazon.in review count.",
+            "ctaHref": "https://link.amazon/B03Xnj8Xl",
+            "external": true
+          }
+        },
+        {
+          "product": "e-l-f-halo-glow-highlight-beauty-wand-champagne-campaign",
+          "name": "e.l.f. Halo Glow Highlight Beauty Wand (Champagne Campaign)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B02mf6kan",
+          "image_url": null,
+          "priceLabel": "\u20b91,050",
+          "mrpLabel": "\u20b91,299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "e.l.f. Halo Glow Highlight Beauty Wand (Champagne Campaign)",
+            "storeBadge": "Amazon India",
+            "why": "Viral liquid highlighter wand with a soft, blendable glow.",
+            "ctaHref": "https://link.amazon/B02mf6kan",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "contour-bronzer",
+      "step": "Step 10: Sculpt",
+      "heading": "Step 10: Sculpt: Contour & Bronzer",
+      "dek": "Add warmth and definition for a sculpted look.",
+      "items": [
+        {
+          "product": "swiss-beauty-contour-it-up-stick-8g",
+          "name": "Swiss Beauty Contour It Up Stick (8g)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B0j8jX5kQ",
+          "image_url": null,
+          "priceLabel": "\u20b9299",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Contour It Up Stick (8g)",
+            "storeBadge": "Amazon India",
+            "why": "Easy cream contour stick for beginners.",
+            "ctaHref": "https://link.amazon/B0j8jX5kQ",
+            "external": true
+          }
+        },
+        {
+          "product": "blue-heaven-strobe-shape-highlighter-and-contouring-duo-stick-fairy-light-8g",
+          "name": "Blue Heaven Strobe & Shape Highlighter and Contouring Duo Stick (Fairy Light, 8g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B0dX4g3um",
+          "image_url": null,
+          "priceLabel": "\u20b9249",
+          "mrpLabel": "\u20b9349",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Blue Heaven Strobe & Shape Highlighter and Contouring Duo Stick (Fairy Light, 8g)",
+            "storeBadge": "Amazon India",
+            "why": "Budget contour stick that blends easily.",
+            "ctaHref": "https://link.amazon/B0dX4g3um",
+            "external": true
+          }
+        },
+        {
+          "product": "huda-beauty-tantour-contour-bronzer-cream-light",
+          "name": "Huda Beauty Tantour Contour & Bronzer Cream (Light)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B008JuFuM",
+          "image_url": null,
+          "priceLabel": "\u20b92,900",
+          "mrpLabel": "\u20b93,400",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Huda Beauty Tantour Contour & Bronzer Cream (Light)",
+            "storeBadge": "Amazon India",
+            "why": "Premium cream bronzer/contour.",
+            "ctaHref": "https://link.amazon/B008JuFuM",
+            "external": true
+          }
+        },
+        {
+          "product": "benefit-cosmetics-hoola-bronzing-powder-0-28-oz",
+          "name": "Benefit Cosmetics Hoola Bronzing Powder (0.28 oz)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B01QdN8CI",
+          "image_url": null,
+          "priceLabel": "\u20b93,200",
+          "mrpLabel": "\u20b93,700",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Benefit Cosmetics Hoola Bronzing Powder (0.28 oz)",
+            "storeBadge": "Amazon India",
+            "why": "Cult matte bronzer for a natural sun-kissed look.",
+            "ctaHref": "https://link.amazon/B01QdN8CI",
+            "external": true
+          }
+        },
+        {
+          "product": "makeup-revolution-super-bronzer-sahara-brown",
+          "name": "Makeup Revolution Super Bronzer (Sahara Brown)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B0g4JOqkw",
+          "image_url": null,
+          "priceLabel": "\u20b9550",
+          "mrpLabel": "\u20b9695",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Makeup Revolution Super Bronzer (Sahara Brown)",
+            "storeBadge": "Amazon India",
+            "why": "Mid-range powder bronzer with good colour payoff.",
+            "ctaHref": "https://link.amazon/B0g4JOqkw",
+            "external": true
+          }
+        },
+        {
+          "product": "e-l-f-luminous-putty-bronzer-day-trip",
+          "name": "e.l.f. Luminous Putty Bronzer (Day Trip)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B02WGVr2L",
+          "image_url": null,
+          "priceLabel": "\u20b9850",
+          "mrpLabel": "\u20b91,050",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "e.l.f. Luminous Putty Bronzer (Day Trip)",
+            "storeBadge": "Amazon India",
+            "why": "Creamy bronzer that blends into skin.",
+            "ctaHref": "https://link.amazon/B02WGVr2L",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "eyebrow",
+      "step": "Step 11: Brows",
+      "heading": "Step 11: Brows: Eyebrow",
+      "dek": "Frame your face with defined, natural-looking brows.",
+      "items": [
+        {
+          "product": "swiss-beauty-waterproof-eyebrow-pencil-with-brush-02-dark-brown-1-5g",
+          "name": "Swiss Beauty Waterproof Eyebrow Pencil with Brush (02 Dark Brown, 1.5g)",
+          "badge": "Starter Pick",
+          "href": "https://link.amazon/B0dZ5dtQi",
+          "image_url": null,
+          "priceLabel": "\u20b989",
+          "mrpLabel": "\u20b9129",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Waterproof Eyebrow Pencil with Brush (02 Dark Brown, 1.5g)",
+            "storeBadge": "Amazon India",
+            "why": "Smudge-proof eyebrow definer pencil with brush for quick, tidy brows.",
+            "ctaHref": "https://link.amazon/B0dZ5dtQi",
+            "external": true
+          }
+        },
+        {
+          "product": "sugar-cosmetics-arch-arrival-brow-definer-with-spoolie-01-jerry-brown-3-5g",
+          "name": "SUGAR Cosmetics Arch Arrival Brow Definer with Spoolie (01 Jerry Brown, 3.5g)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B0gYoYgpC",
+          "image_url": null,
+          "priceLabel": "\u20b9399",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "SUGAR Cosmetics Arch Arrival Brow Definer with Spoolie (01 Jerry Brown, 3.5g)",
+            "storeBadge": "Amazon India",
+            "why": "Precise triangular tip for natural-looking brows.",
+            "ctaHref": "https://link.amazon/B0gYoYgpC",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-define-blend-brow-pencil-grey-brown",
+          "name": "Maybelline Define & Blend Brow Pencil (Grey Brown)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B04Cg9fTG",
+          "image_url": null,
+          "priceLabel": "\u20b9499",
+          "mrpLabel": "\u20b9599",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Define & Blend Brow Pencil (Grey Brown)",
+            "storeBadge": "Amazon India",
+            "why": "Pencil with a spoolie for soft, filled-in brows.",
+            "ctaHref": "https://link.amazon/B04Cg9fTG",
+            "external": true
+          }
+        },
+        {
+          "product": "makeup-revolution-brow-pomade-dark-brown-2g",
+          "name": "Makeup Revolution Brow Pomade (Dark Brown, 2g)",
+          "badge": "Long Wear",
+          "href": "https://link.amazon/B06RmvOqA",
+          "image_url": null,
+          "priceLabel": "\u20b9649",
+          "mrpLabel": "\u20b9750",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Makeup Revolution Brow Pomade (Dark Brown, 2g)",
+            "storeBadge": "Amazon India",
+            "why": "Waterproof pomade for bold, sculpted brows; a favourite with makeup beginners who want a defined look.",
+            "ctaHref": "https://link.amazon/B06RmvOqA",
+            "external": true
+          }
+        },
+        {
+          "product": "e-l-f-instant-lift-brow-pencil-natural-brown",
+          "name": "e.l.f. Instant Lift Brow Pencil (Natural Brown)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0eBSXLhB",
+          "image_url": null,
+          "priceLabel": "\u20b9400",
+          "mrpLabel": "\u20b9450",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "e.l.f. Instant Lift Brow Pencil (Natural Brown)",
+            "storeBadge": "Amazon India",
+            "why": "Brow-shaping product for a lifted, brushed-up look.",
+            "ctaHref": "https://link.amazon/B0eBSXLhB",
+            "external": true
+          }
+        },
+        {
+          "product": "est-e-lauder-brow-now-brow-defining-pencil-02-light-brunette-1-2g",
+          "name": "Est\u00e9e Lauder Brow Now Brow Defining Pencil (#02 Light Brunette, 1.2g)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B0156Ob2m",
+          "image_url": null,
+          "priceLabel": "\u20b92,200",
+          "mrpLabel": "\u20b92,500",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Est\u00e9e Lauder Brow Now Brow Defining Pencil (#02 Light Brunette, 1.2g)",
+            "storeBadge": "Amazon India",
+            "why": "Premium precision brow pencil with a spoolie; a splurge option for natural-looking brows.",
+            "ctaHref": "https://link.amazon/B0156Ob2m",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "eyeshadow",
+      "step": "Step 12: Eyeshadow",
+      "heading": "Step 12: Eyeshadow: Eyeshadow",
+      "dek": "Add depth and color to your eyes.",
+      "items": [
+        {
+          "product": "swiss-beauty-ultimate-9-color-eyeshadow-palette-multicolor-06-9g",
+          "name": "Swiss Beauty Ultimate 9 Color Eyeshadow Palette (Multicolor 06, 9g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B00tFLomt",
+          "image_url": null,
+          "priceLabel": "\u20b9246",
+          "mrpLabel": "\u20b9269",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Ultimate 9 Color Eyeshadow Palette (Multicolor 06, 9g)",
+            "storeBadge": "Amazon India",
+            "why": "Pigmented 9-shade palette at a very low price.",
+            "ctaHref": "https://link.amazon/B00tFLomt",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-12-shades-dance-of-joy-eyeshadow-palette-02-multicolor-13-2g",
+          "name": "MARS 12 Shades Dance of Joy Eyeshadow Palette (02-Multicolor, 13.2g)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B06vcFwmv",
+          "image_url": null,
+          "priceLabel": "\u20b9349",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS 12 Shades Dance of Joy Eyeshadow Palette (02-Multicolor, 13.2g)",
+            "storeBadge": "Amazon India",
+            "why": "Colourful 12-shade palette for playful looks.",
+            "ctaHref": "https://link.amazon/B06vcFwmv",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-the-nudes-eyeshadow-palette",
+          "name": "Maybelline The Nudes Eyeshadow Palette",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B0byNfY83",
+          "image_url": null,
+          "priceLabel": "\u20b9799",
+          "mrpLabel": "\u20b9999",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline The Nudes Eyeshadow Palette",
+            "storeBadge": "Amazon India",
+            "why": "Everyday neutral shades that suit most Indian skin tones.",
+            "ctaHref": "https://link.amazon/B0byNfY83",
+            "external": true
+          }
+        },
+        {
+          "product": "makeup-revolution-reloaded-newtrals-2-eyeshadow-palette-15-shades",
+          "name": "Makeup Revolution Reloaded Newtrals 2 Eyeshadow Palette (15 shades)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B0f7cERti",
+          "image_url": null,
+          "priceLabel": "\u20b9695",
+          "mrpLabel": "\u20b9850",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Makeup Revolution Reloaded Newtrals 2 Eyeshadow Palette (15 shades)",
+            "storeBadge": "Amazon India",
+            "why": "Warm nude, brown and red-toned matte + shimmer palette that suits Indian skin tones.",
+            "ctaHref": "https://link.amazon/B0f7cERti",
+            "external": true
+          }
+        },
+        {
+          "product": "l-or-al-paris-la-petite-eyeshadow-palette-maximalist",
+          "name": "L'Or\u00e9al Paris La Petite Eyeshadow Palette (Maximalist)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B00j8BDHq",
+          "image_url": null,
+          "priceLabel": "\u20b9899",
+          "mrpLabel": "\u20b91,099",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "L'Or\u00e9al Paris La Petite Eyeshadow Palette (Maximalist)",
+            "storeBadge": "Amazon India",
+            "why": "Compact, travel-friendly palette.",
+            "ctaHref": "https://link.amazon/B00j8BDHq",
+            "external": true
+          }
+        },
+        {
+          "product": "sugar-cosmetics-blend-the-rules-eyeshadow-palette-01-flawless-10-4g",
+          "name": "SUGAR Cosmetics Blend The Rules Eyeshadow Palette (01 Flawless, 10.4g)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B02O36Oag",
+          "image_url": null,
+          "priceLabel": "\u20b9799",
+          "mrpLabel": "\u20b9999",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "SUGAR Cosmetics Blend The Rules Eyeshadow Palette (01 Flawless, 10.4g)",
+            "storeBadge": "Amazon India",
+            "why": "Popular Indian brand palette with wearable shades.",
+            "ctaHref": "https://link.amazon/B02O36Oag",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "eyeliner-kajal",
+      "step": "Step 13: Define Eyes",
+      "heading": "Step 13: Define Eyes: Eyeliner & Kajal",
+      "dek": "Define eyes with kajal or liner for everyday to glam.",
+      "items": [
+        {
+          "product": "lakm-eyeconic-black-kajal-0-35g-combo-pack-of-2",
+          "name": "Lakm\u00e9 Eyeconic Black Kajal (0.35g, Combo Pack of 2)",
+          "badge": "Starter Pick",
+          "href": "https://link.amazon/A07IQZnqD",
+          "image_url": null,
+          "priceLabel": "\u20b9228",
+          "mrpLabel": "\u20b9319",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 Eyeconic Black Kajal (0.35g, Combo Pack of 2)",
+            "storeBadge": "Amazon India",
+            "why": "Smudge-resistant everyday kajal\u2014an easy first step for defining eyes.",
+            "ctaHref": "https://link.amazon/A07IQZnqD",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-colossal-bold-eyeliner-black",
+          "name": "Maybelline Colossal Bold Eyeliner (Black)",
+          "badge": "Wedding Pick",
+          "href": "https://link.amazon/B0je2FadW",
+          "image_url": null,
+          "priceLabel": "\u20b9219",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Colossal Bold Eyeliner (Black)",
+            "storeBadge": "Amazon India",
+            "why": "Bold, smudge-resistant liner for sharp festive eye definition.",
+            "ctaHref": "https://link.amazon/B0je2FadW",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-kohl-of-fame-retractable-kajal-0-35g-black",
+          "name": "MARS Kohl of Fame Retractable Kajal (0.35g, Black)",
+          "badge": "Wedding Pick",
+          "href": "https://link.amazon/B0hNDMdQj",
+          "image_url": null,
+          "priceLabel": "\u20b9169",
+          "mrpLabel": "\u20b9199",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Kohl of Fame Retractable Kajal (0.35g, Black)",
+            "storeBadge": "Amazon India",
+            "why": "Retractable waterproof kajal for defined eyes through long festive events.",
+            "ctaHref": "https://link.amazon/B0hNDMdQj",
+            "external": true
+          }
+        },
+        {
+          "product": "plum-naturstudio-all-day-wear-kohl-kajal-black-brilliance-pack-of-2",
+          "name": "Plum NaturStudio All-Day-Wear Kohl Kajal (Black Brilliance, Pack of 2)",
+          "badge": "Everyday Pick",
+          "href": "https://link.amazon/B0aHLsvUr",
+          "image_url": null,
+          "priceLabel": "\u20b9625",
+          "mrpLabel": "\u20b9990",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Plum NaturStudio All-Day-Wear Kohl Kajal (Black Brilliance, Pack of 2)",
+            "storeBadge": "Amazon India",
+            "why": "Gel kajal designed for comfortable, long-wear everyday definition.",
+            "ctaHref": "https://link.amazon/B0aHLsvUr",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-ink-black-liquid-pen-eyeliner-1ml-black",
+          "name": "MARS Ink Black Liquid Pen Eyeliner (1ml, Black)",
+          "badge": "Glam Pick",
+          "href": "https://link.amazon/B0c7E9WWf",
+          "image_url": null,
+          "priceLabel": "\u20b9199",
+          "mrpLabel": "\u20b9249",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Ink Black Liquid Pen Eyeliner (1ml, Black)",
+            "storeBadge": "Amazon India",
+            "why": "Pen tip helps create sharp wings and defined party eye looks.",
+            "ctaHref": "https://link.amazon/B0c7E9WWf",
+            "external": true
+          }
+        },
+        {
+          "product": "swiss-beauty-waterproof-bold-felt-tip-pen-eyeliner-black-1-2ml",
+          "name": "Swiss Beauty Waterproof Bold Felt Tip Pen Eyeliner (Black, 1.2ml)",
+          "badge": "Glam Pick",
+          "href": "https://link.amazon/B0fJEyP9f",
+          "image_url": null,
+          "priceLabel": "\u20b9199",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Waterproof Bold Felt Tip Pen Eyeliner (Black, 1.2ml)",
+            "storeBadge": "Amazon India",
+            "why": "Felt tip gives control for quick, clean eyeliner on busy getting-ready days.",
+            "ctaHref": "https://link.amazon/B0fJEyP9f",
+            "external": true
+          }
+        },
+        {
+          "product": "sotrue-dark-spell-kohl-kajal-1-5g",
+          "name": "Sotrue Dark Spell Kohl Kajal (1.5g)",
+          "badge": "Glam Pick",
+          "href": "https://link.amazon/B03oYQADA",
+          "image_url": null,
+          "priceLabel": "\u20b9249",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Sotrue Dark Spell Kohl Kajal (1.5g)",
+            "storeBadge": "Amazon India",
+            "why": "Matte kohl for intense eye definition that suits evening looks.",
+            "ctaHref": "https://link.amazon/B03oYQADA",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "mascara",
+      "step": "Step 14: Lashes",
+      "heading": "Step 14: Lashes: Mascara",
+      "dek": "Lift and volumize lashes for an open-eye look.",
+      "items": [
+        {
+          "product": "maybelline-colossal-waterproof-mascara-10ml-black",
+          "name": "Maybelline Colossal Waterproof Mascara (10ml, Black)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B00xvb4PaL",
+          "image_url": null,
+          "priceLabel": "\u20b9345",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Colossal Waterproof Mascara (10ml, Black)",
+            "storeBadge": "Amazon India",
+            "why": "Waterproof volume that holds up through long wedding days and celebrations.",
+            "ctaHref": "https://link.amazon/B00xvb4PaL",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-lash-sensational-sky-high-waterproof-mascara-very-black",
+          "name": "Maybelline Lash Sensational Sky High Waterproof Mascara (Very Black)",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B06HGrdAW",
+          "image_url": null,
+          "priceLabel": "\u20b9497",
+          "mrpLabel": "\u20b9646",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Lash Sensational Sky High Waterproof Mascara (Very Black)",
+            "storeBadge": "Amazon India",
+            "why": "Waterproof length and lift for lashes that hold through long events.",
+            "ctaHref": "https://link.amazon/B06HGrdAW",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-lash-sensational-sky-high-tubes-tubing-mascara-very-black",
+          "name": "Maybelline Lash Sensational Sky High Tubes Tubing Mascara (Very Black)",
+          "badge": "Trending \u00b7 Nov 2026",
+          "href": "https://link.amazon/B0eu1LgyE",
+          "image_url": null,
+          "priceLabel": "\u20b9679",
+          "mrpLabel": "\u20b9849",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Lash Sensational Sky High Tubes Tubing Mascara (Very Black)",
+            "storeBadge": "Amazon India",
+            "why": "Tubing formula gives length and lift, and removes easily with warm water.",
+            "ctaHref": "https://link.amazon/B0eu1LgyE",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-lash-sensational-sky-high-mascara",
+          "name": "Maybelline Lash Sensational Sky High Mascara",
+          "badge": "Bestseller",
+          "href": "https://link.amazon/B06HGrdAW",
+          "image_url": null,
+          "priceLabel": "\u20b9497",
+          "mrpLabel": "\u20b9646",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Lash Sensational Sky High Mascara",
+            "storeBadge": "Amazon India",
+            "why": "Lengthening brush gives lifted lashes without a heavy routine.",
+            "ctaHref": "https://link.amazon/B06HGrdAW",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-fabulash-volumizing-mascara-12ml-waterproof",
+          "name": "MARS Fabulash Volumizing Mascara (12ml, Waterproof)",
+          "badge": "Starter Pick",
+          "href": "https://link.amazon/B0aHPhLL7",
+          "image_url": null,
+          "priceLabel": "\u20b9209",
+          "mrpLabel": "\u20b9251",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Fabulash Volumizing Mascara (12ml, Waterproof)",
+            "storeBadge": "Amazon India",
+            "why": "Affordable waterproof mascara for adding quick volume to everyday lashes.",
+            "ctaHref": "https://link.amazon/B0aHPhLL7",
+            "external": true
+          }
+        },
+        {
+          "product": "l-or-al-paris-voluminous-lash-paradise-waterproof-mascara-blackest-black",
+          "name": "L'Or\u00e9al Paris Voluminous Lash Paradise Waterproof Mascara (Blackest Black)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B02O7nvMe",
+          "image_url": null,
+          "priceLabel": "\u20b9899",
+          "mrpLabel": "\u20b91,099",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "L'Or\u00e9al Paris Voluminous Lash Paradise Waterproof Mascara (Blackest Black)",
+            "storeBadge": "Amazon India",
+            "why": "Hyped volume mascara for fluttery lashes.",
+            "ctaHref": "https://link.amazon/B02O7nvMe",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "lip-balm",
+      "step": "Step 15: Prep Lips",
+      "heading": "Step 15: Prep Lips: Lip Balm",
+      "dek": "Keep lips soft and hydrated before color.",
+      "items": [
+        {
+          "product": "maybelline-baby-lips-color-changing-lip-balm-pink-bloom",
+          "name": "Maybelline Baby Lips Color Changing Lip Balm (Pink Bloom)",
+          "badge": "Everyday Pick",
+          "href": "https://link.amazon/B06ItAIt6",
+          "image_url": null,
+          "priceLabel": "\u20b9159",
+          "mrpLabel": "\u20b9215",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Baby Lips Color Changing Lip Balm (Pink Bloom)",
+            "storeBadge": "Amazon India",
+            "why": "Color-changing lip balm for soft color and everyday comfort.",
+            "ctaHref": "https://link.amazon/B06ItAIt6",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-baby-lips-lip-balm-cherry-kiss-4g-buy-1-get-1",
+          "name": "Maybelline Baby Lips Lip Balm - Cherry Kiss (4g, Buy 1 Get 1)",
+          "badge": "Starter Pick",
+          "href": "https://link.amazon/B0f3JqZ2b",
+          "image_url": null,
+          "priceLabel": "\u20b9189",
+          "mrpLabel": "\u20b9227",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Baby Lips Lip Balm - Cherry Kiss (4g, Buy 1 Get 1)",
+            "storeBadge": "Amazon India",
+            "why": "Soft tint and lip comfort\u2014simple enough for a first everyday lip pick.",
+            "ctaHref": "https://link.amazon/B0f3JqZ2b",
+            "external": true
+          }
+        },
+        {
+          "product": "nivea-original-care-lip-balm-4-8g",
+          "name": "NIVEA Original Care Lip Balm (4.8g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B03YSj6lh",
+          "image_url": null,
+          "priceLabel": "\u20b9199",
+          "mrpLabel": "\u20b9249",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "NIVEA Original Care Lip Balm (4.8g)",
+            "storeBadge": "Amazon India",
+            "why": "Classic budget lip balm for daily hydration.",
+            "ctaHref": "https://link.amazon/B03YSj6lh",
+            "external": true
+          }
+        },
+        {
+          "product": "laneige-lip-sleeping-mask",
+          "name": "Laneige Lip Sleeping Mask",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0dGGLbsK",
+          "image_url": null,
+          "priceLabel": "\u20b91,350",
+          "mrpLabel": "\u20b91,600",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Laneige Lip Sleeping Mask",
+            "storeBadge": "Amazon India",
+            "why": "Viral overnight lip mask for soft lips.",
+            "ctaHref": "https://link.amazon/B0dGGLbsK",
+            "external": true
+          }
+        },
+        {
+          "product": "burt-s-bees-beeswax-lip-balm-0-15-oz",
+          "name": "Burt's Bees Beeswax Lip Balm (0.15 oz)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B06lhWaWk",
+          "image_url": null,
+          "priceLabel": "\u20b9399",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Burt's Bees Beeswax Lip Balm (0.15 oz)",
+            "storeBadge": "Amazon India",
+            "why": "Well-known balm with a natural-feel formula.",
+            "ctaHref": "https://link.amazon/B06lhWaWk",
+            "external": true
+          }
+        },
+        {
+          "product": "the-body-shop-shea-lip-butter-10ml",
+          "name": "The Body Shop Shea Lip Butter (10ml)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B06C1ymFf",
+          "image_url": null,
+          "priceLabel": "\u20b9495",
+          "mrpLabel": "\u20b9595",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "The Body Shop Shea Lip Butter (10ml)",
+            "storeBadge": "Amazon India",
+            "why": "Fruity balm that suits young shoppers.",
+            "ctaHref": "https://link.amazon/B06C1ymFf",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "lipstick-lip-tint",
+      "step": "Step 16: Lip Color",
+      "heading": "Step 16: Lip Color: Lipstick & Lip Tint",
+      "dek": "Finish with lip color that matches your mood.",
+      "items": [
+        {
+          "product": "etude-dear-darling-oil-tint-06-pink-oil-4-2ml",
+          "name": "Etude Dear Darling Oil Tint (06 Pink Oil, 4.2ml)",
+          "badge": "Trending \u00b7 Nov 2026",
+          "href": "https://link.amazon/B019J3PvV",
+          "image_url": null,
+          "priceLabel": "\u20b9600",
+          "mrpLabel": "\u20b9750",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Etude Dear Darling Oil Tint (06 Pink Oil, 4.2ml)",
+            "storeBadge": "Amazon India",
+            "why": "Glossy tint-oil finish that gives lips color with a comfortable, juicy look.",
+            "ctaHref": "https://link.amazon/B019J3PvV",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-superstay-vinyl-ink-liquid-lipstick-witty",
+          "name": "Maybelline SuperStay Vinyl Ink Liquid Lipstick (Witty)",
+          "badge": "Glam Pick",
+          "href": "https://link.amazon/B00ZsyP8J",
+          "image_url": null,
+          "priceLabel": "\u20b9466",
+          "mrpLabel": "\u20b9559",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline SuperStay Vinyl Ink Liquid Lipstick (Witty)",
+            "storeBadge": "Amazon India",
+            "why": "Glossy vinyl finish with long wear for bold party lips.",
+            "ctaHref": "https://link.amazon/B00ZsyP8J",
+            "external": true
+          }
+        },
+        {
+          "product": "lakm-forever-matte-liquid-lip-colour-wine-touch-5-6ml",
+          "name": "Lakm\u00e9 Forever Matte Liquid Lip Colour (Wine Touch, 5.6ml)",
+          "badge": "Wedding Pick",
+          "href": "https://link.amazon/B05eel6oU",
+          "image_url": null,
+          "priceLabel": "\u20b9228",
+          "mrpLabel": "\u20b9319",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Lakm\u00e9 Forever Matte Liquid Lip Colour (Wine Touch, 5.6ml)",
+            "storeBadge": "Amazon India",
+            "why": "Transfer-focused matte lip color for long festive wear with minimal touch-ups.",
+            "ctaHref": "https://link.amazon/B05eel6oU",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-creamy-matte-long-lasting-lipstick-14-sinful-salsa-3-2g",
+          "name": "MARS Creamy Matte Long Lasting Lipstick (14-Sinful Salsa, 3.2g)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B03oTeeKl",
+          "image_url": null,
+          "priceLabel": "\u20b9199",
+          "mrpLabel": "\u20b9299",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Creamy Matte Long Lasting Lipstick (14-Sinful Salsa, 3.2g)",
+            "storeBadge": "Amazon India",
+            "why": "Affordable bold shades that suit Indian skin tones.",
+            "ctaHref": "https://link.amazon/B03oTeeKl",
+            "external": true
+          }
+        },
+        {
+          "product": "maybelline-lifter-gloss-petal",
+          "name": "Maybelline Lifter Gloss (Petal)",
+          "badge": "Trending",
+          "href": "https://link.amazon/B05aRCP3S",
+          "image_url": null,
+          "priceLabel": "\u20b9699",
+          "mrpLabel": "\u20b9849",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Maybelline Lifter Gloss (Petal)",
+            "storeBadge": "Amazon India",
+            "why": "Plumping gloss that is a global social-media favourite.",
+            "ctaHref": "https://link.amazon/B05aRCP3S",
+            "external": true
+          }
+        },
+        {
+          "product": "mac-matte-lipstick-velvet-teddy-3g",
+          "name": "MAC Matte Lipstick (Velvet Teddy, 3g)",
+          "badge": "Premium Pick",
+          "href": "https://link.amazon/B06ybZ6uJ",
+          "image_url": null,
+          "priceLabel": "\u20b92,150",
+          "mrpLabel": "\u20b92,450",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MAC Matte Lipstick (Velvet Teddy, 3g)",
+            "storeBadge": "Amazon India",
+            "why": "Iconic premium nude lipstick.",
+            "ctaHref": "https://link.amazon/B06ybZ6uJ",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "setting-spray",
+      "step": "Step 17: Lock In",
+      "heading": "Step 17: Lock In: Setting Spray",
+      "dek": "Seal your look so it stays fresh longer.",
+      "items": [
+        {
+          "product": "renee-bollywood-filter-blurring-setting-spray-100ml",
+          "name": "RENEE Bollywood Filter Blurring Setting Spray (100ml)",
+          "badge": "Tool Pick",
+          "href": "https://link.amazon/B0ioIDQcV",
+          "image_url": null,
+          "priceLabel": "\u20b9379",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "RENEE Bollywood Filter Blurring Setting Spray (100ml)",
+            "storeBadge": "Amazon India",
+            "why": "Blurring setting spray for a smoother finish and longer-lasting makeup.",
+            "ctaHref": "https://link.amazon/B0ioIDQcV",
+            "external": true
+          }
+        },
+        {
+          "product": "faces-canada-ultime-pro-makeup-fixer-100ml",
+          "name": "FACES CANADA Ultime Pro Makeup Fixer (100ml)",
+          "badge": "Tool Pick",
+          "href": "https://link.amazon/B0a2NOeU0",
+          "image_url": null,
+          "priceLabel": "\u20b9459",
+          "mrpLabel": "\u20b9649",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "FACES CANADA Ultime Pro Makeup Fixer (100ml)",
+            "storeBadge": "Amazon India",
+            "why": "Setting spray to help makeup stay put through heat and humidity.",
+            "ctaHref": "https://link.amazon/B0a2NOeU0",
+            "external": true
+          }
+        },
+        {
+          "product": "mars-seal-the-deal-makeup-fixer-spray-60ml",
+          "name": "MARS Seal the Deal Makeup Fixer Spray (60ml)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B04iXIkVn",
+          "image_url": null,
+          "priceLabel": "\u20b9229",
+          "mrpLabel": "\u20b9249",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "MARS Seal the Deal Makeup Fixer Spray (60ml)",
+            "storeBadge": "Amazon India",
+            "why": "Alcohol-free setting spray with hyaluronic acid for a long-lasting, non-sticky finish.",
+            "ctaHref": "https://link.amazon/B04iXIkVn",
+            "external": true
+          }
+        },
+        {
+          "product": "l-or-al-paris-infaillible-3-second-setting-mist-75ml",
+          "name": "L'Or\u00e9al Paris Infaillible 3-Second Setting Mist (75ml)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B07TJUHPp",
+          "image_url": null,
+          "priceLabel": "\u20b9799",
+          "mrpLabel": "\u20b9999",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "L'Or\u00e9al Paris Infaillible 3-Second Setting Mist (75ml)",
+            "storeBadge": "Amazon India",
+            "why": "Transfer-proof setting mist for quick makeup lock-in.",
+            "ctaHref": "https://link.amazon/B07TJUHPp",
+            "external": true
+          }
+        },
+        {
+          "product": "nyx-professional-makeup-long-lasting-makeup-setting-spray-dewy-finish-60ml",
+          "name": "NYX Professional Makeup Long Lasting Makeup Setting Spray (Dewy Finish, 60ml)",
+          "badge": "Editor Pick",
+          "href": "https://link.amazon/B0ed37VP4",
+          "image_url": null,
+          "priceLabel": "\u20b91,050",
+          "mrpLabel": "\u20b91,300",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "NYX Professional Makeup Long Lasting Makeup Setting Spray (Dewy Finish, 60ml)",
+            "storeBadge": "Amazon India",
+            "why": "Mid-range oil-control setting spray.",
+            "ctaHref": "https://link.amazon/B0ed37VP4",
+            "external": true
+          }
+        },
+        {
+          "product": "swiss-beauty-glow-up-makeup-fixer-100ml",
+          "name": "Swiss Beauty Glow Up Makeup Fixer (100ml)",
+          "badge": "Budget Pick",
+          "href": "https://link.amazon/B0hrTgoE6",
+          "image_url": null,
+          "priceLabel": "\u20b9299",
+          "mrpLabel": "\u20b9399",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Swiss Beauty Glow Up Makeup Fixer (100ml)",
+            "storeBadge": "Amazon India",
+            "why": "Budget fixing spray for everyday makeup.",
+            "ctaHref": "https://link.amazon/B0hrTgoE6",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "makeup-tools",
+      "step": "Step 18: Tools",
+      "heading": "Step 18: Tools: Makeup Tools",
+      "dek": "Tools that make application easier and cleaner.",
+      "items": [
+        {
+          "product": "vega-eyelash-curler-ec-02",
+          "name": "Vega Eyelash Curler (EC-02)",
+          "badge": "Tool Pick",
+          "href": "https://link.amazon/B06LnOEez",
+          "image_url": null,
+          "priceLabel": "\u20b9179",
+          "mrpLabel": "\u20b9250",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Vega Eyelash Curler (EC-02)",
+            "storeBadge": "Amazon India",
+            "why": "Lifts lashes before mascara for a more open, awake look.",
+            "ctaHref": "https://link.amazon/B06LnOEez",
+            "external": true
+          }
+        },
+        {
+          "product": "generic-face-blotting-paper-100pcs-with-mirror-puff",
+          "name": "Generic Face Blotting Paper (100pcs, with Mirror & Puff)",
+          "badge": "Tool Pick",
+          "href": "https://link.amazon/B03zmZhzC",
+          "image_url": null,
+          "priceLabel": "\u20b9139",
+          "mrpLabel": "\u20b9249",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Generic Face Blotting Paper (100pcs, with Mirror & Puff)",
+            "storeBadge": "Amazon India",
+            "why": "Quick oil control without adding extra layers of powder.",
+            "ctaHref": "https://link.amazon/B03zmZhzC",
+            "external": true
+          }
+        },
+        {
+          "product": "artist-s-arsenal-angular-buffing-brush-golden",
+          "name": "Artist's Arsenal Angular Buffing Brush (Golden)",
+          "badge": "Tool Pick",
+          "href": "https://link.amazon/B0c6ZEaHf",
+          "image_url": null,
+          "priceLabel": "\u20b9299",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Artist's Arsenal Angular Buffing Brush (Golden)",
+            "storeBadge": "Amazon India",
+            "why": "Soft brush for blending blush or powder without harsh lines.",
+            "ctaHref": "https://link.amazon/B0c6ZEaHf",
+            "external": true
+          }
+        },
+        {
+          "product": "omidazzle-ultra-soft-professional-blender-set-set-of-4",
+          "name": "Omidazzle Ultra Soft Professional Blender Set (Set of 4)",
+          "badge": "Tool Pick",
+          "href": "https://link.amazon/B05mmDFfX",
+          "image_url": null,
+          "priceLabel": "\u20b9239",
+          "mrpLabel": "\u20b9499",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Omidazzle Ultra Soft Professional Blender Set (Set of 4)",
+            "storeBadge": "Amazon India",
+            "why": "Damp sponge helps blend base products evenly for a natural finish.",
+            "ctaHref": "https://link.amazon/B05mmDFfX",
+            "external": true
+          }
+        },
+        {
+          "product": "real-techniques-miracle-complexion-sponge-and-case",
+          "name": "Real Techniques Miracle Complexion Sponge and Case",
+          "badge": "Trending",
+          "href": "https://link.amazon/B0hxFgmOs",
+          "image_url": null,
+          "priceLabel": "\u20b9749",
+          "mrpLabel": "\u20b9899",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "Real Techniques Miracle Complexion Sponge and Case",
+            "storeBadge": "Amazon India",
+            "why": "Hyped sponge for a smooth, airbrushed base.",
+            "ctaHref": "https://link.amazon/B0hxFgmOs",
+            "external": true
+          }
+        },
+        {
+          "product": "vega-makeup-brush-set-of-6-mbs-06",
+          "name": "VEGA Makeup Brush Set of 6 (MBS-06)",
+          "badge": "Beginner Pick",
+          "href": "https://link.amazon/B0iVblCLJ",
+          "image_url": null,
+          "priceLabel": "\u20b9499",
+          "mrpLabel": "\u20b9899",
+          "price_checked_at": "2026-11-24",
+          "_original": {
+            "name": "VEGA Makeup Brush Set of 6 (MBS-06)",
+            "storeBadge": "Amazon India",
+            "why": "Starter brushes for foundation, blush and eyes.",
+            "ctaHref": "https://link.amazon/B0iVblCLJ",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {
-    "itemCountLabel": "18 Steps · 100+ Picks",
+    "itemCountLabel": "18 Steps \u00b7 100+ Picks",
     "updatedLabel": "Updated Nov 2026",
     "keywords": [
       "complete makeup kit Amazon India",
@@ -80,11 +2036,11 @@
   "author_name": null,
   "canonical_url": "/collections/complete-amazon-makeup-toolkit",
   "is_indexable": true,
-  "needs_review": true,
+  "needs_review": false,
   "faqs": [
     {
       "question": "How is the makeup toolkit organized?",
-      "answer": "Products are organized by routine steps—from cleanser and moisturizer to mascara and tools—so you can build a complete kit in order."
+      "answer": "Products are organized by routine steps\u2014from cleanser and moisturizer to mascara and tools\u2014so you can build a complete kit in order."
     },
     {
       "question": "Are prices and discounts live?",

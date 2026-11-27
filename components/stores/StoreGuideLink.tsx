@@ -3,7 +3,7 @@ import { BookOpen } from "lucide-react";
 import { staticGuideForStore } from "@/data/store-guides";
 import { formatStoreDisplayName } from "@/lib/store-display";
 
-export function guideStoreDisplayName(slug: string): string {
+function guideStoreDisplayName(slug: string): string {
   return formatStoreDisplayName({ slug, name: slug });
 }
 

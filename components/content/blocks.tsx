@@ -1,4 +1,5 @@
 import type { ContentBlock } from "@/lib/content/schema";
+import CollectionExplorer from "@/components/content/CollectionExplorer";
 import { renderInline } from "@/components/content/inline";
 
 /**
@@ -463,24 +464,86 @@ export function OrderedListBlock({ items }: { items: string[] }) {
 
 export type { ContentBlock };
 
-export function TierTableBlock() { return null; }
-export function ExplorerBlock() { return null; }
-export function CollectionGroupBlock({ items }: { items: any[] }) {
+const SHOW_PRICES = process.env.NEXT_PUBLIC_SHOW_PRICES === "1";
+
+function brandInitial(name: string): string {
+  const t = (name || "").trim();
+  return t ? t.charAt(0).toUpperCase() : "?";
+}
+
+export function TierTableBlock({ tiers }: { tiers?: unknown[] }) {
   return (
     <div>
-      {items?.map((it, i) => {
+      {(tiers || []).map((t: any, i: number) => (
+        <section key={i}>
+          <h3>{t?.label}</h3>
+          {t?.suits ? <p>{t.suits}</p> : null}
+          <ul>{(t?.stepIds || []).map((sid: string, j: number) => <li key={j}>{sid}</li>)}</ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+export function CollectionGroupBlock({ items }: { items: unknown[] }) {
+  return (
+    <div>
+      {(items || []).map((it: any, i: number) => {
         const o = it?._original || {};
-        const href = o.ctaHref || it?.href || "#";
+        const name = o.name || it?.name || it?.product || "";
+        const href = o.ctaHref || it?.href || it?.affiliate_href || "#";
+        const imageUrl = it?.image_url || it?.image || o.image_url || null;
+        const price = it?.price_inr ?? it?.priceLabel ?? null;
+        const priceCheckedAt = it?.price_checked_at ?? null;
+        const badge = o.storeBadge || it?.badge || it?.store || null;
         return (
           <div key={i}>
-            <a href={href}>{o.name || it?.product}</a>
+            {imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={imageUrl} alt="" />
+            ) : (
+              <div aria-hidden="true">{brandInitial(name)}</div>
+            )}
+            {badge ? <span>{badge}</span> : null}
+            <a href={href}>{name}</a>
             {o.why ? <p>{o.why}</p> : null}
             {o.skipIf ? <p>{o.skipIf}</p> : null}
+            {SHOW_PRICES && price != null && priceCheckedAt ? (
+              <span>{typeof price === "number" ? `₹${price}` : price}</span>
+            ) : SHOW_PRICES ? (
+              <span>Check price</span>
+            ) : null}
           </div>
         );
       })}
     </div>
   );
 }
-export function QuickPicksBlock() { return null; }
-export function KitTrayBlock() { return null; }
+
+export function QuickPicksBlock({ lists }: { lists?: unknown[] }) {
+  return (
+    <div>
+      {(lists || []).map((l: any, i: number) => (
+        <section key={i}>
+          {l?.heading ? <h3>{l.heading}</h3> : null}
+          <ul>
+            {(l?.items || []).map((it: any, j: number) => {
+              const href = it?.href || it?._original?.ctaHref || "#";
+              return <li key={j}><a href={href}>{it?.label || it?.name || it?.product}</a></li>;
+            })}
+          </ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+export function KitTrayBlock({ enabled, shareText }: { enabled?: boolean; shareText?: string }) {
+  if (enabled === false) return null;
+  return <div data-kit-tray="">{shareText ? <span>{shareText}</span> : null}</div>;
+}
+
+
+export function ExplorerBlock({ children }: { children?: React.ReactNode }) {
+  return <CollectionExplorer>{children}</CollectionExplorer>;
+}

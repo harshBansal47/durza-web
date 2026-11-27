@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The Desk-Worker Daily Wellness Stack: Joint Mobility, Eye/Skin Support & Clean Energy",
-      "dek": "A simple daily routine for 9+ hour desk days—focused on consistency, verified basics, and practical nutrition rather than complicated supplement stacks.",
+      "id": "movement-and-posture",
+      "step": "Step 1 · Move & Track",
+      "heading": "Movement & posture",
+      "dek": "Mobility tools, ergonomic seating and home vitals monitors support movement breaks and routine tracking.",
       "items": [
         {
-          "product": "hk-vitals-triple-strength-omega-3-fish-oil",
-          "badge": null,
-          "tags": [],
+          "product": "high-density-foam-roller",
+          "name": "High-Density Foam Roller",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/high-density-foam-roller",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "HK Vitals Triple-Strength Omega-3 Fish Oil",
-            "storeBadge": "HK Vitals (Official Store)",
-            "tier": "Heart, Eye & Joint Support",
-            "why": "A concentrated omega-3 supplement can be a convenient way to support intake when dietary sources are inconsistent, especially for desk-heavy routines.",
-            "skipIf": "You already consume enough omega-3-rich foods or have medical conditions/allergies—consult a healthcare professional.",
-            "ctaLabel": "Check Live Price on HK Vitals",
-            "ctaHref": "/go/hkvitals?src=col-wellness",
+            "name": "High-Density Foam Roller",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a grid trigger-point foam roller designed for upper-back and lower-body mobility breaks after prolonged sitting (Durza Fitness catalogue, checked 25 Nov 2026).",
+            "skipIf": "Anyone with acute spinal pain, disc injury or bruising — consult a doctor or physiotherapist first.",
+            "ctaHref": "https://durza.in/coupons/high-density-foam-roller",
             "external": true
           }
         },
         {
-          "product": "hk-vitals-gender-specific-daily-multivitamin-men-women-50",
-          "badge": null,
-          "tags": [],
+          "product": "nilkamal-optima-high-back-ergonomic-mesh-office-chair",
+          "name": "Nilkamal Optima High Back Ergonomic Mesh Office Chair",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/nilkamal-optima-high-back-ergonomic-mesh-office-chair",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "HK Vitals Gender-Specific Daily Multivitamin (Men / Women / 50+)",
-            "storeBadge": "HK Vitals (Official Store)",
-            "tier": "Micronutrient Insurance",
-            "why": "A daily multivitamin can help cover common micronutrient gaps, but it works best as a supplement to—not a replacement for—a balanced diet.",
-            "skipIf": "You’re already taking similar supplements or prescribed vitamins—avoid overlap without professional guidance.",
-            "ctaLabel": "Check Live Price on HK Vitals",
-            "ctaHref": "/go/hkvitals?src=col-wellness",
+            "name": "Nilkamal Optima High Back Ergonomic Mesh Office Chair",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states adjustable lumbar support and breathable mesh rated up to 120kg to support neutral posture during desk work (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Buyers who already use an ergonomic chair fitted to their desk height.",
+            "ctaHref": "https://durza.in/coupons/nilkamal-optima-high-back-ergonomic-mesh-office-chair",
             "external": true
           }
         },
         {
-          "product": "kapiva-cold-pressed-thar-aloe-vera-wild-amla-juice",
-          "badge": null,
-          "tags": [],
+          "product": "blood-pressure-monitor-model-bp-02",
+          "name": "Blood Pressure Monitor Model BP-02",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-wellness",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Kapiva Cold-Pressed Thar Aloe Vera & Wild Amla Juice",
-            "storeBadge": "Kapiva (Official Store)",
-            "tier": "Morning Gut & Immunity",
-            "why": "A simple morning juice routine can be an easy habit for hydration and fruit/plant intake, as long as you choose unsweetened options and use it consistently.",
-            "skipIf": "You have digestive sensitivities or medical conditions—check ingredients and consult a professional if needed.",
-            "ctaLabel": "Check Live Price on Kapiva",
-            "ctaHref": "/go/kapiva?src=col-wellness",
+            "name": "Blood Pressure Monitor Model BP-02",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states automatic oscillometric systolic, diastolic and pulse measurement on a large LCD for home screening (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Screening tool only, not a diagnosis — bring readings to a doctor before changing any medication.",
+            "ctaHref": "/go/amazon-in?src=collection-wellness",
             "external": true
           }
         },
         {
-          "product": "kapiva-nabl-tested-himalayan-shilajit-resin",
-          "badge": null,
-          "tags": [],
+          "product": "signature-series-fingertip-pulse-oximeter-with-audio-visual-alarm-model-201",
+          "name": "Signature Series Fingertip Pulse Oximeter with Audio Visual Alarm (Model 201)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-wellness",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Kapiva NABL-Tested Himalayan Shilajit Resin",
-            "storeBadge": "Kapiva (Official Store)",
-            "tier": "Natural Stamina",
-            "why": "A batch-tested mineral resin option for those exploring traditional wellness supplements; start cautiously and prioritize verified sourcing and label clarity.",
-            "skipIf": "You’re pregnant, have medical conditions, or take medications—seek medical advice before use.",
-            "ctaLabel": "Check Live Price on Kapiva",
-            "ctaHref": "/go/kapiva?src=col-wellness",
-            "external": true
-          }
-        },
-        {
-          "product": "yoga-bar-high-protein-dark-chocolate-oats",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "Yoga Bar High-Protein Dark Chocolate Oats",
-            "storeBadge": "Amazon India",
-            "tier": "5-Minute Desk Breakfast",
-            "why": "A quick, high-protein breakfast option can help avoid skipped meals on busy workdays and make it easier to stay consistent with nutrition.",
-            "skipIf": "You prefer freshly cooked breakfasts or have ingredient/allergen concerns—check the label.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "https://www.amazon.in/dp/B05uwpEeL?tag=durza02-21&ascsubtag=collection_kit",
+            "name": "Signature Series Fingertip Pulse Oximeter with Audio Visual Alarm (Model 201)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states SpO2, pulse rate and perfusion-index display on a rotatable OLED screen for bedside or travel checks (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Not a substitute for emergency or physician care; cold fingers can cause artificially low readings.",
+            "ctaHref": "/go/amazon-in?src=collection-wellness",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "micronutrients",
+      "step": "Step 2 · Micronutrients",
+      "heading": "Micronutrients",
+      "dek": "Label figures below are brand statements from checked listings, not Durza measurements.",
+      "items": [
+        {
+          "product": "truebasics-triple-strength-omega-3-fish-oil-1250mg",
+          "name": "TrueBasics Triple Strength Omega-3 Fish Oil (1250mg)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/truebasics-triple-strength-omega-3-fish-oil-1250mg",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "TrueBasics Triple Strength Omega-3 Fish Oil (1250mg)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 560mg EPA and 400mg DHA per enteric-coated 1250mg softgel (Durza Supplements catalogue, checked 25 Nov 2026).",
+            "skipIf": "Vegetarians (fish/gelatin source), pregnant or lactating women, minors under 18, and anyone on blood thinners or prescription drugs — consult a doctor first.",
+            "ctaHref": "https://durza.in/coupons/truebasics-triple-strength-omega-3-fish-oil-1250mg",
+            "external": true
+          }
+        },
+        {
+          "product": "truebasics-multivit-men-multivit-women-60-tablets",
+          "name": "TrueBasics Multivit Men / Multivit Women (60 Tablets)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/truebasics-multivit-men-multivit-women-60-tablets",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "TrueBasics Multivit Men / Multivit Women (60 Tablets)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 23 vitamins and minerals per daily tablet formulated for adult dietary supplementation (Durza Supplements catalogue, checked 25 Nov 2026).",
+            "skipIf": "Pregnant or lactating women, minors under 18, and anyone already taking prescribed vitamins — consult a doctor first.",
+            "ctaHref": "https://durza.in/coupons/truebasics-multivit-men-multivit-women-60-tablets",
+            "external": true
+          }
+        },
+        {
+          "product": "truebasics-ashwagandha-with-patented-ksm-66-600mg",
+          "name": "TrueBasics Ashwagandha with Patented KSM-66 (600mg)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/truebasics-ashwagandha-with-patented-ksm-66-r-600mg",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "TrueBasics Ashwagandha with Patented KSM-66 (600mg)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 600mg of full-spectrum KSM-66 ashwagandha root extract per tablet (Durza Supplements catalogue, checked 25 Nov 2026).",
+            "skipIf": "Pregnant or lactating women, minors under 18, and people with thyroid, autoimmune or liver conditions or on prescription medication — consult a doctor first.",
+            "ctaHref": "https://durza.in/coupons/truebasics-ashwagandha-with-patented-ksm-66-r-600mg",
+            "external": true
+          }
+        },
+        {
+          "product": "kapiva-himalayan-shilajit-resin-20g",
+          "name": "Kapiva Himalayan Shilajit Resin 20g",
+          "badge": "₹999 listing",
+          "href": "https://www.amazon.in/dp/B09BZNDYT2?tag=durza02-21&ascsubtag=collection_kit",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": "₹999",
+          "mrpLabel": "₹1,199",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Kapiva Himalayan Shilajit Resin 20g",
+            "storeBadge": "₹999 listing",
+            "why": "Brand states 60%+ fulvic acid and 80+ trace minerals per 250mg serving (80 servings per 20g jar), with batch-level NABL reports stated on kapiva.in (Durza supplement comparison, checked 24 Nov 2026).",
+            "skipIf": "Pregnant or lactating women, minors under 18, and anyone with kidney, liver or chronic conditions or on medication — consult a doctor first.",
+            "ctaHref": "https://www.amazon.in/dp/B09BZNDYT2?tag=durza02-21&ascsubtag=collection_kit",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "gut-and-immunity",
+      "step": "Step 3 · Daily Routine",
+      "heading": "Gut & immunity",
+      "dek": "Simple morning habits — but no efficacy or disease claims are made for any item here.",
+      "items": [
+        {
+          "product": "high-protein-oats-1kg-pack-of-2-dark-chocolate",
+          "name": "High Protein Oats 1kg, Pack of 2 [Dark Chocolate]",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-wellness",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "High Protein Oats 1kg, Pack of 2 [Dark Chocolate]",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 26g protein per 100g with chia, sunflower and pumpkin seeds, Bacillus coagulans probiotics and zero added sugar (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Individuals with milk (whey), soy, or oat/gluten allergies or sensitivities.",
+            "ctaHref": "/go/amazon-in?src=collection-wellness",
+            "external": true
+          }
+        },
+        {
+          "product": "kapiva-dia-free-juice-1-litre",
+          "name": "Kapiva Dia Free Juice (1 Litre)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/kapiva-dia-free-juice-1-litre",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Kapiva Dia Free Juice (1 Litre)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a blend of karela, jamun, amla, gudmar and methi in a 1-litre bottle (Durza Supplements catalogue, checked 25 Nov 2026).",
+            "skipIf": "Pregnant or lactating women, minors, and anyone on blood-glucose-lowering medication — consult a doctor first.",
+            "ctaHref": "https://durza.in/coupons/kapiva-dia-free-juice-1-litre",
+            "external": true
+          }
+        },
+        {
+          "product": "fast-up-charge-1000mg-natural-vitamin-c-20-effervescent-tablets",
+          "name": "Fast&Up Charge 1000mg Natural Vitamin C (20 Effervescent Tablets)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/fast-up-charge-1000mg-natural-vitamin-c-20-effervescent-tablets",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Fast&Up Charge 1000mg Natural Vitamin C (20 Effervescent Tablets)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 1000mg natural amla-derived Vitamin C with zinc per effervescent tablet (Durza catalogue, checked 25 Nov 2026).",
+            "skipIf": "Minors under 18, pregnant or lactating women, and individuals with kidney stones or renal impairment — consult a doctor first.",
+            "ctaHref": "https://durza.in/coupons/fast-up-charge-1000mg-natural-vitamin-c-20-effervescent-tablets",
+            "external": true
+          }
+        },
+        {
+          "product": "milton-thermosteel-flip-lid-vacuum-insulated-flask-1000ml",
+          "name": "Milton Thermosteel Flip Lid Vacuum Insulated Flask (1000ml)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/milton-thermosteel-flip-lid-vacuum-insulated-flask-1000ml",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Milton Thermosteel Flip Lid Vacuum Insulated Flask (1000ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 304-grade stainless steel vacuum insulation to keep water warm or cool at your desk all day (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Anyone who already keeps an insulated water bottle at their workstation.",
+            "ctaHref": "https://durza.in/coupons/milton-thermosteel-flip-lid-vacuum-insulated-flask-1000ml",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

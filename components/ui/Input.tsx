@@ -141,7 +141,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   );
 });
 
-export function Label({
+function Label({
   children,
   htmlFor,
   required = false,

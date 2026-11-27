@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "The College & First-Job Tech Backpack: Coding Laptops, ANC Audio & Smart Perks",
-      "dek": "A durable, carry-friendly tech stack for lectures, hostel Wi-Fi, coding, and placements—prioritizing battery life, comfort, and smart student perks.",
+      "id": "carry",
+      "step": "Step 1 · Carry",
+      "heading": "Carry",
+      "dek": "A padded laptop backpack with rain protection keeps campus and hostel commutes organised.",
       "items": [
         {
-          "product": "lenovo-ideapad-slim-5-loq-sheerid-student-store",
-          "badge": null,
-          "tags": [],
+          "product": "american-tourister-valex-28l-laptop-backpack",
+          "name": "American Tourister Valex 28L Laptop Backpack",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/american-tourister-valex-28l-laptop-backpack",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Lenovo IdeaPad Slim 5 / LOQ (SheerID Student Store)",
-            "storeBadge": "Lenovo India (Official Store)",
-            "tier": "Primary Coding Machine",
-            "why": "Buying through Lenovo’s official student flow can unlock education pricing on configurable laptops suited for coding, projects, and everyday campus work.",
-            "skipIf": "You already have a capable laptop with enough RAM/SSD for your coursework and tools.",
-            "ctaLabel": "Check Live Price on Lenovo India",
-            "ctaHref": "/go/lenovo-india?src=col-student",
+            "name": "American Tourister Valex 28L Laptop Backpack",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 28 litres with a dedicated 15.6-inch padded laptop compartment and an included rain cover (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you carry a 17-inch workstation laptop that exceeds the 15.6-inch sleeve.",
+            "ctaHref": "https://durza.in/coupons/american-tourister-valex-28l-laptop-backpack",
             "external": true
           }
         },
         {
-          "product": "asus-vivobook-s-oled-series",
-          "badge": null,
-          "tags": [],
+          "product": "lavie-horsebit-structured-large-work-tote",
+          "name": "Lavie Horsebit Structured Large Work Tote",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/lavie-horsebit-structured-large-work-tote",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "ASUS Vivobook S / OLED Series",
-            "storeBadge": "ASUS (Official Store)",
-            "tier": "Eye-Comfort Screen",
-            "why": "OLED Vivobook options can offer sharp visuals and comfortable viewing for long coding, reading, and documentation sessions when configured well.",
-            "skipIf": "You prioritize battery longevity over display vibrancy or already have a good external monitor setup.",
-            "ctaLabel": "Check Live Price on ASUS",
-            "ctaHref": "/go/asus?src=col-student",
+            "name": "Lavie Horsebit Structured Large Work Tote",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states it fits laptops up to 14 inches across three compartments with a padded divider (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you carry a 15.6-inch or 16-inch coding laptop or commute on a two-wheeler in rain.",
+            "ctaHref": "https://durza.in/coupons/lavie-horsebit-structured-large-work-tote",
             "external": true
           }
         },
         {
-          "product": "sony-wh-ch520-wireless-multipoint-headphones",
-          "badge": null,
-          "tags": [],
+          "product": "samsung-evo-plus-128gb-microsdxc-card",
+          "name": "Samsung EVO Plus 128GB MicroSDXC Card",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/samsung-evo-plus-128gb-microsdxc-card",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Sony WH-CH520 Wireless Multipoint Headphones",
-            "storeBadge": "Amazon India",
-            "tier": "50-Hour Study Battery",
-            "why": "Lightweight on-ear headphones with long battery life and multipoint convenience are practical for lectures, study sessions, and switching between devices.",
-            "skipIf": "You need strong active noise cancellation or prefer in-ear earbuds for all-day use.",
-            "ctaLabel": "Check Live Price on Amazon India",
-            "ctaHref": "https://www.amazon.in/dp/B0fLYREmW?tag=durza02-21&ascsubtag=collection_kit",
+            "name": "Samsung EVO Plus 128GB MicroSDXC Card",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states high-speed Class 10 / U3 performance for 4K video and expandable tablet or laptop storage (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your laptop lacks a microSD reader and you do not carry an adapter.",
+            "ctaHref": "https://durza.in/coupons/samsung-evo-plus-128gb-microsdxc-card",
             "external": true
           }
         },
         {
-          "product": "boult-quad-mic-enc-low-latency-tws-earbuds",
-          "badge": null,
-          "tags": [],
+          "product": "milton-executive-insulated-3-container-lunch-box-with-jacket",
+          "name": "Milton Executive Insulated 3-Container Lunch Box with Jacket",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/milton-executive-insulated-3-container-lunch-box",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
-            "name": "Boult Quad-Mic ENC & Low-Latency TWS Earbuds",
-            "storeBadge": "Boult (Official Store)",
-            "tier": "Pocket Commute Audio",
-            "why": "Compact TWS earbuds are handy for commutes and quick calls, with ENC and low-latency modes useful for noisy campuses and casual gaming breaks.",
-            "skipIf": "You already own reliable earbuds with clear mic quality and comfortable fit.",
-            "ctaLabel": "Check Live Price on Boult",
-            "ctaHref": "/go/boult?src=col-student",
-            "external": true
-          }
-        },
-        {
-          "product": "guvi-vernacular-full-stack-placement-tracks",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "GUVI Vernacular & Full-Stack Placement Tracks",
-            "storeBadge": "GUVI (Official Store)",
-            "tier": "Skill & Placement Edge",
-            "why": "Structured coding tracks and practice can complement college learning, especially if you prefer vernacular explanations and guided placement-focused paths.",
-            "skipIf": "You already follow a consistent learning roadmap that’s working for your goals.",
-            "ctaLabel": "Check Live Price on GUVI",
-            "ctaHref": "/go/guvi?src=col-student",
+            "name": "Milton Executive Insulated 3-Container Lunch Box with Jacket",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states three leakproof lock-lid stainless containers with a washable insulated jacket for full-day schedules (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if your campus mess provides hot meals and you do not pack lunch.",
+            "ctaHref": "https://durza.in/coupons/milton-executive-insulated-3-container-lunch-box",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "focus-and-screen",
+      "step": "Step 2 · Focus",
+      "heading": "Focus & screen",
+      "dek": "Long-battery headphones and proper screen elevation help in noisy hostels.",
+      "items": [
+        {
+          "product": "sony-wh-ch520-wireless-bluetooth-headphones",
+          "name": "Sony WH-CH520 Wireless Bluetooth Headphones",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/sony-wh-ch520-wireless-bluetooth-headphones",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Sony WH-CH520 Wireless Bluetooth Headphones",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states up to 50 hours of battery with multipoint switching and DSEE audio for long study sessions (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need active noise cancellation in loud hostel common rooms.",
+            "ctaHref": "https://durza.in/coupons/sony-wh-ch520-wireless-bluetooth-headphones",
+            "external": true
+          }
+        },
+        {
+          "product": "boult-audio-z40-pro-earbuds",
+          "name": "Boult Audio Z40 Pro Earbuds",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/boult-audio-z40-pro-earbuds",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Boult Audio Z40 Pro Earbuds",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states up to 100 hours of total case playtime with 10mm BoomX drivers and quad-mic ENC for campus calls (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you want ANC, which is reserved for models like the Boult W50.",
+            "ctaHref": "https://durza.in/coupons/boult-audio-z40-pro-earbuds",
+            "external": true
+          }
+        },
+        {
+          "product": "boult-audio-astra-gaming-earbuds",
+          "name": "Boult Audio Astra Gaming Earbuds",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/boult-audio-astra-gaming-earbuds",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Boult Audio Astra Gaming Earbuds",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a 40ms low-latency mode and up to 48 hours of total battery for casual gaming breaks (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you prioritise neutral vocal tuning over gaming latency and RGB styling.",
+            "ctaHref": "https://durza.in/coupons/boult-audio-astra-gaming-earbuds",
+            "external": true
+          }
+        },
+        {
+          "product": "amazon-basics-ergonomic-adjustable-laptop-stand-with-fan",
+          "name": "Amazon Basics Ergonomic Adjustable Laptop Stand with Fan",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/amazon-basics-ergonomic-adjustable-laptop-stand-with-fan",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Amazon Basics Ergonomic Adjustable Laptop Stand with Fan",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states adjustable elevation with a built-in quiet cooling fan to improve posture and airflow on hostel desks (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you carry your stand daily in a tight backpack and prefer a flat-folding aluminium stand.",
+            "ctaHref": "https://durza.in/coupons/amazon-basics-ergonomic-adjustable-laptop-stand-with-fan",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "study-and-placement-edge",
+      "step": "Step 3 · Study & Prep",
+      "heading": "Study & placement edge",
+      "dek": "Structured notes, more memory and a budget coding laptop support exams and interviews.",
+      "items": [
+        {
+          "product": "classmate-spiral-notebook-6-subject-pack-300-pages",
+          "name": "Classmate Spiral Notebook 6-Subject Pack (300 Pages)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/classmate-spiral-notebook-6-subject-300-pages",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Classmate Spiral Notebook 6-Subject Pack (300 Pages)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 300 pages of elemental chlorine-free paper with perforated subject dividers for lecture and DSA notes (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you take 100% digital notes on a laptop or tablet.",
+            "ctaHref": "https://durza.in/coupons/classmate-spiral-notebook-6-subject-300-pages",
+            "external": true
+          }
+        },
+        {
+          "product": "crucial-8gb-ddr4-3200mhz-laptop-memory",
+          "name": "Crucial 8GB DDR4 3200MHz Laptop Memory",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/crucial-ram-8gb-ddr4-3200mhz-laptop-memory",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Crucial 8GB DDR4 3200MHz Laptop Memory",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states DDR4-3200 SODIMM memory to expand 8GB student laptops to 16GB for Docker, VS Code and browser tabs (Durza Electronics catalogue, checked 25 Nov 2026).",
+            "skipIf": "Verify your laptop has an open DDR4 SODIMM slot before ordering.",
+            "ctaHref": "https://durza.in/coupons/crucial-ram-8gb-ddr4-3200mhz-laptop-memory",
+            "external": true
+          }
+        },
+        {
+          "product": "acer-aspire-3-a324-53-core-i5-1334u-16gb-ram-512gb-gen-4-ssd",
+          "name": "Acer Aspire 3 A324-53 (Core i5-1334U, 16GB RAM, 512GB Gen 4 SSD)",
+          "badge": "Reviewed ₹40,990",
+          "href": "/go/acer?src=collection-student",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": "₹40,990 (91mobiles, 6 Sep 2026)",
+          "mrpLabel": null,
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Acer Aspire 3 A324-53 (Core i5-1334U, 16GB RAM, 512GB Gen 4 SSD)",
+            "storeBadge": "Reviewed ₹40,990",
+            "why": "Brand states an i5-1334U (15W), 16GB DDR4 expandable to 32GB and a 512GB Gen 4 SSD under 1.5kg (Durza laptop comparison, 91mobiles review 6 Sep 2026, checked 24 Nov 2026).",
+            "skipIf": "Skip if you need a colour-accurate display — it uses a 14-inch FHD 45% NTSC panel.",
+            "ctaHref": "/go/acer?src=collection-student",
+            "external": true
+          }
+        },
+        {
+          "product": "lenovo-ideapad-slim-3-amd-ryzen-5-7530u-16gb-ram-512gb-ssd",
+          "name": "Lenovo IdeaPad Slim 3 (AMD Ryzen 5 7530U, 16GB RAM, 512GB SSD)",
+          "badge": "Reviewed ₹43,990",
+          "href": "/go/lenovo-india?src=collection-student",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": "₹43,990 (BuysmarterIn, 8 Oct 2026)",
+          "mrpLabel": null,
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Lenovo IdeaPad Slim 3 (AMD Ryzen 5 7530U, 16GB RAM, 512GB SSD)",
+            "storeBadge": "Reviewed ₹43,990",
+            "why": "Brand states a Ryzen 5 7530U (15W, 6C/12T), 16GB DDR4 across 2 DIMM slots and a 15.6-inch FHD IPS 250-nit display (Durza laptop comparison, BuysmarterIn review 8 Oct 2026, checked 24 Nov 2026).",
+            "skipIf": "Skip if you work outdoors in bright sunlight or compile heavy 3D builds.",
+            "ctaHref": "/go/lenovo-india?src=collection-student",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

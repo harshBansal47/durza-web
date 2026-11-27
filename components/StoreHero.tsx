@@ -53,7 +53,7 @@ function thresholdOf(title: string | null): string | null {
  * strip always reflects live DB data: top code, free-shipping threshold, and the
  * detected payment/prepaid offer code when available.
  */
-export function deriveStoreHeroPerks(offers: ReadonlyArray<{ code: string | null; title?: string | null }> | undefined): [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk] {
+function deriveStoreHeroPerks(offers: ReadonlyArray<{ code: string | null; title?: string | null }> | undefined): [StoreHeroPerk, StoreHeroPerk, StoreHeroPerk] {
   const top = offers?.[0];
   const freeShip = offers?.find((o) => /free/i.test(o.title ?? "") || o.code?.toUpperCase() === "FREESHIP");
   const prepaid = offers?.find((o) => /EXTRA5|PREPAID|UPI/i.test(o.code ?? ""));

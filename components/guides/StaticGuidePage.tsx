@@ -36,7 +36,7 @@ function storeDisplayName(slug: string): string {
     .join(" ");
 }
 
-export function StaticGuideJsonLd({ guide }: { guide: StaticGuide }) {
+function StaticGuideJsonLd({ guide }: { guide: StaticGuide }) {
   const url = `${SITE_URL}/guides/${guide.slug}`;
   return (
     <>

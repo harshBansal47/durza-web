@@ -8,87 +8,271 @@
   "status": "published",
   "content_blocks": [
     {
+      "type": "tierTable",
+      "tiers": [
+        {
+          "label": "Essential First Buy",
+          "stepIds": []
+        },
+        {
+          "label": "Smart upgrades",
+          "stepIds": []
+        }
+      ]
+    },
+    {
       "type": "collectionGroup",
-      "id": "picks",
-      "heading": "Effortless Luxury Gifting for Indian Weddings, Anniversaries & Festive Hosting",
-      "dek": "Presentation-ready gifts people actually keep and use—from hostess candles to keepsake skincare, jewelry, grooming hampers, and signature accessories.",
+      "id": "hostess-and-home",
+      "step": "Step 1 · Host & Home",
+      "heading": "Hostess & home",
+      "dek": "Presentation-ready fragrance, serveware and appliances make practical housewarming gifts.",
       "items": [
         {
           "product": "bath-body-works-signature-3-wick-candle-spa-trio",
-          "badge": null,
-          "tags": [],
+          "name": "Bath & Body Works Signature 3-Wick Candle & Spa Trio",
+          "badge": "Vetted pick",
+          "href": "/go/bath-body-works?src=collection-gifting",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Bath & Body Works Signature 3-Wick Candle & Spa Trio",
-            "storeBadge": "Bath & Body Works (Official Store)",
-            "tier": "Hostess & Housewarming",
-            "why": "Fragrance-led home and body sets feel instantly giftable and are easy to use, making them a reliable choice for hosts and housewarmings.",
-            "skipIf": "The recipient is sensitive to fragrances or prefers unscented home products.",
-            "ctaLabel": "Check Live Price on Bath & Body Works",
-            "ctaHref": "/go/bath-body-works?src=col-gifting",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a scented 3-wick candle with body-care items in ready-to-gift packaging (Durza Gifting collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if the recipient is sensitive to strong home fragrances or scented candles.",
+            "ctaHref": "/go/bath-body-works?src=collection-gifting",
             "external": true
           }
         },
+        {
+          "product": "milton-thermosteel-flip-lid-vacuum-insulated-flask-1000ml",
+          "name": "Milton Thermosteel Flip Lid Vacuum Insulated Flask (1000ml)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/milton-thermosteel-flip-lid-vacuum-insulated-flask-1000ml",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Milton Thermosteel Flip Lid Vacuum Insulated Flask (1000ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 304-grade rust-proof stainless steel vacuum insulation rated to keep beverages hot or cold for 24 hours (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need a decorative boxed hamper rather than an everyday utility flask.",
+            "ctaHref": "https://durza.in/coupons/milton-thermosteel-flip-lid-vacuum-insulated-flask-1000ml",
+            "external": true
+          }
+        },
+        {
+          "product": "havells-prolife-grande-6-5l-digital-air-fryer",
+          "name": "Havells Prolife Grande 6.5L Digital Air Fryer",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/havells-prolife-grande-6-5l-digital-air-fryer",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Havells Prolife Grande 6.5L Digital Air Fryer",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states 1700W rapid-air heating with 10 auto presets and a 6.5-litre basket for family hosting (Durza Home & Kitchen catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip for small studio kitchens with limited countertop space.",
+            "ctaHref": "https://durza.in/coupons/havells-prolife-grande-6-5l-digital-air-fryer",
+            "external": true
+          }
+        },
+        {
+          "product": "nutripro-juicer-mixer-grinder-smoothie-maker-500w-3-jars-gold",
+          "name": "NutriPro Juicer Mixer Grinder – Smoothie Maker (500W, 3 Jars, Gold)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-gifting",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "NutriPro Juicer Mixer Grinder – Smoothie Maker (500W, 3 Jars, Gold)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a 500W motor with 3 jars, 2 blades and a 1-year warranty in a gold finish (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip if the recipient needs a heavy-duty 750W+ mixer for wet turmeric or idli batter.",
+            "ctaHref": "/go/amazon-in?src=collection-gifting",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "bridal-and-festive",
+      "step": "Step 2 · Bridal & Festive",
+      "heading": "Bridal & festive",
+      "dek": "Gift boxes, organisers and vanity pieces for weddings and festive family gifting.",
+      "items": [
         {
           "product": "kama-ayurveda-gold-embossed-kumkumadi-gift-box",
-          "badge": null,
-          "tags": [],
+          "name": "Kama Ayurveda Gold-Embossed Kumkumadi Gift Box",
+          "badge": "Vetted pick",
+          "href": "/go/kama-ayurveda?src=collection-gifting",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Kama Ayurveda Gold-Embossed Kumkumadi Gift Box",
-            "storeBadge": "Kama Ayurveda (Official Store)",
-            "tier": "Bridal & Festive Icon",
-            "why": "A classic Ayurvedic skincare gift box with premium presentation works well for bridal, festive, and family gifting when you want something thoughtful and traditional.",
-            "skipIf": "The recipient prefers clinical/minimal skincare or has known ingredient sensitivities—check product details.",
-            "ctaLabel": "Check Live Price on Kama Ayurveda",
-            "ctaHref": "/go/kama-ayurveda?src=col-gifting",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states traditional Ayurvedic facial care in a presentation-ready gift box (Durza Gifting collection, checked 25 Nov 2026).",
+            "skipIf": "Skip if the recipient prefers fragrance-free clinical skincare or has rich-oil sensitivity.",
+            "ctaHref": "/go/kama-ayurveda?src=collection-gifting",
             "external": true
           }
         },
+        {
+          "product": "homestrap-set-of-6-non-woven-printed-saree-covers-grey-45-33-22-cm",
+          "name": "Homestrap Set of 6 Non-Woven Printed Saree Covers (Grey, 45 × 33 × 22 cm)",
+          "badge": "Vetted pick",
+          "href": "/go/amazon-in?src=collection-gifting",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Homestrap Set of 6 Non-Woven Printed Saree Covers (Grey, 45 × 33 × 22 cm)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states six non-woven covers with transparent windows sized to organise wedding sarees and occasion wear (Durza Amazon storefront, checked 25 Nov 2026).",
+            "skipIf": "Skip as a standalone ceremonial gift; pair inside a bridal trousseau packing set.",
+            "ctaHref": "/go/amazon-in?src=collection-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "huda-beauty-fauxfilter-luminous-matte-foundation-150g-cr-me-br-l-e-35ml",
+          "name": "Huda Beauty FauxFilter Luminous Matte Foundation (150G Crème Brûlée, 35ml)",
+          "badge": "Luxury pick",
+          "href": "/go/amazon-in?src=collection-gifting",
+          "image_url": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51caGCC1KBL._SY355_.jpg",
+          "priceLabel": "₹3,300",
+          "mrpLabel": "₹3,950",
+          "price_checked_at": "2026-11-25",
+          "_original": {
+            "name": "Huda Beauty FauxFilter Luminous Matte Foundation (150G Crème Brûlée, 35ml)",
+            "storeBadge": "Luxury pick",
+            "why": "Brand states full-coverage luminous-matte liquid foundation for bridal and party vanity kits (Durza Beauty Toolkit, checked 25 Nov 2026).",
+            "skipIf": "Do not gift complexion shades unless you know the recipient's exact shade match.",
+            "ctaHref": "/go/amazon-in?src=collection-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "kashmiri-lavender-walnut-gentle-body-scrub-150g",
+          "name": "Kashmiri Lavender & Walnut Gentle Body Scrub (150g)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/kashmiri-lavender-walnut-gentle-body-scrub",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Kashmiri Lavender & Walnut Gentle Body Scrub (150g)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states crushed walnut shell beads and lavender oil in a 150g tub for pre-festive exfoliation (Durza Beauty & Grooming catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip for sensitive facial skin or nut-allergic recipients.",
+            "ctaHref": "https://durza.in/coupons/kashmiri-lavender-walnut-gentle-body-scrub",
+            "external": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "collectionGroup",
+      "id": "anniversary-and-milestone",
+      "step": "Step 3 · Milestones",
+      "heading": "Anniversary & milestone",
+      "dek": "Tarnish-resistant jewellery, structured bags and fragrance sets for lasting milestone gifts.",
+      "items": [
         {
           "product": "palmonas-18k-waterproof-gold-vermeil-jewelry-set",
-          "badge": null,
-          "tags": [],
+          "name": "Palmonas 18K Waterproof Gold-Vermeil Jewelry Set",
+          "badge": "Vetted pick",
+          "href": "/go/palmonas?src=collection-gifting",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Palmonas 18K Waterproof Gold-Vermeil Jewelry Set",
-            "storeBadge": "Palmonas (Official Store)",
-            "tier": "Anniversary & Birthday",
-            "why": "Everyday-wear jewelry in gift-ready packaging is a versatile milestone gift that balances style with practicality for regular use.",
-            "skipIf": "You’re unsure of the recipient’s metal/finish preference—choose simpler designs or confirm taste first.",
-            "ctaLabel": "Check Live Price on Palmonas",
-            "ctaHref": "/go/palmonas?src=col-gifting",
-            "external": true
-          }
-        },
-        {
-          "product": "the-man-company-signature-edp-grooming-hamper",
-          "badge": null,
-          "tags": [],
-          "_original": {
-            "name": "The Man Company Signature EDP & Grooming Hamper",
-            "storeBadge": "The Man Company (Official Store)",
-            "tier": "Luxury Gift for Him",
-            "why": "A fragrance-and-grooming hamper offers a complete, ready-to-gift experience that suits birthdays, anniversaries, and festive occasions.",
-            "skipIf": "The recipient is particular about fragrance notes or grooming products—check variants and preferences.",
-            "ctaLabel": "Check Live Price on The Man Company",
-            "ctaHref": "/go/the-man-company?src=col-gifting",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states an 18K gold-vermeil finish designed for everyday wear in gift-ready packaging (Durza Gifting collection, checked 25 Nov 2026).",
+            "skipIf": "Confirm whether the recipient prefers gold-tone or silver/rhodium finishes before ordering.",
+            "ctaHref": "/go/palmonas?src=collection-gifting",
             "external": true
           }
         },
         {
           "product": "charles-keith-sculpted-saddle-bag-or-cardholder",
-          "badge": null,
-          "tags": [],
+          "name": "Charles & Keith Sculpted Saddle Bag or Cardholder",
+          "badge": "Vetted pick",
+          "href": "/go/charles-keith?src=collection-gifting",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
           "_original": {
             "name": "Charles & Keith Sculpted Saddle Bag or Cardholder",
-            "storeBadge": "Charles & Keith (Official Store)",
-            "tier": "Milestone Fashion Gift",
-            "why": "A structured accessory from an official boutique makes a polished milestone gift with strong everyday utility and premium presentation.",
-            "skipIf": "You’re unsure about size/color preferences—small leather goods like cardholders are safer picks.",
-            "ctaLabel": "Check Live Price on Charles & Keith",
-            "ctaHref": "/go/charles-keith?src=col-gifting",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states structured faux-leather construction delivered in boutique gift packaging (Durza Gifting collection, checked 25 Nov 2026).",
+            "skipIf": "Choose neutral cardholders if you are unsure of bag size or strap preferences.",
+            "ctaHref": "/go/charles-keith?src=collection-gifting",
+            "external": true
+          }
+        },
+        {
+          "product": "blanc-eau-de-parfum-for-men-100ml",
+          "name": "Blanc Eau De Parfum for Men (100ml)",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/blanc-eau-de-parfum-for-men-100ml",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "Blanc Eau De Parfum for Men (100ml)",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states citrus-woody notes — lemon, birch, lavender, apple, patchouli and oakmoss — in a 100ml bottle (Durza Beauty & Grooming catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if the recipient avoids alcohol-based fragrances or prefers unscented grooming sets.",
+            "ctaHref": "https://durza.in/coupons/blanc-eau-de-parfum-for-men-100ml",
+            "external": true
+          }
+        },
+        {
+          "product": "american-tourister-ivy-55cm-cabin-trolley-suitcase",
+          "name": "American Tourister Ivy 55cm Cabin Trolley Suitcase",
+          "badge": "Vetted pick",
+          "href": "https://durza.in/coupons/american-tourister-ivy-55cm-cabin-trolley-suitcase",
+          "image_url": "/collections/amazon-beauty-toolkit/product-placeholder.svg",
+          "priceLabel": null,
+          "mrpLabel": null,
+          "price_checked_at": null,
+          "_original": {
+            "name": "American Tourister Ivy 55cm Cabin Trolley Suitcase",
+            "storeBadge": "Vetted pick",
+            "why": "Brand states a lightweight 55cm hard-side cabin spinner with a built-in combination TSA lock for honeymoon or anniversary travel (Durza Fashion catalogue, checked 25 Nov 2026).",
+            "skipIf": "Skip if you need a larger 68–75cm check-in suitcase rather than cabin luggage.",
+            "ctaHref": "https://durza.in/coupons/american-tourister-ivy-55cm-cabin-trolley-suitcase",
             "external": true
           }
         }
       ]
+    },
+    {
+      "type": "explorer"
+    },
+    {
+      "type": "quickPicks",
+      "lists": []
+    },
+    {
+      "type": "kitTray",
+      "enabled": true
     }
   ],
   "structured_data": {

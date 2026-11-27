@@ -126,7 +126,7 @@ export function EditorialCard({ content, wide = false }: { content: EditorialCon
 }
 
 
-export function EditorialSection({
+function EditorialSection({
   title,
   items,
   href,
@@ -470,7 +470,7 @@ async function RelatedEditorial({ relations }: { relations: EditorialRelation[] 
   );
 }
 
-export function EditorialListing({ items }: { items: EditorialContent[] }) {
+function EditorialListing({ items }: { items: EditorialContent[] }) {
   if (items.length === 0) {
     return <p className="rounded-2xl border border-dashed border-ledger-line bg-white p-8 text-center text-ink-soft">No published content here yet. Check back as our editors add useful buying advice.</p>;
   }
