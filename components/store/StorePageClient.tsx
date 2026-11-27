@@ -121,8 +121,6 @@ export default function StorePageClient({
         ]}
       />
 
-      <VerifiedResearchPanel kind="store" />
-
       {isGlobalMultiCurrencyStore && (
         <section className="rounded-2xl border border-ledger-line bg-paper-raised p-4 text-sm leading-6 text-ink-soft">
           <p>
@@ -383,7 +381,7 @@ export default function StorePageClient({
                   className="lift flex items-center gap-3 rounded-2xl border border-ledger-line bg-white p-3"
                 >
                   {(() => {
-                    const relatedLogo = related.logo_url ?? related.hero_image_url ?? storeLogoUrl(related);
+                    const relatedLogo = storeLogoUrl(related);
                     if (relatedLogo) {
                       return (
                         <Image
@@ -454,6 +452,8 @@ export default function StorePageClient({
           </a>
         </div>
       )}
+
+      <VerifiedResearchPanel kind="store" />
     </div>
   );
 }
