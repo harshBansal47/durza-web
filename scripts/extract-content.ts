@@ -2,14 +2,14 @@
  * Content-system Phase 2: one-time extraction of existing pages into the
  * JSON-driven content format (schemaVersion + stickyCta + ordered blocks).
  *
- * Reads the in-repo sources (data/comparisons.ts, data/reviews.ts,
- * guide-documents/*) and writes one JSON document per page to
+ * Reads the in-repo sources (data/reviews.ts, guide-documents/*) and writes
+ * one JSON document per page to
  * `migration/content/<kind>/<slug>.json`, matching `lib/content/schema.ts`.
  *
  * Content parity: NO copy is rewritten, shortened, merged or "fixed". Blocks
  * are mapped into the block catalog; anything that doesn't fit gets a note in
- * `needs_review` + is preserved, never dropped. The removed comparison
- * `amazon-vs-flipkart-electronics-2026` is NOT extracted (301 instead).
+ * `needs_review` + is preserved, never dropped. Comparison documents now
+ * come from the editorial export in durza-content-export/comparison.
  *
  * Usage: npx tsx scripts/extract-content.ts
  */
@@ -17,13 +17,11 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { COMPARISONS, type CompareEntry } from "@/data/comparisons";
 import { REVIEWS, type ReviewEntry } from "@/data/reviews";
 import { GUIDE_DOCUMENTS } from "@/guide-documents";
 import type { GuideDocument } from "@/lib/guide-document";
 
 const OUT_ROOT = join(process.cwd(), "migration", "content");
-const REMOVED_COMPARISON_SLUG = "amazon-vs-flipkart-electronics-2026";
 
 type Block = Record<string, unknown>;
 
@@ -34,95 +32,6 @@ function clean(s: string | null | undefined): string | undefined {
 
 function asArray<T>(v: T[] | null | undefined): T[] {
   return Array.isArray(v) ? v : [];
-}
-
-// ---- CompareEntry -> content doc -------------------------------------------
-
-function compareToDoc(entry: CompareEntry): Record<string, unknown> {
-  const blocks: Block[] = [];
-
-  if (entry.audience && (asArray(entry.audience.bestFor).length || asArray(entry.audience.skipIf).length)) {
-    blocks.push({ type: "audience", forWho: asArray(entry.audience.bestFor), skipIf: asArray(entry.audience.skipIf) });
-  }
-
-  const primary = {
-    label: `Check Live Price on ${entry.verdict.primaryStoreLabel}`,
-    href: `/go/${entry.verdict.primaryStoreSlug}?src=compare-verdict`,
-  };
-  const secondary = {
-    label: `Check Live Price on ${entry.verdict.secondaryStoreLabel}`,
-    href: `/go/${entry.verdict.secondaryStoreSlug}?src=compare-verdict`,
-  };
-  blocks.push({
-    type: "verdict",
-    variant: "quick",
-    body: entry.verdict.text,
-    ctas: [primary, secondary].filter((c) => clean(c.label) && clean(c.href)),
-  });
-
-  const cols = ["Factor", entry.table.leftName, entry.table.rightName, ...(entry.table.extraName ? [entry.table.extraName] : [])];
-  const rows = asArray(entry.table.rows).map((r) => [r.factor, r.left, r.right, ...(r.extra !== undefined ? [r.extra] : [])]);
-  blocks.push({ type: "table", id: "side-by-side", columns: cols, rows });
-
-  if (asArray(entry.insider.points).length) {
-    blocks.push({ type: "bullets", heading: entry.insider.title, items: asArray(entry.insider.points) });
-  }
-
-  for (const section of asArray(entry.blocks)) {
-    blocks.push({ type: "prose", heading: section.heading, paragraphs: asArray(section.paragraphs) });
-  }
-
-  if (asArray(entry.storeActions).length) {
-    blocks.push({
-      type: "offerCards",
-      items: asArray(entry.storeActions).map((s) => ({
-        store: s.storeName,
-        points: asArray(s.bullets),
-        ctaLabel: "Check live price",
-        href: `/go/${s.storeSlug}?src=compare-mid`,
-      })),
-    });
-  }
-
-  if (asArray(entry.productLinks).length) {
-    blocks.push({ type: "productLinks", items: asArray(entry.productLinks).map((p) => ({ label: p.label, href: p.href, note: p.note })) });
-  }
-
-  if (asArray(entry.sources).length) {
-    blocks.push({ type: "sources", items: asArray(entry.sources).map((s) => ({ title: s.label, url: s.href, checkedAt: s.checkedAt })) });
-  }
-
-  if (asArray(entry.faqs).length) {
-    blocks.push({ type: "faq", items: asArray(entry.faqs).map((f) => ({ q: f.question, a: f.answer })) });
-  }
-
-  const related: Block = { type: "related", groups: [] };
-  const groups: { label: string; links: { title: string; href: string }[] }[] = [];
-  if (asArray(entry.relatedComparisons).length) groups.push({ label: "Comparisons", links: asArray(entry.relatedComparisons).map((s) => ({ title: s, href: `/compare/${s}` })) });
-  if (asArray(entry.relatedGuides).length) groups.push({ label: "Guides", links: asArray(entry.relatedGuides).map((l) => ({ title: l.label, href: l.href })) });
-  if (asArray(entry.relatedReviewsStores).length) groups.push({ label: "Reviews & stores", links: asArray(entry.relatedReviewsStores).map((l) => ({ title: l.label, href: l.href })) });
-  if (groups.length) { related.groups = groups; blocks.push(related); }
-
-  return {
-    schemaVersion: 1,
-    kind: "comparison",
-    slug: entry.slug,
-    title: entry.title,
-    description: entry.summary,
-    status: "published",
-    content_blocks: blocks,
-    hero_image_url: entry.heroImage ?? null,
-    author_name: entry.authorName ?? "Durza Research Desk",
-    seo_title: entry.seoTitle,
-    meta_description: entry.metaDescription,
-    facts_checked_at: entry.factsCheckedOn ?? null,
-    published_at: null,
-    updated_at: null,
-    needs_review: false,
-    stickyCta: { label: `Check Live Price on ${entry.verdict.primaryStoreLabel}`, href: `/go/${entry.verdict.primaryStoreSlug}?src=compare-mobile-sticky` },
-    keywords: entry.keywords ?? [],
-    category: entry.category,
-  };
 }
 
 // ---- ReviewEntry -> content doc ---------------------------------------------
@@ -264,13 +173,7 @@ function writeDoc(kind: string, slug: string, doc: Record<string, unknown>) {
 }
 
 let written = 0;
-const counts: Record<string, number> = { comparison: 0, review: 0, guide: 0 };
-
-for (const entry of COMPARISONS) {
-  if (entry.slug === REMOVED_COMPARISON_SLUG) continue; // removed; 301 instead
-  writeDoc("comparison", entry.slug, compareToDoc(entry));
-  counts.comparison++; written++;
-}
+const counts: Record<string, number> = { review: 0, guide: 0 };
 
 for (const entry of REVIEWS) {
   writeDoc("review", entry.slug, reviewToDoc(entry));

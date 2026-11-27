@@ -13,7 +13,6 @@ import { api } from "@/lib/api";
 import { editorialPath } from "@/lib/editorial-path";
 import { getGuideCoverImage } from "@/lib/guide-cover";
 import { priorityForGuide } from "@/lib/static-editorial";
-import { COMPARISONS } from "@/data/comparisons";
 import { REVIEWS } from "@/data/reviews";
 import { COLLECTIONS } from "@/data/collections";
 import { STORE_GUIDES } from "@/data/store-guides";
@@ -53,23 +52,6 @@ function entry(
 /** Content that lives in the repository today (no DB required). */
 export function staticDiscoverableContent(): DiscoverableContent[] {
   const items: (DiscoverableContent | null)[] = [];
-
-  for (const comparison of COMPARISONS) {
-    items.push(entry({
-      id: `static-comparison-${comparison.slug}`,
-      category: comparison.category,
-      contentType: "comparison",
-      title: comparison.title,
-      summary: comparison.summary,
-      href: `/compare/${comparison.slug}`,
-      heroImage: comparison.heroImage,
-      updatedAt: parseUpdatedLabel(comparison.updatedLabel),
-      authorName: "Durza Research Desk",
-      priority: 6,
-      hasMethod: comparison.table.rows.length > 0 && comparison.insider.points.length > 0,
-      hasFaq: comparison.faqs.length > 0,
-    }));
-  }
 
   for (const review of REVIEWS) {
     items.push(entry({

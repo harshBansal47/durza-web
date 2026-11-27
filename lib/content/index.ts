@@ -95,9 +95,16 @@ export async function listPages(
   kind?: ContentKind,
   opts: { skip?: number; limit?: number } = {},
 ): Promise<ContentPage[]> {
-  const limit = opts.limit ?? 200;
+  // The editorial API caps `limit` at 100; asking for more yields a 422 that
+  // the resilient client turns into an empty feed.
+  const limit = Math.min(opts.limit ?? 100, 100);
   const skip = opts.skip ?? 0;
-  const contents = await resilient.listEditorial({ content_type: kind, skip, limit });
+  const query = { content_type: kind, skip, limit };
+  // Dev reads fresh so an import is visible immediately. Production uses the
+  // tagged cached fetch, invalidated by editorial writes via ISR.
+  const contents = isDev
+    ? await api.listEditorialFresh(query).catch(() => resilient.listEditorial(query))
+    : await resilient.listEditorial(query);
   const pages: ContentPage[] = [];
   for (const content of contents.items ?? []) {
     const resolvedKind = contentKindOf(content);

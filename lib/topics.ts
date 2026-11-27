@@ -2,7 +2,7 @@
  * Shared topic taxonomy for Durza's editorial layer.
  *
  * The site already has three independent category vocabularies in
- * data/comparisons.ts, data/reviews.ts and data/collections.ts, plus a free
+ * data/reviews.ts and data/collections.ts, plus the editorial API and free
  * `category` string on every hand-authored store guide. This module folds all
  * of them into one small set of durable decision topics so the homepage, hub
  * pages and related-content blocks can agree on what belongs together.

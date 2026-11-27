@@ -25,8 +25,13 @@ const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=31536000" },
 ];
 
+// Optional build throttle for environments where the editorial API is slower
+// than the default parallel prerender workers can tolerate.
+const buildCpus = Number(process.env.BUILD_CPUS);
+
 const nextConfig: NextConfig = {
   output: isStaticExport ? "export" : undefined,
+  ...(Number.isInteger(buildCpus) && buildCpus > 0 ? { experimental: { cpus: buildCpus } } : {}),
   // Do not advertise the framework in a response header.
   poweredByHeader: false,
   images: {

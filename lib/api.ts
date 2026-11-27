@@ -400,6 +400,10 @@ export const api = {
       { cache: "no-store" },
     ),
 
+  listEditorialFresh: (
+    params: { content_type?: EditorialType; skip?: number; limit?: number } = {},
+  ) => apiFetch<Paginated<EditorialContent>>(`/editorial${qs(params)}`, { cache: "no-store" }),
+
   getEditorialHomepage: () =>
     apiFetch<EditorialHomepage>("/editorial/homepage", { revalidate: STATIC_REVALIDATE }),
 

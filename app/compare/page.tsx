@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { COMPARISONS } from "@/data/comparisons";
 import CompareHub from "@/components/compare/CompareHub";
 import ListingHero from "@/components/listing/ListingHero";
+import { listPages } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 
 export const revalidate = 21600;
@@ -27,18 +27,20 @@ const TOP_COMPARED_STORES = [
   { href: "/stores/asus", label: "ASUS" },
 ];
 
-export default function ComparisonsPage() {
+export default async function ComparisonsPage() {
+  const comparisons = await listPages("comparison");
+
   return (
     <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-12">
       <ListingHero
         eyebrow="Side-by-Side Buying Comparisons"
         title="Compare Before You Buy"
         lead="Real price-bracket breakdowns, bank card stacking rules, and store-vs-store verdicts for Indian shoppers."
-        stats={[{ value: COMPARISONS.length.toLocaleString("en-IN"), label: "Comparisons" }]}
+        stats={[{ value: comparisons.length.toLocaleString("en-IN"), label: "Comparisons" }]}
         trust={false}
       />
       <div className="mt-8">
-        <CompareHub items={COMPARISONS} />
+        <CompareHub items={comparisons} />
       </div>
 
         <section aria-labelledby="top-compared-stores" className="mt-12 rounded-3xl border border-[#141413]/10 bg-white p-5 shadow-sm sm:p-6">
