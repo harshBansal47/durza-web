@@ -80,6 +80,13 @@ const nextConfig: NextConfig = {
             { source: "/collections/complete-amazon-makeup-toolkit/everyday-essentials", destination: "/collections/complete-amazon-makeup-toolkit", permanent: true },
           ];
         },
+        // Content-system Phase 3 preview: /__preview/... is not routable as a
+        // Next.js private folder, so rewrite it to the /preview route.
+        async rewrites() {
+          return [
+            { source: "/__preview/:kind/:slug", destination: "/preview/:kind/:slug" },
+          ];
+        },
         async headers() {
           return [
             { source: "/:path*", headers: securityHeaders },

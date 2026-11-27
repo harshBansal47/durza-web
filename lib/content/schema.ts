@@ -274,6 +274,7 @@ export const contentBlockSchema = z.union(blocks);
 
 export const contentPageSchema = z
   .object({
+    schemaVersion: z.number().optional(),
     kind: z.enum(contentKinds),
     slug: z.string().min(1).max(260),
     title: z.string().min(1).max(240),
@@ -292,6 +293,7 @@ export const contentPageSchema = z
     updated_at: z.string().optional(),
     needs_review: z.boolean().optional(),
     facts_checked_at: z.string().nullable().optional(),
+    stickyCta: ctaSchema.optional(),
   })
   .passthrough();
 
