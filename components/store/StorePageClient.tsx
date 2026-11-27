@@ -111,7 +111,7 @@ export default function StorePageClient({
         name={store.name}
         subtitle={storeDescription ?? `${stats.total} live ${store.name} offers — offer types and check dates shown when available.`}
         domain={websiteHost}
-        heroImageUrl={store.hero_image_url ?? null}
+        heroImageUrl={storeLogoUrl(store)}
         offerCount={stats.total}
         ctaHref={websiteHost ? storeGoHref(store.slug, "store-page") : undefined}
         lastCheckedAt={stats.latestCheck}
