@@ -3,7 +3,7 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import ListingHero from "@/components/listing/ListingHero";
 import GuidesHubClient, { type GuideHubItem } from "@/components/guides/GuidesHubClient";
-import { listPages, type ContentPage } from "@/lib/content";
+import { listAllPages, type ContentPage } from "@/lib/content";
 import { getGuideCoverImage, guideHubCategory } from "@/lib/guide-cover";
 
 export const revalidate = 21600;
@@ -14,16 +14,6 @@ export const metadata: Metadata = {
     "Practical buying guides for Indian shoppers: laptop deals, credit card and sale math, skincare, fashion, fitness, home appliances and more. Research before you spend.",
   alternates: { canonical: "/guides" },
 };
-
-async function fetchAllGuides(): Promise<ContentPage[]> {
-  const pages: ContentPage[] = [];
-  for (let skip = 0; ; skip += 100) {
-    const batch = await listPages("guide", { skip, limit: 100 }).catch(() => []);
-    pages.push(...batch);
-    if (batch.length < 100) break;
-  }
-  return pages;
-}
 
 function formatDate(value: unknown): string | null {
   if (typeof value !== "string" || !value.trim()) return null;
@@ -68,7 +58,7 @@ function toHubItem(page: ContentPage): GuideHubItem {
 }
 
 export default async function GuidesPage() {
-  const items = (await fetchAllGuides()).map(toHubItem);
+  const items = (await listAllPages("guide")).map(toHubItem);
 
   return (
     <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">

@@ -1,13 +1,11 @@
 import { cache } from "react";
 import { api, resilient } from "@/lib/api";
-import { parseInlineText, type InlineToken } from "@/lib/content/inline";
 import {
   contentPageSchema,
-  type ContentBlock,
   type ContentKind,
   type ContentPage,
 } from "@/lib/content/schema";
-import type { EditorialContent, EditorialType } from "@/lib/types";
+import type { EditorialContent } from "@/lib/types";
 
 /**
  * Content system — Phase 1 data layer: getPage / listPages.
@@ -79,9 +77,9 @@ export const getPage = cache(async function getPage(
   kind: ContentKind,
   slug: string,
 ): Promise<ContentPage | null> {
-  // no-store: preview always reads fresh content; production relies on tagged
-  // revalidation (editorial:* + sitemap) triggered by content writes/upsert.
-  // React cache dedupes this across generateMetadata and the page renderer.
+  // no-store: detail reads are always fresh (preview and production). React
+  // cache dedupes the call across generateMetadata and the page renderer within
+  // a single request; it does not share results between requests.
   const content = await api.getEditorialFresh(kind, slug).catch(() => null);
   if (!content) return null;
   const resolvedKind = contentKindOf(content);
@@ -117,7 +115,18 @@ export async function listPages(
   return pages;
 }
 
-export { parseInlineText };
-export type { ContentBlock, ContentPage, ContentKind, ContentStatus } from "@/lib/content/schema";
-export type { EditorialContent, EditorialType } from "@/lib/types";
-export type { InlineToken } from "@/lib/content/inline";
+/**
+ * Fetch every page of a content kind. Hubs use this instead of repeating the
+ * same 100-item pagination loop in each route.
+ */
+export async function listAllPages(kind: ContentKind): Promise<ContentPage[]> {
+  const pages: ContentPage[] = [];
+  for (let skip = 0; ; skip += 100) {
+    const batch = await listPages(kind, { skip, limit: 100 }).catch(() => []);
+    pages.push(...batch);
+    if (batch.length < 100) break;
+  }
+  return pages;
+}
+
+export type { ContentPage } from "@/lib/content/schema";

@@ -73,24 +73,6 @@ export function itemListJsonLd(items: { name: string; path: string }[]) {
   };
 }
 
-/**
- * HowTo structured data for a real, visible numbered sequence. Steps must be
- * shown on the page — this is not a place to invent a process for crawlers.
- */
-export function howToJsonLd(name: string, steps: { name: string; text: string }[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name,
-    step: steps.map((step, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: step.name,
-      text: step.text,
-    })),
-  };
-}
-
 /** FAQPage structured data. Only pair this with a visible Q&A on the page. */
 export function faqPageJsonLd(faqs: { question: string; answer: string }[]) {
   return {

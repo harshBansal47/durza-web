@@ -3,10 +3,6 @@ import { BookOpen } from "lucide-react";
 import { guideSlugForStore } from "@/data/store-guide-links";
 import { formatStoreDisplayName } from "@/lib/store-display";
 
-function guideStoreDisplayName(slug: string): string {
-  return formatStoreDisplayName({ slug, name: slug });
-}
-
 /**
  * "📖 Read our {Store} Smart Buying & Stacking Guide" banner — the store-side
  * half of the guide ⇄ store internal linking loop. Renders nothing if the

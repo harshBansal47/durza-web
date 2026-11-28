@@ -972,7 +972,3 @@ export const COLLECTIONS: CollectionEntry[] = [
     ],
   },
 ];
-
-export function getCollectionBySlug(slug: string): CollectionEntry | undefined {
-  return COLLECTIONS.find((c) => c.slug === slug);
-}

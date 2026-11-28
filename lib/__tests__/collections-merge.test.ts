@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const mocks = vi.hoisted(() => ({ listEditorial: vi.fn() }));
-vi.mock("@/lib/api", () => ({ resilient: mocks }));
+const mocks = vi.hoisted(() => ({
+  listEditorial: vi.fn(),
+  getCollectionLiveItems: vi.fn(),
+}));
+vi.mock("@/lib/api", () => ({
+  resilient: { listEditorial: mocks.listEditorial },
+  api: { getCollectionLiveItems: mocks.getCollectionLiveItems },
+}));
 
 import { mergedCollections } from "@/lib/collections";
 import { COLLECTIONS } from "@/data/collections";
@@ -10,6 +16,9 @@ describe("collection merge", () => {
   beforeEach(() => {
     mocks.listEditorial.mockReset();
     mocks.listEditorial.mockResolvedValue({ items: [], total: 0 });
+    mocks.getCollectionLiveItems.mockReset();
+    // No live-item service in this test: the merge falls back to authored blocks.
+    mocks.getCollectionLiveItems.mockRejectedValue(new Error("unavailable"));
   });
 
   it("falls back to static collections when the API is unavailable", async () => {

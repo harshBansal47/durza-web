@@ -261,7 +261,6 @@ const argv = process.argv.slice(2);
 
 if (argv[0] === "--selfcheck") {
   const url = argv[1];
-  const baseUrl = (argv[2] ?? "http://localhost:3000").replace(/\/+$/, "");
   const browser = await chromium.launch();
   const a = await render(browser, url);
   const b = await render(browser, url); // render twice, compare to itself
@@ -329,11 +328,9 @@ for (const line of lines) {
     row.result = "RED"; row.error = String(e); row.added_sentences = ""; row.lost_sentences = "";
   }
   rows.push(header.map((h) => csvCell(row[h] ?? "")).join(","));
-  // eslint-disable-next-line no-console
   console.error(`${row.result} ${oldPath} recall=${row.sentence_recall ?? "-"} precision=${row.sentence_precision ?? "-"}`);
 }
 
 await browser.close();
 writeFileSync(outCsv, rows.join("\n") + "\n");
-// eslint-disable-next-line no-console
 console.error(`Wrote ${rows.length - 1} rows; GREEN=${green} RED=${rows.length - 1 - green} -> ${outCsv}`);

@@ -14,7 +14,6 @@ interface Props {
   faqs: FaqItem[];
   stats: TrustStatsProps;
   offerCount?: number | null;
-  storeUrl: string;
   forcedStoreHref?: string | null;
 }
 
@@ -75,7 +74,7 @@ const COLLECTIONS = [
   },
 ] as const;
 
-export default function SaltyStoreClient({ offers, faqs, stats, storeUrl, forcedStoreHref }: Props) {
+export default function SaltyStoreClient({ offers, faqs, stats, forcedStoreHref }: Props) {
   const outHref = (src: string) => storeGoHref(TRACKED_SLUG, src, forcedStoreHref ?? undefined);
   const officialHref = outHref("store-page");
 

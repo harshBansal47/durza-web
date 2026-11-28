@@ -498,9 +498,8 @@ describe("sitemap shards (D1)", () => {
     const ids = await sitemapIds();
     const counts = await sitemapCounts(ids);
 
-    // With an empty backend the only URLs are the curated static pages and
-    // the hand-authored store guides (published by the guides shard even when
-    // the editorial API is unavailable).
+    // With an empty backend the only URLs are the curated static pages.
+    // Guides and reviews are DB-only, so their shards are empty too.
     expect(counts.byShard.static).toBe(STATIC_PAGES.length);
     expect(counts.total).toBe(
       counts.byShard.static + counts.byShard["guides-0"],

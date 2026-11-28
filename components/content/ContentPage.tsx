@@ -60,7 +60,6 @@ function faqItems(blocks: ContentBlock[], pageFaqs?: { question: string; answer:
 export default function ContentPage({ page, kind }: { page: ContentPage; kind?: ContentKind }) {
   const pageKind = kind ?? page.kind;
   const canonical = absoluteUrl(page.canonical_url ?? editorialPath({ content_type: pageKind, slug: page.slug }));
-  const title = page.seo_title ?? page.title;
   const description = page.meta_description ?? page.description;
   const authorName = page.author_name ?? DEFAULT_AUTHOR;
   const published = formatDate(page.published_at);

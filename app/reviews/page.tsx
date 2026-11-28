@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import ListingHero from "@/components/listing/ListingHero";
 import ReviewsHub, { type ReviewHubItem } from "@/components/reviews/ReviewsHub";
-import { listPages, type ContentPage } from "@/lib/content";
+import { listAllPages, type ContentPage } from "@/lib/content";
 import { getGuideCoverImage } from "@/lib/guide-cover";
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 
@@ -21,16 +21,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-async function fetchAllReviews(): Promise<ContentPage[]> {
-  const pages: ContentPage[] = [];
-  for (let skip = 0; ; skip += 100) {
-    const batch = await listPages("review", { skip, limit: 100 }).catch(() => []);
-    pages.push(...batch);
-    if (batch.length < 100) break;
-  }
-  return pages;
-}
 
 function formatDate(value: unknown): string | null {
   if (typeof value !== "string" || !value.trim()) return null;
@@ -85,7 +75,7 @@ function toHubItem(page: ContentPage): ReviewHubItem {
 }
 
 export default async function ReviewsPage() {
-  const items = (await fetchAllReviews()).map(toHubItem);
+  const items = (await listAllPages("review")).map(toHubItem);
 
   return (
     <div className="hx-portal lx mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-12">

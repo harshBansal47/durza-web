@@ -1,5 +1,4 @@
 import type { ComponentType } from "react";
-import type { ContentBlock } from "@/lib/content/schema";
 import * as blocks from "@/components/content/blocks";
 
 /**
@@ -36,5 +35,3 @@ export const BLOCK_REGISTRY: Record<string, ComponentType<Record<string, unknown
   quickPicks: blocks.QuickPicksBlock as ComponentType<Record<string, unknown>>,
   kitTray: blocks.KitTrayBlock as ComponentType<Record<string, unknown>>,
 };
-
-export type { ContentBlock };

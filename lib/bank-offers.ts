@@ -201,8 +201,3 @@ export function buildBankGroups(coupons: CouponPublic[], stores: Store[]): BankO
 
   return [...groups.values()].sort((a, b) => b.coupons.length - a.coupons.length);
 }
-
-/** Count of distinct banks that currently have at least one live offer. */
-export function liveBankCount(groups: BankOfferGroup[]): number {
-  return groups.length;
-}

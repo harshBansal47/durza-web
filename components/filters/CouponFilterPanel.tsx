@@ -9,8 +9,6 @@ import {
   CONFIRMED_OPTIONS,
   EXPIRES_OPTIONS,
   FILTER_KEYS,
-  RATE_OPTIONS,
-  TYPE_OPTIONS,
   filterCount,
   hintOf,
   labelOf,

@@ -182,12 +182,6 @@ export function isTopicId(value: string): value is TopicId {
   return Object.prototype.hasOwnProperty.call(TOPIC_BY_ID, value);
 }
 
-/** Resolve a decision topic to its matching commerce category hub. */
-export function correspondingCategory(topicId: TopicId): { href: string; label: string } {
-  const topic = TOPIC_BY_ID[topicId];
-  return { href: topic.categoryHref, label: topic.categoryLabel };
-}
-
 /** Exact first, then keyword fallback (longest keyword wins to avoid ties). */
 export function classifyCategory(category: string | null | undefined): TopicId | null {
   if (!category) return null;

@@ -13,7 +13,7 @@ function slugify(s: string) {
 
 for (const c of COLLECTIONS) {
   const kit = getCollectionKit(c);
-  const blocks: any[] = [];
+  const blocks: Record<string, unknown>[] = [];
   if (c.slug === "complete-amazon-makeup-toolkit") {
     for (const cat of BEAUTY_SHOP_CATEGORIES) {
       blocks.push({
@@ -22,7 +22,7 @@ for (const c of COLLECTIONS) {
         step: cat.stepLabel,
         heading: `${cat.stepLabel}: ${cat.title}`,
         dek: cat.shortIntro,
-        items: cat.products.map((p:any) => ({
+        items: cat.products.map((p) => ({
           product: slugify(`${p.brand}-${p.name}`),
           name: `${p.brand} ${p.name}`,
           badge: p.tag || null,

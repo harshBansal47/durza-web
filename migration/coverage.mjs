@@ -10,7 +10,7 @@
  *   node migration/coverage.mjs <baseUrl> <urls-file> <json-dir> <out-csv>
  */
 
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { chromium } from "playwright";
 import { JSDOM } from "jsdom";
@@ -123,11 +123,9 @@ function textWithSpaces(el) {
     if (ok) green++;
   } catch (e) { row.result = "RED"; row.missing_sentences = String(e); }
   rows.push(header.map((h) => csvCell(row[h] ?? "")).join(","));
-  // eslint-disable-next-line no-console
   console.error(`${row.result} ${oldPath} sentence=${row.sentence_coverage} href=${row.href_coverage}`);
 }
 
 await browser.close();
 writeFileSync(outCsv, rows.join("\n") + "\n");
-// eslint-disable-next-line no-console
 console.error(`Wrote ${rows.length - 1} rows; GREEN=${green} RED=${rows.length - 1 - green} -> ${outCsv}`);

@@ -141,27 +141,4 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   );
 });
 
-function Label({
-  children,
-  htmlFor,
-  required = false,
-  className = "",
-}: {
-  children: ReactNode;
-  htmlFor: string;
-  required?: boolean;
-  className?: string;
-}) {
-  return (
-    <label htmlFor={htmlFor} className={`block text-xs font-medium uppercase tracking-wider text-ink-soft ${className}`}>
-      {children}
-      {required && (
-        <span className="ml-1 text-rust" aria-hidden="true">
-          *
-        </span>
-      )}
-    </label>
-  );
-}
-
 export default Input;

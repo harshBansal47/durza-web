@@ -57,7 +57,6 @@ export default async function Page() {
   const destination = await resilient.getStoreDestination("salty-co-in-ecommerce-cps-india", { skip: 0, limit: 12 }).catch(() => null);
   const offers: StoreOfferCard[] = toOfferCards(destination?.coupons ?? []);
   const stats: StoreStats = computeStoreStats(destination?.coupons ?? [], destination?.deals ?? []);
-  const storeUrl = destination?.store.website_url ?? "https://salty.co.in/";
   const forcedStoreHref = destination?.admitad_store_cps_url ?? null;
   const offerCount = destination?.offer_total ?? (destination ? destination.coupons.length + destination.deals.length : undefined);
 
@@ -76,7 +75,6 @@ export default async function Page() {
         faqs={FAQS}
         stats={stats}
         offerCount={offerCount}
-        storeUrl={storeUrl}
         forcedStoreHref={forcedStoreHref}
       />
       <RelatedGuides slug="salty-co-in-ecommerce-cps-india" />

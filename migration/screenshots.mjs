@@ -56,17 +56,14 @@ for (const line of lines) {
         await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
         await page.screenshot({ path: `${dir}/${label}-${width}.png`, fullPage: true });
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.error(`  ! ${label}-${width} ${url}: ${e}`);
       } finally {
         await page.close();
       }
     }
   }
-  // eslint-disable-next-line no-console
   console.error(`shot ${oldPath} -> ${dir}`);
 }
 
 await browser.close();
-// eslint-disable-next-line no-console
 console.error(`\nDone ${i} pages -> ${outDir}`);

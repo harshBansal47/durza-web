@@ -97,5 +97,3 @@ export const VCOMMISSION_CAMPAIGNS = {
   zeroharm: in_("zeroharm", "10514", "ZeroHarm"),
   zoffFoods: in_("zoff-foods", "13859", "Zoff Foods"),
 } as const satisfies Record<string, VCommissionCampaign>;
-
-export type VCommissionCampaignKey = keyof typeof VCOMMISSION_CAMPAIGNS;

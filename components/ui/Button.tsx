@@ -1,7 +1,6 @@
 "use client";
 
-import { forwardRef, type ButtonHTMLAttributes, type AnchorHTMLAttributes, type ReactNode } from "react";
-import Link from "next/link";
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 
 export type ButtonVariant =
   | "primary"
@@ -22,16 +21,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantCo
   loading?: boolean;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-}
-
-interface ButtonLinkProps
-  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof VariantConfig>,
-    VariantConfig {
-  href: string;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-  /** Render through next/link instead of a raw <a>. */
-  prefetch?: boolean;
 }
 
 const baseStyles =
@@ -87,38 +76,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     </button>
   );
 });
-
-/** An internal link that looks like a Button. */
-function ButtonLink({
-  href,
-  variant,
-  size,
-  leftIcon,
-  rightIcon,
-  fullWidth,
-  children,
-  className,
-  prefetch,
-  ...props
-}: ButtonLinkProps) {
-  return (
-    <Link href={href} prefetch={prefetch} className={classes({ variant, size, fullWidth, className })} {...props}>
-      {leftIcon && <span aria-hidden="true">{leftIcon}</span>}
-      {children}
-      {rightIcon && <span aria-hidden="true">{rightIcon}</span>}
-    </Link>
-  );
-}
-
-/** An external link (or one we want a full page load for) that looks like a Button. */
-function ButtonAnchor({ href, variant, size, leftIcon, rightIcon, fullWidth, children, className, ...props }: ButtonLinkProps) {
-  return (
-    <a href={href} className={classes({ variant, size, fullWidth, className })} {...props}>
-      {leftIcon && <span aria-hidden="true">{leftIcon}</span>}
-      {children}
-      {rightIcon && <span aria-hidden="true">{rightIcon}</span>}
-    </a>
-  );
-}
 
 export default Button;

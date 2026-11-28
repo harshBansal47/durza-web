@@ -9,7 +9,6 @@
  */
 export const RESEARCH_CHECK_DATE = "25 Nov 2026";
 
-export type VerifiedResearchKind = keyof typeof VERIFIED_RESEARCH;
 
 export interface VerifiedListing {
   model: string;

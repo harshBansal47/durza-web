@@ -1,4 +1,3 @@
-import type { ContentBlock } from "@/lib/content/schema";
 import CollectionExplorer from "@/components/content/CollectionExplorer";
 import { renderInline } from "@/components/content/inline";
 
@@ -462,8 +461,6 @@ export function OrderedListBlock({ items }: { items: string[] }) {
   );
 }
 
-export type { ContentBlock };
-
 const SHOW_PRICES = process.env.NEXT_PUBLIC_SHOW_PRICES === "1";
 
 function brandInitial(name: string): string {
@@ -474,13 +471,17 @@ function brandInitial(name: string): string {
 export function TierTableBlock({ tiers }: { tiers?: unknown[] }) {
   return (
     <div>
-      {(tiers || []).map((t: any, i: number) => (
-        <section key={i}>
-          <h3>{t?.label}</h3>
-          {t?.suits ? <p>{t.suits}</p> : null}
-          <ul>{(t?.stepIds || []).map((sid: string, j: number) => <li key={j}>{sid}</li>)}</ul>
-        </section>
-      ))}
+      {(tiers || []).map((t, i) => {
+        const tier = (t ?? {}) as Record<string, unknown>;
+        const suits = inlineText(tier.suits);
+        return (
+          <section key={i}>
+            <h3>{inlineText(tier.label) ?? ""}</h3>
+            {suits ? <p>{suits}</p> : null}
+            <ul>{asStringArray(tier.stepIds).map((sid, j) => <li key={j}>{sid}</li>)}</ul>
+          </section>
+        );
+      })}
     </div>
   );
 }
@@ -488,14 +489,17 @@ export function TierTableBlock({ tiers }: { tiers?: unknown[] }) {
 export function CollectionGroupBlock({ items }: { items: unknown[] }) {
   return (
     <div>
-      {(items || []).map((it: any, i: number) => {
-        const o = it?._original || {};
-        const name = o.name || it?.name || it?.product || "";
-        const href = o.ctaHref || it?.href || it?.affiliate_href || "#";
-        const imageUrl = it?.image_url || it?.image || o.image_url || null;
-        const price = it?.price_inr ?? it?.priceLabel ?? null;
-        const priceCheckedAt = it?.price_checked_at ?? null;
-        const badge = o.storeBadge || it?.badge || it?.store || null;
+      {(items || []).map((it, i) => {
+        const item = (it ?? {}) as Record<string, unknown>;
+        const o = (item._original ?? {}) as Record<string, unknown>;
+        const name = inlineText(o.name) || inlineText(item.name) || inlineText(item.product) || "";
+        const href = inlineText(o.ctaHref) || inlineText(item.href) || inlineText(item.affiliate_href) || "#";
+        const imageUrl = inlineText(item.image_url) || inlineText(item.image) || inlineText(o.image_url) || null;
+        const price = item.price_inr ?? item.priceLabel ?? null;
+        const priceCheckedAt = inlineText(item.price_checked_at);
+        const badge = inlineText(o.storeBadge) || inlineText(item.badge) || inlineText(item.store) || null;
+        const why = inlineText(o.why);
+        const skipIf = inlineText(o.skipIf);
         return (
           <div key={i}>
             {imageUrl ? (
@@ -506,10 +510,10 @@ export function CollectionGroupBlock({ items }: { items: unknown[] }) {
             )}
             {badge ? <span>{badge}</span> : null}
             <a href={href}>{name}</a>
-            {o.why ? <p>{o.why}</p> : null}
-            {o.skipIf ? <p>{o.skipIf}</p> : null}
+            {why ? <p>{why}</p> : null}
+            {skipIf ? <p>{skipIf}</p> : null}
             {SHOW_PRICES && price != null && priceCheckedAt ? (
-              <span>{typeof price === "number" ? `₹${price}` : price}</span>
+              <span>{typeof price === "number" ? `₹${price}` : inlineText(price)}</span>
             ) : SHOW_PRICES ? (
               <span>Check price</span>
             ) : null}
@@ -523,17 +527,28 @@ export function CollectionGroupBlock({ items }: { items: unknown[] }) {
 export function QuickPicksBlock({ lists }: { lists?: unknown[] }) {
   return (
     <div>
-      {(lists || []).map((l: any, i: number) => (
-        <section key={i}>
-          {l?.heading ? <h3>{l.heading}</h3> : null}
-          <ul>
-            {(l?.items || []).map((it: any, j: number) => {
-              const href = it?.href || it?._original?.ctaHref || "#";
-              return <li key={j}><a href={href}>{it?.label || it?.name || it?.product}</a></li>;
-            })}
-          </ul>
-        </section>
-      ))}
+      {(lists || []).map((l, i) => {
+        const list = (l ?? {}) as Record<string, unknown>;
+        const heading = inlineText(list.heading);
+        const items = Array.isArray(list.items) ? list.items : [];
+        return (
+          <section key={i}>
+            {heading ? <h3>{heading}</h3> : null}
+            <ul>
+              {items.map((it, j) => {
+                const item = (it ?? {}) as Record<string, unknown>;
+                const original = (item._original ?? {}) as Record<string, unknown>;
+                const href = inlineText(item.href) || inlineText(original.ctaHref) || "#";
+                return (
+                  <li key={j}>
+                    <a href={href}>{inlineText(item.label) || inlineText(item.name) || inlineText(item.product)}</a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        );
+      })}
     </div>
   );
 }

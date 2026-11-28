@@ -17,7 +17,6 @@ export function BlockRenderer({ blocks }: { blocks: ContentBlock[] }) {
           if (process.env.NODE_ENV === "development") {
             throw new Error(`Unknown content block type: ${String(type)}`);
           }
-          // eslint-disable-next-line no-console
           console.error(`[content] skipping unknown block type: ${String(type)}`);
           return null;
         }

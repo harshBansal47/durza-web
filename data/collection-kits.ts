@@ -8,7 +8,7 @@
  * researched set (categories, real images, exact product names and links)
  * replaces the derived version — no invented products or prices here.
  */
-import { COLLECTIONS, type CollectionEntry } from "@/data/collections";
+import type { CollectionEntry } from "@/data/collections";
 
 export const COLLECTION_KIT_PLACEHOLDER_IMAGE = "/collections/amazon-beauty-toolkit/product-placeholder.svg";
 const PLACEHOLDER_IMAGE = COLLECTION_KIT_PLACEHOLDER_IMAGE;
@@ -119,6 +119,3 @@ export function getCollectionKit(entry: CollectionEntry): CollectionKit | null {
   if (!entry.picks?.length) return null;
   return deriveCollectionKit(entry);
 }
-
-/** Slugs that render with the shared kit template (all static collections). */
-export const KIT_SLUGS = new Set(COLLECTIONS.map((c) => c.slug));
