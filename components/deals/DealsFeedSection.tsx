@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { resilient } from "@/lib/api";
+import { resilient, type CouponListParams } from "@/lib/api";
 import type { DealCardStore } from "@/components/deals/DealFeed";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
@@ -37,27 +37,48 @@ export default async function DealsFeedSection({
   const skipValue = sp.skip;
   const skip = Math.max(Number(Array.isArray(skipValue) ? skipValue[0] : skipValue) || 0, 0);
 
-  const [storesPage, categoriesPage] = await Promise.all([
+  // The API caps a page at 100 rows. Fetch both store pages so the relevance
+  // split can see every tracked store, including ones beyond the first page.
+  const [storesPage, extraStoresPage, categoriesPage] = await Promise.all([
     resilient.listStores({ limit: 100 }),
+    resilient.listStores({ skip: 100, limit: 100 }),
     resilient.listCategories({ limit: 100 }),
   ]);
-  const stores = storesPage.items;
+  const stores = [...storesPage.items, ...extraStoresPage.items];
   const categories = categoriesPage.items;
   const resolved = resolveDealFacets(filters, stores, categories);
   const query = toDealQuery(filters, resolved, { skip, limit: PAGE_SIZE });
   if (keyword) query.search = keyword;
-  // Focus: an Indian shopper. India-relevant stores only, unless the visitor
-  // chose a store filter themselves.
-  const indiaRelevantIds = resolved.store_ids.length === 0 ? allowedStoreIds(stores) : [];
-  if (indiaRelevantIds.length) query.store_ids = indiaRelevantIds;
 
-  const rawCoupons = resolved.unresolved
-    ? { items: [], total: 0, skip, limit: PAGE_SIZE }
-    : await resilient.listCoupons(query);
-  const coupons = {
-    ...rawCoupons,
-    items: dedupeCoupons(rawCoupons.items.map((c) => sanitizeCouponForDisplay(c))),
+  const listAllDeals = async (params: CouponListParams) => {
+    const first = await resilient.listCoupons({ ...params, skip: 0, limit: 100 });
+    const items = [...first.items];
+    while (items.length < first.total) {
+      const next = await resilient.listCoupons({ ...params, skip: items.length, limit: 100 });
+      if (next.items.length === 0) break;
+      items.push(...next.items);
+    }
+    return { ...first, items };
   };
+
+  // Show every active no-code offer, including off-target stores. Just as on
+  // /coupons, India-relevant stores come first and the rest sit at the bottom.
+  const relevantIds = allowedStoreIds(stores);
+  const relevantIdSet = new Set(relevantIds);
+  const [allDeals, relevantDeals] = resolved.unresolved
+    ? [{ items: [], total: 0 }, { items: [] }]
+    : await Promise.all([
+        listAllDeals(query),
+        resolved.store_ids.length === 0 ? listAllDeals({ ...query, store_ids: relevantIds }) : Promise.resolve({ items: [] }),
+      ]);
+
+  const orderedIds = [
+    ...relevantDeals.items.filter((c) => relevantIdSet.has(c.store_id)),
+    ...allDeals.items.filter((c) => !relevantIdSet.has(c.store_id)),
+  ];
+  const allItems = dedupeCoupons(orderedIds.map((c) => sanitizeCouponForDisplay(c)));
+  const initialItems = allItems.slice(skip, skip + PAGE_SIZE);
+  const coupons = { ...allDeals, items: initialItems };
 
   const total = coupons.total;
   const page = Math.floor(skip / PAGE_SIZE) + 1;
@@ -212,9 +233,7 @@ export default async function DealsFeedSection({
               />
               <LoadMoreDeals
                 key={nextPageHref}
-                filters={filters}
                 facets={resolved}
-                keyword={keyword}
                 baseSkip={skip}
                 serverCount={coupons.items.length}
                 serverIds={coupons.items.map((coupon) => coupon.id)}
@@ -223,7 +242,7 @@ export default async function DealsFeedSection({
                 stores={dealStores}
                 categoryNames={categoryNames}
                 nextHref={nextPageHref}
-                storeIds={indiaRelevantIds}
+                allItems={allItems}
               />
             </div>
           </>

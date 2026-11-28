@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import StorePageClient from "@/components/store/StorePageClient";
 import ToastProvider from "@/components/ui/Toast";
-import type { Store } from "@/lib/types";
+import type { CouponPublic, Store } from "@/lib/types";
 
 vi.mock("@/components/SaveDealBanner", () => ({ default: () => null }));
 
@@ -18,6 +18,36 @@ const store = (overrides: Partial<Store> = {}): Store =>
   }) as Store;
 
 const stats = { total: 0, verified: 0, avgRate: 0, totalReports: 0, latestCheck: null };
+
+const offer = (overrides: Partial<CouponPublic> = {}): CouponPublic =>
+  ({
+    id: "c1",
+    slug: "save-10",
+    title: "10% off everything",
+    description: null,
+    code: "SAVE10",
+    discount_type: "percentage",
+    discount_value: 10,
+    store_id: "s1",
+    category_id: "cat1",
+    expires_at: null,
+    is_active: true,
+    views_count: 0,
+    clicks_count: 0,
+    success_count: 0,
+    fail_count: 0,
+    last_verified_at: null,
+    success_rate: null,
+    verification_status: "unverified",
+    tested_cart_value: null,
+    verified_discount_amount: null,
+    auto_suppressed: false,
+    verification_failures: 0,
+    last_checked_at: null,
+    restrictions: {},
+    created_at: "2026-01-01T00:00:00Z",
+    ...overrides,
+  }) as CouponPublic;
 
 function renderStore(
   s: Store,
@@ -133,5 +163,21 @@ describe("a store with no offers", () => {
     expect(screen.getByRole("link", { name: "Page 26" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Page 50" })).toBeTruthy();
     expect(screen.queryByRole("link", { name: "Page 2" })).toBeNull();
+  });
+});
+
+describe("offer card branding", () => {
+  it("shows the store logo on both code and no-code cards", () => {
+    renderStore(store(), {
+      best: {
+        label: "Top offers",
+        items: [
+          offer(),
+          offer({ id: "c2", slug: "free-shipping", title: "Free shipping", code: null }),
+        ],
+      },
+    });
+
+    expect(screen.getAllByRole("link", { name: "Acer store hub" })).toHaveLength(2);
   });
 });

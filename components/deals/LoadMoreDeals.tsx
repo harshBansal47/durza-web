@@ -4,9 +4,7 @@ import { useState } from "react";
 import ViewMoreFooter from "@/components/pagination/ViewMoreFooter";
 import DealFeed from "@/components/deals/DealFeed";
 import type { DealCardStore } from "@/components/deals/DealFeed";
-import { api } from "@/lib/api";
-import { toDealQuery, type DealFilters } from "@/lib/deal-discovery";
-import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
+import { dedupeCoupons } from "@/lib/feed-sanitize";
 import type { CouponPublic } from "@/lib/types";
 
 /**
@@ -14,17 +12,14 @@ import type { CouponPublic } from "@/lib/types";
  *
  * Progressive enhancement: the control is a real link to the next server page
  * (`?skip=`), so it still works without JavaScript and crawlers can follow it;
- * with JavaScript the next page is fetched from the catalogue API and appended
- * in place. Either way the cards are the exact list the server would have
- * shown next — same filters, keyword and paging.
+ * with JavaScript the next slice is taken from the same ordered list the server
+ * rendered, so both paths show exactly the same cards.
  *
  * The page remounts this with key={nextHref}, so a filter change never leaves
  * stale pages behind.
  */
 export default function LoadMoreDeals({
-  filters,
   facets,
-  keyword,
   baseSkip,
   serverCount,
   serverIds,
@@ -33,11 +28,9 @@ export default function LoadMoreDeals({
   stores,
   categoryNames,
   nextHref,
-  storeIds,
+  allItems,
 }: {
-  filters: DealFilters;
   facets: { store_ids: string[]; category_ids: string[]; unresolved: boolean };
-  keyword: string;
   baseSkip: number;
   serverCount: number;
   serverIds: string[];
@@ -46,8 +39,8 @@ export default function LoadMoreDeals({
   stores: DealCardStore[];
   categoryNames: Record<string, string>;
   nextHref: string;
-  /** When set and the visitor picked no store, restrict the feed to these stores. */
-  storeIds?: string[];
+  /** The already-filtered, relevance-ordered list the server paged from. */
+  allItems: CouponPublic[];
 }) {
   const [items, setItems] = useState<CouponPublic[]>([]);
   const [loading, setLoading] = useState(false);
@@ -61,12 +54,8 @@ export default function LoadMoreDeals({
     setLoading(true);
     setError(null);
     try {
-      const query = toDealQuery(filters, facets, { skip: loadedCount, limit }, storeIds);
-      if (keyword) query.search = keyword;
-      const page = await api.listCoupons(query);
-      const sanitized = dedupeCoupons(page.items.map((coupon) => sanitizeCouponForDisplay(coupon)));
       const seen = new Set([...serverIds, ...items.map((coupon) => coupon.id)]);
-      const fresh = sanitized.filter((coupon) => !seen.has(coupon.id));
+      const fresh = allItems.slice(loadedCount, loadedCount + limit).filter((coupon) => !seen.has(coupon.id));
       if (fresh.length === 0) {
         setExhausted(true);
         return;

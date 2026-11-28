@@ -199,6 +199,7 @@ export default function StorePageClient({
                           description={entry.coupon.description}
                           ctaHref={api.goUrl(entry.coupon.id, "store-page", "store_codes")}
                           expiresAt={entry.coupon.expires_at}
+                          brand={store}
                         />
                       ),
                     )}
@@ -224,6 +225,7 @@ export default function StorePageClient({
                           description={entry.coupon.description}
                           ctaHref={api.goUrl(entry.coupon.id, "store-page", "store_no_code_deals")}
                           expiresAt={entry.coupon.expires_at}
+                          brand={store}
                         />
                       ),
                     )}

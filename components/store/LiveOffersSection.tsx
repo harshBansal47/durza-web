@@ -1,5 +1,7 @@
 import OfferCard from "@/components/OfferCard";
+import type { OfferBrand } from "@/components/OfferBrandMark";
 import { storeGoHref } from "@/lib/go";
+import { formatStoreDisplayName } from "@/lib/store-display";
 import type { StoreOfferCard } from "@/lib/store-offers";
 
 /** Shared live-offers grid for custom brand-store pages. */
@@ -13,6 +15,12 @@ export default function LiveOffersSection({
   domain: string;
 }) {
   if (offers.length === 0) return null;
+  // OfferCard is the one card used across the site, so give it the same brand
+  // identity it gets from mixed-store grids even on a single-brand page.
+  const brand: OfferBrand = {
+    slug: storeSlug,
+    name: formatStoreDisplayName({ slug: storeSlug, name: domain }),
+  };
   return (
     <section className="mt-10" aria-labelledby="live-offers">
       <h2 id="live-offers" className="font-serif text-2xl font-extrabold text-ink">Live offers from our feed</h2>
@@ -30,6 +38,7 @@ export default function LiveOffersSection({
               description={offer.description}
               ctaHref={offer.targetUrl || storeGoHref(storeSlug, "offer-card")}
               expiresAt={offer.expiresAt}
+              brand={brand}
             />
           </li>
         ))}

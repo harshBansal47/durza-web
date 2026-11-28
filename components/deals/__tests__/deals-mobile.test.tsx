@@ -1,17 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import DealFeed from "@/components/deals/DealFeed";
 import DealsCategoryPills from "@/components/deals/DealsCategoryPills";
 import LoadMoreDeals from "@/components/deals/LoadMoreDeals";
 import SpotlightDeal from "@/components/deals/SpotlightDeal";
-import { api } from "@/lib/api";
 import { dealFeedDividerLabel, pickSpotlightDeal } from "@/lib/deal-feed";
 import type { CouponPublic } from "@/lib/types";
-
-vi.mock("@/lib/api", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/api")>();
-  return { ...actual, api: { ...actual.api, listCoupons: vi.fn() } };
-});
 
 function makeCoupon(overrides: Partial<CouponPublic> = {}): CouponPublic {
   return {
@@ -163,44 +157,27 @@ describe("DealsCategoryPills", () => {
 });
 
 describe("LoadMoreDeals", () => {
-  const listCoupons = vi.mocked(api.listCoupons);
-
-  beforeEach(() => {
-    listCoupons.mockReset();
-  });
-
-  function renderPager(total: number) {
+  function renderPager(total: number, allItems: CouponPublic[], limit = 20) {
     return render(
       <LoadMoreDeals
-        filters={{
-          stores: [],
-          categories: [],
-          verifiedWithinHours: undefined,
-          expiresWithinDays: undefined,
-          sort: "recommended",
-        }}
         facets={{ store_ids: [], category_ids: [], unresolved: false }}
-        keyword=""
         baseSkip={0}
         serverCount={1}
-        serverIds={["c1"]}
+        serverIds={allItems.slice(0, 1).map((coupon) => coupon.id)}
         total={total}
-        limit={20}
+        limit={limit}
         stores={[amazon]}
         categoryNames={{}}
         nextHref="/deals?skip=20"
+        allItems={allItems}
       />,
     );
   }
 
-  it("appends the next page in place and then reports the end", async () => {
-    listCoupons.mockResolvedValueOnce({
-      items: [makeCoupon({ id: "c2", title: "Second page deal" })],
-      total: 2,
-      skip: 1,
-      limit: 20,
-    });
-    renderPager(2);
+  it("appends the next slice from the ordered list and then reports the end", async () => {
+    const first = makeCoupon({ id: "c1", title: "First deal" });
+    const second = makeCoupon({ id: "c2", title: "Second page deal" });
+    renderPager(2, [first, second]);
 
     const button = screen.getByRole("link", { name: "View More" });
     expect(button).toHaveAttribute("href", "/deals?skip=20");
@@ -208,20 +185,26 @@ describe("LoadMoreDeals", () => {
     fireEvent.click(button);
 
     expect(await screen.findByText("Second page deal")).toBeInTheDocument();
-    expect(listCoupons).toHaveBeenCalledTimes(1);
-    expect(listCoupons.mock.calls[0][0]).toMatchObject({ skip: 1, limit: 20 });
     expect(screen.getByText(/That's all 2 deals\./)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "View More" })).not.toBeInTheDocument();
   });
 
-  it("keeps the button and explains when the fetch fails", async () => {
-    listCoupons.mockRejectedValueOnce(new Error("offline"));
-    renderPager(5);
+  it("keeps paging while ordered deals remain", async () => {
+    const deals = [
+      makeCoupon({ id: "c1", title: "First deal" }),
+      makeCoupon({ id: "c2", title: "Second deal" }),
+      makeCoupon({ id: "c3", title: "Third deal" }),
+    ];
+    renderPager(3, deals, 1);
 
     fireEvent.click(screen.getByRole("link", { name: "View More" }));
-
-    expect(await screen.findByRole("alert")).toHaveTextContent(/Couldn't load more deals/);
+    expect(await screen.findByText("Second deal")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "View More" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("link", { name: "View More" }));
+    expect(await screen.findByText("Third deal")).toBeInTheDocument();
+    expect(screen.getByText(/That's all 3 deals\./)).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "View More" })).not.toBeInTheDocument();
   });
 });
 
