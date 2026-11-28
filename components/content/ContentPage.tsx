@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Star } from "lucide-react";
 import DisclosureNote from "@/components/DisclosureNote";
 import JsonLd from "@/components/JsonLd";
 import { BlockRenderer } from "@/components/content/BlockRenderer";
@@ -66,6 +67,11 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
   const updated = formatDate(page.updated_at);
   const factsChecked = formatDate(page.facts_checked_at);
   const image = page.hero_image_url ? absoluteUrl(page.hero_image_url) : absoluteUrl(`/opengraph-image.png`);
+  const reviewScore = pageKind === "review"
+    ? (page.structured_data as { rating?: { value?: number; best?: number } }).rating
+    : undefined;
+  const ratingValue = typeof reviewScore?.value === "number" ? reviewScore.value : null;
+  const ratingBest = typeof reviewScore?.best === "number" ? reviewScore.best : 5;
 
   const breadcrumbs = [
     { name: "Home", item: absoluteUrl("/") },
@@ -93,6 +99,16 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
     image: [image],
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
     articleSection: KIND_LABEL[pageKind],
+    ...(pageKind === "review" && ratingValue !== null
+      ? {
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue,
+            bestRating: ratingBest,
+            worstRating: 1,
+          },
+        }
+      : {}),
   };
 
   const faqs = faqItems(page.content_blocks, page.faqs);
@@ -121,6 +137,15 @@ export default function ContentPage({ page, kind }: { page: ContentPage; kind?: 
         <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-durza-deep">{KIND_LABEL[pageKind]}</p>
         <h1 className="mt-2 font-serif text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">{renderInline(page.title)}</h1>
         {description ? <p className="mt-3 text-lg leading-7 text-ink-soft">{renderInline(description)}</p> : null}
+        {pageKind === "review" && ratingValue !== null ? (
+          <div
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 font-mono text-xs font-semibold text-amber-900"
+            aria-label={`Rated ${ratingValue} out of ${ratingBest}`}
+          >
+            <Star aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
+            {ratingValue.toFixed(1)} / {ratingBest}
+          </div>
+        ) : null}
         <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-ink-soft">
           <span>By {authorName}</span>
           {published ? <span>· Published {published}</span> : null}

@@ -401,24 +401,6 @@ function ComparisonTable({ data }: { data: Record<string, unknown> }) {
   );
 }
 
-function ReviewHighlights({ data }: { data: Record<string, unknown> }) {
-  const pros = asStringArray(data.pros);
-  const cons = asStringArray(data.cons);
-  if (pros.length === 0 && cons.length === 0) return null;
-  return (
-    <section className="my-8 grid gap-4 sm:grid-cols-2" aria-label="Review pros and cons">
-      {[[ "Pros", pros ], [ "Cons", cons ]].map(([title, values]) => (
-        <div key={title as string} className="rounded-2xl border border-ledger-line bg-white p-5">
-          <h2 className="font-serif text-xl font-bold text-ink">{title as string}</h2>
-          <ul className="mt-3 space-y-2 text-sm leading-6 text-ink-soft">
-            {(values as string[]).map((item) => <li key={item} className="flex gap-2"><span aria-hidden="true">{title === "Pros" ? "+" : "-"}</span>{item}</li>)}
-          </ul>
-        </div>
-      ))}
-    </section>
-  );
-}
-
 async function LinkedEntities({ links }: { links: EditorialEntityLink[] }) {
   const ordered = [...links].sort((a, b) => a.sort_order - b.sort_order);
   const resolved = await Promise.all(ordered.map(async (link) => {
@@ -602,7 +584,6 @@ export default async function EditorialArticle({ content }: { content: Editorial
         </aside>
       )}
       {content.content_type === "comparison" && <ComparisonTable data={data} />}
-      {content.content_type === "review" && <ReviewHighlights data={data} />}
       {content.content_type === "guide" && asText(data.methodology) && <aside className="my-8 rounded-2xl border border-ledger-line bg-white p-5"><h2 className="font-serif text-lg font-bold text-ink">How we chose</h2><p className="mt-2 text-sm leading-6 text-ink-soft">{asText(data.methodology)}</p></aside>}
       {tocItems.length >= 3 && (
         <nav aria-label="On this page" className="my-8 rounded-2xl border border-ledger-line bg-white p-5">

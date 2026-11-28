@@ -12,7 +12,6 @@ import "server-only";
 import { api } from "@/lib/api";
 import { editorialPath } from "@/lib/editorial-path";
 import { getGuideCoverImage } from "@/lib/guide-cover";
-import { REVIEWS } from "@/data/reviews";
 import { COLLECTIONS } from "@/data/collections";
 import {
   classifyCategory,
@@ -50,23 +49,6 @@ function entry(
 /** Content that lives in the repository today (no DB required). */
 export function staticDiscoverableContent(): DiscoverableContent[] {
   const items: (DiscoverableContent | null)[] = [];
-
-  for (const review of REVIEWS) {
-    items.push(entry({
-      id: `static-review-${review.slug}`,
-      category: review.category,
-      contentType: "review",
-      title: review.title,
-      summary: review.summary,
-      href: `/reviews/${review.slug}`,
-      heroImage: review.heroImage,
-      updatedAt: parseUpdatedLabel(review.updatedLabel),
-      authorName: "Durza Research Desk",
-      priority: 6,
-      hasMethod: review.factTable.length > 0,
-      hasFaq: review.faqs.length > 0,
-    }));
-  }
 
   for (const collection of COLLECTIONS) {
     items.push(entry({

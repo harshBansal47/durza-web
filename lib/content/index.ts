@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { api, resilient } from "@/lib/api";
 import { parseInlineText, type InlineToken } from "@/lib/content/inline";
 import {
@@ -74,18 +75,19 @@ function toContentPage(content: EditorialContent, kind: ContentKind): ContentPag
  * Fetch and validate one content page. Returns null when the page is genuinely
  * absent (404) or when an invalid document was skipped in production.
  */
-export async function getPage(
+export const getPage = cache(async function getPage(
   kind: ContentKind,
   slug: string,
 ): Promise<ContentPage | null> {
   // no-store: preview always reads fresh content; production relies on tagged
   // revalidation (editorial:* + sitemap) triggered by content writes/upsert.
+  // React cache dedupes this across generateMetadata and the page renderer.
   const content = await api.getEditorialFresh(kind, slug).catch(() => null);
   if (!content) return null;
   const resolvedKind = contentKindOf(content);
   if (resolvedKind === null) return null;
   return toContentPage(content, resolvedKind);
-}
+});
 
 /**
  * List content pages, optionally filtered by kind. Index pages use this to

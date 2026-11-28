@@ -1,9 +1,9 @@
 /**
  * Shared topic taxonomy for Durza's editorial layer.
  *
- * The site already has three independent category vocabularies in
- * data/reviews.ts and data/collections.ts, plus the editorial API and free
- * `category` string on every hand-authored store guide. This module folds all
+ * Reviews, guides and comparisons now come from the editorial API; collections
+ * still carry a static vocabulary in data/collections.ts. Each editorial row
+ * also has a free `category` string in structured_data. This module folds all
  * of them into one small set of durable decision topics so the homepage, hub
  * pages and related-content blocks can agree on what belongs together.
  *
