@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import {
-  buildTopicSpotlights,
   classifyCategory,
   classifyText,
   freshnessDays,
@@ -110,27 +109,6 @@ describe("scoreContent", () => {
     const complete = scoreContent(item({ hasMethod: true, hasFaq: true }), NOW);
     const bare = scoreContent(item({ hasMethod: false, hasFaq: false }), NOW);
     expect(complete).toBeGreaterThan(bare);
-  });
-});
-
-describe("buildTopicSpotlights", () => {
-  it("omits topics with no content", () => {
-    const spotlights = buildTopicSpotlights([item({ topicId: "tech" })], { now: NOW });
-    expect(spotlights).toHaveLength(1);
-    expect(spotlights[0].topic.id).toBe("tech");
-  });
-
-  it("caps topics and items per topic", () => {
-    const items = TOPICS.flatMap((topic) => [
-      item({ id: `${topic.id}-1`, topicId: topic.id }),
-      item({ id: `${topic.id}-2`, topicId: topic.id }),
-      item({ id: `${topic.id}-3`, topicId: topic.id }),
-      item({ id: `${topic.id}-4`, topicId: topic.id }),
-    ]);
-    const spotlights = buildTopicSpotlights(items, { limit: 2, perTopic: 3, now: NOW });
-    expect(spotlights).toHaveLength(2);
-    expect(spotlights.every((spotlight) => spotlight.items.length === 3)).toBe(true);
-    expect(spotlights.every((spotlight) => spotlight.total === 4)).toBe(true);
   });
 });
 

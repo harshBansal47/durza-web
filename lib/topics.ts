@@ -15,8 +15,6 @@ import type { EditorialType } from "@/lib/types";
 
 export type TopicId = "tech" | "home" | "money" | "health" | "beauty" | "fashion";
 
-export type TopicGlyph = "laptop" | "home" | "wallet" | "heart" | "sparkles" | "shirt";
-
 export interface TopicDefinition {
   id: TopicId;
   label: string;
@@ -26,7 +24,6 @@ export interface TopicDefinition {
   /** Matching commerce category hub — kept in sync with /categories/*. */
   categoryHref: string;
   categoryLabel: string;
-  glyph: TopicGlyph;
   /** Exact category labels used by the static datafiles and store guides. */
   categories: string[];
   /** Last-resort match for unlisted store-guide category strings. */
@@ -48,7 +45,6 @@ export const TOPICS: TopicDefinition[] = [
     /** Matching commerce category hub — kept in sync with /categories/*. */
     categoryHref: "/categories/electronics",
     categoryLabel: "Electronics",
-    glyph: "laptop",
     categories: [
       "Electronics & Laptops",
       "Smartphones",
@@ -71,7 +67,6 @@ export const TOPICS: TopicDefinition[] = [
     /** Matching commerce category hub — kept in sync with /categories/*. */
     categoryHref: "/categories/home-kitchen",
     categoryLabel: "Home & Kitchen",
-    glyph: "home",
     categories: [
       "Health & Home",
       "Home & Appliances",
@@ -94,7 +89,6 @@ export const TOPICS: TopicDefinition[] = [
     /** Matching commerce category hub — kept in sync with /categories/*. */
     categoryHref: "/categories/finance",
     categoryLabel: "Finance & Cards",
-    glyph: "wallet",
     categories: [
       "Sale & Card Math",
       "Memberships & Cards",
@@ -116,7 +110,6 @@ export const TOPICS: TopicDefinition[] = [
     /** Matching commerce category hub — kept in sync with /categories/*. */
     categoryHref: "/categories/supplements",
     categoryLabel: "Supplements & Fitness",
-    glyph: "heart",
     categories: [
       "Health & Supplements",
       "Fitness & Nutrition",
@@ -138,7 +131,6 @@ export const TOPICS: TopicDefinition[] = [
     /** Matching commerce category hub — kept in sync with /categories/*. */
     categoryHref: "/categories/beauty",
     categoryLabel: "Beauty & Grooming",
-    glyph: "sparkles",
     categories: [
       "Fashion & Beauty",
       "Skincare & Haircare",
@@ -161,7 +153,6 @@ export const TOPICS: TopicDefinition[] = [
     /** Matching commerce category hub — kept in sync with /categories/*. */
     categoryHref: "/categories/fashion",
     categoryLabel: "Fashion",
-    glyph: "shirt",
     categories: [
       "Fashion & Activewear",
       "Fashion & Accessories",
@@ -278,51 +269,4 @@ export function scoreContent(item: DiscoverableContent, now: Date = new Date()):
     else if (days > 365) score -= 1;
   }
   return score;
-}
-
-export interface TopicSpotlight {
-  topic: TopicDefinition;
-  items: DiscoverableContent[];
-  score: number;
-  total: number;
-}
-
-/**
- * Group content into topics, rank within each topic, then rank the topics.
- * Topics with no content are omitted so the homepage never shows an empty tab.
- */
-export function buildTopicSpotlights(
-  items: DiscoverableContent[],
-  options: { limit?: number; perTopic?: number; now?: Date } = {},
-): TopicSpotlight[] {
-  const limit = options.limit ?? TOPICS.length;
-  const perTopic = options.perTopic ?? 3;
-  const now = options.now ?? new Date();
-
-  const grouped = new Map<TopicId, { item: DiscoverableContent; score: number }[]>();
-  for (const item of items) {
-    const bucket = grouped.get(item.topicId) ?? [];
-    bucket.push({ item, score: scoreContent(item, now) });
-    grouped.set(item.topicId, bucket);
-  }
-
-  const spotlights: TopicSpotlight[] = [];
-  for (const topic of TOPICS) {
-    const bucket = grouped.get(topic.id);
-    if (!bucket || bucket.length === 0) continue;
-    bucket.sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title));
-    const top = bucket.slice(0, perTopic);
-    spotlights.push({
-      topic,
-      items: top.map((entry) => entry.item),
-      score: top.reduce((sum, entry) => sum + entry.score, 0),
-      total: bucket.length,
-    });
-  }
-
-  const order = new Map(TOPICS.map((topic, index) => [topic.id, index]));
-  spotlights.sort(
-    (a, b) => b.score - a.score || (order.get(a.topic.id) ?? 99) - (order.get(b.topic.id) ?? 99),
-  );
-  return spotlights.slice(0, limit);
 }

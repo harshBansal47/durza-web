@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { resilient } from "@/lib/api";
+import { resilient, type CouponListParams } from "@/lib/api";
 import ViewMoreCoupons from "@/components/pagination/ViewMoreCoupons";
 import EmptyState from "@/components/EmptyState";
 import PopularChips from "@/components/PopularChips";
@@ -18,6 +18,7 @@ import { dedupeCoupons, sanitizeCouponForDisplay } from "@/lib/feed-sanitize";
 import ListingHero from "@/components/listing/ListingHero";
 import { absoluteUrl, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
+import type { CouponPublic } from "@/lib/types";
 
 
 export const dynamic = "force-dynamic";
@@ -25,15 +26,16 @@ const PAGE_SIZE = 20;
 
 export async function generateMetadata(): Promise<Metadata> {
   // The count is the backend's exact total for the same live list the page
-  // shows, so the snippet can state it without qualifying it.
-  const allStores = await resilient.listStores({ limit: 100 }).catch(() => ({ items: [], total: 0, skip: 0, limit: 0 }));
-  const offers = await resilient.listCoupons({ active_only: true, limit: 1, store_ids: allowedStoreIds(allStores.items) });
+  // shows, so the snippet can state it without qualifying it. Off-target
+  // stores are still in the list — they are only sorted below the India-relevant
+  // rows — so no store allow-list is applied here.
+  const offers = await resilient.listCoupons({ active_only: true, has_code: true, limit: 1 });
   const total = offers.total;
   const title = total > 0 ? `Coupon Codes & Deals — ${total} Live Offers` : "Coupon Codes & Deals";
   const description =
     total > 0
-      ? `Browse ${total} live coupon codes and deals for Indian stores — offer types and check dates are shown when available.`
-      : "Browse coupon codes and deals for Indian online stores — offer types and check dates are shown when available.";
+      ? `Browse ${total} live coupon codes and deals from tracked stores — India-relevant offers first.`
+      : "Browse coupon codes and deals from tracked stores — India-relevant offers first.";
   const canonical = absoluteUrl("/coupons");
   return {
     title,
@@ -53,34 +55,55 @@ export default async function CouponsPage({
   const filters = parseFilters(sp);
   const skip = Math.max(Number(sp.skip) || 0, 0);
 
-  const [storesPage, categoriesPage] = await Promise.all([
+  const [storesPage, extraStoresPage, categoriesPage] = await Promise.all([
     resilient.listStores({ limit: 100 }),
+    resilient.listStores({ skip: 100, limit: 100 }),
     resilient.listCategories({ limit: 100 }),
   ]);
-  const stores = storesPage.items;
+  // The store API caps a page at 100 rows. Fetch the second page so every store
+  // is available for brand lookup and relevance ordering (currently 110 stores).
+  const stores = [...storesPage.items, ...extraStoresPage.items];
   const categories = categoriesPage.items;
   const resolved = resolveIds(filters, stores, categories);
 
-  // Focus: an Indian shopper. Restrict the listing to Indian-relevant stores
-  // unless the visitor explicitly chose one. India D2C with no currency still
-  // ranks fine on its own merits.
-  const indiaRelevantIds = allowedStoreIds(stores);
-  const query = toCouponQuery(filters, resolved, { skip, limit: PAGE_SIZE });
   // Coupons page defaults to coded offers so it does not duplicate the
   // no-code deals already shown on /deals. Visitors can still pick "Deal, no
   // code" from the code filter to browse auto-applied offers here.
+  const query = toCouponQuery(filters, resolved, { skip: 0, limit: 100 });
   if (filters.code === "" || filters.code === undefined) query.has_code = true;
-  if (!filters.store) query.store_ids = indiaRelevantIds;
 
   // A slug the catalogue doesn't know is not "no filter" — it is an empty page,
   // otherwise a typo silently shows every coupon under a chip that claims a store.
-  const rawCoupons = resolved.unresolved
-    ? { items: [], total: 0, skip, limit: PAGE_SIZE }
-    : await resilient.listCoupons(query);
-  const coupons = {
-    ...rawCoupons,
-    items: dedupeCoupons(rawCoupons.items.map((c) => sanitizeCouponForDisplay(c))),
+  const listAll = async (params: CouponListParams) => {
+    const first = await resilient.listCoupons({ ...params, skip: 0, limit: 100 });
+    const items = [...first.items];
+    while (items.length < first.total) {
+      const next = await resilient.listCoupons({ ...params, skip: items.length, limit: 100 });
+      if (next.items.length === 0) break;
+      items.push(...next.items);
+    }
+    return { ...first, items };
   };
+  const relevantIds = allowedStoreIds(stores);
+  const relevantIdSet = new Set(relevantIds);
+  const clean = (items: CouponPublic[]) =>
+    dedupeCoupons(items.map((coupon) => sanitizeCouponForDisplay(coupon)));
+
+  // Two queries give a true global split: relevant offers first, every other
+  // tracked store after them. Sorting only the first API page would let an
+  // off-target offer from page 1 outrank a relevant one found on page 2.
+  const [allCoupons, relevantCoupons] = resolved.unresolved
+    ? [{ items: [], total: 0 }, { items: [] }]
+    : await Promise.all([
+        listAll(query),
+        listAll({ ...query, store_ids: relevantIds }),
+      ]);
+  const orderedItems = [
+    ...clean(relevantCoupons.items),
+    ...clean(allCoupons.items.filter((coupon) => !relevantIdSet.has(coupon.store_id))),
+  ];
+  const coupons = { ...allCoupons, items: orderedItems };
+  const initialCoupons = orderedItems.slice(skip, skip + PAGE_SIZE);
 
   const storeName = stores.find((s) => s.slug === filters.store)?.name;
   const categoryName = categories.find((c) => c.slug === filters.category)?.name;
@@ -146,7 +169,7 @@ export default async function CouponsPage({
               {total} coupon{total === 1 ? "" : "s"}
             </p>
             <p className="mt-1 max-w-prose text-xs text-ink-soft">
-              Sorted and filtered by the API, so the counts below are exact.
+              India-relevant offers first, other tracked stores below. Counts are exact.
             </p>
           </div>
           <SortControl />
@@ -194,7 +217,8 @@ export default async function CouponsPage({
           </>
         ) : (
           <ViewMoreCoupons
-            initialCoupons={coupons.items}
+            initialCoupons={initialCoupons}
+            preloadedItems={coupons.items}
             total={total}
             query={query}
             initialSkip={skip}

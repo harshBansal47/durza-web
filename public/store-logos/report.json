@@ -24,6 +24,14 @@
     "status": "success"
   },
   {
+    "merchant": "Adheart Many Geos",
+    "slug": "adheart-many-geos",
+    "domain": "adheart.me",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/adheart.me.webp",
+    "source": "https://adheart.me/_next_static/favicon/apple-touch-icon.png",
+    "status": "success"
+  },
+  {
     "merchant": "Adidas",
     "slug": "adidas",
     "domain": "adidas.co.in",
@@ -184,11 +192,27 @@
     "status": "success"
   },
   {
+    "merchant": "CASETiFY",
+    "slug": "casetify",
+    "domain": "casetify.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/casetify.com.webp",
+    "source": "https://cdn.casetify.com/apple-touch-icon-57x57.png",
+    "status": "success"
+  },
+  {
     "merchant": "Charles & Keith",
     "slug": "charles-keith",
     "domain": "charleskeith.in",
     "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/charleskeith.in.webp",
     "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "City.Travel Many GEOs",
+    "slug": "city-travel-many-geos",
+    "domain": "city.travel",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/city.travel.webp",
+    "source": "https://city.travel/images/touch-icon-iphone.png",
     "status": "success"
   },
   {
@@ -213,6 +237,14 @@
     "domain": "cuminco.com",
     "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/cuminco.com.webp",
     "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Difmark CPS",
+    "slug": "difmark-cps",
+    "domain": "difmark.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/difmark.com.webp",
+    "source": "https://difmark.com/img/favicon/difmark.png",
     "status": "success"
   },
   {
@@ -277,6 +309,14 @@
     "domain": "fuelone.in",
     "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/fuelone.in.webp",
     "source": "cached",
+    "status": "success"
+  },
+  {
+    "merchant": "Gamivo",
+    "slug": "gamivo",
+    "domain": "gamivo.com",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/gamivo.com.webp",
+    "source": "https://www.google.com/s2/favicons?domain=gamivo.com&sz=256",
     "status": "success"
   },
   {
@@ -496,14 +536,6 @@
     "status": "success"
   },
   {
-    "merchant": "Milton.in",
-    "slug": "milton",
-    "domain": "milton.in",
-    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/milton.in.webp",
-    "source": "cached",
-    "status": "success"
-  },
-  {
     "merchant": "Moglix.com",
     "slug": "moglix",
     "domain": "moglix.com",
@@ -617,14 +649,6 @@
   },
   {
     "merchant": "Pepperfry.com",
-    "slug": "pepperfry-com-cps-india",
-    "domain": "pepperfry.com",
-    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/pepperfry.com.webp",
-    "source": "cached",
-    "status": "success"
-  },
-  {
-    "merchant": "Pepperfry.com",
     "slug": "pepperfry-com-ecommerce-cps-india",
     "domain": "pepperfry.com",
     "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/pepperfry.com.webp",
@@ -658,9 +682,9 @@
   {
     "merchant": "Redmagic",
     "slug": "redmagic",
-    "domain": "global.redmagic.gg",
-    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/global.redmagic.gg.webp",
-    "source": "cached",
+    "domain": "redmagic.gg",
+    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/redmagic.gg.webp",
+    "source": "https://global.redmagic.gg/cdn/shop/files/logo_143acb78-8524-44d1-9329-62ef35d80cd0_32x32.png?v=1676019402",
     "status": "success"
   },
   {
@@ -682,14 +706,6 @@
   {
     "merchant": "Salty",
     "slug": "salty",
-    "domain": "salty.co.in",
-    "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/salty.co.in.webp",
-    "source": "cached",
-    "status": "success"
-  },
-  {
-    "merchant": "Salty.co.in",
-    "slug": "salty-co-in-ecommerce-cps-india",
     "domain": "salty.co.in",
     "logoPath": "/home/harsh-bansal/Downloads/Couponza/couponza-web/public/store-logos/salty.co.in.webp",
     "source": "cached",

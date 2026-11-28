@@ -247,7 +247,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Silky foaming body wash that layers beautifully — a sensorial cleanse that carries from a refreshing shower to an all-day soft scent.",
     image:
-      "/guides/bath-body-works-signature-3-wick-candle.webp",
+      "/guides/beauty.webp",
     alt: "Bath & Body Works gentle foaming body wash",
   },
   {
@@ -256,7 +256,7 @@ export const BATH_AND_BODY_WORKS_SLOTS: LuxurySlot[] = [
     styling:
       "Ready-to-gift fragrance sets and festive hampers — thoughtfully paired mists, creams and candles for effortless, memorable gifting.",
     image:
-      "/guides/bath-body-works-body-lotion-and-shea-butter-cream.webp",
+      "/guides/festive.webp",
     alt: "Bath & Body Works home and dorm gift set",
   },
 ];

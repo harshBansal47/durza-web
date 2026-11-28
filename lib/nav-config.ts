@@ -23,9 +23,9 @@ export const SITE_NAV: readonly SiteNavItem[] = [
   { label: "Coupons", href: "/coupons", tier: 3 },
   { label: "Deals", href: "/deals", tier: 3 },
   { label: "Stores", href: "/stores", tier: 3 },
-  { label: "Bank & card offers", href: "/bank-offers", tier: 3 },
   { label: "Categories", href: "/categories", tier: 3 },
   { label: "Collections", href: "/collections", tier: 3 },
+  { label: "Bank & card offers", href: "/bank-offers", tier: 3 },
   {
     label: "Black Friday 2026",
     href: "/black-friday",

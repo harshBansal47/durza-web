@@ -26,6 +26,7 @@ export default function ViewMoreCoupons({
   initialSkip = 0,
   limit = 20,
   gridClassName = "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3",
+  preloadedItems,
 }: {
   initialCoupons: CouponPublic[];
   total: number;
@@ -34,10 +35,20 @@ export default function ViewMoreCoupons({
   initialSkip?: number;
   limit?: number;
   gridClassName?: string;
+  /** Optional full, already-ordered list. When set, View more slices from it
+   * instead of asking the API for the next raw page. */
+  preloadedItems?: CouponPublic[];
 }) {
   const initialClean = useMemo(
     () => dedupeCoupons(initialCoupons.map((c) => sanitizeCouponForDisplay(c))),
     [initialCoupons],
+  );
+  const preloadedClean = useMemo(
+    () =>
+      preloadedItems
+        ? dedupeCoupons(preloadedItems.map((coupon) => sanitizeCouponForDisplay(coupon)))
+        : null,
+    [preloadedItems],
   );
   const [items, setItems] = useState<CouponPublic[]>(initialClean);
   const [nextSkip, setNextSkip] = useState(initialSkip + initialCoupons.length);
@@ -45,19 +56,27 @@ export default function ViewMoreCoupons({
   const [error, setError] = useState(false);
   const seen = useRef(new Set(initialClean.map((coupon) => coupon.id)));
 
-  const hasMore = items.length < total;
+  const hasMore = initialSkip + items.length < total;
   const storeById = new Map(stores.map((store) => [store.id, store]));
+  // The server has already applied the audience-first order to preloadedItems;
+  // loaded rows are appended in that same order, so no re-sort is needed here.
+  const orderedItems = items;
   async function loadMore() {
     if (loading || !hasMore) return;
     setLoading(true);
     setError(false);
     try {
-      const result = await api.listCoupons({ ...query, skip: nextSkip, limit });
-      const sanitized = dedupeCoupons(result.items.map((coupon) => sanitizeCouponForDisplay(coupon)));
+      // The page sometimes pre-sorts the full result set (relevant stores first,
+      // off-target stores last). In that case the next page must come from the
+      // same ordered list, not from the API's raw order.
+      const batch = preloadedClean
+        ? preloadedClean.slice(nextSkip, nextSkip + limit)
+        : (await api.listCoupons({ ...query, skip: nextSkip, limit })).items;
+      const sanitized = dedupeCoupons(batch.map((coupon) => sanitizeCouponForDisplay(coupon)));
       const fresh = sanitized.filter((coupon) => !seen.current.has(coupon.id));
       for (const coupon of fresh) seen.current.add(coupon.id);
       setItems((previous) => dedupeCoupons([...previous, ...fresh]));
-      setNextSkip(nextSkip + result.items.length);
+      setNextSkip(nextSkip + batch.length);
     } catch {
       setError(true);
     } finally {
@@ -68,7 +87,7 @@ export default function ViewMoreCoupons({
   return (
     <div>
       <div className={gridClassName}>
-        {items.map((coupon) => (
+        {orderedItems.map((coupon) => (
           <OfferCard
             key={coupon.id}
             bookmarkId={coupon.id}

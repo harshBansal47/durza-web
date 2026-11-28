@@ -85,16 +85,13 @@ function fromEditorial(content: EditorialContent): DiscoverableContent | null {
     title: content.title,
     summary: content.summary ?? "",
     href: editorialPath(content),
-    heroImage:
-      content.content_type === "guide"
-        ? getGuideCoverImage({
-            slug: content.slug,
-            title: content.title,
-            summary: content.summary ?? "",
-            category: "Buying guide",
-            image: content.hero_image_url,
-          })
-        : content.hero_image_url ?? null,
+    heroImage: getGuideCoverImage({
+      slug: content.slug,
+      title: content.title,
+      summary: content.summary ?? "",
+      category: declaredCategory ?? "Editorial",
+      image: content.hero_image_url,
+    }),
     updatedAt: content.updated_at || content.published_at || null,
     authorName: content.author_name ?? null,
     priority: 5,
