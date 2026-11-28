@@ -34,7 +34,7 @@ const KIND_SEGMENT: Record<ContentKind, string> = {
 /** Author identity lives once in code/config, not in every JSON document. */
 const DEFAULT_AUTHOR = "Durza Research Desk";
 const AUTHOR_BIO =
-  "The Durza research desk verifies offers against official source pages and tracks affiliate links; it never invents hands-on testing it did not perform.";
+  "The Durza research desk verifies offers against official source pages it never invents hands-on testing it did not perform.";
 
 function formatDate(value?: string | null): string | null {
   if (!value) return null;

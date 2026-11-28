@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const HIGHLIGHTS = [
   "Offers state their type and show a last-checked date when known.",
   "Success rates are based on shopper reports — we don’t show one until there’s feedback.",
-  "Commissions are disclosed clearly on the page.",
+  "Our affiliate links are disclosed clearly on the page.",
 ];
 
 export default function AboutPage() {
@@ -25,7 +25,7 @@ export default function AboutPage() {
       toc={[
         { id: "what-we-do", label: "What we do" },
         { id: "what-we-will-not-do", label: "What we will not do" },
-        { id: "how-we-make-money", label: "How we make money" },
+        { id: "how-we-make-money", label: "How can we earn from this site" },
       ]}
       related={[
         { href: "/trust", label: "How Durza works" },
@@ -65,11 +65,11 @@ export default function AboutPage() {
         id="how-we-make-money"
         className="scroll-mt-24 pt-4 font-serif text-2xl font-extrabold text-ink"
       >
-        How we make money
+        How can we earn from this site
       </h2>
       <p>
         Durza is free to use. When you use certain links and complete a purchase with a
-        participating store, the store pays us a commission. That never adds to the price you pay.
+        participating store, those links can be from our affilate sources  store can pays us a commission. That never adds to the price you pay.
         Read our{" "}
         <Link href="/affiliate-disclosure" className="text-inkblue underline underline-offset-2">
           affiliate disclosure

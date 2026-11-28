@@ -14,7 +14,7 @@ export default function DisclosureNote({
   if (compact) {
     return (
       <p className="text-[13px] leading-relaxed text-ink-soft">
-        <span className="font-medium text-ink">How we make money on this page.</span> {text}{" "}
+        <span className="font-medium text-ink">How we place products links on this page.</span> {text}{" "}
         <Link href="/affiliate-disclosure" className="font-medium text-inkblue hover:underline">
           Learn more
         </Link>
@@ -24,7 +24,7 @@ export default function DisclosureNote({
 
   return (
     <div className="rounded-md border border-ledger-line bg-paper-raised px-4 py-3">
-      <p className="mb-1 text-sm font-medium text-ink">How we make money on this page</p>
+      <p className="mb-1 text-sm font-medium text-ink">How we place products links on this page</p>
       <p className="text-sm leading-relaxed text-ink-soft">{text}</p>
     </div>
   );
